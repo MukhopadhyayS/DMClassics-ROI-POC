@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Create New" >
+  <topic name="Maintain fee types" url="admin/billing_maint/user_instruc/maintain_fee_types.htm" />
+  <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  <topic name="Maintain adjustment reasons" url="admin/reasons_maint/user_instruc/maintain_adjustment_reasons.htm" />
+  <topic name="Request Reasons form" url="admin/reasons_maint/form_descrip/request_reasons_form.htm" />
+  <topic name="Maintain payment methods" url="admin/billing_maint/user_instruc/maintain_payment_methods.htm" />
+  <topic name="Maintain request reasons" url="admin/reasons_maint/user_instruc/maintain_request_reasons.htm" />
+  <topic name="Adjustment Reasons form" url="admin/reasons_maint/form_descrip/adjustment_reasons_form.htm" />
+  <topic name="Maintain billing templates" url="admin/billing_maint/user_instruc/maintain_billing_templates.htm" />
+  <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+  <topic name="Maintain request status reasons" url="admin/reasons_maint/user_instruc/maintain_request_status_reasons.htm" />
+  <topic name="Maintain delivery methods" url="admin/billing_maint/user_instruc/maintain_delivery_methods.htm" />
+  <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+  <topic name="Payment Methods form" url="admin/billing_maint/form_descrip/payment_methods_form.htm" />
+  <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  <topic name="Maintain requestor types" url="admin/billing_maint/user_instruc/maintain_requestor_types.htm" />
+  <topic name="Letter Templates form" url="admin/other_maint/form_descrip/letter_templates_form.htm" />
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+  <topic name="Fee Types form" url="admin/billing_maint/form_descrip/fee_types_form.htm" />
+  <topic name="Billing Templates form" url="admin/billing_maint/form_descrip/billing_templates_form.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  <topic name="Media Types form" url="admin/billing_maint/form_descrip/media_types_form.htm" />
+  <topic name="Delivery Methods form" url="admin/billing_maint/form_descrip/delivery_methods_form.htm" />
+  <topic name="Configure notes" url="admin/other_maint/user_instruc/configure_notes.htm" />
+  <topic name="Configure Notes form" url="admin/other_maint/form_descrip/configure_notes_form.htm" />
+  <topic name="Maintain media types" url="admin/billing_maint/user_instruc/maintain_media_types.htm" />
+  <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+</key>
+<key name="Create New Non" >
+  <topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonhpf_doc_info.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Add or edit non-MPF document information" url="requests/user_instructions/add_or_edit_non-hpf_doc_info.htm" />
+  <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+  <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <key name="Launches" >
+    <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+    <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  </key>
+</key>
+<key name="Create New Patient Requestor" >
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Create New Patient Requestor dialog box" url="patients/dbox_desc/create_new_patient_requestor_dialog_box.htm" />
+</key>
+<key name="Create New Queue" >
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  <key name="Displays" >
+    <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+    <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+    <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  </key>
+  <key name="Use" >
+    <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  </key>
+</key>
+<key name="Create New Request" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Save New Patient Requestor dialog box" url="requestors/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="Save New Patient Requestor dialog box" url="requests/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <topic name="Create New Request with Patient Requesting dialog box" url="patients/dbox_desc/create_new_request_with_patient_requesting_dialog_box.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <topic name="Create a request with patient requesting" url="requests/user_instructions/create_a_req_with_pat_requesting.htm" />
+  <key name="displays" >
+    <topic name="Save New Patient Requestor dialog box" url="requests/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+    <topic name="Create a request with patient requesting" url="requests/user_instructions/create_a_req_with_pat_requesting.htm" />
+  </key>
+  <key name="launches" >
+    <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+    <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+    <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+    <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+    <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+    <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  </key>
+</key>
+<key name="Create Request" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+  <topic name="Save New Patient Requestor dialog box" url="requestors/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+  <topic name="Release documents" url="requests/user_instructions/release_documents.htm" />
+  <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  <topic name="Create a request for a non-patient requestor" url="requests/user_instructions/create_a_req_for_non-pat_requestor.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Create a request from the Requests tab" url="requests/user_instructions/create_a_request_from_the_requests_tab.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="View/Edit Requestor's Profile dialog box" url="requests/dialog_box_descriptions/view_edit_requestor_s_profile_dialog_box.htm" />
+  <topic name="Save New Patient Requestor dialog box" url="requests/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+  <topic name="View / Edit Patient's Profile dialog box" url="requests/dialog_box_descriptions/view___edit_patient_s_profile_dialog_box.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <topic name="Create a request from the Requestor's tab" url="requests/user_instructions/create_a_req_from_requestor_tab.htm" />
+  <topic name="To find and open a request" url="popup_topics/to_find_and_open_a_request.htm" />
+  <key name="using" >
+    <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  </key>
+</key>
+<key name="Create Request button" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <key name="clicked" >
+    <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  </key>
+</key>
+
+</indexdata>

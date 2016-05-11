@@ -1,0 +1,47 @@
+USE [cabinet]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[hist_ERA]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[hist_ERA](
+	[ERAID] [int] IDENTITY(1,1) NOT NULL,
+	[ERAFileName] [varchar](255) NULL,
+	[ProcDate] [smalldatetime] NOT NULL,
+	[Status] [varchar](20) NULL,
+ CONSTRAINT [PK_ERAFiles] PRIMARY KEY CLUSTERED 
+(
+	[ERAID] ASC
+)
+)
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[hist_ERA]') AND name = N'IX_hist_ERA_FileName')
+CREATE UNIQUE NONCLUSTERED INDEX [IX_hist_ERA_FileName] ON [dbo].[hist_ERA]
+(
+	[ERAFileName] ASC
+) 
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[hist_ERA]') AND name = N'IX_hist_ERA_ProcDate')
+CREATE NONCLUSTERED INDEX [IX_hist_ERA_ProcDate] ON [dbo].[hist_ERA]
+(
+	[ProcDate] ASC
+)
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[hist_ERA]') AND name = N'IX_hist_ERA_Status')
+CREATE NONCLUSTERED INDEX [IX_hist_ERA_Status] ON [dbo].[hist_ERA]
+(
+	[Status] ASC
+)
+GO
+
+GRANT DELETE ON [dbo].[hist_ERA] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [dbo].[hist_ERA] TO [IMNET] AS [dbo]
+GO
+GRANT REFERENCES ON [dbo].[hist_ERA] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [dbo].[hist_ERA] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [dbo].[hist_ERA] TO [IMNET] AS [dbo]
+GO

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.mckesson.eig.roi.admin.model.MediaType"
+       table="ROI_MediaType"
+       dynamic-update="true"
+       optimistic-lock="version" >
+
+    <id name="id" >
+        <column name="ROI_MediaType_Seq" sql-type="int"/>
+        <generator class="identity"/>
+    </id>
+
+    <version name="recordVersion" column="Record_Version" type="integer" />
+
+    <property name="name" >
+        <column name="Name" sql-type="varchar(60)" not-null="true" />
+    </property>
+
+    <property name="description" >
+        <column name="Description" sql-type="varchar(255)"/>
+    </property>
+
+    <property name="createdBy" >
+        <column name="Created_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="modifiedDate" >
+        <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+    </property>
+
+    <property name="modifiedBy" >
+        <column name="Modified_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="orgId" >
+        <column name="Organization_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+ </class>
+
+  <query name="retrieveAllMediaTypes">
+    <![CDATA[
+      select m.id, m.name, m.description
+      from com.mckesson.eig.roi.admin.model.MediaType m
+      order by m.name asc
+    ]]>
+  </query>
+
+  <query name="retrieveAllMediaTypeName">
+    <![CDATA[
+      select m.id, m.name
+      from com.mckesson.eig.roi.admin.model.MediaType m
+      order by m.name asc
+    ]]>
+  </query>
+
+  <query name="getMediaTypeByName">
+    <![CDATA[
+      select m from com.mckesson.eig.roi.admin.model.MediaType m
+      where m.name = ?
+    ]]>
+  </query>
+
+   <query name="getAssociatedBillingTierCount">
+   <![CDATA[
+     select count(b.id) from com.mckesson.eig.roi.admin.model.BillingTier b
+     where b.mediaType.id = ?
+   ]]>
+  </query>
+
+   <sql-query name="getDBDate">
+    <![CDATA[
+    SELECT getdate()
+    ]]>
+   </sql-query>
+
+</hibernate-mapping>

@@ -1,0 +1,51 @@
+<!--
+    Copyright (C) 2007 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project default="start-roi-build" basedir="../">
+
+	<property file="build/props/${build.config.file.name}" />
+	<property file="build/props/base.properties" />
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+    <!-- For naming log file -->	
+	<tstamp>
+        <format property="log.date.timestamp" pattern="yyyyMMdd" />
+    </tstamp>
+	
+    <!-- **********************************************************************
+             *  Traget : start-roi-build
+             *  target to start roi nightly build
+             ********************************************************************** -->
+	<target name="start-roi-build">
+
+		<!-- to create an xml with all properties to load in NANT -->
+		<antcall target="set-properties" />
+		
+		<!-- Calls build.xml to do the build process in sequence -->
+		<ant antfile="build/build.xml" />
+
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : set-properties
+             *  target to create an xml with all the properties, to be loaded in NANT
+             ********************************************************************** -->
+    <target name="set-properties">
+        <delete file="build/props/base.properties.xml" />
+        <echoproperties destfile="build/props/base.properties.xml" format="xml" regex="^((?!env.=).)*$">
+		</echoproperties> 
+        
+    </target>
+
+</project>

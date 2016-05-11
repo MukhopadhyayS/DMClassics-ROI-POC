@@ -1,0 +1,87 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<ftstdata>
+<topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+<topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+<topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+<topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+<topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+<topic name="Status to Status" url="reports/form_descrip/turn_around_times_report_items/status_to_status.htm" />
+<topic name="User Name &amp; ID" url="reports/form_descrip/turn_around_times_report_items/user_name_and_id.htm" />
+<topic name="Generate the Account Receivable Aging Report" url="reports/user_instruc/generate_account_receivable_aging_rpt.htm" />
+<topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+<topic name="Generate the Documents Released by MRN Report" url="reports/user_instruc/generate_documents_released_by_mrn_rpt.htm" />
+<topic name="Generate the Outstanding Invoice Balances Report" url="reports/user_instruc/generate_outstanding_invoice_balances_rpt.htm" />
+<topic name="Generate the Pending Aging Summary Report" url="reports/user_instruc/generate_pending_aging_summary_rpt.htm" />
+<topic name="Generate the Posted Payment Summary Report" url="reports/user_instruc/generate_posted_payment_summary_rpt.htm" />
+<topic name="Generate the Processed Request Summary Report" url="reports/user_instruc/generate_processed_request_summary_rpt.htm" />
+<topic name="Generate the Request Detail Report" url="reports/user_instruc/generate_request_detail_rpt.htm" />
+<topic name="Generate the Request Status Summary Report" url="reports/user_instruc/generate_request_status_summary_rpt.htm" />
+<topic name="Generate the Requests with Logged Status Report" url="reports/user_instruc/generate_requests_with_logged_status_rpt.htm" />
+<topic name="Generate the Turn Around Times Report" url="reports/user_instruc/generate_turn_around_times_rpt.htm" />
+<topic name="Print or export reports" url="reports/user_instruc/print_or_export_reports.htm" />
+<topic name="About requestors" url="requestors/about_requestors.htm" />
+<topic name="Save New Requestor button" url="requestors/dialog_box_descriptions/save_new_patient_requestor_dbox_items/save_new_requestor_button.htm" />
+<topic name="Save New Patient Requestor dialog box" url="requestors/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+<topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+<topic name="Create Request button on Find Requestor form" url="requestors/form_descriptions/find_requestor_form_items/create_req_button_on_find_reqstr_form.htm" />
+<topic name="Filter By options" url="requestors/form_descriptions/find_requestor_form_items/filter_by_options.htm" />
+<topic name="Find Requestor button" url="requestors/form_descriptions/find_requestor_form_items/find_requestor_button.htm" />
+<topic name="New Requestor button" url="requestors/form_descriptions/find_requestor_form_items/new_requestor_button.htm" />
+<topic name="Patient DOB box" url="requestors/form_descriptions/find_requestor_form_items/patient_dob_box.htm" />
+<topic name="Patient EPN box" url="requestors/form_descriptions/find_requestor_form_items/patient_epn_box.htm" />
+<topic name="Patient Facility box" url="requestors/form_descriptions/find_requestor_form_items/patient_facility_box.htm" />
+<topic name="Patient First Name box" url="requestors/form_descriptions/find_requestor_form_items/patient_first_name_box.htm" />
+<topic name="Patient Last Name box" url="requestors/form_descriptions/find_requestor_form_items/patient_last_name_box.htm" />
+<topic name="Patient MRN box" url="requestors/form_descriptions/find_requestor_form_items/patient_mrn_box.htm" />
+<topic name="Patient SSN box" url="requestors/form_descriptions/find_requestor_form_items/patient_ssn_box.htm" />
+<topic name="Requestor grid" url="requestors/form_descriptions/find_requestor_form_items/requestor_grid.htm" />
+<topic name="Requestor Name box" url="requestors/form_descriptions/find_requestor_form_items/requestor_name_box.htm" />
+<topic name="Requestor Type box" url="requestors/form_descriptions/find_requestor_form_items/requestor_type_box.htm" />
+<topic name="Reset button" url="requestors/form_descriptions/find_requestor_form_items/reset_button.htm" />
+<topic name="Status box" url="requestors/form_descriptions/find_requestor_form_items/status_box.htm" />
+<topic name="View/Edit Requestor button" url="requestors/form_descriptions/find_requestor_form_items/view_edit_requestor_button.htm" />
+<topic name="Create Request button" url="requestors/form_descriptions/request_hist_form_items/create_req_button_on_req_hist_form.htm" />
+<topic name="Requests grid" url="requestors/form_descriptions/request_hist_form_items/requests_grid.htm" />
+<topic name="View/Edit Request button" url="requestors/form_descriptions/request_hist_form_items/view_edit_request_button.htm" />
+<topic name="Alternate Address box" url="requestors/form_descriptions/requestor_info_form_items/alternate_address_box.htm" />
+<topic name="Certification Letter Required flag" url="requestors/form_descriptions/requestor_info_form_items/certification_letter_required_flag.htm" />
+<topic name="Contact Information box" url="requestors/form_descriptions/requestor_info_form_items/contact_information_box.htm" />
+<topic name="Create Request button" url="requestors/form_descriptions/requestor_info_form_items/create_req_button_on_reqstrinfo_form.htm" />
+<topic name="Delete Requestor button" url="requestors/form_descriptions/requestor_info_form_items/delete_requestor_button.htm" />
+<topic name="Inactive flag" url="requestors/form_descriptions/requestor_info_form_items/inactive_flag.htm" />
+<topic name="Main Address box" url="requestors/form_descriptions/requestor_info_form_items/main_address_box.htm" />
+<topic name="Name box" url="requestors/form_descriptions/requestor_info_form_items/name_box.htm" />
+<topic name="Patient DOB box" url="requestors/form_descriptions/requestor_info_form_items/patient_dob_box.htm" />
+<topic name="Patient EPN box" url="requestors/form_descriptions/requestor_info_form_items/patient_epn_box.htm" />
+<topic name="Patient Facility box" url="requestors/form_descriptions/requestor_info_form_items/patient_facility_box.htm" />
+<topic name="Patient MRN box" url="requestors/form_descriptions/requestor_info_form_items/patient_mrn_box.htm" />
+<topic name="Patient SSN box" url="requestors/form_descriptions/requestor_info_form_items/patient_ssn_box.htm" />
+<topic name="Pre-Payment Required flag" url="requestors/form_descriptions/requestor_info_form_items/pre-payment_required_flag.htm" />
+<topic name="Revert / Cancel button" url="requestors/form_descriptions/requestor_info_form_items/revert_cancel_button.htm" />
+<topic name="Save button" url="requestors/form_descriptions/requestor_info_form_items/save_button.htm" />
+<topic name="Type box" url="requestors/form_descriptions/requestor_info_form_items/type_box.htm" />
+<topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+<topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+<topic name="Create a requestor" url="requestors/user_instructions/create_a_requestor.htm" />
+<topic name="Find a requestor" url="requestors/user_instructions/find_a_requestor.htm" />
+<topic name="Maintain requestor records" url="requestors/user_instructions/maintain_requestor_records.htm" />
+<topic name="View request history by requestor" url="requestors/user_instructions/view_req_history_by_requestor.htm" />
+<topic name="About billing and shipping" url="requests/about_billing_and_shipping.htm" />
+<topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+<topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+<topic name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+<topic name="About requests" url="requests/about_requests.htm" />
+<topic name="Add Patient &amp; Close button" url="requests/dialog_box_descriptions/add_patient_dialog_box/add_patient_&amp;_close_button.htm" />
+<topic name="Add Patient &amp; Continue button" url="requests/dialog_box_descriptions/add_patient_dialog_box/add_patient_&amp;_continue_button.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/add_patient_dialog_box/cancel_button.htm" />
+<topic name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/change_requestor_dialog_box/cancel_button.htm" />
+<topic name="Select Requestor for Request button" url="requests/dialog_box_descriptions/change_requestor_dialog_box/select_requestor_for_request_button.htm" />
+<topic name="Change Requestor dialog box" url="requests/dialog_box_descriptions/change_requestor_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/cancel_button.htm" />
+<topic name="Continue with No Patient button" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/continue_with_no_patient_button.htm" />
+<topic name="Continue with Selected Patient(s) button" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/continue_with_selected_patient(s)_button.htm" />
+<topic name="Patients grid" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/patients_grid.htm" />
+
+</ftstdata>  

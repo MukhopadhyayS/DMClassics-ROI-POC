@@ -1,0 +1,43 @@
+USE [cabinet]
+GO
+
+/* BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
+*
+* Copyright © McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Use of this software and related documentation is governed by a license agreement.
+* This material contains confidential, proprietary and trade secret information of
+* McKesson Information Solutions and is protected under United States
+* and international copyright and other intellectual property laws.
+* Use, disclosure, reproduction, modification, distribution, or storage
+* in a retrieval system in any form or by any means is prohibited without the
+* prior express written permission of McKesson Information Solutions.
+*
+END-COPYRIGHT-COMMENT  Do not remove or modify this line! */
+
+/*
+* Script Name: PAYOR_FILE.tbl
+* Description:  
+*
+*		Name			Type		Description
+*		---------		-------		----------------
+
+*
+* Params Out:	NONE	
+* Returns:		NONE 
+* Database: 	cabinet
+* Tables Used: 	PAYOR_FILE 
+*
+* NOTES: 		
+* Revision History:
+*	Name			Date		Changes
+*	---------		-------		-------------
+* 	
+*	Politykina	07/31/2013      add self pay column  
+*	MD Meersma		08/07/2013 NOT NULL default (0)
+\*******************************************************************************/
+
+IF NOT EXISTS (SELECT * FROM sys.syscolumns WHERE id = object_Id(N'[dbo].[PAYOR_FILE]') AND name = 'PAYOR_SELF_PAY')
+ALTER TABLE PAYOR_FILE
+ADD PAYOR_SELF_PAY [bit] NOT NULL CONSTRAINT [DF_PAYOR_FILE_PAYOR_SELF_PAY] DEFAULT (0)
+go
+

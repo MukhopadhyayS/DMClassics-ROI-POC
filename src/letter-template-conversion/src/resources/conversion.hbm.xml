@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.mckesson.eig.roi.docx.model" default-cascade="none" auto-import="true"
+	default-lazy="false" catalog="cabinet" schema="dbo">
+	
+	<sql-query name="getLetterTemplateSource">
+        <return-scalar column="source" type="binary" />
+        <return-scalar column="name" type="string" />
+        <![CDATA[
+            SELECT [Source] as source,
+            [Name] as name
+            FROM [cabinet].[dbo].[ROI_LetterTemplateFile]
+            WHERE [ROI_LetterTemplateFile_Seq] = :id
+        ]]>
+	</sql-query>
+	
+	<sql-query name="updateLetterTemplateSource">
+        <![CDATA[
+            UPDATE [cabinet].[dbo].[ROI_LetterTemplateFile] 
+            SET [DocxSource] = :source
+            WHERE [ROI_LetterTemplateFile_Seq] = :id
+        ]]>
+	</sql-query>
+
+	<sql-query name="getAllLetterTemplates">
+         <return-scalar column="name" type="string" />
+         <return-scalar column="id" type="long" />
+        <![CDATA[
+            SELECT
+            [Name] as name,
+            [ROI_LetterTemplateFile_Seq] as id
+            FROM [cabinet].[dbo].[ROI_LetterTemplateFile]
+        ]]>
+	</sql-query>
+
+</hibernate-mapping>

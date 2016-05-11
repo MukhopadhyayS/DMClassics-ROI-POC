@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+ <class name="com.mckesson.eig.roi.admin.model.RelatedBillingTemplate"
+       table="ROI_RequestorTypeToBillingTemplate"
+       dynamic-update="true"
+       optimistic-lock="version" >
+
+    <id name="id" >
+        <column name="ROI_RequestorTypeToBillingTemplate_Seq" sql-type="int"/>
+        <generator class="identity"/>
+    </id>
+    <version name="recordVersion" column="Record_Version" type="integer" />
+
+    <property name="createdBy" >
+        <column name="Created_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="modifiedDate" >
+        <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+    </property>
+
+    <property name="modifiedBy" >
+        <column name="Modified_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="billingTemplateId" >
+        <column name="ROI_BillingTemplate_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="isDefault">
+        <column name="IsDefault" sql-type="bit" not-null="true"></column>
+    </property>
+
+ </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.roi.admin.model.RequestStatusMap">
+		<map-to xml="requestStatusMap" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="statusMap" type="org.exolab.castor.mapping.MapItem"
+			collection="map">
+			<bind-xml name="eig:statusMap" node="element">
+				<class name="org.exolab.castor.mapping.MapItem">
+					<field name="key" type="int">
+						<bind-xml name="eig:statusId" node="element" />
+					</field>
+					<field name="value" type="string">
+						<bind-xml name="eig:statusName" node="element" />
+					</field>
+				</class>
+			</bind-xml>
+		</field>
+
+		<field name="loggedStatus" type="int">
+			<bind-xml name="eig:loggedStatus" node="element" />
+		</field>
+
+	</class>
+
+</mapping>

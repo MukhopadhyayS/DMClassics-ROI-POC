@@ -1,0 +1,82 @@
+<!--
+	Copyright (C) 2014 McKesson Corporation and/or one of its
+	subsidiaries. All Rights Reserved.
+
+	Use of this material is governed by a license agreement.
+	This material contains confidential, proprietary and trade
+	secret information of McKesson Information Solutions and is
+	protected under United States and international copyright and
+	other intellectual property laws. Use, disclosure,
+	reproduction, modification, distribution, or storage in a
+	retrieval system in any form or by any means is prohibited
+	without the prior express written permission of McKesson
+	Information Solutions.
+-->
+
+<project name="build-conversion-util" default="build" basedir="../">
+
+	<property name="class.compatibility" value="1.6" />
+	<property name="main.class" value="com.mckesson.eig.roi.docx.Main" />
+
+	<path id="classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="build">
+		<antcall target="compile" />
+		<antcall target="create-jar" />
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${basedir}/target/classes" />
+		<javac srcdir="src/java" includeAntRuntime="no" destdir="target/classes" debug="on" source="${class.compatibility}" target="${class.compatibility}" optimize="off" deprecation="on">
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+		</javac>
+	</target>
+	<target name="clean">
+		<delete dir="${basedir}/target" failonerror="true"/>
+	</target>
+	
+	<target name="create-jar">
+		<mkdir dir="${basedir}/target/bin" />
+		<mkdir dir="${basedir}/target/bin/lib" />
+		<antcall target="copy-libs" />
+		<antcall target="copy-config" />
+		<jar jarfile="${basedir}/target/bin/lib/docx-conversion-tool.jar">
+			<fileset dir="${basedir}/target/classes" />
+			<fileset dir="${basedir}/src/resources" />
+			<manifest>
+                <!--attribute name="Main-Class" value="${main.class}"/-->
+                <attribute name="Class-Path"
+                	value="bonecp-0.7.1.RELEASE.jar
+                           bonecp-provider-0.7.1.RELEASE.jar
+                           commons-collections.jar
+                	       dom4j-1.6.1.jar
+                	       google-collections-1.0.jar
+                	       hibernate3.jar
+                	       jta-1.1.jar
+                	       jtds-1.2.jar
+						   log4j-1.2.16.jar
+						   slf4j-api-1.7.0.jar
+						   slf4j-log4j12-1.7.0.jar
+						   com4j.jar
+						   commons-io-2.4.jar
+							.
+                	       "/>
+            </manifest>
+		</jar>
+	</target>
+	<target name="copy-libs">
+		<copy todir="${basedir}/target/bin/lib" preservelastmodified="true" includeEmptyDirs="false">
+			<fileset dir="${basedir}/lib"/>
+		</copy>
+	</target>
+	<target name="copy-config">
+		<copy todir="${basedir}/target/bin" file="${basedir}/build/docx-conversion-tool.bat" preservelastmodified="true" includeEmptyDirs="false" />
+		<copy todir="${basedir}/target/bin" file="${basedir}/build/Readme.txt" preservelastmodified="true" includeEmptyDirs="false" />
+	</target>
+</project>

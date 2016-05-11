@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="urn:eig.mckesson.com"
+	name="InUseService"
+	xmlns:eig="urn:eig.mckesson.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<wsdl:documentation>
+		WSDL Definition for the InUse service
+	</wsdl:documentation>
+
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:eig.mckesson.com">
+			<xsd:import
+				namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+				schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+
+			<xsd:element name="transactionId" type="xsd:long" />
+			<!-- Complex Data Types -->
+			<xsd:complexType name="InUseRecord">
+				<xsd:sequence>
+					<xsd:element name="recordSequence" type="xsd:long"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="objectID" type="xsd:string"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="objectType" type="xsd:string"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="applicationID" type="xsd:string"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="userID" type="xsd:string"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="expiresMinutes" type="xsd:int"
+					             minOccurs="1" maxOccurs="1" />
+					<xsd:element name="recordVersion" type="xsd:string"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="createdDate" type="xsd:dateTime"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="createdBy" type="xsd:string"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="modifiedDate" type="xsd:dateTime"
+						         minOccurs="1" maxOccurs="1" />
+					<xsd:element name="modifiedBy" type="xsd:string"
+						         minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="InUseRecordList">
+				<xsd:sequence>
+					<xsd:element name="inUseRecordList"	type="eig:InUseRecord"
+					             minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<xsd:element name="releaseInUseRecord">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="objectType" type="xsd:string"
+							         minOccurs="1" maxOccurs="1" />
+						<xsd:element name="objectID" type="xsd:string"
+							         minOccurs="1" maxOccurs="1" />
+						<xsd:element name="applicationID" type="xsd:string"
+						             minOccurs="0" maxOccurs="1" />
+						<xsd:element name="userID" type="xsd:string"
+						             minOccurs="1" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="releaseInUseRecordResponse">
+				<xsd:complexType>
+					<xsd:sequence></xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="createInUseRecord">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="objectType" type="xsd:string"
+							         minOccurs="1" maxOccurs="1" />
+						<xsd:element name="objectID" type="xsd:string"
+							         minOccurs="1" maxOccurs="1" />
+						<xsd:element name="applicationID" type="xsd:string"
+						             minOccurs="1" maxOccurs="1" />
+						<xsd:element name="userID" type="xsd:string"
+						             minOccurs="1" maxOccurs="1" />
+						<xsd:element name="expiresMinutes" type="xsd:int" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="createInUseRecordResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inUseRecord"	type="eig:InUseRecord" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<xsd:element name="retrieveInUseRecord">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="objectType" type="xsd:string"
+						             minOccurs="1" maxOccurs="1" />
+						<xsd:element name="objectID" type="xsd:string"
+						             minOccurs="1" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieveInUseRecordResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inUseRecord" type="eig:InUseRecord" nillable="true"
+						             minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieveInUseRecordsByType">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="objectType" type="xsd:string"
+						             minOccurs="1" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieveInUseRecordsByTypeResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inUseRecords" type="eig:InUseRecordList"  />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieveAllInUseRecords">
+				<xsd:complexType>
+					<xsd:sequence></xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieveAllInUseRecordsResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inUseRecords" type="eig:InUseRecordList" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="touchInUseRecord">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="objectType" type="xsd:string"
+							         minOccurs="1" maxOccurs="1" />
+						<xsd:element name="objectID" type="xsd:string"
+							         minOccurs="1" maxOccurs="1" />
+						<xsd:element name="applicationID" type="xsd:string"
+						             minOccurs="0" maxOccurs="1" />
+						<xsd:element name="userID" type="xsd:string"
+						             minOccurs="1" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="touchInUseRecordResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inUseRecord" type="eig:InUseRecord"  />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieveInUseRecordsByIDs">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="objectType" type="xsd:string"
+							minOccurs="1" maxOccurs="1" />
+						<xsd:element name="objectIds" type="xsd:string"
+							minOccurs="1" maxOccurs="1" />
+						<xsd:element name="applicationId" type="xsd:string"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+						<xsd:element name="userID"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="retrieveInUseRecordsByIDsResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inUseRecords" type="eig:InUseRecordList" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="header">
+		<wsdl:part name="wssHeader" element="wsse:Security" />
+		<wsdl:part name="transIdHeader" element="eig:transactionId" />
+	</wsdl:message>
+
+	<wsdl:message name="releaseInUseRecordRequest">
+		<wsdl:part name="parameters" element="eig:releaseInUseRecord" />
+	</wsdl:message>
+
+	<wsdl:message name="releaseInUseRecordResponse">
+		<wsdl:part name="parameters" element="eig:releaseInUseRecordResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="createInUseRecordRequest">
+		<wsdl:part name="parameters" element="eig:createInUseRecord" />
+	</wsdl:message>
+
+	<wsdl:message name="createInUseRecordResponse">
+		<wsdl:part name="parameters" element="eig:createInUseRecordResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveInUseRecordRequest">
+		<wsdl:part name="parameters" element="eig:retrieveInUseRecord" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveInUseRecordResponse">
+		<wsdl:part name="parameters" element="eig:retrieveInUseRecordResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveInUseRecordsByTypeRequest">
+		<wsdl:part name="parameters" element="eig:retrieveInUseRecordsByType" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveInUseRecordsByTypeResponse">
+		<wsdl:part name="parameters" element="eig:retrieveInUseRecordsByTypeResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveAllInUseRecordsRequest">
+		<wsdl:part name="parameters" element="eig:retrieveAllInUseRecords" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveAllInUseRecordsResponse">
+		<wsdl:part name="parameters" element="eig:retrieveAllInUseRecordsResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="touchInUseRecordRequest">
+		<wsdl:part name="parameters" element="eig:touchInUseRecord" />
+	</wsdl:message>
+
+	<wsdl:message name="touchInUseRecordResponse">
+		<wsdl:part name="parameters" element="eig:touchInUseRecordResponse">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="retrieveInUseRecordsByIDsRequest">
+		<wsdl:part name="parameters" element="eig:retrieveInUseRecordsByIDs" />
+	</wsdl:message>
+
+	<wsdl:message name="retrieveInUseRecordsByIDsResponse">
+		<wsdl:part name="parameters" element="eig:retrieveInUseRecordsByIDsResponse" />
+	</wsdl:message>
+
+	<wsdl:portType name="InUsePortType">
+
+		<wsdl:operation name="releaseInUseRecord">
+			<wsdl:input message="eig:releaseInUseRecordRequest" />
+			<wsdl:output message="eig:releaseInUseRecordResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="createInUseRecord">
+			<wsdl:input message="eig:createInUseRecordRequest" />
+			<wsdl:output message="eig:createInUseRecordResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveInUseRecord">
+			<wsdl:input message="eig:retrieveInUseRecordRequest" />
+			<wsdl:output message="eig:retrieveInUseRecordResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveInUseRecordsByType">
+			<wsdl:input message="eig:retrieveInUseRecordsByTypeRequest" />
+			<wsdl:output message="eig:retrieveInUseRecordsByTypeResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveAllInUseRecords">
+			<wsdl:input message="eig:retrieveAllInUseRecordsRequest" />
+			<wsdl:output message="eig:retrieveAllInUseRecordsResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="touchInUseRecord">
+			<wsdl:input message="eig:touchInUseRecordRequest" />
+			<wsdl:output message="eig:touchInUseRecordResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveInUseRecordsByIDs">
+			<wsdl:input message="eig:retrieveInUseRecordsByIDsRequest" />
+			<wsdl:output message="eig:retrieveInUseRecordsByIDsResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="InUseSoapBinding" type="eig:InUsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="releaseInUseRecord">
+			<soap:operation	soapAction="urn:eig.mckesson.com/releaseInUseRecord" />
+			<wsdl:input>
+			    <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="createInUseRecord">
+			<soap:operation
+				soapAction="urn:eig.mckesson.com/createInUseRecord" />
+			<wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveInUseRecord">
+			<soap:operation
+				soapAction="urn:eig.mckesson.com/retrieveInUseRecord" />
+			<wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveInUseRecordsByType">
+			<soap:operation
+				soapAction="urn:eig.mckesson.com/retrieveInUseRecordsByType" />
+			<wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveAllInUseRecords">
+			<soap:operation
+				soapAction="urn:eig.mckesson.com/retrieveAllInUseRecords" />
+			<wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="touchInUseRecord">
+			<soap:operation
+				soapAction="urn:eig.mckesson.com/touchInUseRecord" />
+			<wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="retrieveInUseRecordsByIDs">
+            <soap:operation
+                soapAction="urn:eig.mckesson.com/retrieveInUseRecordsByIDs" />
+            <wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="InUseService">
+		<wsdl:documentation>
+			Service for In Use Service
+		</wsdl:documentation>
+		<wsdl:port binding="eig:InUseSoapBinding" name="InUsePort">
+			<soap:address
+				location="http://host/context/services/InUseService" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

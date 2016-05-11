@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.roi.admin.model.LetterTemplate">
+		<map-to xml="letterTemplateDetails" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="templateId" type="long">
+			<bind-xml name="eig:letterTemplateId" node="element" />
+		</field>
+
+		<field name="name" type="string">
+			<bind-xml name="eig:name" node="element" />
+		</field>
+
+		<field name="desc" type="string">
+			<bind-xml name="eig:description" node="element" />
+		</field>
+
+		<field name="isDefault" type="boolean">
+			<bind-xml name="eig:isDefault" node="element" />
+		</field>
+
+		<field name="letterType" type="string">
+			<bind-xml name="eig:letterType" node="element" />
+		</field>
+
+		<field name="uploadFile" type="string">
+			<bind-xml name="eig:uploadFile" node="element" />
+		</field>
+
+		<field name="docId" type="long">
+			<bind-xml name="eig:docId" node="element" />
+		</field>
+
+		<field name="recordVersion" type="int">
+			<bind-xml name="eig:recordVersion" node="element" />
+		</field>
+
+		<field name="hasNotes" type="boolean">
+		  <bind-xml name="eig:hasNotes" node="element" />
+		</field>
+
+	</class>
+
+	<class name="com.mckesson.eig.roi.admin.model.LetterTemplateList">
+		<map-to xml="letterTemplates" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="letterTemplates"
+			type="com.mckesson.eig.roi.admin.model.LetterTemplate"
+			collection="arraylist">
+			<bind-xml name="eig:letterTemplateList" node="element" />
+		</field>
+	</class>
+</mapping>

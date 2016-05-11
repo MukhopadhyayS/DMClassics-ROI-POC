@@ -1,0 +1,6 @@
+/****** Object:  Drop LinkedServer [%1%]    Script Date: 05/20/2008 10:45:09 ******/
+
+GO
+IF  EXISTS (SELECT srv.name FROM sys.servers srv WHERE srv.server_id != 0 AND srv.name = N'$(refserver)')
+ EXEC master.dbo.sp_dropserver @server=N'$(refserver)', @droplogins='droplogins'
+GO

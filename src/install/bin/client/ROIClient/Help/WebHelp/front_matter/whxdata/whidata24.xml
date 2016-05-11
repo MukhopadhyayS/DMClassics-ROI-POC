@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="MPF Workstation" >
+  <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  <topic name="Change your password" url="getting_started/logging_on_and_off/change_your_password.htm" />
+  <topic name="Logon dialog box" url="getting_started/logging_on_and_off/dialog_box_descriptions/logon_dialog_box.htm" />
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  <topic name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+  <topic name="About logging on or off" url="getting_started/logging_on_and_off/about_logging_on_or_off.htm" />
+  <topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="About the user interface" url="getting_started/your_workspace/about_the_user_interface.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+  <topic name="Auto-logoff" url="getting_started/logging_on_and_off/auto-logoff.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="About requestors" url="requestors/about_requestors.htm" />
+  <topic name="Change Password dialog box" url="getting_started/logging_on_and_off/dialog_box_descriptions/change_password_dialog_box.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <key name="see" >
+    <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+  </key>
+</key>
+<key name="MPF Workstation application" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="About this module" url="getting_started/about_this_module.htm" />
+  <topic name="About logging on or off" url="getting_started/logging_on_and_off/about_logging_on_or_off.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="EPN box" url="patients/form_descriptions/patient_records_form_items/epn_box.htm" />
+  <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+  <topic name="Change Password dialog box" url="getting_started/logging_on_and_off/dialog_box_descriptions/change_password_dialog_box.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="MPF Workstation Administrator's Guide" >
+  <topic name="Document Types form" url="admin/other_maint/form_descrip/document_types_form.htm" />
+  <topic name="Maintain document types" url="admin/other_maint/user_instruc/maintain_document_types.htm" />
+  <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+  <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+  <key name="see" >
+    <topic name="Document Types form" url="admin/other_maint/form_descrip/document_types_form.htm" />
+    <topic name="Maintain document types" url="admin/other_maint/user_instruc/maintain_document_types.htm" />
+    <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+    <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+  </key>
+</key>
+<key name="MPFW Web" >
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+</key>
+<key name="HTML" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Print or export reports" url="reports/user_instruc/print_or_export_reports.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  <topic name="About generating reports" url="reports/about_generating_reports.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="iconin" >
+  <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+  <key name="Billing Tiers" >
+    <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+  </key>
+</key>
+<key name="ID" >
+  <topic name="Change your password" url="getting_started/logging_on_and_off/change_your_password.htm" />
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Logon dialog box" url="getting_started/logging_on_and_off/dialog_box_descriptions/logon_dialog_box.htm" />
+  <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <topic name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  <topic name="About logging on or off" url="getting_started/logging_on_and_off/about_logging_on_or_off.htm" />
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <topic name="Create an invoice" url="requests/user_instructions/create_an_invoice.htm" />
+  <topic name="Log on" url="getting_started/logging_on_and_off/log_on.htm" />
+  <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="View pre-bill and invoice history" url="requests/user_instructions/view_prebill_and_invoice_history.htm" />
+  <topic name="Change Password dialog box" url="getting_started/logging_on_and_off/dialog_box_descriptions/change_password_dialog_box.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <key name="Displays" >
+    <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+    <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  </key>
+</key>
+<key name="ID   The" >
+  <topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+</key>
+<key name="identifiers" >
+  <topic name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+</key>
+<key name="identifies" >
+  <topic name="About the user interface" url="getting_started/your_workspace/about_the_user_interface.htm" />
+  <key name="ROI" >
+    <topic name="About the user interface" url="getting_started/your_workspace/about_the_user_interface.htm" />
+  </key>
+</key>
+<key name="IDs" >
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  <topic name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+</key>
+<key name="in the MPF" >
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+</key>
+<key name="Inactive" >
+  <topic name="Maintain requestor records" url="requestors/user_instructions/maintain_requestor_records.htm" />
+  <topic name="Select or change a requestor" url="requests/user_instructions/select_or_change_a_requestor.htm" />
+  <key name="check" >
+    <topic name="Maintain requestor records" url="requestors/user_instructions/maintain_requestor_records.htm" />
+  </key>
+</key>
+<key name="including" >
+  <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  <key name="Patients" >
+    <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  </key>
+</key>
+<key name="Index Upload" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="Indicates" >
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <key name="MPF" >
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+  <key name="VIP" >
+    <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  </key>
+</key>
+
+</indexdata>

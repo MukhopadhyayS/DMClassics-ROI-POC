@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.mckesson.eig.roi.admin.model.DocTypeRelation"
+	       table="ROI_DocType"
+	       dynamic-update="true"
+	       optimistic-lock="version" >
+
+            <id name="id" >
+                <column name="ROI_DocType_Seq" sql-type="int"/>
+                <generator class="identity"/>
+            </id>
+
+            <version name="recordVersion" column="Record_Version" type="integer" />
+
+            <property name="docTypeId" type="long">
+                <column name="DOCTYPE_ID" sql-type="int" not-null="true" />
+            </property>
+
+            <property name="codeSetId" type="long">
+                <column name="SET_ID" sql-type="smallint" not-null="true" />
+            </property>
+
+            <property name="type" type="string">
+                <column name="Type" sql-type="varchar(60)" not-null="true" />
+            </property>
+
+            <property name="createdBy" type="int">
+                <column name="Created_By_seq" sql-type="int" not-null="true" />
+            </property>
+
+             <property name="modifiedBy" type="int">
+                <column name="Modified_By_Seq" sql-type="int" not-null="true" />
+            </property>
+
+             <property name="orgId" type="int">
+                <column name="Organization_Seq" sql-type="int" not-null="true" />
+            </property>
+
+			<property name="modifiedDt" >
+		        <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+    		</property>
+    		
+    	    <property name="muDocumentId">
+                <column name="ROI_MU_DocType_Seq" sql-type="int" not-null="true" />
+            </property>
+
+    </class>
+    
+    <class name="com.mckesson.eig.roi.admin.model.MUDocTypeModel"
+	       table="ROI_MU_DOCTYPE"
+	       dynamic-update="true"
+	       optimistic-lock="version" >
+
+            <id name="id" >
+                <column name="ROI_MU_DocType_Seq" sql-type="int"/>
+                <generator class="identity"/>
+            </id>
+
+            <version name="recordVersion" column="Record_Version" type="integer" />
+
+            <property name="createdDate">
+                <column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+            </property>
+
+            <property name="createdBy" type="int">
+                <column name="Created_By_Seq" sql-type="int" not-null="true" />
+            </property>
+
+            <property name="modifiedDate">
+                <column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+            </property>
+
+            <property name="modifiedBy" type="int">
+                <column name="Modified_By_Seq" sql-type="int" not-null="true" />
+            </property>
+
+             <property name="muDocType">
+                <column name="MU_DocType" sql-type="varchar(100)" not-null="true" />
+            </property>
+
+             <property name="muDocCode">
+                <column name="MU_DocCode" sql-type="varchar(50)"/>
+            </property>
+
+			<property name="description" >
+		        <column name="Description" sql-type="varchar(1024)"/>
+    		</property>
+    		
+    		
+    </class>
+    
+    <query name="retrieveMUDocTypes">
+      <![CDATA[
+        SELECT d.muDocType FROM com.mckesson.eig.roi.admin.model.MUDocTypeModel d order by d.id asc
+       
+      ]]>
+    </query>
+    
+     <query name="getMUDocName">
+      <![CDATA[
+      select d.muDocType from com.mckesson.eig.roi.admin.model.MUDocTypeModel d
+      where d.id = ?
+      ]]>
+    </query>
+    
+    <query name="getMUDocId">
+      <![CDATA[
+      select d.id from com.mckesson.eig.roi.admin.model.MUDocTypeModel d
+      where d.muDocType = ?
+      ]]>
+    </query>
+
+     <query name="getDesignatedDocuments">
+      <![CDATA[
+        SELECT d FROM com.mckesson.eig.roi.admin.model.DocTypeRelation d
+        where d.codeSetId = ? AND d.type = ?
+      ]]>
+    </query>
+
+    <query name="retrieveDesignations">
+      <![CDATA[
+        SELECT d.docTypeId, d.type ,d.muDocumentId FROM com.mckesson.eig.roi.admin.model.DocTypeRelation d
+        where d.codeSetId = ?
+      ]]>
+    </query>
+
+    <query name="retrieveDocTypeIdsByDesignation">
+      <![CDATA[
+      select d.docTypeId from com.mckesson.eig.roi.admin.model.DocTypeRelation d
+      where d.type = ?
+      ]]>
+    </query>
+    
+    <query name="selectMUDocSeq">
+      <![CDATA[
+      select d from com.mckesson.eig.roi.admin.model.DocTypeRelation d
+      where d.codeSetId = ? and d.docTypeId = ? and d.type='mu'
+      ]]>
+    </query>
+    
+
+</hibernate-mapping>

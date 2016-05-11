@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+
+    <class name="com.mckesson.eig.roi.request.model.RequestCore">
+	   <map-to xml="requestCore" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+
+         <field name="status" type="string">
+            <bind-xml name="eig:status" node="element"/>
+        </field>
+        
+        <field name="receiptDate" type="date">
+            <bind-xml name="eig:receiptDate" node="element"/>
+        </field>
+
+        <field name="statusReason" type="string">
+            <bind-xml name="eig:statusReason" node="element"/>
+        </field>
+        
+        <field name="requestReason" type="string">
+            <bind-xml name="eig:requestReason" node="element"/>
+        </field>
+        
+        <field name="requestReasonAttribute" type="string">
+            <bind-xml name="eig:requestReasonAttribute" node="element"/>
+        </field>
+        
+         <field name="statusChangedDt" type="date">
+            <bind-xml name="eig:statusChangedDt" node="element"/>
+        </field>
+        
+         <field name="requestPassword" type="string">
+            <bind-xml name="eig:requestPassword" node="element"/>
+        </field>
+        
+         <field name="createdDate" type="date">
+            <bind-xml name="eig:createdDate" node="element"/>
+        </field>
+		
+         <field name="completedDate" type="date">
+            <bind-xml name="eig:completedDate" node="element"/>
+        </field>
+        
+         <field name="modifiedDate" type="date">
+            <bind-xml name="eig:modifiedDate" node="element"/>
+        </field>
+        
+         <field name="modifiedBy" type="int">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+		
+         <field name="modifiedByUser" type="string">
+            <bind-xml name="eig:modifiedByUser" node="element"/>
+        </field>
+        
+         <field name="createdBy" type="int">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        
+        <field name="defaultFacility" type="string">
+            <bind-xml name="eig:defaultFacility" node="element"/>
+        </field>
+        
+        <field name="defaultFacilityCode" type="string">
+            <bind-xml name="eig:defaultFacilityCode" node="element"/>
+        </field>
+        
+        <field name="requestorDetail" type="com.mckesson.eig.roi.requestor.model.RequestorCore">
+            <bind-xml name="eig:requestorDetail" node="element"/>
+        </field>
+		
+		<field name="releaseCount" type="long">
+            <bind-xml name="eig:releaseCount" node="element"/>
+        </field>
+
+		<field name="hasDraftRelease" type="boolean">
+            <bind-xml name="eig:hasDraftRelease" node="element"/>
+        </field>
+        
+		<field name="balanceDue" type="java.lang.Double">
+            <bind-xml name="eig:balanceDue" node="element"/>
+        </field>
+        
+		<field name="unbillable" type="boolean">
+            <bind-xml name="eig:unbillable" node="element"/>
+        </field>
+
+		<field name="authDoc" type="string">
+            <bind-xml name="eig:authDoc" node="element"/>
+        </field>
+
+		<field name="authDocName" type="string">
+            <bind-xml name="eig:authDocName" node="element"/>
+        </field>
+
+		<field name="authDocSubtitle" type="string">
+            <bind-xml name="eig:authDocSubtitle" node="element"/>
+        </field>
+
+		<field name="authDocDateTime" type="date">
+            <bind-xml name="eig:authDocDateTime" node="element"/>
+        </field>
+        
+		<field name="conversionSource" type="string">
+            <bind-xml name="eig:conversionSource" node="element"/>
+        </field>
+
+    </class>
+
+    <!-- Requestor -->
+
+    <class name="com.mckesson.eig.roi.requestor.model.RequestorCore">
+        <map-to xml="requestorDetail" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="requestorSeq" type="long">
+            <bind-xml name="eig:requestorId" node="element"/>
+        </field>
+
+		<field name="createdDate" type="date">
+            <bind-xml name="eig:createdDate" node="element"/>
+        </field>
+        
+         <field name="modifiedDate" type="date">
+            <bind-xml name="eig:modifiedDate" node="element"/>
+        </field>
+        
+         <field name="modifiedBy" type="int">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+        
+         <field name="createdBy" type="int">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        
+        <field name="requestorType" type="java.lang.Long">
+            <bind-xml name="eig:requestorType" node="element"/>
+        </field>
+
+        <field name="requestorTypeName" type="string">
+            <bind-xml name="eig:requestorTypeName" node="element"/>
+        </field>
+        
+        <field name="lastName" type="string">
+            <bind-xml name="eig:lastName" node="element"/>
+        </field>
+        
+        <field name="middleName" type="string">
+            <bind-xml name="eig:middleName" node="element"/>
+        </field>
+        
+        <field name="firstName" type="string">
+            <bind-xml name="eig:firstName" node="element"/>
+        </field>
+
+        <field name="workPhone" type="string">
+            <bind-xml name="eig:workPhone" node="element"/>
+        </field>
+
+        <field name="homePhone" type="string">
+            <bind-xml name="eig:homePhone" node="element"/>
+        </field>
+        
+        <field name="cellPhone" type="string">
+            <bind-xml name="eig:cellPhone" node="element"/>
+        </field>
+
+        <field name="contactName" type="string">
+            <bind-xml name="eig:contactName" node="element"/>
+        </field>
+
+        <field name="contactPhone" type="string">
+            <bind-xml name="eig:contactPhone" node="element"/>
+        </field>
+
+        <field name="fax" type="string">
+            <bind-xml name="eig:fax" node="element"/>
+        </field>
+
+    </class>
+    
+    <!--REQUEST CORE CHARGES-->
+    
+    <class name="com.mckesson.eig.roi.request.model.RequestCoreCharges">
+        <map-to xml="requestCoreChargesReq" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+   
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+        <field name="createdBy" type="long">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        <field name="modifiedBy" type="long">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+         <field name="createdDt" type="date">
+            <bind-xml name="eig:createdDt" node="element"/>
+        </field>
+        <field name="modifiedDt" type="date">
+            <bind-xml name="eig:modifiedDt" node="element"/>
+        </field>
+        <field name="recordVersion" type="int">
+            <bind-xml name="eig:recordVersion" node="element"/>
+        </field>
+         <field name="requestCoreSeq" type="long">
+            <bind-xml name="eig:requestCoreSeq" node="element"/>
+        </field>
+        <field name="previouslyReleasedCost" type="double">
+            <bind-xml name="eig:previouslyReleasedCost" node="element"/>
+        </field>
+        <field name="releaseDate" type="date">
+            <bind-xml name="eig:releaseDate" node="element"/>
+        </field>
+        <field name="releaseCost" type="double">
+            <bind-xml name="eig:releaseCost" node="element"/>
+        </field>
+        <field name="totalPages" type="int">
+            <bind-xml name="eig:totalPages" node="element"/>
+        </field>
+        <field name="totalRequestCost" type="double">
+            <bind-xml name="eig:totalRequestCost" node="element"/>
+        </field>
+         <field name="balanceDue" type="double">
+            <bind-xml name="eig:balanceDue" node="element"/>
+        </field>
+        <field name="totalPagesReleased" type="int">
+            <bind-xml name="eig:totalPagesReleased" node="element"/>
+        </field>
+         <field name="salesTaxAmount" type="double">
+            <bind-xml name="eig:salesTaxAmount" node="element"/>
+        </field>
+        <field name="salesTaxPercentage" type="double">
+            <bind-xml name="eig:salesTaxPercentage" node="element"/>
+        </field>
+        <field name="billingType" type="string">
+            <bind-xml name="eig:billingType" node="element"/>
+        </field>    
+        <field name="originalBalance" type="double">
+            <bind-xml name="eig:originalBalance" node="element"/>
+        </field>
+        <field name="paymentAmount" type="double">
+            <bind-xml name="eig:paymentAmount" node="element"/>
+        </field> 
+        <field name="creditAdjustmentAmount" type="double">
+            <bind-xml name="eig:creditAdjustmentAmount" node="element"/>
+        </field> 
+        <field name="debitAdjustmentAmount" type="double">
+            <bind-xml name="eig:debitAdjustmentAmount" node="element"/>
+        </field> 
+         <field name="billingLocCode" type="string">
+            <bind-xml name="eig:billingLocCode" node="element"/>
+        </field> 
+        <field name="billingLocName" type="string">
+            <bind-xml name="eig:billingLocName" node="element"/>
+        </field>
+        <field name="applySalesTax" type="boolean">
+            <bind-xml name="eig:applySalesTax" node="element"/>
+        </field> 
+        <field name="displayBillingPaymentInfo" type="boolean">
+            <bind-xml name="eig:displayBillingPaymentInfo" node="element"/>
+        </field> 
+        <field name="invoiceBaseCharge" type="double">
+            <bind-xml name="eig:invoiceBaseCharge" node="element"/>
+        </field> 
+        <field name="invoiceAutoAdjustment" type="double">
+            <bind-xml name="eig:invoiceAutoAdjustment" node="element"/>
+        </field> 
+        <field name="released" type="boolean">
+            <bind-xml name="eig:released" node="element"/>
+        </field>
+        <field name="hasUnReleasedInvoices" type="boolean">
+            <bind-xml name="eig:hasUnReleasedInvoices" node="element"/>
+        </field>
+        <field name="invoicesBalance" type="double">
+            <bind-xml name="eig:invoicesBalance" node="element"/>
+        </field> 
+        <field name="invoicesSalesTaxAmount" type="double">
+            <bind-xml name="eig:invoicesSalesTaxAmount" node="element"/>
+        </field> 
+		<field name="unbillable" type="boolean">
+            <bind-xml name="eig:unbillable" node="element"/>
+        </field>
+        <field name="hasInvoices" type="boolean">
+            <bind-xml name="eig:hasInvoices" node="element"/>
+        </field>
+        <field name="totalUnappliedPaymentAmount" type="double">
+            <bind-xml name="eig:totalUnappliedPaymentAmount" node="element"/>
+        </field>
+        <field name="totalUnappliedAdjustmentAmount" type="double">
+            <bind-xml name="eig:totalUnappliedAdjustmentAmount" node="element"/>
+        </field>
+        <field name="totalUnappliedAmount" type="double">
+            <bind-xml name="eig:totalUnappliedAmount" node="element"/>
+        </field>
+        <field name="salesTaxSummary" type="com.mckesson.eig.roi.billing.model.SalesTaxSummary">
+            <bind-xml name="eig:salesTaxSummary" node="element"/>
+        </field>
+        <field name="requestCoreChargesBilling" type="com.mckesson.eig.roi.request.model.RequestCoreChargesBilling">
+            <bind-xml name="eig:requestCoreChargesBilling" node="element"/>
+        </field>     
+        <field name="requestCoreChargesShipping" type="com.mckesson.eig.roi.request.model.RequestCoreChargesShipping">
+            <bind-xml name="eig:requestCoreChargesShipping" node="element"/>
+        </field>
+    </class>
+    
+   <class name="com.mckesson.eig.roi.request.model.RequestCoreChargesBilling">
+        <map-to xml="requestCoreChargesBilling" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="requestCoreChargesFee" type="com.mckesson.eig.roi.request.model.RequestCoreChargesFee" collection="set">
+            <bind-xml name="eig:requestCoreChargesFee" node="element"/>
+        </field>
+        <field name="requestCoreChargesDocument" type="com.mckesson.eig.roi.request.model.RequestCoreChargesDocument" collection="set">
+            <bind-xml name="eig:requestCoreChargesDocument" node="element"/>
+        </field>
+        
+    </class>
+    
+     <class name="com.mckesson.eig.roi.request.model.RequestCoreChargesDocument">
+        <map-to xml="requestCoreChargesDocument" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+  
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+        <field name="createdBy" type="long">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        <field name="modifiedBy" type="long">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+         <field name="createdDt" type="date">
+            <bind-xml name="eig:createdDt" node="element"/>
+        </field>
+        <field name="modifiedDt" type="date">
+            <bind-xml name="eig:modifiedDt" node="element"/>
+        </field>
+        <field name="recordVersion" type="int">
+            <bind-xml name="eig:recordVersion" node="element"/>
+        </field>
+         <field name="requestCoreChargesSeq" type="long">
+            <bind-xml name="eig:requestCoreChargesSeq" node="element"/>
+        </field>
+       <field name="amount" type="double">
+            <bind-xml name="eig:amount" node="element"/>
+        </field>
+         <field name="copies" type="int">
+            <bind-xml name="eig:copies" node="element"/>
+        </field>
+         <field name="billingTierName" type="string">
+            <bind-xml name="eig:billingTierName" node="element"/>
+        </field>
+         <field name="totalPages" type="int">
+            <bind-xml name="eig:totalPages" node="element"/>
+        </field>
+         <field name="pages" type="int">
+            <bind-xml name="eig:pages" node="element"/>
+        </field>
+         <field name="billingtierId" type="string">
+            <bind-xml name="eig:billingtierId" node="element"/>
+        </field>
+        <field name="releaseCount" type="int">
+            <bind-xml name="eig:releaseCount" node="element"/>
+        </field>
+        <field name="isElectronic" type="boolean">
+            <bind-xml name="eig:isElectronic" node="element"/>
+        </field>
+        <field name="removeBaseCharge" type="boolean">
+            <bind-xml name="eig:removeBaseCharge" node="element"/>
+        </field>
+        <field name="hasSalesTax" type="boolean">
+            <bind-xml name="eig:hasSalesTax" node="element"/>
+        </field>
+        <field name="salesTaxAmount" type="double">
+            <bind-xml name="eig:salesTaxAmount" node="element"/>
+        </field>
+        
+    </class>
+  
+     <class name="com.mckesson.eig.roi.request.model.RequestCoreChargesFee">
+        <map-to xml="requestCoreChargesFee" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+        <field name="createdBy" type="long">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        <field name="modifiedBy" type="long">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+         <field name="createdDt" type="date">
+            <bind-xml name="eig:createdDt" node="element"/>
+        </field>
+        <field name="modifiedDt" type="date">
+            <bind-xml name="eig:modifiedDt" node="element"/>
+        </field>
+        <field name="recordVersion" type="int">
+            <bind-xml name="eig:recordVersion" node="element"/>
+        </field>
+         <field name="requestCoreChargesSeq" type="long">
+            <bind-xml name="eig:requestCoreChargesSeq" node="element"/>
+        </field>
+         <field name="amount" type="double">
+            <bind-xml name="eig:amount" node="element"/>
+        </field>
+         <field name="isCustomFee" type="boolean">
+            <bind-xml name="eig:isCustomFee" node="element"/>
+        </field>
+         <field name="feeType" type="string">
+            <bind-xml name="eig:feeType" node="element"/>
+          </field>             
+        <field name="hasSalesTax" type="boolean">
+            <bind-xml name="eig:hasSalesTax" node="element"/>
+        </field>
+        <field name="salesTaxAmount" type="double">
+            <bind-xml name="eig:salesTaxAmount" node="element"/>
+        </field>
+    </class> 
+   
+    <class name="com.mckesson.eig.roi.request.model.RequestCoreChargesShipping">
+        <map-to xml="requestCoreChargesShipping" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+ 
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+        <field name="createdBy" type="long">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        <field name="modifiedBy" type="long">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+         <field name="createdDt" type="date">
+            <bind-xml name="eig:createdDt" node="element"/>
+        </field>
+        <field name="modifiedDt" type="date">
+            <bind-xml name="eig:modifiedDt" node="element"/>
+        </field>
+        <field name="recordVersion" type="int">
+            <bind-xml name="eig:recordVersion" node="element"/>
+        </field>
+         <field name="requestCoreChargesSeq" type="long">
+            <bind-xml name="eig:requestCoreChargesSeq" node="element"/>
+        </field>
+        <field name="shippingCharge" type="double">
+            <bind-xml name="eig:shippingCharge" node="element"/>
+        </field>
+        <field name="postalCode" type="string">
+            <bind-xml name="eig:postalCode" node="element"/>
+        </field>
+         <field name="addressType" type="string">
+            <bind-xml name="eig:addressType" node="element"/>
+        </field>
+         <field name="state" type="string">
+            <bind-xml name="eig:state" node="element"/>
+        </field>
+         <field name="shippingUrl" type="string">
+            <bind-xml name="eig:shippingUrl" node="element"/>
+        </field>
+         <field name="address1" type="string">
+            <bind-xml name="eig:address1" node="element"/>
+        </field>
+         <field name="address2" type="string">
+            <bind-xml name="eig:address2" node="element"/>
+        </field>
+         <field name="shippingWeight" type="double">
+            <bind-xml name="eig:shippingWeight" node="element"/>
+        </field>
+         <field name="trackingNumber" type="string">
+            <bind-xml name="eig:trackingNumber" node="element"/>
+        </field>
+         <field name="address3" type="string">
+            <bind-xml name="eig:address3" node="element"/>
+        </field>
+         <field name="city" type="string">
+            <bind-xml name="eig:city" node="element"/>
+        </field>
+         <field name="willReleaseShipped" type="boolean">
+            <bind-xml name="eig:willReleaseShipped" node="element"/>
+        </field>
+         <field name="shippingMethod" type="string">
+            <bind-xml name="eig:shippingMethod" node="element"/>
+        </field>
+         <field name="outputMethod" type="string">
+            <bind-xml name="eig:outputMethod" node="element"/>
+        </field>
+         <field name="shippingMethodId" type="long">
+            <bind-xml name="eig:shippingMethodId" node="element"/>
+        </field>
+         <field name="nonPrintableAttachmentQueue" type="string">
+            <bind-xml name="eig:nonPrintableAttachmentQueue" node="element"/>
+        </field>
+        <field name="countryCode" type="string">
+            <bind-xml name="eig:countryCode" node="element"/>
+        </field>        
+        <field name="countryName" type="string">
+            <bind-xml name="eig:countryName" node="element"/>
+        </field>
+         <field name="newCountry" type="boolean">
+            <bind-xml name="eig:newCountry" node="element"/>
+        </field>
+    </class>
+    
+    
+    <class name="com.mckesson.eig.roi.request.model.RequestCoreChargesBillingInfo" extends="com.mckesson.eig.roi.request.model.RequestCoreCharges">
+        <map-to xml="retrieveRequestRes" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="requestCoreChargesInvoice" type="com.mckesson.eig.roi.request.model.RequestCoreChargesInvoice" collection="set">
+            <bind-xml name="eig:requestCoreChargesInvoice" node="element"/>
+        </field>
+        <field name="salesTaxSummary" type="com.mckesson.eig.roi.billing.model.SalesTaxSummary">
+            <bind-xml name="eig:salesTaxSummary" node="element"/>
+        </field>
+        
+    </class>
+    
+    <class name="com.mckesson.eig.roi.request.model.RequestCoreChargesInvoice">
+        <map-to xml="requestCoreChargesInvoice" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+        
+        <field name="requestCoreDeliveryChargesId" type="long">
+            <bind-xml name="eig:requestCoreDeliveryChargesId" node="element"/>
+        </field>
+         <field name="invoiceCreatedDt" type="date">
+            <bind-xml name="eig:invoiceCreatedDt" node="element"/>
+        </field>
+         <field name="invoicedAmount" type="double">
+            <bind-xml name="eig:invoicedAmount" node="element"/>
+        </field>
+         <field name="paymentAmount" type="double">
+            <bind-xml name="eig:paymentAmount" node="element"/>
+        </field>
+        <field name="isInvoice" type="boolean">
+            <bind-xml name="eig:isInvoice" node="element"/>
+        </field>
+        <field name="requestCoreDeliveryChargesAdjustmentPayment" type="com.mckesson.eig.roi.billing.model.RequestCoreDeliveryChargesAdjustmentPayment" collection="set">
+            <bind-xml name="eig:requestCoreDeliveryChargesAdjustmentPayment" node="element"/>
+        </field>
+        
+    </class>
+
+    <class name="com.mckesson.eig.roi.request.model.RequestCoreChargesInvoicesList">
+        <map-to xml="requestCoreChargesInvoicesList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+        
+        <field name="invoicesList" type="com.mckesson.eig.roi.request.model.RequestCoreChargesInvoice" collection="arraylist">
+            <bind-xml name="eig:requestCoreChargesInvoice" node="element"/>
+        </field>
+        <field name="isInvoiced" type="boolean">
+            <bind-xml name="eig:isInvoiced" node="element"/>
+        </field>
+        
+    </class>
+    
+    <class name="com.mckesson.eig.roi.billing.model.RequestCoreDeliveryChargesAdjustmentPayment">
+        <map-to xml="requestCoreDeliveryChargesAdjustmentPayment" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+        <field name="createdBy" type="long">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        <field name="modifiedBy" type="long">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+         <field name="createdDt" type="date">
+            <bind-xml name="eig:createdDt" node="element"/>
+        </field>
+        <field name="modifiedDt" type="date">
+            <bind-xml name="eig:modifiedDate" node="element"/>
+        </field>
+        <field name="recordVersion" type="int">
+            <bind-xml name="eig:recordVersion" node="element"/>
+        </field>
+        <field name="requestorId" type="long">
+            <bind-xml name="eig:requestorId" node="element"/>
+        </field>
+        <field name="requestCoreDeliveryChargesId" type="long">
+            <bind-xml name="eig:requestCoreDeliveryChargesId" node="element"/>
+        </field>
+        <field name="invoiceAppliedAmount" type="double">
+            <bind-xml name="eig:invoiceAppliedAmount" node="element"/>
+        </field>
+        <field name="baseAmount" type="double">
+            <bind-xml name="eig:baseAmount" node="element"/>
+        </field>
+        <field name="totalUnappliedAmount" type="double">
+            <bind-xml name="eig:totalUnappliedAmount" node="element"/>
+        </field>     
+        <field name="paymentMode" type="string">
+            <bind-xml name="eig:paymentMode" node="element"/>
+        </field>        
+        <field name="description" type="string">
+            <bind-xml name="eig:description" node="element"/>
+        </field>       
+        <field name="paymentDate" type="date">
+            <bind-xml name="eig:paymentDate" node="element"/>
+        </field>       
+        <field name="transactionType" type="string">
+            <bind-xml name="eig:transactionType" node="element"/>
+        </field>
+        <field name="isDebit" type="boolean">
+            <bind-xml name="eig:isDebit" node="element"/>
+        </field>
+        <field name="newlyAdded" type="boolean">
+            <bind-xml name="eig:newlyAdded" node="element"/>
+        </field>
+        
+    </class>
+    
+    <class name="com.mckesson.eig.roi.billing.model.SalesTaxSummary">
+        <map-to xml="salesTaxSummary" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="salesTaxReason" type="com.mckesson.eig.roi.billing.model.SalesTaxReason" collection="arraylist">
+            <bind-xml name="eig:salesTaxReason" node="element"/>
+        </field>
+        
+    </class>
+    
+    <class name="com.mckesson.eig.roi.billing.model.SalesTaxReason">
+        <map-to xml="salesTaxReason" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+        <field name="createdBy" type="long">
+            <bind-xml name="eig:createdBy" node="element"/>
+        </field>
+        <field name="modifiedBy" type="long">
+            <bind-xml name="eig:modifiedBy" node="element"/>
+        </field>
+         <field name="createdDt" type="date">
+            <bind-xml name="eig:createdDt" node="element"/>
+        </field>
+        <field name="modifiedDt" type="date">
+            <bind-xml name="eig:modifiedDate" node="element"/>
+        </field>
+        <field name="recordVersion" type="int">
+            <bind-xml name="eig:recordVersion" node="element"/>
+        </field>
+        <field name="requestCoreChargesSeq" type="long">
+            <bind-xml name="eig:requestCoreChargesSeq" node="element"/>
+        </field>
+        <field name="reason" type="string">
+            <bind-xml name="eig:reason" node="element"/>
+        </field>
+        <field name="reasonDate" type="date">
+            <bind-xml name="eig:reasonDate" node="element"/>
+        </field>
+        
+     </class>   
+    
+</mapping>

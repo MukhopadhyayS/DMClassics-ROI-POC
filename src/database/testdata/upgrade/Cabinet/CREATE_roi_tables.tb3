@@ -1,0 +1,3310 @@
+IF EXISTS 
+	(
+		SELECT 
+			*
+		FROM 
+			sys.objects 
+		WHERE 
+			object_id = OBJECT_ID(N'[ROI_RequestMain]') 
+		AND 
+			type in (N'U')
+	)
+BEGIN
+	Print 'ROI_RequestMain exists'
+	RETURN
+END
+PRINT 'Creating tables'
+/****** Object:  ForeignKey [FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]    Script Date: 03/29/2009 08:43:24 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]
+GO
+/****** Object:  ForeignKey [FK_ROI_BillingTemplateToFeeType_ROI_FeeType]    Script Date: 03/29/2009 08:43:24 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_FeeType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_FeeType]
+GO
+/****** Object:  ForeignKey [FK_ROI_BillingTier_ROI_MediaType]    Script Date: 03/29/2009 08:43:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTier_ROI_MediaType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTier]'))
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [FK_ROI_BillingTier_ROI_MediaType]
+GO
+/****** Object:  ForeignKey [FK_ROI_BillingTierDetail_ROI_BillingTier]    Script Date: 03/29/2009 08:43:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTierDetail_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTierDetail]'))
+ALTER TABLE [ROI_BillingTierDetail] DROP CONSTRAINT [FK_ROI_BillingTierDetail_ROI_BillingTier]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToAddress_ROI_Address]    Script Date: 03/29/2009 08:43:26 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [FK_ROI_ContactToAddress_ROI_Address]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToAddress_ROI_AddressType]    Script Date: 03/29/2009 08:43:26 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [FK_ROI_ContactToAddress_ROI_AddressType]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToAddress_ROI_Contact]    Script Date: 03/29/2009 08:43:26 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [FK_ROI_ContactToAddress_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToCreditCard_ROI_Contact]    Script Date: 03/29/2009 08:43:27 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToCreditCard_ROI_CreditCard]    Script Date: 03/29/2009 08:43:27 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_CreditCard]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_CreditCard]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToEmailPhone_ROI_Contact]    Script Date: 03/29/2009 08:43:27 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToEmailPhone_ROI_EmailPhone]    Script Date: 03/29/2009 08:43:27 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhone]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]    Script Date: 03/29/2009 08:43:27 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]
+GO
+/****** Object:  ForeignKey [FK_ROI_LetterTemplate_ROI_LetterTemplateFile]    Script Date: 03/29/2009 08:43:31 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_LetterTemplate_ROI_LetterTemplateFile]') AND parent_object_id = OBJECT_ID(N'[ROI_LetterTemplate]'))
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [FK_ROI_LetterTemplate_ROI_LetterTemplateFile]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestDelivery_ROI_RequestMain]    Script Date: 03/29/2009 08:43:33 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDelivery_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDelivery]'))
+ALTER TABLE [ROI_RequestDelivery] DROP CONSTRAINT [FK_ROI_RequestDelivery_ROI_RequestMain]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]    Script Date: 03/29/2009 08:43:34 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDeliveryCharges]'))
+ALTER TABLE [ROI_RequestDeliveryCharges] DROP CONSTRAINT [FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestEvent_ROI_RequestMain]    Script Date: 03/29/2009 08:43:34 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestEvent_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestEvent]'))
+ALTER TABLE [ROI_RequestEvent] DROP CONSTRAINT [FK_ROI_RequestEvent_ROI_RequestMain]
+GO
+/****** Object:  ForeignKey [FK_ROI_Requestor_ROI_Requestor_Type]    Script Date: 03/29/2009 08:43:35 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_Requestor_ROI_Requestor_Type]') AND parent_object_id = OBJECT_ID(N'[ROI_Requestor]'))
+ALTER TABLE [ROI_Requestor] DROP CONSTRAINT [FK_ROI_Requestor_ROI_Requestor_Type]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorRestriction_ROI_Requestor_Seq]    Script Date: 03/29/2009 08:43:36 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorRestriction_ROI_Requestor_Seq]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorRestriction]'))
+ALTER TABLE [ROI_RequestorRestriction] DROP CONSTRAINT [FK_ROI_RequestorRestriction_ROI_Requestor_Seq]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToAddress_ROI_Address]    Script Date: 03/29/2009 08:43:36 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Address]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToAddress_ROI_AddressType]    Script Date: 03/29/2009 08:43:36 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [FK_ROI_RequestorToAddress_ROI_AddressType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToAddress_ROI_Requestor]    Script Date: 03/29/2009 08:43:36 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Requestor]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToContact_ROI_Contact]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [FK_ROI_RequestorToContact_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToContact_ROI_ContactType]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_ContactType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [FK_ROI_RequestorToContact_ROI_ContactType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToContact_ROI_Requestor]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [FK_ROI_RequestorToContact_ROI_Requestor]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToEmailPhone_ROI_Requestor]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_Requestor]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]    Script Date: 03/29/2009 08:43:38 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]    Script Date: 03/29/2009 08:43:38 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]    Script Date: 03/29/2009 08:43:39 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]    Script Date: 03/29/2009 08:43:39 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]
+GO
+/****** Object:  Table [dbo].[ROI_RequestDeliveryCharges]    Script Date: 03/29/2009 08:43:34 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDeliveryCharges]'))
+ALTER TABLE [ROI_RequestDeliveryCharges] DROP CONSTRAINT [FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDeliveryCharges_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDeliveryCharges] DROP CONSTRAINT [DF_ROI_RequestDeliveryCharges_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDeliveryCharges_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDeliveryCharges] DROP CONSTRAINT [DF_ROI_RequestDeliveryCharges_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDeliveryCharges_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDeliveryCharges] DROP CONSTRAINT [DF_ROI_RequestDeliveryCharges_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDeliveryCharges_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDeliveryCharges] DROP CONSTRAINT [DF_ROI_RequestDeliveryCharges_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDeliveryCharges_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDeliveryCharges] DROP CONSTRAINT [DF_ROI_RequestDeliveryCharges_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestDeliveryCharges]') AND type in (N'U'))
+DROP TABLE [ROI_RequestDeliveryCharges]
+GO
+/****** Object:  Table [dbo].[ROI_RequestEvent]    Script Date: 03/29/2009 08:43:34 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestEvent_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestEvent]'))
+ALTER TABLE [ROI_RequestEvent] DROP CONSTRAINT [FK_ROI_RequestEvent_ROI_RequestMain]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestEvent_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestEvent] DROP CONSTRAINT [DF_ROI_RequestEvent_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestEvent_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestEvent] DROP CONSTRAINT [DF_ROI_RequestEvent_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestEvent_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestEvent] DROP CONSTRAINT [DF_ROI_RequestEvent_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestEvent_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestEvent] DROP CONSTRAINT [DF_ROI_RequestEvent_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestEvent_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestEvent] DROP CONSTRAINT [DF_ROI_RequestEvent_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestEvent]') AND type in (N'U'))
+DROP TABLE [ROI_RequestEvent]
+GO
+/****** Object:  Table [dbo].[ROI_RequestDelivery]    Script Date: 03/29/2009 08:43:33 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDelivery_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDelivery]'))
+ALTER TABLE [ROI_RequestDelivery] DROP CONSTRAINT [FK_ROI_RequestDelivery_ROI_RequestMain]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDelivery_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDelivery] DROP CONSTRAINT [DF_ROI_RequestDelivery_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDelivery_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDelivery] DROP CONSTRAINT [DF_ROI_RequestDelivery_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDelivery_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDelivery] DROP CONSTRAINT [DF_ROI_RequestDelivery_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDelivery_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDelivery] DROP CONSTRAINT [DF_ROI_RequestDelivery_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestDelivery_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestDelivery] DROP CONSTRAINT [DF_ROI_RequestDelivery_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestDelivery]') AND type in (N'U'))
+DROP TABLE [ROI_RequestDelivery]
+GO
+/****** Object:  Table [dbo].[ROI_LetterTemplate]    Script Date: 03/29/2009 08:43:31 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_LetterTemplate_ROI_LetterTemplateFile]') AND parent_object_id = OBJECT_ID(N'[ROI_LetterTemplate]'))
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [FK_ROI_LetterTemplate_ROI_LetterTemplateFile]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplate_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [DF_ROI_LetterTemplate_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplate_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [DF_ROI_LetterTemplate_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplate_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [DF_ROI_LetterTemplate_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplate_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [DF_ROI_LetterTemplate_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplate_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [DF_ROI_LetterTemplate_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplate_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplate] DROP CONSTRAINT [DF_ROI_LetterTemplate_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_LetterTemplate]') AND type in (N'U'))
+DROP TABLE [ROI_LetterTemplate]
+GO
+/****** Object:  Table [dbo].[ROI_BillingTemplateToFeeType]    Script Date: 03/29/2009 08:43:24 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_FeeType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_FeeType]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplateToFeeType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplateToFeeType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplateToFeeType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplateToFeeType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplateToFeeType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplateToFeeType] DROP CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]') AND type in (N'U'))
+DROP TABLE [ROI_BillingTemplateToFeeType]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorTypeToBillingTemplate]    Script Date: 03/29/2009 08:43:38 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTemplate_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTemplate_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTemplate_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTemplate_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTemplate_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]') AND type in (N'U'))
+DROP TABLE [ROI_RequestorTypeToBillingTemplate]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorTypeToBillingTier]    Script Date: 03/29/2009 08:43:39 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTier_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTier_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTier_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTier_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorTypeToBillingTier_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorTypeToBillingTier] DROP CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]') AND type in (N'U'))
+DROP TABLE [ROI_RequestorTypeToBillingTier]
+GO
+/****** Object:  Table [dbo].[ROI_BillingTierDetail]    Script Date: 03/29/2009 08:43:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTierDetail_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTierDetail]'))
+ALTER TABLE [ROI_BillingTierDetail] DROP CONSTRAINT [FK_ROI_BillingTierDetail_ROI_BillingTier]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTierDetail_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTierDetail] DROP CONSTRAINT [DF_ROI_BillingTierDetail_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTierDetail_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTierDetail] DROP CONSTRAINT [DF_ROI_BillingTierDetail_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTierDetail_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTierDetail] DROP CONSTRAINT [DF_ROI_BillingTierDetail_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTierDetail_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTierDetail] DROP CONSTRAINT [DF_ROI_BillingTierDetail_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTierDetail_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTierDetail] DROP CONSTRAINT [DF_ROI_BillingTierDetail_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTierDetail]') AND type in (N'U'))
+DROP TABLE [ROI_BillingTierDetail]
+GO
+/****** Object:  Table [dbo].[ROI_BillingTier]    Script Date: 03/29/2009 08:43:25 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTier_ROI_MediaType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTier]'))
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [FK_ROI_BillingTier_ROI_MediaType]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTier_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [DF_ROI_BillingTier_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTier_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [DF_ROI_BillingTier_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTier_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [DF_ROI_BillingTier_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTier_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [DF_ROI_BillingTier_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTier_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [DF_ROI_BillingTier_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTier_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTier] DROP CONSTRAINT [DF_ROI_BillingTier_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTier]') AND type in (N'U'))
+DROP TABLE [ROI_BillingTier]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorRestriction]    Script Date: 03/29/2009 08:43:36 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorRestriction_ROI_Requestor_Seq]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorRestriction]'))
+ALTER TABLE [ROI_RequestorRestriction] DROP CONSTRAINT [FK_ROI_RequestorRestriction_ROI_Requestor_Seq]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorRestriction_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorRestriction] DROP CONSTRAINT [DF_ROI_RequestorRestriction_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorRestriction_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorRestriction] DROP CONSTRAINT [DF_ROI_RequestorRestriction_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorRestriction_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorRestriction] DROP CONSTRAINT [DF_ROI_RequestorRestriction_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorRestriction_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorRestriction] DROP CONSTRAINT [DF_ROI_RequestorRestriction_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorRestriction_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorRestriction] DROP CONSTRAINT [DF_ROI_RequestorRestriction_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorRestriction]') AND type in (N'U'))
+DROP TABLE [ROI_RequestorRestriction]
+GO
+/****** Object:  Table [dbo].[ROI_ContactToAddress]    Script Date: 03/29/2009 08:43:26 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [FK_ROI_ContactToAddress_ROI_Address]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [FK_ROI_ContactToAddress_ROI_AddressType]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [FK_ROI_ContactToAddress_ROI_Contact]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactAddress_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [DF_ROI_ContactAddress_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactAddress_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [DF_ROI_ContactAddress_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactAddress_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [DF_ROI_ContactAddress_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactAddress_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [DF_ROI_ContactAddress_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactAddress_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToAddress] DROP CONSTRAINT [DF_ROI_ContactAddress_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactToAddress]') AND type in (N'U'))
+DROP TABLE [ROI_ContactToAddress]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorToAddress]    Script Date: 03/29/2009 08:43:36 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Address]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [FK_ROI_RequestorToAddress_ROI_AddressType]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Requestor]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToAddress_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [DF_ROI_RequestorToAddress_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToAddress_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [DF_ROI_RequestorToAddress_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToAddress_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [DF_ROI_RequestorToAddress_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToAddress_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [DF_ROI_RequestorToAddress_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToAddress_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToAddress] DROP CONSTRAINT [DF_ROI_RequestorToAddress_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorToAddress]') AND type in (N'U'))
+DROP TABLE [ROI_RequestorToAddress]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorToEmailPhone]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_Requestor]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToEmailPhone_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [DF_ROI_RequestorToEmailPhone_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToEmailPhone_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [DF_ROI_RequestorToEmailPhone_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToEmailPhone_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [DF_ROI_RequestorToEmailPhone_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToEmailPhone_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [DF_ROI_RequestorToEmailPhone_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToEmailPhone_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToEmailPhone] DROP CONSTRAINT [DF_ROI_RequestorToEmailPhone_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]') AND type in (N'U'))
+DROP TABLE [ROI_RequestorToEmailPhone]
+GO
+/****** Object:  Table [dbo].[ROI_ContactToEmailPhone]    Script Date: 03/29/2009 08:43:27 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_Contact]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhone]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactToEmailPhone_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [DF_ROI_ContactToEmailPhone_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactToEmailPhone_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [DF_ROI_ContactToEmailPhone_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactToEmailPhone_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [DF_ROI_ContactToEmailPhone_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactToEmailPhone_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [DF_ROI_ContactToEmailPhone_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactToEmailPhone_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToEmailPhone] DROP CONSTRAINT [DF_ROI_ContactToEmailPhone_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]') AND type in (N'U'))
+DROP TABLE [ROI_ContactToEmailPhone]
+GO
+/****** Object:  Table [dbo].[ROI_ContactToCreditCard]    Script Date: 03/29/2009 08:43:27 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_Contact]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_CreditCard]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_CreditCard]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactCreditCard_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [DF_ROI_ContactCreditCard_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactCreditCard_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [DF_ROI_ContactCreditCard_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactCreditCard_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [DF_ROI_ContactCreditCard_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactCreditCard_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [DF_ROI_ContactCreditCard_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactCreditCard_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactToCreditCard] DROP CONSTRAINT [DF_ROI_ContactCreditCard_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]') AND type in (N'U'))
+DROP TABLE [ROI_ContactToCreditCard]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorToContact]    Script Date: 03/29/2009 08:43:37 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [FK_ROI_RequestorToContact_ROI_Contact]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_ContactType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [FK_ROI_RequestorToContact_ROI_ContactType]
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [FK_ROI_RequestorToContact_ROI_Requestor]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToContact_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [DF_ROI_RequestorToContact_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToContact_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [DF_ROI_RequestorToContact_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToContact_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [DF_ROI_RequestorToContact_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToContact_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [DF_ROI_RequestorToContact_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorToContact_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorToContact] DROP CONSTRAINT [DF_ROI_RequestorToContact_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorToContact]') AND type in (N'U'))
+DROP TABLE [ROI_RequestorToContact]
+GO
+/****** Object:  Table [dbo].[ROI_Requestor]    Script Date: 03/29/2009 08:43:35 ******/
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_Requestor_ROI_Requestor_Type]') AND parent_object_id = OBJECT_ID(N'[ROI_Requestor]'))
+ALTER TABLE [ROI_Requestor] DROP CONSTRAINT [FK_ROI_Requestor_ROI_Requestor_Type]
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Requestor_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Requestor] DROP CONSTRAINT [DF_ROI_Requestor_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Requestor_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Requestor] DROP CONSTRAINT [DF_ROI_Requestor_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Requestor_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Requestor] DROP CONSTRAINT [DF_ROI_Requestor_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Requestor_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Requestor] DROP CONSTRAINT [DF_ROI_Requestor_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Requestor_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Requestor] DROP CONSTRAINT [DF_ROI_Requestor_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Requestor]') AND type in (N'U'))
+DROP TABLE [ROI_Requestor]
+GO
+/****** Object:  Table [dbo].[ROI_SalesTaxRate]    Script Date: 03/29/2009 08:43:39 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SalesTaxRate_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SalesTaxRate] DROP CONSTRAINT [DF_ROI_SalesTaxRate_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SalesTaxRate_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SalesTaxRate] DROP CONSTRAINT [DF_ROI_SalesTaxRate_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SalesTaxRate_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SalesTaxRate] DROP CONSTRAINT [DF_ROI_SalesTaxRate_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SalesTaxRate_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SalesTaxRate] DROP CONSTRAINT [DF_ROI_SalesTaxRate_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SalesTaxRate_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SalesTaxRate] DROP CONSTRAINT [DF_ROI_SalesTaxRate_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SalesTaxRate_TaxRate]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SalesTaxRate] DROP CONSTRAINT [DF_ROI_SalesTaxRate_TaxRate]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_SalesTaxRate]') AND type in (N'U'))
+DROP TABLE [ROI_SalesTaxRate]
+GO
+/****** Object:  Table [dbo].[ROI_Supplemental]    Script Date: 03/29/2009 08:43:40 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Supplemental_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Supplemental] DROP CONSTRAINT [DF_ROI_Supplemental_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Supplemental_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Supplemental] DROP CONSTRAINT [DF_ROI_Supplemental_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Supplemental_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Supplemental] DROP CONSTRAINT [DF_ROI_Supplemental_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Supplemental_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Supplemental] DROP CONSTRAINT [DF_ROI_Supplemental_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Supplemental_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Supplemental] DROP CONSTRAINT [DF_ROI_Supplemental_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Supplemental]') AND type in (N'U'))
+DROP TABLE [ROI_Supplemental]
+GO
+/****** Object:  Table [dbo].[ROI_DocType]    Script Date: 03/29/2009 08:43:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DocType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DocType] DROP CONSTRAINT [DF_ROI_DocType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DocType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DocType] DROP CONSTRAINT [DF_ROI_DocType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DocType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DocType] DROP CONSTRAINT [DF_ROI_DocType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DocType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DocType] DROP CONSTRAINT [DF_ROI_DocType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DocType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DocType] DROP CONSTRAINT [DF_ROI_DocType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Doc_ype_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DocType] DROP CONSTRAINT [DF_ROI_Doc_ype_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_DocType]') AND type in (N'U'))
+DROP TABLE [ROI_DocType]
+GO
+/****** Object:  Table [dbo].[ROI_FeeType]    Script Date: 03/29/2009 08:43:30 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_FeeType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_FeeType] DROP CONSTRAINT [DF_ROI_FeeType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_FeeType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_FeeType] DROP CONSTRAINT [DF_ROI_FeeType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_FeeType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_FeeType] DROP CONSTRAINT [DF_ROI_FeeType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_FeeType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_FeeType] DROP CONSTRAINT [DF_ROI_FeeType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_FeeType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_FeeType] DROP CONSTRAINT [DF_ROI_FeeType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_FeeType_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_FeeType] DROP CONSTRAINT [DF_ROI_FeeType_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_FeeType_Active]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_FeeType] DROP CONSTRAINT [DF_ROI_FeeType_Active]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_FeeType]') AND type in (N'U'))
+DROP TABLE [ROI_FeeType]
+GO
+/****** Object:  Table [dbo].[ROI_Parameter]    Script Date: 03/29/2009 08:43:32 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Parameter_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Parameter] DROP CONSTRAINT [DF_ROI_Parameter_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Parameter_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Parameter] DROP CONSTRAINT [DF_ROI_Parameter_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Parameter_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Parameter] DROP CONSTRAINT [DF_ROI_Parameter_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Parameter_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Parameter] DROP CONSTRAINT [DF_ROI_Parameter_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Parameter_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Parameter] DROP CONSTRAINT [DF_ROI_Parameter_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Parameter]') AND type in (N'U'))
+DROP TABLE [ROI_Parameter]
+GO
+/****** Object:  Table [dbo].[ROI_Address]    Script Date: 03/29/2009 08:43:23 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Address_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Address] DROP CONSTRAINT [DF_ROI_Address_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Address_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Address] DROP CONSTRAINT [DF_ROI_Address_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Address_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Address] DROP CONSTRAINT [DF_ROI_Address_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Address_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Address] DROP CONSTRAINT [DF_ROI_Address_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Address_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Address] DROP CONSTRAINT [DF_ROI_Address_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Address]') AND type in (N'U'))
+DROP TABLE [ROI_Address]
+GO
+/****** Object:  Table [dbo].[ROI_Activity]    Script Date: 03/29/2009 08:43:23 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_Activity]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_Activity]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_ActivityID]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_ActivityID]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_ActivityUserID]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_ActivityUserID]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_ActivityDescription]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_ActivityDescription]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_ActivityCounter]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_ActivityCounter]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_ActivityCounterUnit]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_ActivityCounterUnit]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Activity_ActivityReason]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Activity] DROP CONSTRAINT [DF_ROI_Activity_ActivityReason]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Activity]') AND type in (N'U'))
+DROP TABLE [ROI_Activity]
+GO
+/****** Object:  Table [dbo].[ROI_EmailPhone]    Script Date: 03/29/2009 08:43:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhone_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhone] DROP CONSTRAINT [DF_ROI_EmailPhone_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhone_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhone] DROP CONSTRAINT [DF_ROI_EmailPhone_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhone_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhone] DROP CONSTRAINT [DF_ROI_EmailPhone_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhone_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhone] DROP CONSTRAINT [DF_ROI_EmailPhone_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhone_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhone] DROP CONSTRAINT [DF_ROI_EmailPhone_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_EmailPhone]') AND type in (N'U'))
+DROP TABLE [ROI_EmailPhone]
+GO
+/****** Object:  Table [dbo].[ROI_RequestMain]    Script Date: 03/29/2009 08:43:35 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Request_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestMain] DROP CONSTRAINT [DF_ROI_Request_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Request_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestMain] DROP CONSTRAINT [DF_ROI_Request_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Request_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestMain] DROP CONSTRAINT [DF_ROI_Request_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ROI_Request_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestMain] DROP CONSTRAINT [DF_ROI_ROI_Request_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ROI_Request_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestMain] DROP CONSTRAINT [DF_ROI_ROI_Request_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestMain]') AND type in (N'U'))
+DROP TABLE [ROI_RequestMain]
+GO
+/****** Object:  Table [dbo].[ROI_Contact]    Script Date: 03/29/2009 08:43:26 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Contact_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Contact] DROP CONSTRAINT [DF_ROI_Contact_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Contact_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Contact] DROP CONSTRAINT [DF_ROI_Contact_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Contact_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Contact] DROP CONSTRAINT [DF_ROI_Contact_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Contact_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Contact] DROP CONSTRAINT [DF_ROI_Contact_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Contact_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Contact] DROP CONSTRAINT [DF_ROI_Contact_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Contact]') AND type in (N'U'))
+DROP TABLE [ROI_Contact]
+GO
+/****** Object:  Table [dbo].[ROI_LetterTemplateFile]    Script Date: 03/29/2009 08:43:31 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplateFile_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplateFile] DROP CONSTRAINT [DF_ROI_LetterTemplateFile_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplateFile_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplateFile] DROP CONSTRAINT [DF_ROI_LetterTemplateFile_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplateFile_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplateFile] DROP CONSTRAINT [DF_ROI_LetterTemplateFile_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplateFile_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplateFile] DROP CONSTRAINT [DF_ROI_LetterTemplateFile_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_LetterTemplateFile_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_LetterTemplateFile] DROP CONSTRAINT [DF_ROI_LetterTemplateFile_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_LetterTemplateFile]') AND type in (N'U'))
+DROP TABLE [ROI_LetterTemplateFile]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorType]    Script Date: 03/29/2009 08:43:38 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_Record_View_Domain_ID]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_Record_View_Domain_ID]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_RequestorType_RecordViewDescription]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_RequestorType] DROP CONSTRAINT [DF_ROI_RequestorType_RecordViewDescription]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorType]') AND type in (N'U'))
+DROP TABLE [ROI_RequestorType]
+GO
+/****** Object:  Table [dbo].[ROI_BillingTemplate]    Script Date: 03/29/2009 08:43:24 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplate_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplate] DROP CONSTRAINT [DF_ROI_BillingTemplate_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplate_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplate] DROP CONSTRAINT [DF_ROI_BillingTemplate_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplate_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplate] DROP CONSTRAINT [DF_ROI_BillingTemplate_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplate_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplate] DROP CONSTRAINT [DF_ROI_BillingTemplate_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplate_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplate] DROP CONSTRAINT [DF_ROI_BillingTemplate_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_BillingTemplate_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_BillingTemplate] DROP CONSTRAINT [DF_ROI_BillingTemplate_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTemplate]') AND type in (N'U'))
+DROP TABLE [ROI_BillingTemplate]
+GO
+/****** Object:  Table [dbo].[ROI_PaymentMethod]    Script Date: 03/29/2009 08:43:32 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_PaymentMethod_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_PaymentMethod] DROP CONSTRAINT [DF_ROI_PaymentMethod_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_PaymentMethod_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_PaymentMethod] DROP CONSTRAINT [DF_ROI_PaymentMethod_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_PaymentMethod_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_PaymentMethod] DROP CONSTRAINT [DF_ROI_PaymentMethod_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_PaymentMethod_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_PaymentMethod] DROP CONSTRAINT [DF_ROI_PaymentMethod_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_PaymentMethod_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_PaymentMethod] DROP CONSTRAINT [DF_ROI_PaymentMethod_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_PaymentMethod_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_PaymentMethod] DROP CONSTRAINT [DF_ROI_PaymentMethod_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_PaymentMethod]') AND type in (N'U'))
+DROP TABLE [ROI_PaymentMethod]
+GO
+/****** Object:  Table [dbo].[ROI_MediaType]    Script Date: 03/29/2009 08:43:31 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_MediaType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_MediaType] DROP CONSTRAINT [DF_ROI_MediaType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_MediaType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_MediaType] DROP CONSTRAINT [DF_ROI_MediaType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_MediaType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_MediaType] DROP CONSTRAINT [DF_ROI_MediaType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_MediaType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_MediaType] DROP CONSTRAINT [DF_ROI_MediaType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_MediaType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_MediaType] DROP CONSTRAINT [DF_ROI_MediaType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_MediaType_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_MediaType] DROP CONSTRAINT [DF_ROI_MediaType_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_MediaType_Active]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_MediaType] DROP CONSTRAINT [DF_ROI_MediaType_Active]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_MediaType]') AND type in (N'U'))
+DROP TABLE [ROI_MediaType]
+GO
+/****** Object:  Table [dbo].[ROI_DeliveryMethod]    Script Date: 03/29/2009 08:43:28 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DeliveryMethod_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DeliveryMethod] DROP CONSTRAINT [DF_ROI_DeliveryMethod_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DeliveryMethod_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DeliveryMethod] DROP CONSTRAINT [DF_ROI_DeliveryMethod_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DeliveryMethod_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DeliveryMethod] DROP CONSTRAINT [DF_ROI_DeliveryMethod_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DeliveryMethod_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DeliveryMethod] DROP CONSTRAINT [DF_ROI_DeliveryMethod_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DeliveryMethod_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DeliveryMethod] DROP CONSTRAINT [DF_ROI_DeliveryMethod_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DeliveryMethod_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DeliveryMethod] DROP CONSTRAINT [DF_ROI_DeliveryMethod_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_DeliveryMethod_Active]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_DeliveryMethod] DROP CONSTRAINT [DF_ROI_DeliveryMethod_Active]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_DeliveryMethod]') AND type in (N'U'))
+DROP TABLE [ROI_DeliveryMethod]
+GO
+/****** Object:  Table [dbo].[ROI_Restriction]    Script Date: 03/29/2009 08:43:39 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Restriction]') AND type in (N'U'))
+DROP TABLE [ROI_Restriction]
+GO
+/****** Object:  Table [dbo].[ROI_AddressType]    Script Date: 03/29/2009 08:43:23 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_AddressType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_AddressType] DROP CONSTRAINT [DF_ROI_AddressType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_AddressType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_AddressType] DROP CONSTRAINT [DF_ROI_AddressType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_AddressType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_AddressType] DROP CONSTRAINT [DF_ROI_AddressType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_AddressType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_AddressType] DROP CONSTRAINT [DF_ROI_AddressType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_AddressType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_AddressType] DROP CONSTRAINT [DF_ROI_AddressType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_AddressType]') AND type in (N'U'))
+DROP TABLE [ROI_AddressType]
+GO
+/****** Object:  Table [dbo].[ROI_EmailPhoneType]    Script Date: 03/29/2009 08:43:30 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhoneType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhoneType] DROP CONSTRAINT [DF_ROI_EmailPhoneType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhoneType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhoneType] DROP CONSTRAINT [DF_ROI_EmailPhoneType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhoneType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhoneType] DROP CONSTRAINT [DF_ROI_EmailPhoneType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhoneType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhoneType] DROP CONSTRAINT [DF_ROI_EmailPhoneType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_EmailPhoneType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_EmailPhoneType] DROP CONSTRAINT [DF_ROI_EmailPhoneType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_EmailPhoneType]') AND type in (N'U'))
+DROP TABLE [ROI_EmailPhoneType]
+GO
+/****** Object:  Table [dbo].[ROI_CreditCard]    Script Date: 03/29/2009 08:43:28 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_CreditCard_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_CreditCard] DROP CONSTRAINT [DF_ROI_CreditCard_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_CreditCard_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_CreditCard] DROP CONSTRAINT [DF_ROI_CreditCard_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_CreditCard_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_CreditCard] DROP CONSTRAINT [DF_ROI_CreditCard_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_CreditCard_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_CreditCard] DROP CONSTRAINT [DF_ROI_CreditCard_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_CreditCard_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_CreditCard] DROP CONSTRAINT [DF_ROI_CreditCard_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_CreditCard]') AND type in (N'U'))
+DROP TABLE [ROI_CreditCard]
+GO
+/****** Object:  Table [dbo].[ROI_Weight]    Script Date: 03/29/2009 08:43:41 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Weight_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Weight] DROP CONSTRAINT [DF_ROI_Weight_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Weight_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Weight] DROP CONSTRAINT [DF_ROI_Weight_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Weight_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Weight] DROP CONSTRAINT [DF_ROI_Weight_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Weight_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Weight] DROP CONSTRAINT [DF_ROI_Weight_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Weight_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Weight] DROP CONSTRAINT [DF_ROI_Weight_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Weight_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Weight] DROP CONSTRAINT [DF_ROI_Weight_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Weight]') AND type in (N'U'))
+DROP TABLE [ROI_Weight]
+GO
+/****** Object:  Table [dbo].[ROI_Reason]    Script Date: 03/29/2009 08:43:33 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Reason_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Reason] DROP CONSTRAINT [DF_ROI_Reason_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Reason_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Reason] DROP CONSTRAINT [DF_ROI_Reason_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Reason_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Reason] DROP CONSTRAINT [DF_ROI_Reason_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Reason_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Reason] DROP CONSTRAINT [DF_ROI_Reason_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Reason_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Reason] DROP CONSTRAINT [DF_ROI_Reason_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_Reason_Organization_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_Reason] DROP CONSTRAINT [DF_ROI_Reason_Organization_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Reason]') AND type in (N'U'))
+DROP TABLE [ROI_Reason]
+GO
+/****** Object:  Table [dbo].[ROI_SearchLOV]    Script Date: 03/29/2009 08:43:40 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SearchLOV_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SearchLOV] DROP CONSTRAINT [DF_ROI_SearchLOV_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SearchLOV_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SearchLOV] DROP CONSTRAINT [DF_ROI_SearchLOV_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SearchLOV_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SearchLOV] DROP CONSTRAINT [DF_ROI_SearchLOV_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SearchLOV_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SearchLOV] DROP CONSTRAINT [DF_ROI_SearchLOV_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_SearchLOV_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_SearchLOV] DROP CONSTRAINT [DF_ROI_SearchLOV_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_SearchLOV]') AND type in (N'U'))
+DROP TABLE [ROI_SearchLOV]
+GO
+/****** Object:  Table [dbo].[ROI_ContactType]    Script Date: 03/29/2009 08:43:28 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactType_Created_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactType] DROP CONSTRAINT [DF_ROI_ContactType_Created_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactType_Created_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactType] DROP CONSTRAINT [DF_ROI_ContactType_Created_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactType_Modified_Dt]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactType] DROP CONSTRAINT [DF_ROI_ContactType_Modified_Dt]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactType_Modified_By_Seq]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactType] DROP CONSTRAINT [DF_ROI_ContactType_Modified_By_Seq]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ROI_ContactType_Record_Version]') AND type = 'D')
+BEGIN
+ALTER TABLE [ROI_ContactType] DROP CONSTRAINT [DF_ROI_ContactType_Record_Version]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactType]') AND type in (N'U'))
+DROP TABLE [ROI_ContactType]
+GO
+/****** Object:  Table [dbo].[ROI_ContactType]    Script Date: 03/29/2009 08:43:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_ContactType](
+	[ROI_ContactType_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_ContactType_Record_Version]  DEFAULT ((1)),
+	[Name] [varchar](256) NOT NULL,
+ CONSTRAINT [PK_ROI_ContactType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_ContactType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_SearchLOV]    Script Date: 03/29/2009 08:43:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_SearchLOV]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_SearchLOV](
+	[ROI_SearchLOV_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_SearchLOV_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_SearchLOV_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_SearchLOV_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_SearchLOV_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_SearchLOV_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL,
+	[Parent] [int] NULL,
+	[Child] [int] NULL,
+	[Application] [char](32) NOT NULL,
+	[Item] [char](32) NOT NULL,
+	[Value] [char](40) NOT NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_ROI_SearchLOV_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_SearchLOV_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_SearchLOV]') AND name = N'IX_ROI_SearchLOV_ItemValueApplication')
+BEGIN
+CREATE NONCLUSTERED INDEX [IX_ROI_SearchLOV_ItemValueApplication]
+ON [dbo].[ROI_SearchLOV] ([Item],[Parent],[Application],[created_By_Seq])
+INCLUDE ([Child],[Value])
+END
+GO
+
+/****** Object:  Index [IX_Roi_SearchLOV_ItemValue]    Script Date: 06/01/2009 11:20:23 ******/
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_SearchLOV]') AND name = N'IX_Roi_SearchLOV_ItemValue')
+CREATE NONCLUSTERED INDEX [IX_ROI_SearchLOV_ItemValue] ON [dbo].[ROI_SearchLOV] 
+(
+	[Value] ASC,
+	[Item] ASC
+)
+INCLUDE ( [Parent],
+[Child],
+[Application]) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+
+
+/****** Object:  Table [dbo].[ROI_Reason]    Script Date: 03/29/2009 08:43:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Reason]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Reason](
+	[ROI_Reason_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Reason_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Reason_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Reason_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Reason_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Reason_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Reason_Organization_Seq]  DEFAULT ((1)),
+	[Active] [bit] NOT NULL,
+	[TPO] [bit] NOT NULL,
+	[NonTPO] [bit] NOT NULL,
+	[Type] [varchar](256) NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[DisplayText] [varchar](256) NOT NULL,
+	[Status] [tinyint] NOT NULL,
+ CONSTRAINT [PK_ROI_Reason_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Reason_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Weight]    Script Date: 03/29/2009 08:43:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Weight]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Weight](
+	[ROI_Weight_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Weight_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Weight_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Weight_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Weight_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Weight_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Weight_Organization_Seq]  DEFAULT ((1)),
+	[Active] [bit] NOT NULL,
+	[UnitPerMeasure] [int] NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[Unit] [varchar](256) NOT NULL,
+	[Measure] [varchar](256) NOT NULL,
+ CONSTRAINT [PK_ROI_Weight_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Weight_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_CreditCard]    Script Date: 03/29/2009 08:43:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_CreditCard]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_CreditCard](
+	[ROI_CreditCard_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_CreditCard_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_CreditCard_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_CreditCard_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_CreditCard_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_CreditCard_Record_Version]  DEFAULT ((1)),
+	[CardType] [varchar](256) NOT NULL,
+	[CardNumber] [varchar](256) NOT NULL,
+	[ExpMonth] [tinyint] NOT NULL,
+	[ExpYear] [smallint] NOT NULL,
+	[CVN] [tinyint] NOT NULL,
+ CONSTRAINT [PK_ROI_CreditCard_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_CreditCard_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_EmailPhoneType]    Script Date: 03/29/2009 08:43:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_EmailPhoneType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_EmailPhoneType](
+	[ROI_EmailPhoneType_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_EmailPhoneType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_EmailPhoneType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_EmailPhoneType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_EmailPhoneType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_EmailPhoneType_Record_Version]  DEFAULT ((1)),
+	[Name] [varchar](256) NOT NULL,
+ CONSTRAINT [PK_ROI_EmailPhoneType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_EmailPhoneType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IXU_ROI_EmailPhoneType_Name] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_AddressType]    Script Date: 03/29/2009 08:43:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_AddressType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_AddressType](
+	[ROI_AddressType_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_AddressType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_AddressType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_AddressType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_AddressType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_AddressType_Record_Version]  DEFAULT ((1)),
+	[Name] [varchar](256) NOT NULL,
+ CONSTRAINT [PK_ROI_AddressType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_AddressType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Restriction]    Script Date: 03/29/2009 08:43:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Restriction]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Restriction](
+	[ROI_Restriction_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL,
+	[Create_By_Seq] [int] NOT NULL,
+	[Modified_Dt] [smalldatetime] NOT NULL,
+	[Modified_By_Seq] [int] NOT NULL,
+	[Record_Version] [smallint] NOT NULL,
+	[System] [varchar](256) NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Type] [varchar](256) NOT NULL,
+	[Value] [nvarchar](max) NOT NULL,
+	[Reason] [nvarchar](max) NULL,
+ CONSTRAINT [PK_ROI_Restriction_Seq] PRIMARY KEY NONCLUSTERED 
+(
+	[ROI_Restriction_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IX_ROI_Restriction_System_Name_Type] UNIQUE CLUSTERED 
+(
+	[System] ASC,
+	[Name] ASC,
+	[Type] ASC
+)WITH (PAD_INDEX  = ON, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 75) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_DeliveryMethod]    Script Date: 03/29/2009 08:43:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_DeliveryMethod]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_DeliveryMethod](
+	[ROI_DeliveryMethod_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_DeliveryMethod_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_DeliveryMethod_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_DeliveryMethod_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_DeliveryMethod_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_DeliveryMethod_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_DeliveryMethod_Organization_Seq]  DEFAULT ((1)),
+	[Active] [bit] NOT NULL CONSTRAINT [DF_ROI_DeliveryMethod_Active]  DEFAULT ((1)),
+	[IsDefault] [bit] NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[URL] [varchar](max) NULL,
+ CONSTRAINT [PK_ROI_DeliveryMethod_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_DeliveryMethod_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_MediaType]    Script Date: 03/29/2009 08:43:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_MediaType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_MediaType](
+	[ROI_MediaType_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_MediaType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_MediaType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_MediaType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_MediaType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_MediaType_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_MediaType_Organization_Seq]  DEFAULT ((1)),
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[Active] [bit] NOT NULL CONSTRAINT [DF_ROI_MediaType_Active]  DEFAULT ((1)),
+ CONSTRAINT [PK_ROI_MediaType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_MediaType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IXU_ROI_MediaType_Name] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_PaymentMethod]    Script Date: 03/29/2009 08:43:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_PaymentMethod]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_PaymentMethod](
+	[ROI_PaymentMethod_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_PaymentMethod_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_PaymentMethod_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_PaymentMethod_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_PaymentMethod_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_PaymentMethod_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_PaymentMethod_Organization_Seq]  DEFAULT ((1)),
+	[Active] [bit] NOT NULL,
+	[Display] [bit] NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_ROI_PaymentMethod_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_PaymentMethod_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_BillingTemplate]    Script Date: 03/29/2009 08:43:24 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTemplate]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_BillingTemplate](
+	[ROI_BillingTemplate_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTemplate_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTemplate_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTemplate_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTemplate_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_BillingTemplate_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTemplate_Organization_Seq]  DEFAULT ((1)),
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[Active] [bit] NOT NULL,
+ CONSTRAINT [PK_ROI_BillingTemplate_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_BillingTemplate_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IXU_ROI_BillingTemplate_NameOrganization_Seq] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC,
+	[Organization_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestorType]    Script Date: 03/29/2009 08:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestorType](
+	[ROI_RequestorType_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestorType_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorType_Organization_Seq]  DEFAULT ((1)),
+	[RecordView] [varchar](30) NOT NULL CONSTRAINT [DF_ROI_RequestorType_Record_View_Domain_ID]  DEFAULT ((0)),
+	[Active] [bit] NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[RecordViewDescription] [varchar](max) NULL CONSTRAINT [DF_ROI_RequestorType_RecordViewDescription]  DEFAULT ('All Documents'),
+ CONSTRAINT [PK_ROI_RequestorType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestorType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_LetterTemplateFile]    Script Date: 03/29/2009 08:43:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_LetterTemplateFile]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_LetterTemplateFile](
+	[ROI_LetterTemplateFile_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_LetterTemplateFile_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_LetterTemplateFile_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_LetterTemplateFile_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_LetterTemplateFile_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_LetterTemplateFile_Record_Version]  DEFAULT ((1)),
+	[Name] [varchar](256) NOT NULL,
+	[Source] [varbinary](max) NOT NULL,
+ CONSTRAINT [PK_ROI_LetterTemplateFile_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_LetterTemplateFile_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Contact]    Script Date: 03/29/2009 08:43:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Contact]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Contact](
+	[ROI_Contact_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Contact_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Contact_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Contact_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Contact_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Contact_Record_Version]  DEFAULT ((1)),
+	[Title] [varchar](256) NULL,
+	[NameFirst] [varchar](256) NULL,
+	[NameMiddle] [varchar](256) NULL,
+	[NameLast] [varchar](256) NOT NULL,
+	[Suffix] [varchar](256) NULL,
+ CONSTRAINT [PK_ROI_Contact_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Contact_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestMain]    Script Date: 03/29/2009 08:43:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestMain]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestMain](
+	[ROI_RequestMain_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Request_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Request_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Request_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ROI_Request_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_ROI_Request_Record_Version]  DEFAULT ((1)),
+	[RequestMainXML] [xml] NOT NULL,
+ CONSTRAINT [PK_ROI_Request_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestMain_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_EmailPhone]    Script Date: 03/29/2009 08:43:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_EmailPhone]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_EmailPhone](
+	[ROI_EmailPhone_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_EmailPhone_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_EmailPhone_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_EmailPhone_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_EmailPhone_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_EmailPhone_Record_Version]  DEFAULT ((1)),
+	[EmailPhone] [varchar](max) NOT NULL,
+ CONSTRAINT [PK_ROI_EmailPhone_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_EmailPhone_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Activity]    Script Date: 03/29/2009 08:43:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Activity]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Activity](
+	[ROI_Activity_Seq] [int] NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Activity_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Activity_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Activity_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Activity_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Activity_Record_Version]  DEFAULT ((1)),
+	[Activity] [varchar](256) NOT NULL CONSTRAINT [DF_ROI_Activity_Activity]  DEFAULT (''),
+	[ActivityID] [varchar](256) NOT NULL CONSTRAINT [DF_ROI_Activity_ActivityID]  DEFAULT (''),
+	[ActivityUserID] [varchar](256) NOT NULL CONSTRAINT [DF_ROI_Activity_ActivityUserID]  DEFAULT (''),
+	[ActivityDescription] [varchar](256) NOT NULL CONSTRAINT [DF_ROI_Activity_ActivityDescription]  DEFAULT (''),
+	[ActivityCounter] [smallint] NOT NULL CONSTRAINT [DF_ROI_Activity_ActivityCounter]  DEFAULT ((1)),
+	[ActivityCounterUnit] [varchar](256) NOT NULL CONSTRAINT [DF_ROI_Activity_ActivityCounterUnit]  DEFAULT (''),
+	[ActivityReason] [varchar](max) NOT NULL CONSTRAINT [DF_ROI_Activity_ActivityReason]  DEFAULT (''),
+ CONSTRAINT [PK_ROI_Activity] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Activity_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Address]    Script Date: 03/29/2009 08:43:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Address]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Address](
+	[ROI_Address_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Address_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Address_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Address_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Address_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Address_Record_Version]  DEFAULT ((1)),
+	[AddressLine1] [varchar](256) NOT NULL,
+	[AddressLine2] [varchar](256) NULL,
+	[AddressLine3] [varchar](256) NULL,
+	[City] [varchar](256) NOT NULL,
+	[State] [varchar](256) NOT NULL,
+	[PostalCode] [varchar](256) NOT NULL,
+ CONSTRAINT [PK_ROI_Address_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Address_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Parameter]    Script Date: 03/29/2009 08:43:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Parameter]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Parameter](
+	[ROI_Parameter_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Parameter_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Parameter_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Parameter_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Parameter_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Parameter_Record_Version]  DEFAULT ((1)),
+	[ParentItem_Seq] [int] NULL,
+	[ChildItem_Seq] [int] NULL,
+	[ItemName] [varchar](256) NOT NULL,
+	[ItemValue] [varchar](256) NULL,
+	[ItemDescription] [varchar](256) NULL,
+ CONSTRAINT [PK_ROI_Parameter_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Parameter_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_FeeType]    Script Date: 03/29/2009 08:43:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_FeeType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_FeeType](
+	[ROI_FeeType_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_FeeType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_FeeType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_FeeType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_FeeType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_FeeType_Record_Version]  DEFAULT ((1)),
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_FeeType_Organization_Seq]  DEFAULT ((1)),
+	[Active] [bit] NOT NULL CONSTRAINT [DF_ROI_FeeType_Active]  DEFAULT ((1)),
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[ChargeAmount] [money] NOT NULL,
+ CONSTRAINT [PK_ROI_FeeType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_FeeType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IXU_ROI_FeeType_NameOrganization_Seq] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC,
+	[Organization_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_DocType]    Script Date: 03/29/2009 08:43:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_DocType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_DocType](
+	[ROI_DocType_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_DocType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_DocType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_DocType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_DocType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_DocType_Record_Version]  DEFAULT ((1)),
+	[DOCTYPE_ID] [int] NOT NULL,
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Doc_ype_Organization_Seq]  DEFAULT ((1)),
+	[Type] [varchar](256) NOT NULL,
+	[SET_ID] [smallint] NOT NULL,
+ CONSTRAINT [PK_ROI_DocType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_DocType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Supplemental]    Script Date: 03/29/2009 08:43:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Supplemental]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Supplemental](
+	[ROI_Supplemental_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Supplemental_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Supplemental_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Supplemental_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Supplemental_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Supplemental_Record_Version]  DEFAULT ((1)),
+	[SupplementalXML] [xml] NOT NULL,
+ CONSTRAINT [PK_ROI_Supplemental_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Supplemental_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_SalesTaxRate]    Script Date: 03/29/2009 08:43:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_SalesTaxRate]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_SalesTaxRate](
+	[ROI_SalesTaxRate_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_SalesTaxRate_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_SalesTaxRate_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_SalesTaxRate_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_SalesTaxRate_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_SalesTaxRate_Record_Version]  DEFAULT ((1)),
+	[Organizatin_Seq] [int] NOT NULL,
+	[StateProvince_ID] [int] NOT NULL,
+	[TaxType] [tinyint] NOT NULL,
+	[TaxRate] [smallmoney] NOT NULL CONSTRAINT [DF_ROI_SalesTaxRate_TaxRate]  DEFAULT ((0.00)),
+	[Name] [varchar](256) NOT NULL,
+ CONSTRAINT [PK_ROI_SalesTaxRate_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_SalesTaxRate_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_Requestor]    Script Date: 03/29/2009 08:43:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Requestor]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_Requestor](
+	[ROI_Requestor_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Requestor_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Requestor_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_Requestor_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_Requestor_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_Requestor_Record_Version]  DEFAULT ((1)),
+	[ROI_RequestorType_Seq] [int] NOT NULL,
+	[AccountNumber] [int] NULL,
+	[Active] [bit] NOT NULL,
+	[Frequent] [bit] NOT NULL,
+	[PrePayRequired] [bit] NOT NULL,
+	[CertLetterRequired] [bit] NOT NULL,
+	[IsPatient] [bit] NOT NULL,
+	[Title] [varchar](256) NULL,
+	[NameFirst] [varchar](256) NULL,
+	[NameMiddle] [varchar](256) NULL,
+	[NameLast] [varchar](256) NOT NULL,
+	[Suffix] [varchar](256) NULL,
+ CONSTRAINT [PK_ROI_Requestor_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Requestor_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[ROI_Requestor]') AND name = N'IX_ROI_RequestorType_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorType_Seq] ON [ROI_Requestor] 
+(
+	[ROI_RequestorType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorToContact]    Script Date: 03/29/2009 08:43:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorToContact]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestorToContact](
+	[ROI_RequestorToContact_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorToContact_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorToContact_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorToContact_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorToContact_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestorToContact_Record_Version]  DEFAULT ((1)),
+	[ROI_Requestor_Seq] [int] NOT NULL,
+	[ROI_Contact_Seq] [int] NOT NULL,
+	[ROI_ContactType_Seq] [int] NOT NULL,
+ CONSTRAINT [PK_ROI_RequestorToContact_ROI_Requestor_Seq_ROI_Contact_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Requestor_Seq] ASC,
+	[ROI_Contact_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_ContactToCreditCard]    Script Date: 03/29/2009 08:43:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_ContactToCreditCard](
+	[ROI_ContactToCreditCard_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactCreditCard_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactCreditCard_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactCreditCard_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactCreditCard_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_ContactCreditCard_Record_Version]  DEFAULT ((1)),
+	[ROI_Contact_Seq] [int] NOT NULL,
+	[ROI_CreditCard_Seq] [int] NOT NULL,
+ CONSTRAINT [PK_ROI_ContactToCreditCard_ROI_Contact_Seq_ROI_CreditCard_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Contact_Seq] ASC,
+	[ROI_CreditCard_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_ContactToEmailPhone]    Script Date: 03/29/2009 08:43:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_ContactToEmailPhone](
+	[ROI_ContactToEmailPhone_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactToEmailPhone_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactToEmailPhone_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactToEmailPhone_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactToEmailPhone_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_ContactToEmailPhone_Record_Version]  DEFAULT ((1)),
+	[ROI_Contact_Seq] [int] NOT NULL,
+	[ROI_EmailPhone_Seq] [int] NOT NULL,
+	[ROI_EmailPhoneType_Seq] [int] NOT NULL,
+ CONSTRAINT [PK_ROI_ContactToEmailPhone_ROI_Contact_Seq_ROI_EmailPhone_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Contact_Seq] ASC,
+	[ROI_EmailPhone_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestorToEmailPhone]    Script Date: 03/29/2009 08:43:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestorToEmailPhone](
+	[ROI_RequestorToEmailPhone_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorToEmailPhone_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorToEmailPhone_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorToEmailPhone_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorToEmailPhone_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestorToEmailPhone_Record_Version]  DEFAULT ((1)),
+	[ROI_Requestor_Seq] [int] NOT NULL,
+	[ROI_EmailPhone_Seq] [int] NOT NULL,
+	[ROI_EmailPhoneType_Seq] [int] NOT NULL,
+ CONSTRAINT [PK_ROI_RequestorToEmailPhone_ROI_Requestor_Seq_ROI_EmailPhone_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Requestor_Seq] ASC,
+	[ROI_EmailPhone_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestorToAddress]    Script Date: 03/29/2009 08:43:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorToAddress]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestorToAddress](
+	[ROI_RequestorToAddress_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorToAddress_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorToAddress_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorToAddress_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorToAddress_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestorToAddress_Record_Version]  DEFAULT ((1)),
+	[ROI_Requestor_Seq] [int] NOT NULL,
+	[ROI_Address_Seq] [int] NOT NULL,
+	[ROI_AddressType_Seq] [int] NOT NULL,
+ CONSTRAINT [PK_ROI_RequestorToAddress_ROI_Requestor_Seq_ROI_Address_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Requestor_Seq] ASC,
+	[ROI_Address_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[ROI_RequestorToAddress]') AND name = N'IX_ROI_RequestorToAddress_ROI_AddressType_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorToAddress_ROI_AddressType_Seq] ON [ROI_RequestorToAddress] 
+(
+	[ROI_AddressType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ROI_ContactToAddress]    Script Date: 03/29/2009 08:43:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_ContactToAddress]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_ContactToAddress](
+	[ROI_ContactToAddress_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactAddress_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactAddress_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_ContactAddress_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_ContactAddress_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_ContactAddress_Record_Version]  DEFAULT ((1)),
+	[ROI_Contact_Seq] [int] NOT NULL,
+	[ROI_Address_Seq] [int] NOT NULL,
+	[ROI_AddressType_Seq] [int] NOT NULL,
+ CONSTRAINT [PK_ROI_ContactToAddress_ROI_Contact_Seq_ROI_Address_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_Contact_Seq] ASC,
+	[ROI_Address_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestorRestriction]    Script Date: 03/29/2009 08:43:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorRestriction]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestorRestriction](
+	[ROI_RequestorRestriction_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorRestriction_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorRestriction_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorRestriction_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorRestriction_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestorRestriction_Record_Version]  DEFAULT ((1)),
+	[ROI_Requestor_Seq] [int] NOT NULL,
+	[System] [varchar](256) NOT NULL,
+	[SystemDatabase] [varchar](256) NOT NULL,
+	[SystemTable] [varchar](256) NOT NULL,
+	[SystemColumn] [varchar](256) NOT NULL,
+	[SystemType] [varchar](256) NOT NULL,
+	[Value] [varchar](256) NOT NULL,
+	[Reason] [varchar](max) NOT NULL,
+ CONSTRAINT [PK_ROI_RequestorRestriction] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestorRestriction_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_BillingTier]    Script Date: 03/29/2009 08:43:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTier]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_BillingTier](
+	[ROI_BillingTier_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTier_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTier_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTier_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTier_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_BillingTier_Record_Version]  DEFAULT ((1)),
+	[ROI_MediaType_Seq] [int] NOT NULL,
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTier_Organization_Seq]  DEFAULT ((1)),
+	[Active] [bit] NOT NULL,
+	[FlatCharge] [money] NOT NULL,
+	[DefaultPageCharge] [money] NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_ROI_BillingTier_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_BillingTier_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY],
+ CONSTRAINT [IXU_ROI_BillingTier_NameOrganization_Seq] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC,
+	[Organization_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_BillingTierDetail]    Script Date: 03/29/2009 08:43:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTierDetail]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_BillingTierDetail](
+	[ROI_BillingTierDetail_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTierDetail_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTierDetail_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTierDetail_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTierDetail_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_BillingTierDetail_Record_Version]  DEFAULT ((1)),
+	[ROI_BillingTier_Seq] [int] NOT NULL,
+	[Page] [smallint] NOT NULL,
+	[PageCharge] [money] NOT NULL,
+ CONSTRAINT [PK_ROI_BillingTierDetail_Seq] PRIMARY KEY NONCLUSTERED 
+(
+	[ROI_BillingTierDetail_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[ROI_BillingTierDetail]') AND name = N'IXU_ROI_BillingTierDetail_ROI_BillingTier_Seq_Page')
+CREATE UNIQUE CLUSTERED INDEX [IXU_ROI_BillingTierDetail_ROI_BillingTier_Seq_Page] ON [ROI_BillingTierDetail] 
+(
+	[ROI_BillingTier_Seq] ASC,
+	[Page] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ROI_RequestorTypeToBillingTier]    Script Date: 03/29/2009 08:43:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestorTypeToBillingTier](
+	[ROI_RequestorTypeToBillingTier_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTier_Record_Version]  DEFAULT ((1)),
+	[ROI_RequestorType_Seq] [int] NOT NULL,
+	[ROI_BillingTier_Seq] [int] NOT NULL,
+	[HPF] [bit] NOT NULL,
+	[HECM] [bit] NOT NULL,
+	[CEVA] [bit] NOT NULL,
+	[Supplemental] [bit] NOT NULL,
+ CONSTRAINT [PK_ROI_RequestorTypeToBillingTier_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestorTypeToBillingTier_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestorTypeToBillingTemplate]    Script Date: 03/29/2009 08:43:38 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestorTypeToBillingTemplate](
+	[ROI_RequestorTypeToBillingTemplate_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestorTypeToBillingTemplate_Record_Version]  DEFAULT ((1)),
+	[ROI_RequestorType_Seq] [int] NOT NULL,
+	[ROI_BillingTemplate_Seq] [int] NOT NULL,
+	[IsDefault] [bit] NOT NULL,
+ CONSTRAINT [PK_ROI_RequestorTypeToBillingTemplate_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestorTypeToBillingTemplate_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_BillingTemplateToFeeType]    Script Date: 03/29/2009 08:43:24 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_BillingTemplateToFeeType](
+	[ROI_BillingTemplateToFeeType_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_BillingTemplateToFeeType_Record_Version]  DEFAULT ((1)),
+	[ROI_BillingTemplate_Seq] [int] NOT NULL,
+	[ROI_FeeType_Seq] [int] NOT NULL,
+ CONSTRAINT [PK_ROI_BillingTemplateToFeeType_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_BillingTemplateToFeeType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_LetterTemplate]    Script Date: 03/29/2009 08:43:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_LetterTemplate]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_LetterTemplate](
+	[ROI_LetterTemplate_Seq] [int] IDENTITY(1,1) NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_LetterTemplate_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_LetterTemplate_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_LetterTemplate_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_LetterTemplate_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_LetterTemplate_Record_Version]  DEFAULT ((1)),
+	[ROI_LetterTemplateFile_Seq] [int] NOT NULL,
+	[Organization_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_LetterTemplate_Organization_Seq]  DEFAULT ((1)),
+	[Active] [bit] NOT NULL,
+	[IsDefault] [bit] NOT NULL,
+	[HasNotes] [bit] NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[Type] [varchar](256) NOT NULL,
+ CONSTRAINT [PK_ROI_LetterTemplate_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_LetterTemplate_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestDelivery]    Script Date: 03/29/2009 08:43:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestDelivery]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestDelivery](
+	[ROI_RequestDelivery_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestDelivery_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestDelivery_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestDelivery_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestDelivery_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestDelivery_Record_Version]  DEFAULT ((1)),
+	[ROI_RequestMain_Seq] [int] NOT NULL,
+	[RequestDeliveryXML] [xml] NOT NULL,
+ CONSTRAINT [PK_ROI_RequestDelivery_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestDelivery_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestEvent]    Script Date: 03/29/2009 08:43:34 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestEvent]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestEvent](
+	[ROI_RequestEvent_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestEvent_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestEvent_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestEvent_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestEvent_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestEvent_Record_Version]  DEFAULT ((1)),
+	[ROI_RequestMain_Seq] [int] NOT NULL,
+	[Name] [varchar](256) NOT NULL,
+	[Description] [varchar](max) NOT NULL,
+ CONSTRAINT [PK_ROI_RequestEvent_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestEvent_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[ROI_RequestDeliveryCharges]    Script Date: 03/29/2009 08:43:34 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_RequestDeliveryCharges]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [ROI_RequestDeliveryCharges](
+	[ROI_RequestDeliveryCharges_Seq] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Created_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestDeliveryCharges_Created_Dt]  DEFAULT (getdate()),
+	[Created_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestDeliveryCharges_Created_By_Seq]  DEFAULT ((1)),
+	[Modified_Dt] [smalldatetime] NOT NULL CONSTRAINT [DF_ROI_RequestDeliveryCharges_Modified_Dt]  DEFAULT (getdate()),
+	[Modified_By_Seq] [int] NOT NULL CONSTRAINT [DF_ROI_RequestDeliveryCharges_Modified_By_Seq]  DEFAULT ((1)),
+	[Record_Version] [smallint] NOT NULL CONSTRAINT [DF_ROI_RequestDeliveryCharges_Record_Version]  DEFAULT ((1)),
+	[ROI_RequestDelivery_Seq] [int] NOT NULL,
+	[isReleased] [bit] NOT NULL,
+	[isInvoiced] [bit] NOT NULL,
+	[RequestDeliveryChargesXML] [xml] NOT NULL,
+ CONSTRAINT [PK_ROI_RequestDeliveryCharges_Seq] PRIMARY KEY CLUSTERED 
+(
+	[ROI_RequestDeliveryCharges_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+/****** Object:  ForeignKey [FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]    Script Date: 03/29/2009 08:43:24 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType]  WITH CHECK ADD  CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate] FOREIGN KEY([ROI_BillingTemplate_Seq])
+REFERENCES [ROI_BillingTemplate] ([ROI_BillingTemplate_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType] CHECK CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_BillingTemplate]
+GO
+/****** Object:  ForeignKey [FK_ROI_BillingTemplateToFeeType_ROI_FeeType]    Script Date: 03/29/2009 08:43:24 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_FeeType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType]  WITH CHECK ADD  CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_FeeType] FOREIGN KEY([ROI_FeeType_Seq])
+REFERENCES [ROI_FeeType] ([ROI_FeeType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTemplateToFeeType_ROI_FeeType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTemplateToFeeType]'))
+ALTER TABLE [ROI_BillingTemplateToFeeType] CHECK CONSTRAINT [FK_ROI_BillingTemplateToFeeType_ROI_FeeType]
+GO
+/****** Object:  ForeignKey [FK_ROI_BillingTier_ROI_MediaType]    Script Date: 03/29/2009 08:43:25 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTier_ROI_MediaType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTier]'))
+ALTER TABLE [ROI_BillingTier]  WITH CHECK ADD  CONSTRAINT [FK_ROI_BillingTier_ROI_MediaType] FOREIGN KEY([ROI_MediaType_Seq])
+REFERENCES [ROI_MediaType] ([ROI_MediaType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTier_ROI_MediaType]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTier]'))
+ALTER TABLE [ROI_BillingTier] CHECK CONSTRAINT [FK_ROI_BillingTier_ROI_MediaType]
+GO
+/****** Object:  ForeignKey [FK_ROI_BillingTierDetail_ROI_BillingTier]    Script Date: 03/29/2009 08:43:25 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTierDetail_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTierDetail]'))
+ALTER TABLE [ROI_BillingTierDetail]  WITH CHECK ADD  CONSTRAINT [FK_ROI_BillingTierDetail_ROI_BillingTier] FOREIGN KEY([ROI_BillingTier_Seq])
+REFERENCES [ROI_BillingTier] ([ROI_BillingTier_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_BillingTierDetail_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_BillingTierDetail]'))
+ALTER TABLE [ROI_BillingTierDetail] CHECK CONSTRAINT [FK_ROI_BillingTierDetail_ROI_BillingTier]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToAddress_ROI_Address]    Script Date: 03/29/2009 08:43:26 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToAddress_ROI_Address] FOREIGN KEY([ROI_Address_Seq])
+REFERENCES [ROI_Address] ([ROI_Address_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] CHECK CONSTRAINT [FK_ROI_ContactToAddress_ROI_Address]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToAddress_ROI_AddressType]    Script Date: 03/29/2009 08:43:26 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToAddress_ROI_AddressType] FOREIGN KEY([ROI_AddressType_Seq])
+REFERENCES [ROI_AddressType] ([ROI_AddressType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] CHECK CONSTRAINT [FK_ROI_ContactToAddress_ROI_AddressType]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToAddress_ROI_Contact]    Script Date: 03/29/2009 08:43:26 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToAddress_ROI_Contact] FOREIGN KEY([ROI_Contact_Seq])
+REFERENCES [ROI_Contact] ([ROI_Contact_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToAddress_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToAddress]'))
+ALTER TABLE [ROI_ContactToAddress] CHECK CONSTRAINT [FK_ROI_ContactToAddress_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToCreditCard_ROI_Contact]    Script Date: 03/29/2009 08:43:27 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_Contact] FOREIGN KEY([ROI_Contact_Seq])
+REFERENCES [ROI_Contact] ([ROI_Contact_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard] CHECK CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToCreditCard_ROI_CreditCard]    Script Date: 03/29/2009 08:43:27 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_CreditCard]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_CreditCard] FOREIGN KEY([ROI_CreditCard_Seq])
+REFERENCES [ROI_CreditCard] ([ROI_CreditCard_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToCreditCard_ROI_CreditCard]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToCreditCard]'))
+ALTER TABLE [ROI_ContactToCreditCard] CHECK CONSTRAINT [FK_ROI_ContactToCreditCard_ROI_CreditCard]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToEmailPhone_ROI_Contact]    Script Date: 03/29/2009 08:43:27 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_Contact] FOREIGN KEY([ROI_Contact_Seq])
+REFERENCES [ROI_Contact] ([ROI_Contact_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] CHECK CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToEmailPhone_ROI_EmailPhone]    Script Date: 03/29/2009 08:43:27 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhone] FOREIGN KEY([ROI_EmailPhone_Seq])
+REFERENCES [ROI_EmailPhone] ([ROI_EmailPhone_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] CHECK CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhone]
+GO
+/****** Object:  ForeignKey [FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]    Script Date: 03/29/2009 08:43:27 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone]  WITH CHECK ADD  CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType] FOREIGN KEY([ROI_EmailPhoneType_Seq])
+REFERENCES [ROI_EmailPhoneType] ([ROI_EmailPhoneType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_ContactToEmailPhone]'))
+ALTER TABLE [ROI_ContactToEmailPhone] CHECK CONSTRAINT [FK_ROI_ContactToEmailPhone_ROI_EmailPhoneType]
+GO
+/****** Object:  ForeignKey [FK_ROI_LetterTemplate_ROI_LetterTemplateFile]    Script Date: 03/29/2009 08:43:31 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_LetterTemplate_ROI_LetterTemplateFile]') AND parent_object_id = OBJECT_ID(N'[ROI_LetterTemplate]'))
+ALTER TABLE [ROI_LetterTemplate]  WITH CHECK ADD  CONSTRAINT [FK_ROI_LetterTemplate_ROI_LetterTemplateFile] FOREIGN KEY([ROI_LetterTemplateFile_Seq])
+REFERENCES [ROI_LetterTemplateFile] ([ROI_LetterTemplateFile_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_LetterTemplate_ROI_LetterTemplateFile]') AND parent_object_id = OBJECT_ID(N'[ROI_LetterTemplate]'))
+ALTER TABLE [ROI_LetterTemplate] CHECK CONSTRAINT [FK_ROI_LetterTemplate_ROI_LetterTemplateFile]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestDelivery_ROI_RequestMain]    Script Date: 03/29/2009 08:43:33 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDelivery_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDelivery]'))
+ALTER TABLE [ROI_RequestDelivery]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestDelivery_ROI_RequestMain] FOREIGN KEY([ROI_RequestMain_Seq])
+REFERENCES [ROI_RequestMain] ([ROI_RequestMain_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDelivery_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDelivery]'))
+ALTER TABLE [ROI_RequestDelivery] CHECK CONSTRAINT [FK_ROI_RequestDelivery_ROI_RequestMain]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]    Script Date: 03/29/2009 08:43:34 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDeliveryCharges]'))
+ALTER TABLE [ROI_RequestDeliveryCharges]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery] FOREIGN KEY([ROI_RequestDelivery_Seq])
+REFERENCES [ROI_RequestDelivery] ([ROI_RequestDelivery_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestDeliveryCharges]'))
+ALTER TABLE [ROI_RequestDeliveryCharges] CHECK CONSTRAINT [FK_ROI_RequestDeliveryCharges_ROI_RequestDelivery]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestEvent_ROI_RequestMain]    Script Date: 03/29/2009 08:43:34 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestEvent_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestEvent]'))
+ALTER TABLE [ROI_RequestEvent]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestEvent_ROI_RequestMain] FOREIGN KEY([ROI_RequestMain_Seq])
+REFERENCES [ROI_RequestMain] ([ROI_RequestMain_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestEvent_ROI_RequestMain]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestEvent]'))
+ALTER TABLE [ROI_RequestEvent] CHECK CONSTRAINT [FK_ROI_RequestEvent_ROI_RequestMain]
+GO
+/****** Object:  ForeignKey [FK_ROI_Requestor_ROI_Requestor_Type]    Script Date: 03/29/2009 08:43:35 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_Requestor_ROI_Requestor_Type]') AND parent_object_id = OBJECT_ID(N'[ROI_Requestor]'))
+ALTER TABLE [ROI_Requestor]  WITH CHECK ADD  CONSTRAINT [FK_ROI_Requestor_ROI_Requestor_Type] FOREIGN KEY([ROI_RequestorType_Seq])
+REFERENCES [ROI_RequestorType] ([ROI_RequestorType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_Requestor_ROI_Requestor_Type]') AND parent_object_id = OBJECT_ID(N'[ROI_Requestor]'))
+ALTER TABLE [ROI_Requestor] CHECK CONSTRAINT [FK_ROI_Requestor_ROI_Requestor_Type]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorRestriction_ROI_Requestor_Seq]    Script Date: 03/29/2009 08:43:36 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorRestriction_ROI_Requestor_Seq]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorRestriction]'))
+ALTER TABLE [ROI_RequestorRestriction]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorRestriction_ROI_Requestor_Seq] FOREIGN KEY([ROI_Requestor_Seq])
+REFERENCES [ROI_Requestor] ([ROI_Requestor_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorRestriction_ROI_Requestor_Seq]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorRestriction]'))
+ALTER TABLE [ROI_RequestorRestriction] CHECK CONSTRAINT [FK_ROI_RequestorRestriction_ROI_Requestor_Seq]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToAddress_ROI_Address]    Script Date: 03/29/2009 08:43:36 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Address] FOREIGN KEY([ROI_Address_Seq])
+REFERENCES [ROI_Address] ([ROI_Address_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Address]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] CHECK CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Address]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToAddress_ROI_AddressType]    Script Date: 03/29/2009 08:43:36 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToAddress_ROI_AddressType] FOREIGN KEY([ROI_AddressType_Seq])
+REFERENCES [ROI_AddressType] ([ROI_AddressType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_AddressType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] CHECK CONSTRAINT [FK_ROI_RequestorToAddress_ROI_AddressType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToAddress_ROI_Requestor]    Script Date: 03/29/2009 08:43:36 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Requestor] FOREIGN KEY([ROI_Requestor_Seq])
+REFERENCES [ROI_Requestor] ([ROI_Requestor_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToAddress_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToAddress]'))
+ALTER TABLE [ROI_RequestorToAddress] CHECK CONSTRAINT [FK_ROI_RequestorToAddress_ROI_Requestor]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToContact_ROI_Contact]    Script Date: 03/29/2009 08:43:37 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToContact_ROI_Contact] FOREIGN KEY([ROI_Contact_Seq])
+REFERENCES [ROI_Contact] ([ROI_Contact_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Contact]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] CHECK CONSTRAINT [FK_ROI_RequestorToContact_ROI_Contact]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToContact_ROI_ContactType]    Script Date: 03/29/2009 08:43:37 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_ContactType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToContact_ROI_ContactType] FOREIGN KEY([ROI_ContactType_Seq])
+REFERENCES [ROI_ContactType] ([ROI_ContactType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_ContactType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] CHECK CONSTRAINT [FK_ROI_RequestorToContact_ROI_ContactType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToContact_ROI_Requestor]    Script Date: 03/29/2009 08:43:37 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToContact_ROI_Requestor] FOREIGN KEY([ROI_Requestor_Seq])
+REFERENCES [ROI_Requestor] ([ROI_Requestor_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToContact_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToContact]'))
+ALTER TABLE [ROI_RequestorToContact] CHECK CONSTRAINT [FK_ROI_RequestorToContact_ROI_Requestor]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]    Script Date: 03/29/2009 08:43:37 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhone] FOREIGN KEY([ROI_EmailPhone_Seq])
+REFERENCES [ROI_EmailPhone] ([ROI_EmailPhone_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] CHECK CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhone]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]    Script Date: 03/29/2009 08:43:37 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType] FOREIGN KEY([ROI_EmailPhoneType_Seq])
+REFERENCES [ROI_EmailPhoneType] ([ROI_EmailPhoneType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] CHECK CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_EmailPhoneType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorToEmailPhone_ROI_Requestor]    Script Date: 03/29/2009 08:43:37 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_Requestor] FOREIGN KEY([ROI_Requestor_Seq])
+REFERENCES [ROI_Requestor] ([ROI_Requestor_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorToEmailPhone_ROI_Requestor]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorToEmailPhone]'))
+ALTER TABLE [ROI_RequestorToEmailPhone] CHECK CONSTRAINT [FK_ROI_RequestorToEmailPhone_ROI_Requestor]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]    Script Date: 03/29/2009 08:43:38 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate] FOREIGN KEY([ROI_BillingTemplate_Seq])
+REFERENCES [ROI_BillingTemplate] ([ROI_BillingTemplate_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] CHECK CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]    Script Date: 03/29/2009 08:43:38 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType] FOREIGN KEY([ROI_RequestorType_Seq])
+REFERENCES [ROI_RequestorType] ([ROI_RequestorType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTemplate]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTemplate] CHECK CONSTRAINT [FK_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]    Script Date: 03/29/2009 08:43:39 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier] FOREIGN KEY([ROI_BillingTier_Seq])
+REFERENCES [ROI_BillingTier] ([ROI_BillingTier_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier] CHECK CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_BillingTier]
+GO
+/****** Object:  ForeignKey [FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]    Script Date: 03/29/2009 08:43:39 ******/
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier]  WITH CHECK ADD  CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType] FOREIGN KEY([ROI_RequestorType_Seq])
+REFERENCES [ROI_RequestorType] ([ROI_RequestorType_Seq])
+GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]') AND parent_object_id = OBJECT_ID(N'[ROI_RequestorTypeToBillingTier]'))
+ALTER TABLE [ROI_RequestorTypeToBillingTier] CHECK CONSTRAINT [FK_ROI_RequestorTypeToBillingTier_ROI_RequestorType]
+GO
+
+
+--create the foreign key indexes
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_BillingTemplateToFeeType]') AND name = N'IX_ROI_BillingTemplateToFeeType_ROI_BillingTemplateSeq')
+CREATE NONCLUSTERED INDEX [IX_ROI_BillingTemplateToFeeType_ROI_BillingTemplateSeq] ON [dbo].[ROI_BillingTemplateToFeeType] 
+(
+	[ROI_BillingTemplate_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_BillingTemplateToFeeType]') AND name = N'IX_ROI_BillingTemplateToFeeType_ROI_FeeTypeSeq')
+CREATE NONCLUSTERED INDEX [IX_ROI_BillingTemplateToFeeType_ROI_FeeTypeSeq] ON [dbo].[ROI_BillingTemplateToFeeType] 
+(
+	[ROI_FeeType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_BillingTier]') AND name = N'IX_ROI_BillingTier_ROI_MediaTypeSeq')
+CREATE NONCLUSTERED INDEX [IX_ROI_BillingTier_ROI_MediaTypeSeq] ON [dbo].[ROI_BillingTier] 
+(
+	[ROI_MediaType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_ContactToEmailPhone]') AND name = N'IX_ROI_ContactToEmailPhone_ROI_EmailPhoneType_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_ContactToEmailPhone_ROI_EmailPhoneType_Seq] ON [dbo].[ROI_ContactToEmailPhone] 
+(
+	[ROI_EmailPhoneType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_LetterTemplate]') AND name = N'IX_ROI_LetterTemplate_ROI_LetterTemplateFile_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_LetterTemplate_ROI_LetterTemplateFile_Seq] ON [dbo].[ROI_LetterTemplate] 
+(
+	[ROI_LetterTemplateFile_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestDelivery]') AND name = N'IX_ROI_ReqeustDelivery_RequestMainSeq')
+CREATE NONCLUSTERED INDEX [IX_ROI_ReqeustDelivery_RequestMainSeq] ON [dbo].[ROI_RequestDelivery] 
+(
+	[ROI_RequestMain_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestEvent]') AND name = N'IX_ROI_RequestEvent_ROI_RequestMain_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestEvent_ROI_RequestMain_Seq] ON [dbo].[ROI_RequestEvent] 
+(
+	[ROI_RequestMain_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_Requestor]') AND name = N'IX_ROI_Requestor_ROI_RequestorType_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_Requestor_ROI_RequestorType_Seq] ON [dbo].[ROI_Requestor] 
+(
+	[ROI_RequestorType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestorRestriction]') AND name = N'IX_ROI_RequestorRestriction_ROI_Requestor_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorRestriction_ROI_Requestor_Seq] ON [dbo].[ROI_RequestorRestriction] 
+(
+	[ROI_Requestor_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestorToContact]') AND name = N'IX_ROI_RequestorToContact_ROI_ContactType_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorToContact_ROI_ContactType_Seq] ON [dbo].[ROI_RequestorToContact] 
+(
+	[ROI_ContactType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestorToEmailPhone]') AND name = N'IX_ROI_RequestorToEmailPhone_ROI_EmailPhoneType_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorToEmailPhone_ROI_EmailPhoneType_Seq] ON [dbo].[ROI_RequestorToEmailPhone] 
+(
+	[ROI_EmailPhoneType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestorTypeToBillingTemplate]') AND name = N'IX_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorTypeToBillingTemplate_ROI_RequestorType_Seq] ON [dbo].[ROI_RequestorTypeToBillingTemplate] 
+(
+	[ROI_RequestorType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestorTypeToBillingTemplate]') AND name = N'IX_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorTypeToBillingTemplate_ROI_BillingTemplate_Seq] ON [dbo].[ROI_RequestorTypeToBillingTemplate] 
+(
+	[ROI_BillingTemplate_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestorTypeToBillingTier]') AND name = N'IX_ROI_RequestorTypeToBillingTier_ROI_RequestorTyep_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorTypeToBillingTier_ROI_RequestorTyep_Seq] ON [dbo].[ROI_RequestorTypeToBillingTier] 
+(
+	[ROI_RequestorType_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ROI_RequestorTypeToBillingTier]') AND name = N'IX_ROI_RequestorTypeToBillingTier_ROI_BillingTier_Seq')
+CREATE NONCLUSTERED INDEX [IX_ROI_RequestorTypeToBillingTier_ROI_BillingTier_Seq] ON [dbo].[ROI_RequestorTypeToBillingTier] 
+(
+	[ROI_BillingTier_Seq] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+
+
+
+
+--create the additional indexes from performance tuning
+
+
+
+--grant all the permissions
+GRANT DELETE ON [ROI_Activity] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Activity] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Activity] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Activity] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Address] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Address] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Address] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Address] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_AddressType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_AddressType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_AddressType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_AddressType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_BillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_BillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_BillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_BillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_BillingTemplateToFeeType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_BillingTemplateToFeeType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_BillingTemplateToFeeType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_BillingTemplateToFeeType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_BillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_BillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_BillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_BillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_BillingTierDetail] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_BillingTierDetail] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_BillingTierDetail] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_BillingTierDetail] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Contact] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Contact] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Contact] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Contact] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_ContactToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_ContactToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_ContactToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_ContactToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_ContactToCreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_ContactToCreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_ContactToCreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_ContactToCreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_ContactToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_ContactToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_ContactToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_ContactToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_ContactType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_ContactType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_ContactType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_ContactType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_CreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_CreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_CreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_CreditCard] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_DeliveryMethod] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_DeliveryMethod] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_DeliveryMethod] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_DeliveryMethod] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_DocType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_DocType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_DocType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_DocType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_EmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_EmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_EmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_EmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_EmailPhoneType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_EmailPhoneType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_EmailPhoneType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_EmailPhoneType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_FeeType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_FeeType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_FeeType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_FeeType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_LetterTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_LetterTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_LetterTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_LetterTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_LetterTemplateFile] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_LetterTemplateFile] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_LetterTemplateFile] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_LetterTemplateFile] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_MediaType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_MediaType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_MediaType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_MediaType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Parameter] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Parameter] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Parameter] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Parameter] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_PaymentMethod] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_PaymentMethod] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_PaymentMethod] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_PaymentMethod] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Reason] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Reason] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Reason] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Reason] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestDelivery] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestDelivery] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestDelivery] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestDelivery] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestDeliveryCharges] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestDeliveryCharges] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestDeliveryCharges] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestDeliveryCharges] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestEvent] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestEvent] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestEvent] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestEvent] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestMain] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestMain] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestMain] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestMain] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Requestor] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Requestor] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Requestor] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Requestor] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestorRestriction] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestorRestriction] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestorRestriction] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestorRestriction] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestorToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestorToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestorToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestorToAddress] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestorToContact] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestorToContact] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestorToContact] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestorToContact] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestorToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestorToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestorToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestorToEmailPhone] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestorType] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestorType] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestorType] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestorType] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestorTypeToBillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestorTypeToBillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestorTypeToBillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestorTypeToBillingTemplate] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_RequestorTypeToBillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_RequestorTypeToBillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_RequestorTypeToBillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_RequestorTypeToBillingTier] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Restriction] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Restriction] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Restriction] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Restriction] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_SalesTaxRate] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_SalesTaxRate] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_SalesTaxRate] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_SalesTaxRate] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_SearchLOV] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_SearchLOV] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_SearchLOV] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_SearchLOV] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Supplemental] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Supplemental] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Supplemental] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Supplemental] TO [IMNET] AS [dbo]
+GO
+GRANT DELETE ON [ROI_Weight] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [ROI_Weight] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [ROI_Weight] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [ROI_Weight] TO [IMNET] AS [dbo]
+GO

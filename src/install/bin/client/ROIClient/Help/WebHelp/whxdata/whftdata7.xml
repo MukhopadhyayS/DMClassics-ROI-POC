@@ -1,0 +1,86 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<ftstdata>
+<topic name="Cancel button" url="requests/dialog_box_descriptions/change_requestor_dialog_box/cancel_button.htm" />
+<topic name="Select Requestor for Request button" url="requests/dialog_box_descriptions/change_requestor_dialog_box/select_requestor_for_request_button.htm" />
+<topic name="Change Requestor dialog box" url="requests/dialog_box_descriptions/change_requestor_dialog_box.htm" />
+<topic name="Charge History dialog box" url="requests/dialog_box_descriptions/charge_history_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/cancel_button.htm" />
+<topic name="Continue with No Patient button" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/continue_with_no_patient_button.htm" />
+<topic name="Continue with Selected Patient(s) button" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/continue_with_selected_patient(s)_button.htm" />
+<topic name="Patients grid" url="requests/dialog_box_descriptions/create_new_req_pat_requestor/patients_grid.htm" />
+<topic name="Create New Request with Patient Requestor dialog box" url="requests/dialog_box_descriptions/create_new_request_with_patient_requestor_dialog_box.htm" />
+<topic name="Email dialog box" url="requests/dialog_box_descriptions/email_dialog_box.htm" />
+<topic name="Fax dialog box" url="requests/dialog_box_descriptions/fax_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/modify_billing_tier_dialog_box/cancel_button.htm" />
+<topic name="Modify Billing tier box" url="requests/dialog_box_descriptions/modify_billing_tier_dialog_box/modify_billing_tier_box.htm" />
+<topic name="Save button" url="requests/dialog_box_descriptions/modify_billing_tier_dialog_box/save_button.htm" />
+<topic name="Modify Billing Tier dialog box" url="requests/dialog_box_descriptions/modify_billing_tier_dialog_box.htm" />
+<topic name="Buttons related to jobs" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/buttons_related_to_jobs.htm" />
+<topic name="Close button" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/close_button.htm" />
+<topic name="Jobs grid" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/jobs_grid.htm" />
+<topic name="Queue box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/queue_box.htm" />
+<topic name="Queues grid" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/queues_grid.htm" />
+<topic name="Select User button" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/select_user_button.htm" />
+<topic name="Status options" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/status_options.htm" />
+<topic name="Type box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/type_box.htm" />
+<topic name="Type options" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/type_options.htm" />
+<topic name="User box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box/user_box.htm" />
+<topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+<topic name="Add to Released Document group box" url="requests/dialog_box_descriptions/output_dialog_boxes/add_to_release_document_group_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/output_dialog_boxes/cancel_button.htm" />
+<topic name="Copies group box" url="requests/dialog_box_descriptions/output_dialog_boxes/copies_group_box.htm" />
+<topic name="Email group box" url="requests/dialog_box_descriptions/output_dialog_boxes/email_group_box.htm" />
+<topic name="Fax group box" url="requests/dialog_box_descriptions/output_dialog_boxes/fax_group_box.htm" />
+<topic name="OK button" url="requests/dialog_box_descriptions/output_dialog_boxes/ok_button.htm" />
+<topic name="PDF group box" url="requests/dialog_box_descriptions/output_dialog_boxes/pdf_group_box.htm" />
+<topic name="Printer group box" url="requests/dialog_box_descriptions/output_dialog_boxes/printer_group_box.htm" />
+<topic name="Output Disc dialog box" url="requests/dialog_box_descriptions/output_disc_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/pre-bill_dialog_box/copy_of_cancel_button.htm" />
+<topic name="Continue button" url="requests/dialog_box_descriptions/pre-bill_dialog_box/copy_of_continue_button.htm" />
+<topic name="Template box" url="requests/dialog_box_descriptions/pre-bill_dialog_box/copy_of_template_box.htm" />
+<topic name="Notes / Create Freeform Note button" url="requests/dialog_box_descriptions/pre-bill_dialog_box/notes___create_freeform_note_button.htm" />
+<topic name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+<topic name="Cancel" url="requests/dialog_box_descriptions/preview_dialog_boxes/cancel.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/preview_dialog_boxes/cancel_button.htm" />
+<topic name="Continue" url="requests/dialog_box_descriptions/preview_dialog_boxes/continue.htm" />
+<topic name="Continue button" url="requests/dialog_box_descriptions/preview_dialog_boxes/continue_button.htm" />
+<topic name="Email" url="requests/dialog_box_descriptions/preview_dialog_boxes/email.htm" />
+<topic name="Fax" url="requests/dialog_box_descriptions/preview_dialog_boxes/fax.htm" />
+<topic name="Page controls" url="requests/dialog_box_descriptions/preview_dialog_boxes/page_controls.htm" />
+<topic name="Print" url="requests/dialog_box_descriptions/preview_dialog_boxes/print.htm" />
+<topic name="Save as File" url="requests/dialog_box_descriptions/preview_dialog_boxes/save_as_file.htm" />
+<topic name="Preview of Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_cover_letter_dialog_box.htm" />
+<topic name="Preview of Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_invoice_dialog_box.htm" />
+<topic name="Preview of Letter - Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_letter_-_cover_letter_dialog_box.htm" />
+<topic name="Preview of Letter - Other dialog box" url="requests/dialog_box_descriptions/preview_of_letter_-_other_dialog_box.htm" />
+<topic name="Preview of Past Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_past_invoice_dialog_box.htm" />
+<topic name="Preview of Pre-Bill dialog box" url="requests/dialog_box_descriptions/preview_of_pre-bill_dialog_box.htm" />
+<topic name="Preview of Refund dialog box" url="requests/dialog_box_descriptions/preview_of_refund_dialog_box.htm" />
+<topic name="Preview of Statements dialog box" url="requests/dialog_box_descriptions/preview_of_statements_dialog_box.htm" />
+<topic name="Print dialog box" url="requests/dialog_box_descriptions/print_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/release_dialog_box/cancel_button.htm" />
+<topic name="Continue button" url="requests/dialog_box_descriptions/release_dialog_box/continue_button.htm" />
+<topic name="Cover Letter group box" url="requests/dialog_box_descriptions/release_dialog_box/cover_letter_group_box.htm" />
+<topic name="Current Invoice group box" url="requests/dialog_box_descriptions/release_dialog_box/current_invoice_group_box.htm" />
+<topic name="Past Invoice group box" url="requests/dialog_box_descriptions/release_dialog_box/past_invoice_group_box.htm" />
+<topic name="Statements group box" url="requests/dialog_box_descriptions/release_dialog_box/statements_group_box.htm" />
+<topic name="Update Status option" url="requests/dialog_box_descriptions/release_dialog_box/update_status_option.htm" />
+<topic name="Release dialog box" url="requests/dialog_box_descriptions/release_dialog_box.htm" />
+<topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/save_new_patient_requestor_dialog_box/cancel_button.htm" />
+<topic name="Save New Requestor button" url="requests/dialog_box_descriptions/save_new_patient_requestor_dialog_box/save_new_requestor_button.htm" />
+<topic name="Save New Patient Requestor dialog box" url="requests/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/select_patient_dialog_box/cancel_button.htm" />
+<topic name="Continue with No Patient button" url="requests/dialog_box_descriptions/select_patient_dialog_box/continue_with_no_patient_button.htm" />
+<topic name="Continue with Selected Patient(s) button" url="requests/dialog_box_descriptions/select_patient_dialog_box/continue_with_selected_patient(s)_button.htm" />
+<topic name="Patients grid" url="requests/dialog_box_descriptions/select_patient_dialog_box/patients_grid.htm" />
+<topic name="Select Patient dialog box" url="requests/dialog_box_descriptions/select_patient_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/select_requestor_dialog_box/cancel_button.htm" />
+<topic name="Select Requestor for Request button" url="requests/dialog_box_descriptions/select_requestor_dialog_box/select_requestor_for_request_button.htm" />
+<topic name="Select Requestor dialog box" url="requests/dialog_box_descriptions/select_requestor_dialog_box.htm" />
+<topic name="Cancel button" url="requests/dialog_box_descriptions/update_request_status_dialog_box/cancel_button.htm" />
+<topic name="Reasons for selected status group box" url="requests/dialog_box_descriptions/update_request_status_dialog_box/reasons_for_selected_status_group_box.htm" />
+<topic name="Save button" url="requests/dialog_box_descriptions/update_request_status_dialog_box/save_button.htm" />
+
+</ftstdata>  

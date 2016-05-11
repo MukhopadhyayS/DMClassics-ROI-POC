@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Defaults" >
+  <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Facility box" url="patients/form_descriptions/patient_records_form_items/facility_box.htm" />
+  <topic name="Comments form" url="requests/form_descriptions/comments_form.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Adjustment group box" url="requests/form_descriptions/billing_&amp;_payment_form_items/adjustment_group_box.htm" />
+  <topic name="Maintain delivery methods" url="admin/billing_maint/user_instruc/maintain_delivery_methods.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+  <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  <topic name="Invoice dialog box" url="requests/dialog_box_descriptions/invoice_dialog_box.htm" />
+  <topic name="Release dialog box" url="requests/dialog_box_descriptions/release_dialog_box.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <topic name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+  <key name="All" >
+    <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+    <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+    <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+    <topic name="Comments form" url="requests/form_descriptions/comments_form.htm" />
+  </key>
+  <key name="All Facilities" >
+    <topic name="Facility box" url="patients/form_descriptions/patient_records_form_items/facility_box.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+    <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  </key>
+  <key name="All Queues" >
+    <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  </key>
+  <key name="All Requestor Types" >
+    <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+    <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  </key>
+  <key name="All Users" >
+    <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  </key>
+  <key name="Auth" >
+    <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  </key>
+  <key name="Encounter" >
+    <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  </key>
+  <key name="Job View" >
+    <topic name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+  </key>
+  <key name="leave" >
+    <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  </key>
+  <key name="No Date" >
+    <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+    <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  </key>
+  <key name="Off" >
+    <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+    <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  </key>
+  <key name="On" >
+    <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  </key>
+  <key name="Other" >
+    <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  </key>
+  <key name="Please Select" >
+    <topic name="Adjustment group box" url="requests/form_descriptions/billing_&amp;_payment_form_items/adjustment_group_box.htm" />
+    <topic name="Invoice dialog box" url="requests/dialog_box_descriptions/invoice_dialog_box.htm" />
+    <topic name="Release dialog box" url="requests/dialog_box_descriptions/release_dialog_box.htm" />
+    <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+    <topic name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+  </key>
+  <key name="Recent Requestors" >
+    <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  </key>
+  <key name="Select Date" >
+    <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+    <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+    <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+    <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  </key>
+  <key name="Select Department" >
+    <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+    <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  </key>
+  <key name="Select Document Type" >
+    <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+    <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  </key>
+  <key name="Select Facility" >
+    <topic name="Facility box" url="patients/form_descriptions/patient_records_form_items/facility_box.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+    <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+    <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  </key>
+  <key name="Select Gender" >
+    <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  </key>
+  <key name="Select Requestor Type" >
+    <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  </key>
+</key>
+<key name="Deficiencies" >
+  <topic name="View deficiencies" url="patients/user_instructions/view_deficiencies.htm" />
+  <topic name="List of Deficiencies dialog box" url="patients/dbox_desc/list_of_deficiencies_dialog_box.htm" />
+  <key name="List" >
+    <topic name="List of Deficiencies dialog box" url="patients/dbox_desc/list_of_deficiencies_dialog_box.htm" />
+  </key>
+</key>
+<key name="defined request" >
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+</key>
+<key name="Delete" >
+  <topic name="Maintain fee types" url="admin/billing_maint/user_instruc/maintain_fee_types.htm" />
+  <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  <topic name="Maintain adjustment reasons" url="admin/reasons_maint/user_instruc/maintain_adjustment_reasons.htm" />
+  <topic name="Maintain payment methods" url="admin/billing_maint/user_instruc/maintain_payment_methods.htm" />
+  <topic name="Maintain request reasons" url="admin/reasons_maint/user_instruc/maintain_request_reasons.htm" />
+  <topic name="Maintain billing templates" url="admin/billing_maint/user_instruc/maintain_billing_templates.htm" />
+  <topic name="Maintain request status reasons" url="admin/reasons_maint/user_instruc/maintain_request_status_reasons.htm" />
+  <topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonhpf_doc_info.htm" />
+  <topic name="Delete a request" url="requests/user_instructions/delete_a_request.htm" />
+  <topic name="Maintain delivery methods" url="admin/billing_maint/user_instruc/maintain_delivery_methods.htm" />
+  <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  <topic name="Maintain requestor types" url="admin/billing_maint/user_instruc/maintain_requestor_types.htm" />
+  <topic name="Configure notes" url="admin/other_maint/user_instruc/configure_notes.htm" />
+  <topic name="Maintain media types" url="admin/billing_maint/user_instruc/maintain_media_types.htm" />
+  <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+</key>
+<key name="Delete Non" >
+  <topic name="Maintain non-MPF patient information" url="patients/user_instructions/maintain_nonhpf_patient_info.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+</key>
+<key name="Delete Patient" >
+  <topic name="Maintain non-MPF patient information" url="patients/user_instructions/maintain_nonhpf_patient_info.htm" />
+</key>
+<key name="Delete Request" >
+  <topic name="Delete a request" url="requests/user_instructions/delete_a_request.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+</key>
+
+</indexdata>

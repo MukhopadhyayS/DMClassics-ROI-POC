@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<fts>
+<chunkinfo url="whfwdata0.xml" first="&amp;" last="answer"/>
+<chunkinfo url="whfwdata1.xml" first="any" last="category"/>
+<chunkinfo url="whfwdata2.xml" first="caus" last="csv"/>
+<chunkinfo url="whfwdata3.xml" first="current" last="edg"/>
+<chunkinfo url="whfwdata4.xml" first="edit" last="follow"/>
+<chunkinfo url="whfwdata5.xml" first="foot" last="issu"/>
+<chunkinfo url="whfwdata6.xml" first="item" last="mutual"/>
+<chunkinfo url="whfwdata7.xml" first="nam" last="pay"/>
+<chunkinfo url="whfwdata8.xml" first="payment" last="replac"/>
+<chunkinfo url="whfwdata9.xml" first="report" last="sequential"/>
+<chunkinfo url="whfwdata10.xml" first="serv" last="tier"/>
+<chunkinfo url="whfwdata11.xml" first="tim" last="yyyymmdd"/>
+<chunkinfo url="whfwdata12.xml" first="z" last="™"/>
+
+<tchunkinfo first="0" last="93" url="whftdata0.xml" />
+<tchunkinfo first="94" last="185" url="whftdata1.xml" />
+<tchunkinfo first="186" last="269" url="whftdata2.xml" />
+<tchunkinfo first="270" last="361" url="whftdata3.xml" />
+<tchunkinfo first="362" last="443" url="whftdata4.xml" />
+<tchunkinfo first="444" last="524" url="whftdata5.xml" />
+<tchunkinfo first="525" last="607" url="whftdata6.xml" />
+<tchunkinfo first="608" last="668" url="whftdata7.xml" />
+
+</fts>

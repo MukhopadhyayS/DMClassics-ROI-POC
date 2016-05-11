@@ -1,0 +1,2480 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//
+//                  MCKESSON INFORMATION SOLUTIONS, LLC.
+//               (C) 2008. RELEASE OF INFORMATION INSTALL
+//                          ALL RIGHTS RESERVED
+//
+//-----------------------------------------------------------------------------
+//
+//
+//
+//    File Name:      Setup.rul
+//
+//    Description:    McKesson
+//                    ROI Server Installation Script
+//
+//    Comments:    	  This script performs a basic setup of ROI Server on
+//                    Windows XP platforms.
+//
+//     Author         Date Modified      Comments
+//     ------         -------------      --------
+//
+//	    OFS
+//
+////////////////////////////////////////////////////////////////////////////////
+
+//===========================================================================
+//
+//  File Name:    Setup.rul
+//
+//  Description:  Blank setup main script file
+//
+//  Comments:     Blank setup is an empty setup project. If you want to
+//				  create a new project via. step-by step instructions use the
+//				  Project Assistant.
+//
+//===========================================================================
+
+//////////////////////////////////////////////////////////////////////////////
+// 		INCLUDED HEADER FILES.
+//////////////////////////////////////////////////////////////////////////////
+
+#include "ifx.h"
+#include "Declare.rul"
+
+//////////////////////////////////////////////////////////////////////////////
+//		PROTOTYPE FOR USER DEFINE FUNCTIONS.
+//////////////////////////////////////////////////////////////////////////////
+prototype LogEnterMessage(string);
+prototype LogExitMessage(string);
+prototype LogMessage(string);
+prototype int ConfirmAtLeastOneSelection();
+prototype int ConfirmBeforeCopy();
+prototype number NotifyPrerequisites();
+prototype CreateLogFolder();
+prototype string GetValueFromStringTable(string);  
+prototype InstallJDK();
+prototype InstallDotNET4_0();
+prototype int IsFeatureSelected(string);
+prototype CreateJbossRegKey();
+prototype ModifyJbossFile();    
+prototype ModifyJbossShutdownBatFile();
+prototype ModifyROIJBossPort();
+prototype string GetRegValue(string,string,string);
+prototype ModifyConfigureROIServerProperites();
+prototype ModifyJBossPort();  
+prototype InstallROIJBossService();   
+prototype InstallOutputJBossService();  
+prototype UnInstallROIJBossService(string);
+prototype UnInstallOutputJBossService(string);
+prototype ModifyOutputJbossPort(string,string,string);
+prototype LaunchConfigureServerUtility();
+prototype UpdatClickOnceFiles();
+prototype ModifyFaxServiceInstallBatFile();
+prototype ModifyFaxServiceUnInstallBatFile();
+prototype BOOL IsDotNET4_0Installed();
+prototype CreateOOStarter();
+prototype InstallFaxService();
+prototype UninstallFaxService(string,int);
+prototype ModifyConfigureUtilProperitesForFax();
+prototype CreateConfigUtilBat();
+prototype CustomizeConfigUtilProps();
+prototype ModifyStartOutputBat();
+prototype ModifyConfigureUtilProperitesForOutput();
+prototype DeleteJbossDirOnUninstallation(); 
+prototype CreateOutputServerShortcut();
+prototype BOOL IsFileExists(string);   
+prototype ApplyingRights();
+prototype BackUpConfigurations () ;  
+prototype RemoveExistingJBoss(string);  
+prototype UnInstallROIServices(int);   
+prototype ModifyAutoConfiguratorBat(); 
+prototype int CheckNewSelectOrDeSelectComponent(LIST , LIST); 
+prototype LIST CreateSelectionList();   
+prototype string getInstalledVersion(); 
+prototype string getJbossVersion(string);  
+prototype StopSofficeBin();
+prototype ModifyMPFWConfiguration(string, string);
+prototype ReplaceFromFile(string , string , string);   
+prototype string GetJniServicePort(string);  
+
+//////////////////////////////////////////////////////////////////////////////
+//		GLOBAL VARIABLES.
+//////////////////////////////////////////////////////////////////////////////
+LIST   listInfo;
+number nvFileHandle, nvResult, test;
+string svResult,svDate,svTime, jbossPath, outputJbossPath, szVarValue, szServiceName, szBatFileName;
+string szROIClientFolder;
+BOOL   isRepairMode;
+
+//////////////////////////////////////////////////////////////////////////////
+// OnFirstUIBefore
+//
+// First Install UI Sequence - Before Move Data
+//
+// The OnFirstUIBefore event is called by OnShowUI when the setup is
+// running in first install mode. By default this event displays UI allowing
+// the end user to specify installation parameters.
+//
+// Note: This event will not be called automatically in a
+// program...endprogram style setup.
+//////////////////////////////////////////////////////////////////////////////
+
+function OnFirstUIBefore()
+    number  nResult, nLevel, nSize, nSetupType;
+    string  szTitle, szMsg, szOpt1, szOpt2, szLicenseFile;
+    string  szName, szCompany, szTargetPath, szDir, szFeatures;
+    BOOL    bLicenseAccepted;
+    string memory,opSys, memoryValue, osValue, spValue, svString;
+    number nMemory, nOpSys;
+	STRING  defJbossPath, existingJboss, newJboss;
+	NUMBER nNewJboss, nExistingJboss, nValue, nvJava32;
+
+begin
+	Enable(FULLWINDOWMODE);
+	Enable(BACKGROUND);
+	SetColor(BACKGROUND,BK_BLUE);
+    nSetupType = COMPLETE;
+    szDir = TARGETDIR;
+    szName = "";
+    szCompany = "McKesson";
+    bLicenseAccepted = FALSE;
+	nNewJboss = TRUE;
+	nExistingJboss = FALSE;
+	jbossPath = TARGETDIR ^ "\jboss";
+	FeatureSetTarget(MEDIA, "<JBOSS_HOME>", jbossPath);
+
+// Beginning of UI Sequence
+Dlg_Start:
+    nResult = 0;
+
+Dlg_SdWelcome:
+	szTitle = GetValueFromStringTable("ID_WELCOME_TITLE");
+	szMsg = GetValueFromStringTable("ID_WELCOME_MSG");
+    nResult = SdWelcome(szTitle, szMsg);
+    if (nResult = BACK) goto Dlg_Start;
+
+Dlg_SdLicense2:
+    szTitle = "";
+    szOpt1 = "";
+    szOpt2 = "";
+    szLicenseFile = LICENSE_FILE;
+    nResult = SdLicense2Rtf(szTitle, szOpt1, szOpt2, szLicenseFile, bLicenseAccepted);
+    if (nResult = BACK) then
+        goto Dlg_SdWelcome;
+    else
+        bLicenseAccepted = TRUE;
+    endif;
+
+Dlg_SdRegisterUser:
+    szMsg = "";
+    szTitle = "";
+    nResult = SdRegisterUser(szTitle, szMsg, szName, szCompany);
+    if (nResult = BACK) goto Dlg_SdLicense2;
+    LogMessage("User Information - User Name : " + szName + ", Company Name : " + szCompany);
+
+Dlg_SdAskDestPath2:
+	szTitle = "";
+    szMsg = "";
+	nResult = SdAskDestPath2(szTitle, szMsg, szDir);
+    if (CreateDir (szDir) = 0) then
+     	LogMessage("Destination For ROI Folder is created " + szDir);
+     	//MessageBox ("Destination For ROI Folder is created " , WARNING);
+    else 
+     	MessageBox ("Choose a valid Path" , WARNING); 
+     	goto Dlg_SdAskDestPath2;
+    endif;
+ 
+    TARGETDIR = szDir;
+    jbossPath = TARGETDIR ^ "\jboss";
+    outputJbossPath = TARGETDIR ^ "\output.jboss";
+    FeatureSetTarget(MEDIA, "<JBOSS_HOME>", jbossPath);
+    FeatureSetTarget(MEDIA, "<OUTPUT_JBOSS_HOME>", outputJbossPath);
+    CreateLogFolder();
+    if (nResult = BACK) goto Dlg_SdRegisterUser;
+    LogMessage("Install Dir : " + szDir);
+	
+Dlg_NotifyPrerequisites:
+	nResult = NotifyPrerequisites();
+    if (nResult = BACK) goto Dlg_SdAskDestPath2;
+    //ValidateSystemInfo();      
+    
+    szVarValue = TARGETDIR + JAVA_LOCATION;     
+    if (SYSINFO.bIsWow64 != 0) then
+		szVarValue = TARGETDIR + JAVA_64_BIT_LOCATION;     
+	else          
+		szVarValue = TARGETDIR + JAVA_LOCATION;
+    endif;
+    LogMessage("Install Dir : " + szDir);   
+ 	
+	
+Dlg_SetupType2:
+    szTitle = "";
+    szMsg = "";
+    nResult = CUSTOM;
+    nResult = SetupType2(szTitle, szMsg, "", nSetupType, 0);
+    if (nResult = BACK) then  
+    	goto Dlg_NotifyPrerequisites; 
+    else
+        nSetupType = nResult;
+        if (nSetupType != CUSTOM) then
+        	LogMessage("Selected Install type : Complete");
+            szTargetPath = TARGETDIR;
+            nSize = 0;
+            ConfirmAtLeastOneSelection();
+            FeatureCompareSizeRequired(MEDIA, szTargetPath, nSize);
+            if (nSize != 0) then
+                MessageBox(szSdStr_NotEnoughSpace, WARNING);
+                goto Dlg_SetupType2;
+            endif;
+        endif;
+    endif;
+    if (nSetupType = CUSTOM) then
+    	LogMessage("Selected Install type : Custom");
+    endif;
+
+Dlg_SdFeatureTree:
+	listInfo = ListCreate(STRINGLIST);
+	ListDeleteAll(listInfo);
+    szTitle = "";
+    szMsg = "";
+    szFeatures = "";
+    nLevel = 2;
+    if (nSetupType = CUSTOM) then
+        nResult = SdFeatureTree(szTitle, szMsg, TARGETDIR, szFeatures, nLevel);
+        if (nResult = BACK) goto Dlg_SetupType2;
+    endif;
+    if (ConfirmAtLeastOneSelection() < 1) goto Dlg_SdFeatureTree;
+    if (nSetupType != CUSTOM) goto Dlg_SdStartCopy2;
+    //if (noRoiJboss) goto Dlg_SdStartCopy2;
+
+Dlg_SdStartCopy2:
+    szTitle = "";
+    szMsg = "";
+    nResult = ConfirmBeforeCopy();
+    //if ((nResult = BACK) && (noRoiJboss)) goto Dlg_SdFeatureTree;
+    if ((nResult = BACK) && (nSetupType = CUSTOM)) goto Dlg_SdFeatureTree;
+    if ((nResult = BACK) && (nSetupType != CUSTOM)) goto Dlg_SetupType2;
+
+    // Added in 11.0 - Set appropriate StatusEx static text.
+    SetStatusExStaticText(SdLoadString(IDS_IFX_STATUSEX_STATICTEXT_FIRSTUI));
+    return 0;
+end;
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Function : ConfirmAtLeastOneSelection()
+//
+// Check the FEATURE selected by user under custom selection.
+// also it logs the information.
+////////////////////////////////////////////////////////////////////////////////
+function int ConfirmAtLeastOneSelection()
+int nvInfo, featureCount, nRoiServer, nRoiClientServer;
+string svInfo, countString, pathString, listOfComponentsString;
+begin
+		// selected feature count
+		featureCount = 0;
+		ListAddString(listInfo, GetValueFromStringTable("ID_INSTALLATION_PATH") + " --> "+ TARGETDIR , AFTER );
+		ListAddString(listInfo," " , AFTER);
+		ListAddString(listInfo, GetValueFromStringTable("ID_LIST_OF_FEATURES_TO_BE_INSTALLED") , AFTER);
+		ListAddString(listInfo," " , AFTER);
+
+        // checking whether ROIServer is selected by user or not
+		FeatureGetData( MEDIA, ROIServer, FEATURE_FIELD_SELECTED, nRoiServer, svInfo );
+		// if nvInfo is true mean ROIServer(ROI Server) has been selected by user
+    	if nRoiServer then
+	    	featureCount = featureCount + 1;
+	    	NumToStr (countString, featureCount);
+	    	// add selected feature into infoList.
+			ListAddString(listInfo, STR_DEFTAB+STR_DEFTAB+countString+") "+ROIServer, AFTER);
+			LogMessage("ROI Server - selected for installation");
+		endif;
+
+		// if nvInfo is true mean ROIClientInstallation(ROI Client Installation Server) has beeb selected by user
+		FeatureGetData(MEDIA, ROIClientInstallation, FEATURE_FIELD_SELECTED, nRoiClientServer, svInfo);
+    	if nRoiClientServer then
+    		featureCount = featureCount + 1;
+    		NumToStr(countString, featureCount);
+	    	// add selected feature into infoList.
+			ListAddString(listInfo, STR_DEFTAB+STR_DEFTAB+countString+") "+ROIClientInstallation, AFTER);
+			LogMessage("ROI Client Installer Server - selected for installation");
+		endif;
+
+		//if (!nRoiServer && !nRoiClientServer) then
+			//LogMessage("ROI Server and Client Installer Server not selected");
+			//noRoiJboss = TRUE;
+			//FeatureSetData(MEDIA, "Jboss", FEATURE_FIELD_SELECTED, FALSE, svInfo);
+		//else
+			//FeatureSetData(MEDIA, "Jboss", FEATURE_FIELD_SELECTED, TRUE, svInfo);
+			//noRoiJboss = FALSE;
+		//endif;
+
+		// if nvInfo is true mean OutputService(Output Service Server) has beeb selected by user
+		FeatureGetData(MEDIA, OutputService, FEATURE_FIELD_SELECTED, nvInfo, svInfo);
+    	if nvInfo then
+    		outputJbossPath = TARGETDIR ^ "\output.jboss";
+			FeatureSetTarget(MEDIA, "<OUTPUT_JBOSS_HOME>", outputJbossPath);
+    		featureCount = featureCount + 1;
+    		NumToStr(countString, featureCount);
+	    	// add selected feature into infoList.
+			ListAddString(listInfo, STR_DEFTAB+STR_DEFTAB+countString+") "+OutputService, AFTER);
+			LogMessage("Output Service Server - selected for installation");
+		endif;
+
+		// if nvInfo is true mean Fax Service(Fax Service Server) has beeb selected by user
+		FeatureGetData(MEDIA, FaxService, FEATURE_FIELD_SELECTED, nvInfo, svInfo);
+    	if nvInfo then
+    		featureCount = featureCount + 1;
+    		NumToStr(countString, featureCount);
+	    	// add selected feature into infoList.
+			ListAddString(listInfo, STR_DEFTAB+STR_DEFTAB+countString+") "+FaxService, AFTER);
+			LogMessage("Fax Service - selected for installation");
+		endif;
+
+		// checking if feature selection count is less then 1
+		if(featureCount<1) then
+			LogMessage("Atleast one component should be selected");
+	    	MessageBox(GetValueFromStringTable("ID_PLZ_SELECT_ONE"), INFORMATION);
+		endif;
+
+		return featureCount;
+ end;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Function : ConfirmBeforeCopy()
+//
+// Creates the Installation component list & display summary screen to user
+// before the actual copyof files on target system.
+////////////////////////////////////////////////////////////////////////////////
+function int ConfirmBeforeCopy()
+   STRING  szTitle, szMsg, msgString;
+   NUMBER  nvReturn;
+
+begin
+   // Create a list to hold system information.
+   ListAddString(listInfo," " , AFTER );
+   ListAddString(listInfo, GetValueFromStringTable("ID_CLICK_NEXT_TO_INSTALL"), AFTER);
+
+   // Set up title and message parameters for call to SdShowInfoList.
+   szTitle = GetValueFromStringTable("ID_CONFIRM_INSTALLATION");
+   szMsg = GetValueFromStringTable("ID_CONFIRM_FEATURE_INSTALL");
+
+   // Display the information.
+   nvReturn = SdShowInfoList(szTitle, szMsg, listInfo);
+   return nvReturn;
+end;
+
+////////////////////////////////////////////////////////////////////////////////
+// Function : NotifyPrerequisites()
+//
+// Creates the Installation component list & display summary screen to user
+// before the actual copy of files on target system.
+////////////////////////////////////////////////////////////////////////////////
+function number NotifyPrerequisites()
+   STRING  szTitle, szMsg, msgString;
+   number  nvReturn;
+   LIST notificationInfo;
+
+begin
+   LogEnterMessage("NotifyPrerequisites()");
+   notificationInfo = ListCreate(STRINGLIST);
+   // Create a list to hold other software prerequisites information.
+   ListAddString(notificationInfo," " , AFTER);
+   //ListAddString(notificationInfo, GetValueFromStringTable("SYSTEM_PREREQUISITES"), AFTER);
+   //ListAddString(notificationInfo," " , AFTER);
+   //ListAddString(notificationInfo, STR_DEFTAB + "1. " + GetValueFromStringTable("OS_PRE_REQ"), AFTER);
+   //ListAddString(notificationInfo, STR_DEFTAB + "2. " + GetValueFromStringTable("MEMORY_PRE_REQ"), AFTER);
+   //ListAddString(notificationInfo," " , AFTER);
+   ListAddString(notificationInfo, GetValueFromStringTable("OTHER_PRE_REQ"), AFTER);
+   ListAddString(notificationInfo," " , AFTER);
+   ListAddString(notificationInfo, STR_DEFTAB+"1. " + GetValueFromStringTable("HPF_DB_PRE_REQ"), AFTER);
+   ListAddString(notificationInfo," " , AFTER);
+   ListAddString(notificationInfo, GetValueFromStringTable("CLICK_NEXT_TO_CONTINUE"), AFTER);
+
+   // Set up title and message parameters for call to SdShowInfoList.
+   szTitle = GetValueFromStringTable("PRE_REQ_TITLE");
+   szMsg = GetValueFromStringTable("PRE_REQ_MESSAGE");
+
+   // Display the information.
+   nvReturn = SdShowInfoList(szTitle, szMsg, notificationInfo);
+   LogExitMessage("NotifyPrerequisites()");
+   return nvReturn;
+end;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Function : GetValueFromStringTable(identifierString)
+//
+//
+//
+////////////////////////////////////////////////////////////////////////////////
+function string GetValueFromStringTable(identifierString)
+   STRING  value;
+
+begin
+   LoadStringFromStringTable(identifierString, value);
+   return value;
+end;
+
+//---------------------------------------------------------------------------
+// OnFirstUIAfter
+//
+// First Install UI Sequence - After Move Data
+//
+// The OnFirstUIAfter event called by OnShowUI after the file transfer
+// of the setup when the setup is running in first install mode. By default
+// this event displays UI that informs the end user that the setup has been
+// completed successfully.
+//
+// Note: This event will not be called automatically in a
+// program...endprogram style setup.
+//---------------------------------------------------------------------------
+function OnFirstUIAfter()
+    STRING szTitle, szMsg1, szMsg2, szOpt1, szOpt2;
+    NUMBER bvOpt1, bvOpt2;
+    number  nvReturn;
+begin
+
+    ShowObjWizardPages(NEXT);
+
+    szTitle = "";
+    szMsg1 = "";
+    szMsg2 = "";
+    szOpt1 = "";
+    szOpt2 = "";
+	bvOpt1   = FALSE;
+    bvOpt2   = FALSE;
+
+	nvReturn = SdFinishReboot(szTitle , szMsg1 , SYS_BOOTMACHINE , szMsg2 , 0);
+	if (nvReturn == NEXT) then
+		LogMessage("Not Rebooting the system");
+		LaunchConfigureServerUtility();
+	else
+		LogMessage("Rebooting the system");
+	endif;
+end;
+
+function InstallJDK()
+	STRING szProgram, szCmdLine, szJavaHome;
+begin                
+    if(SYSINFO.bIsWow64 != 0) then  
+    	FeatureSelectItem(MEDIA, "Java32bit-1.7.0", FALSE);
+    	FeatureSelectItem(MEDIA, "Java64bit-1.7.0", TRUE);
+    else                 
+    	FeatureSelectItem(MEDIA, "Java32bit-1.7.0", TRUE);
+    	FeatureSelectItem(MEDIA, "Java64bit-1.7.0", FALSE);
+    endif;	
+end;  
+
+///////////////////////////////////////////////////////////////////////////////
+//        Create Registry key for Jboss Server
+//
+///////////////////////////////////////////////////////////////////////////////
+function CreateJbossRegKey()
+begin
+    LogEnterMessage("CreateJbossRegKey()");
+    StrRemoveLastSlash(jbossPath);
+    //setting the registry root for ROI Jboss server registry key.
+    RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
+	// Checking the existance of key in the registry.
+    if(RegDBKeyExist(JBOSS_REGISTRY_STRING) < 0) then
+    	// if key dosen't exists then create the key.
+    	RegDBCreateKeyEx(JBOSS_REGISTRY_STRING, "");
+    	LogMessage("Jboss reg Key Created Successfully");
+    else
+    	LogMessage("Jboss reg Key already exists");
+    endif ;
+
+    // add value to registry key
+    LogMessage("Key -> " + JBOSS_REG_KEY);
+    if (RegDBSetKeyValueEx(JBOSS_REGISTRY_STRING, JBOSS_REG_KEY, REGDB_STRING, jbossPath, -1) == 0) then
+    	LogMessage("Key Value has been added successfully: " + jbossPath);
+    else
+    	LogMessage("Unable to add Key Value");
+    endif;
+   	LogExitMessage("CreateJbossRegKey()");
+
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Modify JBOSS roi.run.bat File.
+//
+///////////////////////////////////////////////////////////////////////////////
+ function ModifyJbossFile()
+ string svAddStr,svAddStr1,szFileName,svValue, szPath, szKey, szFileName1;
+ string szSearchStr0,szSearchStr1,szSearchStr2, szSearchStr3, svReturnLine, svInfo, svReturnLine1;
+ number nvLineNumber, nvSize, nvType, roiInfo, outputInfo, nvLineNumber1;
+ begin
+    LogEnterMessage("ModifyJbossFile");     
+   	svValue = GetRegValue(JBOSS_REGISTRY_STRING, JBOSS_REG_KEY, "");
+   	szFileName = svValue + JBOSS_BAT_FILE_PATH;
+   	svAddStr=";" + svValue + CONFIG_FILES_PATH;
+	svAddStr1 = SET_JAVA_HOME + szVarValue;
+	szSearchStr0 = JAVA_HOME_SEARCH_STR;
+	szSearchStr1 = JBOSS_CLASSPATH_SEARCH_STR1;
+	szSearchStr3 = OO_START_UP;
+		//Modifying JBOSS_HOME in roi.run.bat (JBOSS)
+	if((svValue != ""))  then
+
+		// checking whether ROIServer is selected by user or not
+		FeatureGetData(MEDIA, ROIServer, FEATURE_FIELD_SELECTED, roiInfo, svInfo );
+		FeatureGetData(MEDIA, OutputService, FEATURE_FIELD_SELECTED, outputInfo, svInfo);
+
+		if (!roiInfo) then
+
+        	// finding open office start up
+        	FileGrep(szFileName, szSearchStr3, svReturnLine, nvLineNumber, RESTART );
+
+	    	FileDeleteLine(szFileName, nvLineNumber, nvLineNumber );
+		endif;
+
+    	// Trying to set JAVA_HOME setting.
+    	LogMessage("Setting JAVA_HOME in roi.run.bat");   
+    	// checks the roi.run.bat, if java home is laready set
+    	if (FileGrep(szFileName, SET_JAVA_HOME, svReturnLine, nvLineNumber, RESTART) < 0) then
+    		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART);
+    		FileInsertLine(szFileName, svAddStr1, nvLineNumber, BEFORE);     
+    	else
+    		FileInsertLine(szFileName, svAddStr1, nvLineNumber, REPLACE);     
+    	endif; 
+    		
+	   	// finding JBOSS_CLASSPATH inside roi.run.bat of JBOSS
+    	LogMessage("Setting JBOSS_CLASSPATH in roi.run.bat");
+		FileGrep(szFileName, szSearchStr1, svReturnLine, nvLineNumber, RESTART );
+
+		// Delete the specific line where pattern was found first
+    	FileDeleteLine(szFileName, nvLineNumber, nvLineNumber);
+
+    	//Insert Modified entry to deleted line number
+    	FileInsertLine(szFileName, szSearchStr1+svAddStr, nvLineNumber, BEFORE);
+       	LogMessage("roi.run.bat modified");
+		endif;
+
+   	LogExitMessage("Finished ModifyingJbossFile");
+ end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Modify ROI JBOSS shutdown.bat File.
+//
+///////////////////////////////////////////////////////////////////////////////
+ function ModifyJbossShutdownBatFile()
+ string svAddStr,szFileName,svValue;
+ string szSearchStr0, svReturnLine, svInfo, svReturnLine1;
+ number nvLineNumber;
+ begin
+    LogEnterMessage("Modify Jboss ShutDown.Bat File");     
+   	svValue = GetRegValue(JBOSS_REGISTRY_STRING, JBOSS_REG_KEY, "");
+ 	szFileName = svValue + JBOSS_SHUTDOWN_BAT_FILE_PATH;
+   	svAddStr = SET_JAVA_HOME + szVarValue;
+	szSearchStr0 = SHUTDOWN_BAT_FILE_JAVA_HOME_SEARCH_STR;
+		
+	if((svValue != ""))  then
+
+		// Trying to set JAVA_HOME in shutdown.bat.
+    	LogMessage("Setting JAVA_HOME in shutdown.bat" + szFileName);
+    	FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART);
+    	FileInsertLine(szFileName, svAddStr, nvLineNumber, BEFORE);
+  	
+  		LogMessage("shutdown.bat modified");
+	endif;
+
+   	LogExitMessage("Finished ModifyingJboss shutdown.bat File");
+ end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  Function:     InstallDotNet4_0()
+//  puropose: 	  it installs dot net Framework 4.0.
+///////////////////////////////////////////////////////////////////////////////
+
+function InstallDotNET4_0()
+STRING szProgram, szCmdLine;
+begin
+  	LogEnterMessage("InstallDotNET4_0()");
+	szCmdLine = "/q";
+
+	if (!IsDotNET4_0Installed()) then
+		LogMessage ("Launching the .NET 4.0 installer " + "DOTNET " +szCmdLine );
+
+		//LAAW_PARAMETERS.szStatusText = GetValueFromStringTable("DOTNET_INSTALLING");
+		// will pick up dotnetfx.exe from support dir
+		szProgram = SUPPORTDIR ^ "dotNetFx40_Full_x86_x64.exe";
+		//it will launch the dotnetfx.exe & wait untill it finishes.
+		LaunchAppAndWait(szProgram, szCmdLine, WAIT);
+  	else
+	  	LogMessage(".Net Framework already exists, Not installing framework");
+	endif;
+
+  	LogExitMessage("InstallDotNET4_0()");
+end;
+
+ ///////////////////////////////////////////////////////////////////////////////
+ //  Function :		IsDotNET4_0Installed()
+ //  purpose  :		it checks registry to detect if DotNet Framework
+ //					4.0 is installed.
+ ///////////////////////////////////////////////////////////////////////////////
+
+ function BOOL IsDotNET4_0Installed()
+    NUMBER nReturn;
+    BOOL bDotNETInstalled;
+ begin
+  	LogEnterMessage("IsDotNET4_0Installed()");
+
+  	bDotNETInstalled = FALSE;
+    LogMessage ("Checking if .NET 4.0 is installed");
+    // Get the list of subkeys.
+    RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);  
+    nReturn = RegDBKeyExist ("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Client");
+    
+    if (nReturn = 1) then 
+    	bDotNETInstalled = TRUE; 
+    endif;
+  	LogExitMessage("IsDotNET4_0Installed()");
+    return bDotNETInstalled;
+end;
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//  FUNCTION:   GetRegValue()
+//
+//  Purpose:    Get a registry value from HKEY_LOCAL_MACHINE
+//
+///////////////////////////////////////////////////////////////////////////////
+function STRING GetRegValue(szPath, szKey, szDefault)
+	STRING svValue;
+	NUMBER nvType;
+	NUMBER nvSize;
+begin
+	nvType=REGDB_STRING;
+	RegDBSetDefaultRoot(HKEY_LOCAL_MACHINE);
+	RegDBGetKeyValueEx(szPath, szKey, nvType, svValue, nvSize);
+
+	if svValue = "" then
+		return szDefault;
+	else
+		return svValue;
+	endif;
+end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//		Modify config.util.properties file in roi.config.util.
+//
+///////////////////////////////////////////////////////////////////////////////
+function ModifyConfigureROIServerProperites()
+ string svAddStr,svAddStr1,szFileName;
+ string szSearchStr0,szSearchStr1,szSearchStr2,svReturnLine;
+ number nvLineNumber, nvSize, nvType;
+ begin
+
+    LogEnterMessage("Start Modifying configure server properties file");
+	szFileName = CONFIG_UTIL_PROPS_FILE;
+	StrRemoveLastSlash(jbossPath);
+	svAddStr = "jboss.home=" + jbossPath;
+	szSearchStr0 = "jboss.home=";
+
+   	// finding jboss.home in config.util.props
+   	LogMessage("Setting jboss.home in config.util.props");
+	FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+
+	// Delete the specific line where pattern was found first
+   	FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+
+   	//Insert Modified entry to deleted line number
+   	FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+
+	LogMessage("config.util.properties jboss.home modified");
+
+   	LogExitMessage("Finished Modifying configure server properties file");
+end;
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//		Modify JBoss default port in the Output JBoss
+//
+///////////////////////////////////////////////////////////////////////////////
+function ModifyJBossPort()
+ string szFileName,svAddStr,szSearchStr0;
+ begin
+
+    LogEnterMessage("Start Modifying OUTPUT_JBOSS_CONF_MIN_FILE JBoss Port file");
+	szFileName = outputJbossPath + OUTPUT_BROKER_CONFIG_FILE;
+	svAddStr = "<transportConnector uri=\"tcp://localhost:61617\" discoveryUri=\"multicast://default\"/>";
+	szSearchStr0 ="<transportConnector uri=";
+	//modify the Output jboss port in broker.config.xml
+	ModifyOutputJbossPort(szFileName,svAddStr,szSearchStr0);
+	LogMessage("output JBoss activeMQ Output.Broker.config modified");
+
+   	LogMessage("output JBoss Ports are modified");
+   	LogExitMessage("Finished Modifying output jboss port");
+end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//		Modify the port no into the output JBoss file based on input string.
+//
+///////////////////////////////////////////////////////////////////////////////
+function ModifyOutputJbossPort(szFileName,svAddStr,szSearchStr0)
+ string svAddStr1;
+ string szSearchStr1,szSearchStr2,svReturnLine;
+ number nvLineNumber, nvSize, nvType;
+ begin
+
+	// finding output jboss port
+   	LogMessage("Modifying jboss port");
+	FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+
+	// Delete the specific line where pattern was found first
+   	FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+
+   	//Insert Modified entry to deleted line number
+   	FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//	Update click once install files
+//
+///////////////////////////////////////////////////////////////////////////////
+function UpdatClickOnceFiles()
+	STRING szProgram, szCmdLine;
+begin
+    LogEnterMessage("UpdatClickOnceFile()"); 
+    // arg1 jboss path
+    // arg2 jboss port no
+    // arg3 protocol
+   	szCmdLine = jbossPath + " " + "8080 http";
+	szProgram = SUPPORTDIR ^ UPDATE_SET_UP_BAT;
+    LogMessage("cmd arg for update set up " + szCmdLine);
+
+	if(LaunchAppAndWait(szProgram, szCmdLine, WAIT) < 0) then
+		LogMessage("Unable to Click Once Install files");
+	else
+		LogMessage("Click once install files updated successfully");
+	endif;
+    LogExitMessage("UpdatClickOnceFile()");
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//	Launches configure server utility
+//
+///////////////////////////////////////////////////////////////////////////////
+function LaunchConfigureServerUtility()
+ string svValue, szProgram, szCmd, szSearchStr, szFilePath;
+ number fileHandle, nvLineNumber;
+ begin
+    svValue = GetRegValue(JBOSS_REGISTRY_STRING, JBOSS_REG_KEY, "");
+    LogEnterMessage("Launching the ROI Configurator");
+    if((svValue != ""))  then
+    ChangeDirectory(CONFIG_UTIL_HOME);   
+    
+    if (SYSINFO.bIsWow64 != 0) then                  
+		szCmd = "set path=" + TARGETDIR ^ JAVA_64_BIT_LOCATION ^ JAVA_BIN_LOCATION + ";%path%";
+	else                                                                             
+		szCmd = "set path=" + TARGETDIR ^ JAVA_LOCATION ^ JAVA_BIN_LOCATION + ";%path%";
+    endif;
+                  
+    szCmd = "set path=" + TARGETDIR ^ JAVA_LOCATION ^ JAVA_BIN_LOCATION + ";%path%";
+    szFilePath = CONFIG_UTIL_HOME ^ CONFIG_UTIL_BAT_FILE_NAME;
+	  
+	// finding to set java home
+	FileInsertLine(szFilePath, szCmd, 0, BEFORE);
+	
+    szProgram = CONFIG_UTIL_BAT_FILE_NAME;
+	//it will launch the ROIConfigUtil.exe & wait untill it finishes.
+		
+    if (LaunchAppAndWait(szProgram, "", WAIT) < 0)
+    then
+   	  LogMessage("Failed to launch the ROI Utility.");
+	  MessageBox("Failed to launch the ROI Utility.", INFORMATION);
+    endif;
+    endif;
+    LogExitMessage("Finished launching the ROI Configurator.");
+end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//	Launches Fax Service installation
+//
+///////////////////////////////////////////////////////////////////////////////
+function InstallFaxService()
+string svValue;
+begin
+	LogEnterMessage("InstallDotNET4_0_Installing()");
+	InstallDotNET4_0();  
+	ModifyFaxServiceInstallBatFile();  
+	ModifyFaxServiceUnInstallBatFile();
+	LogExitMessage("InstallDotNET4_0_Installed()");
+    LogEnterMessage("Launching the Fax Service Installation");
+
+    LogMessage("Fax service installtion command : " + FAX_SERVICE_INSTALL_BAT);
+    if(LaunchAppAndWait(FAX_SERVICE_INSTALL_BAT, "", WAIT) < 0) then
+   	   LogMessage("Failed to launch the Fax Service installation");
+    endif;
+
+    LogMessage("rfcomapi.dll register command : " + "regsvr32 " + FAX_SERVICE_REGISTER_DLL + " /s");
+    if(LaunchAppAndWait("regsvr32", FAX_SERVICE_REGISTER_DLL + " /s", WAIT) < 0) then
+   	   LogMessage("Failed to register rfcomapi.dll");
+    endif;
+
+    LogExitMessage("Finished launching the Fax Service installation.");
+end;    
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Modify Fax Server as installFaxServerAsService.bat File.
+//
+///////////////////////////////////////////////////////////////////////////////
+ function ModifyFaxServiceInstallBatFile()
+ string svAddStr,szFileName,svValue;
+ string szSearchStr0, svReturnLine, svInfo, svReturnLine1;
+ number nvLineNumber;
+ begin
+    LogEnterMessage("Modifying Fax Server installFaxServerAsService.bat File");     
+  
+	// to retrieve the path where the .net framework installed
+	svValue = GetRegValue(DOTNET_FRAMEWORK_REGISTRY_STRING, DOTNET_FRAMEWORK_REG_KEY, "");
+	
+	// path where the FAX bat file is located
+ 	szFileName = FAX_SERVICE_INSTALL_BAT;
+   	
+	svAddStr = "\"" + svValue + FAX_SERVICE_INSTALL_STRING;
+	
+	// The string needs to search in the batch file
+	szSearchStr0 = FAX_INSTALL_FRAMEWORK_SEARCH_STR;
+		
+	if((svValue != ""))  then
+
+		// Trying to set Framework version in installFaxServerAsService.bat.
+    	LogMessage("Setting .net Framework version in installFaxServerAsService.bat" + szFileName);
+    
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART);
+    	// Delete the specific line where pattern was found first
+   		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+    	FileInsertLine(szFileName, svAddStr, nvLineNumber, REPLACE);
+  	
+  		LogMessage("Setting .net Framework version in installFaxServerAsService.bat is successful");
+	endif;
+
+   	LogExitMessage("Finished Modifying .net Framework version in installFaxServerAsService.bat");
+ end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Modify Fax Server as uninstallFaxServerAsService.bat File.
+//
+///////////////////////////////////////////////////////////////////////////////
+ function ModifyFaxServiceUnInstallBatFile()
+ string svAddStr,szFileName,svValue;
+ string szSearchStr0, svReturnLine, svInfo, svReturnLine1;
+ number nvLineNumber;
+ begin
+    LogEnterMessage("Modifying Fax Server uninstallFaxServerAsService.bat File");     
+  
+	// to retrieve the path where the .net framework installed
+	svValue = GetRegValue(DOTNET_FRAMEWORK_REGISTRY_STRING, DOTNET_FRAMEWORK_REG_KEY, "");
+	
+	// path where the FAX bat file is located
+ 	szFileName = FAX_SERVICE_UNINSTALL_BAT;
+   	
+	svAddStr = "\"" + svValue + FAX_SERVICE_UNINSTALL_STRING;
+	
+	// The string needs to search in the batch file
+	szSearchStr0 = FAX_UNINSTALL_FRAMEWORK_SEARCH_STR;
+		
+	if((svValue != ""))  then
+
+		// Trying to set Framework version in uninstallFaxServerAsService.bat.
+    	LogMessage("Setting .net Framework version in uninstallFaxServerAsService.bat" + szFileName);
+    
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART);
+    	// Delete the specific line where pattern was found first
+   		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+    	FileInsertLine(szFileName, svAddStr, nvLineNumber, REPLACE);
+  	
+  		LogMessage("Setting .net Framework version in uninstallFaxServerAsService.bat is successful");
+	endif;
+
+   	LogExitMessage("Finished Modifying .net Framework version in uninstallFaxServerAsService.bat");
+ end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//	Launches Fax Service uninstallation
+//
+///////////////////////////////////////////////////////////////////////////////
+function UninstallFaxService(szSvcName, nUseBatchFile)
+string szCmd;  
+int nRet, nState; 
+int nCanbeRemoved; 
+STRING szScriptFile;  
+int nLineNumber, nvError;
+begin
+    LogEnterMessage("Launching the Fax Service uninstallation");
+ 
+ 	// stops the fax server, if it is running
+	LaunchAppAndWait("", FAX_SERVER_KILL_COMMAND, WAIT); 
+	
+    if(nUseBatchFile ==1) then 
+	    if (LaunchApp(FAX_SERVICE_UNINSTALL_BAT, "") < 0)
+	    then
+	   	   LogMessage("Failed to launch the Fax Service uninstallation");
+	    endif;
+   endif;
+  
+   if(ServiceExistsService (szSvcName) == TRUE ) then  
+   	   nCanbeRemoved = TRUE;	
+   	   nRet = ServiceGetServiceState ( szSvcName, nState);
+   	   if(nRet >= ISERR_SUCCESS && nState == SERVICE_RUNNING) then
+		   if(ServiceStopService(szSvcName) >= ISERR_SUCCESS ) then
+		   		LogMessage( "(" + szSvcName + ")" + " service stopped successfully");
+		   else
+		   		LogMessage( "(" + szSvcName + ")" + " service failed to stop");
+		   		nCanbeRemoved = FALSE;
+		   		GetExtendedErrInfo(szScriptFile, nLineNumber, nvError);
+		   		LogMessage("Error: " + FormatMessage(nvError));  
+			endif;
+	   else
+	   	   LogMessage( "(" + szSvcName + ")" + " service is not running");
+	   endif;	
+	   if(nCanbeRemoved == TRUE) then
+		   if(ServiceRemoveService(szSvcName) >= ISERR_SUCCESS) then
+	   		   LogMessage( "(" + szSvcName + ")" + " service removed successfully");
+           else
+	   		   LogMessage( "(" + szSvcName + ")" + " service failed to remove");
+	   		   GetExtendedErrInfo(szScriptFile, nLineNumber, nvError);
+		   	   LogMessage("Error: " + FormatMessage(nvError));  
+	   	   endif;	
+		endif;
+	else
+		LogMessage( "(" + szSvcName + ")" + " service not exists");
+	endif;
+	 
+    LogExitMessage("Finished launching the Fax Service uninstallation.");
+end;
+
+////////////////////////////////////////////////////////////////////////////////
+// CreateLogFolder
+//
+// Function creates the log folder/file "C\\ROILog\Install.log"
+//
+////////////////////////////////////////////////////////////////////////////////
+function CreateLogFolder()
+string svResult;
+begin
+	// Create/modify installation log file
+
+    OpenFileMode(FILE_MODE_APPEND);
+    //Creating Log Directory
+    if(ExistsDir(LOG_FOLDER_LOCATION)=NOTEXISTS) then
+   	  	CreateDir(LOG_FOLDER_LOCATION);
+    endif;
+
+	 // open file in Append Mode.
+	OpenFileMode(FILE_MODE_APPEND);
+
+ 	 // creating Log file.
+    CreateFile(nvFileHandle, LOG_FOLDER_LOCATION, LOG_FILE_NAME);
+
+    // getting the current Date & time .
+    GetSystemInfo(DATE, nvResult, svResult);
+    Sprintf(svDate, "DATE: %s", svResult);
+    GetSystemInfo(TIME, nvResult, svResult);
+    Sprintf(svTime, "TIME: %s", svResult);
+
+    OpenFileMode(FILE_MODE_APPEND);
+
+    //adding log messages to log file.
+    WriteLine(nvFileHandle, "--------------Log File---------------");
+    WriteLine(nvFileHandle, "Created on --> " + svDate + " " + svTime);
+    WriteLine(nvFileHandle, "Installing ROI component files");
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Modify roi.properties File and adds open office server invocation.
+//
+///////////////////////////////////////////////////////////////////////////////
+ function CreateOOStarter()
+ string szFileName, svValue, szCmd, svAddStr, szSearchStr0, svReturnLine; 
+ number nvLineNumber, fileHandle;
+ 
+ begin
+    LogEnterMessage("CreateOOStarter");
+    szFileName = jbossPath + ROI_PROPS_FILE;
+	svAddStr = "open.office.home=" + OPEN_OFFICE_HOME_PATH;
+	szSearchStr0 = "open.office.home=";
+
+   	// finding open.office.home in roi.properties
+   	LogMessage("Setting open.office.home in roi.properties");
+	FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+
+	// Delete the specific line where pattern was found first
+   	FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+
+   	//Insert Modified entry to deleted line number
+   	FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+
+	LogMessage("open.office.home in roi.properties modified");
+
+   	LogExitMessage("open.office.home value has been set in : " + szFileName);
+ end;
+
+///////////////////////////////////////////////////////////////////////////////
+//		Modify config.util.properties file in roi.config.util.
+//
+///////////////////////////////////////////////////////////////////////////////
+function ModifyConfigureUtilProperitesForFax()
+ string svAddStr,svAddStr1,szFileName;
+ string szSearchStr0,szSearchStr1,szSearchStr2,svReturnLine;
+ number nvLineNumber, nvSize, nvType;
+ begin
+
+    LogEnterMessage("Start Modifying configure server properties file for fax service");
+	szFileName = CONFIG_UTIL_PROPS_FILE;
+	svAddStr = "fax.service.home=" + TARGETDIR ^ "\\FaxService";
+	szSearchStr0 = "fax.service.home=";
+
+   	// finding fax.service.home in config.util.props
+   	LogMessage("Setting fax.service.home in config.util.props");
+	FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+
+	// Delete the specific line where pattern was found first
+   	FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+
+   	//Insert Modified entry to deleted line number
+   	FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+
+	LogMessage("config.util.properties modified with fax.service.home");
+   	LogExitMessage("Finished Modifying config util properties with fax service home");
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//		Modify config.util.properties file in roi.config.util.
+//
+///////////////////////////////////////////////////////////////////////////////
+function ModifyConfigureUtilProperitesForOutput()
+ string svAddStr,svAddStr1,szFileName;
+ string szSearchStr0,szSearchStr1,szSearchStr2,svReturnLine;
+ number nvLineNumber, nvSize, nvType;
+ begin
+
+    LogEnterMessage("Start Modifying configure server properties file for fax service");
+	szFileName = CONFIG_UTIL_PROPS_FILE;
+	svAddStr = "output.jboss.home=" + outputJbossPath;
+	szSearchStr0 = "output.jboss.home=";
+
+   	// finding fax.service.home in config.util.props
+   	LogMessage("Setting output.jboss.home in config.util.props");
+	FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+
+	// Delete the specific line where pattern was found first
+   	FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+
+   	//Insert Modified entry to deleted line number
+   	FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+
+	LogMessage("config.util.properties modified with output.jboss.home");
+   	LogExitMessage("Finished Modifying config util properties with output.jboss.home");
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//Personalize config.util.properties file in roi.config.util.
+//
+///////////////////////////////////////////////////////////////////////////////
+function CustomizeConfigUtilProps()
+ string svAddStr,svAddStr1,svAddStr2,szFileName, svInfo;
+ string szSearchStr0,szSearchStr1,szSearchStr2,svReturnLine;
+ number nvLineNumber, nvSize, nvType;
+ int nvInfo;
+ begin
+
+	szFileName = CONFIG_UTIL_PROPS_FILE;
+    LogEnterMessage("Started customizing configure util properties file");
+
+	// checking whether ROIServer is selected by user or not
+	FeatureGetData( MEDIA, ROIServer, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+	// if nvInfo is true mean ROIServer(ROI Server) has been selected by user
+	szSearchStr0 = "roi.server.installed=";
+	if nvInfo then
+		svAddStr = "roi.server.installed=true";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	else
+		svAddStr = "roi.server.installed=false";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	endif;
+
+	// if nvInfo is true mean ROIClientInstallation(ROI Client Installation Server) has beeb selected by user
+	FeatureGetData(MEDIA, ROIClientInstallation, FEATURE_FIELD_SELECTED, nvInfo, svInfo);
+	szSearchStr0 = "roi.client.installer.installed=";
+	if nvInfo then
+		svAddStr = "roi.client.installer.installed=true";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	else
+		svAddStr = "roi.client.installer.installed=false";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	endif;
+
+	// if nvInfo is true mean OutputService(Output Service Server) has beeb selected by user
+	FeatureGetData(MEDIA, OutputService, FEATURE_FIELD_SELECTED, nvInfo, svInfo);
+	szSearchStr0 = "output.server.installed=";
+	if nvInfo then
+		svAddStr = "output.server.installed=true";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	else
+		svAddStr = "output.server.installed=false";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	endif;
+
+	// if nvInfo is true mean FaxService(Fax Service) has beeb selected by user
+	FeatureGetData(MEDIA, FaxService, FEATURE_FIELD_SELECTED, nvInfo, svInfo);
+	szSearchStr0 = "fax.server.installed=";
+	if nvInfo then
+        svAddStr = "fax.server.installed=true";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	else
+        svAddStr = "fax.server.installed=false";
+		FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART );
+		FileDeleteLine (szFileName, nvLineNumber, nvLineNumber);
+		FileInsertLine (szFileName, svAddStr, nvLineNumber, BEFORE);
+	endif;
+
+   	LogExitMessage("Finished customizing config util properties");
+end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//Creates shortcut for Output Server.
+//
+///////////////////////////////////////////////////////////////////////////////
+function CreateOutputServerShortcut()
+ string svAddStr,svStartMenuPath,svWd,svValue, svInfo;
+ string szSearchStr0,szSearchStr1,szSearchStr2,svReturnLine;
+ number nvLineNumber, nvSize, nvType;
+ int roiInfo, outputInfo;
+ begin
+
+	svValue = GetRegValue(JBOSS_REGISTRY_STRING, JBOSS_REG_KEY, "");
+    LogEnterMessage("Started creating Output Server shortcut");
+    svWd =   svValue + "\\bin";
+    svValue = "\"" + outputJbossPath + OUTPUT_RUN_BAT_FILE + "\"";
+    svStartMenuPath = FOLDER_PROGRAMS ^ "\\Mckesson\\ROI Server";
+
+
+	// checking whether ROIServer is selected by user or not
+	FeatureGetData( MEDIA, ROIServer, FEATURE_FIELD_SELECTED, roiInfo, svInfo );
+	FeatureGetData(MEDIA, OutputService, FEATURE_FIELD_SELECTED, outputInfo, svInfo);
+
+	if (outputInfo)then
+		AddFolderIcon (FOLDER_DESKTOP, "Output Server", svValue, svWd, "", 0, "", REPLACE );
+		AddFolderIcon (svStartMenuPath, "Output Server", svValue, svWd, "", 0, "", REPLACE );
+	endif;
+	if (!roiInfo && outputInfo)then
+		FeatureSelectItem(MEDIA, "Jboss Component", FALSE);
+		DeleteDir("Jboss Component", ALLCONTENTS);
+	endif;
+
+   	LogExitMessage("Finished creating Output Server shortcut");
+end;   
+
+////////////////////////////////////////////////////////////////////////////////
+//  		Create ConfigUtility Batch file to launch the ConfigUtil.         //
+//                                                                        	 //	
+///////////////////////////////////////////////////////////////////////////////
+ function CreateConfigUtilBat()
+ string szFilePath,szSSLBatchFile, svValue, szCmd;
+ number fileHandle;
+ begin
+    LogEnterMessage("CreateConfigUtilBat");
+ 	szCmd = "\"" + szVarValue + JAVA_BIN_LOCATION + "\\javaw\"" + " -jar " + "\"" + CONFIG_UTIL_HOME+"\\roi.config.util.jar" + "\"";
+ 	LogMessage("Command to launch the Config Utility" + szCmd);
+	szFilePath = CONFIG_UTIL_HOME;
+	CreateFile(fileHandle, szFilePath, CONFIG_UTIL_BAT_FILE_NAME);
+	OpenFileMode(FILE_MODE_APPEND);
+	WriteLine(fileHandle, szCmd);
+	CloseFile(fileHandle);   
+	LogMessage("ConfigUtil Batch file Created at : " + szFilePath);
+	
+	//Modify ROIConfigUtil.exe.config
+	ReplaceFromFile(CONFIG_UTIL_CONF_FILE,"configutil.bat" , CONFIG_UTIL_BAT_FILE_NAME);
+	
+	//LogMessage("Configuring SSL Batch File");
+    //szSSLBatchFile = CONFIG_UTIL_HOME + "\\..\\SSL\\SSL.Bat";
+    //LogMessage("ROI SSL Batch File :" + szSSLBatchFile);
+	//FileInsertLine(szSSLBatchFile, SET_ROI_JAVA_HOME + szVarValue, 1, BEFORE);
+	//LogMessage("ROI Java Home :" + SET_ROI_JAVA_HOME + szVarValue);	
+	//LogMessage("Configured SSL Batch File");
+	
+   	LogExitMessage("ConfigUtilans SSL Batch files are updated");
+ end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Modify JBOSS start-output.bat File.
+//
+///////////////////////////////////////////////////////////////////////////////
+ function ModifyStartOutputBat()
+ string svAddStr,svAddStr1,szFileName, szPath, szKey;
+ string szSearchStr0, svReturnLine, szSearchStr1, szSearchStr2, szFileName1;
+ number nvLineNumber, nvSize, nvType;
+ begin
+    LogEnterMessage("ModifyStartOutputBat");  
+	szFileName = outputJbossPath + START_OUTPUT_BAT_FILE_PATH;
+	szFileName1 = outputJbossPath + JBOSS_SHUTDOWN_BAT_FILE_PATH;
+	svAddStr1= SET_JAVA_HOME + szVarValue;
+	svAddStr=";" + outputJbossPath + CONFIG_FILES_PATH;
+
+	szSearchStr0 = JAVA_HOME_SEARCH_STR;
+	szSearchStr1 = JBOSS_CLASSPATH_SEARCH_STR1;
+	szSearchStr2 = SHUTDOWN_BAT_FILE_JAVA_HOME_SEARCH_STR;
+
+		//Modifying JAVA_HOME in start-output.bat (JBOSS)
+	if((outputJbossPath != ""))  then
+    	// Trying to set JAVA_HOME setting.
+    	LogMessage("Setting JAVA_HOME in output.run.bat");
+    	FileGrep(szFileName, szSearchStr0, svReturnLine, nvLineNumber, RESTART);
+    	//FileDeleteLine(szFileName, nvLineNumber, nvLineNumber);
+    	FileInsertLine(szFileName, svAddStr1, nvLineNumber, BEFORE);
+
+		 // Trying to set JAVA_HOME in shutdown.bat.
+    	LogMessage("Setting JAVA_HOME in shutdown.bat");
+    	FileGrep(szFileName1, szSearchStr2, svReturnLine, nvLineNumber, RESTART);
+    	//FileDeleteLine(szFileName, nvLineNumber, nvLineNumber);
+    	FileInsertLine(szFileName1, svAddStr1, nvLineNumber, BEFORE);
+
+	    // finding JBOSS_CLASSPATH inside roi.run.bat of JBOSS
+    	LogMessage("Setting JBOSS_CLASSPATH in output.run.bat");
+		FileGrep(szFileName, szSearchStr1, svReturnLine, nvLineNumber, RESTART );
+
+		// Delete the specific line where pattern was found first
+    	FileDeleteLine(szFileName, nvLineNumber, nvLineNumber);
+
+    	//Insert Modified entry to deleted line number
+    	FileInsertLine(szFileName, szSearchStr1+svAddStr, nvLineNumber, BEFORE);
+     	
+     	LogMessage("start-output.bat modified");
+		endif;
+
+	LogExitMessage("Finished Modifying start-output.bat");
+end;
+
+ //////////////////////////////////////////////////////////////////////////////
+//
+//  FUNCTION:   DeleteJbossDirOnUninstallation()
+//
+//  Purpose:    To delete the jboss directory on uninstallation
+//
+///////////////////////////////////////////////////////////////////////////////
+function DeleteJbossDirOnUninstallation()
+	STRING svValue;
+begin
+	svValue = GetRegValue(JBOSS_REGISTRY_STRING, JBOSS_REG_KEY, "");
+	DeleteDir(svValue, ALLCONTENTS);
+	 if(LaunchAppAndWait("rmdir", "/S /Q " + svValue, WAIT) < 0) then
+   	   LogMessage("Jboss uninstalled");
+    endif;
+end;
+
+////////////////////////////////////////////////////////////////////////////////
+// The Installed event is sent after the feature jboss
+// is installed.
+////////////////////////////////////////////////////////////////////////////////  
+function InstallROIJBossService() 
+STRING szProgram, szCmdLine;
+begin
+    LogEnterMessage("InstallROIJBossAsService()");
+    szProgram = jbossPath + ROI_JBOSS_SERVICE_BAT_FILE_PATH;
+    szCmdLine = "install";
+    
+    LogMessage("To install the ROI JBoss as Windows service use " + szProgram + " " + szCmdLine);
+    
+    //it will create a JBoss as a window service
+    LaunchAppAndWait(szProgram, szCmdLine, WAIT);
+    LogExitMessage("InstallROIJBossAsService()");
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  Function:     UnInstallROIJBossService(szSvcName)
+//  puropose:       it uninstalls the old ROI windows services from the system.
+///////////////////////////////////////////////////////////////////////////////
+function UnInstallROIJBossService(szSvcName)
+    STRING szProgram, szCmdLine, szCmd, szCmd1, svValue, svReturnLine;
+    string szFilePath, szJniport, szJbossPath, szShutdownCommand;    
+	NUMBER fileHandle, nvLineNumber; 
+	int nRet, nState; 
+    int nCanbeRemoved;  
+    STRING szScriptFile;  
+    int nLineNumber, nvError;
+begin
+    LogEnterMessage("UnInstallROIJBossService(szSvcName)");
+   	svValue = GetRegValue(JBOSS_REGISTRY_STRING, JBOSS_REG_KEY, "");
+    szCmd = "sc stop " + szSvcName;
+    szFilePath = svValue + BIN_FOLDER_PATH;
+    szProgram = svValue + ROI_JBOSS_SERVICE_STOP_BAT_FILE;
+    LogMessage("Command to stop the "+ szSvcName +" JBoss Service" + szCmd + " from " + szProgram);
+   
+    if(IsFileExists(szProgram) = TRUE) then       
+        LaunchAppAndWait(szProgram, "", WAIT);
+    endif;
+    
+    CreateFile(fileHandle, szFilePath, ROI_JBOSS_SERVICE_STOP_BAT_FILE);
+    OpenFileMode(FILE_MODE_APPEND);
+    WriteLine(fileHandle, szCmd);
+    CloseFile(fileHandle);
+    
+    LaunchAppAndWait(szFilePath,"ookill.bat" , WAIT);
+    
+    szJbossPath = svValue ^ JBOSS_SHUTDOWN_BAT_FILE_PATH;
+    
+ 	// finding to delete the pause option in the shutdown batch file
+	if (FileGrep(szJbossPath, "pause", svReturnLine, nvLineNumber, RESTART) = 0) then
+		FileDeleteLine(szJbossPath, nvLineNumber, nvLineNumber );                        
+	endif;
+   	
+   	szJniport = GetJniServicePort(svValue ^ ROI_JBOSS_PORT_CONF_FILE); 
+   	szShutdownCommand = "-s localhost:" + szJniport + " -S";
+   	LaunchAppAndWait(szJbossPath, szShutdownCommand, WAIT);    
+    
+    LogMessage("To UnInstall ROI JBoss Windows service use " + szProgram + " " + szCmdLine);
+    LaunchAppAndWait("", szCmd, WAIT);
+    // once the server is stopped the soffice instance is killed
+    StopSofficeBin();     
+    
+    if(ServiceExistsService (szSvcName) == TRUE ) then  
+   	   nCanbeRemoved = TRUE;	
+   	   nRet = ServiceGetServiceState ( szSvcName, nState);
+   	   if(nRet >= ISERR_SUCCESS && nState == SERVICE_RUNNING) then
+		   if(ServiceStopService(szSvcName) >= ISERR_SUCCESS ) then
+		   		LogMessage( "(" + szSvcName + ")" + " service stopped successfully");
+		   else
+		   		LogMessage( "(" + szSvcName + ")" + " service failed to stop");
+		   		nCanbeRemoved = FALSE;
+		   		GetExtendedErrInfo(szScriptFile, nLineNumber, nvError);
+		   		LogMessage("Error: " + FormatMessage(nvError));  
+			endif;
+	   else
+	   	   LogMessage( "(" + szSvcName + ")" + " service is not running");
+	   endif;	
+	   if(nCanbeRemoved == TRUE) then
+		   if(ServiceRemoveService(szSvcName) >= ISERR_SUCCESS) then
+	   		   LogMessage( "(" + szSvcName + ")" + " service removed successfully");
+           else
+	   		   LogMessage( "(" + szSvcName + ")" + " service failed to remove");
+	   		   GetExtendedErrInfo(szScriptFile, nLineNumber, nvError);
+		   	   LogMessage("Error: " + FormatMessage(nvError));  
+	   	   endif;	
+		endif;
+	else
+		LogMessage( "(" + szSvcName + ")" + " service not exists");
+	endif;
+	
+    LogExitMessage("UnInstallROIJBossService(szSvcName)");  
+    
+end;
+
+////////////////////////////////////////////////////////////////////////////////
+// The Installed event is sent after the feature jboss
+// is installed.
+////////////////////////////////////////////////////////////////////////////////
+function InstallOutputJBossService() 
+STRING szProgram, szCmdLine;
+begin
+    LogEnterMessage("InstallOutputJBossAsService()");
+    szProgram = outputJbossPath + OUTPUT_JBOSS_SERVICE_BAT_FILE_PATH;
+    szCmdLine = "install";
+    
+    LogMessage("To install the Output JBoss as Windows service use " + szProgram + " " + szCmdLine);
+    
+    //it will create a JBoss as a window service
+    LaunchAppAndWait(szProgram, szCmdLine, WAIT);
+    LogExitMessage("InstallOutputJBossAsService()");
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  Function:     UnInstallOutputJBossService(szSvcName)
+//  puropose:       it uninstalls the Old OUTPUT windows services from the system.
+///////////////////////////////////////////////////////////////////////////////    
+function UnInstallOutputJBossService(szSvcName)
+    STRING szProgram, szCmdLine, szFilePath, szProgram1, szOutputJbossDir, svReturnLine; 
+    STRING svValue, szCmd, szCmd1, szJniport, szJbossPath, szShutdownCommand;
+ 	NUMBER fileHandle, nvLineNumber; 
+ 	int nRet, nState; 
+    int nCanbeRemoved; 
+    STRING szScriptFile;  
+    int nLineNumber, nvError;
+begin
+    LogEnterMessage("UnInstallOutputJBossService(szSvcName)");
+    szOutputJbossDir = TARGETDIR + "\\output.jboss";
+    szProgram1 = szProgram + OUTPUT_JBOSS_SERVICE_BAT_FILE_PATH;
+    szCmdLine = "uninstall";
+    szCmd = "sc stop " + szSvcName;
+    szFilePath = szOutputJbossDir + BIN_FOLDER_PATH;
+    szProgram = szFilePath + OUTPUT_JBOSS_SERVICE_STOP_BAT_FILE;
+    LogMessage("Command to stop the "+ szServiceName +" JBoss Service" + szCmd + " from " + szProgram);
+  
+    if(IsFileExists(szProgram) = TRUE) then       
+        LaunchAppAndWait(szProgram, "", WAIT);
+    endif;   
+    
+    CreateFile(fileHandle, szFilePath, OUTPUT_JBOSS_SERVICE_STOP_BAT_FILE);
+    OpenFileMode(FILE_MODE_APPEND);
+    WriteLine(fileHandle, szCmd);
+    CloseFile(fileHandle);
+    
+    LaunchAppAndWait(szFilePath,"ookill.bat" , WAIT);
+    
+    szJbossPath = szOutputJbossDir ^ JBOSS_SHUTDOWN_BAT_FILE_PATH;
+    // finding to delete the pause option in the shutdown batch file
+	if (FileGrep(szJbossPath, "pause", svReturnLine, nvLineNumber, RESTART) = 0) then
+		FileDeleteLine(szJbossPath, nvLineNumber, nvLineNumber );                        
+	endif;
+	
+    szJniport = GetJniServicePort(szOutputJbossDir ^ ROI_JBOSS_PORT_CONF_FILE);
+	szShutdownCommand = "-s localhost:" + szJniport + " -S";
+   	LaunchAppAndWait(szJbossPath, szShutdownCommand, WAIT);    
+       
+    LogMessage("To UnInstall Output JBoss Windows service use " + szProgram + " " + szCmdLine);
+    
+    //it will uninstall the JBoss service
+   	LaunchAppAndWait("", szCmd, WAIT);  
+   	
+   	if(ServiceExistsService (szSvcName) == TRUE ) then  
+   	   nCanbeRemoved = TRUE;	
+   	   nRet = ServiceGetServiceState ( szSvcName, nState);
+   	   if(nRet >= ISERR_SUCCESS && nState == SERVICE_RUNNING) then
+		   if(ServiceStopService(szSvcName) >= ISERR_SUCCESS ) then
+		   		LogMessage( "(" + szSvcName + ")" + " service stopped successfully");
+		   else
+		   		LogMessage( "(" + szSvcName + ")" + " service failed to stop");
+		   		nCanbeRemoved = FALSE;
+		   		GetExtendedErrInfo(szScriptFile, nLineNumber, nvError);
+		   		LogMessage("Error: " + FormatMessage(nvError));  
+			endif;
+	   else
+	   	   LogMessage( "(" + szSvcName + ")" + " service is not running");
+	   endif;	
+	   if(nCanbeRemoved == TRUE) then
+		   if(ServiceRemoveService(szSvcName) >= ISERR_SUCCESS) then
+	   		   LogMessage( "(" + szSvcName + ")" + " service removed successfully");
+           else
+	   		   LogMessage( "(" + szSvcName + ")" + " service failed to remove");
+	   		   GetExtendedErrInfo(szScriptFile, nLineNumber, nvError);
+		   	   LogMessage("Error: " + FormatMessage(nvError));  
+	   	   endif;	
+		endif;
+	else
+		LogMessage( "(" + szSvcName + ")" + " service not exists");
+	endif;
+	
+    LogExitMessage("UnInstallOutputJBossService(szSvcName)");
+end;
+
+ 
+ ///////////////////////////////////////////////////////////////////////////////
+//  		IsFileExists
+//
+///////////////////////////////////////////////////////////////////////////////
+
+ function BOOL IsFileExists(fileName)                        
+BOOL exists;
+NUMBER nResult;
+begin                 
+	exists = FALSE;
+	LogEnterMessage("IsFileExists(" + fileName + ")");    
+	nResult = Is(FILE_EXISTS,fileName);
+	if (nResult = TRUE) then
+	    exists = TRUE;
+	elseif (nResult = FALSE) then
+	    exists = FALSE;
+	else
+	    LogMessage(" OOOPS!!!! unable to validate the file existance");
+	endif;
+	LogExitMessage("IsFileExists(" + fileName + ")");
+	return exists;
+end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Logs message
+//
+///////////////////////////////////////////////////////////////////////////////
+
+function LogMessage(dbgMsg)
+begin
+	WriteLine(nvFileHandle, dbgMsg);
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Logs message on function entry
+//
+///////////////////////////////////////////////////////////////////////////////
+
+function LogEnterMessage(dbgMsg)
+begin
+	WriteLine(nvFileHandle, "Entering " + dbgMsg );
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//  		Logs message on function exit
+//
+///////////////////////////////////////////////////////////////////////////////
+
+function LogExitMessage(dbgMsg)
+begin
+	WriteLine(nvFileHandle, "Exit " + dbgMsg );
+end;
+//---------------------------------------------------------------------------
+// OnSetTARGETDIR
+//
+// OnSetTARGETDIR is called directly by the framework to initialize
+// TARGETDIR to it's default value.
+//
+// Note: This event is called for all setups.
+//---------------------------------------------------------------------------
+function OnSetTARGETDIR()
+number nId, nIgnore, nResult;
+string szId, szTARGETDIR, sCompName;
+begin
+
+    // In maintenance mode the value of TARGETDIR is read from the log file.
+    if( MAINTENANCE ) then
+        return ISERR_SUCCESS;
+    endif;   
+    
+    // Set TARGETDIR to script default.
+    TARGETDIR = "<FOLDER_APPLICATIONS>\\<IFX_COMPANY_NAME>\\<IFX_PRODUCT_NAME>";
+
+    // Read TARGETDIR from the media.
+    nResult = MediaGetData( MEDIA, MEDIA_FIELD_TARGETDIR, nIgnore, szTARGETDIR );
+
+    // Use the TARGETDIR from the media if anything was read.
+    if( nResult >= ISERR_SUCCESS && StrLengthChars( szTARGETDIR ) ) then
+        TARGETDIR = szTARGETDIR;
+    endif;
+        
+	// Customize the default TARGETDIR for multi-instance application.
+	// TODO: If you want something different customize the code below.	
+	if( MAINT_OPTION = MAINT_OPTION_MULTI_INSTANCE  && MULTI_INSTANCE_COUNT > 0) then
+
+		// Start with the current multi-instance count plus one.
+		nId = MULTI_INSTANCE_COUNT + 1;
+
+		// Find a unique TARGETDIR.
+		while( ExistsDir( TARGETDIR ) = EXISTS )
+			
+			// Convert to string.
+			NumToStr( szId, nId );
+			
+			// Update IFX_MULTI_INSTANCE_SUFFIX
+			IFX_MULTI_INSTANCE_SUFFIX = "_" + szId;
+		
+			// Update TARGETDIR
+			TARGETDIR = TARGETDIR + IFX_MULTI_INSTANCE_SUFFIX;
+			
+			// Update nId
+			nId = nId + 1;
+
+		endwhile;
+
+	endif;
+
+end;      
+
+                                                                               
+////////////////////////////////////////////////////////////////////////////////
+// OnSetUpdateMode
+//
+// OnSetUpdateMode is called directly by the framework to set the UPDATEMODE
+// InstallShield system variable appropriately to control which UI events
+// are called by OnShowUI.
+//
+// Note: This event is called for all setups.
+////////////////////////////////////////////////////////////////////////////////
+function OnSetUpdateMode()
+	number	nIgnore, nMediaFlags, nInstalledVersion, nUpdateVersion, nResult;
+	string	szVersion, szIgnore, szMsg;
+begin
+	
+	UPDATEMODE = FALSE; // Non-update mode by default.
+    //IFX_INSTALLED_VERSION = 15.01;
+	// Added 11.5 - Don't set UPDATEMODE when running from Add/Remove
+	if( ADDREMOVE ) then
+		return ISERR_SUCCESS;
+	endif;
+
+	// Added 11.5 - Don't set UPDATEMODE when REMOVEONLY is specified
+	if( REMOVEONLY ) then
+		return ISERR_SUCCESS;
+	endif;
+
+	// Get the media flags.
+	MediaGetData( MEDIA, MEDIA_FIELD_MEDIA_FLAGS, nMediaFlags, szIgnore );
+
+	if( ! ( nMediaFlags & MEDIA_FLAG_UPDATEMODE_SUPPORTED ) ) then
+		return ISERR_SUCCESS; // Update mode not supported by the setup.
+	endif;
+
+	// TODO: If you are updating an application that was installed by a previous
+	// version of InstallShield, IFX_INSTALLED_VERSION will be empty, and
+	// VERSION_COMPARE_RESULT_NOT_INSTALLED will be returned by
+	// VerProductCompareVersions. Change the value of IFX_INSTALLED_VERSION (and
+	// IFX_INSTALLED_DISPLAY_VERSION) here based on application specific version
+	// information determined by the setup. Only do this if IFX_INSTALLED_VERSION
+	// is empty.
+	//if ( !StrLengthChars( IFX_INSTALLED_VERSION ) && MAINTENANCE ) then
+	//	IFX_INSTALLED_VERSION = "X.XX.XXX";
+	//	IFX_INSTALLED_DISPLAY_VERSION = IFX_INSTALLED_VERSION;
+	//endif;
+
+	// Verify that the installed version is valid.
+	if( !StrLengthChars( IFX_INSTALLED_VERSION ) && MAINTENANCE ) then
+		// If this error occurs, IFX_INSTALLED_VERSION needs to be set manually.
+		szMsg = SdLoadString( IDS_IFX_ERROR_UPDATE_NO_INSTALLED_VERSION );
+		MessageBox( szMsg, SEVERE );
+		abort;
+	endif;
+
+	// Verify that the product version is valid.
+	if( !StrLengthChars( IFX_PRODUCT_VERSION ) ) then
+		// If this error occures, IFX_PRODUCT_VERSION was not initialized correctly.
+		szMsg = SdLoadString( IDS_IFX_ERROR_UPDATE_NO_PRODUCT_VERSION );
+		MessageBox( szMsg, SEVERE );
+		abort;
+	endif;
+
+	// Do the version comparison.
+	nResult = VerProductCompareVersions();
+
+	// Make sure that valid data was returned by VerProductCompareVersions
+	if( nResult < ISERR_SUCCESS ) then
+		szMsg = SdLoadString( IDS_IFX_ERROR_UPDATE_VERSION_COMPARE_FAILURE );
+		MessageBox( szMsg, SEVERE );
+		abort;
+	endif;
+
+	// Set update mode if this is a differential media or the product is already installed and the versions do not match.
+	UPDATEMODE = ( nMediaFlags & MEDIA_FLAG_FORMAT_DIFFERENTIAL || ( MAINTENANCE && ( nResult != VERSION_COMPARE_RESULT_SAME ) ) );
+
+end;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//  Function:     OnUpdateUIBefore()
+//  puropose:     when the upgradation of the servers finishes, this event is called
+///////////////////////////////////////////////////////////////////////////////    
+function OnUpdateUIBefore ()  
+string szMessage, szTitle, szIgnore, szMsg, szInstalledJbossVersion, svInfo;
+string installedVersion, szErrTitle, szErrMsg1, szErrMsg2, szDialogTitle;  
+string szclientRoot, szclientFolder, szClientpath1, szClientpath2;
+number nResult, nSelectedOption, nvLineNumber;
+number nId1, nId2, nMediaFlags, nvJava32, nvInfo; 
+begin                    
+       
+    CreateLogFolder();           
+    installedVersion = getInstalledVersion();
+    // Determine the update media type.	
+	MediaGetData( MEDIA, MEDIA_FIELD_MEDIA_FLAGS, nMediaFlags, szIgnore );
+	// Do the version comparison.
+	nResult = VerProductCompareVersions();     
+	
+	// if the installed version is same as the current version 
+	if (nResult == VERSION_COMPARE_RESULT_SAME) then
+	   
+	   szErrTitle = "ROI Already Installed"; 
+	   szErrMsg1  = "ROI " + installedVersion + " is already installed.";    
+	   szErrMsg2  = "";
+	   SdSubstituteProductInfo( szErrMsg1 ); 
+	   SdFinish(szErrTitle, szErrMsg1, szErrMsg2 , "", "", nId1, nId2);  
+	   abort;
+	endif;
+	
+	if (nResult == VERSION_COMPARE_RESULT_OLDER) then   
+	   
+	   szErrTitle = "ROI Installed"; 
+	   szErrMsg1  = "ROI " + installedVersion + " is installed. Upgrade from higher version " + installedVersion + " to lower version %VS not allowed.";
+	   szErrMsg2  = "";
+	   SdSubstituteProductInfo( szErrMsg1 ); 
+	   SdFinish(szErrTitle, szErrMsg1, szErrMsg2 , "", "", nId1, nId2);
+	   abort;
+	endif;  
+	
+	szInstalledJbossVersion = getJbossVersion(installedVersion);
+	szTitle="ROI Upgrade from " + installedVersion + " to %VS";
+    szMessage="";
+	SdSubstituteProductInfo( szTitle ); 
+   
+	jbossPath = TARGETDIR ^ "\jboss";
+    outputJbossPath = TARGETDIR ^ "\output.jboss";   
+
+	if (SYSINFO.bIsWow64 != 0) then
+		szVarValue = TARGETDIR + JAVA_64_BIT_LOCATION;     
+	else          
+		szVarValue = TARGETDIR + JAVA_LOCATION;
+    endif;
+	
+	 // finding client folder path
+    FileGrep(CONFIG_UTIL_PROPS_FILE, "click.once.path", szclientRoot, nvLineNumber, RESTART );
+    StrSub ( szClientpath1, szclientRoot, 16, (StrLength(szclientRoot) - 16));
+    // finding client folder
+    FileGrep(CONFIG_UTIL_PROPS_FILE, "client.config.version", szclientFolder, nvLineNumber, RESTART );
+    StrSub ( szClientpath2, szclientFolder, 22, (StrLength(szclientFolder) - 22));
+    
+    szROIClientFolder = jbossPath ^  szClientpath1 ^  szClientpath2;   
+    LogMessage("Client folder is:" +  szROIClientFolder);
+        
+	dlg_showWarning:
+			// onclick cancel exits the set up automatically.
+			nSelectedOption = SdWelcome(szTitle, szMessage);  
+			
+			SdShowMsg("Taking backup of Existing Configurations", TRUE);
+			// installs the autoconfigurator in which configurations are backed up.
+			// take back up of the config util.properties file
+			CopyFile(CONFIG_UTIL_PROPS_FILE, TARGETDIR ^ "config.util.properties");
+			
+			// uninstall the old config utility
+			FeatureSelectItem(MEDIA, "Common Components", FALSE);  
+			FeatureTransferData(MEDIA);  
+			
+			FeatureSelectItem(MEDIA, "Java32bit-1.7.0", TRUE);
+			
+			// reinstall the current config utility
+			FeatureSelectItem(MEDIA, "Common Components", TRUE);  
+			FeatureTransferData(MEDIA);  
+			CopyFile(CONFIG_UTIL_PROPS_FILE, CONFIG_UTIL_PROPS_FILE + "-backup");
+			CopyFile(TARGETDIR ^ "config.util.properties", CONFIG_UTIL_PROPS_FILE);
+			DeleteFile(TARGETDIR ^ "config.util.properties");
+			BackUpConfigurations();         
+			CopyFile(CONFIG_UTIL_PROPS_FILE + "-backup", CONFIG_UTIL_PROPS_FILE); 
+			
+			SdShowMsg("Taking backup of Existing ROI Configurations", FALSE);
+	Dlg_ObjDialogs:
+	    
+	    StopSofficeBin();
+	    FeatureSelectNew(MEDIA, TRUE);
+	    nResult = ShowObjWizardPages( nResult );    
+		if( nMediaFlags & MEDIA_FLAG_FORMAT_DIFFERENTIAL ) then
+			// Differential installs patch media.
+			FeaturePatch();
+		else
+			// Update reinstalls (updates) all features in media.
+			FeatureReinstall();
+		endif;
+	
+	    // Added in 11.0 - Set appropriate StatusEx static text.
+	    szMsg = SdLoadString( IDS_IFX_STATUSEX_STATICTEXT_UPDATEUI );
+	    StrReplace(szMsg, "%VI", installedVersion, 0);
+		SdSubstituteProductInfo( szMsg );
+	    SetStatusExStaticText( szMsg );
+	
+end;     
+
+   
+///////////////////////////////////////////////////////////////////////////////
+//  Function:     OnUpdateUIAfter()
+//  puropose:     when the upgradation of the servers finishes, this event is called
+///////////////////////////////////////////////////////////////////////////////    
+function OnUpdateUIAfter ()  
+string szTitle, szMsg1, szMsg2, szOpt1, szOpt2; 
+number nvReturn; 
+begin           
+    
+    ShowObjWizardPages(NEXT);
+
+    szTitle = "";
+    szMsg1 = "";
+    szMsg2 = "";
+    szOpt1 = "";
+    szOpt2 = "";
+
+	DeleteDir(szROIClientFolder, ALLCONTENTS);	
+	nvReturn = SdFinishReboot(szTitle , szMsg1 , SYS_BOOTMACHINE , szMsg2 , 0);
+	if (nvReturn == NEXT) then
+		LogMessage("Not Rebooting the system");
+		LaunchConfigureServerUtility();
+	else
+		LogMessage("Rebooting the system");
+	endif;
+	
+end; 
+
+////////////////////////////////////////////////////////////////////////////////
+//  		ModifyAutoConfiguratorBat()
+//		    java home is set Auto Configurator bat 
+//                                                                        	 
+///////////////////////////////////////////////////////////////////////////////
+ function ModifyAutoConfiguratorBat()
+ string szFilePath, svValue, szCmd, szSearchStr, svReturnLine;
+ number fileHandle, nvLineNumber;
+ begin
+    LogEnterMessage("ModifyAutoConfiguratorBat");
+ 	szCmd = "set path=" + TARGETDIR ^ JAVA_LOCATION ^ JAVA_BIN_LOCATION + ";%path%";
+ 	LogMessage("Command to launch the auto Config Utility" + szCmd);
+	szFilePath = AUTO_CONFIGURATOR_FILEPATH; 
+	szSearchStr = "set PATH=<JAVA_HOME>\\bin;%PATH%";
+	  
+	// finding to set java home
+	FileGrep(szFilePath, szSearchStr, svReturnLine, nvLineNumber, RESTART );
+	FileDeleteLine(szFilePath, nvLineNumber, nvLineNumber );       
+	FileInsertLine(szFilePath, szCmd, nvLineNumber, BEFORE);
+	
+   	LogExitMessage("Auto Configurator ConfigUtil Batch file modified at : " + szFilePath);
+ end;     
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Function  BackUpCon3figurations ()  
+//
+//	Event     The existing preloaded configurations are loaded from the installed servers
+//
+///////////////////////////////////////////////////////////////////////////////
+function BackUpConfigurations ()  
+string installedVersion, currentVersion, szTargetDir;
+string szCurrentJbossVersion, szProgram, szCommandLine, szInstalledJbossVersion, szSubStr; 
+number nResult;
+begin
+	
+	installedVersion = getInstalledVersion();   
+	currentVersion = IFX_PRODUCT_VERSION; 
+	     
+	szInstalledJbossVersion = getJbossVersion(installedVersion);
+	ChangeDirectory(CONFIG_UTIL_HOME);
+	if (LaunchAppAndWait("", AUTO_CONFIGURATOR_FILEPATH + " " + szInstalledJbossVersion, WAIT) == 0) then
+		LogMessage("Back up of ROI Configuration is taken successfully");
+	else 
+		LogMessage("Unable to retrieve Configuration Details");
+	endif;
+	
+	UnInstallROIServices(0); 
+	// deletes the ROI and Output servers	
+	LogEnterMessage("Deleting ROI Server");
+    RemoveExistingJBoss(TARGETDIR ^ "jboss");   
+    LogEnterMessage("Deleting ROI Output Server");
+    RemoveExistingJBoss(TARGETDIR ^ "output.jboss");     
+    LogEnterMessage("Deleting Fax Server");
+    RemoveExistingJBoss(TARGETDIR ^ "FaxService");
+end;   
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//  FUNCTION:   RemoveExistingJBoss()
+//
+//  EVENT:      This function will remove the exising JBoss
+//				
+//////////////////////////////////////////////////////////////////////////////
+function RemoveExistingJBoss(serverLocation)
+begin
+
+	LogEnterMessage("Entering RemoveExistingJboss" + serverLocation);
+	
+	if (DeleteDir(serverLocation, ALLCONTENTS)= 0) then
+ 		LogMessage("Deleting " + serverLocation + " is successful");
+ 	else
+ 		LogMessage("Unable to delete " + serverLocation);
+ 	endif;	
+ 	                                        
+ 	LogEnterMessage("Existing RemoveExistingJboss");
+end;   
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//  FUNCTION:   UnInstallROIServices(int nRemoveAll)
+//
+//  EVENT:      This function will uninstall all the services
+//				
+//////////////////////////////////////////////////////////////////////////////
+function UnInstallROIServices(nRemoveAll)
+begin
+
+	LogEnterMessage("Entering UnInstallROIServices");
+	UnInstallROIJBossService(ROI151_JBOSS_SERVICE_NAME);
+	UnInstallROIJBossService(ROI160_JBOSS_SERVICE_NAME);
+	UnInstallOutputJBossService(OUTPUT151_JBOSS_SERVICE_NAME);              
+	UnInstallOutputJBossService(OUTPUT160_JBOSS_SERVICE_NAME);
+	UninstallFaxService(FAX_OLD_SERVICE_NAME, nRemoveAll);
+
+	if(nRemoveAll == 1) then
+		UnInstallROIJBossService(ROI_NEW_JBOSS_SERVICE_NAME);
+		UnInstallOutputJBossService(OUTPUT_NEW_JBOSS_SERVICE_NAME);
+		UninstallFaxService(FAX_NEW_SERVICE_NAME, nRemoveAll);
+	endif;
+	
+	LogEnterMessage("Existing UnInstallROIServices");
+end;    
+
+ //////////////////////////////////////////////////////////////////////////////
+//
+//  FUNCTION:   StopSofficeBin()
+//
+//  EVENT:      This function will stop soffice.bin
+//				
+//////////////////////////////////////////////////////////////////////////////
+function StopSofficeBin()      
+STRING szCmd,szFilePath;
+begin 
+
+	LogEnterMessage("Entering StopSofficeBin");      
+	szCmd = "taskkill /F /FI \"imagename eq soffice*\" /T"; 
+	LaunchAppAndWait("", szCmd , WAIT);
+	LogEnterMessage("Existing StopSofficeBin");
+end;    
+
+//---------------------------------------------------------------------------
+// OnMaintUIBefore
+//
+// Maintenance UI Sequence - Before Move Data
+//
+// The OnMaintUIBefore event is called by OnShowUI when the setup is
+// running in maintenance mode. By default this event displays UI that
+// allows the end user to add or remove features, repair currently
+// installed features or uninstall the application.
+//
+// Note: This event will not be called automatically in a
+// program...endprogram style setup.
+//---------------------------------------------------------------------------
+function OnMaintUIBefore()
+    number	nResult, nType, nMediaFlags;
+    string	szTitle, szMsg, szIgnore; 
+    LIST currentListInfo,oldListInfo; 
+
+begin
+	
+	// nType defaults to MODIFY.
+	nType = MODIFY;
+  
+	jbossPath = TARGETDIR ^ "\jboss";
+	outputJbossPath = TARGETDIR ^ "\output.jboss";
+	// If the machine is 64bit machine, java 64 bit is installed
+	if (SYSINFO.bIsWow64 != 0) then
+		szVarValue = TARGETDIR + JAVA_64_BIT_LOCATION;     
+	else          
+		szVarValue = TARGETDIR + JAVA_LOCATION;
+    endif;
+    
+// Beginning of UI Sequence
+Dlg_Start:
+    
+    CreateLogFolder();
+    // Added in Version 9.5 - Support for REMOVEONLY option.
+    if( !REMOVEONLY ) then
+    	// In standard mode show maintenance dialog
+	    Disable( BACKBUTTON );
+	    nType = SdWelcomeMaint( szTitle, szMsg, nType );
+	    Enable( BACKBUTTON );
+        nResult = NEXT;
+    else
+        // Hide the initial progress dialog as otherwise the user can
+        // click on it, and hide the MessageBox.
+        Disable( DIALOGCACHE );
+
+        // In RemoveOnly mode, set to remove.
+        nType = REMOVEALL;
+    endif;
+
+	// Show Uninstall Confirmation Dialog
+    if ( nType = REMOVEALL ) then
+		nResult = MessageBox( SdLoadString( IFX_MAINTUI_MSG ), MB_YESNO );
+		if (nResult != IDYES ) then
+            
+            if( REMOVEONLY ) then
+                // In REMOVEONLY mode, abort the setup.
+                abort;
+            else
+                // In non-REMOVEONLY mode, redisplay the previous dialog.
+			    goto Dlg_Start;
+            endif;
+
+		endif;
+	endif;
+
+Dlg_SdFeatureTree:
+	if ( nType = MODIFY ) then
+		szTitle = "";    
+		                                  
+		oldListInfo =ListCreate(STRINGLIST); 
+		
+		ListDeleteAll(oldListInfo);
+				
+		oldListInfo=CreateSelectionList();
+		
+        currentListInfo = ListCreate (STRINGLIST); 
+        
+        ListDeleteAll(currentListInfo);
+	     		
+		szMsg = SdLoadString( SD_STR_COMPONENT_MAINT_MSG );
+		nResult = SdFeatureTree( szTitle, szMsg, TARGETDIR, "", -1 );
+		if ( nResult = BACK ) goto Dlg_Start;                        
+				
+		currentListInfo = CreateSelectionList();
+        
+        if(CheckNewSelectOrDeSelectComponent(currentListInfo,oldListInfo)=0) then
+			MessageBox("Please Select/De-select at least one component",INFORMATION);
+			goto Dlg_SdFeatureTree;                        
+		endif;
+    endif;  
+
+Dlg_ObjDialogs:
+    nResult = ShowObjWizardPages( nResult );
+    if ( ( nResult = BACK ) && ( nType != MODIFY ) ) goto Dlg_Start;
+    if ( ( nResult = BACK ) && ( nType = MODIFY ) ) goto Dlg_SdFeatureTree;
+                 
+    isRepairMode = FALSE;
+    StopSofficeBin();
+	switch(nType)
+
+        case REMOVEALL:
+			
+			// stops and uninstall all the servc
+			UnInstallROIServices(1);
+					
+			// Ensure that all previously installed features are removed
+			// for media that supports updating.
+			MediaGetData( MEDIA, MEDIA_FIELD_MEDIA_FLAGS, nMediaFlags, szIgnore );
+			
+			if( nMediaFlags & MEDIA_FLAG_UPDATEMODE_SUPPORTED ) then
+				FeatureRemoveAllInMediaAndLog();
+			else
+				FeatureRemoveAllInMedia();
+			endif;
+
+            // Added in 11.0 - Set appropriate StatusEx static text.
+            SetStatusExStaticText( SdLoadString( IDS_IFX_STATUSEX_STATICTEXT_MAINTUI_REMOVEALL ) );
+
+        case REPAIR:
+		    isRepairMode = TRUE;
+		   	UnInstallROIServices(0);
+		    
+		  	// Changed for DevStudio 9, Disk1 files are now always updated when installed
+			// so when running from ADDREMOVE we need to prevent these files from being
+			// updated since this will result in files being updated that are locked by the setup.
+			// Updating these files when running from ADDREMOVE should not be needed since updates
+			// are not run directly from Add/Remove.
+            if( ADDREMOVE ) then
+                // Reinstall all previously installed features, except
+                // disk1 features.
+                FeatureUpdate( "" );
+            else
+                // Reinstall all previously installed features.
+                FeatureReinstall();
+            endif;
+
+            // Added in 11.0 - Set appropriate StatusEx static text.
+            SetStatusExStaticText( SdLoadString( IDS_IFX_STATUSEX_STATICTEXT_MAINTUI_REPAIR ) );
+            //to be done later
+            //SetStatusExStaticText("Repair process is in progress");
+        case MODIFY:
+            
+            // Added in 11.0 - Set appropriate StatusEx static text.
+            SetStatusExStaticText( SdLoadString( IDS_IFX_STATUSEX_STATICTEXT_MAINTUI_MODIFY ) );
+            
+              //to be done later
+              //SetStatusExStaticText("Modify process is in progress");
+    endswitch;
+ 
+end;   
+
+//---------------------------------------------------------------------------
+// OnMaintUIAfter
+//
+// The OnMaintUIAfter event called by OnShowUI after the file transfer
+// of the setup when the setup is running in maintenance mode. By default
+// this event displays UI that informs the end user that the maintenance setup
+// has been completed successfully.
+//
+// Note: This event will not be called automatically in a
+// program...endprogram style setup.
+//---------------------------------------------------------------------------
+function OnMaintUIAfter()
+    STRING szTitle, szMsg1, szMsg2, szOpt1, szOpt2;  
+    STRING configFileName;
+    NUMBER bvOpt1, bvOpt2;    
+    int nvInfo;
+ 	string svInfo;
+ 	LIST sListInfo;
+begin            
+	LogEnterMessage("OnMaintUIAfter()");
+
+    ShowObjWizardPages(NEXT);
+    
+    // Added - Version 9.5 - Use appropriate strings for complete
+    // uninstall.
+    if( REMOVEALLMODE ) then
+        szTitle = SdLoadString(IFX_SDFINISH_REMOVE_TITLE);
+        szMsg1 =  "Components have been removed successfully";//SdLoadString(IFX_SDFINISH_REMOVE_MSG1);
+    else
+        szTitle = SdLoadString(IFX_SDFINISH_MAINT_TITLE);    
+        szMsg1  = "Components have been modified successfully"; //SdLoadString(IFX_SDFINISH_MAINT_MSG1);
+    endif;
+
+	szMsg2 = "";    
+    szOpt1 = "";
+    szOpt2 = "";
+	bvOpt1   = FALSE;
+    bvOpt2   = FALSE;    
+
+    if ( BATCH_INSTALL ) then 
+    	if (isRepairMode) then 
+    		// Restores ROI configuration files
+    		LogMessage("Restores ROI configuration files");
+    		
+    		// checking whether ROIServer is selected by user or not
+			FeatureGetData( MEDIA, ROIServer, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+		
+			// if nvInfo is true mean ROIServer has been selected by user
+	    	if nvInfo then 
+		        	
+		    	// to modify the ROIServer properties in the config util property file
+				ModifyConfigureROIServerProperites();   
+				InstallROIJBossService();  
+		  	endif;
+			
+			// if nvInfo is true mean OutputService has been selected by user
+			FeatureGetData( MEDIA, OutputService, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+	  		if nvInfo then
+	    		
+	    		// to modify the OutputService properties in the config util property file
+				ModifyConfigureUtilProperitesForOutput();	
+				InstallOutputJBossService();
+		  	endif;                          
+					
+			// if nvInfo is true mean FaxService component has been selected by user
+			FeatureGetData( MEDIA, FaxService, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+	    	if nvInfo then
+	    		    		
+	    		// to modify the FaxService properties in the config util property file
+				ModifyConfigureUtilProperitesForFax();
+				InstallFaxService();
+			endif;   
+	    
+	    	CustomizeConfigUtilProps();
+	    	CreateConfigUtilBat();
+	    	
+	    endif;
+	    	SdFinishReboot ( szTitle , szMsg1 , SYS_BOOTMACHINE , szMsg2 , 0 );
+	    	CustomizeConfigUtilProps();
+			LaunchConfigureServerUtility();
+    else   
+		// Restores Client config files
+		LogEnterMessage("Restores ROI configuration details.");
+		
+		// checking whether ROIServer is selected by user or not
+		FeatureGetData( MEDIA, ROIServer, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+	
+		// if nvInfo is true mean ROIServer has been selected by user
+		if nvInfo then 
+    	    	
+    		// to modify the ROIServer properties in the config util property file
+			ModifyConfigureROIServerProperites();
+		endif;
+	
+		// if nvInfo is true mean OutputService has been selected by user
+		FeatureGetData( MEDIA, OutputService, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+		if nvInfo then
+    		
+    		// to modify the OutputService properties in the config util property file
+			ModifyConfigureUtilProperitesForOutput();
+		
+		endif;                          
+			
+		// if nvInfo is true mean FaxService component has been selected by user
+		FeatureGetData( MEDIA, FaxService, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+		if nvInfo then
+		    		
+			// to modify the FaxService properties in the config util property file
+			ModifyConfigureUtilProperitesForFax();
+		endif;   
+
+    	CustomizeConfigUtilProps();
+    	CreateConfigUtilBat();
+    	SdFinish ( szTitle , szMsg1 , szMsg2 , szOpt1 , szOpt2 , bvOpt1 , bvOpt2 );      
+    	LaunchConfigureServerUtility();	    	
+    endif;
+	LogExitMessage("OnMaintUIAfter()");   
+end;
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// CreateSelectionList()
+//
+// Function creates the lIST of component selected by user
+// for installation.
+//
+////////////////////////////////////////////////////////////////////////////////
+          
+ 
+function LIST CreateSelectionList()
+ int nvInfo;
+ string svInfo;
+ LIST sListInfo;
+ begin   
+ 		sListInfo = ListCreate(STRINGLIST);
+ 		
+        // checking whether ROIServer is selected by user or not
+		FeatureGetData( MEDIA, ROIServer, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+		
+		// if nvInfo is true mean ROIServer has been selected by user
+    	if nvInfo then 
+	    	    	
+	    	// add selected component into sListInfo.
+			ListAddString( sListInfo, ROIServer, AFTER );
+			
+		endif;
+		 
+		// if nvInfo is true mean ROIClientInstallation has been selected by user 
+		FeatureGetData( MEDIA, ROIClientInstallation, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+    	if nvInfo then
+    		    		
+    		// add selected component into sListInfo.
+			ListAddString( sListInfo, ROIClientInstallation, AFTER );
+			
+		endif;  
+		
+		// if nvInfo is true mean OutputService has been selected by user
+		FeatureGetData( MEDIA, OutputService, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+    	if nvInfo then
+    		
+    		// add selected component into sListInfo.
+			ListAddString( sListInfo,OutputService, AFTER );
+			
+		endif;                          
+				
+		// if nvInfo is true mean FaxService component has been selected by user
+		FeatureGetData( MEDIA, FaxService, FEATURE_FIELD_SELECTED, nvInfo, svInfo );
+    	if nvInfo then
+    		    		
+    		// add selected component into sListInfo.
+			ListAddString( sListInfo, FaxService, AFTER );
+			
+		endif;     
+		
+	return sListInfo;
+		      
+ end;         
+ 
+////////////////////////////////////////////////////////////////////////////////
+// CheckNewSelectOrDeSelectComponent()
+//
+// Function checks the difference in given two lIST of component 
+// selected by user for installation.
+// return 1 = user has modified the component list.
+// return 0 = user has not modified the component list.
+////////////////////////////////////////////////////////////////////////////////
+
+function int CheckNewSelectOrDeSelectComponent(previousInfo , newInfo)
+number nResult1,nResult2,nCount1,nCount2;
+
+begin  
+		ListSetIndex (previousInfo, 0); // Go to the top of the list
+		ListSetIndex (newInfo, 0); // Go to the top of the list
+		
+		nCount1 = ListCount(previousInfo); 
+		nCount2 = ListCount(newInfo);   
+		
+		// if count of element in two list is different means,
+		// user has modified the previous installation list.
+		if(nCount1 != nCount2) then
+			return 1;
+		else	
+		
+			// finding ROIServer is existing in two list.
+			nResult1 = ListFindString (previousInfo, ROIServer);
+			nResult2 = ListFindString (newInfo, ROIServer);  
+			
+			// if result of search is differentmeans
+			// user has modifed the setup list.			
+			if (nResult1 != nResult2) then
+				return 1;
+			endif; 
+            
+            // finding ROIClientInstallation is existing in two list.      
+  		    nResult1 = ListFindString (previousInfo, ROIClientInstallation);
+			nResult2 = ListFindString (newInfo, ROIClientInstallation);  
+			
+			// if result of search is differentmeans
+			// user has modifed the setup list.			
+			if (nResult1 != nResult2) then
+				return 1;
+			endif; 
+		     
+		    // finding OutputService is existing in two list. 
+			nResult1 = ListFindString (previousInfo, OutputService);
+			nResult2 = ListFindString (newInfo, OutputService);  
+			
+			// if result of search is differentmeans
+			// user has modifed the setup list.			
+			if (nResult1 != nResult2) then
+				return 1;
+			endif; 
+		    
+		   		
+			// finding FaxService is existing in two list.
+			nResult1 = ListFindString (previousInfo, FaxService);
+			nResult2 = ListFindString (newInfo, FaxService);  
+			
+			// if result of search is differentmeans
+			// user has modifed the setup list.			
+			if (nResult1 != nResult2) then
+				return 1;
+			endif;
+		endif ;
+		
+	return 0;
+end;  
+
+function string getInstalledVersion()  
+string  szSubStr, installedVersion, szVersion, szResult1, szResult2, szResult3; 
+number nvVarMinor, nvVarBuild, nvVarMajor;
+begin
+    
+	installedVersion = IFX_INSTALLED_VERSION;
+	
+	StrSub(szSubStr, installedVersion, 0, 2);
+	StrToNum(nvVarMajor, szSubStr); 
+	 
+	StrSub(szSubStr, installedVersion, 3, 2);
+	StrToNum(nvVarMinor, szSubStr); 
+	
+	StrSub(szSubStr, installedVersion, 6, 3);
+	StrToNum(nvVarBuild, szSubStr);  
+	
+	 NumToStr(szResult1, nvVarMajor);
+	 NumToStr(szResult2, nvVarMinor);
+	 NumToStr(szResult3, nvVarBuild);
+	   
+	szVersion = szResult1 + "." + szResult2 + "." +  szResult3;
+	return szVersion;
+end;  
+
+function string getJbossVersion(version)
+string  szSubStr, szInstalledJbossVersion;
+begin
+    StrSub ( szSubStr, version, 0, 4);
+	if (szSubStr == "13.5" || szSubStr == "15.0") then
+		szInstalledJbossVersion = "4";
+	else 
+	    szInstalledJbossVersion = "5";
+	endif;
+	return szInstalledJbossVersion;
+end;           
+
+////////////////////////////////////////////////////////////////////////////////
+// ModifyMPFWConfiguration()
+//
+// Function updates MPFW Configuration
+////////////////////////////////////////////////////////////////////////////////
+
+function ModifyMPFWConfiguration(serverLocation, applicationName)       
+string szProdLogFilePath, szStagLogFilePath, fileLocation; 
+string szLogLocation ,hostname, sCompName;
+begin
+	LogEnterMessage("Start ModifyMPFWConfiguration in " + serverLocation);      
+	szLogLocation = serverLocation + LOG_LOCATION;
+	
+	StrReplace (szLogLocation, "\\", "/", 0); 
+	                                                  
+	szProdLogFilePath = serverLocation ^ LOG_PRODUCTION_PROPS_FILE;   
+	ReplaceFromFile(szProdLogFilePath, "$!LOG_PATH_FULL_XML!$", szLogLocation);
+	                                                    
+	szStagLogFilePath = serverLocation ^ LOG_STAGING_PROPS_FILE;             
+	ReplaceFromFile(szStagLogFilePath, "$!LOG_PATH_FULL_XML!$", szLogLocation);
+	      
+	fileLocation = serverLocation ^ MPFW_ENCRYPTION_CONFIG_PATH;
+	ReplaceFromFile(fileLocation,"$!PWD_ENCRYPT_CLASS!$" , DEFAULT_MPFW_ENCRYPTION_CLASS);
+	
+	fileLocation = serverLocation ^ MPFW_WEB_XML_PATH;
+	ReplaceFromFile(fileLocation, "$!APPLICATION!$" , applicationName);
+	
+	GetEnvVar("ComputerName", sCompName);
+	hostname = applicationName + ":" + sCompName;
+	fileLocation = serverLocation ^ LOG_PRODUCTION_PROPS_FILE;
+	ReplaceFromFile(fileLocation, "$!HPFW_HOSTNAME!$" , hostname); 
+	
+	LogExitMessage("Finished Modifying ModifyMPFWConfiguration in " + serverLocation);
+end;  
+
+////////////////////////////////////////////////////////////////////////////////
+// ReplaceFromFile(string,string,string)
+//
+// Function Replace the given String from the given file
+// selected by user for installation.
+// 
+////////////////////////////////////////////////////////////////////////////////
+ 
+function ReplaceFromFile(filelocation, szSearchStr, szReplaceStr)
+ string svReturnLine; 
+ number nvLineNumber;
+ 
+ begin
+
+    LogEnterMessage("Start ReplaceFromFile" + filelocation);
+    FileGrep(filelocation, szSearchStr, svReturnLine, nvLineNumber, RESTART );
+
+    // Delete the specific line where pattern was found first
+    FileDeleteLine (filelocation, nvLineNumber, nvLineNumber);
+
+    StrReplace(svReturnLine, szSearchStr, szReplaceStr, 0);
+   
+       //Insert Modified entry to deleted line number
+    FileInsertLine (filelocation, svReturnLine, nvLineNumber, BEFORE);
+    LogExitMessage("Finished ReplaceFromFile");
+end;
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//  FUNCTION:   OnBegin
+//
+//  EVENT:      Begin event is always sent as the first event during installation.
+//
+//////////////////////////////////////////////////////////////////////////////
+function OnBegin()
+begin
+	FeatureSelectItem(MEDIA, "Java32bitComponent", FALSE);        
+	FeatureSelectItem(MEDIA, "Java64bitComponent", FALSE);        
+end;        
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//  FUNCTION:   readJniPort 
+//
+//  EVENT:      Jni serice port is taken from the service binding xml 
+//
+//////////////////////////////////////////////////////////////////////////////
+function string GetJniServicePort(jbossBindingXmlFilePath)  
+string szSearchStr, svReturnLine1, svReturnLine2, szString, szPortNumber;   
+number nvLineNumber1, nvLineNumber2; 
+LIST parsedString;
+begin               
+	
+	parsedString = ListCreate(STRINGLIST); 
+	ListDeleteAll(parsedString);
+	
+	// search for the jni port number
+	FileGrep(jbossBindingXmlFilePath, JNI_BINDING_NAME, svReturnLine1, nvLineNumber1, RESTART);
+	FileGrep(jbossBindingXmlFilePath, "name=\"port\"", svReturnLine2, nvLineNumber2, CONTINUE); 
+	StrGetTokens(parsedString, svReturnLine2, ">");
+	
+	ListGetFirstString(parsedString, szString);
+	
+	ListGetNextString(parsedString, szString);
+	ListDeleteAll(parsedString);
+	
+	StrGetTokens(parsedString, szString, "<");
+	ListGetFirstString(parsedString, szPortNumber);
+	return szPortNumber;
+	
+end;
+		
+#include "featureevents.rul"     

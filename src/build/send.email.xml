@@ -1,0 +1,752 @@
+<!--
+    Copyright (C) 2007 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project name="SendEmail" default="copy-to-shared-location-and-notify" basedir="../">
+
+	<property file="build/props/${build.config.file.name}" />
+	<property file="build/props/base.properties" />
+	<property file="build/Results.properties" />
+	<property file="build/PreviousResults.properties" />
+	<property name="dir.src" value="${basedir}/src" />
+	<property name="dir.install" value="${basedir}\install" />
+	<property name="dir.database" value="${basedir}\database" />
+	<property name="dir.roi.installer.files" value="${dir.install}\roi.installer\Media\ROI\Disk Images\Disk1" />
+	<property name="cmd.dir" value="${dir.src}/build" />
+
+	<!-- for naming the folder in the format 'ddMMyyyy.HHmmss.buildnumber' -->
+	<tstamp>
+		<format property="date.timestamp" pattern="yyyyMMdd" />
+	</tstamp>
+	<tstamp>
+		<format property="time.timestamp" pattern="HHmmss" />
+	</tstamp>
+
+	<!-- <condition property="copy.to.shared.folder.name" value="${shared.folder.name}" else="${shared.location.path}/${build.number}.${build.major}.${build.minor}.${build.servicePack}.${date.timestamp}" >
+        <equals arg1="${shared.folder.created}" arg2="true" trim="true"/>
+    </condition>
+    -->
+
+	<property file="build/props/roi.install.properties" />
+	<property name="copy.to.shared.folder.name" value="${raw.install.files.location}/.." />
+	<property name="email.file.attachment" value="${basedir}/build/emailOut.html" />
+	<property name="install.email.file.attachment" value="${basedir}/build/install.email.html" />
+	<property name="failure.file.attachment" value="${basedir}/build/emailOut.txt" />
+
+	<condition property="build.source" value="" else=" - ${report.build.source}" >
+        <equals arg1="${report.build.source}" arg2="" trim="true"/>
+    </condition>
+	<property environment="env" />
+
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+	<!-- **********************************************************************
+             *  Target : copy-to-shared-location-and-notify
+             *  target to copy the required files to a shared location and notify
+             ********************************************************************** -->
+	<target name="copy-to-shared-location-and-notify">
+
+		<if>
+			<equals arg1="${copy.to.shared.location}" arg2="true" />
+			<then>
+
+				<echo message="Copying files to shared location..." />
+				<mkdir dir="${copy.to.shared.folder.name}" />
+				
+				<!-- searches for the word 'BUILD FAILED' in the log file
+		              and sets the return value in 'result.property' -->
+			    <exec executable="${cmd.dir}/search.cmd" resultproperty="result.property">
+					<arg value="&quot;BUILD FAILED&quot;" />
+					<arg value="${dir.src}/${dir.logs}/${log.file}" />
+				</exec>
+
+				<if>
+					<equals arg1="${result.property}" arg2="0" />
+					<!-- if the build has failed, copy the logs alone to shared location -->
+					<then>
+						<antcall target="copy-to-shared-location-on-failure" />
+					</then>
+
+					<!-- if the build has suceeded, copy the reports, deployable and logs to shared ocation -->
+					<else>
+						<antcall target="copy-to-shared-location-on-success" />
+					</else>
+				</if>
+
+				<!-- notify -->
+				<antcall target="send-report" />
+		        <antcall target="clean-temporary-files" />
+			</then>
+		</if>
+
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : send-report
+             *  target to send an abstract report of the build
+             ********************************************************************** -->
+	<target name="send-report">
+		<if>
+			<equals arg1="${notify.build.status}" arg2="true" />
+			<then>
+				<echo message="Notifying Build Status..." />
+				<makeurl file="${copy.to.shared.folder.name}/install" property="dir.roi.reports.url" />
+                <!-- deletes the temporary file -->
+                <delete file="${email.file.attachment}" />
+                <delete file="${failure.file.attachment}" />
+				<if>
+					<equals arg1="${result.property}" arg2="0" />
+					<then>
+						<antcall target="notify-failure">
+							<param name="dir.roi.reports.url" value="${dir.roi.reports.url}" />
+						</antcall>
+					</then>
+					<else>
+						<antcall target="notify-success">
+							<param name="dir.roi.reports.url" value="${dir.roi.reports.url}" />
+						</antcall>
+					</else>
+				</if>
+
+			</then>
+		</if>
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : notify-failure
+             *  target to notify, if the build fails
+             ********************************************************************** -->
+	<target name="notify-failure">
+
+		<property file="build/version.txt" />
+        <loadfile srcfile="${dir.src}/${dir.logs}/${log.file}" property="build.failed.lines">
+          <filterchain>
+            <filterreader classname="org.apache.tools.ant.filters.TailFilter">
+              <param name="lines" value="50"/>
+            </filterreader>
+          </filterchain>
+        </loadfile>
+
+		<property name="email.subject" value="ROI Build: ${build.major}.${build.minor}.${build.servicePack}.${build.number} - Failed${build.source}" />
+		<echo file="${failure.file.attachment}" append="false">
+			<![CDATA[
+Sorry, There were failures or errors in the ROI build!
+
+To view the ROI Build Log files go to:
+${dir.roi.reports.url}logs
+
+Snapshot of build log (last 50 lines)...
+========================================
+
+${build.failed.lines}
+            ]]>
+		</echo>
+		<antcall target="send-txt-mail">
+			<param name="email.file.attachment" value="${failure.file.attachment}" />
+			<param name="email.subject" value="${email.subject}" />
+		</antcall>
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : notify-success
+             *  target to notify, if the build succeeds
+             ********************************************************************** -->
+	<target name="notify-success">
+		<property file="build/version.txt" />
+		<property name="build.version" value="v${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+	    <property name="email.subject" value="ROI Build: ${build.major}.${build.minor}.${build.servicePack}.${build.number} - Succeeded" />
+		<tstamp>
+            <format property="build.timestamp" pattern="MMM.dd.yyyy HH:mm:ss" />
+        </tstamp>
+		<antcall target="compare-build-results" />
+        <antcall target="get-db-refresh-status" />
+		<property file="build/props/compared.results.properties" />
+
+		<echo file="${email.file.attachment}" append="false">
+			<![CDATA[
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+			<html xmlns="http://www.w3.org/1999/xhtml" >
+			<head>
+			    <title>ROI Report</title>
+			    <style type="text/css">
+			      .title {
+			        position:relative;
+			        width:100%;
+			        height:30;
+			        font-family:Tahoma, Arial, Verdana, Sans-Serif;
+			        font-size:12pt;
+			        padding:5px;
+			      }
+
+
+			      .div-margin {
+			        margin-bottom:20px;
+			      }
+
+			      .content-table {
+			        width:30%;
+			        border-collapse:collapse;
+			        border:1px solid #565656;
+			      }
+
+			      .row-heading {
+			        font-family:Tahoma, Arial, Verdana, Sans-Serif;
+			        font-size:10pt;
+			        background-color:#ccc;
+			        border:1px solid #565656;
+			      }
+			      .row-content {
+			        font-family:Arial, Tahoma, Verdana, Sans-Serif;
+			        font-size:8pt;
+			        border:1px solid #565656;
+			      }
+
+			      .td-width {
+			        width: 40%;
+			      }
+
+			      .binary {
+			        font-family:Tahoma, Arial, Verdana, Sans-Serif;
+			        font-size:8pt;
+			      }
+			      .hr-line {
+        		    color:#ccc; text-align:left;
+		            width:50%;
+        		    height:1;
+			      }
+                .increased-symbol{
+                  font-family:Arial;
+                  font-size:10pt;
+			      color:#00FF00;
+                }
+                .decreased-symbol{
+                  font-family:Arial;
+                  font-size:10pt;
+			      color:#FF0000;
+                }
+                .equal-symbol{
+                  font-family:Arial;
+                  font-size:10pt;
+			      color:#FFBF00;
+                }
+                .decreased-font {
+                  font-family:Arial, Tahoma, Verdana, Sans-Serif;
+                  font-size:8pt;
+                  color:#FF0000;
+                }
+                .increased-font {
+                  font-family:Arial, Tahoma, Verdana, Sans-Serif;
+                  font-size:8pt;
+                  color:#019901;
+                }
+			    </style>
+			</head>
+			<body>
+			<div  class="title" > ROI Nightly Build Reports - ${build.timestamp}<hr class="hr-line" /></div>
+
+			<div class="div-margin">
+			    <table class="content-table" cellpadding="5" cellspacing="0" style="width:410px;">
+			    <tr><td class="row-heading">Status</td></tr>
+			    <tr><td class="row-content">The ROI build was success &nbsp; &nbsp;&nbsp;<a href="file:${copy.to.shared.folder.name}/logs">Logs</a></td></tr>
+			    </table>
+			</div>
+
+			<div class="div-margin">
+			    <table class="content-table" cellpadding="5" cellspacing="0">
+    			    <tr>
+			           <td class="row-heading" ><nobr>Server Results &nbsp;<a href="file:${copy.to.shared.folder.name}/bin/server" class="binary" target="_blank">[Binaries]</a>&nbsp;&nbsp;&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/server/performance.reports/index.html" target="_blank" class="binary">[Perf]</a></td>
+                       <td class="row-heading" ><nobr>${previous.successfull.build.version}</td>
+			           <td class="row-heading" ><nobr>${build.version}</td>
+			        </tr>
+                    <tr>
+                       <td class="row-content td-width"><nobr>DB Refresh</a></td>
+                       <td class="row-content"></td>
+                       <td class="row-content" align="center"><a href="file:${copy.to.shared.folder.name}/logs/database" target="_blank" ${db.status}</a></td>
+                    </tr>
+    			    <tr>
+    			       <td class="row-content td-width"><nobr>Tests</a></td>
+			           <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/server/${dir.junit.reports}/html/index.html" target="_blank">${previous.roi.server.test}</a></td>
+				       <td class="row-content"><nobr>${compared.roi.server.test}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/server/${dir.junit.reports}/html/index.html" target="_blank" ${compared.roi.server.test.min}${roi.server.test}</td>
+    			    </tr>
+    			    <tr>
+    			       <td class="row-content"><nobr>Coverage</td>
+		               <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/server/${dir.emma.reports}/${roi.emma.report.name}.html"  target="_blank">${previous.roi.server.coverage}</a></td>
+				       <td class="row-content"><nobr>${compared.roi.server.coverage}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/server/${dir.emma.reports}/${roi.emma.report.name}.html"  target="_blank" ${compared.roi.server.coverage.min}${roi.server.coverage}</a></td>
+    			    </tr>
+    			    <tr>
+    			       <td class="row-content"><nobr>Code Stds.</td>
+		               <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/server/${dir.checkstyle.reports}/${roi.checkstyle.report.name}.html"  target="_blank">${previous.roi.server.code}</a></td>
+		    		   <td class="row-content"><nobr>${compared.roi.server.code}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/server/${dir.checkstyle.reports}/${roi.checkstyle.report.name}.html"  target="_blank" ${compared.roi.server.code.min}${roi.server.code}</a></td>
+    			    </tr>
+			    </table>
+			 </div>
+
+			<div class="div-margin">
+			    <table class="content-table" cellpadding="5" cellspacing="0">
+    			    <tr>
+			           <td class="row-heading" ><nobr>Client Results &nbsp;<a href="file:${copy.to.shared.folder.name}/bin/client" class="binary" target="_blank">[Binaries]</a>&nbsp;&nbsp;&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/client/performance.reports/index.html" target="_blank" class="binary">[Perf]</a>&nbsp;</td>
+                       <td class="row-heading" ><nobr>${previous.successfull.build.version}</td>
+			           <td class="row-heading" ><nobr>${build.version}</td>
+		            </tr>
+    			    <tr>
+    		    	  <td class="row-content td-width"><nobr>Test Release</td>
+		              <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.Test.html"  target="_blank">${previous.roi.client.test.McK.EIG.ROI.Client}</a></td>
+					  <td class="row-content"><nobr>${compared.roi.client.test.McK.EIG.ROI.Client}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.Test.html"  target="_blank" ${compared.roi.client.test.McK.EIG.ROI.Client.min}${roi.client.test.McK.EIG.ROI.Client}</a></td>
+    			    </tr>
+                    <tr>
+                      <td class="row-content td-width"><nobr>Test Debug</td>
+                      <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.Test.html"  target="_blank">${previous.roi.client.test.debug.McK.EIG.ROI.Client}</a></td>
+                      <td class="row-content"><nobr>${compared.roi.client.test.debug.McK.EIG.ROI.Client}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.Test.Debug.html"  target="_blank" ${compared.roi.client.test.debug.McK.EIG.ROI.Client.min}${roi.client.test.debug.McK.EIG.ROI.Client}</a></td>
+                    </tr>
+    			    <tr>
+    			      <td class="row-content"><nobr>Coverage</td>
+			          <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.Coverage.html"  target="_blank">${previous.roi.client.coverage.McK.EIG.ROI.Client}</a></td>
+				      <td class="row-content"><nobr>${compared.roi.client.coverage.McK.EIG.ROI.Client}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.Coverage.html"  target="_blank" ${compared.roi.client.coverage.McK.EIG.ROI.Client.min}${roi.client.coverage.McK.EIG.ROI.Client}</a></td>
+    			    </tr>
+    			    <tr>
+    			      <td class="row-content"><nobr>Code Stds. - Client</td>
+			          <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.FxCop.html"  target="_blank">${previous.roi.client.code.McK.EIG.ROI.Client}</a></td>
+				      <td class="row-content"><nobr>${compared.roi.client.code.McK.EIG.ROI.Client}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/client/McK.EIG.ROI.Client/McK.EIG.ROI.Client.FxCop.html"  target="_blank" ${compared.roi.client.code.McK.EIG.ROI.Client.min}${roi.client.code.McK.EIG.ROI.Client}</a></td>
+    			    <tr>
+    		          <td class="row-content"><nobr>Code Stds. - Client.App</td>
+		              <td class="row-content"><nobr><a href="file:${previous.successfull.build.reports.dir}/reports/client/McK.EIG.ROI.Client.App/McK.EIG.ROI.Client.App.FxCop.html"  target="_blank">${previous.roi.client.code.McK.EIG.ROI.Client.App}</a></td>
+				      <td class="row-content"><nobr>${compared.roi.client.code.McK.EIG.ROI.Client.App}&nbsp;<a href="file:${copy.to.shared.folder.name}/reports/client/McK.EIG.ROI.Client.App/McK.EIG.ROI.Client.App.FxCop.html"  target="_blank" ${compared.roi.client.code.McK.EIG.ROI.Client.App.min}${roi.client.code.McK.EIG.ROI.Client.App}</a></td>
+    			    </tr>
+			    </table>
+			 </div>
+
+              ]]>
+		</echo>
+
+        <if>
+            <equals arg1="${build.install}" arg2="true" />
+            <then>
+                <echo file="${email.file.attachment}" append="true">
+                     <![CDATA[
+                        <div class="div-margin">
+                            <table class="content-table" cellpadding="5" cellspacing="0" style="width:410px;">
+                            <tr><td class="row-heading">Installation</td></tr>
+                            <tr><td class="row-content">The ROI ${build.major}.${build.minor}.${build.servicePack}.${build.number} &nbsp;&nbsp;<a href="file:${copy.to.shared.folder.name}/install">Server Installation</a></td></tr>
+                            </table>
+                        </div>
+                    ]]>
+                </echo>
+            </then>
+        </if>
+
+        <echo file="${email.file.attachment}" append="true">
+             <![CDATA[
+                </body>
+                </html>
+            ]]>
+        </echo>
+
+		<antcall target="send-mail">
+			<param name="email.file.attachment" value="${email.file.attachment}" />
+			<param name="email.subject" value="${email.subject}" />
+		</antcall>
+
+        <!-- Copying Build report -->
+        <echo message="Copying Build Report to shared location..." />
+        <copy todir="${copy.to.shared.folder.name}/reports/build" failonerror="false">
+            <fileset dir="${dir.src}/build" >
+                <include name="emailOut.html" />
+            	<include name="install.email.html" />
+            </fileset>
+        </copy>
+
+        <antcall target="copy-to-previous-build-results-properties" />
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : send-mail
+             *  target to send a mail in html format
+             ********************************************************************** -->
+    <target name="send-mail">
+        <exec dir="${basedir}/${dir.blat}" executable="${basedir}/${dir.blat}/blat.exe">
+            <arg value="${email.file.attachment}" />
+            <arg value="-i" />
+            <arg value="${email.from.address}" />
+            <arg value="-t" />
+            <arg value="${project.developers}" />
+            <arg value="-c" />
+            <arg value="${project.cc}" />
+            <arg value="-s" />
+            <arg value="${email.subject}" />
+            <arg value="-html" />
+        </exec>
+    </target>
+
+    <!-- **********************************************************************
+             *  Target : send-mail
+             *  target to send a mail in txt format
+             ********************************************************************** -->
+    <target name="send-txt-mail">
+        <exec dir="${basedir}/${dir.blat}" executable="${basedir}/${dir.blat}/blat.exe">
+            <arg value="${email.file.attachment}" />
+            <arg value="-i" />
+            <arg value="${email.from.address}" />
+            <arg value="-t" />
+            <arg value="${project.developers}" />
+            <arg value="-c" />
+            <arg value="${project.cc}" />
+            <arg value="-s" />
+            <arg value="${email.subject}" />
+        </exec>
+    </target>
+
+
+	<!-- **********************************************************************
+             *  Target : copy-to-shared-location-on-failure
+             *  if the build has failed, copy the logs alone to shared location
+             ********************************************************************** -->
+	<target name="copy-to-shared-location-on-failure">
+
+		<mkdir dir="${copy.to.shared.folder.name}/logs" />
+		<!-- Copying Logs -->
+		<echo message="Copying Build Logs..." />
+		<copy todir="${copy.to.shared.folder.name}/logs" failonerror="false">
+			<fileset dir="${dir.src}/${dir.logs}" />
+		</copy>
+
+	</target>
+
+	<!-- **********************************************************************
+             *  Target :  copy-to-shared-location-on-success
+             *  if the build has suceeded, copy the reports, deployable and logs to shared ocation
+             ********************************************************************** -->
+	<target name="copy-to-shared-location-on-success">
+		<!-- Making directories in shared location -->
+		<mkdir dir="${copy.to.shared.folder.name}/bin/server" />
+		<mkdir dir="${copy.to.shared.folder.name}/bin/client" />
+		<mkdir dir="${copy.to.shared.folder.name}/reports/server" />
+		<mkdir dir="${copy.to.shared.folder.name}/reports/client" />
+        <mkdir dir="${copy.to.shared.folder.name}/reports/build" />
+		<mkdir dir="${copy.to.shared.folder.name}/logs" />
+		<mkdir dir="${copy.to.shared.folder.name}/logs/database" />
+
+
+		<!-- Copying Server Components -->
+		<echo message="Copying Server deployable to shared location..." />
+		<copy todir="${copy.to.shared.folder.name}/bin/server" failonerror="false">
+			<fileset dir="${dir.src}/server/${dir.bin}">
+				<include name="${roi.jar.name}.jar" />
+				<include name="${roi.war.name}.war" />
+				<include name="${roi.test.jar.name}.jar" />
+                <include name="eig.roi.config.zip" />
+			</fileset>
+            <fileset dir="${dir.src}/server/3rdparty">
+                <include name="audit.ear" />
+                <include name="audit-config.zip" />
+                <include name="alert.war" />
+                <include name="alert-config.zip" />
+            </fileset>
+		</copy>
+
+		<!-- Copying Server Reports -->
+		<echo message="Copying Server Reports to shared location..." />
+		<copy todir="${copy.to.shared.folder.name}/reports/server" failonerror="false">
+			<fileset dir="${dir.src}/server/${dir.build.reports}" />
+		</copy>
+
+
+		<!-- Copying Client Components -->
+		<echo message="Copying Client Components to shared location..." />
+		<copy todir="${copy.to.shared.folder.name}/bin/client" failonerror="false">
+			<fileset dir="${dir.src}/client/bin">
+			</fileset>
+		</copy>
+
+		<!-- Copying Client Reports -->
+		<echo message="Copying Client Reports to shared location..." />
+		<copy todir="${copy.to.shared.folder.name}/reports/client" failonerror="false">
+			<fileset dir="${dir.src}/client/build/reports" />
+		</copy>
+
+		<!-- Copying Build Logs -->
+		<echo message="Copying Build Logs..." />
+		<copy todir="${copy.to.shared.folder.name}/logs" failonerror="false">
+			<fileset dir="${dir.src}/${dir.logs}" />
+		</copy>
+
+		<!-- Copying Database upgrade Logs -->
+		<echo message="Copying Database upgrade Logs..." />
+        <copy todir="${copy.to.shared.folder.name}/logs/database" failonerror="false">
+            <fileset dir="${dir.src}/database/upgrade/HPF/src/Database/HPFUpgrade" >
+			   	<include name="*.log" />
+            </fileset>
+        </copy>
+
+	</target>
+
+	<target name="copy-to-previous-build-results-properties" >
+		<property file="build/version.txt" />
+		<property name="build.version" value="v${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+	      <copy file="build/Results.properties" tofile="build/PreviousResults.properties" overwrite="true"/>
+		  <replaceregexp file="build/PreviousResults.properties"
+		                 match="(.*)=(.*)"
+		                 replace="previous.\1=\2"
+		                 byline="true"/>
+		  <echo append="true" file="build/PreviousResults.properties">${line.separator}previous.successfull.build.version=${build.version}${line.separator}</echo>
+		  <echo append="true" file="build/PreviousResults.properties">previous.successfull.build.reports.dir=${copy.to.shared.folder.name}${line.separator}</echo>
+	</target>
+
+	<target name="compare-build-results" >
+
+		<delete file="build/props/results.properties.xml" failonerror="false" />
+	    <delete file="build/props/previous.results.properties.xml" failonerror="false" />
+
+        <echoproperties srcfile="build/Results.properties" destfile="build/props/results.properties.xml" format="xml" />
+        <echoproperties srcfile="build/PreviousResults.properties" destfile="build/props/previous.results.properties.xml" format="xml"  failonerror="false"/>
+		<echoproperties destfile="build/props/base.properties.xml" format="xml"  regex="^((?!env.=).)*$" />
+		
+		<echo message="executing exec:    ${env.NANT_HOME}/bin/nant.exe" />
+        <!-- NANT call to compare current and previous build results -->
+        <exec executable="${env.NANT_HOME}/bin/nant.exe" failonerror="true" dir="${basedir}/client/build">
+             <arg value="-buildfile:client.build.common.xml" />
+             <arg value="CompareBuildResults" />
+        </exec>
+
+	</target>
+
+	<target name="clean-temporary-files" >
+
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${dir.src}/build/props" defaultexcludes="yes">
+                <include name="base.properties.xml" />
+            	<include name="results.properties.xml" />
+                <include name="previous.results.properties.xml" />
+            	<include name="compared.results.properties" />
+                <include name="email.temp.properties" />
+            </fileset>
+        </delete>
+	</target>
+
+	<!-- Searches for the following key words
+	       1. , Level
+	       2. Login failed for user 'sa'
+	       3. [DBNETLIB]SQL Server does not exist or access denied
+	       4. Could not open a connection to SQL Server
+	       5. Login timeout expired.
+              in HPF13.5_Upgrade.log and considers the database refresh task as failed if any one of the key word exists
+              If the refresh.database is true and the HPF13.5_Upgrade.log file does not exits,
+              database refresh task is considered as failed -->
+    <target name="get-db-refresh-status">
+
+        <if>
+            <equals arg1="${refresh.database}" arg2="true" /> <then>
+                <available file="${dir.src}/database/upgrade/HPF/src/Database/HPFUpgrade/MPF${build.major}.${build.minor}_Upgrade.log" property="log.exists" />
+            	<exec dir="${dir.src}/build" executable="${dir.src}/build/search.cmd" resultproperty="script.errors">
+            		<arg value="&quot;, Level&quot;" />
+            		<arg value="${dir.src}/database/upgrade/HPF/src/Database/HPFUpgrade/MPF${build.major}.${build.minor}_Upgrade.log" />
+            	</exec>
+
+            	<exec dir="${dir.src}/build" executable="${dir.src}/build/search.cmd" resultproperty="login.failed">
+                    <arg value="&quot;Login failed for user 'sa'&quot;" />
+                    <arg value="${dir.src}/database/upgrade/HPF/src/Database/HPFUpgrade/MPF${build.major}.${build.minor}_Upgrade.log" />
+                </exec>
+
+            	<exec dir="${dir.src}/build" executable="${dir.src}/build/search.cmd" resultproperty="access.denied">
+                    <arg value="&quot;[DBNETLIB]SQL Server does not exist or access denied&quot;" />
+                    <arg value="${dir.src}/database/upgrade/HPF/src/Database/HPFUpgrade/MPF${build.major}.${build.minor}_Upgrade.log" />
+                </exec>
+
+                <exec dir="${dir.src}/build" executable="${dir.src}/build/search.cmd" resultproperty="could.not.open.connection">
+                    <arg value="&quot;Could not open a connection to SQL Server&quot;" />
+                    <arg value="${dir.src}/database/upgrade/HPF/src/Database/HPFUpgrade/MPF${build.major}.${build.minor}_Upgrade.log" />
+                </exec>
+
+                <exec dir="${dir.src}/build" executable="${dir.src}/build/search.cmd" resultproperty="login.time.out">
+                    <arg value="&quot;Login timeout expired.&quot;" />
+                    <arg value="${dir.src}/database/upgrade/HPF/src/Database/HPFUpgrade/MPF${build.major}.${build.minor}_Upgrade.log" />
+                </exec>
+
+                <if>
+                    <equals arg1="${log.exists}" arg2="true" /> <then>
+                    	<if>
+                    		<or>
+                    		<equals arg1="${script.errors}" arg2="0" />
+                    		<equals arg1="${login.failed}" arg2="0" />
+                    		<equals arg1="${access.denied}" arg2="0" />
+                            <equals arg1="${could.not.open.connection}" arg2="0" />
+                            <equals arg1="${login.time.out}" arg2="0" />
+                    		</or> <then>
+                    			<echo append="true" file="build/props/compared.results.properties">db.status=class=&quot;decreased-font&quot;&gt;Failed</echo>
+                    		</then>
+                    		<else>
+                    			<echo append="true" file="build/props/compared.results.properties">db.status=class=&quot;increased-font&quot;&gt;Succeeded</echo>
+                    		</else>
+                    	</if>
+                    </then>
+                	<else>
+                		<echo append="true" file="build/props/compared.results.properties">db.status=class=&quot;decreased-font&quot;&gt;Failed</echo>
+                	</else>
+                </if>
+            </then>
+        	<else>
+        		<echo append="true" file="build/props/compared.results.properties">db.status=class=&quot;decreased-font&quot;&gt;Skipped</echo>
+        	</else>
+    	</if>
+    </target>
+
+	<!-- target to copy the install files and
+	     initiate an email once the installation has been
+         successfully built -->
+	<target name="notify-install-build">
+		<property file="build/version.txt" />
+		<property file="build/props/roi.install.properties" />
+		<property name="copy.to.shared.folder.name" value="${raw.install.files.location}/.." />
+		<echo message="Base dir : ${basedir}" />
+        <if>
+            <equals arg1="${copy.to.shared.location}" arg2="true" /> <then>
+
+            	<!-- Copying install file -->
+            	<mkdir dir="${copy.to.shared.folder.name}/install" />
+                <echo message="Copying Install Files to shared location from ${dir.src}/install/bin   to   ${copy.to.shared.folder.name}/install..." />
+				
+				<copy todir="${copy.to.shared.folder.name}/install" failonerror="true">
+					<fileset dir="${basedir}/install/bin" >
+						<include name="ROI_${build.major}_${build.minor}_${build.servicePack}_${build.number}.zip" />
+						<include name="*.*" />
+					</fileset>
+				</copy>
+                <!-- initiates the install email -->
+                <if>
+                    <equals arg1="${notify.build.status}" arg2="true" /> <then>
+                        <antcall target="send-install-email" />
+                    </then>
+                </if>
+            </then>
+        </if>
+	</target>
+
+    <target name="send-install-email">
+		<property file="build/version.txt" />
+    	<property name="build.version" value="v${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+        <property name="install.email.subject" value="ROI Build: ${build.major}.${build.minor}.${build.servicePack}.${build.number} - Install build Succeeded${build.source}" />
+        <tstamp>
+            <format property="build.timestamp" pattern="MMM.dd.yyyy HH:mm:ss" />
+        </tstamp>
+
+        <echo file="${install.email.file.attachment}" append="false">
+            <![CDATA[
+            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            <html xmlns="http://www.w3.org/1999/xhtml" >
+            <head>
+                <title>ROI Report</title>
+                <style type="text/css">
+                  .title {
+                    position:relative;
+                    width:100%;
+                    height:30;
+                    font-family:Tahoma, Arial, Verdana, Sans-Serif;
+                    font-size:12pt;
+                    padding:5px;
+                  }
+
+                  .div-margin {
+                    margin-bottom:20px;
+                  }
+
+                  .content-table {
+                    width:30%;
+                    border-collapse:collapse;
+                    border:1px solid #565656;
+                  }
+
+                  .row-heading {
+                    font-family:Tahoma, Arial, Verdana, Sans-Serif;
+                    font-size:10pt;
+                    background-color:#ccc;
+                    border:1px solid #565656;
+                  }
+                  .row-content {
+                    font-family:Arial, Tahoma, Verdana, Sans-Serif;
+                    font-size:8pt;
+                    border:1px solid #565656;
+                  }
+
+                  .td-width {
+                    width: 40%;
+                  }
+
+                  .binary {
+                    font-family:Tahoma, Arial, Verdana, Sans-Serif;
+                    font-size:8pt;
+                  }
+                  .hr-line {
+                    color:#ccc; text-align:left;
+                    width:50%;
+                    height:1;
+                  }
+                .increased-symbol{
+                  font-family:Arial;
+                  font-size:10pt;
+                  color:#00FF00;
+                }
+                .decreased-symbol{
+                  font-family:Arial;
+                  font-size:10pt;
+                  color:#FF0000;
+                }
+                .equal-symbol{
+                  font-family:Arial;
+                  font-size:10pt;
+                  color:#FFBF00;
+                }
+                .decreased-font {
+                  font-family:Arial, Tahoma, Verdana, Sans-Serif;
+                  font-size:8pt;
+                  color:#FF0000;
+                }
+                .increased-font {
+                  font-family:Arial, Tahoma, Verdana, Sans-Serif;
+                  font-size:8pt;
+                  color:#019901;
+                }
+                </style>
+                </head>
+                <body>
+                <div  class="title" > ROI Nightly Build Reports - ${build.timestamp}<hr class="hr-line" /></div>
+
+                <div class="div-margin">
+                    <table class="content-table" cellpadding="5" cellspacing="0" style="width:410px;">
+                    <tr><td class="row-heading">Status</td></tr>
+                    <tr><td class="row-content">The ROI install shield build was a success</td></tr>
+                    </table>
+                </div>
+
+                <div class="div-margin">
+                    <table class="content-table" cellpadding="5" cellspacing="0" style="width:410px;">
+                    <tr><td class="row-heading">Installation</td></tr>
+                    <tr><td class="row-content">The ROI ${build.major}.${build.minor}.${build.servicePack}.${build.number} &nbsp;&nbsp;<a href="file:${copy.to.shared.folder.name}/install">Server Installation</a></td></tr>
+                    </table>
+                </div>
+
+                </body>
+                </html>
+
+              ]]>
+        </echo>
+
+        <antcall target="send-mail">
+            <param name="email.file.attachment" value="${install.email.file.attachment}" />
+            <param name="email.subject" value="${install.email.subject}" />
+        </antcall>
+
+       <!-- <echo append="true" file="build/props/email.temp.properties">shared.folder.name=${copy.to.shared.folder.name}${line.separator}install</echo>
+        <echo append="true" file="build/props/email.temp.properties">shared.folder.created=true</echo>  -->
+    </target>
+</project>
