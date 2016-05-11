@@ -1,0 +1,1302 @@
+<!--
+    Copyright (C) 2007 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project default="build-all" basedir="../">
+
+	<property name="dir.src" value="${basedir}" />
+
+	<property file="build/props/${build.config.file.name}" />
+	<property file="build/props/base.properties" />
+	<property file="build/props/roi.install.properties" />
+	<property file="build/props/common.starteam.properties" />
+	<property file="build/props/common.svn.properties" />
+	<property file="build/props/hpf.starteam.properties"/>
+	<property name="dir.database" value="${basedir}\database" />
+	<property name="dir.help" value="${basedir}\help" />
+	<property name="dir.bin" value="bin" />
+	<property name="dir.pdf" value="server/pdf" />
+	<property name="dir.install" value="${basedir}\install" />
+	<property name="dir.support" value="${basedir}\Support" />
+	<property name="dir.src.build" value="build" />
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	
+	<path id="svnant.classpath">
+		<pathelement location="${env.ANT_HOME}/lib/svnant.jar"/>
+		<pathelement location="${env.ANT_HOME}/svnClientAdapter.jar"/>
+	</path>
+	<taskdef name="svn" className="org.tigris.subversion.svnant.SvnTask" classpathref="svnant.classpath"/>
+	
+	<!-- for naming the folder in the format 'ddMMyyyy.HHmmss.buildnumber' -->
+	<tstamp>
+		<format property="date.timestamp" pattern="yyyyMMdd" />
+	</tstamp>
+	<tstamp>
+		<format property="time.timestamp" pattern="HHmmss" />
+	</tstamp>
+
+	<import file="starteam.xml" />
+	<import file="cvs.xml" />
+	<import file="svn.xml" />
+
+	<property name="iteration.label" value="${label.source.code.name}_${DSTAMP}_${TSTAMP}" />
+
+	<condition property="label.name" value="${iteration.label}" else="" >
+		<equals arg1="${label.source.code}" arg2="true" />
+	</condition>
+	<target name="refresh-install-builder-source">
+		<if>
+			<equals arg1="${checkout.source}" arg2="svn" />
+			<then>
+				<echo message="Refreshing ROI Install files from svn..." />
+				<antcall target="get-from-svn">
+					<param name="svn.path" value="${svn.branch.path}/${svn.install.path}" />
+					<param name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}" />
+					<param name="alias.name" value="${svn.install.path}" />
+					<param name="label.name" value="" />
+			   </antcall>
+
+			</then>
+		</if>
+	</target>
+    <!-- **********************************************************************
+             *  Target : build-all
+             *  target to do the all the build activities in sequence
+             ********************************************************************** -->
+	<target name="build-all">
+		<!-- Displays properties -->
+		<antcall target="display-properties" />
+
+        <antcall target="pre-clean" />
+
+		<!-- Update build id -->
+		<antcall target="increment-version">
+			<param name="increment.version" value="${increment.version}" />
+		</antcall>
+
+		<!-- Tags the source -->
+		<antcall target="tag-source">
+			<param name="label.source.code" value="${label.source.code}" />
+		</antcall>
+
+		<!-- refreshing server source code -->
+		<if>
+			<equals arg1="${refresh.server.source.code}" arg2="true" />
+			<then>
+				<antcall target="refresh-server-source">
+					<param name="refresh.server.source.code" value="${refresh.server.source.code}" />
+				</antcall>
+				<!-- refreshing latest scripts from database directory -->
+				<antcall target="refresh-database-source">
+					<param name="refresh.server.source.code" value="${refresh.server.source.code}" />
+				</antcall>
+			</then>
+			<else>
+				<echo message="Not refreshing server source..." />
+			</else>
+		</if>
+		
+		<!-- Calls Server build to compiling src and generate war to prepare installation -->
+		<antcall target="build-server-src">
+			<param name="build.serverside.components" value="${build.serverside.components}" />
+		</antcall>
+		
+		<!-- refreshing client source -->
+		<if>
+			<equals arg1="${refresh.client.source.code}" arg2="true" />
+			<then>
+				<antcall target="refresh-client-source" />
+			</then>
+			<else>
+				<echo message="Not refreshing client source..." />
+			</else>
+		</if>
+
+		<!-- Calls Client build to build Release to prepare installation -->
+        <antcall target="build-client-projects-for-install">
+            <param name="build.clientside.components" value="${build.clientside.components}" />
+            <param name="target.name" value="build-client-projects-for-install" />
+        </antcall>
+
+		<antcall target="update-install-properties" />
+
+		<!-- Copy the database files to shared location -->
+		<antcall target="copy-database-files" />
+		
+		
+		
+		<!-- Copy the help files to shared location -->
+		<antcall target="copy-help-documentation-files" />
+
+        <!-- Calls install build -->
+        <antcall target="build-installs">
+            <param name="build.install" value="${build.install}" />
+        </antcall>
+
+        <!-- starts open office server -->
+        <!--antcall target="start-open-office-server"/-->
+
+        <!-- Calls Server build to run test cases and generate server specific reports-->
+        <antcall target="build-server-tests">
+            <param name="build.serverside.components" value="${build.serverside.components}" />
+        </antcall>
+
+		<!-- Calls Client build to run tests and generate client specific reports -->
+		<antcall target="build-client-projects">
+			<param name="build.clientside.components" value="${build.clientside.components}" />
+			<param name="target.name" value="build-client-projects" />
+		</antcall>
+
+		<!-- Calls database tasks to finally clean up the DB-->
+		<antcall target="build-database" />
+
+		<!-- Cleans up temporary files -->
+		<antcall target="clean-up" />
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : release-mode-build
+             *  target to do the all the release mode build activities without Install
+             ********************************************************************** -->
+	<target name="build-release-mode">
+		<!-- Displays properties -->
+		<antcall target="display-properties" />
+
+        <antcall target="pre-clean" />
+
+		<!-- Update build id -->
+		<antcall target="increment-version">
+			<param name="increment.version" value="${increment.version}" />
+		</antcall>
+
+		<!-- Tags the source -->
+		<antcall target="tag-source">
+			<param name="label.source.code" value="${label.source.code}" />
+		</antcall>
+
+		<!-- refreshing server source code -->
+		<if>
+			<equals arg1="${refresh.server.source.code}" arg2="true" />
+			<then>
+				<antcall target="refresh-server-source">
+					<param name="refresh.server.source.code" value="${refresh.server.source.code}" />
+				</antcall>
+				<!-- refreshing latest scripts from database directory -->
+				<antcall target="refresh-database-source">
+					<param name="refresh.server.source.code" value="${refresh.server.source.code}" />
+				</antcall>
+			</then>
+			<else>
+				<echo message="Not refreshing server source..." />
+			</else>
+		</if>
+		
+		
+		<!-- Calls Server build to compiling src and generate war to prepare installation -->
+		<antcall target="build-server-src">
+			<param name="build.serverside.components" value="${build.serverside.components}" />
+		</antcall>
+
+		<!-- refreshing client source -->
+		<if>
+			<equals arg1="${refresh.client.source.code}" arg2="true" />
+			<then>
+				<antcall target="refresh-client-source" />
+			</then>
+			<else>
+				<echo message="Not refreshing client source..." />
+			</else>
+		</if>
+		
+		<!-- Calls Client build to build Release to prepare installation -->
+        <antcall target="build-client-projects-for-install">
+            <param name="build.clientside.components" value="${build.clientside.components}" />
+            <param name="target.name" value="build-client-projects-for-install" />
+        </antcall>
+
+		<!-- prepares raw install binaries -->
+		<antcall target="prepare-install-binaries" />
+		<if>
+			<equals arg1="${build.install}" arg2="true" />
+				<then>
+					<property file="build/version.txt" />
+					<property name="shared.build.folder" value="${shared.location.path}/${build.number}.${build.major}.${build.minor}.${build.servicePack}.${date.timestamp}" />
+					<property name="shared.install.files.folder" value="${shared.build.folder}/raw.install.files" />
+
+					<!-- To copy the binaries to remote -->
+					<!--antcall target="copy-pdf-file" /-->
+					<!--antcall target="copy-raw-install-files-to-remote" /-->
+			        <antcall target="checkin-install-properties-to-svn" />
+					<antcall target="copy-database-files" />
+					
+					<antcall target="copy-help-documentation-files" />
+					<antcall target="copy-install-script-file" />
+				</then>
+				<else>
+					<antcall target="update-install-properties" />
+				</else>
+			</if>
+	</target>
+	
+	<!-- **********************************************************************
+             *  Target : refresh-database-source
+             *  target to pull out latest files in Database and DataVault
+             *  Checks out if refresh.server.source.code is set to true
+             ********************************************************************** -->
+	<target name="refresh-database-source">
+
+		<if>
+			<equals arg1="${refresh.server.source.code}" arg2="true" />
+			<then>
+
+				<antcall target="clean-folder">
+					<param name="dir.to.clean" value="${source.local.root.path}/database" />
+				</antcall>
+				
+				<!-- Cleans database directory -->
+				<ant antfile="${dir.src.build}/build.xml" target="clean-folder">
+					<property name="dir.to.clean" value="${source.local.root.path}/database" />
+				</ant>
+
+				<echo message="Refreshing DB script files..." />
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
+							<property name="svn.path" value="${svn.branch.path}/database" />
+							<property name="checkout.dest.path" value="${source.local.root.path}/database" />
+							<property name="alias.name" value="database" />
+							<property name="label.name" value="${label.name}" />
+						</ant>
+					</then>
+				</if>
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="cvs" />
+					<then>
+						<ant antfile="${dir.src.build}/build.xml" target="get-from-cvs">
+							<property name="cvs.path" value="${cvs.branch.path}/database" />
+							<property name="checkout.dest.path" value="${source.local.root.path}" />
+							<property name="alias.name" value="database" />
+							<property name="label.name" value="${label.name}" />
+						</ant>
+					</then>
+				</if>
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<ant antfile="${dir.src.build}/starteam.xml" target="get">
+							<property name="starteam.file.path" value="database" />
+							<property name="starteam.local.file.path" value="${source.local.root.path}/database" />
+							<property name="starteam.includes.pattern" value="" />
+							<property name="starteam.label" value="${label.name}" />
+						</ant>
+					</then>
+				</if>
+			</then>
+		</if>
+	</target>
+	<!-- **********************************************************************
+             *  Target : refresh-server-source
+             *  target to to refresh server source
+             ********************************************************************** -->
+	<target name="refresh-server-source">
+		<if>
+			<equals arg1="${refresh.server.source.code}" arg2="true" />
+			<then>
+				
+				<antcall target="clean-folder">
+					<param name="dir.to.clean" value="${source.local.root.path}/${svn.server.path}" />
+				</antcall>
+				
+				<!-- if source is svn, checks out from svn -->
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<echo message="Refreshing server source from SVN with tag name ${label.name}..." />
+						<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
+							<property name="svn.path" value="${svn.branch.path}/${svn.server.path}" />
+							<property name="checkout.dest.path" value="${source.local.root.path}/${svn.server.path}" />
+							<property name="alias.name" value="${svn.server.path}" />
+							<property name="label.name" value="${label.name}" />
+						</ant>
+					</then>
+				</if>
+				
+				<!-- if source is cvs, checks out from cvs -->
+				<if>
+					<equals arg1="${checkout.source}" arg2="cvs" />
+					<then>
+						<echo message="Refreshing server source from CVS with tag name ${label.name}..." />
+						<ant antfile="${dir.src.build}/build.xml" target="get-from-cvs">
+							<property name="cvs.path" value="${cvs.branch.path}/${cvs.server.path}" />
+							<property name="checkout.dest.path" value="${source.local.root.path}" />
+							<property name="alias.name" value="${cvs.server.path}" />
+							<property name="label.name" value="${label.name}" />
+						</ant>
+					</then>
+				</if>
+
+				<!-- if source is starteam, checksout from starteam -->
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<echo message="Refreshing server source from starteam with label ${label.name}..." />
+						<ant antfile="${dir.src.build}/starteam.xml" target="get">
+							<property name="starteam.file.path" value="${starteam.server.path}" />
+							<property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.server.path}" />
+							<property name="starteam.includes.pattern" value="" />
+							<property name="starteam.label" value="${label.name}" />
+						</ant>
+					</then>
+				</if>
+			</then>
+			<else>
+				<echo message="Not Refreshing server source..." />
+			</else>
+		</if>
+
+	</target>
+	<!-- **********************************************************************
+             *  Target : send-email-notification
+             *  target to send-email-notification to the status of the build
+             ********************************************************************** -->
+	<target name="send-email-notification">
+		<ant antfile="${dir.src}/build/send.email.xml" inheritAll="false">
+			<property name="log.file" value="${dir.logs}"/>
+		</ant>
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : copy-file-to-shared-location
+             *  target to copy all the files from local to Shared Location
+             ********************************************************************** -->
+	<!--target name="copy-raw-install-files-to-remote">
+
+		<echo message="*****************************************************"/>
+		<echo message="*  Executing Target copy-raw-install-files-to-remote   *"/>
+		<echo message="*****************************************************"/>
+		<echo message="Copying files to shared location... ${shared.location.path}" />
+
+		<delete dir="${dir.src}/install/bin/server/SSL" />
+		<delete dir="${shared.install.files.folder}" />
+		<mkdir dir="${shared.install.files.folder}" />
+		<copy todir="${shared.install.files.folder}">
+			<fileset dir="${dir.src}/install/bin" includes="**/*" />
+		</copy-->
+
+    <!--    <echo append="true" file="build/props/email.temp.properties">shared.folder.name=${copy.to.shared.folder.name}${line.separator}</echo>
+        <echo append="true" file="build/props/email.temp.properties">shared.folder.created=true</echo>  -->
+
+	<!--/target-->
+
+		<!-- **********************************************************************
+		     *  Target : checkin-install-properties-to-svn
+		     *  target to checkin the roi-install-properties to svn
+	    	 ********************************************************************** -->
+	<target name="checkin-install-properties-to-svn">
+		<echo message="****************************************************************"/>
+		<echo message="*  Writing Install Properties to roi.install.properties File   *"/>
+		<echo message="****************************************************************"/>
+		<taskdef name="propertyfile" classname="org.apache.tools.ant.taskdefs.optional.PropertyFile" />
+			<propertyfile file="${dir.src}/${install.properties.path}/roi.install.properties" comment="Install Properties">
+				<entry key="raw.install.files.location" type="string" value="${shared.install.files.folder}" />
+				<entry key="remote.installshield.setup.folder.location" type="string" value="${shared.build.folder}/install" />
+			</propertyfile>
+
+		<if>
+			<equals arg1="${checkout.source}" arg2="svn" />
+			 <then>
+				<antcall target="checkin-file-svn">
+            	    <param name="checkin.file.path" value="${source.local.root.path}/${install.properties.path}/roi.install.properties" />
+                    <param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+                    <param name="svn.file.name" value="roi.install.properties" />
+			 </antcall>
+			</then>
+		</if>
+	</target>
+
+	<target name="copy-database-files">
+		<property file="build/version.txt" />
+		<property name="copy.to.shared.folder.name" value="${shared.location.path}/${build.number}.${build.major}.${build.minor}.${build.servicePack}.${date.timestamp}" />
+		<antcall target="copy-database-migration-files" />
+		<!-- <antcall target="copy-database-upgrade-files" /> -->
+		<antcall target="copy-database-transferAdminROI-files" />
+	</target>
+	
+	
+	<!-- copies the  database-migration files to shared install location -->
+		<target name="copy-database-migration-files">
+			<echo message="**** Copying database files to install area ****" />
+			<mkdir dir="${copy.to.shared.folder.name}/install/Support/ROI_Migration" />
+			<echo message="Copying Install Files to shared location..." />
+			<copy todir="${copy.to.shared.folder.name}/install/Support/ROI_Migration" preservelastmodified="true" includeEmptyDirs="false">
+		            <fileset dir="${dir.database}/ROI_Migration" />
+		    </copy>
+	    </target>
+
+	<!-- copies the  database upgrade files to shared install location
+		<target name="copy-database-upgrade-files">
+		    <echo message="**** Copying database files to install area ****" />
+			<mkdir dir="${copy.to.shared.folder.name}/install/database/upgrade" />
+			<copy todir="${copy.to.shared.folder.name}/install/database/upgrade" preservelastmodified="true" includeEmptyDirs="false">
+	            <fileset dir="${dir.database}/upgrade">
+	            	 <exclude name="**/Cabinet/ROITestData.sql"/>
+	            </fileset>
+		    </copy>
+		</target>  -->
+
+    <!-- copies the  database TransferAdminROI files to shared install location -->
+        <target name="copy-database-transferAdminROI-files">
+            <echo message="**** Copying database TransferAdminROI files to install area ****" />
+            <mkdir dir="${copy.to.shared.folder.name}/install/Support/TransferAdminROI" />
+        	<echo message="Copying TransferAdminROI Files to shared location..." />
+        	<copy todir="${copy.to.shared.folder.name}/install/Support/TransferAdminROI" preservelastmodified="true" includeEmptyDirs="false">
+        	       <fileset dir="${dir.database}/TransferAdminROI" />
+        	</copy>
+        </target>
+
+	<!-- **********************************************************************
+             *  Target : debug-mode-build
+             *  target to do the all the debug mode build activities for Install
+             ********************************************************************** -->
+	<target name="build-debug-mode">
+
+        <!-- starts open office server -->
+        <!--antcall target="start-open-office-server"/-->
+
+        <!-- Calls Server build to run test cases and generate server specific reports-->
+        <antcall target="build-server-tests">
+            <param name="build.serverside.components" value="${build.serverside.components}" />
+        </antcall> 
+
+		<!-- Calls Client build to run tests and generate client specific reports -->
+		<antcall target="build-client-projects">
+			<param name="build.clientside.components" value="${build.clientside.components}" />
+			<param name="target.name" value="build-client-projects" />
+		</antcall>
+
+		<!-- Calls database tasks to finally clean up the DB-->
+		<antcall target="build-database" />
+
+		<!-- Cleans up temporary files -->
+		<antcall target="clean-up" />
+
+	</target>
+
+	<!-- **********************************************************************
+		     *  Target : increment-version
+		     *  target to update build id
+		     ********************************************************************** -->
+	<target name="increment-version">
+		<if>
+			<equals arg1="${increment.version}" arg2="true" />
+			<then>
+
+				<delete file="ROI/src/build/version.txt" />
+
+				<echo message="Updating Build Id..." />
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<antcall target="get-file-from-svn">
+							<param name="svn.path" value="${svn.branch.path}/build/version.txt" />
+							<param name="checkout.dest.path" value="${source.local.root.path}/build" />
+							<param name="label.name" value="" />
+							<param name="alias.name" value="build" />
+						</antcall>
+					</then>
+				</if>
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="cvs" />
+					<then>
+						<antcall target="get-from-cvs">
+							<param name="cvs.path" value="${cvs.branch.path}/build/version.txt" />
+							<param name="checkout.dest.path" value="${source.local.root.path}" />
+							<param name="label.name" value="" />
+							<param name="alias.name" value="build" />
+						</antcall>
+					</then>
+				</if>
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<antcall target="get">
+							<param name="starteam.file.path" value="build" />
+							<param name="starteam.local.file.path" value="${source.local.root.path}/build" />
+							<param name="starteam.includes.pattern" value="version.txt" />
+							<param name="starteam.label" value="" />
+						</antcall>
+					</then>
+				</if>
+
+				<taskdef name="propertyfile" classname="org.apache.tools.ant.taskdefs.optional.PropertyFile" />
+				<propertyfile file="build/version.txt" comment="Build Information">
+					<entry key="project.name" type="string" default="${project.name}" />
+					<entry key="build.date" type="date" value="now" pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" />
+					<entry key="build.major" type="int" default="16" />
+					<entry key="assembly.major" type="int" default="16" />
+					<entry key="build.minor" type="int" default="0" />
+					<entry key="assembly.minor" type="int" default="0" />
+					<entry key="build.revision" type="int" default="0" />
+					<entry key="build.servicePack" type="int" default="0" />
+					<entry key="assembly.servicePack" type="int" default="0" />
+					<entry key="build.number" type="int" default="0" operation="+" pattern="####" />
+					<entry key="assembly.number" type="int" default="0" operation="+" pattern="####" />
+				</propertyfile>
+
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<antcall target="checkin-file-svn">
+							<param name="checkin.file.path" value="build/version.txt" />
+						</antcall>
+					</then>
+				</if>
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="cvs" />
+					<then>
+						<antcall target="checkin-cvs">
+							<param name="checkin.file.path" value="build/version.txt" />
+						</antcall>
+					</then>
+				</if>
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<antcall target="checkin">
+							<param name="starteam.file.path" value="build" />
+							<param name="starteam.local.file.path" value="${source.local.root.path}/build" />
+							<param name="starteam.checkin.comment" value="${starteam.checkin.comment}" />
+							<param name="starteam.file.name" value="version.txt" />
+						</antcall>
+					</then>
+				</if>
+				
+			</then>
+		</if>
+
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : tag-source
+             *  target to tag the source code
+             ********************************************************************** -->
+	<target name="tag-source">
+		<property file="build/version.txt" />
+		<property name="iteration.label.starteam" value="${label.source.code.name}.${build.number}_${DSTAMP}_${TSTAMP}" />
+		<condition property="label.name.starteam" value="${iteration.label.starteam}" else="" >
+			<equals arg1="${label.source.code}" arg2="true" />
+		</condition>
+		<if>
+			<equals arg1="${label.source.code}" arg2="true" />
+			<then>
+
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<echo message="Tagging svn with Tag Name - ${label.name.starteam} ..." />
+						<antcall target="tag-svn" >
+							<param name="label.name.starteam" value="${label.name.starteam}" />
+						</antcall>
+					</then>
+				</if>
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="cvs" />
+					<then>
+						<echo message="Tagging cvs with Tag Name - ${label.name.starteam} ..." />
+						<antcall target="tag-cvs" >
+							<param name="label.name.starteam" value="${label.name.starteam}" />
+						</antcall>
+					</then>
+				</if>
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<echo message="Labelling starteam with Label Name - ${label.name.starteam} ..." />
+						<ant antfile="${dir.src}/build/starteam.xml" target="label-stcmd">
+							<property name="starteam.file.path" value="" />
+							<property name="starteam.local.file.path" value="${basedir}" />
+							<property name="starteam.label" value="${label.name.starteam}" />
+						</ant>  
+					</then>
+				</if>
+			</then>
+		</if>
+
+	</target>
+    <!-- **********************************************************************
+             *  Target : display-properties
+             *  target to display the current properties and the values the build uses
+             ********************************************************************** -->
+	<target name="display-properties">
+		<echo message="update.build.scripts            = ${update.build.scripts}" />
+
+		<echo message="increment.version               = ${increment.version}" />
+
+		<echo message="build.serverside.components	   = ${build.serverside.components}" />
+		<echo message="refresh.server.source.code	   = ${refresh.server.source.code}" />
+        <echo message="run.server.test.cases           = ${run.server.test.cases}" />
+        <echo message="compile.server.source.code      = ${compile.server.source.code}" />
+
+		<echo message="build.clientside.components     = ${build.clientside.components}" />
+		<echo message="refresh.client.source.code	   = ${refresh.client.source.code}" />
+		<echo message="run.client.test.cases		   = ${run.client.test.cases}" />
+		<echo message="compile.client.source.code      = ${compile.client.source.code}" />
+		<echo message="client.compile.doc              = ${client.compile.doc}" />
+
+		<echo message="copy.to.shared.location         = ${copy.to.shared.location}" />
+		<echo message="notify.build.status             = ${notify.build.status}" />
+
+		<echo message="refresh.database                = ${refresh.database}" />
+		<echo message="load.datavault                  = ${load.datavault}" />
+
+		<echo message="build.install                   = ${build.install}" />
+		<echo message="refresh.install.source          = ${refresh.install.source}" />
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : clean-folder
+             *  target to to clean a specified directory
+             ********************************************************************** -->
+	<target name="clean-folder">
+		<echo message="Cleaning... ${dir.to.clean}" />
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${dir.to.clean}" defaultexcludes="no" includes="**/*">
+				<include name="${include.name}" />
+			</fileset>
+		</delete>
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : refresh-client-source
+             *  target to refresh client source
+             ********************************************************************** -->
+	<target name="refresh-client-source">
+
+		<echo message="Clears ROI client source" />
+		
+		<if>
+            <equals arg1="${checkout.source}" arg2="svn" />
+            <then>
+			
+				<antcall target="clean-folder">
+					<param name="dir.to.clean" value="${source.local.root.path}/${svn.client.path}" />
+				</antcall>
+				
+                <echo message="Refreshing client source from SVN..." />
+                <antcall target="get-from-svn">
+                    <param name="svn.path" value="${svn.branch.path}/${svn.client.path}" />
+                    <param name="checkout.dest.path" value="${source.local.root.path}/${svn.client.path}" />
+                    <param name="alias.name" value="${svn.client.path}" />
+                    <param name="label.name" value="${label.name}" />
+                </antcall>
+            </then>
+        </if>
+		
+        <if>
+            <equals arg1="${checkout.source}" arg2="cvs" />
+            <then>
+                <echo message="Refreshing client source from CVS..." />
+                <antcall target="get-from-cvs">
+                    <param name="cvs.path" value="${cvs.branch.path}/${cvs.client.path}" />
+                    <param name="checkout.dest.path" value="${source.local.root.path}" />
+                    <param name="alias.name" value="${cvs.client.path}" />
+                    <param name="label.name" value="${label.name}" />
+                </antcall>
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="${checkout.source}" arg2="starteam" />
+            <then>
+                <echo message="Refreshing client source from starteam..." />
+                <ant antfile="${dir.src}/build/starteam.xml" target="get">
+                    <property name="starteam.file.path" value="${starteam.client.path}" />
+                    <property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.client.path}" />
+                    <property name="starteam.includes.pattern" value="" />
+                    <property name="starteam.label" value="${label.name}" />
+                </ant>
+            </then>
+        </if>
+	</target>
+
+ <!-- **********************************************************************
+         *  Target : update-common-dll
+         *  target to update common dll
+         ********************************************************************** -->
+	<target name="update-common-dll">
+		<echo message="Clears roi related common dll files " />
+		  <delete failonerror="false" includeemptydirs="true">
+	        <fileset dir="${dir.src}/${cvs.client.path}/${dir.3rdParty.dll}" defaultexcludes="yes">
+	    	    <include name="interop.EPRSCryptography.dll" />
+	    	    <include name="EPRSCryptography.dll" />
+				<include name="McKesson.Capture.Common.dll" />
+	        	<include name="McKesson.Capture.Model.dll" />
+	        	<include name="McKesson.EIG.WebService.dll" />
+	           	<include name="McKesson.EIG.WinDSS.dll" />
+	           	<include name="McKesson.Capture.Utility.dll" />
+	            <include name="EIG_Logging.dll" />
+	        </fileset>
+	 	 </delete>
+
+		<!-- copy the common dll's from hpf location -->
+		<echo message="Copying common dll's to ROI" />
+		<copy todir="${dir.src}/${cvs.client.path}/${dir.3rdParty.dll}" preservelastmodified="true" includeEmptyDirs="false">
+			<fileset dir="${hpf.common.dll.location}">
+				<include name="interop.EPRSCryptography.dll" />
+				<include name="EPRSCryptography.dll" />
+				<include name="McKesson.Capture.Common.dll" />
+	        	<include name="McKesson.Capture.Model.dll" />
+	        	<include name="McKesson.EIG.WebService.dll" />
+	           	<include name="McKesson.EIG.WinDSS.dll" />
+	           	<include name="McKesson.Capture.Utility.dll" />
+	            <include name="EIG_Logging.dll" />
+			</fileset>
+		</copy>
+
+		<echo message="Clears EPRSCryptography.dll from McK.EIG.ROI.Client.App folder" />
+		<delete failonerror="false" includeemptydirs="true">
+                <fileset dir="${dir.src}/${cvs.client.path}/${cvs.client.AppDir}" defaultexcludes="yes">
+			<include name="EPRSCryptography.dll" />
+                </fileset>
+	 	</delete>
+	    	    
+		<!-- copy the EPRSCryptography dll from hpf location -->
+		<echo message="Copying EPRSCryptography dll's to McK.EIG.ROI.Client.App" />
+		<copy todir="${dir.src}/${cvs.client.path}/${cvs.client.AppDir}" preservelastmodified="true" includeEmptyDirs="false">
+		<fileset dir="${hpf.common.dll.location}">
+			<include name="EPRSCryptography.dll" />
+		</fileset>
+		</copy>
+
+	</target>
+
+	 <!-- **********************************************************************
+	             *  Target : refresh-help-source
+	             *  target to refresh ROI help source
+	             ********************************************************************** -->
+	    <target name="refresh-help-source">
+
+	        <echo message="Clears ROI Help files" />
+	        <antcall target="clean-folder">
+	            <param name="dir.to.clean" value="${source.local.root.path}/Help" />
+	        </antcall>
+
+			<if>
+	            <equals arg1="${checkout.source}" arg2="svn" />
+	            <then>
+	                <echo message="Refreshing Help source from SVN..." />
+	                <antcall target="get-from-svn">
+	                    <param name="svn.path" value="${svn.branch.path}/Help" />
+	                    <param name="checkout.dest.path" value="${source.local.root.path}/Help" />
+	                    <param name="alias.name" value="Help" />
+	                    <param name="label.name" value="${label.name}" />
+	                </antcall>
+	            </then>
+	        </if>
+			
+	        <if>
+	            <equals arg1="${checkout.source}" arg2="cvs" />
+	            <then>
+	                <echo message="Refreshing Help source from CVS..." />
+	                <antcall target="get-from-cvs">
+	                    <param name="cvs.path" value="${cvs.branch.path}/Help" />
+	                    <param name="checkout.dest.path" value="${source.local.root.path}" />
+	                    <param name="alias.name" value="Help" />
+	                    <param name="label.name" value="${label.name}" />
+	                </antcall>
+	            </then>
+	        </if>
+
+	        <if>
+	            <equals arg1="${checkout.source}" arg2="starteam" />
+	            <then>
+	                <echo message="Refreshing Help source from starteam..." />
+	                <ant antfile="${dir.src}/build/starteam.xml" target="get">
+	                    <property name="starteam.file.path" value="Help" />
+	                    <property name="starteam.local.file.path" value="${source.local.root.path}/Help" />
+	                    <property name="starteam.includes.pattern" value="" />
+	                    <property name="starteam.label" value="${label.name}" />
+	                </ant>
+	            </then>
+	        </if>
+	    </target>
+
+
+    <!-- **********************************************************************
+             *  Target : build-database
+             *  target to call database tasks
+             ********************************************************************** -->
+	<target name="build-database">
+		<ant antfile="${dir.src}/database/build.xml">
+			<property name="refresh.database" value="${refresh.database}" />
+			<property name="load.datavault" value="${load.datavault}" />
+		</ant>
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : build-client-projects
+             *  target to build client specific to installation
+             ********************************************************************** -->
+	<target name="build-client-projects-for-install">
+
+		<if>
+		    <or>
+			<equals arg1="${build.clientside.components}" arg2="true" />
+            <equals arg1="${build.install}" arg2="true" />
+            </or>
+			<then>
+
+				<echo message="**** Started ROI Client Build for installation*****" />
+
+				<!-- refreshing ROI help files -->
+				<echo message="Updating Common DLL Files..." />
+				<antcall target="update-common-dll" />
+
+				<!-- refreshing ROI help files -->
+                <if>
+                    <equals arg1="${refresh.help.source}" arg2="true" />
+                    <then>
+                        <antcall target="refresh-help-source" />
+                    </then>
+                    <else>
+                        <echo message="Not refreshing ROI help files..." />
+                    </else>
+                </if>
+
+				<echo message="executing exec:    ${env.NANT_HOME}/bin/nant.exe" />
+				<!-- NANT call to build client side components -->
+				<exec executable="${env.NANT_HOME}/bin/nant.exe" failonerror="true" dir="${basedir}/client/build">
+					<arg value="-buildfile:build.xml" />
+					<arg value="${target.name}" />
+					<arg value="-D:run.client.test.cases=false" />
+				</exec>
+
+			</then>
+			<else>
+				<echo message="Not Building Client side components..." />
+			</else>
+		</if>
+
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : build-client-projects
+             *  target to build client
+             ********************************************************************** -->
+    <target name="build-client-projects">
+        <if>
+            <equals arg1="${build.clientside.components}" arg2="true" />
+            <then>
+
+                <echo message="**** Started ROI Client Build*****" />
+
+                <!-- Calling database tasks for client build, only if unit test cases needs to be run -->
+                <if>
+                    <equals arg1="${run.client.test.cases}" arg2="true" />
+                    <then>
+                        <antcall target="build-database" />
+                    </then>
+                </if>
+
+				<delete file="build/props/base.properties.xml" failonerror="false" />
+				<echoproperties destfile="build/props/base.properties.xml" format="xml" regex="^((?!env.=).)*$">
+				</echoproperties> 
+				
+				<echo message="executing exec:    ${env.NANT_HOME}/bin/nant.exe" />
+                <!-- NANT call to build client side components -->
+                <exec executable="${env.NANT_HOME}/bin/nant.exe" failonerror="true" dir="${basedir}/client/build">
+                    <arg value="-buildfile:build.xml" />
+                    <arg value="${target.name}" />
+                </exec>
+
+                <!-- ANT call to generate performance report for server. This call is made here
+                    because server side performance report is based on the eig-metrics logged by client test cases -->
+                <ant antfile="${dir.src}/server/build/build.xml" target="generate-performance-report" dir="${dir.src}/server"/>
+
+            </then>
+            <else>
+                <echo message="Not Building Client side components..." />
+            </else>
+        </if>
+
+    </target>
+
+    <!-- **********************************************************************
+             *  Target : build-server-projects
+             *  target to build server
+             ********************************************************************** -->
+	<target name="build-server-src">
+		<if>
+			<or>
+			<equals arg1="${build.serverside.components}" arg2="true" />
+			<equals arg1="${build.install}" arg2="true" />
+			</or>
+			<then>
+				<ant antfile="${basedir}/server/build/build.xml">
+					<property name="basedir" value="${basedir}\server" />
+				</ant>
+			</then>
+			<else>
+				<echo message="Not Building server side components..." />
+			</else>
+		</if>
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : build-server-projects
+             *  target to build server
+             ********************************************************************** -->
+    <target name="build-server-tests">
+        <if>
+            <equals arg1="${build.serverside.components}" arg2="true" />
+            <then>
+                <ant antfile="${basedir}/server/build/build.xml" target="build-server-test-components">
+                    <property name="basedir" value="${basedir}\server" />
+                </ant>
+            </then>
+            <else>
+                <echo message="Not Building server side test components..." />
+            </else>
+        </if>
+    </target>
+
+	<!-- **********************************************************************
+             *  Target : developer-build
+             *  target for developer build, calls server and client build
+             ********************************************************************** -->
+	<target name="developer-build">
+
+		<!-- Displays properties -->
+		<antcall target="display-properties" />
+
+		<!-- Calls Server build -->
+		<antcall target="build-server-projects">
+			<param name="build.serverside.components" value="${build.serverside.components}" />
+		</antcall>
+
+		<!-- Calls Client build -->
+		<antcall target="build-client-projects">
+			<param name="build.clientside.components" value="${build.clientside.components}" />
+			<param name="build.type.for.clientside.components" value="build-client-projects" />
+		</antcall>
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : clean-up
+             *  target to clean temporary files
+             ********************************************************************** -->
+	<target name="clean-up" >
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${dir.src}/build/props" defaultexcludes="yes">
+                <include name="base.properties.xml" />
+            </fileset>
+        </delete>
+
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${dir.src}/build/props" defaultexcludes="yes">
+                <include name="base.properties.xml" />
+                <include name="results.properties.xml" />
+                <include name="previous.results.properties.xml" />
+                <include name="compared.results.properties" />
+                <include name="email.temp.properties" />
+            </fileset>
+        </delete>
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : clean-up
+             *  target to clean unwated files before the build starts
+             ********************************************************************** -->
+    <target name="pre-clean" >
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${dir.src}/database/testdata/upgrade" defaultexcludes="yes">
+                <include name="*.log" />
+            </fileset>
+        </delete>
+    	<delete file="build/props/email.temp.properties" failonerror="false" />
+    </target>
+
+	<!-- **********************************************************************
+	         *  Target : build-installs
+	         *  target to build server & client installs
+	     	 ********************************************************************** -->
+	<target name="build-installs">
+		<if>
+			<equals arg1="${build.install}" arg2="true" />
+			<then>
+				<ant antfile="${basedir}/install/build/build.xml">
+					<property name="basedir" value="${basedir}\install" />
+                    <property name="build.install.kit" value="true" />
+				</ant>
+				<!-- calls email task to initiate an email for install -->
+                <ant antfile="${basedir}/build/send.email.xml" target="notify-install-build">
+                    <property name="basedir" value="${basedir}" />
+			    </ant>
+
+			</then>
+			<else>
+				<echo message="Not Building server and client installs..." />
+			</else>
+		</if>
+	</target>
+	
+	<!-- **********************************************************************
+             *  Target : refresh-install-source
+             *  target to refresh install source
+             ********************************************************************** -->
+		<target name="refresh-install-source">
+		
+			<property file="build/version.txt" />
+			<if>
+				<equals arg1="${refresh.install.source}" arg2="true" />
+				<then>
+					
+					<!-- Deletes the bin directory -->
+					<delete failonerror="false" includeemptydirs="true">
+						<fileset dir="${source.local.root.path}/${svn.install.path}/bin" defaultexcludes="no" includes="**/*" />
+					</delete>
+
+					<!-- if source is SVN, checks out from svn -->
+					<if>
+						<equals arg1="${checkout.source}" arg2="svn" />
+						<then>
+							<echo message="Refreshing install source from SVN with tag name ${label.name}..." />
+							<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
+								<property name="svn.path" value="${svn.branch.path}/${svn.install.path}/build" />
+								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}/build" />
+								<property name="alias.name" value="${svn.install.path}/build" />
+								<property name="label.name" value="${label.name}" />
+							</ant>
+							
+							<echo message="Refreshing install source from SVN with tag name ${label.name}..." />
+							<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
+								<property name="svn.path" value="${svn.branch.path}/${svn.install.path}/bin/client" />
+								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}/bin/MPFServer/webapps/ROOT" />
+								<property name="alias.name" value="${svn.install.path}/bin/client" />
+								<property name="label.name" value="${label.name}" />
+							</ant>
+							
+							<echo message="Refreshing install source from SVN with tag name ${label.name}..." />
+							<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
+								<property name="svn.path" value="${svn.branch.path}/${svn.install.path}/bin" />
+								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}/bin" />
+								<property name="checkout.depth" value="files" />
+								<property name="label.name" value="${label.name}" />
+							</ant>
+
+							<!-- Copying ROI Help files in Local jboss directory -->
+							<property name="PublishDir" value="${source.local.root.path}\install\bin\MPFServer\webapps\ROOT\ROIClient\Help\WebHelp" />
+							<antcall target="clean-folder">
+								<param name="dir.to.clean" value="${PublishDir}" />
+							</antcall>
+
+							<dirname property="directoryProperty" file="${PublishDir}"/>
+							<mkdir dir="${directoryProperty}" />               
+
+							<echo message="Copying the Help source to ${PublishDir} from ${source.local.root.path}\Help\WebHelp" />
+							<copy todir= "${PublishDir}">
+								<fileset dir="${source.local.root.path}\Help\WebHelp"/>
+							</copy>
+						</then>
+					</if>
+					
+					<!-- if source is cvs, checks out from cvs -->
+					<if>
+						<equals arg1="${checkout.source}" arg2="cvs" />
+						<then>
+							<echo message="Refreshing install source from CVS with tag name ${label.name}..." />
+							<ant antfile="${dir.src.build}/build.xml" target="get-from-cvs">
+								<property name="cvs.path" value="${cvs.branch.path}/${cvs.install.path}" />
+								<property name="checkout.dest.path" value="${source.local.root.path}" />
+								<property name="alias.name" value="${cvs.install.path}" />
+								<property name="label.name" value="${label.name}" />
+							</ant>
+						</then>
+					</if>
+
+					<!-- Refreshing install source from starteam -->
+					<if>
+						<equals arg1="${checkout.source}" arg2="starteam" />
+						<then>
+							<echo message="Refreshing install source from starteam with label ${label.name}..." />
+							<ant antfile="${dir.src}/build/starteam.xml" target="get">
+								<property name="starteam.file.path" value="${starteam.install.path}" />
+								<property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.install.path}" />
+								<property name="starteam.includes.pattern" value="" />
+								<property name="starteam.label" value="" />
+							</ant>
+						</then>
+					</if>
+					<ant antfile="${dir.src.build}/build.xml" target="clean-folder">
+						<!-- Clean the Automated Request Install Script -->
+						<property name="dir.to.clean" value="${source.local.root.path}/${starteam.support.path}" />
+					</ant>
+
+					
+					<!-- automated request Script checksout from svn -->
+					<if>
+						<equals arg1="${checkout.source}" arg2="svn" />
+						<then>
+							<echo message="Refreshing automated request Script from svn with label ${label.name}..." />
+							<ant antfile="${dir.src}/build/svn.xml" target="get-from-svn">
+								<property name="svn.path" value="${svn.branch.path}/${svn.support.path}" />
+								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.support.path}" />
+								<property name="svn.includes.pattern" value="" />
+								<property name="svn.label" value="" />
+							</ant>
+						</then>
+					</if>
+					
+					<!-- automated request Script checksout from starteam -->
+					<if>
+						<equals arg1="${checkout.source}" arg2="starteam" />
+						<then>
+							<echo message="Refreshing automated request Script from starteam with label ${label.name}..." />
+							<ant antfile="${dir.src}/build/starteam.xml" target="get">
+								<property name="starteam.file.path" value="${starteam.support.path}" />
+								<property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.support.path}" />
+								<property name="starteam.includes.pattern" value="" />
+								<property name="starteam.label" value="" />
+							</ant>
+						</then>
+					</if>
+
+				</then>
+				<else>
+					<echo message="Not Refreshing install source..." />
+				</else>
+			</if>
+
+		</target>
+
+    <!-- **********************************************************************
+             *  Target : build-install-binaries
+             *  target to build server & client installs
+             ********************************************************************** -->
+    <target name="prepare-install-binaries">
+        <if>
+            <equals arg1="${build.install}" arg2="true" />
+            <then>
+				<!-- refreshing install source code -->
+				<antcall target="refresh-install-source">
+					<param name="refresh.install.source" value="${refresh.install.source}" />
+				</antcall>
+                <ant antfile="${basedir}/install/build/build.xml">
+                    <property name="basedir" value="${basedir}\install" />
+                    <property name="build.install.kit" value="false" />
+                </ant>
+            </then>
+            <else>
+                <echo message="Not Preparing install binaries..." />
+            </else>
+        </if>
+    </target>
+
+    <!-- **********************************************************************
+             *  Target : start-open-office-server
+             *  target to start open office as a service
+             ********************************************************************** -->
+    <target name="start-open-office-server" >
+
+        <exec dir="build" executable="${open.office.dir}\soffice.exe" spawn="true">
+            <arg value="-headless" />
+            <arg value="-accept=&quot;socket,host=localhost,port=8100;urp;&quot;" />
+        	<arg value="-nofirststartwizard" />
+        </exec>
+    </target>
+
+<!-- **********************************************************************
+     *  Target : update-install-properties
+     *  target to update the roi-install-properties
+     ********************************************************************** -->
+	<target name="update-install-properties">
+		<echo message="****************************************************************"/>
+		<echo message="*  update Install Properties to roi.install.properties File   *"/>
+		<echo message="****************************************************************"/>
+		<property file="build/version.txt" />
+		<property name="shared.build.folder" value="${shared.location.path}/${build.number}.${build.major}.${build.minor}.${build.servicePack}.${date.timestamp}" />
+		<property name="shared.install.files.folder" value="${shared.build.folder}/raw.install.files" />
+		<taskdef name="propertyfile" classname="org.apache.tools.ant.taskdefs.optional.PropertyFile" />
+			<propertyfile file="${dir.src}/build/props/roi.install.properties" comment="Install Properties">
+				<entry key="raw.install.files.location" type="string" value="${shared.install.files.folder}" />
+				<entry key="remote.installshield.setup.folder.location" type="string" value="${shared.build.folder}/install" />
+			</propertyfile>
+	</target>
+
+	<target name="copy-help-documentation-files">
+		<property file="build/version.txt" />
+		<property name="copy.to.shared.folder.name" value="${shared.location.path}/${build.number}.${build.major}.${build.minor}.${build.servicePack}.${date.timestamp}" />
+		<echo message="**** Copying database files to install area ****" />
+		<mkdir dir="${copy.to.shared.folder.name}/install/documentation" />
+		<copy todir="${copy.to.shared.folder.name}/install/documentation" preservelastmodified="true" includeEmptyDirs="false">
+		      <fileset dir="${dir.help}/documentation" />
+		 </copy>
+	</target>
+
+	<target name="copy-pdf-file">
+		<antcall target="refresh-pdf-from-common" />
+	</target>
+
+
+	<target name="copy-install-script-file">
+		<property file="build/version.txt" />
+		<property name="copy.to.shared.folder.name" value="${shared.location.path}/${build.number}.${build.major}.${build.minor}.${build.servicePack}.${date.timestamp}" />
+		<echo message="**** Copying ROI_AutomatedRequestProcess install script file to install area ****" />
+		<mkdir dir="${copy.to.shared.folder.name}/install/Support" />
+		<copy todir="${copy.to.shared.folder.name}/install/Support" preservelastmodified="true" includeEmptyDirs="false">
+		       <fileset dir="${dir.support}" />
+		 </copy>
+	</target>
+
+	<target name="refresh-pdf-from-common">
+		<echo message="Refreshing Common Files from svn..." />
+		<antcall target="get-from-common" />
+		<antcall target="copy-to-pdf-folder" />
+		<antcall target="delete-pdf-temp-folder" />
+	</target>
+
+	<target name="get-from-common">
+
+		<echo message="svn path = ${common.svn.local.file.path}" />
+
+		<exec executable="${svn.command.path}">
+			<arg line=" co --username=${common.svn.username} --password=${common.svn.password} ${common.svn.baseurl}/${common.svn.trunk}/${common.svn.file.path} ${common.svn.local.file.path} " />
+		</exec>
+
+
+	</target>
+
+	<target name="copy-to-pdf-folder">
+		<mkdir dir="${dir.install}\${dir.bin}\${dir.pdf}" />
+		<copy todir="${dir.install}\${dir.bin}\${dir.pdf}">
+		      <fileset dir="${common.svn.local.file.path}" includes="**/*" />
+		</copy>
+	</target>
+
+	<target name="delete-pdf-temp-folder">
+		<delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${common.svn.local.file.path}" defaultexcludes="no" />
+        </delete>
+	</target>
+
+</project>

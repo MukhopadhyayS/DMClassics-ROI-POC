@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<sql-query name="updateCountryCode">
+        <![CDATA[
+           UPDATE cabinet..ROI_CountryLOV SET Default_Country = 'False';                      
+           UPDATE cabinet..ROI_CountryLOV
+           SET 
+           		Default_Country = 'True'        
+           WHERE 
+           	    Country_Code = :countryCode
+        ]]>
+	</sql-query> 
+
+	<sql-query name="fetchAllCountries">
+		<![CDATA[
+		     SELECT ROI_CountryLovID countrySeq,
+		     	 	Country_Code countryCode, 
+		     	 	Country_Name countryName,
+		     	 	Default_Country defaultCountry 
+		     FROM cabinet..ROI_CountryLOV
+		]]>
+	</sql-query>  
+
+</hibernate-mapping>

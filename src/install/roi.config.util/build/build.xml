@@ -1,0 +1,128 @@
+<!--
+	Copyright (C) 2008 McKesson Corporation and/or one of its
+	subsidiaries. All Rights Reserved.
+
+	Use of this material is governed by a license agreement.
+	This material contains confidential, proprietary and trade
+	secret information of McKesson Information Solutions and is
+	protected under United States and international copyright and
+	other intellectual property laws. Use, disclosure,
+	reproduction, modification, distribution, or storage in a
+	retrieval system in any form or by any means is prohibited
+	without the prior express written permission of McKesson
+	Information Solutions.
+-->
+<project name="build-config-util" default="build" basedir="../">
+
+	<property file="../../build/props/${build.config.file.name}" />
+	<property file="../../build/props/base.properties" />
+	<property file="../../build/version.txt" />
+
+	<property name="project.basedir" value="${basedir}" />
+	<property name="main.class" value="com.mckesson.eig.roi.config.util.ui.ROIConfigUtil" />
+	<property name="roi.config.util" value="roi.config.util" />
+	<property name="roi.config.jar" value="roi.config.util.jar" />
+	<property name="client.config.version" value="/McK.EIG.ROI.Client.App_${build.major}_${build.minor}_${build.servicePack}_${build.number}" />
+
+	<!-- set the class path to required libraries -->
+	<path id="classpath">
+        <fileset dir="${project.basedir}/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+	</path>
+
+	<!-- **********************************************************************
+             *  Target : compile
+             *  target to compile src
+	         ********************************************************************** -->
+    <target name="build">
+    	<antcall target="compile" />
+    	<antcall target="update-config-util-props" />
+    	<antcall target="create-jar" />
+		<antcall target="copy-uac-setup" />
+    </target>
+	
+	<!-- **********************************************************************
+             *  Target : compile
+             *  target to compile src
+	         ********************************************************************** -->
+    <target name="compile">
+		<echo message="${project.basedir}/bin" />
+    	<mkdir dir="${project.basedir}/bin" />
+    	<javac srcdir="${project.basedir}/src" includeAntRuntime="no" destdir="${project.basedir}/bin" debug="on" source="${class.compatibility}" target="${class.compatibility}" optimize="off" deprecation="on">
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+		</javac>
+    </target>
+
+	<!-- **********************************************************************
+             *  Target : create_jar
+             *  target to create jar files
+	         ********************************************************************** -->
+    <target name="create-jar">
+
+    	<!-- create the folder roi.config.util -->
+        <mkdir dir="${project.basedir}/bin/${roi.config.util}" />
+    	<antcall target="copy-libraries"/>
+    	<antcall target="copy-config-file"/>
+
+        <jar jarfile="${project.basedir}/bin/${roi.config.util}/${roi.config.jar}" basedir="${project.basedir}/bin" includes="**/*.class">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path"
+                	value="lib/commons-collections.jar
+                           lib/dom4j-1.6.1.jar
+                           lib/jaxen-1.1-beta-5.jar
+                	       lib/log4j-1.2.12.jar
+                	       lib/xercesImpl.jar
+                	       lib/eig-utils.jar
+                	       lib/commons-logging.jar
+                	       lib/castor-1.0.5-xml.jar
+                	       config/"/>
+            </manifest>
+        </jar>
+    </target>
+
+	<!-- **********************************************************************
+             *  Target : copy-uac-setup
+             *  target to copy the uac components to roi.config.util
+	         ********************************************************************** -->
+    <target name="copy-uac-setup">
+    	<copy todir="${project.basedir}/bin/${roi.config.util}" preservelastmodified="true" includeEmptyDirs="false">
+			<fileset dir="${project.basedir}/uac"/>
+		</copy>
+    </target>
+	<!-- **********************************************************************
+             *  Target : copy-libraries
+             *  target to copy the library files
+	         ********************************************************************** -->
+	<target name="copy-libraries">
+		<copy todir="${project.basedir}/bin/${roi.config.util}/lib" preservelastmodified="true" includeEmptyDirs="false">
+            <fileset dir="${project.basedir}/lib"/>
+        </copy>
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : copy-config-file
+             *  target to copy the config files
+	         ********************************************************************** -->
+
+	<target name="copy-config-file">
+		<copy todir="${project.basedir}/bin/${roi.config.util}/config" preservelastmodified="true" includeEmptyDirs="false">
+			<fileset dir="${project.basedir}/config"/>
+		</copy>
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : update-config-util-props
+             *  target to update config.util.properties with current build version
+             ********************************************************************** -->
+    <target name="update-config-util-props">
+        <replaceregexp file="${project.basedir}/config/config.util.properties"
+                       match="client.config.version=(.*)"
+                       replace="client.config.version=${client.config.version}"
+                       byline="true"/>
+    </target>
+
+</project>

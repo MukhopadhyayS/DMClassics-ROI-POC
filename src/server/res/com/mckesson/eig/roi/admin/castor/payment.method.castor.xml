@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.roi.admin.model.PaymentMethod">
+		<map-to xml="paymentMethodDetails" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="id" type="long">
+			<bind-xml name="eig:paymentMethodId" node="element" />
+		</field>
+
+		<field name="name" type="string">
+			<bind-xml name="eig:name" node="element" />
+		</field>
+
+		<field name="desc" type="string">
+			<bind-xml name="eig:description" node="element" />
+		</field>
+
+		<field name="isDisplay" type="boolean">
+			<bind-xml name="eig:display" node="element" />
+		</field>
+
+		<field name="recordVersion" type="int">
+			<bind-xml name="eig:recordVersion" node="element" />
+		</field>
+
+	</class>
+
+	<class name="com.mckesson.eig.roi.admin.model.PaymentMethodList">
+		<map-to xml="paymentMethods" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="paymentMethods"
+			type="com.mckesson.eig.roi.admin.model.PaymentMethod"
+			collection="arraylist">
+			<bind-xml name="eig:paymentMethods" node="element" />
+		</field>
+
+	</class>
+</mapping>

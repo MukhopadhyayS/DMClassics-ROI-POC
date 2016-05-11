@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:eig="urn:eig.mckesson.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="urn:eig.mckesson.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:eig.mckesson.com">
+      <xsd:element name="trackSession" type="xsd:boolean" />
+      <xsd:element name="getImnetsByImnet">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userid" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="userpassword" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="time" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="key" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="imnet" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getImnetsByImnetResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="result" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDocumentInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userid" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="userpassword" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="time" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="key" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="duid" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="documentInfoType">
+        <xsd:sequence>
+          <xsd:element name="pageCount" type="xsd:integer" />
+          <xsd:element name="duid" type="xsd:string" />
+          <xsd:element name="facility" type="xsd:string" />
+          <xsd:element name="version" type="xsd:integer" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="subtitle" type="xsd:string" />
+          <xsd:element name="dateTime" type="xsd:dateTime" />
+          <xsd:element name="encounter" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getDocumentInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="documentInfoResult" type="eig:documentInfoType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDocumentListInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userid" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="userpassword" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="time" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="key" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="epn" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="gpi" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="mrn" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="facility" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="encounter" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="fromDate" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="toDate" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="recordview" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="documentType">
+        <xsd:sequence>
+          <xsd:element name="duid" type="xsd:string" />
+          <xsd:element name="edid" type="xsd:string" />
+          <xsd:element name="global" type="xsd:boolean" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="facility" type="xsd:string" />
+          <xsd:element name="subtitle" type="xsd:string" />
+          <xsd:element name="datetime" type="xsd:dateTime" />
+          <xsd:element name="versions" type="eig:versionsType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="versionsType">
+        <xsd:sequence>
+          <xsd:element name="version" type="eig:versionType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="versionType">
+        <xsd:sequence>
+          <xsd:element name="number" type="xsd:integer" />
+          <xsd:element name="datetime" type="xsd:dateTime" />
+          <xsd:element name="pagecount" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="documentsType">
+        <xsd:sequence>
+          <xsd:element name="documentInfo" type="eig:documentType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="encountersType">
+        <xsd:sequence>
+          <xsd:element name="encounters" type="eig:encounterType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="encounterType">
+        <xsd:sequence>
+          <xsd:element name="facility" type="xsd:string" />
+          <xsd:element name="number" type="xsd:string" />
+          <xsd:element name="documents" type="eig:documentsType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="globaldocumentsType">
+        <xsd:sequence>
+          <xsd:element name="globaldocument" type="eig:globaldocumentType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="globaldocumentType">
+        <xsd:sequence>
+          <xsd:element name="documentInfo" type="eig:documentType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="facilitypatientType">
+        <xsd:sequence>
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="gpi" type="xsd:string" />
+          <xsd:element name="epn" type="xsd:string" />
+          <xsd:element name="globaldocuments" type="eig:globaldocumentsType" />
+          <xsd:element name="encounters" type="eig:encountersType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="facilitypatientsType">
+        <xsd:sequence>
+          <xsd:element name="facilitypatient" type="eig:facilitypatientType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="chartType">
+        <xsd:sequence>
+          <xsd:element name="enterprisepatient" type="xsd:boolean" />
+          <xsd:element name="facilitypatients" type="eig:facilitypatientsType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getDocumentListInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="chart" type="eig:chartType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getImnetsByImnetResponse">
+    <wsdl:part name="parameters" element="eig:getImnetsByImnetResponse" />
+  </wsdl:message>
+  <wsdl:message name="getImnetsByImnetRequest">
+    <wsdl:part name="parameters" element="eig:getImnetsByImnet" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentListInfoResponse">
+    <wsdl:part name="parameters" element="eig:getDocumentListInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentListInfoRequest">
+    <wsdl:part name="parameters" element="eig:getDocumentListInfo" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentInfoRequest">
+    <wsdl:part name="parameters" element="eig:getDocumentInfo" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentInfoResponse">
+    <wsdl:part name="parameters" element="eig:getDocumentInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DocumentPortType">
+    <wsdl:operation name="getImnetsByImnet">
+      <wsdl:input message="eig:getImnetsByImnetRequest" />
+      <wsdl:output message="eig:getImnetsByImnetResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentListInfo">
+      <wsdl:input message="eig:getDocumentListInfoRequest" />
+      <wsdl:output message="eig:getDocumentListInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentInfo">
+      <wsdl:input message="eig:getDocumentInfoRequest" />
+      <wsdl:output message="eig:getDocumentInfoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DocumentSoapBinding" type="eig:DocumentPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getImnetsByImnet">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentListInfo">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentInfo">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DocumentInfoService">
+    <wsdl:port name="document" binding="eig:DocumentSoapBinding">
+      <soap:address location="http://192.168.6.126:8081/portal/eig/services/document" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

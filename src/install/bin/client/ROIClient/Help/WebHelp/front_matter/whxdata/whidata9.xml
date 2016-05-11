@@ -1,0 +1,144 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Credit" >
+  <topic name="Post payments or adjustments to a request" url="requests/user_instructions/post_payments_or_adjustments_to_a_request.htm" />
+</key>
+<key name="Crystal Reports" >
+  <topic name="About generating reports" url="reports/about_generating_reports.htm" />
+</key>
+<key name="CSV" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Print or export reports" url="reports/user_instruc/print_or_export_reports.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  <topic name="About generating reports" url="reports/about_generating_reports.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="Current Month" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="Current Password" >
+  <topic name="Change Password dialog box" url="getting_started/logging_on_and_off/dialog_box_descriptions/change_password_dialog_box.htm" />
+</key>
+<key name="Current Reason" >
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+</key>
+<key name="Current Status" >
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+</key>
+<key name="Current Week" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="Custom Date" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="Custom Fees" >
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+</key>
+<key name="Custom Fees Total" >
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+</key>
+<key name="Custom Fields" >
+  <topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+</key>
+<key name="Custom Info Maintenance" >
+  <topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+  <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+</key>
+<key name="Custom Range" >
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="Comments form" url="requests/form_descriptions/comments_form.htm" />
+  <topic name="Maintain comments" url="requests/user_instructions/maintain_comments.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+</key>
+<key name="Date" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="Date of Birth box" url="patients/form_descriptions/patient_records_form_items/date_of_birth_box.htm" />
+  <topic name="Comments form" url="requests/form_descriptions/comments_form.htm" />
+  <topic name="Adj/Pay grid" url="requests/form_descriptions/billing_&amp;_payment_form_items/adj_pay_grid.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Maintain comments" url="requests/user_instructions/maintain_comments.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+  <key name="Birth" >
+    <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  </key>
+  <key name="Birth AND Facility" >
+    <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+  <key name="Birth box" >
+    <topic name="Date of Birth box" url="patients/form_descriptions/patient_records_form_items/date_of_birth_box.htm" />
+  </key>
+  <key name="Birth OR Facility AND" >
+    <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+  <key name="From" >
+    <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+    <topic name="Maintain comments" url="requests/user_instructions/maintain_comments.htm" />
+    <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  </key>
+  <key name="order" >
+    <topic name="Maintain comments" url="requests/user_instructions/maintain_comments.htm" />
+    <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  </key>
+</key>
+<key name="Date Created" >
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+</key>
+
+</indexdata>

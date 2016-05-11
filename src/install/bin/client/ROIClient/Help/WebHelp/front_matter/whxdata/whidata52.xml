@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Social Security Number" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <topic name="Masking form" url="admin/other_maint/form_descrip/masking_form.htm" />
+  <topic name="Configure masking" url="admin/other_maint/user_instruc/configure_masking.htm" />
+  <topic name="About other maintenance" url="admin/other_maint/about_other_maintenance.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Select Patient dialog box" url="requests/dialog_box_descriptions/select_patient_dialog_box.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Potential Patient Mismatch dialog box" url="patients/dbox_desc/potential_patient_mismatch_dialog_box.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <topic name="Create New Request with Patient Requesting dialog box" url="patients/dbox_desc/create_new_request_with_patient_requesting_dialog_box.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <topic name="Create New Patient Requestor dialog box" url="patients/dbox_desc/create_new_patient_requestor_dialog_box.htm" />
+  <key name="use" >
+    <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  </key>
+</key>
+<key name="Sort By" >
+  <topic name="View deficiencies" url="patients/user_instructions/view_deficiencies.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="View documents" url="requests/user_instructions/view_documents.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <key name="according" >
+    <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+    <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  </key>
+  <key name="change" >
+    <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  </key>
+</key>
+<key name="Source Name" >
+  <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+</key>
+<key name="Source Type" >
+  <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+</key>
+<key name="Sources" >
+  <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  <key name="Configure" >
+    <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  </key>
+  <key name="Select" >
+    <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+    <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  </key>
+</key>
+<key name="Sources Tab" >
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+</key>
+<key name="specific permissions" >
+  <topic name="Cancel, pend, or deny a request" url="requests/user_instructions/cancel,_pend,_or_deny_a_request.htm" />
+</key>
+<key name="Specifically" >
+  <topic name="About billing and shipping" url="requests/about_billing_and_shipping.htm" />
+</key>
+<key name="Specifies" >
+  <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+  <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <key name="MPF" >
+    <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+  </key>
+  <key name="MRN" >
+    <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  </key>
+  <key name="URL" >
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  </key>
+</key>
+<key name="SSN" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Create a non-MPF patient" url="patients/user_instructions/create_a_non-hpf_patient.htm" />
+  <topic name="Masking form" url="admin/other_maint/form_descrip/masking_form.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Find a requestor" url="requestors/user_instructions/find_a_requestor.htm" />
+  <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+  <topic name="Select Patient dialog box" url="requests/dialog_box_descriptions/select_patient_dialog_box.htm" />
+  <topic name="Create a requestor" url="requestors/user_instructions/create_a_requestor.htm" />
+  <topic name="Potential Patient Mismatch dialog box" url="patients/dbox_desc/potential_patient_mismatch_dialog_box.htm" />
+  <topic name="Create New Request with Patient Requesting dialog box" url="patients/dbox_desc/create_new_request_with_patient_requesting_dialog_box.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <topic name="Select or change a requestor" url="requests/user_instructions/select_or_change_a_requestor.htm" />
+  <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  <topic name="Create New Patient Requestor dialog box" url="patients/dbox_desc/create_new_patient_requestor_dialog_box.htm" />
+  <key name="enter" >
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+  <key name="made" >
+    <topic name="Masking form" url="admin/other_maint/form_descrip/masking_form.htm" />
+  </key>
+</key>
+<key name="Start Date" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+
+</indexdata>

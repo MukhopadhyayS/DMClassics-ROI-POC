@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Edit Selected Queue" >
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  <key name="Displays" >
+    <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+    <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  </key>
+  <key name="Use" >
+    <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  </key>
+</key>
+<key name="Edit Source" >
+  <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  <key name="closes" >
+    <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+  </key>
+  <key name="displays" >
+    <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+    <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+    <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  </key>
+</key>
+<key name="editable" >
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+</key>
+<key name="Electronic" >
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+</key>
+<key name="elements" >
+  <topic name="About the user interface" url="getting_started/your_workspace/about_the_user_interface.htm" />
+</key>
+<key name="Email" >
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  <topic name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Preview of Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_invoice_dialog_box.htm" />
+  <topic name="Preview of Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_cover_letter_dialog_box.htm" />
+  <topic name="Preview of Other" url="requests/dialog_box_descriptions/preview_of_other.htm" />
+  <topic name="About generating reports" url="reports/about_generating_reports.htm" />
+  <topic name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  <key name="file" >
+    <topic name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+    <topic name="Preview of Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_invoice_dialog_box.htm" />
+    <topic name="Preview of Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_cover_letter_dialog_box.htm" />
+    <topic name="Preview of Other" url="requests/dialog_box_descriptions/preview_of_other.htm" />
+    <topic name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  </key>
+</key>
+<key name="Emergency Room" >
+  <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+</key>
+<key name="EMPI" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="EPN box" url="patients/form_descriptions/patient_records_form_items/epn_box.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+</key>
+<key name="Enables" >
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  <key name="Main Address" >
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  </key>
+  <key name="Patient list" >
+    <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  </key>
+</key>
+<key name="Enc" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+  <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+</key>
+<key name="Enc Details button" >
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+</key>
+<key name="Enc/Acct" >
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+  <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="Enc/Acct box" >
+  <topic name="Enc/Acct box" url="patients/form_descriptions/patient_records_form_items/enc_acct_box.htm" />
+</key>
+<key name="Encounter" >
+  <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <key name="Defaults" >
+    <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  </key>
+</key>
+<key name="Encounter Details" >
+  <topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+  <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <key name="displays" >
+    <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+  </key>
+  <key name="Launches" >
+    <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  </key>
+</key>
+<key name="Encounter Location" >
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+</key>
+<key name="Encounter number" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="encrypt" >
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <key name="PDF file" >
+    <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  </key>
+</key>
+<key name="End Date" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="enter" >
+  <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  <topic name="Maintain adjustment reasons" url="admin/reasons_maint/user_instruc/maintain_adjustment_reasons.htm" />
+  <topic name="Maintain request reasons" url="admin/reasons_maint/user_instruc/maintain_request_reasons.htm" />
+  <topic name="Maintain request status reasons" url="admin/reasons_maint/user_instruc/maintain_request_status_reasons.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  <topic name="Configure notes" url="admin/other_maint/user_instruc/configure_notes.htm" />
+  <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  <key name="Base Charge" >
+    <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  </key>
+  <key name="Name" >
+    <topic name="Configure notes" url="admin/other_maint/user_instruc/configure_notes.htm" />
+  </key>
+  <key name="Queue Name" >
+    <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  </key>
+  <key name="Reason Name" >
+    <topic name="Maintain adjustment reasons" url="admin/reasons_maint/user_instruc/maintain_adjustment_reasons.htm" />
+    <topic name="Maintain request reasons" url="admin/reasons_maint/user_instruc/maintain_request_reasons.htm" />
+    <topic name="Maintain request status reasons" url="admin/reasons_maint/user_instruc/maintain_request_status_reasons.htm" />
+  </key>
+  <key name="SSN" >
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+  <key name="Tier Name" >
+    <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  </key>
+</key>
+
+</indexdata>

@@ -1,0 +1,95 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<ftstdata>
+<topic name="Create Request button" url="patients/form_descriptions/find_patient_form_items/create_req_button.htm" />
+<topic name="Date of Birth box" url="patients/form_descriptions/find_patient_form_items/date_of_birth_box.htm" />
+<topic name="Date of Birth column" url="patients/form_descriptions/find_patient_form_items/date_of_birth_column.htm" />
+<topic name="Delete Non-MPF Patient button" url="patients/form_descriptions/find_patient_form_items/delete_non-mpf_patient_button.htm" />
+<topic name="Document tree" url="patients/form_descriptions/find_patient_form_items/document_tree.htm" />
+<topic name="Enc/Acct box" url="patients/form_descriptions/find_patient_form_items/enc_acct_box.htm" />
+<topic name="EPN box" url="patients/form_descriptions/find_patient_form_items/epn_box.htm" />
+<topic name="EPN column" url="patients/form_descriptions/find_patient_form_items/epn_column.htm" />
+<topic name="Facility box" url="patients/form_descriptions/find_patient_form_items/facility_box.htm" />
+<topic name="Facility column" url="patients/form_descriptions/find_patient_form_items/facility_column.htm" />
+<topic name="Find Patient button" url="patients/form_descriptions/find_patient_form_items/find_patient_button.htm" />
+<topic name="First Name box" url="patients/form_descriptions/find_patient_form_items/first_name_box.htm" />
+<topic name="Gender box" url="patients/form_descriptions/find_patient_form_items/gender_box.htm" />
+<topic name="Last Name box" url="patients/form_descriptions/find_patient_form_items/last_name_box.htm" />
+<topic name="Locked column" url="patients/form_descriptions/find_patient_form_items/locked_column.htm" />
+<topic name="Main Address box" url="patients/form_descriptions/find_patient_form_items/main_address_box.htm" />
+<topic name="MRN box" url="patients/form_descriptions/find_patient_form_items/mrn_box.htm" />
+<topic name="MRN column" url="patients/form_descriptions/find_patient_form_items/mrn_column.htm" />
+<topic name="New Patient button" url="patients/form_descriptions/find_patient_form_items/new_patient_button.htm" />
+<topic name="Patient Name column" url="patients/form_descriptions/find_patient_form_items/patient_name_column.htm" />
+<topic name="Patient Requesting button" url="patients/form_descriptions/find_patient_form_items/patient_requesting_button.htm" />
+<topic name="Reset button" url="patients/form_descriptions/find_patient_form_items/reset_button.htm" />
+<topic name="Save button" url="patients/form_descriptions/find_patient_form_items/save_button.htm" />
+<topic name="SSN box" url="patients/form_descriptions/find_patient_form_items/ssn_box.htm" />
+<topic name="SSN column" url="patients/form_descriptions/find_patient_form_items/ssn_column.htm" />
+<topic name="View/Edit Patient button" url="patients/form_descriptions/find_patient_form_items/view_edit_patient_button.htm" />
+<topic name="VIP column" url="patients/form_descriptions/find_patient_form_items/vip_column.htm" />
+<topic name="VIP Status checkbox" url="patients/form_descriptions/find_patient_form_items/vip_status_checkbox.htm" />
+<topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+<topic name="Cancel button" url="patients/form_descriptions/patient_information_form_items/cancel_button.htm" />
+<topic name="Create Request button" url="patients/form_descriptions/patient_information_form_items/create_request_button.htm" />
+<topic name="Date of Birth box" url="patients/form_descriptions/patient_information_form_items/date_of_birth_box.htm" />
+<topic name="EPN box" url="patients/form_descriptions/patient_information_form_items/epn_box.htm" />
+<topic name="Facility box" url="patients/form_descriptions/patient_information_form_items/facility_box.htm" />
+<topic name="MRN box" url="patients/form_descriptions/patient_information_form_items/mrn_box.htm" />
+<topic name="Revert button" url="patients/form_descriptions/patient_information_form_items/revert_button.htm" />
+<topic name="SSN box" url="patients/form_descriptions/patient_information_form_items/ssn_box.htm" />
+<topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+<topic name="Add Attachment button" url="patients/form_descriptions/patient_records_form_items/add_attachment_button.htm" />
+<topic name="Create Request button" url="patients/form_descriptions/patient_records_form_items/create_request_button.htm" />
+<topic name="Edit Attachment button" url="patients/form_descriptions/patient_records_form_items/edit_attachment_button.htm" />
+<topic name="Edit Document button" url="patients/form_descriptions/patient_records_form_items/edit_document_button.htm" />
+<topic name="Enc Details button" url="patients/form_descriptions/patient_records_form_items/enc_details_button.htm" />
+<topic name="Expand / Collapse buttons" url="patients/form_descriptions/patient_records_form_items/expand_collapse_buttons.htm" />
+<topic name="Filter By Encounter flag" url="patients/form_descriptions/patient_records_form_items/filter_by_encounter_flag.htm" />
+<topic name="New Document button" url="patients/form_descriptions/patient_records_form_items/new_document_button.htm" />
+<topic name="Only Disclosure Docs option" url="patients/form_descriptions/patient_records_form_items/only_disclosure_docs_option.htm" />
+<topic name="Patient Information box" url="patients/form_descriptions/patient_records_form_items/patient_information_box.htm" />
+<topic name="Record View box" url="patients/form_descriptions/patient_records_form_items/record_view_box.htm" />
+<topic name="Set/Update button" url="patients/form_descriptions/patient_records_form_items/set_update_button.htm" />
+<topic name="Show Versions option" url="patients/form_descriptions/patient_records_form_items/show_versions_option.htm" />
+<topic name="Sort By options" url="patients/form_descriptions/patient_records_form_items/sort_by_options.htm" />
+<topic name="View All button" url="patients/form_descriptions/patient_records_form_items/view_all_button.htm" />
+<topic name="View Selected button" url="patients/form_descriptions/patient_records_form_items/view_selected_button.htm" />
+<topic name="Request History form" url="patients/form_descriptions/request_history_form.htm" />
+<topic name="Create Request button" url="patients/form_descriptions/request_history_form_items/create_request_button.htm" />
+<topic name="Requests grid" url="patients/form_descriptions/request_history_form_items/requests_grid.htm" />
+<topic name="View/Edit Request button" url="patients/form_descriptions/request_history_form_items/view_edit_request_button.htm" />
+<topic name="Add attachments to a patient record" url="patients/user_instructions/add_attachments_to_pat_rec.htm" />
+<topic name="Create a non-MPF patient" url="patients/user_instructions/create_a_non-mpf_patient.htm" />
+<topic name="Delete attachments from a patient record" url="patients/user_instructions/delete_attachments.htm" />
+<topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+<topic name="Maintain attachment information" url="patients/user_instructions/maintain_attachment_info.htm" />
+<topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonmpf_doc_info.htm" />
+<topic name="Maintain non-MPF patient information" url="patients/user_instructions/maintain_nonmpf_patient_info.htm" />
+<topic name="View attachments" url="patients/user_instructions/view_attachments.htm" />
+<topic name="View deficiencies" url="patients/user_instructions/view_deficiencies.htm" />
+<topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+<topic name="View request history by patient" url="patients/user_instructions/view_req_history_by_patient.htm" />
+<topic name="Requestor-to-patient match criteria" url="popup_topics/requestor-to-patient_match_criteria.htm" />
+<topic name="To enter requestor information" url="popup_topics/to_enter_requestor_information.htm" />
+<topic name="To search for a patient" url="popup_topics/to_search_for_a_patient.htm" />
+<topic name="To search for a requestor" url="popup_topics/to_search_for_a_requestor.htm" />
+<topic name="About generating reports" url="reports/about_generating_reports.htm" />
+<topic name="About printing or exporting reports" url="reports/about_printing_or_exporting_reports.htm" />
+<topic name="Cancel" url="reports/dialog_box/output_search_results_items/cancel.htm" />
+<topic name="File Format" url="reports/dialog_box/output_search_results_items/file_format.htm" />
+<topic name="File Name" url="reports/dialog_box/output_search_results_items/file_name.htm" />
+<topic name="Save" url="reports/dialog_box/output_search_results_items/save.htm" />
+<topic name="Save in" url="reports/dialog_box/output_search_results_items/save_in.htm" />
+<topic name="Aging" url="reports/form_descrip/_shared_report_items/aging.htm" />
+<topic name="Balance" url="reports/form_descrip/_shared_report_items/balance.htm" />
+<topic name="Billing Location" url="reports/form_descrip/_shared_report_items/billing_location.htm" />
+<topic name="Date Range" url="reports/form_descrip/_shared_report_items/date_range.htm" />
+<topic name="Export" url="reports/form_descrip/_shared_report_items/export.htm" />
+<topic name="Facility" url="reports/form_descrip/_shared_report_items/facility.htm" />
+<topic name="Print" url="reports/form_descrip/_shared_report_items/print.htm" />
+<topic name="Print Preview" url="reports/form_descrip/_shared_report_items/print_preview.htm" />
+<topic name="Request Status" url="reports/form_descrip/_shared_report_items/request_status.htm" />
+<topic name="Requestor Name" url="reports/form_descrip/_shared_report_items/requestor_name.htm" />
+
+</ftstdata>  

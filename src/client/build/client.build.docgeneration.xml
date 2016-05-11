@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright (C) 2008 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project
+    name="BuildSandcastle"
+    default="BuildDocumentation"
+    basedir="." >
+    <description>Include this project when you need to build help file - CHM from source using sandcastle.</description>
+
+    <!-- Sandcastle installed location-->
+    <property name="sandcastle.dir" value="${environment::get-variable('SANDCASTLE_HOME')}"/>
+
+    <!-- Related Executables-->
+    <property name="sandcastle.mrefbuilder" value="${sandcastle.dir}\ProductionTools\MRefBuilder.exe"/>
+    <property name="sandcastle.xsltransform" value="${sandcastle.dir}\ProductionTools\XslTransform.exe"/>
+    <property name="sandcastle.buildassembler" value="${sandcastle.dir}\ProductionTools\BuildAssembler.exe"/>
+    <property name="sandcastle.chmbuilder" value="${sandcastle.dir}\ProductionTools\ChmBuilder.exe"/>
+    <property name="sandcastle.dbcsfix" value="${sandcastle.dir}\ProductionTools\DBCSFix.exe"/>
+    <property name="hhc" value="${environment::get-variable('HHC_HOME')}\hhc.exe"/>
+
+    <target name ="BuildDocumentation">
+
+        <property name="sandcastle.workingdir" value="bin/${outDir}/docTemp"/>
+        <regex pattern="^(?'filename'.*)\.(?'extension'\w+)$" input="${outfile}"/>
+        <property name="srcCommentsFile" value="bin/${filename}.xml"/>
+        <property name="destCommentsFile" value="${sandcastle.workingdir}/comments.xml"/>
+
+        <copy file="${srcCommentsFile}" tofile="${destCommentsFile}" if="${file::exists(srcCommentsFile)}"/>
+
+        <property name="outputfile" value="reflection.org"/>
+        <call target="MRefBuilder"/>
+
+        <property name="inputfile"  value="${outputfile}"/>
+        <property name="outputfile" value="reflection.xml"/>
+        <call target="CreateReflectionXML"/>
+
+        <call target="CopyOutputStructure"/>
+
+        <property name="inputfile"  value="${outputfile}"/>
+        <property name="outputfile" value="manifest.xml"/>
+        <call target="CreateManifestXML"/>
+
+        <property name="inputfile"  value="${outputfile}"/>
+        <call target="BuildAssembler"/>
+
+        <property name="inputfile"  value="reflection.xml"/>
+        <property name="outputfile" value="toc.xml"/>
+        <call target="CreateTOCXML"/>
+
+        <call target="CopyCHMOutputStructure"/>
+
+        <property name="inputfile"  value="toc.xml"/>
+        <call target="ChmBuilder"/>
+
+        <call target="DBCSFix"/>
+
+        <call target="HtmlHelpCompiler"/>
+
+    </target>
+
+    <!-- MRefBuilder -->
+    <target name="MRefBuilder">
+        <echo message="Assembly file : bin/${outDir}/${outfile}"/>
+        <exec program="${sandcastle.mrefbuilder}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg file="bin/${outDir}/${outfile}"/>
+            <arg value='/out:"${outputfile}"'/>
+        </exec>
+    </target>
+
+    <!-- Creates ReflectionXML to apply transforms -->
+    <target name="CreateReflectionXML">
+        <exec program="${sandcastle.xsltransform}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg value='/xsl:"${sandcastle.dir}\ProductionTransforms\ApplyVSDocModel.xsl"'/>
+            <arg value="${inputfile}"/>
+            <arg value='/xsl:"${sandcastle.dir}\ProductionTransforms\AddFriendlyFilenames.xsl"'/>
+            <arg value='/out:"${outputfile}"'/>
+            <arg value="/arg:IncludeAllMembersTopic=true"/>
+            <arg value="/arg:IncludeInheritedOverloadTopics=true"/>
+        </exec>
+    </target>
+
+    <!-- Creates ManifestXML -->
+    <target name="CreateManifestXML">
+        <exec program="${sandcastle.xsltransform}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg value='/xsl:"${sandcastle.dir}\ProductionTransforms\ReflectionToManifest.xsl"'/>
+            <arg value="${inputfile}"/>
+            <arg value='/out:"${outputfile}"'/>
+        </exec>
+    </target>
+
+    <!-- BuildAssembler -->
+    <target name="BuildAssembler">
+        <exec program="${sandcastle.buildassembler}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg value='/config:"${sandcastle.dir}\Presentation\vs2005\configuration\sandcastle.config"'/>
+            <arg value="${inputfile}"/>
+        </exec>
+    </target>
+
+    <!-- Generate an intermediate Toc file that simulates the Whidbey TOC format. -->
+    <target name="CreateTOCXML">
+        <exec program="${sandcastle.xsltransform}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg value='/xsl:"${sandcastle.dir}\ProductionTransforms\createvstoc.xsl"'/>
+            <arg value="${inputfile}"/>
+            <arg value='/out:"${outputfile}"'/>
+        </exec>
+    </target>
+
+    <!-- ChmBuilder -->
+    <target name="ChmBuilder">
+        <exec program="${sandcastle.chmbuilder}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg value='/project:"${projectName}"'/>
+            <arg value="/html:Output\html"/>
+            <arg value="/lcid:1033"/>
+            <arg value='/toc:"${inputfile}"'/>
+            <arg value="/out:Chm"/>
+        </exec>
+    </target>
+
+    <!-- DBCSFix -->
+    <target name="DBCSFix">
+        <exec program="${sandcastle.dbcsfix}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg value="/d:Chm"/>
+            <arg value="/l:1033"/>
+        </exec>
+    </target>
+
+    <!-- Html Help Compiler -->
+    <target name="HtmlHelpCompiler">
+        <exec program="${hhc}" workingdir="${sandcastle.workingdir}" failonerror="false">
+            <arg file="${sandcastle.workingdir}\chm\${projectName}.hhp"/>
+        </exec>
+    </target>
+
+    <target name="CopyOutputStructure">
+
+        <property name="dir.name" value="${sandcastle.workingdir}/Output"/>
+        <delete dir="${dir.name}" if="${directory::exists(dir.name)}"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/Output/html"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/Output/icons"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/Output/scripts"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/Output/styles"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/Output/media"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/Intellisense"/>
+        <delete dir="${dir.name}" if="${directory::exists(dir.name)}"/>
+        <mkdir dir="${dir.name}"/>
+
+        <copy todir="${sandcastle.workingdir}/Output/icons">
+            <fileset basedir ="${sandcastle.dir}\Presentation\vs2005\icons">
+                <include name="*"/>
+            </fileset>
+        </copy>
+
+         <copy todir="${sandcastle.workingdir}/Output/scripts">
+            <fileset basedir ="${sandcastle.dir}\Presentation\vs2005\scripts">
+                <include name="*"/>
+            </fileset>
+        </copy>
+
+         <copy todir="${sandcastle.workingdir}/Output/styles">
+            <fileset basedir ="${sandcastle.dir}\Presentation\vs2005\styles">
+                <include name="*"/>
+            </fileset>
+        </copy>
+
+    </target>
+
+    <target name="CopyCHMOutputStructure">
+
+        <property name="dir.name" value="${sandcastle.workingdir}/chm"/>
+        <delete dir="${dir.name}" if="${directory::exists(dir.name)}"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/chm/html"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/chm/icons"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/chm/scripts"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/chm/styles"/>
+        <mkdir dir="${dir.name}"/>
+
+        <property name="dir.name" value="${sandcastle.workingdir}/chm/media"/>
+        <mkdir dir="${dir.name}"/>
+
+        <copy todir="${sandcastle.workingdir}/chm/icons">
+            <fileset basedir ="${sandcastle.workingdir}/Output/icons">
+                <include name="*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${sandcastle.workingdir}/chm/media">
+            <fileset basedir ="${sandcastle.workingdir}/Output/media">
+                <include name="*"/>
+            </fileset>
+        </copy>
+
+         <copy todir="${sandcastle.workingdir}/chm/scripts">
+            <fileset basedir ="${sandcastle.workingdir}/Output/scripts">
+                <include name="*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${sandcastle.workingdir}/chm/styles">
+            <fileset basedir ="${sandcastle.workingdir}/Output/styles">
+                <include name="*"/>
+            </fileset>
+        </copy>
+    </target>
+
+</project>

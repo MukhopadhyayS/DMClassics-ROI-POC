@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F8701282-0BDC-4430-A7D6-4D78D81412B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>McK.EIG.ROI.Client.Test</RootNamespace>
+    <AssemblyName>McK.EIG.ROI.Client.Test</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>false</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="McK.EIG.Common.Audit">
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.Audit.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.FileTransfer, Version=2.0.0.63, Culture=neutral, PublicKeyToken=cd58ba60f5eb126c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.FileTransfer.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.Reports, Version=2.0.1.239, Culture=neutral, PublicKeyToken=dcb0101b63bfdbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.Reports.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.Utility, Version=1.0.0.242, Culture=neutral, PublicKeyToken=322991ded668d7ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\Microsoft.Web.Services3.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.2.10.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Controller\TestBillingTemplateController.cs" />
+    <Compile Include="Admin\Controller\TestBillingTierController.cs" />
+    <Compile Include="Admin\Controller\TestInvoiceDueController.cs" />
+    <Compile Include="Admin\Controller\TestNotesController.cs" />
+    <Compile Include="Admin\Controller\TestDeliveryMethodController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Controller\TestDisclosureDocTypesController.cs" />
+    <Compile Include="Admin\Controller\TestFeeTypeController.cs" />
+    <Compile Include="Admin\Controller\TestLetterTemplateController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Controller\TestPageWeightController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Controller\TestPaymentMethodController.cs" />
+    <Compile Include="Admin\Controller\TestReasonController.cs" />
+    <Compile Include="Admin\Controller\TestRequestorTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Controller\TestROIAdminController.cs" />
+    <Compile Include="Admin\Controller\TestMediaTypeController.cs" />
+    <Compile Include="Admin\Controller\TestBiilingAdminController.cs" />
+    <Compile Include="Admin\Controller\TestSSNMaskController.cs" />
+    <Compile Include="Admin\Controller\TestTaxPerFacilityController.cs" />
+    <Compile Include="Admin\Model\TestAttachmentLocation.cs" />
+    <Compile Include="Admin\Model\TestBillingPaymentInfoDetails.cs" />
+    <Compile Include="Admin\Model\TestConnectionProperties.cs" />
+    <Compile Include="Admin\Model\TestDeliveryMethodComparer.cs" />
+    <Compile Include="Admin\Model\TestDocTypeAuditDetails.cs" />
+    <Compile Include="Admin\Model\TestExternalSource.cs" />
+    <Compile Include="Admin\Model\TestInvoiceDueDetails.cs" />
+    <Compile Include="Admin\Model\TestLetterTemplateComparer.cs" />
+    <Compile Include="Admin\Model\TestAssociatedBillingTemplates.cs" />
+    <Compile Include="Admin\Model\TestAssociatedFeeTypes.cs" />
+    <Compile Include="Admin\Model\TestBillingTemplateDetails.cs" />
+    <Compile Include="Admin\Model\TestBillingTierDetails.cs" />
+    <Compile Include="Admin\Model\TestCodeSetDetails.cs" />
+    <Compile Include="Admin\Model\TestNotesDetails.cs" />
+    <Compile Include="Admin\Model\TestDeliveryMethodDetails.cs" />
+    <Compile Include="Admin\Model\TestDocumentTypesDetails.cs" />
+    <Compile Include="Admin\Model\TestFeeTypeDetails.cs" />
+    <Compile Include="Admin\Model\TestImageIdComparer.cs" />
+    <Compile Include="Admin\Model\TestLetterTemplateDetails.cs" />
+    <Compile Include="Admin\Model\TestMediaTypeDetails.cs" />
+    <Compile Include="Admin\Model\TestPageLeveltierDetails.cs" />
+    <Compile Include="Admin\Model\TestPageWeightDetails.cs" />
+    <Compile Include="Admin\Model\TestPaymentMethodDetails.cs" />
+    <Compile Include="Admin\Model\TestReasonDetails.cs" />
+    <Compile Include="Admin\Model\TestRecordViewDetails.cs" />
+    <Compile Include="Admin\Model\TestRequestorTypeDetails.cs" />
+    <Compile Include="Admin\Model\TestSSNMaskDetails.cs" />
+    <Compile Include="Admin\Model\TestTaxPerFacilityComparer.cs" />
+    <Compile Include="Admin\Model\TestTaxPerFacilityDetails.cs" />
+    <Compile Include="Admin\Model\TestTurnaroundTimeDays.cs" />
+    <Compile Include="Base\Controller\TestBase.cs" />
+    <Compile Include="Base\Model\TestAddressDetails.cs" />
+    <Compile Include="Base\Controller\TestHPFWHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Base\Controller\TestROIController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Base\Controller\TestROIHelper.cs" />
+    <Compile Include="Base\Controller\TestHelperFactory.cs" />
+    <Compile Include="Base\Exceptions\TestExceptionData.cs" />
+    <Compile Include="Base\Exceptions\TestROIException.cs" />
+    <Compile Include="Base\Model\TestConfigurationData.cs" />
+    <Compile Include="Base\Model\TestCountryCodeDetails.cs" />
+    <Compile Include="Base\Model\TestEnumUtilities.cs" />
+    <Compile Include="Base\Model\TestFacility.cs" />
+    <Compile Include="Base\Model\TestInUseRecordDetails.cs" />
+    <Compile Include="Base\Model\TestLogEvent.cs" />
+    <Compile Include="Base\Model\TestROICertificatePolicy.cs" />
+    <Compile Include="Base\Model\TestROIConstants.cs" />
+    <Compile Include="Base\Model\TestROIErrorCodes.cs" />
+    <Compile Include="Base\Model\TestROISecurityRights.cs" />
+    <Compile Include="Base\Model\TestUserData.cs" />
+    <Compile Include="OverDueInvoice\Controller\TestOverDueInvoiceController.cs" />
+    <Compile Include="OverDueInvoice\Model\TestOverDueInvoiceDetails.cs" />
+    <Compile Include="OverDueInvoice\Model\TestOverDueInvoiceSearchCriteria.cs" />
+    <Compile Include="OverDueInvoice\Model\TestOverDueInvoiceSearchResult.cs" />
+    <Compile Include="OverDueInvoice\Model\TestPreviewOverDueInvoices.cs" />
+    <Compile Include="OverDueInvoice\Model\TestRequestorInvoicesDetails.cs" />
+    <Compile Include="Patient\Controller\TestAttachmentController.cs" />
+    <Compile Include="Patient\Controller\TestDeficiencyController.cs" />
+    <Compile Include="Patient\Controller\TestHpfDocumentController.cs" />
+    <Compile Include="Patient\Controller\TestNonHpfDocumentController.cs" />
+    <Compile Include="Patient\Controller\TestPatientController.cs" />
+    <Compile Include="Patient\Controller\TestRequestorMatchingController.cs" />
+    <Compile Include="Patient\Model\TestAttachmentDetails.cs" />
+    <Compile Include="Patient\Model\TestAttachmentEncounterDetails.cs" />
+    <Compile Include="Patient\Model\TestAttachmentFileDetails.cs" />
+    <Compile Include="Patient\Model\TestDocumentSubtitle.cs" />
+    <Compile Include="Patient\Model\TestExternalSourceAttachmentDetails.cs" />
+    <Compile Include="Patient\Model\TestNonHpfEncounterDetails.cs" />
+    <Compile Include="Patient\Model\TestDeficiencyDetails.cs" />
+    <Compile Include="Patient\Model\TestDocumentDetails.cs" />
+    <Compile Include="Patient\Model\TestDocumentTypeDetails.cs" />
+    <Compile Include="Patient\Model\TestEncounterDetails.cs" />
+    <Compile Include="Patient\Model\TestMismatchComparer.cs" />
+    <Compile Include="Patient\Model\TestNonHpfDocumentDetails.cs" />
+    <Compile Include="Patient\Model\TestFindPatientCriteria.cs" />
+    <Compile Include="Patient\Model\TestFindPatientResult.cs" />
+    <Compile Include="Patient\Model\TestPageDetails.cs" />
+    <Compile Include="Patient\Model\TestPatientDetails.cs" />
+    <Compile Include="Base\Model\TestUserSecurities.cs" />
+    <Compile Include="Patient\Model\TestPatientGlobalDocument.cs" />
+    <Compile Include="Patient\Model\TestPatientNonHpfDocument.cs" />
+    <Compile Include="Patient\Model\TestRetrieveCCdDetails.cs" />
+    <Compile Include="Patient\Model\TestVersionDetails.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Controller\TestROIReportController.cs" />
+    <Compile Include="Reports\Model\TestReportDetails.cs" />
+    <Compile Include="Requestors\Controller\TestRequestorController.cs" />
+    <Compile Include="Requestors\Model\TestAdjustmentInfoDetail.cs" />
+    <Compile Include="Requestors\Model\TestRequestInvoiceDetail.cs" />
+    <Compile Include="Requestors\Model\TestRequestorAdjustmentDetails.cs" />
+    <Compile Include="Requestors\Model\TestRequestorAdjustmentFeeDetails.cs" />
+    <Compile Include="Requestors\Model\TestRequestorAdjustmentsPaymentsDetail.cs" />
+    <Compile Include="Requestors\Model\TestRequestorHistoryDetail.cs" />
+    <Compile Include="Requestors\Model\TestRequestorInvoice.cs" />
+    <Compile Include="Requestors\Model\TestRequestorInvoiceList.cs" />
+    <Compile Include="Requestors\Model\TestFindRequestorCriteria.cs" />
+    <Compile Include="Requestors\Model\TestFindRequestorResult.cs" />
+    <Compile Include="Requestors\Model\TestRequestorDetails.cs" />
+    <Compile Include="Requestors\Model\TestRequestorInvoicesListDetail.cs" />
+    <Compile Include="Requestors\Model\TestRequestorRefundDetail.cs" />
+    <Compile Include="Requestors\Model\TestRequestorStatementCriteria.cs" />
+    <Compile Include="Requestors\Model\TestRequestorUnappliedAmountDetail.cs" />
+    <Compile Include="Request\Controller\TestBillingController.cs" />
+    <Compile Include="Request\Controller\TestRequestController.cs" />
+    <Compile Include="Request\Controller\TestRequestHistoryPageProducer.cs" />
+    <Compile Include="Request\Controller\TestRequestPatientController.cs" />
+    <Compile Include="Request\Model\TestBillingCharge.cs" />
+    <Compile Include="Request\Model\TestChargeHistoryDetails.cs" />
+    <Compile Include="Request\Model\TestCommentDetails.cs" />
+    <Compile Include="Request\Model\TestDeletePatientList.cs" />
+    <Compile Include="Request\Model\TestDocumentChargeDetails.cs" />
+    <Compile Include="Request\Model\TestDocumentInfo.cs" />
+    <Compile Include="Request\Model\TestDocumentInfoList.cs" />
+    <Compile Include="Request\Model\TestInvoiceAndDocumentDetails.cs" />
+    <Compile Include="Request\Model\TestInvoiceChargeDetails.cs" />
+    <Compile Include="Request\Model\TestInvoiceChargeDetailsList.cs" />
+    <Compile Include="Request\Model\TestInvoiceDetails.cs" />
+    <Compile Include="Request\Model\TestInvoiceOrPrebillPreviewInfo.cs" />
+    <Compile Include="Request\Model\TestPastInvoiceDetails.cs" />
+    <Compile Include="Request\Model\TestRequestAttachments.cs" />
+    <Compile Include="Request\Model\TestRequestBillingInfo.cs" />
+    <Compile Include="Request\Model\TestRequestCoreChargeDetails.cs" />
+    <Compile Include="Request\Model\TestRequestAttachmentDetails.cs" />
+    <Compile Include="Request\Model\TestRequestAttachmentEncounterDetails.cs" />
+    <Compile Include="Request\Model\TestRequestCoreChargesInvoiceDetail.cs" />
+    <Compile Include="Request\Model\TestRequestCoreDeliveryInvoicePatientsList.cs" />
+    <Compile Include="Request\Model\TestRequestDocumentSubtitle.cs" />
+    <Compile Include="Request\Model\TestFeeChargeDetails.cs" />
+    <Compile Include="Request\Model\TestFindRequestCriteria.cs" />
+    <Compile Include="Request\Model\TestFindRequestResult.cs" />
+    <Compile Include="Request\Model\TestInvoiceHistoryDetails.cs" />
+    <Compile Include="Request\Model\TestRequestNonHpfEncounterDetails.cs" />
+    <Compile Include="Request\Model\TestOutputDestinationDetails.cs" />
+    <Compile Include="Request\Model\TestOutputPropertyDetails.cs" />
+    <Compile Include="Request\Model\TestOutputRequestDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Request\Model\TestOutputViewDetails.cs" />
+    <Compile Include="Request\Model\TestPaginationDetails.cs" />
+    <Compile Include="Request\Model\TestPropertyDefinition.cs" />
+    <Compile Include="Request\Model\TestPropertyDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Request\Model\TestReleaseDetails.cs" />
+    <Compile Include="Request\Model\TestReleaseHistoryDetails.cs" />
+    <Compile Include="Request\Model\TestReleasedItemDetails.cs" />
+    <Compile Include="Request\Model\TestReleasedPatientDetails.cs" />
+    <Compile Include="Request\Model\TestRequestDetails.cs" />
+    <Compile Include="Request\Model\TestRequestDocumentDetails.cs" />
+    <Compile Include="Request\Model\TestRequestEncounterDetails.cs" />
+    <Compile Include="Request\Model\TestRequestEventHistoryDetails.cs" />
+    <Compile Include="Request\Model\TestRequestGlobalDocument.cs" />
+    <Compile Include="Request\Model\TestPreBillInvoiceDetails.cs" />
+    <Compile Include="Request\Model\TestRequestNonHpfDocument.cs" />
+    <Compile Include="Request\Model\TestRequestNonHpfDocumentDetails.cs" />
+    <Compile Include="Request\Model\TestRequestPageDetails.cs" />
+    <Compile Include="Request\Model\TestRequestPartDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Request\Model\TestRequestPatientDetails.cs" />
+    <Compile Include="Request\Model\TestRequestPatients.cs" />
+    <Compile Include="Request\Model\TestRequestTransaction.cs" />
+    <Compile Include="Request\Model\TestRequestVersionDetails.cs" />
+    <Compile Include="Request\Model\TestROIPage.cs" />
+    <Compile Include="Request\Model\TestSalesTaxChargeDetails.cs" />
+    <Compile Include="Request\Model\TestSalesTaxReasons.cs" />
+    <Compile Include="Request\Model\TestShippingInfo.cs" />
+    <Compile Include="Request\Model\TestUpdatePatientList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="Resources\Test.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\McK.EIG.ROI.Client\McK.EIG.ROI.Client.csproj">
+      <Project>{A7F54758-24A4-4803-93BE-ADD1AFB6C928}</Project>
+      <Name>McK.EIG.ROI.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="McK.EIG.ROI.Client.Test.Log.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

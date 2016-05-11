@@ -1,0 +1,71 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="XLS" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Print or export reports" url="reports/user_instruc/print_or_export_reports.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  <topic name="About generating reports" url="reports/about_generating_reports.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="XYZ" >
+  <topic name="Payment Methods form" url="admin/billing_maint/form_descrip/payment_methods_form.htm" />
+</key>
+<key name="Year" >
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+</key>
+<key name="Yes" >
+  <topic name="Enter shipping information" url="requests/user_instructions/enter_shipping_information.htm" />
+  <topic name="Configure headers, footers, and watermarks" url="admin/config_output/user_instruc/configure_h_f_w.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  <key name="set" >
+    <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  </key>
+</key>
+<key name="Yes  No" >
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+</key>
+<key name="you click the Pre" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="you must" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+</key>
+<key name="yyyy" >
+  <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Potential Patient Mismatch dialog box" url="patients/dbox_desc/potential_patient_mismatch_dialog_box.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="Create New Request with Patient Requesting dialog box" url="patients/dbox_desc/create_new_request_with_patient_requesting_dialog_box.htm" />
+</key>
+<key name="yyyymm" >
+  <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="yyyymmdd" >
+  <topic name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="zero" >
+  <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  <key name="many releases" >
+    <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  </key>
+</key>
+
+</indexdata>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+    <class name="com.mckesson.eig.roi.admin.model.ROIAppData">
+        <map-to xml="roiAppData" ns-prefix="eig"
+            ns-uri="urn:eig.mckesson.com" />
+
+        <field name="hasSSNMasking" type="boolean">
+            <bind-xml name="eig:hasSSNMasking" node="element" />
+        </field>
+        <field name="freeFormFacilities" type="string" collection="arraylist">
+            <bind-xml name="eig:freeFormFacilities" node="element"/>
+        </field>
+        <field name="invoiceDueDays" type="integer" collection="arraylist">
+            <bind-xml name="eig:invoiceDueDays" node="element"/>
+        </field>
+
+    </class>
+</mapping>

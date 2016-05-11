@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+
+
+    <class name="com.mckesson.eig.roi.ccd.model.CcdConvertValue">
+        <map-to xml="ccdConvertResult" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="fileName" type="string">
+            <bind-xml name="eig:fileName" node="element"/>
+        </field>
+        <field name="pageNumber" type="int">
+            <bind-xml name="eig:pageNumber" node="element"/>
+        </field>
+        <field name="type" type="string">
+            <bind-xml name="eig:type" node="element"/>
+        </field>
+    </class>
+    
+    <class name="com.mckesson.eig.roi.ccd.provider.local.CcdSourceDto">
+    		<map-to xml="ccdSourceDto" ns-prefix="eig"
+    			ns-uri="urn:eig.mckesson.com" />
+    
+    		<field name="sourceId" type="int">
+    			<bind-xml name="eig:sourceId" node="element" />
+    		</field>
+
+    		<field name="providerName" type="string">
+    			<bind-xml name="eig:providerName" node="element" />
+    		</field>
+    
+    		<field name="sourceName" type="string">
+    			<bind-xml name="eig:sourceName" node="element" />
+    		</field>
+    
+    		<field name="description" type="string">
+    			<bind-xml name="eig:description" node="element" />
+    		</field>
+    		
+    		<field name="ccdSourceConfigDto"
+			type="com.mckesson.eig.roi.ccd.provider.local.CcdSourceConfigDto"
+			collection="arraylist">
+			<bind-xml name="eig:ccdSourceConfigDto" node="element" />
+		    </field>
+		    
+    </class>
+    	
+    <class name="com.mckesson.eig.roi.ccd.provider.local.CcdSourceConfigDto">
+    		<map-to xml="ccdSourceConfigDto" ns-prefix="eig"
+    			ns-uri="urn:eig.mckesson.com" />
+            <field name="configKey" type="string">
+    			<bind-xml name="eig:configKey" node="element" />
+    		</field>
+    
+    		<field name="configValue" type="string">
+    			<bind-xml name="eig:configValue" node="element" />
+    		</field>
+    		<field name="configLabel" type="string">
+    			<bind-xml name="eig:configLabel" node="element" />
+    		</field>
+    </class>
+    	
+    <class name="com.mckesson.eig.roi.ccd.provider.local.CcdSourceDtoList">
+    		<map-to xml="ccdSourceDtoList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+    		<field name="ccdSourceDtos"
+    			type="com.mckesson.eig.roi.ccd.provider.local.CcdSourceDto"
+    			collection="arraylist">
+    			<bind-xml name="eig:ccdSourceDto" node="element" />
+    		</field>
+	</class>
+	
+    <class name="com.mckesson.eig.roi.ccd.provider.model.CcdDocument">
+        <map-to xml="ccdDocument" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="fileName" type="string">
+            <bind-xml name="eig:fileName" node="element"/>
+        </field>
+        <field name="pageNumber" type="int">
+            <bind-xml name="eig:pageNumber" node="element"/>
+        </field>
+        <field name="type" type="string">
+            <bind-xml name="eig:type" node="element"/>
+        </field>
+        <field name="documentType" type="string">
+            <bind-xml name="eig:documentType" node="element"/>
+        </field>
+        <field name="serviceDate" type="date">
+            <bind-xml name="eig:serviceDate" node="element"/>
+        </field>
+        <field name="receivedDate" type="date">
+            <bind-xml name="eig:receivedDate" node="element"/>
+        </field>
+    </class>
+    
+    <class name="com.mckesson.eig.roi.ccd.provider.model.CcdDocumentList">
+        <map-to xml="ccdDocuments" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+    		<field name="ccdDocuments"
+    			type="com.mckesson.eig.roi.ccd.provider.model.CcdDocument"
+    			collection="arraylist">
+    			<bind-xml name="eig:ccdDocument" node="element" />
+    		</field>
+    </class>
+
+    <class name="com.mckesson.eig.roi.ccd.provider.local.RetrieveCCDDtoList">
+        <map-to xml="retrieveParameters" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+    		<field name="retrieveParameters"
+    			type="com.mckesson.eig.roi.ccd.provider.local.RetrieveCCDDto"
+    			collection="arraylist">
+    			<bind-xml name="eig:retrieveParameters" node="element" />
+    		</field>
+    </class>
+    
+    <class name="com.mckesson.eig.roi.ccd.provider.local.RetrieveCCDDto">
+    		<map-to xml="retrieveccddto" ns-prefix="eig"
+    			ns-uri="urn:eig.mckesson.com" />
+            <field name="retrieveCCDKey" type="string">
+    			<bind-xml name="eig:retrieveCCDKey" node="element" />
+    		</field>
+    		<field name="retrieveCCDValue" type="string">
+    			<bind-xml name="eig:retrieveCCDValue" node="element" />
+    		</field>
+    </class>
+</mapping>

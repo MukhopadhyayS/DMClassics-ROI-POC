@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+
+	<bean id="com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao"
+		class="com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="MediaTypeDAO"
+		class="com.mckesson.eig.roi.admin.dao.MediaTypeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="FeeTypeDAO"
+		class="com.mckesson.eig.roi.admin.dao.FeeTypeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="DeliveryMethodDAO"
+		class="com.mckesson.eig.roi.admin.dao.DeliveryMethodDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="PaymentMethodDAO"
+		class="com.mckesson.eig.roi.admin.dao.PaymentMethodDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="WeightDAO"
+		class="com.mckesson.eig.roi.admin.dao.WeightDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="BillingTemplateDAO"
+		class="com.mckesson.eig.roi.admin.dao.BillingTemplateDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="BillingTierDAO"
+		class="com.mckesson.eig.roi.admin.dao.BillingTierDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="ReasonDAO"
+		class="com.mckesson.eig.roi.admin.dao.ReasonDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="RequestorTypeDAO"
+		class="com.mckesson.eig.roi.admin.dao.RequestorTypeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="DocumentTypeDAO"
+		class="com.mckesson.eig.roi.admin.dao.DocumentTypeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="LetterTemplateDAO"
+		class="com.mckesson.eig.roi.admin.dao.LetterTemplateDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="LetterTemplate_FTHelper"
+		class="com.mckesson.eig.roi.admin.dao.LetterTemplateDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="RequestorDAO"
+		class="com.mckesson.eig.roi.requestor.dao.RequestorDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	 <bean id="AdminLoVDAO"
+	       class="com.mckesson.eig.roi.admin.dao.AdminLoVDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+   </bean>
+
+    <bean id="OutputIntegrationDAO"
+           class="com.mckesson.eig.roi.admin.dao.OutputIntegrationDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+   </bean>
+
+    <bean id="AttachmentDAO"
+           class="com.mckesson.eig.roi.admin.dao.AttachmentDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+   </bean>   
+
+    <bean id="SysParamDAO"
+           class="com.mckesson.eig.roi.admin.dao.SysParamDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+   </bean>
+   
+    <!--  Report DAOs -->
+    <bean id="roi.report.8.dao"
+         class="com.mckesson.eig.roi.reports.dao.LoggedStatusReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.5.dao"
+         class="com.mckesson.eig.roi.reports.dao.RequestDetailReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.4.dao"
+         class="com.mckesson.eig.roi.reports.dao.RequestStatusSummaryReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.7.dao"
+         class="com.mckesson.eig.roi.reports.dao.RequestPendingAgingSummaryReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.2.dao"
+         class="com.mckesson.eig.roi.reports.dao.RequestAccountReceivableAgingReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.6.dao"
+         class="com.mckesson.eig.roi.reports.dao.RequestOutstandingInvBalanceReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.9.dao"
+         class="com.mckesson.eig.roi.reports.dao.ProcessedRequestsSummaryReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.10.dao"
+         class="com.mckesson.eig.roi.reports.dao.PostedPaymentsSummaryReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.3.dao"
+         class="com.mckesson.eig.roi.reports.dao.DocumentsReleasedByMRNReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.11.dao"
+       class="com.mckesson.eig.roi.reports.dao.TurnAroundTimeReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="roi.report.12.dao"
+       class="com.mckesson.eig.roi.reports.dao.SalesTaxReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="roi.report.13.dao"
+       class="com.mckesson.eig.roi.reports.dao.MUROIOutboundReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="roi.report.1.dao"
+       class="com.mckesson.eig.roi.reports.dao.AODReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+   
+    <bean id="roi.report.14.dao"
+       class="com.mckesson.eig.roi.reports.dao.PrebillReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="roi.report.15.dao"
+       class="com.mckesson.eig.roi.reports.dao.ProductivityReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+	 <bean id="roi.report.16.dao"
+       class="com.mckesson.eig.roi.reports.dao.BillableAndUnBillableRequestReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="roi.report.17.dao"
+       class="com.mckesson.eig.roi.reports.dao.BillingReportDAOImpl">
+       <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!--  Invoice and Prebill Generators -->
+    <bean id="Invoice_LetterDataRetriever"
+          class="com.mckesson.eig.roi.billing.dao.InvoiceDataRetriever">
+        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="prebill" value="false" />
+    </bean>
+
+    <bean id="PreBill_LetterDataRetriever"
+          class="com.mckesson.eig.roi.billing.dao.InvoiceDataRetriever">
+        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="prebill" value="true" />
+    </bean>
+
+    <bean id="ROILetters_LetterDataRetriever"
+          class="com.mckesson.eig.roi.billing.dao.ROILetterDataRetriever">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+	
+	<bean id="RequestorLetter_LetterDataRetriever"
+          class="com.mckesson.eig.roi.billing.dao.RequestorLetterDataRetriever">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- bean id="OverDueInvoice_LetterDataRetriever"
+          class="com.mckesson.eig.roi.billing.dao.OverDueInvoiceDataRetriever">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean-->
+
+    <bean id="RequestorRefund_LetterDataRetriever"
+          class="com.mckesson.eig.roi.billing.dao.RequestorRefundDataRetriever">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="InvoiceDueDaysDAO"
+        class="com.mckesson.eig.roi.admin.dao.InvoiceDueDaysDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+	<!-- Sales Tax Facility -->
+    <bean id="TaxPerFacilityDAO"
+        class="com.mckesson.eig.roi.admin.dao.TaxPerFacilityDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="CcdProviderDAO"
+        class="com.mckesson.eig.roi.ccd.provider.dao.CcdProviderDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+	<bean id="MUROIOutboundDAO"
+		class="com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+    
+    <!-- ROI Attachment DAO-->
+    <bean id="ROIAttachmentDAO"
+        class="com.mckesson.eig.roi.admin.dao.ROIAttachmentDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+      <bean id="RequestCoreDAO"
+        class="com.mckesson.eig.roi.request.dao.RequestCoreDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="RequestCorePatientDAO"
+        class="com.mckesson.eig.roi.request.dao.RequestCorePatientDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="OverDueInvoiceCoreDAO"
+        class="com.mckesson.eig.roi.billing.dao.OverDueInvoiceCoreDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- ROI Supplementary DAO -->
+    <bean id="ROISupplementaryDAO"
+        class="com.mckesson.eig.roi.supplementary.dao.ROISupplementaryDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="RequestCoreChargesDAO"
+        class="com.mckesson.eig.roi.request.dao.RequestCoreChargesDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+   
+    <bean id="RequestCoreDeliveryDAO"
+        class="com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="ReleaseHistoryDAO"
+        class="com.mckesson.eig.roi.billing.dao.ReleaseHistoryDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+     <!-- ROI CountryCodeConfigurationDAO DAO -->
+    <bean id="CountryCodeConfigurationDAO"
+        class="com.mckesson.eig.roi.admin.dao.CountryCodeConfigurationDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+   
+    <bean id="JournalDAO"
+        class="com.mckesson.eig.roi.journal.dao.JournalDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="JournalTemplateDAO"
+        class="com.mckesson.eig.roi.journal.dao.JournalTemplateDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+     <bean id="RequestorStatementDAO"
+        class="com.mckesson.eig.roi.requestor.dao.RequestorStatementDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    
+</beans>

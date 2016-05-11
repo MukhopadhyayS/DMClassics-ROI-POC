@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+	<local-tx-datasource>
+		<jndi-name>ROI_DS</jndi-name>
+		<connection-url>jdbc:jtds:sqlserver://127.0.0.1:1433;DatabaseName=cabinet</connection-url>
+		<driver-class>net.sourceforge.jtds.jdbc.Driver</driver-class>
+		<user-name>ROI</user-name>
+		<password>roipazz</password>
+		<autoReconnect>true</autoReconnect>
+		<check-valid-connection-sql>select getdate()</check-valid-connection-sql>
+		<failOverReadOnly>false</failOverReadOnly>
+		<maxReconnects>120</maxReconnects>
+		<initialTimeout>15</initialTimeout>
+	</local-tx-datasource>
+</datasources>

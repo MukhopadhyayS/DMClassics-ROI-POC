@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<tocdata>
+<item name="About requests" url="requests/about_requests.htm" />
+<book name="Maintain requests" >
+  <item name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <item name="Process an Auth-Received request" url="requests/user_instructions/process_an_auth-received_request.htm" />
+  <item name="Create a request" url="requests/user_instructions/create_a_request.htm" />
+  <item name="Select or change a requestor" url="requests/user_instructions/select_or_change_a_requestor.htm" />
+  <item name="Add a patient to a request" url="requests/user_instructions/add_a_patient_to_a_request.htm" />
+  <item name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  <item name="Add or edit non-MPF document information" url="requests/user_instructions/add_or_edit_non-hpf_doc_info.htm" />
+  <item name="Cancel, pend, or deny a request" url="requests/user_instructions/cancel,_pend,_or_deny_a_request.htm" />
+  <item name="Delete a request" url="requests/user_instructions/delete_a_request.htm" />
+  <item name="Complete a request" url="requests/user_instructions/complete_a_request.htm" />
+  <item name="Release documents" url="requests/user_instructions/release_documents.htm" />
+  <item name="Re-release documents" url="requests/user_instructions/re-release_documents.htm" />
+  <item name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <item name="Maintain comments" url="requests/user_instructions/maintain_comments.htm" />
+  <item name="View event history" url="requests/user_instructions/view_event_history.htm" />
+  <item name="View release history" url="requests/user_instructions/view_release_history.htm" />
+</book>
+<book name="Billing and shipping" >
+  <item name="About billing and shipping" url="requests/about_billing_and_shipping.htm" />
+  <item name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+  <item name="Enter shipping information" url="requests/user_instructions/enter_shipping_information.htm" />
+  <item name="Override a billing tier" url="requests/user_instructions/override_a_billing_tier.htm" />
+  <item name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <item name="Create an invoice" url="requests/user_instructions/create_an_invoice.htm" />
+  <item name="Post payments or adjustments to a request" url="requests/user_instructions/post_payments_or_adjustments_to_a_request.htm" />
+  <item name="View pre-bill and invoice history" url="requests/user_instructions/view_prebill_and_invoice_history.htm" />
+</book>
+<book name="Letters and output" >
+  <item name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  <item name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+  <item name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+  <item name="Generate a letter" url="requests/user_instructions/generate_a_letter.htm" />
+  <item name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <item name="Create an invoice" url="requests/user_instructions/create_an_invoice.htm" />
+  <item name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+  <item name="Manage output queues" url="requests/user_instructions/manage_output_queues.htm" />
+</book>
+<book name="Form descriptions" >
+  <item name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <item name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <item name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <item name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <item name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+  <item name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <item name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <item name="Comments form" url="requests/form_descriptions/comments_form.htm" />
+  <item name="Letters form" url="requests/form_descriptions/letters_form.htm" />
+</book>
+<book name="Dialog box descriptions" >
+  <item name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+  <item name="Change Requestor dialog box" url="requests/dialog_box_descriptions/change_requestor_dialog_box.htm" />
+  <item name="Create New Request with Patient Requestor dialog box" url="requests/dialog_box_descriptions/create_new_request_with_patient_requestor_dialog_box.htm" />
+  <item name="Fax dialog box" url="requests/dialog_box_descriptions/fax_dialog_box.htm" />
+  <item name="Invoice dialog box" url="requests/dialog_box_descriptions/invoice_dialog_box.htm" />
+  <item name="Modify Billing Tier dialog box" url="requests/dialog_box_descriptions/modify_billing_tier_dialog_box.htm" />
+  <item name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  <item name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+  <item name="Preview of Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_cover_letter_dialog_box.htm" />
+  <item name="Preview of Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_invoice_dialog_box.htm" />
+  <item name="Preview of Other" url="requests/dialog_box_descriptions/preview_of_other.htm" />
+  <item name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  <item name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+  <item name="Print dialog box" url="requests/dialog_box_descriptions/print_dialog_box.htm" />
+  <item name="Release dialog box" url="requests/dialog_box_descriptions/release_dialog_box.htm" />
+  <item name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <item name="Save New Patient Requestor dialog box" url="requests/dialog_box_descriptions/save_new_patient_requestor_dialog_box.htm" />
+  <item name="Select Patient dialog box" url="requests/dialog_box_descriptions/select_patient_dialog_box.htm" />
+  <item name="Select Requestor dialog box" url="requests/dialog_box_descriptions/select_requestor_dialog_box.htm" />
+  <item name="Update Request Status dialog box" url="requests/dialog_box_descriptions/update_request_status_dialog_box.htm" />
+  <item name="View/Edit Patient's Profile dialog box" url="requests/dialog_box_descriptions/view___edit_patient_s_profile_dialog_box.htm" />
+  <item name="View/Edit Requestor's Profile dialog box" url="requests/dialog_box_descriptions/view_edit_requestor_s_profile_dialog_box.htm" />
+</book>
+
+</tocdata>

@@ -1,0 +1,141 @@
+/* BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
+*
+* Copyright McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Use of this software and related documentation is governed by a license agreement.
+* This material contains confidential, proprietary and trade secret information of
+* McKesson Information Solutions and is protected under United States
+* and international copyright and other intellectual property laws.
+* Use, disclosure, reproduction, modification, distribution, or storage
+* in a retrieval system in any form or by any means is prohibited without the
+* prior express written permission of McKesson Information Solutions.
+*
+END-COPYRIGHT-COMMENT  Do not remove or modify this line! */
+
+/***************************************************************************************************************
+* Stored Procedure: 
+* Creation Date         : 08/12/2013
+*                             
+* Written by    : 
+*                                                     
+* Purpose         : Create job for MPFA
+*                             
+* Database        :CABINET
+*
+*                                                     
+* Input Parameters:     
+*               Name          Type        Description
+*                 ---------   -------           ----------------
+*
+* Output Parameters     :  None
+*                                                     
+* Usage                 : 
+*                                                                                               
+* Called By       : 
+*                                                     
+* Calls                 : 
+*                 
+*                                                     
+* Data Modifications    :
+*                                                     
+* Updates         : 
+*               Name          	Date        		Purpose
+*               ---------     	-------           	-------------                                   
+*              
+*				Joseph Chen    08/12/2013			Delete duplicate “Create” “ReassignTo” from db
+***************************************************************************************************************/
+USE [msdb]
+GO
+
+BEGIN TRANSACTION
+DECLARE @ReturnCode INT
+SELECT @ReturnCode = 0
+
+IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'[Uncategorized (Local)]' AND category_class=1)
+BEGIN
+EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'[Uncategorized (Local)]'
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+END
+
+if not exists(select * from  msdb.dbo.sysjobs where name='Delete duplicate audit events')
+begin
+DECLARE @jobId BINARY(16)
+
+EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'Delete duplicate audit events', 
+		@enabled=1, 
+		@notify_level_eventlog=0, 
+		@notify_level_email=0, 
+		@notify_level_netsend=0, 
+		@notify_level_page=0, 
+		@delete_level=0, 
+		@description=N'Delete duplicate Workfloweventname “Create” and “ReassignTo” from the audit event tables', 
+		@category_name=N'[Uncategorized (Local)]', 
+		@owner_login_name=N'MPFA', @job_id = @jobId OUTPUT
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Delete MPFA duplicates', 
+		@step_id=1, 
+		@cmdexec_success_code=0, 
+		@on_success_action=1, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'TSQL', 
+		@command=N'delete from cabinet.dbo.AssignmentAuditevent where workfloweventname=''Create'' and componentname=''Workstation''
+and assignment_id in (select assignment_id from cabinet.dbo.AssignmentAuditevent where workfloweventname=''ReassignTo'' and componentname=''Workstation'')
+
+delete from cabinet.dbo.EncounterAuditevent where encountereventname=''Create'' and componentname=''Workstation''
+and assignment_id in (select assignment_id from cabinet.dbo.EncounterAuditevent where encountereventname=''ReassignTo'' and componentname=''Workstation'')
+go
+', 
+		@database_name=N'cabinet', 
+		@flags=0
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+EXEC @ReturnCode = msdb.dbo.sp_update_job @job_id = @jobId, @start_step_id = 1
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+
+
+declare @myschedule_uid uniqueidentifier
+select  @myschedule_uid = newid()
+
+
+
+
+if not exists(select * from  msdb.dbo.sysjobs where name=N'Delete audit event duplicates schedule')
+
+begin
+EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'Delete audit event duplicates schedule', 
+		@enabled=1, 
+		@freq_type=4, 
+		@freq_interval=1, 
+		@freq_subday_type=1, 
+		@freq_subday_interval=0, 
+		@freq_relative_interval=0, 
+		@freq_recurrence_factor=0, 
+		@active_start_date=20130809, 
+		@active_end_date=99991231, 
+		@active_start_time=3000, 
+		@active_end_time=235959, 
+		@schedule_uid=@myschedule_uid
+		
+end		
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+
+
+
+EXEC @ReturnCode = msdb.dbo.sp_add_jobserver @job_id = @jobId, @server_name = N'(local)'
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+
+end
+
+COMMIT TRANSACTION
+GOTO EndSave
+QuitWithRollback:
+    IF (@@TRANCOUNT > 0) ROLLBACK TRANSACTION
+EndSave:
+
+
+GO
+
+

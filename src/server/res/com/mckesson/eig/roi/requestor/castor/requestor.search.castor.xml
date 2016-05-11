@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class
+		name="com.mckesson.eig.roi.requestor.model.RequestorSearchCriteria">
+		<map-to xml="requestorSearchCriteria" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="allRequestors" type="boolean">
+			<bind-xml name="eig:allRequestors" node="element" />
+		</field>
+
+		<field name="type" type="long">
+			<bind-xml name="eig:type" node="element" />
+		</field>
+
+		<field name="requestorTypeName" type="string">
+            <bind-xml name="eig:requestorTypeName" node="element" />
+        </field>
+
+		<field name="firstName" type="string">
+            <bind-xml name="eig:firstName" node="element" />
+        </field>
+
+		<field name="lastName" type="string">
+			<bind-xml name="eig:lastName" node="element" />
+		</field>
+
+		<field name="ssn" type="string">
+			<bind-xml name="eig:ssn" node="element" />
+		</field>
+
+        <field name="mrn" type="string">
+            <bind-xml name="eig:mrn" node="element" />
+        </field>
+
+        <field name="facility" type="string">
+            <bind-xml name="eig:facility" node="element" />
+        </field>
+
+		<field name="epn" type="string">
+			<bind-xml name="eig:epn" node="element" />
+		</field>
+
+		<field name="dob" type="date">
+			<bind-xml name="eig:dob" node="element" />
+		</field>
+
+		<field name="maxCount" type="int">
+			<bind-xml name="eig:maxCount" node="element" />
+		</field>
+
+		<field name="activeRequestors" type="boolean">
+			<bind-xml name="eig:activeRequestors" node="element" />
+		</field>
+
+        <field name="allStatus" type="boolean">
+            <bind-xml name="eig:allStatus" node="element" />
+        </field>
+
+        <field name="freeFormFacility" type="boolean">
+            <bind-xml name="eig:freeFormFacility" node="element" />
+        </field>
+
+        <field name="patientRequestor" type="boolean">
+            <bind-xml name="eig:patientRequestor" node="element" />
+        </field>
+
+	</class>
+
+	<class
+		name="com.mckesson.eig.roi.requestor.model.RequestorSearchResult">
+		<map-to xml="requestorSearchResult" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="searchResults"
+			type="com.mckesson.eig.roi.requestor.model.Requestor"
+			collection="arraylist">
+			<bind-xml name="eig:searchResults" node="element" />
+		</field>
+
+		<field name="requestorType" type="long">
+			<bind-xml name="eig:requestorType" node="element" />
+		</field>
+
+		<field name="maxCountExceeded" type="boolean">
+			<bind-xml name="eig:maxCountExceeded" node="element" />
+		</field>
+	</class>
+
+	<class name="com.mckesson.eig.roi.base.model.MatchCriteria">
+
+		<map-to xml="matchCriteria" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="firstName" type="string">
+			<bind-xml name="eig:firstName" node="element" />
+		</field>
+
+		<field name="lastName" type="string">
+            <bind-xml name="eig:lastName" node="element" />
+        </field>
+
+		<field name="epn" type="string">
+			<bind-xml name="eig:epn" node="element" />
+		</field>
+
+		<field name="ssn" type="string">
+			<bind-xml name="eig:ssn" node="element" />
+		</field>
+
+        <field name="mrn" type="string">
+            <bind-xml name="eig:mrn" node="element" />
+        </field>
+
+        <field name="facility" type="string">
+            <bind-xml name="eig:facility" node="element" />
+        </field>
+
+		<field name="dob" type="date">
+			<bind-xml name="eig:dob" node="element" />
+		</field>
+	</class>
+
+	<class name="com.mckesson.eig.roi.base.model.MatchCriteriaList">
+
+		<map-to xml="matchCriteriaList" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="matchCriteria"
+			type="com.mckesson.eig.roi.base.model.MatchCriteria"
+			collection="arraylist">
+		</field>
+	</class>
+</mapping>

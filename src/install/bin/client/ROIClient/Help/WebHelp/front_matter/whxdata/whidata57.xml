@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="View By" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Generate the Outstanding Invoice Balances Report" url="reports/user_instruc/generate_outstanding_invoice_balances_rpt.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Generate the Request Status Summary Report" url="reports/user_instruc/generate_request_status_summary_rpt.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+  <topic name="Generate the Requests with Logged Status Report" url="reports/user_instruc/generate_requests_with_logged_status_rpt.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Generate the Documents Released by MRN Report" url="reports/user_instruc/generate_documents_released_by_mrn_rpt.htm" />
+  <topic name="Documents Released by MRN form" url="reports/form_descrip/documents_released_by_mrn_form.htm" />
+  <topic name="Generate the Request Detail Report" url="reports/user_instruc/generate_request_detail_rpt.htm" />
+  <topic name="Generate the Account Receivable Aging Report" url="reports/user_instruc/generate_account_receivable_aging_rpt.htm" />
+  <topic name="Generate the Posted Payment Summary Report" url="reports/user_instruc/generate_posted_payment_summary_rpt.htm" />
+  <topic name="Generate the Pending Aging Summary Report" url="reports/user_instruc/generate_pending_aging_summary_rpt.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Generate the Turn Around Times Report" url="reports/user_instruc/generate_turn_around_times_rpt.htm" />
+</key>
+<key name="View Custom Info" >
+  <topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+  <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+</key>
+<key name="View encounter details" >
+  <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+</key>
+<key name="View Output Settings" >
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+</key>
+<key name="View Output Settings button" >
+  <topic name="Manage output queues" url="requests/user_instructions/manage_output_queues.htm" />
+  <topic name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+</key>
+<key name="View Request" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="Update Request Status dialog box" url="requests/dialog_box_descriptions/update_request_status_dialog_box.htm" />
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="Comments form" url="requests/form_descriptions/comments_form.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+  <topic name="Letters form" url="requests/form_descriptions/letters_form.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="To find and open a request" url="popup_topics/to_find_and_open_a_request.htm" />
+  <topic name="Change Requestor dialog box" url="requests/dialog_box_descriptions/change_requestor_dialog_box.htm" />
+</key>
+<key name="View Selected" >
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="View documents" url="requests/user_instructions/view_documents.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+</key>
+<key name="View Selected button" >
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+</key>
+<key name="View/Edit Patient" >
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+</key>
+<key name="View/Edit Patient button" >
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+</key>
+<key name="View/Edit Request" >
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+</key>
+<key name="View/Edit Request button" >
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+</key>
+<key name="View/Edit Requestor" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+</key>
+<key name="View/Edit Requestor button" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+</key>
+<key name="View/Edit Requestor's Profile" >
+  <topic name="View/Edit Requestor's Profile dialog box" url="requests/dialog_box_descriptions/view_edit_requestor_s_profile_dialog_box.htm" />
+</key>
+<key name="VIP" >
+  <topic name="Document tree icons" url="popup_topics/document_tree_icons.htm" />
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="Maintain non-MPF patient information" url="patients/user_instructions/maintain_nonhpf_patient_info.htm" />
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonhpf_doc_info.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Create a non-MPF patient" url="patients/user_instructions/create_a_non-hpf_patient.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="View documents" url="requests/user_instructions/view_documents.htm" />
+  <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  <topic name="About requestors" url="requestors/about_requestors.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <key name="Indicates" >
+    <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  </key>
+  <key name="mix" >
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+  <key name="omits" >
+    <topic name="Maintain non-MPF patient information" url="patients/user_instructions/maintain_nonhpf_patient_info.htm" />
+    <topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonhpf_doc_info.htm" />
+  </key>
+  <key name="records" >
+    <topic name="Maintain non-MPF patient information" url="patients/user_instructions/maintain_nonhpf_patient_info.htm" />
+    <topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonhpf_doc_info.htm" />
+  </key>
+</key>
+<key name="VIP icon" >
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+</key>
+<key name="VIP Status" >
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+</key>
+<key name="virtue" >
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <key name="ADT electronic feed" >
+    <topic name="About patient records" url="patients/about_patient_records.htm" />
+  </key>
+</key>
+<key name="Watermark Text" >
+  <topic name="Configure headers, footers, and watermarks" url="admin/config_output/user_instruc/configure_h_f_w.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+</key>
+<key name="watermarks" >
+  <topic name="Configure headers, footers, and watermarks" url="admin/config_output/user_instruc/configure_h_f_w.htm" />
+  <topic name="Configure Output Settings dialog box" url="admin/config_output/db_desc/configure_output_settings_db.htm" />
+</key>
+<key name="Web site" >
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+</key>
+<key name="website" >
+  <topic name="Enter shipping information" url="requests/user_instructions/enter_shipping_information.htm" />
+  <topic name="Maintain delivery methods" url="admin/billing_maint/user_instruc/maintain_delivery_methods.htm" />
+  <topic name="About billing and shipping" url="requests/about_billing_and_shipping.htm" />
+  <topic name="Delivery Methods form" url="admin/billing_maint/form_descrip/delivery_methods_form.htm" />
+</key>
+<key name="Website URLs" >
+  <topic name="Delivery Methods form" url="admin/billing_maint/form_descrip/delivery_methods_form.htm" />
+</key>
+<key name="Weight" >
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <key name="Shipping" >
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  </key>
+</key>
+<key name="were released" >
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+</key>
+<key name="Will" >
+  <key name="Release" >
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  </key>
+</key>
+<key name="Windows" >
+  <topic name="Windows and dialog boxes" url="getting_started/your_workspace/windows_and_dboxes.htm" />
+</key>
+<key name="Windows menu bar" >
+  <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+</key>
+<key name="Write Off" >
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+</key>
+<key name="Wrong Patient" >
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+</key>
+
+</indexdata>

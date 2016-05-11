@@ -1,0 +1,161 @@
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="Adobe RoboHelp - www.adobe.com">
+<title>About configuring output settings</title>
+<link rel="stylesheet" href="../../mckesson_ns.css"><script type="text/javascript" language="JavaScript" title="WebHelpSplitCss">
+<!--
+if (navigator.appName !="Netscape")
+{   document.write("<link rel='stylesheet' href='../../mckesson.css'>");}
+//-->
+</script>
+<style type="text/css">
+<!--
+ul.whs1 { list-style:disc; }
+p.whs2 { background-color:Transparent; }
+p.whs3 { text-decoration:none; }
+-->
+</style><script type="text/javascript" language="JavaScript">
+<!--
+if ((navigator.appName == "Netscape") && (parseInt(navigator.appVersion) == 4))
+{
+  var strNSS = "<style type='text/css'>";
+  strNSS += "p.whs2 {background-color:white; }";
+  strNSS +="</style>";
+  document.write(strNSS);
+}
+//-->
+</script>
+<script type="text/javascript" language="JavaScript" title="WebHelpInlineScript">
+<!--
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) == 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+onerror = null; 
+//-->
+</script>
+<style type="text/css">
+<!--
+div.WebHelpPopupMenu { position:absolute; left:0px; top:0px; z-index:4; visibility:hidden; }
+-->
+</style><script type="text/javascript" language="javascript1.2" src="../../whmsg.js"></script>
+<script type="text/javascript" language="javascript" src="../../whver.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whproxy.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whutils.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whlang.js"></script>
+<script type="text/javascript" language="javascript1.2" src="../../whtopic.js"></script>
+</head>
+<body><script type="text/javascript" language="javascript1.2">
+<!--
+if (window.gbWhTopic)
+{
+	if (window.addTocInfo)
+	{
+	addTocInfo("Administration\nOutput Settings\nAbout configuring output settings");
+addAvenueInfo("Configure Output Settings","","");
+
+	}
+	if (window.writeBtnStyle)
+		writeBtnStyle();
+
+	if (window.writeIntopicBar)
+		writeIntopicBar(0);
+
+	if(1)
+	{
+	document.write("<p style=\"font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left\"> ");
+AddMasterBreadcrumbs("../../help.htm", "font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left", "&gt;", "Home", "../../front_matter/title_page.htm");
+document.write("<a style=\"font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left\" href=\"../about_roi_administration.htm\">Administration</a> &gt; <a style=\"font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left\" href=\"about_configure_output_settings.htm\">Output Settings</a> &gt; About configuring output settings</p>");
+
+	}
+
+	if (window.setRelStartPage)
+	{
+	setRelStartPage("../../help.htm");
+
+		autoSync(1);
+		sendSyncInfo();
+		sendAveInfoOut();
+	}
+}
+else
+	if (window.gbIE4)
+		document.location.reload();
+
+//-->
+</script>
+<h1>About Configuring Output Settings</h1>
+<p>The Configure Output Settings feature provides ROI administrators the 
+ ability to configure:</p>
+<ul type="disc" class="whs1">
+	<li class=p><p>Output queues used for printing, saving documents to 
+ a file, faxing, and emailing.</p></li>
+	<li class=p><p>Save and retry options for output jobs.</p></li>
+	<li class=p><p>Headers, footers, and watermarks that users can add 
+ to release documents.</p></li>
+	<li class=p><p>The source for MPF documents and ROI letters.</p></li>
+</ul>
+<p>This function is accessed by selecting <span style="font-weight: bold;"><B>Configure 
+ Output Settings</B></span> from the <span style="font-weight: bold;"><B>Administration</B></span> 
+ option on the menu bar.</p>
+<p class=Subhead1>Prerequisites</p>
+<p>To configure output settings, the following must be true: </p>
+<ul type="disc" class="whs1">
+	<li class=p><p>You must be an ROI administrator and also have administrator 
+ rights to the Output Services system.</p></li>
+	<li class=p><p>The ROI Module must be integrated with the Output Services 
+ system.</p></li>
+	<li class=p><p>Both the ROI Module and the Output Services system must 
+ be running.</p></li>
+</ul>
+<p class=Subhead1 style="background-color: Transparent;">PDF document passwords</p>
+<p>While configuring a &quot;Save as file&quot; queue, you can optionally 
+ define a &quot;queue&quot; password that prevents unauthorized users from 
+ viewing PDF documents that reside in the output queue. The ROI Module 
+ applies an additional level of PDF document security by automatically 
+ generating a &quot;request&quot; password when the PDF document is generated. 
+ Both passwords are displayed in clear text on these windows:<a href="../../requestors/form_descriptions/account_history_form.htm" target="_blank">Account History</a> and <a href="../../requests/form_descriptions/release_history_form.htm" target="_blank">Release History</a>.</p>
+<p class="whs2">The request password is generated 
+ only once and applies to subsequent releases for the request (for example, 
+ if you add documents to the request, resend documents, or re-release documents). 
+ Release documents are always password protected, regardless of whether 
+ a queue password exists. ROI users must convey the request password to 
+ the requestor in a secure manner following procedures established by your 
+ site.</p>
+<p class=Subhead1>What do you want to do?</p>
+<p class="whs2"><a href="user_instruc/configure_output_queues.htm">Configure 
+ output queues</a></p>
+<p><a href="user_instruc/configure_save_retry_options.htm">Configure save 
+ and retry options</a></p>
+<p><a href="user_instruc/configure_h_f_w.htm">Configure headers, footers, 
+ and watermarks</a></p>
+<p class="whs3"><a href="user_instruc/config_source_for_release_docs.htm">Configure 
+ the source for release documents</a></p>
+<p class="whs3"><a href="user_instruc/configure_devices.htm">Configure 
+ devices</a></p>
+<p class="whs3"><span class=Underline><a href="dialog_box_descriptions/configure_output_settings_db.htm">Configure 
+ output settings</a></span></p>
+<script type="text/javascript" language="javascript1.2">
+<!--
+highlightSearch();
+if (window.writeIntopicBar)
+	writeIntopicBar(0);
+if(0)
+{
+document.write("<p style=\"font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left\"> ");
+AddMasterBreadcrumbs("../../help.htm", "font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left", "&gt;", "Home", "../../front_matter/title_page.htm");
+document.write("<a style=\"font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left\" href=\"../about_roi_administration.htm\">Administration</a> &gt; <a style=\"font-family: Verdana; font-size: 8pt; font-weight: 400;  font-style:normal; color: rgb(0, 0, 0); text-decoration:none; text-align: left\" href=\"about_configure_output_settings.htm\">Output Settings</a> &gt; About configuring output settings</p>");
+
+}
+//-->
+</script>
+</body>
+</html>

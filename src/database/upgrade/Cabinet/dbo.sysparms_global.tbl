@@ -1,0 +1,118 @@
+/*****************************************************************************************************
+* SQL script	: sysparms_global
+* Creation Date	: 	
+* Copyright	: McKesson 2013
+* Written by	: 
+*									
+* Purpose		: Seed data fpr sysparms_global
+*                
+* Revision History:
+*	Name			Date		Changes/Version&Build/Track#
+*	---------		-------		----------------------------
+*	
+*	Thomas Hart		06/26/2013	Updated FTS_Indexing.Index_Write value for 'Pause' feature for Short Circuit
+*	Thomas Hart		10/01/2013	Created new entries for mpfcore.CACHE_TMP_FILE_DIR, mpfcore.LOCAL_PRINT_MAX_JOB_AGE_MINUTES,
+*									mpfcore.LOCAL_PRINT_MAX_NUM_PAGES, mpfcore.LOCAL_PRINT_MAX_PDF_FILE_SIZE_MB and
+*									ADI_WorkControl
+*	Thomas Hart		10/02/2013	Fixed error in FTS_Indexing Update Statement
+*	Thomas Hart		10/17/2013	Added 2 new entries for mpfcore (LOCAL_PRINT_REQUEST_TIMEOUT_SECS
+*							LOCAL_PRINT_SEND_TO_OUTPUT_MAX_ENTRIES)	
+*	MD Meersma		10/24/2013	Add mpfcore.outputservice_url
+******************************************************************************************************/
+
+USE CABINET
+GO
+
+--FTS_INDEXING
+IF EXISTS(SELECT 1 
+			FROM SYSPARMS_GLOBAL 
+			WHERE GLOBALNAME = 'FTS_Indexing.Index_Write')
+
+BEGIN
+	UPDATE SYSPARMS_GLOBAL
+	SET [GlobalText] = 'The current status to write a full-text indexing for a document. false = Off, true = On, pause = Paused'
+	WHERE [GlobalName] = 'FTS_Indexing.Index_Write' and 
+		[GlobalText] not like 'The current status to write a full-text indexing for a document. false = Off, true = On, pause = Paused'
+END
+GO
+
+--MPFCORE.CACHE_TMP_FILE_DIR
+IF NOT EXISTS(SELECT 1 
+				FROM SYSPARMS_GLOBAL
+				WHERE GLOBALNAME = 'mpfcore.CACHE_TMP_FILE_DIR')
+
+BEGIN
+	INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText], [CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) VALUES (-104, N'mpfcore.CACHE_TMP_FILE_DIR', NULL, N'\\MPFDATA\global$\mpfcore\tmpcache', NULL, GETDATE(), 1,GETDATE(), 1, 1)
+END
+GO
+
+--MPFCORE.LOCAL_PRINT_MAX_JOB_AGE_MINUTES
+IF NOT EXISTS(SELECT 1 
+				FROM SYSPARMS_GLOBAL
+				WHERE GLOBALNAME = 'mpfcore.LOCAL_PRINT_MAX_JOB_AGE_MINUTES')
+
+BEGIN
+	INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText], [CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) VALUES (-104, N'mpfcore.LOCAL_PRINT_MAX_JOB_AGE_MINUTES', NULL, '1440', NULL, GETDATE(), 1,GETDATE(), 1, 1)
+END
+GO
+
+--MPFCORE.LOCAL_PRINT_MAX_NUM_PAGES
+IF NOT EXISTS(SELECT 1 
+				FROM SYSPARMS_GLOBAL
+				WHERE GLOBALNAME = 'mpfcore.LOCAL_PRINT_MAX_NUM_PAGES')
+
+BEGIN
+	INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText], [CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) VALUES (-104, N'mpfcore.LOCAL_PRINT_MAX_NUM_PAGES', NULL, '100', NULL, GETDATE(), 1,GETDATE(), 1, 1)
+END
+GO
+
+--MPFCORE.LOCAL_PRINT_MAX_PDF_FILE_SIZE_MB
+IF NOT EXISTS(SELECT 1 
+				FROM SYSPARMS_GLOBAL
+				WHERE GLOBALNAME = 'mpfcore.LOCAL_PRINT_MAX_PDF_FILE_SIZE_MB')
+
+BEGIN
+	INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText], [CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) VALUES (-104, N'mpfcore.LOCAL_PRINT_MAX_PDF_FILE_SIZE_MB', NULL, '8192', NULL, GETDATE(), 1,GETDATE(), 1, 1)
+END
+GO
+
+--MPFCORE.LOCAL_PRINT_REQUEST_TIMEOUT_SECS
+IF NOT EXISTS(SELECT 1 
+				FROM SYSPARMS_GLOBAL
+				WHERE GLOBALNAME = 'mpfcore.LOCAL_PRINT_REQUEST_TIMEOUT_SECS')
+
+BEGIN
+	INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText], [CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) VALUES (-104, N'mpfcore.LOCAL_PRINT_REQUEST_TIMEOUT_SECS', NULL, '180', NULL, GETDATE(), 1,GETDATE(), 1, 1)
+END
+GO
+
+--MPFCORE.LOCAL_PRINT_SEND_TO_OUTPUT_MAX_ENTRIES
+IF NOT EXISTS(SELECT 1 
+				FROM SYSPARMS_GLOBAL
+				WHERE GLOBALNAME = 'mpfcore.LOCAL_PRINT_SEND_TO_OUTPUT_MAX_ENTRIES')
+
+BEGIN
+	INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText], [CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) VALUES (-104, N'mpfcore.LOCAL_PRINT_SEND_TO_OUTPUT_MAX_ENTRIES', NULL, '500', NULL, GETDATE(), 1,GETDATE(), 1, 1)
+END
+GO
+
+--ADI_WorkControl
+IF NOT EXISTS(SELECT 1 
+				FROM SYSPARMS_GLOBAL
+				WHERE GLOBALNAME = 'ADI_Work_Control')
+BEGIN
+	SET IDENTITY_INSERT [DBO].[SYSPARMS_GLOBAL] ON
+
+	INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalID], [GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText],	[CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) 
+	VALUES						   (-135, 1, N'ADI_Work_Control', NULL, 0, 'Value for ADI Work Control being passed to JAVA. 0 - Off, 1 - On.', GETDATE(), 1, GETDATE(), 1, 1)
+	
+	SET IDENTITY_INSERT [DBO].[SYSPARMS_GLOBAL] OFF
+END
+GO
+
+-- mpfcore.outputservice_url
+IF NOT EXISTS(SELECT 1 FROM SYSPARMS_GLOBAL WHERE GLOBALNAME = 'mpfcore.outputservice_url')
+INSERT [DBO].[SYSPARMS_GLOBAL] ([GlobalParentID], [GlobalName], [GlobalValueID], [GlobalVariant], [GlobalText], [CreatedDate], [CreatedById], [ModifiedDate], [ModifiedById], [RecordVersion]) 
+VALUES (-104, N'mpfcore.outputservice_url', NULL, 'http://localhost:8082/output', NULL, GETDATE(), 1,GETDATE(), 1, 1);
+GO
+
