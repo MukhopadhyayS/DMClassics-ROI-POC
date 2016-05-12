@@ -27,7 +27,7 @@ using System.Security.Permissions;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("McKesson Corporation")]
-[assembly: AssemblyProduct("ROI-17.1 17.1")]
+[assembly: AssemblyProduct("ROI-17.0.2 17.0.2")]
 [assembly: AssemblyCopyright("Copyright (c)2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -47,8 +47,8 @@ using System.Security.Permissions;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyFileVersion("17.1.0.324")]
-[assembly: AssemblyVersion("17.0.0.675")]
+[assembly: AssemblyFileVersion("17.0.2.324")]
+[assembly: AssemblyVersion("17.0.2.675")]
 [assembly: CLSCompliant(true)]
 [assembly: ReflectionPermission(SecurityAction.RequestMinimum, ReflectionEmit = true)]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SerializationFormatter = true)]
