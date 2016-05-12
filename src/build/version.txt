@@ -3,7 +3,7 @@
 #Wed Aug 22 22:56:47 EDT 2012
 assembly.number=801
 assembly.servicePack=0
-project.name=ROI-17.1
+project.name=ROI-17.0.2
 assembly.minor=0
 build.minor=1
 Company=McKesson Corporation

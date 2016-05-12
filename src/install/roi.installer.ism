@@ -1059,8 +1059,8 @@
 		<row><td>EXISTING_JBOSS_INSTANCE</td><td>1033</td><td>Use an existing instance of Jboss</td><td>0</td><td/><td>-325310031</td></row>
 		<row><td>EXISTING_JBOSS_PATH_MESSAGE</td><td>1033</td><td>Please select the location of the existing Jboss instance</td><td>0</td><td/><td>-325260623</td></row>
 		<row><td>EXISTING_JBOSS_PATH_TITLE</td><td>1033</td><td>Select the location of the Jboss</td><td>0</td><td/><td>-325313871</td></row>
-		<row><td>HPFW_PRE_REQ</td><td>1033</td><td>MPF Webstation 17.1</td><td>0</td><td/><td>-1516038748</td></row>
-		<row><td>HPF_DB_PRE_REQ</td><td>1033</td><td>MPF Databases must be at release 17.1</td><td>0</td><td/><td>-1515985532</td></row>
+		<row><td>HPFW_PRE_REQ</td><td>1033</td><td>MPF Webstation 17.0.2</td><td>0</td><td/><td>-1516038748</td></row>
+		<row><td>HPF_DB_PRE_REQ</td><td>1033</td><td>MPF Databases must be at release 17.0.2</td><td>0</td><td/><td>-1515985532</td></row>
 		<row><td>IDPROP_SETUPTYPE_COMPLETE</td><td>1033</td><td>Complete</td><td>0</td><td/><td>-1969610293</td></row>
 		<row><td>IDPROP_SETUPTYPE_COMPLETE_DESC</td><td>1033</td><td>Complete</td><td>0</td><td/><td>-1969610293</td></row>
 		<row><td>IDPROP_SETUPTYPE_CUSTOM</td><td>1033</td><td>Custom</td><td>0</td><td/><td>-1969610293</td></row>
@@ -1347,7 +1347,7 @@ UgBlAGwAZQBhAHMAZQAgADIAAQBNAGUAZABpAGEA
 		<row><td>ProObjUseDefaultSettings</td><td>##IDS_PROOBJ_USEDEFAULTSETTINGS##</td><td/></row>
 		<row><td>ProductCode</td><td>{03BB001C-ADF8-484A-AD84-69653FECA4D7}</td><td/></row>
 		<row><td>ProductName</td><td>ROI</td><td/></row>
-		<row><td>ProductVersion</td><td>17.1</td><td/></row>
+		<row><td>ProductVersion</td><td>17.0.2</td><td/></row>
 	</table>
 
 	<table name="RadioButton">
