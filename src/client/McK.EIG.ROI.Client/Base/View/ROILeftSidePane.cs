@@ -70,8 +70,20 @@ namespace McK.EIG.ROI.Client.Base.View
             st.BackColor   = Color.Transparent; 
             
             ToolStripStatusLabel jobsLabel = new ToolStripStatusLabel();
-            jobsLabel.Image = McK.EIG.ROI.Client.Resources.images.print;            
-            jobsLabel.Click += delegate { ShowMonitorOutputJobDialog(); };
+            jobsLabel.Image = McK.EIG.ROI.Client.Resources.images.print;
+            WebBrowser browser = new WebBrowser();
+            if (browser.Version.Major == 11)
+            {
+                ResourceManager rm = Context.CultureManager.GetCulture(CultureType.UIText.ToString());
+                jobsLabel.Click += delegate { MessageBox.Show(rm.GetString("MonitorOutputJobIE11NotSupported.Message")); };
+            }
+            else
+            {
+                jobsLabel.Click += delegate { ShowMonitorOutputJobDialog(); };
+            }
+            browser = null;
+           
+            //jobsLabel.Click += delegate { ShowMonitorOutputJobDialog(); };
             jobsLabel.Spring = false;
             jobsLabel.ImageAlign = ContentAlignment.MiddleRight;
             jobsLabel.DisplayStyle = ToolStripItemDisplayStyle.Image;
