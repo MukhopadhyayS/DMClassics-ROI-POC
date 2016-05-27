@@ -1139,7 +1139,7 @@
 		<row><td>ID_STRING_FAX_SERVICE</td><td>1033</td><td>Fax Service</td><td>0</td><td/><td>-786571860</td></row>
 		<row><td>ID_STRING_OUTPUT_SERVICE_SERVER</td><td>1033</td><td>Output Service Server</td><td>0</td><td/><td>2090615627</td></row>
 		<row><td>ID_STRING_ROI_SERVER</td><td>1033</td><td>ROI Server</td><td>0</td><td/><td>2090640171</td></row>
-		<row><td>ID_WELCOME_MSG</td><td>1033</td><td>ROI Server : Version 17.1</td><td>0</td><td/><td>-1516003964</td></row>
+		<row><td>ID_WELCOME_MSG</td><td>1033</td><td>ROI Server : Version 17.0.2</td><td>0</td><td/><td>-1516003964</td></row>
 		<row><td>ID_WELCOME_TITLE</td><td>1033</td><td>Welcome to ROI Server Installation</td><td>0</td><td/><td>2090613099</td></row>
 		<row><td>JBOSS_INSTANCE_MESSAGE</td><td>1033</td><td>Please select whether you want to install a new instance of jboss or use an existing one</td><td>0</td><td/><td>-325311919</td></row>
 		<row><td>JBOSS_INSTANCE_TITLE</td><td>1033</td><td>Please select the Jboss instance:</td><td>0</td><td/><td>-325313935</td></row>

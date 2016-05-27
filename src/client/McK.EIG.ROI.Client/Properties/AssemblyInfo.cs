@@ -49,6 +49,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyFileVersion("17.0.2.324")]
-[assembly: AssemblyVersion("17.0.2.675")]
+[assembly: AssemblyFileVersion("17.1.0.481")]
+[assembly: AssemblyVersion("17.0.0.832")]
 [assembly: AssemblyKeyFile("McK.EIG.ROI.Client.snk")]
