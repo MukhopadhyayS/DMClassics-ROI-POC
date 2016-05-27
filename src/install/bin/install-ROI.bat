@@ -2,7 +2,7 @@
 
 if /I /?==%~1 goto usage
 
-set RELEASE=17_0_0_157
+set RELEASE=17_1_0_481
 echo Installing ROI %RELEASE% into OneContent
 
 rem find the zip file
