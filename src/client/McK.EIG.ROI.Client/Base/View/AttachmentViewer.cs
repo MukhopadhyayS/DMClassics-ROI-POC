@@ -98,17 +98,19 @@ namespace McK.EIG.ROI.Client.Base.View
                 if (!String.IsNullOrEmpty(filePath) && Validator.Validate(filePath, ROIConstants.FilepathValidation))
                 {
                     log.Info("Attachment content fetched from server, displaying attachment");
-
+                    this.PDFDocumentViewer.SerialNumber = "PDFVW4WIN-ENMBG-1CA2A-9Z3DV-RVH0Y-24K1M";
                     //CR#391890
                     if (Path.GetExtension(filePath) == ".pdf")
                     {
-                        this.PDFDocumentViewer.Visible = true;
+                        this.PDFPageViewer.Visible = true;
                         this.DocumentViewer.Visible = false;
-                        this.PDFDocumentViewer.LoadFile(filePath);
+                       
+                        this.PDFDocumentViewer.Load(filePath);
+
                     }
                     else
                     {
-                        this.PDFDocumentViewer.Visible = false;
+                        this.PDFPageViewer.Visible = false;
                         this.DocumentViewer.Visible = true;
                         this.DocumentViewer.Url = new Uri(filePath);
                     }

@@ -333,16 +333,17 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountHistory
                 try
                 {
                     filePath = BillingController.DownloadLetterTemplate(documentInfo.Name, ProgressHandler);
+                    viewer.PDFDocumentViewer.SerialNumber = "PDFVW4WIN-ENMBG-1CA2A-9Z3DV-RVH0Y-24K1M";
                     //CR#391890
                     if (Path.GetExtension(filePath) == ".pdf")
                     {
-                        viewer.PDFDocumentViewer.Visible = true;
+                        viewer.PDFPageViewer.Visible = true;
                         viewer.DocumentViewer.Visible = false;
-                        viewer.PDFDocumentViewer.LoadFile(filePath);
+                        viewer.PDFDocumentViewer.Load(filePath);
                     }
                     else
                     {
-                        viewer.PDFDocumentViewer.Visible = false;
+                        viewer.PDFPageViewer.Visible = false;
                         viewer.DocumentViewer.Visible = true;
                         viewer.DocumentViewer.Url = new Uri(filePath);
                     }  

@@ -28,8 +28,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ROIViewer));
-            this.viewerToolStrip = new System.Windows.Forms.ToolStrip();
+            this.components = new System.ComponentModel.Container();
+            this.documentViewer = new System.Windows.Forms.WebBrowser();
+            this.pdfPageView = new O2S.Components.PDFView4NET.PDFPageView();
+            this.pdfDocument = new O2S.Components.PDFView4NET.PDFDocument(this.components);
             this.printButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.faxButton = new System.Windows.Forms.ToolStripButton();
@@ -41,30 +43,47 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.cancelButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.documentViewer = new System.Windows.Forms.WebBrowser();
-            this.axAcroPDF = new AxAcroPDFLib.AxAcroPDF();
+            this.viewerToolStrip = new System.Windows.Forms.ToolStrip();
             this.viewerToolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axAcroPDF)).BeginInit();
             this.SuspendLayout();
             // 
-            // viewerToolStrip
+            // documentViewer
             // 
-            this.viewerToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.printButton,
-            this.toolStripSeparator1,
-            this.faxButton,
-            this.toolStripSeparator2,
-            this.saveAsFileButton,
-            this.toolStripSeparator3,
-            this.emailButton,
-            this.continueButton,
-            this.cancelButton,
-            this.toolStripSeparator4,
-            this.toolStripSeparator5});
-            this.viewerToolStrip.Location = new System.Drawing.Point(0, 0);
-            this.viewerToolStrip.Name = "viewerToolStrip";
-            this.viewerToolStrip.Size = new System.Drawing.Size(896, 25);
-            this.viewerToolStrip.TabIndex = 0;
+            this.documentViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.documentViewer.IsWebBrowserContextMenuEnabled = false;
+            this.documentViewer.Location = new System.Drawing.Point(0, 25);
+            this.documentViewer.MinimumSize = new System.Drawing.Size(20, 20);
+            this.documentViewer.Name = "documentViewer";
+            this.documentViewer.Size = new System.Drawing.Size(896, 658);
+            this.documentViewer.TabIndex = 1;
+            // 
+            // pdfPageView
+            // 
+            this.pdfPageView.AutoScroll = true;
+            this.pdfPageView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPageView.DefaultEllipseAnnotationBorderWidth = 1D;
+            this.pdfPageView.DefaultInkAnnotationWidth = 1D;
+            this.pdfPageView.DefaultRectangleAnnotationBorderWidth = 1D;
+            this.pdfPageView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfPageView.Document = this.pdfDocument;
+            this.pdfPageView.DownscaleLargeImages = false;
+            this.pdfPageView.EnableRepeatedKeys = false;
+            this.pdfPageView.Location = new System.Drawing.Point(0, 25);
+            this.pdfPageView.Name = "pdfPageView";
+            this.pdfPageView.PageNumber = 0;
+            this.pdfPageView.RenderingProgressColor = System.Drawing.Color.Empty;
+            this.pdfPageView.RequiredFormFieldHighlightColor = System.Drawing.Color.Empty;
+            this.pdfPageView.ScrollPosition = new System.Drawing.Point(0, 0);
+            this.pdfPageView.Size = new System.Drawing.Size(896, 658);
+            this.pdfPageView.SubstituteFonts = null;
+            this.pdfPageView.TabIndex = 1;
+            this.pdfPageView.WorkMode = O2S.Components.PDFView4NET.UserInteractiveWorkMode.None;
+            // 
+            // pdfDocument
+            // 
+            this.pdfDocument.Metadata = null;
+            this.pdfDocument.PageLayout = O2S.Components.PDFView4NET.PDFPageLayout.SinglePage;
+            this.pdfDocument.PageMode = O2S.Components.PDFView4NET.PDFPageMode.UseNone;
             // 
             // printButton
             // 
@@ -145,37 +164,36 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
-            // documentViewer
+            // viewerToolStrip
             // 
-            this.documentViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.documentViewer.IsWebBrowserContextMenuEnabled = false;
-            this.documentViewer.Location = new System.Drawing.Point(0, 25);
-            this.documentViewer.MinimumSize = new System.Drawing.Size(20, 20);
-            this.documentViewer.Name = "documentViewer";
-            this.documentViewer.Size = new System.Drawing.Size(896, 658);
-            this.documentViewer.TabIndex = 1;
-            // 
-            // axAcroPDF
-            // 
-            this.axAcroPDF.Enabled = true;
-            this.axAcroPDF.Location = new System.Drawing.Point(0, 25);
-            this.axAcroPDF.Name = "axAcroPDF";
-            this.axAcroPDF.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axAcroPDF.OcxState")));
-            this.axAcroPDF.Size = new System.Drawing.Size(896, 658);
-            this.axAcroPDF.TabIndex = 2;
+            this.viewerToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.printButton,
+            this.toolStripSeparator1,
+            this.faxButton,
+            this.toolStripSeparator2,
+            this.saveAsFileButton,
+            this.toolStripSeparator3,
+            this.emailButton,
+            this.continueButton,
+            this.cancelButton,
+            this.toolStripSeparator4,
+            this.toolStripSeparator5});
+            this.viewerToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.viewerToolStrip.Name = "viewerToolStrip";
+            this.viewerToolStrip.Size = new System.Drawing.Size(896, 25);
+            this.viewerToolStrip.TabIndex = 0;
             // 
             // ROIViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.axAcroPDF);
+            this.Controls.Add(this.pdfPageView);
             this.Controls.Add(this.documentViewer);
             this.Controls.Add(this.viewerToolStrip);
             this.Name = "ROIViewer";
             this.Size = new System.Drawing.Size(896, 683);
             this.viewerToolStrip.ResumeLayout(false);
             this.viewerToolStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axAcroPDF)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,20 +201,21 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip viewerToolStrip;
+        private System.Windows.Forms.WebBrowser documentViewer;
+        private O2S.Components.PDFView4NET.PDFPageView pdfPageView;
         private System.Windows.Forms.ToolStripButton printButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton faxButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton saveAsFileButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton cancelButton;
-        private System.Windows.Forms.ToolStripButton continueButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.WebBrowser documentViewer;
         private System.Windows.Forms.ToolStripButton emailButton;
+        private System.Windows.Forms.ToolStripButton continueButton;
+        private System.Windows.Forms.ToolStripButton cancelButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private AxAcroPDFLib.AxAcroPDF axAcroPDF;
+        private System.Windows.Forms.ToolStrip viewerToolStrip;
+        private O2S.Components.PDFView4NET.PDFDocument pdfDocument;
 
 
 
