@@ -135,6 +135,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdparty\lib\Microsoft.Web.Services3.dll</HintPath>
     </Reference>
+    <Reference Include="O2S.Components.PDFView4NET">
+      <HintPath>..\3rdparty\lib\O2S.Components.PDFView4NET.dll</HintPath>
+    </Reference>
     <Reference Include="OCSecurity">
       <HintPath>..\McK.EIG.ROI.Client.App\OCSecurity.dll</HintPath>
     </Reference>
@@ -3693,25 +3696,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\checkmark-white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="AcroPDFLib">
-      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="AxAcroPDFLib">
-      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>aximp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

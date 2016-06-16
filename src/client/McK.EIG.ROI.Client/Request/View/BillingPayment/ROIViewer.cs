@@ -33,6 +33,10 @@ using McK.EIG.ROI.Client.Base.View;
 using McK.EIG.ROI.Client.Base.View.Common;
 using McK.EIG.ROI.Client.Request.Controller;
 using McK.EIG.ROI.Client.Request.Model;
+using O2S.Components.PDFView4NET;
+using O2S.Components.PDFView4NET.Actions;
+using O2S.Components.PDFView4NET.Graphics;
+using O2S.Components.PDFView4NET.Annotations;
 
 namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 {
@@ -702,11 +706,24 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         /// <summary>
         /// Gets the PDF viewer.
         /// </summary>
-        public AxAcroPDFLib.AxAcroPDF  PDFDocumentViewer
+        //public AxAcroPDFLib.AxAcroPDF  PDFDocumentViewer
+        //{
+        //    get { return axAcroPDF  ; }
+        //}
+
+        //Using PDFView4NET instead of acrobat reader to view pdf files
+
+        public O2S.Components.PDFView4NET.PDFPageView  PDFPageViewer
         {
-            get { return axAcroPDF  ; }
+            get { return pdfPageView; }
+ 
         }
 
+        public O2S.Components.PDFView4NET.PDFDocument PDFDocumentViewer
+        {
+            get { return pdfDocument; }
+
+        }
         /// <summary>
         /// Gets the viewer toolbar.
         /// </summary>
