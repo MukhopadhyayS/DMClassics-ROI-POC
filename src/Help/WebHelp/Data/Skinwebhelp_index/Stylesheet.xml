@@ -219,6 +219,16 @@
                         <Property Name="ControlType">Separator</Property>
                     </Properties>
                 </StyleClass>
+                <StyleClass Name="SelectLanguage">
+                    <Properties>
+                        <Property Name="ControlType">SelectLanguage</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectSkin">
+                    <Properties>
+                        <Property Name="ControlType">SelectSkin</Property>
+                    </Properties>
+                </StyleClass>
             </Classes>
         </Style>
         <Style Name="AccordionItem">
@@ -452,7 +462,7 @@
                 <Property Name="CrossReferencePrintFormat">"{paratext}" {pageref}</Property>
                 <Property Name="CrossReferenceBelow">below</Property>
                 <Property Name="CrossReferenceAbove">above</Property>
-                <Property Name="CrossReferenceOnPage">on page </Property>
+                <Property Name="CrossReferenceOnPage">on page&#160;</Property>
                 <Property Name="CrossReferenceOnPreviousPage">on the previous page</Property>
                 <Property Name="CrossReferenceOnNextPage">on the next page</Property>
                 <Property Name="CrossReferenceOnFacingPage">on the facing page</Property>
@@ -492,11 +502,123 @@
                 </StyleClass>
             </Classes>
         </Style>
+        <Style Name="Control">
+            <Classes>
+                <StyleClass Name="SearchFavoritesDeleteButton">
+                    <Properties>
+                        <Property Name="Icon">url('Delete.gif')</Property>
+                        <Property Name="PressedIcon">url('Delete_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('Delete_over.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="TopicFavoritesDeleteButton">
+                    <Properties>
+                        <Property Name="Icon">url('Delete.gif')</Property>
+                        <Property Name="PressedIcon">url('Delete_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('Delete_over.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="AddSearchToFavoritesButton">
+                    <Properties>
+                        <Property Name="Icon">url('AddSearchToFavorites.gif')</Property>
+                        <Property Name="PressedIcon">url('AddSearchToFavorites_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('AddSearchToFavorites_over.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SearchResults">
+                    <Properties>
+                        <Property Name="TableSummary">This table contains the results of the search that was performed. The first column indicates the search rank and the second column indicates the title of the topic that contains the search result.</Property>
+                        <Property Name="RankLabel">Rank</Property>
+                        <Property Name="TitleLabel">Title</Property>
+                        <Property Name="TopicResultsLabel">Topic Results</Property>
+                        <Property Name="CommunityResultsLabel">Community Results</Property>
+                        <Property Name="ShowAllCommunityResults">Show all community results</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="CommentsAddButton">
+                    <Properties>
+                        <Property Name="Icon">url('AddComment.gif')</Property>
+                        <Property Name="PressedIcon">url('AddComment_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('AddComment_over.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="CommentsReplyButton">
+                    <Properties>
+                        <Property Name="Icon">url('ReplyComment.gif')</Property>
+                        <Property Name="PressedIcon">url('ReplyComment_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('ReplyComment_over.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="CommentsRefreshButton">
+                    <Properties>
+                        <Property Name="Icon">url('RefreshTopicComments.gif')</Property>
+                        <Property Name="PressedIcon">url('RefreshTopicComments_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('RefreshTopicComments_over.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="CommentNode">
+                    <Properties>
+                        <Property Name="Icon">url('Comment.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="CommentReplyNode">
+                    <Properties>
+                        <Property Name="Icon">url('CommentReply.gif')</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="NavigationLinkTop">
+                    <Properties>
+                        <Property Name="Label">Open topic with navigation</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="NavigationLinkBottom">
+                    <Properties>
+                        <Property Name="Label">Open topic with navigation</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+        <Style Name="Dialog">
+            <Classes>
+                <StyleClass Name="AddComment">
+                    <Properties>
+                        <Property Name="CommentLengthExceeded">The maximum comment length was exceeded by {n} characters.</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="ReplyComment">
+                    <Properties>
+                        <Property Name="CommentLengthExceeded">The maximum comment length was exceeded by {n} characters.</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
         <Style Name="FeedbackUserProfileItem">
             <Classes>
+                <StyleClass Name="Username">
+                    <Properties>
+                        <Property Name="Required">true</Property>
+                        <Property Name="Label">Username</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="EmailAddress">
+                    <Properties>
+                        <Property Name="Required">true</Property>
+                        <Property Name="Label">Email Address</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="FirstName">
+                    <Properties>
+                        <Property Name="Label">First Name</Property>
+                    </Properties>
+                </StyleClass>
                 <StyleClass Name="MiddleName">
                     <Properties>
                         <Property Name="Label">Middle Name</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="LastName">
+                    <Properties>
+                        <Property Name="Label">Last Name</Property>
                     </Properties>
                 </StyleClass>
                 <StyleClass Name="Address1">
@@ -527,6 +649,23 @@
                 <StyleClass Name="State">
                     <Properties>
                         <Property Name="Label">State</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="PostalCode">
+                    <Properties>
+                        <Property Name="Label">Postal Code</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Country">
+                    <Properties>
+                        <Property Name="Label">Country</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Gender">
+                    <Properties>
+                        <Property Name="Label">Gender</Property>
+                        <Property Name="GenderFemaleName">Female</Property>
+                        <Property Name="GenderMaleName">Male</Property>
                     </Properties>
                 </StyleClass>
                 <StyleClass Name="Phone1">
@@ -624,94 +763,29 @@
                         <Property Name="Label">Custom10</Property>
                     </Properties>
                 </StyleClass>
-            </Classes>
-        </Style>
-        <Style Name="Control">
-            <Classes>
-                <StyleClass Name="SearchFavoritesDeleteButton">
+                <StyleClass Name="EmailNotificationsGroup">
                     <Properties>
-                        <Property Name="Icon">url('Delete.gif')</Property>
-                        <Property Name="PressedIcon">url('Delete_selected.gif')</Property>
-                        <Property Name="HoverIcon">url('Delete_over.gif')</Property>
+                        <Property Name="Label">Email Notifications</Property>
                     </Properties>
                 </StyleClass>
-                <StyleClass Name="TopicFavoritesDeleteButton">
+                <StyleClass Name="EmailNotificationsHeading">
                     <Properties>
-                        <Property Name="Icon">url('Delete.gif')</Property>
-                        <Property Name="PressedIcon">url('Delete_selected.gif')</Property>
-                        <Property Name="HoverIcon">url('Delete_over.gif')</Property>
+                        <Property Name="Label">I want to receive an email when...</Property>
                     </Properties>
                 </StyleClass>
-                <StyleClass Name="AddSearchToFavoritesButton">
+                <StyleClass Name="CommentReplyNotification">
                     <Properties>
-                        <Property Name="Icon">url('AddSearchToFavorites.gif')</Property>
-                        <Property Name="PressedIcon">url('AddSearchToFavorites_selected.gif')</Property>
-                        <Property Name="HoverIcon">url('AddSearchToFavorites_over.gif')</Property>
+                        <Property Name="Label">a reply is left to one of my comments</Property>
                     </Properties>
                 </StyleClass>
-                <StyleClass Name="SearchResults">
+                <StyleClass Name="CommentSameTopicNotification">
                     <Properties>
-                        <Property Name="TableSummary">This table contains the results of the search that was performed. The first column indicates the search rank and the second column indicates the title of the topic that contains the search result.</Property>
-                        <Property Name="RankLabel">Rank</Property>
-                        <Property Name="TitleLabel">Title</Property>
-                        <Property Name="TopicResultsLabel">Topic Results</Property>
-                        <Property Name="CommunityResultsLabel">Community Results</Property>
-                        <Property Name="ShowAllCommunityResults">Show all community results</Property>
+                        <Property Name="Label">a comment is left on a topic that I commented on</Property>
                     </Properties>
                 </StyleClass>
-                <StyleClass Name="CommentsAddButton">
+                <StyleClass Name="CommentSameHelpSystemNotification">
                     <Properties>
-                        <Property Name="Icon">url('AddComment.gif')</Property>
-                        <Property Name="PressedIcon">url('AddComment_selected.gif')</Property>
-                        <Property Name="HoverIcon">url('AddComment_over.gif')</Property>
-                    </Properties>
-                </StyleClass>
-                <StyleClass Name="CommentsReplyButton">
-                    <Properties>
-                        <Property Name="Icon">url('ReplyComment.gif')</Property>
-                        <Property Name="PressedIcon">url('ReplyComment_selected.gif')</Property>
-                        <Property Name="HoverIcon">url('ReplyComment_over.gif')</Property>
-                    </Properties>
-                </StyleClass>
-                <StyleClass Name="CommentsRefreshButton">
-                    <Properties>
-                        <Property Name="Icon">url('RefreshTopicComments.gif')</Property>
-                        <Property Name="PressedIcon">url('RefreshTopicComments_selected.gif')</Property>
-                        <Property Name="HoverIcon">url('RefreshTopicComments_over.gif')</Property>
-                    </Properties>
-                </StyleClass>
-                <StyleClass Name="CommentNode">
-                    <Properties>
-                        <Property Name="Icon">url('Comment.gif')</Property>
-                    </Properties>
-                </StyleClass>
-                <StyleClass Name="CommentReplyNode">
-                    <Properties>
-                        <Property Name="Icon">url('CommentReply.gif')</Property>
-                    </Properties>
-                </StyleClass>
-                <StyleClass Name="NavigationLinkTop">
-                    <Properties>
-                        <Property Name="Label">Open topic with navigation</Property>
-                    </Properties>
-                </StyleClass>
-                <StyleClass Name="NavigationLinkBottom">
-                    <Properties>
-                        <Property Name="Label">Open topic with navigation</Property>
-                    </Properties>
-                </StyleClass>
-            </Classes>
-        </Style>
-        <Style Name="Dialog">
-            <Classes>
-                <StyleClass Name="AddComment">
-                    <Properties>
-                        <Property Name="CommentLengthExceeded">The maximum comment length was exceeded by {n} characters.</Property>
-                    </Properties>
-                </StyleClass>
-                <StyleClass Name="ReplyComment">
-                    <Properties>
-                        <Property Name="CommentLengthExceeded">The maximum comment length was exceeded by {n} characters.</Property>
+                        <Property Name="Label">a comment is left on any topic in the Help system</Property>
                     </Properties>
                 </StyleClass>
             </Classes>
