@@ -58,7 +58,14 @@ namespace McK.EIG.ROI.Client.Base.Controller
         /// <returns>server response</returns>
         public object Invoke(CustomWebServicesClientProtocol serviceProxy, string serviceMethod, object[] requestParams)
         {
-            return Invoke(serviceProxy, serviceMethod, requestParams, true);
+            try
+            {
+                return Invoke(serviceProxy, serviceMethod, requestParams, true);
+            }
+            catch (Exception es)
+            {
+                throw es;
+            }
         }
 
         /// <summary>
@@ -76,8 +83,15 @@ namespace McK.EIG.ROI.Client.Base.Controller
             {
                 if (OCSecurityWrapper.IsDLLInitialized())
                 {
-                    OCSecurityWrapper.GetSecureToken();
-                    if(String.IsNullOrEmpty(UserData.Instance.JsessionID) || String.IsNullOrEmpty(UserData.Instance.RSAToken))
+                    try
+                    {
+                        OCSecurityWrapper.GetSecureToken();
+                    }
+                    catch (Exception es)
+                    {
+                        throw es;
+                    }
+                    if (String.IsNullOrEmpty(UserData.Instance.JsessionID) || String.IsNullOrEmpty(UserData.Instance.RSAToken))
                     {
                         return null;
                     }

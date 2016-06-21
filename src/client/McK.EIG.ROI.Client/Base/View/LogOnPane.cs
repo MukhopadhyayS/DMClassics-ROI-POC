@@ -207,24 +207,46 @@ namespace McK.EIG.ROI.Client.Base.View
                  UserData userData = logOnUI.GetData();
                 ROIViewUtility.MarkBusy(true);
                 ROIController roiController = ROIController.Instance;
-
-                if (userData.IsLdapEnabled)
-                {
-                    if (roiController.LogOnLdap() == null)
+                try
+                { 
+                    if (userData.IsLdapEnabled)
                     {
-                        ShowDialog(InvalidLDAPLogOn, Context);
-                        return;
+                        if (roiController.LogOnLdap() == null)
+                        {
+                            ShowDialog(InvalidLDAPLogOn, Context);
+                            return;
+                        }
                     }
-                }
-                else
-                {
-                    if (roiController.LogOn() == null)
+                    else
                     {
-                        ShowDialog(InvalidLDAPLogOn, Context);
-                        return;
-                    } 
-
+                    
+                            if (roiController.LogOn() == null)
+                            {
+                                ShowDialog(InvalidLDAPLogOn, Context);
+                                return;
+                            }
+                     }
                 }
+                    catch (Exception es)
+                    {
+                        if (String.Compare(es.Message, "User Disabled.") == 0)
+                        {
+                            ShowDialog(UserDisabled, Context);
+                            return;
+                        }
+                        else if (String.Compare(es.Message, "User locked.") == 0)
+                        {
+                            ShowDialog(UserLockedOut, Context);
+                            return;
+                        }
+                        else
+                        {
+                            throw es;
+                        }
+
+                    }
+
+                
                 
                 if ((userData.SignInstate != ValidUser && !userData.IsLdapEnabled) || CheckValidateCode || userData.UserId == null)
                 {

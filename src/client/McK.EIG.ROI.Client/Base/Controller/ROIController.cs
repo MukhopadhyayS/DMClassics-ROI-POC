@@ -167,22 +167,33 @@ namespace McK.EIG.ROI.Client.Base.Controller
             {
                 timeOut = 100000;
             }
-
-            object response = HPFWHelper.Invoke(signinService, "signin", requestParams);           
-            //UserData.Instance.Reset();
-
-
-            if (response == null)
+            try
             {
-                return null;
+                object response = HPFWHelper.Invoke(signinService, "signin", requestParams);
+                if (response == null)
+                {
+                    return null;
+                }
+
+
+
+                //UserData.Instance.Reset();
+
+
+
+                MapModel((user)response);
+                if (UserData.Instance.SignInstate == 0)
+                {
+                    GetConfiguration();
+                }
             }
 
-            MapModel((user)response);
-            if (UserData.Instance.SignInstate == 0)
+            catch (Exception es)
             {
-               GetConfiguration();
+
+                throw es;
             }
-            return UserData.Instance;
+             return UserData.Instance;
         }
 
         /// <summary>
@@ -204,23 +215,30 @@ namespace McK.EIG.ROI.Client.Base.Controller
                 signinService = new SigninServiceWse();
             }
 
-            object response = HPFWHelper.Invoke(signinService, "signinLdap", requestParams);
-
-            if (userData.IsLdapEnabled)
+            try
             {
-                userData.DomainUserName = UserData.Instance.UserId;
-                userData.DomainPassword = UserData.Instance.DomainPassword;
+                object response = HPFWHelper.Invoke(signinService, "signinLdap", requestParams);
+
+                if (userData.IsLdapEnabled)
+                {
+                    userData.DomainUserName = UserData.Instance.UserId;
+                    userData.DomainPassword = UserData.Instance.DomainPassword;
+                }
+
+                if (response == null)
+                {
+                    return null;
+                }
+
+                MapModel((user)response);
+                if (UserData.Instance.SignInstate == 0)
+                {
+                    GetConfiguration();
+                }
             }
-
-            if (response == null)
+            catch (Exception es)
             {
-                return null;
-            }
-
-            MapModel((user)response);
-            if (UserData.Instance.SignInstate == 0)
-            {
-                GetConfiguration();
+                throw es;
             }
             return UserData.Instance;
         }
