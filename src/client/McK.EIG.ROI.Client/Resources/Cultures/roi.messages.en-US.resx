@@ -1146,11 +1146,11 @@ Do you want to continue and save this requestor?</value>
     <comment>LogOn</comment>
   </data>
   <data name="SigninState.UserDisabled" xml:space="preserve">
-    <value>Your account is inactive, please contact your system administrator.</value>
+    <value>User Disabled, please contact the system administrator.</value>
     <comment>LogOn</comment>
   </data>
   <data name="SigninState.UserLockedOut" xml:space="preserve">
-    <value>You have exceeded the maximum failed logon attempts and your account has been locked. Please contact your system administrator.</value>
+    <value>User Locked, Please contact the system administrator.</value>
     <comment>LogOn</comment>
   </data>
   <data name="CurrentAndNewPasswordSame" xml:space="preserve">
