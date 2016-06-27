@@ -221,6 +221,10 @@ namespace McK.EIG.ROI.Client.Base.View
             {
                 ROIViewUtility.Handle(Context, cause);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message+"Please contact the System Administrator");
+            }
         }
 
         #endregion

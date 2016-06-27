@@ -243,7 +243,11 @@ namespace McK.EIG.ROI.Client.Base.View
             catch (ROIException cause)
             {
                 ROIViewUtility.Handle(Context, cause);
-            }            
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "Please contact the System Administrator");
+            }
         }
 
         public override Control GetErrorControl(ExceptionData error)
