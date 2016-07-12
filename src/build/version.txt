@@ -4,8 +4,8 @@
 assembly.number=878
 assembly.servicePack=0
 project.name=ROI-17.5
-assembly.minor=1
-build.minor=1
+assembly.minor=5
+build.minor=5
 Company=McKesson Corporation
 assembly.major=17
 build.major=17
