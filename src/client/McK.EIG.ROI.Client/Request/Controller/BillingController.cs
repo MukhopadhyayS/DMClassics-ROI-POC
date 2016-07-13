@@ -321,8 +321,10 @@ namespace McK.EIG.ROI.Client.Request.Controller
                     patientDetails.Id = releasedPatient.patientSeq;
                     patientDetails.PatientSeq = releasedPatient.patientSeq;
                     string key = Convert.ToString(releasedPatient.patientSeq);
-                    //fields below can be null    
-                    patientDetails.DOB = releasedPatient.dob;
+                    //fields below can be null
+                    //DE7989:Fix for ROI DOB issue(For a particular Date of birth i.e 03/24/1943,the date on Release history screen was being displayed as 03/23/1943)
+                    patientDetails.DOB = releasedPatient.dob.AddHours(1);
+
                     patientDetails.SSN = releasedPatient.ssn;
                     patientDetails.EncounterLocked = Convert.ToBoolean(releasedPatient.encounterLocked == null ? "false" : releasedPatient.encounterLocked);
                     patientDetails.FacilityCode = releasedPatient.facility;
