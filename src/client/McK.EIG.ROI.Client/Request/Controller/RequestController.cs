@@ -1101,7 +1101,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
                         client.EPN = server.epn;
                         if (server.dob.HasValue)
                         {
-                            client.DOB = Convert.ToDateTime(server.dob);
+                            client.DOB = Convert.ToDateTime(server.dob.Value.AddHours(1));
                         }
                         client.Id = server.supplementalId;
 
