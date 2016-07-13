@@ -95,7 +95,7 @@ namespace McK.EIG.ROI.Client.Request.Model
                 releasedPatient.EncounterLocked = requestPatient.EncounterLocked;
                 if (requestPatient.DOB.HasValue)
                 {
-                   releasedPatient.DOB = requestPatient.DOB.Value.AddHours(1);
+                    releasedPatient.DOB = requestPatient.DOB;
                 }
                 releasedPatient.Id = requestPatient.Id;
 
@@ -124,7 +124,7 @@ namespace McK.EIG.ROI.Client.Request.Model
 
                 if (releasedPatient.DOB.HasValue)
                 {
-                    releasedPatient.DOB = requestPatient.DOB.Value.AddHours(1);
+                    releasedPatient.DOB = requestPatient.DOB;
                 }
                 releasedPatient.IsFreeformFacility = requestPatient.IsFreeformFacility;
             }

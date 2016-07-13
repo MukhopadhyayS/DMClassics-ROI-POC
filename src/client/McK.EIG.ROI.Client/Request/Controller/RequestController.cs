@@ -1101,6 +1101,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
                         client.EPN = server.epn;
                         if (server.dob.HasValue)
                         {
+                            //DE7989:Fix for ROI DOB issue(For a particular Date of birth i.e 03/24/1943,the date on Patient Information screen was being displayed as 03/23/1943)
                             client.DOB = Convert.ToDateTime(server.dob.Value.AddHours(1));
                         }
                         client.Id = server.supplementalId;
