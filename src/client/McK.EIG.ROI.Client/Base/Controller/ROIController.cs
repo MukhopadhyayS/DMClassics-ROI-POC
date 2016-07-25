@@ -262,11 +262,20 @@ namespace McK.EIG.ROI.Client.Base.Controller
             {   
                 signinService = new SigninServiceWse();
             }
+            try
+            {
 
-            object response = HPFWHelper.Invoke(signinService, "signinWithLdap", requestParams);
+                object response = HPFWHelper.Invoke(signinService, "signinWithLdap", requestParams);
+
+                MapModel((user)response);
+                return UserData.Instance;
+            }
+            catch (Exception ex)
+            {
+                throw ex;              
+                
+            }
             
-            MapModel((user)response);            
-            return UserData.Instance;
         }
 
 
