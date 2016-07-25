@@ -274,13 +274,23 @@ namespace McK.EIG.ROI.Client.Base.View
                             string selectedUser = ShowMultipleUserMapping(userLists);
                             if(string.IsNullOrEmpty(selectedUser))
                                 return;
-                            roiController.LogOnLdapWithHpfUserName(selectedUser);
-                            if (!userData.HasAccess(ROISecurityRights.ROIAccessApplication))
+                            try
                             {
-                                ShowDialog(UnAuthorizedUser, Context);
+
+                                roiController.LogOnLdapWithHpfUserName(selectedUser);
+
+                                if (!userData.HasAccess(ROISecurityRights.ROIAccessApplication))
+                                {
+                                    ShowDialog(UnAuthorizedUser, Context);
+                                    return;
+                                }
+                                userData.UserId = selectedUser;
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message + "Please contact the System Administrator");
                                 return;
                             }
-                            userData.UserId = selectedUser;
                         }
                     }
 
