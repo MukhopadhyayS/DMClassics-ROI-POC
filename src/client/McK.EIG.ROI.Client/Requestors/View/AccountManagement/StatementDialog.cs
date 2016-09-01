@@ -111,6 +111,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             dgvCheckColumn.HeaderCell = dgvColumnHeader;
             dgvCheckColumn.Resizable = DataGridViewTriState.False;
             dgvCheckColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            dgvCheckColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+
             pastInvoiceGrid.AddTextBoxColumn(InvoiceIdColumn, "Invoice #", "InvoiceId", 85);
             DataGridViewTextBoxColumn dgvCreatedDateColumn = pastInvoiceGrid.AddTextBoxColumn(CreatedDateColumn, "Date | Time", "CreatedDate", 140);
             dgvCreatedDateColumn.DefaultCellStyle.Format = System.Threading.Thread.CurrentThread.CurrentUICulture.DateTimeFormat.ShortDatePattern + ' ' +
