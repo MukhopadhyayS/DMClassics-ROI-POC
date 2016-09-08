@@ -382,4 +382,19 @@ public interface ROIAdminService {
      */
     List<Country> retrieveAllCountries();
     
+    /** 
+     * This method is used to update the Unbillable RequestFlag in SysParms_Global table
+     * 
+     * @param checked
+     * 
+     */
+    void updateUnbillableRequestFlag(boolean checked);
+    
+    /** 
+     * This method is used to retrieve the Unbillable RequestFlag in SysParms_Global table
+     * 
+     * 
+     */
+    boolean retrieveUnbillableRequestFlag(); 
+    
 }

@@ -984,8 +984,39 @@
          	<xsd:element name="country" type="eig:Country" minOccurs="0" maxOccurs="unbounded"></xsd:element>
          </xsd:sequence>
      </xsd:complexType>
-   </xsd:element>     
+   </xsd:element> 
+   
+   <!-- Configure Unbillable Request -->
+   <xsd:element name="updateUnbillableRequestFlag">
+	   <xsd:complexType>
+	       <xsd:sequence>
+	           <xsd:element name="checked" type="xsd:boolean"></xsd:element>
+	       </xsd:sequence>
+	   </xsd:complexType>
+   </xsd:element>
 
+   <xsd:element name="updateUnbillableRequestFlagResponse">
+   		<xsd:complexType>
+   			<xsd:sequence>
+   			</xsd:sequence>
+   		</xsd:complexType>
+   </xsd:element>
+   
+   <xsd:element name="retrieveUnbillableRequestFlag">
+	   <xsd:complexType>
+	       <xsd:sequence>
+	       </xsd:sequence>
+	   </xsd:complexType>
+	 </xsd:element>
+	
+	 <xsd:element name="retrieveUnbillableRequestFlagResponse">
+	   <xsd:complexType>
+	       <xsd:sequence>
+	           <xsd:element name="checked" type="xsd:boolean"/>
+	       </xsd:sequence>
+	   </xsd:complexType>
+	 </xsd:element>
+   
       <!-- For getUser service -->
       <xsd:complexType name="user">
 			<xsd:sequence>
@@ -1468,7 +1499,22 @@
   	</wsdl:message>
   	<wsdl:message name="retrieveAllCountriesResponse">
   		<wsdl:part name="parameters" element="eig:retrieveAllCountriesResponse" />
-  	</wsdl:message>  	
+  	</wsdl:message> 
+  	
+  	<!-- Configure Unbillable Request Messages -->
+  	<wsdl:message name="updateUnbillableRequestFlagRequest">
+	    <wsdl:part name="parameters" element="eig:updateUnbillableRequestFlag"></wsdl:part>
+	  </wsdl:message>
+	<wsdl:message name="updateUnbillableRequestFlagResponse">
+	    <wsdl:part name="parameters" element="eig:updateUnbillableRequestFlagResponse"></wsdl:part>
+	</wsdl:message>
+	
+	<wsdl:message name="retrieveUnbillableRequestFlagRequest">
+    	<wsdl:part name="parameters" element="eig:retrieveUnbillableRequestFlag"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="retrieveUnbillableRequestFlagResponse">
+    	<wsdl:part name="parameters" element="eig:retrieveUnbillableRequestFlagResponse"></wsdl:part>
+    </wsdl:message>
 
   <wsdl:portType name="ROIAdminPortType">
 	<!--Delivery Method Operations-->
@@ -1723,6 +1769,18 @@
    	<wsdl:input  message="eig:retrieveAllCountriesRequest" />
    	<wsdl:output message="eig:retrieveAllCountriesResponse" />
    </wsdl:operation>
+   
+    <!-- Configure Unbillable Request -->
+    
+    <wsdl:operation name="updateUnbillableRequestFlag">
+	   <wsdl:input message="eig:updateUnbillableRequestFlagRequest"></wsdl:input>
+	   <wsdl:output message="eig:updateUnbillableRequestFlagResponse"></wsdl:output>
+	</wsdl:operation>
+	
+	<wsdl:operation name="retrieveUnbillableRequestFlag">
+	   <wsdl:input message="eig:retrieveUnbillableRequestFlagRequest"></wsdl:input>
+	   <wsdl:output message="eig:retrieveUnbillableRequestFlagResponse"></wsdl:output>
+	</wsdl:operation>
 
   </wsdl:portType>
 
@@ -2309,6 +2367,31 @@
       <soap:body use="literal" />
     </wsdl:output>
   </wsdl:operation>
+  
+  <!-- Configure Unbillable Request -->
+	<wsdl:operation name="updateUnbillableRequestFlag">
+	  <soap:operation soapAction="urn:eig.mckesson.com/updateUnbillableRequestFlag" />
+	  <wsdl:input>
+	      <soap:header message="eig:header" part="transIdHeader" use="literal" />
+	      <soap:header message="eig:header" part="wssHeader" use="literal" />
+	      <soap:body use="literal" />
+	  </wsdl:input>
+	  <wsdl:output>
+	      <soap:body use="literal"/>
+	  </wsdl:output>
+	</wsdl:operation>
+	
+	<wsdl:operation name="retrieveUnbillableRequestFlag">
+	  <soap:operation soapAction="urn:eig.mckesson.com/retrieveUnbillableRequestFlag" />
+	  <wsdl:input>
+	      <soap:header message="eig:header" part="transIdHeader" use="literal" />
+	      <soap:header message="eig:header" part="wssHeader" use="literal" />
+	      <soap:body use="literal" />
+	  </wsdl:input>
+	  <wsdl:output>
+	      <soap:body use="literal"/>
+	  </wsdl:output>
+	</wsdl:operation>
 
   </wsdl:binding>
 

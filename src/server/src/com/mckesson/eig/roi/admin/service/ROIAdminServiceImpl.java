@@ -36,6 +36,7 @@ import com.mckesson.eig.roi.admin.dao.LetterTemplateDAO;
 import com.mckesson.eig.roi.admin.dao.OutputIntegrationDAO;
 import com.mckesson.eig.roi.admin.dao.ReasonDAO;
 import com.mckesson.eig.roi.admin.dao.RequestorTypeDAO;
+import com.mckesson.eig.roi.admin.dao.SysParamDAO;
 import com.mckesson.eig.roi.admin.dao.WeightDAO;
 import com.mckesson.eig.roi.admin.model.AttachmentLocation;
 import com.mckesson.eig.roi.admin.model.BillingTemplatesList;
@@ -1974,5 +1975,56 @@ implements ROIAdminService {
         }
         
         return countryList;
+    }
+    
+    /** 
+     * This method is used to update the Unbillable RequestFlag in SysParms_Global table
+     * 
+     * @param checked
+     * 
+     */
+    public void updateUnbillableRequestFlag(boolean checked) {
+        final String logSM = "updateUnbillableRequestFlag";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:");
+        }
+
+        try {
+            SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);            
+            dao.updateUnbillableRequestFlag(checked);
+            String remark = "ROI Unbillable Request Flag set to " + checked + " in SysParms_Global table. ";
+            audit(remark, getUser().getInstanceIdValue(), dao.getDate());
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End:" );
+            }
+        } catch (Throwable e) {
+            LOG.error(e);
+            throw new ROIException(ROIClientErrorCodes.UNABLE_TO_UPDATE_UNBILLABLE_REQUEST_FLAG);
+        }
+    }
+    
+    /** 
+     * This method is used to retrieve the Unbillable RequestFlag in SysParms_Global table
+     * 
+     * 
+     */
+    public boolean retrieveUnbillableRequestFlag() {
+        final String logSM = "retrieveUnbillableRequestFlag";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:");
+        }
+        try {
+            SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);            
+            boolean checked = dao.retrieveUnbillableRequestFlag();
+            String remark = " Retrieved ROI Unbillable Request Flag from SysParms_Global table. ";
+            audit(remark, getUser().getInstanceIdValue(), dao.getDate());
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End:" );
+            }
+            return checked;
+        } catch (Throwable e) {
+            LOG.error(e);
+            throw new ROIException(ROIClientErrorCodes.UNABLE_TO_RETRIEVE_UNBILLABLE_REQUEST_FLAG);
+        }
     }
 }

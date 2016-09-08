@@ -622,7 +622,11 @@ public enum ROIClientErrorCodes {
     GET_DESTINATIONS_TYPE_INFO("ROI.14.1.05"),
     
     //Invalid input from Client
-    INVALID_INPUT("ROI.15.1.01");
+    INVALID_INPUT("ROI.15.1.01"),
+    
+    // Unbillable Request Flag Update
+    UNABLE_TO_RETRIEVE_UNBILLABLE_REQUEST_FLAG("ROI.16.1.01"),
+    UNABLE_TO_UPDATE_UNBILLABLE_REQUEST_FLAG("ROI.16.1.02");
     
     private final  String _errorCode;
 

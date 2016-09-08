@@ -6,12 +6,18 @@ package com.mckesson.eig.roi.admin.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+
 import com.mckesson.eig.roi.admin.model.SysParam;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
-
 import com.mckesson.eig.utility.log.Log;
 import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -166,6 +172,82 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
             LOG.debug(logSM + "<<End:" + updatedSysParam);
         }
         return updatedSysParam;
+    }
+    
+    /** 
+     * This method is used to update the Unbillable RequestFlag in SysParms_Global table
+     * 
+     * @param checked
+     * 
+     */
+    public void updateUnbillableRequestFlag(boolean checked) {
+        final String logSM = "updateUnbillableRequestFlag()";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + checked);
+        }
+        try {
+            Session session = getSession();
+            Query query = session.getNamedQuery("updateROIRequestUnbillable");
+            query.setParameter("unbillable", checked ? "true" : "false", Hibernate.STRING);
+            query.setParameter("modifiedDt", getDate(), Hibernate.TIMESTAMP);
+            query.executeUpdate();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                    e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                    e.getMessage());
+        }
+    }
+
+    /** 
+     * This method is used to retrieve the Unbillable RequestFlag in SysParms_Global table
+     * 
+     * @return unbillableFlag
+     */
+    public boolean retrieveUnbillableRequestFlag() {
+        final String logSM = "retrieveUnbillableRequestFlag()";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:");
+        }
+        boolean unbillableFlag = false;
+        try {
+            Session session = getSession();
+            String query = session.getNamedQuery("retrieveROIRequestUnbillable").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.addScalar("unbillable", Hibernate.STRING);
+            String unbillable = (String) sqlQuery.uniqueResult();
+            if (!StringUtilities.isEmpty(unbillable)) {
+                if ("true".equalsIgnoreCase(unbillable)) {
+                    unbillableFlag = true;
+                } 
+            }
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+            return unbillableFlag;
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                    e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                    e.getMessage());
+        }
     }
 
 }
