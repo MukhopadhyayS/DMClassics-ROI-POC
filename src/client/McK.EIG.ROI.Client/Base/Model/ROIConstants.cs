@@ -58,6 +58,7 @@ namespace McK.EIG.ROI.Client.Base.Model
         public const string AdminOtherLetterTemplate     = AdminOthers + ".lettertemplate";
         public const string AdminOtherConfigureNotes     = AdminOthers + ".configurenotes";
         public const string AdminOtherSsnMasking         = AdminOthers + ".ssnmasking";
+        public const string AdminOtherConfigureDefaultUnbillableRequest = AdminOthers + ".configuredefaultunbillablerequest";
         public const string AdminConfigurationExternalSources = AdminOthers + ".externalsources";
         public const string AdminConfigurationTurnAroundTimeDays = AdminOthers + ".turnaroundtimedays";
         //ROI16.0 zipcode

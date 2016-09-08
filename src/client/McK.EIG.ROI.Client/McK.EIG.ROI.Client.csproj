@@ -167,6 +167,7 @@
     <Compile Include="Admin\Controller\ConfigureExternalSourcesValidator.cs" />
     <Compile Include="Admin\Controller\ConfigureTurnaroundTimeDaysController.cs" />
     <Compile Include="Admin\Controller\ConfigureTurnaroundTimeDaysValidator.cs" />
+    <Compile Include="Admin\Controller\ConfigureUnbillableRequestController.cs" />
     <Compile Include="Admin\Controller\DeliveryMethodController.cs" />
     <Compile Include="Admin\Controller\DeliveryMethodValidator.cs" />
     <Compile Include="Admin\Controller\DisclosureDocTypesController.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Admin\Model\AssociatedFeeTypes.cs" />
     <Compile Include="Admin\Model\BillingTierDetails.cs" />
     <Compile Include="Admin\Model\CodeSetDetails.cs" />
+    <Compile Include="Admin\Model\ConfigureUnbillableRequestDetails.cs" />
     <Compile Include="Admin\Model\ConnectionProperties.cs" />
     <Compile Include="Admin\Model\DeliveryMethodComparer.cs" />
     <Compile Include="Admin\Model\DocTypeAuditDetails.cs" />
@@ -422,6 +424,14 @@
     </Compile>
     <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesTabUI.Designer.cs">
       <DependentUpon>ConfigureNotesTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequestEditor.cs" />
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequestMCP.cs" />
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequest.Designer.cs">
+      <DependentUpon>ConfigureUnbillableRequest.cs</DependentUpon>
     </Compile>
     <Compile Include="Admin\View\Other\DisclosureDocTypes\DisclosureDocTypesEditor.cs" />
     <Compile Include="Admin\View\Other\DisclosureDocTypes\DisclosureDocTypesListUI.cs">
@@ -2065,6 +2075,10 @@
     <EmbeddedResource Include="Admin\View\Other\ConfigureCountry\ConfigureCountryUI.resx">
       <DependentUpon>ConfigureCountryUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequest.resx">
+      <DependentUpon>ConfigureUnbillableRequest.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Admin\View\Other\ExternalSources\ExternalSourcesListUI.resx">
       <DependentUpon>ExternalSourcesListUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -2439,10 +2453,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROIRequestWS_RequestService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://eigdev188:8080/roi/services/ROIAdminService%3fwsdl">
+    <WebReferenceUrl Include="http://emivalid2231:18080/roi/services/ROIAdminService%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\Web_References.ROIAdminWS\</RelPath>
-      <UpdateFromURL>http://eigdev188:8080/roi/services/ROIAdminService%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://emivalid2231:18080/roi/services/ROIAdminService%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

@@ -30,6 +30,12 @@ using McK.EIG.ROI.Client.Base.Controller;
 using System.Reflection;
 
 
+using McK.EIG.ROI.Client.Admin.Controller;
+
+
+
+
+
 namespace McK.EIG.ROI.Client.Base.Model
 {
     /// <summary>
@@ -167,6 +173,10 @@ namespace McK.EIG.ROI.Client.Base.Model
 
         private bool isSSNMasked;
 
+        private bool isunbillableRequest;
+
+        private bool ischecked;
+
         /// <summary>
         /// Holds User login state.
         /// </summary>
@@ -253,6 +263,28 @@ namespace McK.EIG.ROI.Client.Base.Model
         #endregion
 
         #region Properties
+
+        #region IsChecked
+        /// <summary>
+        /// IsChecked.
+        /// </summary>
+        public bool IsChecked
+        {
+            set { ischecked = value; }
+            get 
+            {
+                ConfigureUnbillableRequestDetails requestDetails = ROIAdminController.Instance.RetrieveConfigureUnbillableRequest();
+                if (requestDetails != null)
+                {
+                    ischecked = requestDetails.IsUnbillableRequest;
+                }
+                return ischecked; 
+            }
+
+        }
+
+        #endregion
+
 
         #region InvalidLogonCount
 
@@ -802,6 +834,18 @@ namespace McK.EIG.ROI.Client.Base.Model
                 return invoiceduedays; 
             }
             set { invoiceduedays = value; }
+        }
+
+        #endregion
+
+        #region ConfigureUnbillableRequest
+        /// <summary>
+        /// Gets or Sets the value for ConfigureUnbillableRequest property
+        /// </summary>
+        public bool IsUnbillableRequest
+        {
+            get { return isunbillableRequest; }
+            set { isunbillableRequest = value; }
         }
 
         #endregion

@@ -45,7 +45,7 @@
       <Value Profile="(Default)">http://127.0.0.1:8080/roi/services/OverdueInvoiceService</Value>
     </Setting>
     <Setting Name="McK_EIG_ROI_Client_Web_References_ROIAdminWS_ROIAdminService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://127.0.0.1:8080/roi/services/ROIAdminService</Value>
+      <Value Profile="(Default)">http://emivalid2231:18080/roi/services/ROIAdminService</Value>
     </Setting>
     <Setting Name="McK_EIG_ROI_Client_Web_References_BillingWS_BillingService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://127.0.0.1:8080/roi/services/BillingService</Value>
