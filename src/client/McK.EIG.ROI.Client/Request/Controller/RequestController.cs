@@ -2035,7 +2035,8 @@ namespace McK.EIG.ROI.Client.Request.Controller
             client.IsInvoiced = server.hasInvoices;
             client.InvoicesBalanceDue = server.invoicesBalance;
             client.InvoicesSalesTaxAmount = server.invoicesSalesTaxAmount;
-            client.IsUnbillable = server.unbillable;
+            //client.IsUnbillable = server.unbillable;
+            client.IsUnbillable = UserData.Instance.IsChecked;
             client.UnAppliedAmount = server.totalUnappliedAmount;
 
             if (server.requestCoreChargesBilling.requestCoreChargesDocument != null)
