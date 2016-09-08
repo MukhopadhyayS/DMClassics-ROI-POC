@@ -87,6 +87,22 @@
         select sys from com.mckesson.eig.roi.admin.model.SysParam sys where sys.globalName = ?
       ]]>
     </query>
- 
+    
+    <sql-query name="updateROIRequestUnbillable">
+        <![CDATA[
+			UPDATE SysParms_Global
+			SET GlobalVariant = :unbillable,
+				ModifiedDate = :modifiedDt
+			WHERE GlobalName = 'ROI.request.billable.default'
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveROIRequestUnbillable">
+        <![CDATA[
+			SELECT cast(GlobalVariant as varchar) as unbillable FROM SysParms_Global
+			WHERE GlobalName = 'ROI.request.billable.default'
+        ]]>
+    </sql-query>
+    
 </hibernate-mapping>
 

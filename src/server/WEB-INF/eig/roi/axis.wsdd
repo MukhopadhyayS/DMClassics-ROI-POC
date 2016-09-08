@@ -541,7 +541,9 @@
                                                 updateInvoiceDueDays,
                                                 retrieveInvoiceDueDays,                                              
                                                 updateCountryCode,
-                                                retrieveAllCountries"/>
+                                                retrieveAllCountries,
+                                                updateUnbillableRequestFlag,
+                                                retrieveUnbillableRequestFlag"/>
 
         <parameter name="scope" value="session"/>
 
@@ -884,7 +886,22 @@
         			qname="eig:retrieveAllCountries"
         			returnQName="xsd:country"
         			returnType="xsd:Country">        	
-        </operation>        
+        </operation> 
+        
+        <!-- Configure Unbillable Request -->
+        
+        <operation name="updateUnbillableRequestFlag"
+        		   qname="eig:updateUnbillableRequestFlag"
+	               returnQName="xsd:void"
+	               returnType="xsd:void">
+        <parameter qname="eig:checked" type="xsd:boolean"/>
+        </operation>
+        
+        <operation name="retrieveUnbillableRequestFlag"
+				   qname="eig:retrieveUnbillableRequestFlag"
+			       returnQName="eig:checked" 
+				   returnType="xsd:boolean">
+		</operation>
 
         <typeMapping qname="eig:DeliveryMethod"
             type="java:com.mckesson.eig.roi.admin.model.DeliveryMethod"
