@@ -2453,10 +2453,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROIRequestWS_RequestService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://emivalid2231:18080/roi/services/ROIAdminService%3fwsdl">
+    <WebReferenceUrl Include="http://eigdev188:8080/roi/services/ROIAdminService%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\Web_References.ROIAdminWS\</RelPath>
-      <UpdateFromURL>http://emivalid2231:18080/roi/services/ROIAdminService%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://eigdev188:8080/roi/services/ROIAdminService%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

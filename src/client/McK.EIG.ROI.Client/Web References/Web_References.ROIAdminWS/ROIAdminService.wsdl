@@ -1934,7 +1934,7 @@
       This service implements all ROI Admin Service Calls
       </wsdl:documentation>
     <wsdl:port name="roiAdminPort" binding="eig:ROIAdminSoapBinding">
-      <soap:address location="http://emivalid2231:18080/roi/services/ROIAdminService" />
+      <soap:address location="http://192.168.6.115:8080/roi/services/ROIAdminService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
