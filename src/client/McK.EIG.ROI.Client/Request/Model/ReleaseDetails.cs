@@ -120,7 +120,7 @@ namespace McK.EIG.ROI.Client.Request.Model
 
         private double invoicesSalesTaxAmount;
 
-        private bool unbillable = true;
+        private bool unbillable = UserData.Instance.IsChecked;
 
 		private double unAppliedTotal;
 

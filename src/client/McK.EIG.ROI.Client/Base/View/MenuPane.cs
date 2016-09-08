@@ -187,6 +187,7 @@ namespace McK.EIG.ROI.Client.Base.View
             CreateMenuItem(uiTextRm, subMI, ROIConstants.AdminConfigurationExternalSources);
             //ROI16.0 zipcode
             CreateMenuItem(uiTextRm, subMI, ROIConstants.AdminOtherConfigureCountry);
+            CreateMenuItem(uiTextRm, subMI, ROIConstants.AdminOtherConfigureDefaultUnbillableRequest);
 
             //subMI = CreateMenuItem(uiTextRm, mi, ROIConstants.AdminConfiguration);
             //CreateMenuItem(uiTextRm, subMI, ROIConstants.AdminConfigurationAttachment);

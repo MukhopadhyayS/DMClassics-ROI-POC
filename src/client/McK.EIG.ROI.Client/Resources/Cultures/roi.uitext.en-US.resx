@@ -2635,6 +2635,26 @@ Narrow the results by changing the filter criteria and searching again.</value>
     <value>&amp;Masking</value>
     <comment>Menu</comment>
   </data>
+  <data name="configuredefaultunbillablerequest.header.info" xml:space="preserve">
+    <value>Check the checkbox if you wish to release the request as unbillable. Uncheck it if you wish to release the request as billable.</value>
+    <comment>Configure Default Unbillable Request</comment>
+  </data>
+  <data name="configuredefaultunbillablerequest.header.title" xml:space="preserve">
+    <value>Other Maintenance : Configure Default Unbillable Request</value>
+    <comment>Configure Default Unbillable Request</comment>
+  </data>
+  <data name="admin.others.configuredefaultunbillablerequest" xml:space="preserve">
+    <value>Configure Default Unbillable Request</value>
+    <comment>Menu, ModuleSelector</comment>
+  </data>
+  <data name="configuredefaultunbillablerequestLabel" xml:space="preserve">
+    <value>Default Unbillable Request</value>
+    <comment>configuredefaultunbillablerequest</comment>
+  </data>
+  <data name="admin.others.configuredefaultunbillablerequest.menu" xml:space="preserve">
+    <value>&amp;Configure Default Unbillable Request</value>
+    <comment>Menu</comment>
+  </data>
   <data name="viewEditRequestButton.FindRequestODP" xml:space="preserve">
     <value> View / Edit Request</value>
     <comment>Request</comment>

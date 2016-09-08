@@ -39,6 +39,7 @@ using McK.EIG.ROI.Client.Admin.View.Configuration.Attachments;
 using McK.EIG.ROI.Client.Admin.View.Configuration.ExternalSources;
 using McK.EIG.ROI.Client.Admin.View.Configuration.TurnaroundTimeDays;
 using McK.EIG.ROI.Client.Admin.View.Other.ConfigureCountry;
+using McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest;
 
 namespace McK.EIG.ROI.Client.Admin.View
 {
@@ -69,6 +70,7 @@ namespace McK.EIG.ROI.Client.Admin.View
         private EventHandler navigateSalesTaxPerFacilityHandler;
 		private EventHandler navigateExternalSource;
         private EventHandler navigateTurnaroundTimeDays;
+        private EventHandler navigateConfigureUnbillableRequest;
         //ROI16.0 zipcode
         private EventHandler navigateConfigureCountry;
 
@@ -101,6 +103,7 @@ namespace McK.EIG.ROI.Client.Admin.View
             navigateSsnMasking                = new EventHandler(Process_NavigateSsnMasking);
             navigateAttachment                = new EventHandler(Process_NavigateAttachment);
             navigateExternalSource            = new EventHandler(Process_NavigateExternalSources);
+            navigateConfigureUnbillableRequest = new EventHandler(Process_NavigateConfigureUnbillableRequest);
             navigateTurnaroundTimeDays = new EventHandler(Process_NavigateTurnaroundTimeDays);
             //ROI16.0 zipcode
             navigateConfigureCountry = new EventHandler(Process_NavigateConfigureCountry);
@@ -125,6 +128,7 @@ namespace McK.EIG.ROI.Client.Admin.View
             AdminEvents.NavigateAttachment         += navigateAttachment;
             AdminEvents.NavigateExternalSources    += navigateExternalSource;
             AdminEvents.NavigateTurnaroundTimeDays += navigateTurnaroundTimeDays;
+            AdminEvents.NavigateConfigureUnbillableRequest += navigateConfigureUnbillableRequest;
             //ROI16.0 zipcode
             AdminEvents.NavigateConfigureCountry += navigateConfigureCountry;
         }
@@ -154,6 +158,7 @@ namespace McK.EIG.ROI.Client.Admin.View
             AdminEvents.NavigateAttachment         -= navigateAttachment;
             AdminEvents.NavigateExternalSources    -= navigateExternalSource;
             AdminEvents.NavigateTurnaroundTimeDays -= navigateTurnaroundTimeDays;
+            AdminEvents.NavigateConfigureUnbillableRequest -= navigateConfigureUnbillableRequest;
             //ROI16.0 zipcode
             AdminEvents.NavigateConfigureCountry -= navigateConfigureCountry;
         }
@@ -354,6 +359,16 @@ namespace McK.EIG.ROI.Client.Admin.View
         private void Process_NavigateConfigureCountry(object sender, EventArgs ae)
         {
             SetCurrentEditor(new ConfigureCountryEditor());
+        }
+
+        /// <summary>
+        /// Process the event of configureunbillablerequest clicks on LSP.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Process_NavigateConfigureUnbillableRequest(object sender, EventArgs ae)
+        {
+           SetCurrentEditor(new ConfigureUnbillableRequestEditor());            
         }
 
         #endregion

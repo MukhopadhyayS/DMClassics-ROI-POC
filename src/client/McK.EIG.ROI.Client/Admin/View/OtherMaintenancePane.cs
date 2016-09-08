@@ -62,6 +62,10 @@ namespace McK.EIG.ROI.Client.Admin.View
             {
                 AdminEvents.OnNavigateLocationCountry(this, ae);
             }
+            else if (selected == ROIConstants.AdminOtherConfigureDefaultUnbillableRequest)
+            {
+                AdminEvents.OnNavigateConfigureUnbillableRequest(this, ae);
+            }
         }
 
         #endregion
@@ -78,6 +82,7 @@ namespace McK.EIG.ROI.Client.Admin.View
                 links.Add(ROIConstants.AdminOtherConfigureNotes);
                 links.Add(ROIConstants.AdminOtherSsnMasking);
                 links.Add(ROIConstants.AdminConfigurationExternalSources);
+                links.Add(ROIConstants.AdminOtherConfigureDefaultUnbillableRequest);
                 //ROI16.0 zipcode
                 links.Add(ROIConstants.AdminOtherConfigureCountry);
                 //links.Add(ROIConstants.AdminConfigurationTurnAroundTimeDays);

@@ -797,6 +797,30 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="updateUnbillableRequestFlag">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="checked" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateUnbillableRequestFlagResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveUnbillableRequestFlag">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveUnbillableRequestFlagResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="checked" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
       <xsd:complexType name="user">
         <xsd:sequence>
           <xsd:element minOccurs="0" maxOccurs="1" name="fullName" type="xsd:string" />
@@ -1152,6 +1176,18 @@
   <wsdl:message name="retrieveAllCountriesResponse">
     <wsdl:part name="parameters" element="eig:retrieveAllCountriesResponse" />
   </wsdl:message>
+  <wsdl:message name="updateUnbillableRequestFlagRequest">
+    <wsdl:part name="parameters" element="eig:updateUnbillableRequestFlag" />
+  </wsdl:message>
+  <wsdl:message name="updateUnbillableRequestFlagResponse">
+    <wsdl:part name="parameters" element="eig:updateUnbillableRequestFlagResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveUnbillableRequestFlagRequest">
+    <wsdl:part name="parameters" element="eig:retrieveUnbillableRequestFlag" />
+  </wsdl:message>
+  <wsdl:message name="retrieveUnbillableRequestFlagResponse">
+    <wsdl:part name="parameters" element="eig:retrieveUnbillableRequestFlagResponse" />
+  </wsdl:message>
   <wsdl:portType name="ROIAdminPortType">
     <wsdl:operation name="createDeliveryMethod">
       <wsdl:input message="eig:createDeliveryMethod" />
@@ -1340,6 +1376,14 @@
     <wsdl:operation name="retrieveAllCountries">
       <wsdl:input message="eig:retrieveAllCountriesRequest" />
       <wsdl:output message="eig:retrieveAllCountriesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateUnbillableRequestFlag">
+      <wsdl:input message="eig:updateUnbillableRequestFlagRequest" />
+      <wsdl:output message="eig:updateUnbillableRequestFlagResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveUnbillableRequestFlag">
+      <wsdl:input message="eig:retrieveUnbillableRequestFlagRequest" />
+      <wsdl:output message="eig:retrieveUnbillableRequestFlagResponse" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ROIAdminSoapBinding" type="eig:ROIAdminPortType">
@@ -1861,6 +1905,28 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="updateUnbillableRequestFlag">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateUnbillableRequestFlag" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveUnbillableRequestFlag">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveUnbillableRequestFlag" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ROIAdminService">
     <wsdl:documentation>
@@ -1868,7 +1934,7 @@
       This service implements all ROI Admin Service Calls
       </wsdl:documentation>
     <wsdl:port name="roiAdminPort" binding="eig:ROIAdminSoapBinding">
-      <soap:address location="http://192.168.6.115:8080/roi/services/ROIAdminService" />
+      <soap:address location="http://emivalid2231:18080/roi/services/ROIAdminService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -43,6 +43,7 @@ namespace McK.EIG.ROI.Client.Admin.View
         public static event EventHandler NavigateSsnMasking;
         public static event EventHandler NavigateInvoiceDue;
         public static event EventHandler NavigateSalesTaxPerFacility;
+        public static event EventHandler NavigateConfigureUnbillableRequest;
         //ROI16.0 zipcode
         public static event EventHandler NavigateConfigureCountry;
 
@@ -376,6 +377,19 @@ namespace McK.EIG.ROI.Client.Admin.View
             if (NavigateConfigureCountry != null)
             {
                 NavigateConfigureCountry(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// Occurs when Default Configure Request Click on LSP
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        internal static void OnNavigateConfigureUnbillableRequest(object sender, EventArgs e)
+        {
+            if (NavigateConfigureUnbillableRequest != null)
+            {
+                NavigateConfigureUnbillableRequest(sender, e);
             }
         }
 
