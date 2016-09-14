@@ -81,11 +81,11 @@ namespace McK.EIG.ROI.Client.Admin.View
                 links.Add(ROIConstants.AdminOtherLetterTemplate);
                 links.Add(ROIConstants.AdminOtherConfigureNotes);
                 links.Add(ROIConstants.AdminOtherSsnMasking);
-                links.Add(ROIConstants.AdminConfigurationExternalSources);
-                links.Add(ROIConstants.AdminOtherConfigureDefaultUnbillableRequest);
+                links.Add(ROIConstants.AdminConfigurationExternalSources);                
                 //ROI16.0 zipcode
                 links.Add(ROIConstants.AdminOtherConfigureCountry);
                 //links.Add(ROIConstants.AdminConfigurationTurnAroundTimeDays);
+                links.Add(ROIConstants.AdminOtherConfigureDefaultUnbillableRequest);
                 return links;
             }
         }
