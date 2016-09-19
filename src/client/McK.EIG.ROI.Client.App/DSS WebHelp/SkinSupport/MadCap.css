@@ -5,7 +5,7 @@
  * http://www.madcapsoftware.com/
  * Unlicensed use is strictly prohibited
  *
- * v11.0.0.0
+ * v12.0.0.0
  */
 
 .MCDropDown
@@ -321,70 +321,6 @@ p.MCWebHelpFramesetLink
 	display: none;
 }
 
-div.MCBreadcrumbsBox_0
-{
-	font-size: 8pt;
-	margin-top: 8px;
-	margin-bottom: 0px;
-	padding-bottom: 8px;
-	padding-left: 0px;
-	border-style: none;
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
-	border-bottom-color: #000000;
-}
-
-table.AutoNumber_p_Step1
-{
-	text-align: left;
-	letter-spacing: 0em;
-	text-decoration: none;
-	text-decoration-blink: false;
-	page-break-inside: avoid;
-	margin-left: .29in;
-	margin-right: 0in;
-	margin-top: 0px;
-	margin-bottom: 7pt;
-}
-
-td.AutoNumber_p_Step1
-{
-	text-align: left;
-	font-weight: normal;
-	font-style: normal;
-	letter-spacing: 0em;
-	color: #000000;
-	text-decoration: none;
-	page-break-inside: avoid;
-	line-height: normal;
-}
-
-table.AutoNumber_p_BulletListIndent
-{
-	text-align: left;
-	letter-spacing: 0em;
-	text-decoration: none;
-	text-decoration-blink: false;
-	page-break-inside: avoid;
-	margin-left: 0.54in;
-	margin-right: 0in;
-	margin-top: 0px;
-	margin-bottom: 7pt;
-}
-
-table.AutoNumber_p_BulletList
-{
-	text-align: left;
-	letter-spacing: 0em;
-	text-decoration: none;
-	text-decoration-blink: false;
-	page-break-inside: avoid;
-	margin-left: 0.29in;
-	margin-right: 0in;
-	margin-top: 0px;
-	margin-bottom: 7pt;
-}
-
 div.MCDropDown_0
 {
 	margin: 0px;
@@ -449,5 +385,97 @@ div.MCDropDownBody_0
 	border-style: solid;
 	border-width: 1px;
 	border-color: #cccccc;
+}
+
+div.MCBreadcrumbsBox_0
+{
+	font-size: 8pt;
+	margin-top: 8px;
+	margin-bottom: 0px;
+	padding-bottom: 8px;
+	padding-left: 0px;
+	border-style: none;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+}
+
+a.MCXref_0
+{
+	color: blue;
+	text-decoration: underline;
+}
+
+a.MCXref_0:link
+{
+	color: blue;
+	text-decoration: underline;
+}
+
+a.MCXref_0:visited
+{
+	color: blue;
+	text-decoration: underline;
+}
+
+a.MCXref_0:focus
+{
+	
+}
+
+a.MCXref_0:hover
+{
+	
+}
+
+table.AutoNumber_p_Step1
+{
+	text-align: left;
+	letter-spacing: 0em;
+	text-decoration: none;
+	text-decoration-blink: false;
+	page-break-inside: avoid;
+	margin-left: .29in;
+	margin-right: 0in;
+	margin-top: 0px;
+	margin-bottom: 7pt;
+}
+
+td.AutoNumber_p_Step1
+{
+	text-align: left;
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: 0em;
+	color: #000000;
+	text-decoration: none;
+	page-break-inside: avoid;
+	line-height: normal;
+}
+
+table.AutoNumber_p_BulletListIndent
+{
+	text-align: left;
+	letter-spacing: 0em;
+	text-decoration: none;
+	text-decoration-blink: false;
+	page-break-inside: avoid;
+	margin-left: 0.54in;
+	margin-right: 0in;
+	margin-top: 0px;
+	margin-bottom: 7pt;
+}
+
+table.AutoNumber_p_BulletList
+{
+	text-align: left;
+	letter-spacing: 0em;
+	text-decoration: none;
+	text-decoration-blink: false;
+	page-break-inside: avoid;
+	margin-left: 0.29in;
+	margin-right: 0in;
+	margin-top: 0px;
+	margin-bottom: 7pt;
 }
 

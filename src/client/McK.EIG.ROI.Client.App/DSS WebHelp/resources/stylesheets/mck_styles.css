@@ -6,6 +6,8 @@
 
 @import url('disabled.css');
 
+@namespace MadCap url(http://www.madcapsoftware.com/Schemas/MadCap.xsd);
+
 a.MCPopupSpot
 {
 	text-decoration: none;
