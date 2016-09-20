@@ -51,7 +51,7 @@ public class ClinicalProvider implements CcdProvider {
     private static final int CONFIG_ITEMS = 5;
     private static final String SERVER = "database.server";
     private static final String USERNAME = "database.username";
-    private static final String PASSWORD = "database.password.masked";
+    private static final String PD = "database.password.masked";
     private static final String DATABASE = "database";
     private static final String STAFF_ID = "staffId";
 
@@ -149,7 +149,7 @@ public class ClinicalProvider implements CcdProvider {
             return "Database Type:";
         }else if (key.equals(USERNAME)) {
             return "Database User name:";
-        } else if (key.equals(PASSWORD)) {
+        } else if (key.equals(PD)) {
             return "Database Password:";
         } else if (key.equals(STAFF_ID)) {
             return "Staff Id:";
@@ -169,7 +169,7 @@ public class ClinicalProvider implements CcdProvider {
         result.add(SERVER);
         result.add(DATABASE);
         result.add(USERNAME);
-        result.add(PASSWORD);
+        result.add(PD);
         result.add(STAFF_ID);
         return result;
     }
@@ -257,7 +257,7 @@ public class ClinicalProvider implements CcdProvider {
         String server = getConfigProperty(values, SERVER);
         String database = getConfigProperty(values, DATABASE);
         String username = getConfigProperty(values, USERNAME);
-        String password = getConfigProperty(values, PASSWORD);
+        String password = getConfigProperty(values, PD);
         registerDriver();
         return DriverManager.getConnection(
                 getDbConnectionUrL(server, database), username, password);
@@ -270,7 +270,7 @@ public class ClinicalProvider implements CcdProvider {
         String server = getConfigProperty(values, SERVER);
         String database = getConfigProperty(values, DATABASE);
         String username = getConfigProperty(values, USERNAME);
-        String password = getConfigProperty(values, PASSWORD);
+        String password = getConfigProperty(values, PD);
         String dbUrl = getDbConnectionUrL(server, database);
         _dsWrapper = new DSWrapper(JDBC_DRIVER, dbUrl, username, password);
     }

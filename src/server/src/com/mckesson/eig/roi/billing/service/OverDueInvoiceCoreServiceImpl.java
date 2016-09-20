@@ -476,7 +476,7 @@ implements OverDueInvoiceCoreService {
         Map<String, String> prop = invLetterInfo.getProperties();
         if (null != prop && !prop.isEmpty()) { // if the property is null, then it is forPreview
 
-            reqLetter.setQueuePassword(prop.get(ROIConstants.QUEUE_PASSWORD));
+            reqLetter.setQueuePassword(prop.get(ROIConstants.QUEUE_PD));
             reqLetter.setOutputMethod(prop.get(ROIConstants.OUTPUT_METHOD));
             reqLetter.setTemplateName(prop.get(ROIConstants.REQUESTOR_LETTER_TEMPLATE_NAME_KEY));
         }

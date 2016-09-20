@@ -60,7 +60,7 @@ public final class PdfUtilities {
                 
                 if (reader.isEncrypted()) {
                     reader = new PdfReader(files.get(f), 
-                                           ROIConstants.PDF_ENCRYPTION_PASSWORD.getBytes());
+                                           ROIConstants.PDF_ENCRYPTION_PD.getBytes());
                 }
                 reader.consolidateNamedDestinations();
                 int n = reader.getNumberOfPages();
@@ -114,7 +114,7 @@ public final class PdfUtilities {
                                  os,
                                  false,
                                  null,
-                                 ROIConstants.PDF_ENCRYPTION_PASSWORD,
+                                 ROIConstants.PDF_ENCRYPTION_PD,
                                  PdfWriter.ALLOW_SCREENREADERS);
 
             reader.setViewerPreferences(PdfWriter.HideMenubar);

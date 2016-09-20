@@ -116,7 +116,7 @@ extends BaseROIService {
 			_webClient.cookie(new javax.ws.rs.core.Cookie(USER_NAME_COOKIE, userName));
 		}
 
-		String password = ObjectUtilities.toString(WsSession.getSessionData(WsSession.PASSWORD));
+		String password = ObjectUtilities.toString(WsSession.getSessionData(WsSession.PD));
 		if (StringUtilities.hasContent(password)) {
 		    _webClient.cookie(new javax.ws.rs.core.Cookie(IS_VALID_PIN_COOKIES, password));
 		}

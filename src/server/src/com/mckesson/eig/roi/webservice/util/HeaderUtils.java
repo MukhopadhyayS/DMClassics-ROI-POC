@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cxf.jaxrs.client.WebClient;
+import org.owasp.esapi.ESAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public final class HeaderUtils {
 
     public static final String CLIENT_TYPE = "ClientType";
 
-    public static final String PWD_ENCRYPTED = "pwdEncrypted";
+    public static final String PD_ENCRYPTED = "pwdEncrypted";
 
     public static final String CORE_SESSION_ID = "JSESSIONID";
 
@@ -113,6 +114,19 @@ public final class HeaderUtils {
 
         setTenantInCoreProxy(coreProxy);
     }
+    /**
+     *encodes the messages before loging.
+     *
+     * @param message
+     *            The message to be logged.
+     * @return String
+     *            Encoded message
+     */
+    public static String encodeMessage(Object message){
+        String replace = message.toString().replace( '\n', '_' ).replace( '\r', '_' );
+        replace = ESAPI.encoder().encodeForHTML(replace);
+        return replace;
+    }
     
     /**
      * 
@@ -136,9 +150,9 @@ public final class HeaderUtils {
         if (StringUtilities.hasContent(sessionId)) {
             
             WebClient.client(coreProxy).header("Cookie", "JSESSIONID=" + sessionId + "; MPFTOKEN=" + mpfToken);
-            LOGGER.debug("CORE_SESSION_ID=" + sessionId);
+            LOGGER.debug(encodeMessage("CORE_SESSION_ID=") + encodeMessage(sessionId));
         } else {
-            LOGGER.debug("CORE_SESSION_ID is not set!!!!");
+            LOGGER.debug(encodeMessage("CORE_SESSION_ID is not set!!!!"));
         }
     }
     
@@ -277,20 +291,20 @@ public final class HeaderUtils {
             
             String authorizationHeader = 
                     getAuthorizationString((String) WsSession.getSessionData(WsSession.USER_NAME),
-                                           (String) WsSession.getSessionData(WsSession.PASSWORD));
+                                           (String) WsSession.getSessionData(WsSession.PD));
             
             WebClient.client(coreProxy).header(SecurityConstants.AUTHORIZATION, authorizationHeader.toString());
-            WebClient.client(coreProxy).header(SecurityConstants.PWD_ENCRYPTED, Boolean.TRUE);
+            WebClient.client(coreProxy).header(SecurityConstants.PD_ENCRYPTED, Boolean.TRUE);
         }
     }
 
     /**
      * constructs the authorization string using the given username and password 
      * @param user
-     * @param password
+     * @param pd
      * @return
      */
-    public static String getAuthorizationString(String user, String password) {
+    public static String getAuthorizationString(String user, String pd) {
         
         StringBuilder authorizationHeader = new StringBuilder();
         
@@ -315,7 +329,7 @@ public final class HeaderUtils {
         
         authorizationHeader.append(userName);
         authorizationHeader.append(SecurityConstants.AUTHORIZATION_DELIMETER);
-        authorizationHeader.append(password);
+        authorizationHeader.append(pd);
         authorizationHeader.append(SecurityConstants.AUTHORIZATION_DELIMETER);
         // Ping is not available in the ROI, hence we set it as empty
         authorizationHeader.append("");
@@ -326,7 +340,7 @@ public final class HeaderUtils {
         authorizationHeader.append(SecurityConstants.AUTHORIZATION_DELIMETER);
         authorizationHeader.append(userName);
         authorizationHeader.append(SecurityConstants.AUTHORIZATION_DELIMETER);
-        authorizationHeader.append(password);
+        authorizationHeader.append(pd);
         authorizationHeader.append(SecurityConstants.AUTHORIZATION_DELIMETER);
         authorizationHeader.append("ROI");
         
