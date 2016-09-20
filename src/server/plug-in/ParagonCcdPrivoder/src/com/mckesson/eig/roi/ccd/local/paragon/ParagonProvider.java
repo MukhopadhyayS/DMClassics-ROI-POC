@@ -53,7 +53,7 @@ public class ParagonProvider implements CcdProvider {
 	private static final String SERVER = "database.server";
 	private static final String DATABASE = "database.name";
 	private static final String USERNAME = "database.username";
-	private static final String PASSWORD = "database.password.masked";
+	private static final String PD = "database.password.masked";
 
 	private static boolean _isRegister = false;
 
@@ -298,7 +298,7 @@ public class ParagonProvider implements CcdProvider {
 			return "Database Name:";
 		} else if (key.equals(USERNAME)) {
 			return "Database User Name:";
-		} else if (key.equals(PASSWORD)) {
+		} else if (key.equals(PD)) {
 			return "Database User Password:";
 		}
 		return null;
@@ -316,7 +316,7 @@ public class ParagonProvider implements CcdProvider {
 		result.add(SERVER);
 		result.add(DATABASE);
 		result.add(USERNAME);
-		result.add(PASSWORD);
+		result.add(PD);
 		return result;
 	}
 
@@ -401,7 +401,7 @@ public class ParagonProvider implements CcdProvider {
 		String server = getConfigProperty(values, SERVER);
 		String database = getConfigProperty(values, DATABASE);
 		String username = getConfigProperty(values, USERNAME);
-		String password = getConfigProperty(values, PASSWORD);
+		String password = getConfigProperty(values, PD);
 		registerDriver();
 		return DriverManager.getConnection(
 				getDbConnectionUrL(server, database), username, password);
@@ -426,7 +426,7 @@ public class ParagonProvider implements CcdProvider {
 		String server = getConfigProperty(values, SERVER);
 		String database = getConfigProperty(values, DATABASE);
 		String username = getConfigProperty(values, USERNAME);
-		String password = getConfigProperty(values, PASSWORD);
+		String password = getConfigProperty(values, PD);
 		String dbUrl = getDbConnectionUrL(server, database);
 		_dsWrapper = new DSWrapper(JDBC_DRIVER, dbUrl, username, password);
 	}

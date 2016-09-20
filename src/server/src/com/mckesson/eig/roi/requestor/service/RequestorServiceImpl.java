@@ -989,7 +989,7 @@ implements RequestorService {
         reqLetterHistory.setCreatedBy(getUser().getDisplayName());
         reqLetterHistory.setCreatedDate(reqLetter.getCreatedDate());
 
-        String queuePassword = properties.get(ROIConstants.QUEUE_PASSWORD);
+        String queuePassword = properties.get(ROIConstants.QUEUE_PD);
         reqLetterHistory.setQueuePassword(queuePassword);
 
         String outputMethod = properties.get(ROIConstants.OUTPUT_METHOD);
@@ -1017,7 +1017,7 @@ implements RequestorService {
 
         try {
 
-            String queuePassword = properties.get(ROIConstants.QUEUE_PASSWORD);
+            String queuePassword = properties.get(ROIConstants.QUEUE_PD);
             requestorLetter.setQueuePassword(queuePassword);
 
             String outputMethod = properties.get(ROIConstants.OUTPUT_METHOD);

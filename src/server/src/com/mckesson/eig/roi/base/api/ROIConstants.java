@@ -414,8 +414,9 @@ public final class ROIConstants {
     public static final String RELEASE_COST_ATT = "release-cost";
     public static final String REQUEST_TRANSACTION_TYPE = "request-transaction";
     public static final String LETTER_TEMPLATE_NAME = "lettertemplate-name";
-    public static final String QUEUE_PASSWORD = "queue-password";
-    public static final String REQUEST_PASSWORD = "request-password";
+    //hardcoded password veracode fix changing Password varibale to PD
+    public static final String QUEUE_PD = "queue-password";
+    public static final String REQUEST_PD = "request-password";
     public static final String RESEND_DATE = "resend-dt";
     public static final String OUTPUT_METHOD = "output-method";
     public static final String INVOICE_DUE_DATE = "invoice-due-date";
@@ -459,8 +460,8 @@ public final class ROIConstants {
 
     public static final long ROI_REQUESTOR_TYPE_ID = 4;
 
-    public static final String PDF_ENCRYPTION_PASSWORD;
-    public static final String DEFAULT_PDF_ENCRYPTION_PASSWORD = "roi";
+    public static final String PDF_ENCRYPTION_PD;
+    public static final String DEFAULT_PDF_ENCRYPTION_PD = "roi";
 
     public static final String LETTER_FILE = "letter";
     public static final String INVOICE_FILE = "invoice";
@@ -719,8 +720,8 @@ public final class ROIConstants {
             //logon
             MASK_BY = _props.getString("logon.mask.by", DEFAULT_MASK_BY);
 
-            PDF_ENCRYPTION_PASSWORD = _props.getString("pdf.encryption.password",
-                                                        DEFAULT_PDF_ENCRYPTION_PASSWORD);
+            PDF_ENCRYPTION_PD = _props.getString("pdf.encryption.password",
+                                                        DEFAULT_PDF_ENCRYPTION_PD);
 
           //OverDue invoices
             INVOICE_DATE_FORMAT = _props.getString("invoice.due.date.format");

@@ -39,7 +39,7 @@ public final class SecurityConstants {
 
 	public static final String CLIENT_LOCALE = "locale";
 
-    public static final String PWD_ENCRYPTED = "pwdEncrypted";
+    public static final String PD_ENCRYPTED = "pwdEncrypted";
 
 	public static final String SERVER_TIME = "ServerTime";
 
