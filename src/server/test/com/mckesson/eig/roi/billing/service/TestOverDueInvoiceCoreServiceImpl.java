@@ -226,7 +226,7 @@ extends BaseROITestCase {
 
             Map<String, String> prop = new HashMap<String, String>();
             prop.put(ROIConstants.OUTPUT_METHOD, "SaveAsFile");
-            prop.put(ROIConstants.QUEUE_PASSWORD, "1234");
+            prop.put(ROIConstants.QUEUE_PD, "1234");
 
             info.setProperties(prop);
             info.setInvoices(invoices);
@@ -261,7 +261,7 @@ extends BaseROITestCase {
 
             Map<String, String> prop = new HashMap<String, String>();
             prop.put(ROIConstants.OUTPUT_METHOD, "SaveAsFile");
-            prop.put(ROIConstants.QUEUE_PASSWORD, "1234");
+            prop.put(ROIConstants.QUEUE_PD, "1234");
 
             info.setProperties(prop);
             info.setInvoices(invoices);

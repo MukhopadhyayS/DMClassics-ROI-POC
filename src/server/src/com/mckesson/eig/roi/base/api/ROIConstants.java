@@ -290,9 +290,9 @@ public final class ROIConstants {
     public static final String STATUS_REASON_DESC = "Status: ";
 
     // Added for CR# 346,503
-    public static final String KEY_SYSPARAM_REQUEST_PASSWORD_TYPE = "roi.request.password.type";
-    public static final String KEY_SYSPARAM_REQUEST_PASSWORD_LENGTH = "roi.request.password.length";
-    public static final String KEY_PASSWORD = "password";
+    public static final String KEY_SYSPARAM_REQUEST_PD_TYPE = "roi.request.password.type";
+    public static final String KEY_SYSPARAM_REQUEST_PD_LENGTH = "roi.request.password.length";
+    public static final String KEY_PD = "password";
     // -----------------
 
     //Notes

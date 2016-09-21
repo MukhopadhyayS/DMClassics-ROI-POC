@@ -332,7 +332,7 @@ extends BaseROITestCase {
 
         String strURLaddress = "http://localhost:8080/" + SERVLET_NAME;
         strURLaddress += "?" + BaseFileTransferData.PARAMETER_USERNAME   + "=user";
-        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PASSWORD   + "=password";
+        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PD   + "=password";
         strURLaddress += "&" + BaseFileTransferData.PARAMETER_TIMESTAMP  + "=timestamp";
 
         strURLaddress += "&" + "OWNER_TYPE="  + ownerType;

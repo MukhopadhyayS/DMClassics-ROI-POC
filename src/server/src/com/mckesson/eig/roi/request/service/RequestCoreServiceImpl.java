@@ -1213,16 +1213,16 @@ implements RequestCoreService {
 
         for (SysParam sysParam : sysParams) {
 
-            if (ROIConstants.KEY_SYSPARAM_REQUEST_PASSWORD_TYPE
+            if (ROIConstants.KEY_SYSPARAM_REQUEST_PD_TYPE
                             .equals(sysParam.getGlobalName().trim())) {
 
-                if (ROIConstants.KEY_PASSWORD.equals(sysParam.getGlobalVariant())) {
+                if (ROIConstants.KEY_PD.equals(sysParam.getGlobalVariant())) {
                     passwordType = PassPhrase.TYPE.PASSWORD;
                 }
                 continue;
             }
 
-            if (ROIConstants.KEY_SYSPARAM_REQUEST_PASSWORD_LENGTH
+            if (ROIConstants.KEY_SYSPARAM_REQUEST_PD_LENGTH
                             .equals(sysParam.getGlobalName().trim())) {
 
                 passwordLength = Integer.parseInt(sysParam.getGlobalVariant());
