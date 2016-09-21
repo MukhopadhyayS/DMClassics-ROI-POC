@@ -554,7 +554,7 @@ extends BaseROITestCase {
             invInfo.setOutputMethod("SaveAsFile");
             invInfo.setQueuePassword("1234");
             Map<String, String> props = new TreeMap<String, String>();
-            props.put(ROIConstants.QUEUE_PASSWORD, "1234");
+            props.put(ROIConstants.QUEUE_PD, "1234");
             props.put(ROIConstants.OUTPUT_METHOD, "SaveAsFile");
 
             invInfo.setProperties(props);

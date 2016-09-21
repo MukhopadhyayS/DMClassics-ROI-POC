@@ -469,7 +469,7 @@ extends BaseROITestCase {
 
         String strURLaddress = "http://localhost:8080/" + SERVLET_NAME;
         strURLaddress += "?" + BaseFileTransferData.PARAMETER_USER + "=" + DEFAULT_TEST_USER;
-        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PASSWORD   + "=" + DEFAULT_TEST_PWD;
+        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PD   + "=" + DEFAULT_TEST_PWD;
         strURLaddress += "&" + BaseFileTransferData.PARAMETER_TIMESTAMP + "=";
         strURLaddress += "&" + "OWNER_TYPE="  + ownerType;
         strURLaddress += "&" + "FILE_NAME="  + fileName;
@@ -485,7 +485,7 @@ extends BaseROITestCase {
 
         String strURLaddress = "http://localhost:8080/" + SERVLET_NAME;
         strURLaddress += "?" + BaseFileTransferData.PARAMETER_USER + "=" + DEFAULT_TEST_USER;
-        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PASSWORD   + "=" + DEFAULT_TEST_PWD;
+        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PD   + "=" + DEFAULT_TEST_PWD;
         strURLaddress += "&" + BaseFileTransferData.PARAMETER_TIMESTAMP + "=";
         strURLaddress += "&" + "OWNER_TYPE="  + ownerType;
         strURLaddress += "&" + "FILE_IDS="  + fileIds;

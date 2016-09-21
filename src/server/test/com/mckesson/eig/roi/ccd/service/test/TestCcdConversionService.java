@@ -538,7 +538,7 @@ public class TestCcdConversionService extends BaseROITestCase {
         strURLaddress += "?" + BaseFileTransferData.PARAMETER_USER + "="
                 + DEFAULT_TEST_USER;
 
-        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PASSWORD + "="
+        strURLaddress += "&" + BaseFileTransferData.PARAMETER_PD + "="
                 + DEFAULT_TEST_PWD;
 
         strURLaddress += "&" + BaseFileTransferData.PARAMETER_TIMESTAMP + "="
