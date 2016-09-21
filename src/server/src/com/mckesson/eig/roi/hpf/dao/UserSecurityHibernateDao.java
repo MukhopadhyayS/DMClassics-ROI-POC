@@ -57,11 +57,10 @@ extends HibernateDaoSupport {
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + loginId);
         }
-        MSSQLCodec codec = new MSSQLCodec();
+        final MSSQLCodec codec = new MSSQLCodec();
         User user = (User) getHibernateTemplate().execute(new HibernateCallback() {
 
             public Object doInHibernate(Session s) {
-
              return s.createQuery(ESAPI.encoder().encodeForSQL(codec,"select u from User u where u.loginId ='" + loginId + "'")
                      ).uniqueResult();
             }
