@@ -469,6 +469,7 @@ namespace McK.EIG.ROI.Client.Request.View
         /// <param name="e"></param>
         private void okButton_Click(object sender, EventArgs e)
         {
+            ROIViewUtility.MarkBusy(true);
             this.ParentForm.DialogResult = DialogResult.OK;
             if (outputDestinationDetailsForDisc.PasswordRequired)
             {
