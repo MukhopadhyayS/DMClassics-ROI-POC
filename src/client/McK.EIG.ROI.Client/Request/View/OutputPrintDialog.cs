@@ -282,6 +282,7 @@ namespace McK.EIG.ROI.Client.Request.View
         /// <param name="e"></param>
         private void okButton_Click(object sender, EventArgs e)
         {
+            ROIViewUtility.MarkBusy(true);
             if (propertyResult == DialogResult.OK)
             {
                 outputDestinationDetails.PropertyDefinitions.Clear();

@@ -2186,6 +2186,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         private void MarkAsRelease(bool changeStatusAsComplete, bool isInvoiced, double baseCharge, double salesTax)
         {
+            ROIViewUtility.MarkBusy(true);
             release.IsReleased = true;
             ReviseBillingTierTotalPages();
             //release = BillingController.Instance.Release(release);
@@ -4462,6 +4463,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         //make Audit and event entry if existing invoices are picked while release or re-release
         public void CreateInvoiceAuditEvent(long[] invoiceIds, long requestId, bool isinvoiceResent)
         {
+            ROIViewUtility.MarkBusy(true);
             AuditEvent auditEvent = new AuditEvent();
             CommentDetails details = new CommentDetails();
 

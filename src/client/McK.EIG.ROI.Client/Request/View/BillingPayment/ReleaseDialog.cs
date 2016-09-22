@@ -1093,6 +1093,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             bool isError = false;
             try
             {                
+                 ROIViewUtility.MarkBusy(true);
                 //if invoice check is not checked
                 if (invoiceCheckBox.Enabled && !invoiceCheckBox.Checked)
                 {
@@ -1625,6 +1626,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         public void CreateInvoiceEvent()
         {
+            ROIViewUtility.MarkBusy(true);
             CommentDetails details = new CommentDetails();
 
             details.RequestId = requestId;

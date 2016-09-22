@@ -87,6 +87,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         public DialogResult ContinueClick()
         {
+			ROIViewUtility.MarkBusy(true);
             DialogResult dialogResult = DialogResult.Cancel;
 
             ((Form)(this.Parent)).DialogResult = DialogResult.OK;
