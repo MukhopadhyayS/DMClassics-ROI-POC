@@ -70,6 +70,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.pdfPageView.EnableRepeatedKeys = false;
             this.pdfPageView.Location = new System.Drawing.Point(0, 25);
             this.pdfPageView.Name = "pdfPageView";
+            this.pdfPageView.PageDisplayLayout = O2S.Components.PDFView4NET.PDFPageDisplayLayout.OneColumn;
             this.pdfPageView.PageNumber = 0;
             this.pdfPageView.RenderingProgressColor = System.Drawing.Color.Empty;
             this.pdfPageView.RequiredFormFieldHighlightColor = System.Drawing.Color.Empty;
