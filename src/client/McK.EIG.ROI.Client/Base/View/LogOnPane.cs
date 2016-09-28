@@ -229,12 +229,12 @@ namespace McK.EIG.ROI.Client.Base.View
                 }
                     catch (Exception es)
                     {
-                        if (String.Compare(es.Message, "User Disabled.") == 0)
+                        if (String.Compare(es.Message, "Unable to login. User Account is Disabled. Please contact your System Administrator.") == 0)
                         {
                             ShowDialog(UserDisabled, Context);
                             return;
                         }
-                        else if (String.Compare(es.Message, "User locked.") == 0)
+                        else if (String.Compare(es.Message, "Maximum sign in attempts exceeded. User Account is Locked. Please contact your System Administrator.") == 0)
                         {
                             ShowDialog(UserLockedOut, Context);
                             return;
@@ -288,7 +288,7 @@ namespace McK.EIG.ROI.Client.Base.View
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Maximum sign in attempts exceeded. User Account is Locked. Please contact your System Administrator");
+                                MessageBox.Show(ex.Message);
                                 return;
                             }
                         }

@@ -1134,11 +1134,11 @@ Do you want to continue and save this requestor?.fr</value>
     <comment>LogOn</comment>
   </data>
   <data name="SigninState.UserDisabled" xml:space="preserve">
-    <value>Your account is inactive, please contact your system administrator.fr</value>
+    <value>Unable to login. User Account is Disabled. Please contact your System Administrator.fr</value>
     <comment>LogOn</comment>
   </data>
   <data name="SigninState.UserLockedOut" xml:space="preserve">
-    <value>You have exceeded the maximum failed logon attempts and your account has been locked. Please contact your system administrator.fr</value>
+    <value>Maximum sign in attempts exceeded. User Account is Locked. Please contact your System Administrator.fr</value>
     <comment>LogOn</comment>
   </data>
   <data name="CurrentAndNewPasswordSame" xml:space="preserve">

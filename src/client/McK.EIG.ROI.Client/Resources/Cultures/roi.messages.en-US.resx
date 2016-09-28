@@ -1146,7 +1146,7 @@ Do you want to continue and save this requestor?</value>
     <comment>LogOn</comment>
   </data>
   <data name="SigninState.UserDisabled" xml:space="preserve">
-    <value>User Disabled, please contact the system administrator.</value>
+    <value>Unable to login. User Account is Disabled. Please contact your System Administrator.</value>
     <comment>LogOn</comment>
   </data>
   <data name="SigninState.UserLockedOut" xml:space="preserve">
