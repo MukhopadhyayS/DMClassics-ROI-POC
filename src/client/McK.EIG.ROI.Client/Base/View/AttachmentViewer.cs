@@ -190,6 +190,8 @@ namespace McK.EIG.ROI.Client.Base.View
                         log.Info("Deleting cached attachment content");
                         try
                         {
+                            System.GC.Collect();
+                            System.GC.WaitForPendingFinalizers();
                             File.Delete(filePath);
                         }
                         catch (Exception excpt)
