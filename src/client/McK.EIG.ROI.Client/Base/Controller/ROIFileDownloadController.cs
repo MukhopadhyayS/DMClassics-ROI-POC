@@ -71,8 +71,11 @@ namespace McK.EIG.ROI.Client.Base.Controller
                     string directoryName = Path.GetDirectoryName(filePath);
                     if (Directory.Exists(directoryName))
                     {
-                        try { File.Delete(filePath); }
-                            catch (Exception ex) { }
+                        try {
+                            System.GC.Collect();
+                            System.GC.WaitForPendingFinalizers();
+                            File.Delete(filePath); }
+                        catch (Exception ex) { }
                     }
                 }
 
