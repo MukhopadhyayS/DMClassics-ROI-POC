@@ -1150,7 +1150,7 @@ Do you want to continue and save this requestor?</value>
     <comment>LogOn</comment>
   </data>
   <data name="SigninState.UserLockedOut" xml:space="preserve">
-    <value>User Locked, Please contact the system administrator.</value>
+    <value>Maximum sign in attempts exceeded. User Account is Locked. Please contact your System Administrator.</value>
     <comment>LogOn</comment>
   </data>
   <data name="CurrentAndNewPasswordSame" xml:space="preserve">
