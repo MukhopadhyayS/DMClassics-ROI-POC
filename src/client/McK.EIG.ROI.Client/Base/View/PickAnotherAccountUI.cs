@@ -223,7 +223,7 @@ namespace McK.EIG.ROI.Client.Base.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Maximum sign in attempts exceeded. User Account is Locked. Please contact your System Administrator");
+                MessageBox.Show(ex.Message);
             }
         }
 
