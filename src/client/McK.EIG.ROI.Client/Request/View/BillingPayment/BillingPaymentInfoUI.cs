@@ -301,31 +301,37 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 if (adjInfoDetail != null)
                 {
                     adjustmentUI.SetData(adjInfoDetail, request.Requestor.Id, request.Requestor);
-                }
-                form.ShowDialog(this);
-                release.CreditAdjustmentTotal += adjustmentUI.TotalAdjustmentAmount;
-                release.UnAppliedTotal += Math.Abs(adjustmentUI.UnAppliedAdjustmentAmount);
-                UnAppliedAdjustmentPaymentTotal += Math.Abs(adjustmentUI.UnAppliedAdjustmentAmount);
-                double unAppliedAmount = RetrieveUnAppliedAmount(request.Id);
-                //double unAppliedAmount = Convert.ToDouble(unAppliedAdjAndPayValueLabel.Text.Trim().Substring(1, unAppliedAdjAndPayValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAmount);
-                double appliedAmount = 0;
-                if (adjustmentUI.TotalAdjustmentAmount == 0)
-                {
-                    appliedAmount =  Convert.ToDouble(adjPaymentTotalValueLabel.Text.Trim().Substring(1, adjPaymentTotalValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                }
-                else
-                {
-                    appliedAmount = adjPay;
-                }
-                //adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentUI.TotalAdjustmentAmount + appliedAmount);
-                adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentUI.TotalAdjustmentAmount + appliedAmount);
-                double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - adjustmentUI.TotalAdjustmentAmount);
-                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - adjustmentUI.TotalAdjustmentAmount);
+                }              
 
-                ApplicationEventArgs ae = new ApplicationEventArgs(request.Requestor, this);
-                RequestEvents.OnAccountManagementGridRefresh(Pane, ae);
+                DialogResult result = form.ShowDialog(this);
+
+                if (result.ToString() != "Cancel")
+                {
+
+                    release.CreditAdjustmentTotal += adjustmentUI.TotalAdjustmentAmount;
+                    release.UnAppliedTotal += Math.Abs(adjustmentUI.UnAppliedAdjustmentAmount);
+                    UnAppliedAdjustmentPaymentTotal += Math.Abs(adjustmentUI.UnAppliedAdjustmentAmount);
+                    double unAppliedAmount = RetrieveUnAppliedAmount(request.Id);
+                    //double unAppliedAmount = Convert.ToDouble(unAppliedAdjAndPayValueLabel.Text.Trim().Substring(1, unAppliedAdjAndPayValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                    unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAmount);
+                    double appliedAmount = 0;
+                    if (adjustmentUI.TotalAdjustmentAmount == 0)
+                    {
+                        appliedAmount = Convert.ToDouble(adjPaymentTotalValueLabel.Text.Trim().Substring(1, adjPaymentTotalValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                    }
+                    else
+                    {
+                        appliedAmount = adjPay;
+                    }
+                    //adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentUI.TotalAdjustmentAmount + appliedAmount);
+                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentUI.TotalAdjustmentAmount + appliedAmount);
+                    double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                    //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - adjustmentUI.TotalAdjustmentAmount);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - adjustmentUI.TotalAdjustmentAmount);
+
+                    ApplicationEventArgs ae = new ApplicationEventArgs(request.Requestor, this);
+                    RequestEvents.OnAccountManagementGridRefresh(Pane, ae);
+                }
             }
             catch (ROIException cause)
             {
@@ -353,47 +359,51 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 }
                 ComparableCollection<RequestInvoiceDetail> comparableRequestInvoiceDetailsList = new ComparableCollection<RequestInvoiceDetail>(requestInvoiceDetailsList);
                 paymentUI.PrePopulate(paymentMethods, comparableRequestInvoiceDetailsList, request.Requestor.Id, true, request.Requestor);
-                form.ShowDialog(this);
-                release.PaymentTotal += paymentUI.TotalApplyAmount;
-                release.InvoicesBalanceDue -= paymentUI.TotalApplyAmount;
-                // requestorInvoiceList.PaymentAmount = Convert.ToDouble(AmountTextBox.Text.Trim().Substring(1, AmountTextBox.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                double invoiceAmount;
-                if (totalInvoicedCostValueLabel.Text.Contains("("))
+                DialogResult result= form.ShowDialog(this);
+                if (result.ToString() != "Cancel")
                 {
-                    invoiceAmount = 0;
-                }
-                else
-                {
-                    invoiceAmount = Convert.ToDouble(totalInvoicedCostValueLabel.Text.Trim().Substring(1, totalInvoicedCostValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                }
-                double totalInvoiceAmount = invoiceAmount - paymentUI.TotalApplyAmount;
-                totalInvoicedCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalInvoiceAmount);
-                double appliedAmount = 0;
-                if (paymentUI.TotalApplyAmount == 0)
-                {
-                    appliedAmount = Convert.ToDouble(adjPaymentTotalValueLabel.Text.Trim().Substring(1, adjPaymentTotalValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture); ;
-                }
-                else
-                {
-                    appliedAmount = adjPay;
-                }
-                //adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(release.PaymentTotal + release.CreditAdjustmentTotal + appliedAmount);
-                adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(paymentUI.TotalApplyAmount + appliedAmount);
 
-                double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - paymentUI.TotalApplyAmount + appliedAmount);
+                    release.PaymentTotal += paymentUI.TotalApplyAmount;
+                    release.InvoicesBalanceDue -= paymentUI.TotalApplyAmount;
+                    // requestorInvoiceList.PaymentAmount = Convert.ToDouble(AmountTextBox.Text.Trim().Substring(1, AmountTextBox.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                    double invoiceAmount;
+                    if (totalInvoicedCostValueLabel.Text.Contains("("))
+                    {
+                        invoiceAmount = 0;
+                    }
+                    else
+                    {
+                        invoiceAmount = Convert.ToDouble(totalInvoicedCostValueLabel.Text.Trim().Substring(1, totalInvoicedCostValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                    }
+                    double totalInvoiceAmount = invoiceAmount - paymentUI.TotalApplyAmount;
+                    totalInvoicedCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalInvoiceAmount);
+                    double appliedAmount = 0;
+                    if (paymentUI.TotalApplyAmount == 0)
+                    {
+                        appliedAmount = Convert.ToDouble(adjPaymentTotalValueLabel.Text.Trim().Substring(1, adjPaymentTotalValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture); ;
+                    }
+                    else
+                    {
+                        appliedAmount = adjPay;
+                    }
+                    //adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(release.PaymentTotal + release.CreditAdjustmentTotal + appliedAmount);
+                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(paymentUI.TotalApplyAmount + appliedAmount);
 
-                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount);
+                    double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                    //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - paymentUI.TotalApplyAmount + appliedAmount);
 
-                release.UnAppliedTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
-                UnAppliedAdjustmentPaymentTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount);
 
-                //double unAppliedAmount = Convert.ToDouble(unAppliedAdjAndPayValueLabel.Text.Trim().Substring(1, unAppliedAdjAndPayValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                double unAppliedAmount = RetrieveUnAppliedAmount(request.Id);
-                unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAmount);
-                //unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(Math.Abs(paymentUI.UnAppliedAmountTotal));
-                ApplicationEventArgs ae = new ApplicationEventArgs(request.Requestor, this);
-                RequestEvents.OnAccountManagementGridRefresh(Pane, ae);
+                    release.UnAppliedTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
+                    UnAppliedAdjustmentPaymentTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
+
+                    //double unAppliedAmount = Convert.ToDouble(unAppliedAdjAndPayValueLabel.Text.Trim().Substring(1, unAppliedAdjAndPayValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                    double unAppliedAmount = RetrieveUnAppliedAmount(request.Id);
+                    unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAmount);
+                    //unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(Math.Abs(paymentUI.UnAppliedAmountTotal));
+                    ApplicationEventArgs ae = new ApplicationEventArgs(request.Requestor, this);
+                    RequestEvents.OnAccountManagementGridRefresh(Pane, ae);
+                }
             }
             catch (ROIException cause)
             {
@@ -2288,7 +2298,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             //RequestRSP rsp = (RequestRSP)Pane.ParentPane.ParentPane;
             //rsp.InfoEditor.Request = request;
-            if (rsp.PatientInfoEditor != null)
+          /*  if (rsp.PatientInfoEditor != null)
             {
                 rsp.PatientInfoEditor.Request = request;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).MarkAsRelease();
@@ -2298,7 +2308,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).PageStatus = requestPatients.PageStatus;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).AttachmentStatus = requestPatients.AttachmentStatus;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).NonHPFDocumentStatus = requestPatients.NonHpfDocumentStatus;
-            }
+            } */
             
             chargeHistories = BillingController.Instance.RetrieveChargeHistory(request.Id);
             chargeHistoryButton.Visible = (request.ReleaseCount > 0);            
