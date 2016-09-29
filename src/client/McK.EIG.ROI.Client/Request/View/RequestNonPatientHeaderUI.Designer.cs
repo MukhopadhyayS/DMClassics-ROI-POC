@@ -42,6 +42,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             // requestInfoPanel
             // 
+            this.requestInfoPanel.AutoSize = true;
             this.requestInfoPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.requestInfoPanel.BackColor = System.Drawing.Color.White;
             this.requestInfoPanel.Controls.Add(this.requestText);
@@ -60,12 +61,13 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             // requestText
             // 
+            this.requestText.AutoSize = true;
             this.requestText.BackColor = System.Drawing.Color.Transparent;
             this.requestText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.requestText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(81)))), ((int)(((byte)(156)))));
             this.requestText.Location = new System.Drawing.Point(59, 60);
             this.requestText.Name = "requestText";
-            this.requestText.Size = new System.Drawing.Size(278, 15);
+            this.requestText.Size = new System.Drawing.Size(0, 14);
             this.requestText.TabIndex = 17;
             // 
             // requiredText
@@ -131,6 +133,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.requestInfoPanel);
             this.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -139,6 +142,7 @@ namespace McK.EIG.ROI.Client.Request.View
             this.requestInfoPanel.ResumeLayout(false);
             this.requestInfoPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
