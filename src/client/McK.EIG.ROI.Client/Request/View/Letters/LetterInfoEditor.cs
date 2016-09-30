@@ -90,10 +90,12 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
             if (requestDetails.Requestor.TypeName == ROIConstants.RequestorPatient)
             {
                 patientHeaderUI.Localize(Context);
+                patientHeaderUI.PopulateRequestorInfo(requestDetails);
             }
             else
             {
                 nonPatientHeaderUI.Localize(Context);
+                nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
             }
         }
 
@@ -105,14 +107,7 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
             try
             {
                 ROIViewUtility.MarkBusy(true);
-                if (requestDetails.Requestor.TypeName == ROIConstants.RequestorPatient)
-                {
-                    patientHeaderUI.PopulateRequestorInfo(requestDetails);
-                }
-                else
-                {
-                    nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
-                }
+                
                 ((LetterInfoMCP)MCP).PrePopulate(requestDetails, releaseDetails);
 
                 ((Control)View).Enabled = requestDetails.Requestor.IsActive;

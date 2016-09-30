@@ -118,19 +118,21 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             request = (RequestDetails)((ApplicationEventArgs)e).Info;
             if (request.Requestor.IsPatientRequestor)
             {
-                if (patientheaderUI == null)
-                {
-                    InitializeHeader();
-                }
+                //if (patientheaderUI == null)
+                //{
+                //    InitializeHeader();
+                //}
+                InitializeHeader();
                 patientheaderUI.Localize(Context);
                 patientheaderUI.PopulateRequestorInfo(request);
             }
             else
             {
-                if (nonPatientHeaderUI == null)
-                {
-                    InitializeHeader();
-                }
+                //if (nonPatientHeaderUI == null)
+                //{
+                //    InitializeHeader();
+                //}
+                InitializeHeader();
                 nonPatientHeaderUI.Localize(Context);
                 nonPatientHeaderUI.PopulateRequestorInfo(request);
             }

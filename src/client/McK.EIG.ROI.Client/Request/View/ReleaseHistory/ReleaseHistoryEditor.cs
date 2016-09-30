@@ -74,10 +74,12 @@ namespace McK.EIG.ROI.Client.Request.View.ReleaseHistory
             if (requestDetails.Requestor.TypeName == ROIConstants.RequestorPatient)
             {
                 patientHeaderUI.Localize(Context);
+                patientHeaderUI.PopulateRequestorInfo(requestDetails);
             }
             else
             {
                 nonPatientHeaderUI.Localize(Context);
+                nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
             }
         }
 
@@ -89,14 +91,7 @@ namespace McK.EIG.ROI.Client.Request.View.ReleaseHistory
             try
             {
                 ROIViewUtility.MarkBusy(true);
-                if (requestDetails.Requestor.TypeName == ROIConstants.RequestorPatient)
-                {
-                    patientHeaderUI.PopulateRequestorInfo(requestDetails);
-                }
-                else
-                {
-                    nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
-                }
+               
                 ((ReleaseHistoryMCP)MCP).PrePopulate(requestDetails.Id, requestDetails.RequestPassword);
             }
             catch (ROIException cause)

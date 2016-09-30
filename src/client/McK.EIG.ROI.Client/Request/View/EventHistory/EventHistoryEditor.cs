@@ -73,10 +73,12 @@ namespace McK.EIG.ROI.Client.Request.View.EventHistory
             if (requestDetails.Requestor.IsPatientRequestor)
             {
                 patientheaderUI.Localize(Context);
+                patientheaderUI.PopulateRequestorInfo(requestDetails);
             }
             else
             {
                 nonPatientHeaderUI.Localize(Context);
+                nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
             }            
         }
 
@@ -87,15 +89,7 @@ namespace McK.EIG.ROI.Client.Request.View.EventHistory
         {
             try
             {
-                ROIViewUtility.MarkBusy(true);
-                if (requestDetails.Requestor.IsPatientRequestor)
-                {
-                    patientheaderUI.PopulateRequestorInfo(requestDetails);
-                }
-                else
-                {
-                    nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
-                }
+                ROIViewUtility.MarkBusy(true);                
 
                 EventHistoryMCP eventHistoryMCP = MCP as EventHistoryMCP;
 

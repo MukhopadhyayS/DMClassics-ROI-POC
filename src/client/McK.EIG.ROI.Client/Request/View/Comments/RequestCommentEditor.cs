@@ -73,10 +73,12 @@ namespace McK.EIG.ROI.Client.Request.View.Comments
             if (requestDetails.Requestor.IsPatientRequestor)
             {
                 patientheaderUI.Localize(Context);
+                patientheaderUI.PopulateRequestorInfo(requestDetails);
             }
             else
             {
                 nonPatientHeaderUI.Localize(Context);
+                nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
             }            
         }
 
@@ -88,14 +90,7 @@ namespace McK.EIG.ROI.Client.Request.View.Comments
             try
             {
                 ROIViewUtility.MarkBusy(true);
-                if (requestDetails.Requestor.IsPatientRequestor)
-                {
-                    patientheaderUI.PopulateRequestorInfo(requestDetails);
-                }
-                else
-                {
-                    nonPatientHeaderUI.PopulateRequestorInfo(requestDetails);
-                }
+                
                 RequestCommentODP requestCommentODP = ODP as RequestCommentODP;
 
                 Collection<CommentDetails> commentDetails = RequestController.Instance.RetrieveComments(requestDetails.Id);
