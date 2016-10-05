@@ -119,7 +119,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
                 }
 
                 serverParameter.Add("CHUNKENABLED", "true");
-                serverParameter.Add("BLOCKSIZE", "512");
+                serverParameter.Add("BLOCKSIZE", "10485760");
                 serverParameter.Add("SOURCE", "Attachment");
                 serverParameter.Add("OWNER_TYPE", "FileDownloader");
                 serverParameter.Add("FILE_NAME", attachmentId);
