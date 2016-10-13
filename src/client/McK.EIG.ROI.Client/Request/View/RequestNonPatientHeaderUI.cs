@@ -121,18 +121,20 @@ namespace McK.EIG.ROI.Client.Request.View
             nonPatientInfo.Append((requestInfo.RequestorWorkPhone != null) ? requestInfo.RequestorWorkPhone : string.Empty);
             phoneText.Text = nonPatientInfo.ToString();
             nonPatientInfo = new StringBuilder();
-
             nonPatientInfo.Append((requestInfo.Id == 0)
                                    ? string.Empty
                                    : requestInfo.Id.ToString(System.Threading.Thread.CurrentThread.CurrentUICulture) + ", ");
             nonPatientInfo.Append((requestInfo.Status == 0)
                                    ? string.Empty
                                    : requestInfo.Status.ToString() + " ");
-            nonPatientInfo.Append(rm.GetString("status.columnHeader") + ", ");
-            nonPatientInfo.Append(rm.GetString("receiptDate" + RequestPrefix));
-            nonPatientInfo.Append(" ");
-            nonPatientInfo.Append((requestInfo.ReceiptDate.HasValue) ? requestInfo.ReceiptDate.Value.ToString(ROIConstants.DateTimeAMPMDesignateFormat, System.Threading.Thread.CurrentThread.CurrentUICulture) : string.Empty);
+            nonPatientInfo.Append(rm.GetString("status.columnHeader"));
             requestText.Text = nonPatientInfo.ToString();
+            //nonPatientInfo.Append("\n");
+            nonPatientInfo = new StringBuilder();
+            nonPatientInfo.Append(rm.GetString("receiptDate" + RequestPrefix));
+            nonPatientInfo.Append(":");
+            nonPatientInfo.Append((requestInfo.ReceiptDate.HasValue) ? requestInfo.ReceiptDate.Value.ToString(ROIConstants.DateTimeAMPMDesignateFormat, System.Threading.Thread.CurrentThread.CurrentUICulture) : string.Empty);
+            receiptText.Text = nonPatientInfo.ToString();
 
             string requiredMessage = string.Empty;
             if (requestorDetails.PrepaymentRequired && requestorDetails.LetterRequired)
