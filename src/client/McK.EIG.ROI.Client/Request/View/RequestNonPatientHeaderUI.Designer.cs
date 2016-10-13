@@ -31,11 +31,12 @@ namespace McK.EIG.ROI.Client.Request.View
             this.components = new System.ComponentModel.Container();
             this.requestInfoPanel = new McK.EIG.ROI.Client.Base.View.Common.ROIPanel(this.components);
             this.requestText = new System.Windows.Forms.Label();
+            this.receiptText = new System.Windows.Forms.Label();
             this.requiredText = new System.Windows.Forms.Label();
             this.phoneText = new System.Windows.Forms.Label();
             this.addressText = new System.Windows.Forms.Label();
             this.requestorText = new System.Windows.Forms.Label();
-            this.requestLabel = new System.Windows.Forms.Label();
+            this.requestLabel = new System.Windows.Forms.Label();            
             this.requestorLabel = new System.Windows.Forms.Label();
             this.requestInfoPanel.SuspendLayout();
             this.SuspendLayout();
@@ -46,11 +47,12 @@ namespace McK.EIG.ROI.Client.Request.View
             this.requestInfoPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.requestInfoPanel.BackColor = System.Drawing.Color.White;
             this.requestInfoPanel.Controls.Add(this.requestText);
+            this.requestInfoPanel.Controls.Add(this.receiptText);
             this.requestInfoPanel.Controls.Add(this.requiredText);
             this.requestInfoPanel.Controls.Add(this.phoneText);
             this.requestInfoPanel.Controls.Add(this.addressText);
             this.requestInfoPanel.Controls.Add(this.requestorText);
-            this.requestInfoPanel.Controls.Add(this.requestLabel);
+            this.requestInfoPanel.Controls.Add(this.requestLabel);            
             this.requestInfoPanel.Controls.Add(this.requestorLabel);
             this.requestInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.requestInfoPanel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -63,12 +65,23 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             this.requestText.AutoSize = true;
             this.requestText.BackColor = System.Drawing.Color.Transparent;
-            this.requestText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.requestText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.requestText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(81)))), ((int)(((byte)(156)))));
-            this.requestText.Location = new System.Drawing.Point(59, 60);
+            this.requestText.Location = new System.Drawing.Point(64, 46);
             this.requestText.Name = "requestText";
             this.requestText.Size = new System.Drawing.Size(0, 14);
             this.requestText.TabIndex = 17;
+            // 
+            // receiptText
+            // 
+            this.receiptText.AutoSize = true;
+            this.receiptText.BackColor = System.Drawing.Color.Transparent;
+            this.receiptText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.receiptText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(81)))), ((int)(((byte)(156)))));
+            this.receiptText.Location = new System.Drawing.Point(4, 60);
+            this.receiptText.Name = "receiptText";
+            this.receiptText.Size = new System.Drawing.Size(0, 20);
+            this.receiptText.TabIndex = 18;
             // 
             // requiredText
             // 
@@ -112,13 +125,14 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             this.requestLabel.AutoSize = true;
             this.requestLabel.BackColor = System.Drawing.Color.Transparent;
-            this.requestLabel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.requestLabel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));            
             this.requestLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(81)))), ((int)(((byte)(156)))));
-            this.requestLabel.Location = new System.Drawing.Point(4, 60);
+            this.requestLabel.Location = new System.Drawing.Point(4, 46);
             this.requestLabel.Name = "requestLabel";
             this.requestLabel.Size = new System.Drawing.Size(0, 14);
             this.requestLabel.TabIndex = 12;
-            // 
+            
+            //
             // requestorLabel
             // 
             this.requestorLabel.AutoSize = true;
@@ -138,7 +152,7 @@ namespace McK.EIG.ROI.Client.Request.View
             this.Controls.Add(this.requestInfoPanel);
             this.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "RequestNonPatientHeaderUI";
-            this.Size = new System.Drawing.Size(350, 86);
+            this.Size = new System.Drawing.Size(350, 100);
             this.requestInfoPanel.ResumeLayout(false);
             this.requestInfoPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -156,6 +170,7 @@ namespace McK.EIG.ROI.Client.Request.View
         private System.Windows.Forms.Label phoneText;
         private System.Windows.Forms.Label requiredText;
         private System.Windows.Forms.Label requestText;
+        private System.Windows.Forms.Label receiptText;
 
     }
 }
