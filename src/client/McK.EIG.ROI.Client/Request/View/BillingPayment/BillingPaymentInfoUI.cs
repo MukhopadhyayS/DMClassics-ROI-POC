@@ -943,7 +943,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         private bool IsUnbillable()
         {
-            return UnbillablecheckBox.Checked;
+            
+            //return UnbillablecheckBox.Checked;
+            return UnbillableButton.Checked;
         }
 
 
@@ -1348,7 +1350,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     request.InvoiceAutoAdjustment = request.InvoiceBaseCharge = 0;
                     release.InvoicesBalanceDue += preBillInvoiceDetails.Invoice.BalanceDue;
                     billingLocationComboBox.Enabled = false;
-                    UnbillablecheckBox.Enabled = false;
+                    //UnbillablecheckBox.Enabled = false;
+                    BillableButton.Enabled = true;
+                    UnbillableButton.Enabled = false;
                     MarkAsRelease(releaseDialog.RequestStatus, releaseDialog.IsInvoiced, preBillInvoiceDetails.Invoice.BaseCharge,
                                   preBillInvoiceDetails.Invoice.SalesTax);
 
@@ -3333,7 +3337,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 UpdatePendingReleaseCost();
             }
 
-            UnbillableCheckBoxChecked(release.IsUnbillable);
+            UnbillableRadioButtonEnabled(release.IsUnbillable);
 
             //hasSalesTax = request.HasSalesTax;
             billingPaymentActionUI.Enabled = this.Enabled = IsAllowed(ROISecurityRights.ROICreateRequest) &&
@@ -3380,7 +3384,12 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             }
             billingLocationComboBox.Enabled = request.ReleaseCount > 0 ? false : true;
-            UnbillablecheckBox.Enabled = request.ReleaseCount > 0 ? false : true;
+            //UnbillableButton.Enabled = request.ReleaseCount > 0 ? false : true;
+            if (request.ReleaseCount > 0)
+                BillableButton.Enabled = true;
+            else
+                UnbillableButton.Enabled = true;
+
 
             newChargeTaxValueLabel.Text = ((PendingReleaseCost == 0.0) ? ReleaseDetails.FormattedAmount(0.0) : ReleaseDetails.FormattedAmount(salesTaxSummaryUI.TotalTaxAmount)) + "   )";
             EnableUnBillableLabel();
@@ -3388,7 +3397,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         private void EnableUnBillableLabel()
         {
-            if (UnbillablecheckBox.Checked)
+            if (UnbillableButton.Checked == true)
             {
                 newChargeTaxLabel.Visible = true;
                 totalInvoicedTaxLabel.Visible = true;
@@ -3397,7 +3406,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 newChargeTaxValueLabel.Visible = false;
                 totalInvoicedTaxValueLabel.Visible = false;
             }
-            else
+            else if(BillableButton.Checked == true)
             {
                 newChargeTaxLabel.Visible = false;
                 totalInvoicedTaxLabel.Visible = false;
@@ -3407,6 +3416,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 totalInvoicedTaxValueLabel.Visible = true;
             }
         }
+            
+
+        
 
         /// <summary>
         /// Gets the release data
@@ -3718,9 +3730,20 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             billingPaymentActionUI.RevertButton.Enabled = enable;// && documentChargeUI.TotalPages > 0;
         }
 
-        private void UnbillableCheckBoxChecked(bool check)
+        //private void UnbillableCheckBoxChecked(bool check)
+        //{
+        //    UnbillablecheckBox.Checked = check;
+        //}
+        private void UnbillableRadioButtonEnabled(bool check)
         {
-            UnbillablecheckBox.Checked = check;
+            if (check == true)
+            {
+                UnbillableButton.Checked = true;
+            }
+            else
+            {
+                BillableButton.Checked = true;
+            }
         }
 
         private void EnableReleaseButton(bool enable)
@@ -4246,7 +4269,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                             //billingPaymentActionUI.InvoiceButton.Enabled = false;
                             //billingPaymentActionUI.PreBillButton.Enabled = false;
                             billingLocationComboBox.Enabled = false;
-                            UnbillablecheckBox.Enabled = false;
+                            BillableButton.Enabled = true;
+                            UnbillableButton.Enabled = false;
                         }
                         OutputRequestDetails outputRequestDetails = new OutputRequestDetails(request.Id,
                                                                        Convert.ToInt64(DateTime.Now.ToString("ddMMyyyyhhmmssms", System.Threading.Thread.CurrentThread.CurrentUICulture), System.Threading.Thread.CurrentThread.CurrentUICulture),
@@ -5045,11 +5069,24 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         #endregion
 
-        private void UnbillablecheckBox_CheckedChanged(object sender, EventArgs e)
+
+
+        private void BillableButton_CheckedChanged(object sender, EventArgs e)
         {
+
             UpdateBalanceDue();
             MarkDirty(this, e);
             EnableUnBillableLabel();
         }
+
+        private void UnbillableButton_CheckedChanged(object sender, EventArgs e)
+        {
+           
+            UpdateBalanceDue();
+            MarkDirty(this, e);
+            EnableUnBillableLabel();
+        }     
+
+                
     }
 }
