@@ -73,9 +73,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.pdfPageView.PageDisplayLayout = O2S.Components.PDFView4NET.PDFPageDisplayLayout.OneColumn;
             this.pdfPageView.PageNumber = 0;
             this.pdfPageView.RenderingProgressColor = System.Drawing.Color.Empty;
+            this.pdfPageView.RenderingProgressDisplay = O2S.Components.PDFView4NET.PDFRenderingProgressDisplayMode.None;
             this.pdfPageView.RequiredFormFieldHighlightColor = System.Drawing.Color.Empty;
             this.pdfPageView.ScrollPosition = new System.Drawing.Point(0, 0);
-            this.pdfPageView.Size = new System.Drawing.Size(896, 658);
+            this.pdfPageView.Size = new System.Drawing.Size(1219, 797);
             this.pdfPageView.SubstituteFonts = null;
             this.pdfPageView.TabIndex = 1;
             this.pdfPageView.WorkMode = O2S.Components.PDFView4NET.UserInteractiveWorkMode.None;
@@ -188,11 +189,12 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.pdfPageView);
             this.Controls.Add(this.documentViewer);
             this.Controls.Add(this.viewerToolStrip);
             this.Name = "ROIViewer";
-            this.Size = new System.Drawing.Size(896, 683);
+            this.Size = new System.Drawing.Size(1219, 822);
             this.viewerToolStrip.ResumeLayout(false);
             this.viewerToolStrip.PerformLayout();
             this.ResumeLayout(false);
