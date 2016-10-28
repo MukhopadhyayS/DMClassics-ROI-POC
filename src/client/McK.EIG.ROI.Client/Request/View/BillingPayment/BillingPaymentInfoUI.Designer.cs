@@ -40,9 +40,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.billingLocationtableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.billingLocationLabel = new System.Windows.Forms.Label();
             this.requiredImg = new System.Windows.Forms.PictureBox();
+            this.UnbillablecheckBox = new System.Windows.Forms.CheckBox();
             this.billingLocationComboBox = new System.Windows.Forms.ComboBox();
-            this.BillableButton = new System.Windows.Forms.RadioButton();
-            this.UnbillableButton = new System.Windows.Forms.RadioButton();
             this.adjPayTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.totalBalanceDueGroupBox = new System.Windows.Forms.GroupBox();
             this.totalBalanceTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -157,13 +156,13 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.chargeTableLayoutPanel.Controls.Add(this.documentChargeUI, 0, 0);
             this.chargeTableLayoutPanel.Controls.Add(this.feeChargeUI, 0, 1);
             this.chargeTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chargeTableLayoutPanel.Location = new System.Drawing.Point(0, 60);
+            this.chargeTableLayoutPanel.Location = new System.Drawing.Point(0, 31);
             this.chargeTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.chargeTableLayoutPanel.Name = "chargeTableLayoutPanel";
             this.chargeTableLayoutPanel.RowCount = 2;
             this.chargeTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.chargeTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.chargeTableLayoutPanel.Size = new System.Drawing.Size(420, 569);
+            this.chargeTableLayoutPanel.Size = new System.Drawing.Size(420, 598);
             this.chargeTableLayoutPanel.TabIndex = 0;
             // 
             // documentChargeUI
@@ -173,7 +172,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.documentChargeUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.documentChargeUI.Location = new System.Drawing.Point(3, 3);
             this.documentChargeUI.Name = "documentChargeUI";
-            this.documentChargeUI.Size = new System.Drawing.Size(414, 164);
+            this.documentChargeUI.Size = new System.Drawing.Size(414, 173);
             this.documentChargeUI.TabIndex = 0;
             // 
             // feeChargeUI
@@ -181,9 +180,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.feeChargeUI.BackColor = System.Drawing.Color.White;
             this.feeChargeUI.Dock = System.Windows.Forms.DockStyle.Fill;
             this.feeChargeUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.feeChargeUI.Location = new System.Drawing.Point(3, 173);
+            this.feeChargeUI.Location = new System.Drawing.Point(3, 182);
             this.feeChargeUI.Name = "feeChargeUI";
-            this.feeChargeUI.Size = new System.Drawing.Size(414, 393);
+            this.feeChargeUI.Size = new System.Drawing.Size(414, 413);
             this.feeChargeUI.TabIndex = 1;
             // 
             // billingLocationtableLayoutPanel
@@ -193,25 +192,24 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.billingLocationtableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
             this.billingLocationtableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
             this.billingLocationtableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 167F));
-            this.billingLocationtableLayoutPanel.Controls.Add(this.billingLocationComboBox, 3, 0);
-            this.billingLocationtableLayoutPanel.Controls.Add(this.requiredImg, 1, 0);
             this.billingLocationtableLayoutPanel.Controls.Add(this.billingLocationLabel, 2, 0);
-            this.billingLocationtableLayoutPanel.Controls.Add(this.BillableButton, 0, 0);
-            this.billingLocationtableLayoutPanel.Controls.Add(this.UnbillableButton, 0, 1);
+            this.billingLocationtableLayoutPanel.Controls.Add(this.requiredImg, 1, 0);
+            this.billingLocationtableLayoutPanel.Controls.Add(this.UnbillablecheckBox, 0, 0);
+            this.billingLocationtableLayoutPanel.Controls.Add(this.billingLocationComboBox, 3, 0);
             this.billingLocationtableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.billingLocationtableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.billingLocationtableLayoutPanel.Name = "billingLocationtableLayoutPanel";
-            this.billingLocationtableLayoutPanel.RowCount = 2;
+            this.billingLocationtableLayoutPanel.RowCount = 1;
             this.billingLocationtableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.billingLocationtableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.billingLocationtableLayoutPanel.Size = new System.Drawing.Size(420, 60);
+            this.billingLocationtableLayoutPanel.Size = new System.Drawing.Size(420, 31);
             this.billingLocationtableLayoutPanel.TabIndex = 5;
             // 
             // billingLocationLabel
             // 
             this.billingLocationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.billingLocationLabel.AutoSize = true;
-            this.billingLocationLabel.Location = new System.Drawing.Point(167, 7);
+            this.billingLocationLabel.Location = new System.Drawing.Point(167, 8);
             this.billingLocationLabel.Name = "billingLocationLabel";
             this.billingLocationLabel.Size = new System.Drawing.Size(100, 15);
             this.billingLocationLabel.TabIndex = 18;
@@ -223,11 +221,24 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.requiredImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.errorProvider.SetIconAlignment(this.requiredImg, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
             this.requiredImg.Image = global::McK.EIG.ROI.Client.Resources.images.required;
-            this.requiredImg.Location = new System.Drawing.Point(149, 8);
+            this.requiredImg.Location = new System.Drawing.Point(149, 9);
             this.requiredImg.Name = "requiredImg";
             this.requiredImg.Size = new System.Drawing.Size(12, 12);
             this.requiredImg.TabIndex = 17;
             this.requiredImg.TabStop = false;
+            // 
+            // UnbillablecheckBox
+            // 
+            this.UnbillablecheckBox.AutoSize = true;
+            this.UnbillablecheckBox.Checked = true;
+            this.UnbillablecheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.UnbillablecheckBox.Location = new System.Drawing.Point(3, 3);
+            this.UnbillablecheckBox.Name = "UnbillablecheckBox";
+            this.UnbillablecheckBox.Size = new System.Drawing.Size(132, 19);
+            this.UnbillablecheckBox.TabIndex = 21;
+            this.UnbillablecheckBox.Text = "Unbillable Request";
+            this.UnbillablecheckBox.UseVisualStyleBackColor = true;
+            this.UnbillablecheckBox.CheckedChanged += new System.EventHandler(this.UnbillablecheckBox_CheckedChanged);
             // 
             // billingLocationComboBox
             // 
@@ -237,29 +248,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.billingLocationComboBox.Name = "billingLocationComboBox";
             this.billingLocationComboBox.Size = new System.Drawing.Size(120, 23);
             this.billingLocationComboBox.TabIndex = 20;
-            // 
-            // BillableButton
-            // 
-            this.BillableButton.AutoSize = true;
-            this.BillableButton.Location = new System.Drawing.Point(3, 3);
-            this.BillableButton.Name = "BillableButton";
-            this.BillableButton.Size = new System.Drawing.Size(66, 19);
-            this.BillableButton.TabIndex = 21;
-            this.BillableButton.TabStop = true;
-            this.BillableButton.Text = "Billable";
-            this.BillableButton.UseVisualStyleBackColor = true;
-            // 
-            // UnbillableButton
-            // 
-            this.UnbillableButton.AutoSize = true;
-            this.UnbillableButton.Location = new System.Drawing.Point(3, 32);
-            this.UnbillableButton.Name = "UnbillableButton";
-            this.UnbillableButton.Size = new System.Drawing.Size(81, 19);
-            this.UnbillableButton.TabIndex = 22;
-            this.UnbillableButton.TabStop = true;
-            this.UnbillableButton.Text = "Unbillable";
-            this.UnbillableButton.UseVisualStyleBackColor = true;
-            this.UnbillableButton.CheckedChanged += new System.EventHandler(this.UnbillableButton_CheckedChanged);
             // 
             // adjPayTableLayoutPanel
             // 
@@ -446,7 +434,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.adjustmentPaymentLabel.Location = new System.Drawing.Point(3, 46);
             this.adjustmentPaymentLabel.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.adjustmentPaymentLabel.Name = "adjustmentPaymentLabel";
-            this.adjustmentPaymentLabel.Size = new System.Drawing.Size(191, 15);
+            this.adjustmentPaymentLabel.Size = new System.Drawing.Size(192, 15);
             this.adjustmentPaymentLabel.TabIndex = 0;
             this.adjustmentPaymentLabel.Text = "Applied Payments && Adjustments:";
             this.adjustmentPaymentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -581,7 +569,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.unAppliedAdjAndPayLabel.AutoSize = true;
             this.unAppliedAdjAndPayLabel.Location = new System.Drawing.Point(2, 21);
             this.unAppliedAdjAndPayLabel.Name = "unAppliedAdjAndPayLabel";
-            this.unAppliedAdjAndPayLabel.Size = new System.Drawing.Size(204, 15);
+            this.unAppliedAdjAndPayLabel.Size = new System.Drawing.Size(205, 15);
             this.unAppliedAdjAndPayLabel.TabIndex = 13;
             this.unAppliedAdjAndPayLabel.Text = "Unapplied Payments && Adjustments";
             // 
@@ -627,7 +615,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.totalInvoicedCostLabel.AutoSize = true;
             this.totalInvoicedCostLabel.Location = new System.Drawing.Point(4, 61);
             this.totalInvoicedCostLabel.Name = "totalInvoicedCostLabel";
-            this.totalInvoicedCostLabel.Size = new System.Drawing.Size(84, 15);
+            this.totalInvoicedCostLabel.Size = new System.Drawing.Size(85, 15);
             this.totalInvoicedCostLabel.TabIndex = 0;
             this.totalInvoicedCostLabel.Text = "Total Invoiced:";
             this.totalInvoicedCostLabel.Visible = false;
@@ -664,7 +652,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             // 
             // shippingInfoUI
             // 
-            this.shippingInfoUI.AddressType = null;
             this.shippingInfoUI.AutoScroll = true;
             this.shippingInfoUI.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.shippingInfoUI.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -673,7 +660,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             this.shippingInfoUI.Location = new System.Drawing.Point(3, 3);
             this.shippingInfoUI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.shippingInfoUI.Name = "shippingInfoUI";
-            this.shippingInfoUI.NonPrintableAttachmentCount = 0;
             this.shippingInfoUI.Size = new System.Drawing.Size(432, 390);
             this.shippingInfoUI.TabIndex = 0;
             // 
@@ -780,6 +766,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private SalesTaxSummaryUI salesTaxSummaryUI;
         private System.Windows.Forms.TabPage shippingTabPage;
         private ShippingInfoUI shippingInfoUI;
+        private System.Windows.Forms.CheckBox UnbillablecheckBox;
         private System.Windows.Forms.Label newChargeTaxLabel;
         private System.Windows.Forms.Label newChargeTaxValueLabel;
         private System.Windows.Forms.ComboBox billingLocationComboBox;
@@ -798,7 +785,5 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private System.Windows.Forms.Label totalInvoicedTaxLabel;
         private System.Windows.Forms.Label requestCostTaxLabel;
         private System.Windows.Forms.Label totalInvoicedTaxValueLabel;
-        private System.Windows.Forms.RadioButton BillableButton;
-        private System.Windows.Forms.RadioButton UnbillableButton;
     }
 }
