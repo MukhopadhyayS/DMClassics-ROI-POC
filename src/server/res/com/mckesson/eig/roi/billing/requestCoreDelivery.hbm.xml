@@ -2060,6 +2060,7 @@
      <sql-query name="retrievePostPaymentReportDetailsFirstLevel">
         <![CDATA[
         
+			SELECT FullName userName, UserInstanceId userId into #temp from [USERS] where FullName in (:userName)
 			select userdata.userName,
 						'' as facility,
 						null as createdDate,
@@ -2076,61 +2077,57 @@
 					From
 					(
 					select 
-						us.FullName as userName,
-						us.UserInstanceId as userId,
+						us.userName as userName,
+						us.userId as userId,
 						rrcp.Amount as paymentAmount
 					 FROM
-						  Users us,
 						  ROI_Requestor rr,
 						  ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rrcp,
 						  ROI_RequestCoreDeliveryCharges rdc,
 						  ROI_RequestorType rrt,
-						  ROI_RequestorPayment rrp
+						  ROI_RequestorPayment rrp,
+						  #temp us 
 
-					where us.UserInstanceId = rrcp.Created_By_Seq
+					where us.userId = rrcp.Created_By_Seq
 						  and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
 						  and rrcp.ROI_RequestorPayment_Seq = rrp.ROI_RequestorPayment_Seq
 						  and rdc.ROI_RequestCoreDeliveryCharges_Seq = rrcp.ROI_RequestCoreDeliveryCharges_Seq
 						  and rr.ROI_RequestorType_Seq = rrt.ROI_RequestorType_Seq
 						  and rrcp.Created_Dt <= :toDt
 						  and rrcp.Created_Dt >= :fromDt
-						  and us.FullName in (:userName)
 						  and rrt.Name IN(:requestorType)
 						  and rdc.FACILITY_NAME in (:facilities)
 						  and rrcp.IsDeleted <> '1'
 
 			   UNION ALL
 			   
-					select us.FullName as userName,
-					us.UserInstanceId as userId,
+					select us.userName as userName,
+					us.userId as userId,
 					rrp.UnappliedAmount as paymentAmount
 					FROM
-						  Users us,
 						  ROI_Requestor rr,
 						  ROI_RequestorType rrt,
-						  ROI_RequestorPayment rrp
+						  ROI_RequestorPayment rrp,
+						  #temp us 
 
-					where us.UserInstanceId = rrp.Created_By_Seq 
+					where us.userId = rrp.Created_By_Seq 
 						  and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
 						  and rr.ROI_RequestorType_Seq = rrt.ROI_RequestorType_Seq
 						  and rrp.Created_Dt <= :toDt
 						  and rrp.Created_Dt >= :fromDt 
-						  and us.FullName in (:userName)
 						  and rrt.Name IN(:requestorType)
 						  and rrp.IsDeleted <> '1'
 					 ) as temp 
-					 RIGHT JOIN 
-						(Select u.FullName userName, u.UserInstanceId userId FROM Users u where u.FullName in ( :userName )) userdata
-						on temp.userName = userdata.userName
+					 RIGHT JOIN #temp userdata on temp.userName = userdata.userName
 					 group by userdata.userName, userdata.userId
-					 order by userdata.userName
-		   
+					 order by userdata.userName		   
 		]]>
     </sql-query>
     
     <sql-query name="retrievePostPaymentReportDetailsSecondLevel">
         <![CDATA[
-        select us.FullName as userName,
+ 		SELECT FullName, UserInstanceId into #temp from [USERS] where FullName in (:userName)
+       select us.FullName as userName,
         		rdc.FACILITY_NAME as facility,
         		rrcp.Created_Dt as createdDate,
         		rrt.Name as requestorType,
@@ -2146,14 +2143,14 @@
                 CAST(rrcp.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq as varchar) as paymentId,
                	rrcp.Amount as paymentAmount
             FROM
-                  Users us,
                   ROI_Requestor rr,
                   ROI_RequestorType rrt,
                   ROI_PATIENTS pat,
                   ROI_RequestCoretoROI_Patients rpt,
                   ROI_RequestCoreDeliveryCharges rdc,
                   ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rrcp,
-                  ROI_RequestorPayment rrp
+                  ROI_RequestorPayment rrp,
+				  #temp us
 
             where us.UserInstanceId = rrcp.Created_By_Seq
                   and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
@@ -2164,7 +2161,6 @@
                     and rrcp.ROI_RequestorPayment_Seq = rrp.ROI_RequestorPayment_Seq
                     and rrcp.Created_Dt <= :toDt
                     and rrcp.Created_Dt >= :fromDt
-                    and us.FullName in (:userName)
                     and rrt.Name IN(:requestorType)
                     and rdc.FACILITY_NAME in (:facilities)
                     and rrcp.IsDeleted <> '1'
@@ -2189,7 +2185,7 @@
                 CAST(rrcp.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq as varchar) as paymentId,
                	rrcp.Amount as paymentAmount
             FROM
-                  Users us,
+ 				  #temp us,
                   ROI_Requestor rr,
                   ROI_RequestorType rrt,
                   ROI_SupplementalPatients pat,
@@ -2209,7 +2205,6 @@
                     and rrcp.ROI_RequestorPayment_Seq = rrp.ROI_RequestorPayment_Seq
                     and rrcp.Created_Dt <= :toDt
                     and rrcp.Created_Dt >= :fromDt
-                    and us.FullName in (:userName)
                     and rrt.Name IN(:requestorType)
                     and rdc.FACILITY_NAME in (:facilities)
                     and rrcp.IsDeleted <> '1'
@@ -2234,7 +2229,7 @@
         		 'UN-' + CAST(rrp.ROI_RequestorPayment_Seq as varchar) as paymentId,
         		 rrp.UnappliedAmount  as paymentAmount
             FROM
-                  Users us,
+                  #temp us,
                   ROI_Requestor rr,
                   ROI_RequestorType rrt,
                   ROI_RequestorPayment rrp
@@ -2244,12 +2239,11 @@
                         and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
                         and rrp.Created_Dt <= :toDt
                         and rrp.Created_Dt >= :fromDt 
-                        and us.FullName in (:userName)
                         and rrt.Name IN(:requestorType)
                         and rrp.UnappliedAmount != 0
                         and rrp.IsDeleted <> '1'
-            group by us.FullName,rrp.Created_Dt,rrt.Name,rr.NameLast,rrp.ROI_RequestorPayment_Seq,rrp.PaymentType,rrp.Description,rrp.UnappliedAmount 
-
+            group by us.FullName,rrp.Created_Dt,rrt.Name,rr.NameLast,rrp.ROI_RequestorPayment_Seq,rrp.PaymentType,rrp.Description,rrp.UnappliedAmount
+             
       ]]>
     </sql-query>
 
