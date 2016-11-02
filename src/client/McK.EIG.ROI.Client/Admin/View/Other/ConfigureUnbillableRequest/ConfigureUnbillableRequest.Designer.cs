@@ -34,8 +34,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
             this.requiredImage2 = new System.Windows.Forms.PictureBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.textFieldsPanel = new System.Windows.Forms.Panel();
-            this.configureunbillablerequestCheckBox = new System.Windows.Forms.CheckBox();
-            this.configuredefaultunbillablerequestLabel = new System.Windows.Forms.Label();
+            this.unbillableButton = new System.Windows.Forms.RadioButton();
+            this.billableButton = new System.Windows.Forms.RadioButton();
             this.requiredImage1 = new System.Windows.Forms.PictureBox();
             this.controlsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requiredImage2)).BeginInit();
@@ -100,8 +100,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
             // 
             // textFieldsPanel
             // 
-            this.textFieldsPanel.Controls.Add(this.configureunbillablerequestCheckBox);
-            this.textFieldsPanel.Controls.Add(this.configuredefaultunbillablerequestLabel);
+            this.textFieldsPanel.Controls.Add(this.unbillableButton);
+            this.textFieldsPanel.Controls.Add(this.billableButton);
             this.textFieldsPanel.Controls.Add(this.requiredImage1);
             this.textFieldsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.textFieldsPanel.Location = new System.Drawing.Point(0, 0);
@@ -109,22 +109,27 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
             this.textFieldsPanel.Size = new System.Drawing.Size(941, 47);
             this.textFieldsPanel.TabIndex = 5;
             // 
-            // configureunbillablerequestCheckBox
+            // unbillableButton
             // 
-            this.configureunbillablerequestCheckBox.Location = new System.Drawing.Point(21, 7);
-            this.configureunbillablerequestCheckBox.Name = "configureunbillablerequestCheckBox";
-            this.configureunbillablerequestCheckBox.Size = new System.Drawing.Size(17, 16);
-            this.configureunbillablerequestCheckBox.TabIndex = 0;
-            this.configureunbillablerequestCheckBox.UseVisualStyleBackColor = true;
+            this.unbillableButton.AutoSize = true;
+            this.unbillableButton.Location = new System.Drawing.Point(92, 7);
+            this.unbillableButton.Name = "unbillableButton";
+            this.unbillableButton.Size = new System.Drawing.Size(81, 19);
+            this.unbillableButton.TabIndex = 4;
+            this.unbillableButton.TabStop = true;
+            this.unbillableButton.Text = "Unbillable";
+            this.unbillableButton.UseVisualStyleBackColor = true;
             // 
-            // configuredefaultunbillablerequestLabel
+            // billableButton
             // 
-            this.configuredefaultunbillablerequestLabel.AutoSize = true;
-            this.configuredefaultunbillablerequestLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.configuredefaultunbillablerequestLabel.Location = new System.Drawing.Point(64, 7);
-            this.configuredefaultunbillablerequestLabel.Name = "configuredefaultunbillablerequestLabel";
-            this.configuredefaultunbillablerequestLabel.Size = new System.Drawing.Size(0, 15);
-            this.configuredefaultunbillablerequestLabel.TabIndex = 2;
+            this.billableButton.AutoSize = true;
+            this.billableButton.Location = new System.Drawing.Point(20, 7);
+            this.billableButton.Name = "billableButton";
+            this.billableButton.Size = new System.Drawing.Size(66, 19);
+            this.billableButton.TabIndex = 3;
+            this.billableButton.TabStop = true;
+            this.billableButton.Text = "Billable";
+            this.billableButton.UseVisualStyleBackColor = true;
             // 
             // requiredImage1
             // 
@@ -166,8 +171,10 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         private System.Windows.Forms.PictureBox requiredImage2;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Panel textFieldsPanel;
-        private System.Windows.Forms.Label configuredefaultunbillablerequestLabel;
+        //private System.Windows.Forms.Label configuredefaultunbillablerequestLabel;
         private System.Windows.Forms.PictureBox requiredImage1;
-        private System.Windows.Forms.CheckBox configureunbillablerequestCheckBox;
+        //private System.Windows.Forms.CheckBox configureunbillablerequestCheckBox;
+        private System.Windows.Forms.RadioButton billableButton;
+        private System.Windows.Forms.RadioButton unbillableButton;
     }
 }
