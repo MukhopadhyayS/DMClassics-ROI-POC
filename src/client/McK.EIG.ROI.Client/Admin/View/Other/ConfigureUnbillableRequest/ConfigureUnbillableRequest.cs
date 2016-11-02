@@ -60,7 +60,10 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         public void EnableEvents()
         {
             DisableEvents();
-            configureunbillablerequestCheckBox.Click += dirtyDataHandler;
+            billableButton.Click += dirtyDataHandler;
+            unbillableButton.Click += dirtyDataHandler;
+
+            //configureunbillablerequestCheckBox.Click += dirtyDataHandler;
         }
 
         /// <summary>
@@ -68,7 +71,9 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         /// </summary>
         public void DisableEvents()
         {
-            configureunbillablerequestCheckBox.Click -= dirtyDataHandler;
+            billableButton.Click -= dirtyDataHandler;
+            unbillableButton.Click -= dirtyDataHandler;
+            //configureunbillablerequestCheckBox.Click -= dirtyDataHandler;
         }
 
         /// <summary>
@@ -93,11 +98,19 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
             ClearControls();
 
             configureunbillablerequestdetails = (ConfigureUnbillableRequestDetails)data;
-            configureunbillablerequestCheckBox.Checked = configureunbillablerequestdetails.IsUnbillableRequest;           
+            //configureunbillablerequestCheckBox.Checked = configureunbillablerequestdetails.IsUnbillableRequest;
+            if (configureunbillablerequestdetails.IsUnbillableRequest == true)
+            {
+                unbillableButton.Checked = true;
+            }
+            else
+            {
+                billableButton.Checked = true;
+            }
             cancelButton.Enabled = false;
             saveButton.Enabled = false;            
             EnableEvents();
-            configureunbillablerequestCheckBox.Focus();
+            //configureunbillablerequestCheckBox.Focus();
         }
 
         /// <summary>
@@ -108,7 +121,15 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         public object GetData(object appendTo)
         {
             ConfigureUnbillableRequestDetails requestDetail = (appendTo == null) ? new ConfigureUnbillableRequestDetails() : (ConfigureUnbillableRequestDetails)appendTo;
-            requestDetail.IsUnbillableRequest = configureunbillablerequestCheckBox.Checked;
+            //requestDetail.IsUnbillableRequest = configureunbillablerequestCheckBox.Checked;
+            if (unbillableButton.Checked == true)
+            {
+                requestDetail.IsUnbillableRequest = true;
+            }
+            else
+            {
+                requestDetail.IsUnbillableRequest = false;
+            }
             return requestDetail;
         }
 
@@ -117,7 +138,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         /// </summary>
         private void ClearControls()
         {
-            configureunbillablerequestCheckBox.Checked = false;            
+            //configureunbillablerequestCheckBox.Checked = false;
+            unbillableButton.Checked = false;
         }
 
         /// <summary>
@@ -126,7 +148,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         public override void Localize()
         {
             ResourceManager rm = Context.CultureManager.GetCulture(CultureType.UIText.ToString());
-            SetLabel(rm, configuredefaultunbillablerequestLabel);
+            //SetLabel(rm, configuredefaultunbillablerequestLabel);
             SetLabel(rm, saveButton);
             SetLabel(rm, cancelButton);
             SetLabel(rm, requiredLabel);
@@ -207,5 +229,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         }
 
         #endregion  
+
+        
     }
 }
