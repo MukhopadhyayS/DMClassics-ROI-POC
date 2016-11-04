@@ -136,5 +136,7 @@
 	<classpathentry kind="lib" path="C:/source/eig/svn/17.5/ROI/src/server/lib/hpf-signIn-stub.jar"/>
 	<classpathentry kind="lib" path="C:/source/eig/svn/17.5/ROI/src/server/lib/roi-hpf-auth.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ais/Desktop/eig-wsfw.jar"/>
+	<classpathentry kind="lib" path="C:/source/eig/svn/17.5/ROI/src/server/3rdparty/lib/aspose-pdf-11.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/source/eig/svn/17.5/ROI/src/server/3rdparty/lib/aspose-words-16.4.0-jdk16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

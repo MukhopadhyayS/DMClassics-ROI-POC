@@ -10,6 +10,9 @@
                         http://www.springframework.org/schema/aop
                         http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
+	<bean id="asposeLicense" 
+		class="com.mckesson.eig.roi.thirdparty.licenses.AsposeLicenseImpl" 
+		scope="singleton"/>	
 
 	<bean
 		id="com.mckesson.eig.roi.admin.service.BillingAdminServiceImpl"
