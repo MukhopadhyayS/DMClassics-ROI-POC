@@ -23,6 +23,8 @@ import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
+import com.aspose.words.Document;
+import com.aspose.words.SaveFormat;
 import com.mckesson.eig.roi.admin.model.LetterTemplateDocument;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -112,10 +114,23 @@ implements LetterGenerator {
             PdfConverter.getInstance().convert( document, outStream, options );
             
         } catch (Exception e) {
-            throw new ROIException(ROIClientErrorCodes.UNABLE_TO_CONVERT_TO_PDF);
+            tryAspose(mergedDocxFile, ouputFile);
+        } catch (Throwable e) {
+            tryAspose(mergedDocxFile, ouputFile);
         }
     }
     
+    private static void tryAspose(String mergedDocxFile, String ouputFile) {
+        try {
+            com.aspose.words.License license = new  com.aspose.words.License();
+            license.setLicense("Aspose.Total.Java.lic");
+            Document doc = new Document(mergedDocxFile);
+            doc.save(ouputFile, SaveFormat.PDF);
+        } catch (Exception e) {
+            throw new ROIException(ROIClientErrorCodes.UNABLE_TO_CONVERT_TO_PDF);
+        }
+    }
+
     /**
      * map the given letterData model to the report context and returns the fields metadata
      * @param context
