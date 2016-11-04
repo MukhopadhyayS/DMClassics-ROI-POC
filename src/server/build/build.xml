@@ -74,6 +74,7 @@
         </fileset-->
 		<fileset dir="${dir.3rdparty.jars}">
 			<include name="*.jar" />
+			<include name="*.lic" />
 			<!--exclude name="antlr*.jar"/>
 			<exclude name="dom4j*.jar"/>
 			<exclude name="jaxb*.jar"/>
@@ -222,6 +223,7 @@
 			</zipfileset>
 			<zipfileset prefix="WEB-INF/lib" dir="${dir.3rdparty.jars}">
 				<include name="*.jar" />
+				<include name="*.lic" />
 				<exclude name="servlet*.jar"/>
 				<exclude name="test*.jar"/>
 	            <!--exclude name="dom4j*.jar"/>
