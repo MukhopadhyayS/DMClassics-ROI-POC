@@ -60,8 +60,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         public void EnableEvents()
         {
             DisableEvents();
-            billableButton.Click += dirtyDataHandler;
-            unbillableButton.Click += dirtyDataHandler;
+            billableButton.CheckedChanged += dirtyDataHandler;
+            unbillableButton.CheckedChanged += dirtyDataHandler;
 
             //configureunbillablerequestCheckBox.Click += dirtyDataHandler;
         }
@@ -71,8 +71,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Other.ConfigureUnbillableRequest
         /// </summary>
         public void DisableEvents()
         {
-            billableButton.Click -= dirtyDataHandler;
-            unbillableButton.Click -= dirtyDataHandler;
+            billableButton.CheckedChanged -= dirtyDataHandler;
+            unbillableButton.CheckedChanged -= dirtyDataHandler;
             //configureunbillablerequestCheckBox.Click -= dirtyDataHandler;
         }
 
