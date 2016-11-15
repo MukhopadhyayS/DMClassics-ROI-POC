@@ -66,7 +66,7 @@ namespace McK.EIG.ROI.Client.Reports.View
             criteriaHt.Add(ROIConstants.ReportFacilities, checkedFirstListValues);
             criteriaHt.Add(ROIConstants.ReportRequestorType, checkedThirdValues);
             criteriaHt.Add(ROIConstants.ActorIds, checkedSecondListValues);
-            criteriaHt.Add(ROIConstants.ReportUserNames, GetSelectedUsersFullName());
+//            criteriaHt.Add(ROIConstants.ReportUserNames, GetSelectedUsersFullName());
             DateRangeUI.GetData(criteriaHt);
             if (String.IsNullOrEmpty(resultType))
                 criteriaHt.Add("resultType", "\"Posted By\"");
