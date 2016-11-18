@@ -102,6 +102,14 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             SetLabel(rm, releasedRadioButton);
             SetLabel(rm, unReleasedRadioButton);
             SetLabel(rm, dsrTreeInfoLabel);
+            float screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            float screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            float baseresolution = 2073600;
+            
+            if ((screenWidth * screenHeight) != baseresolution)
+            {
+                this.dsrTreeInfoLabel.Font = new System.Drawing.Font("Arial", 8f, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
             SetLabel(rm, removeAllButton);
             SetLabel(rm, removeButton);
             SetLabel(rm, modifyBillingTierButton);
