@@ -2121,8 +2121,7 @@ Narrow the results by changing the filter criteria and searching again.</value>
     <comment>Request - Patient Information</comment>
   </data>
   <data name="dsrTreeInfoLabel" xml:space="preserve">
-    <value>Note: Previously released documents display in green
-          Documents that no longer belong to patient display in red
+    <value>Note:Previously released documents display in green. Documents that no longer belong to patient display in red
       </value>
     <comment>Request - Patient Information</comment>
   </data>
