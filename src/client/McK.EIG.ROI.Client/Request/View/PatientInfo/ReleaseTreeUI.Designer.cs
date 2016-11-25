@@ -311,7 +311,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             this.treePanel.Location = new System.Drawing.Point(3, 46);
             this.treePanel.Name = "treePanel";
             this.treePanel.Padding = new System.Windows.Forms.Padding(1);
-            this.treePanel.Size = new System.Drawing.Size(347, 313);
+            this.treePanel.Size = new System.Drawing.Size(347, 300);
             this.treePanel.TabIndex = 3;
             // 
             // tree
@@ -362,7 +362,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bottomPanel.Location = new System.Drawing.Point(3, 365);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(347, 87);
+            this.bottomPanel.Size = new System.Drawing.Size(347, 95);
             this.bottomPanel.TabIndex = 4;
             // 
             // tableLayoutPanel2
@@ -428,7 +428,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             this.dsrTreeInfoLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.dsrTreeInfoLabel.Location = new System.Drawing.Point(0, 0);
             this.dsrTreeInfoLabel.Name = "dsrTreeInfoLabel";
-            this.dsrTreeInfoLabel.Size = new System.Drawing.Size(347, 28);
+            this.dsrTreeInfoLabel.Size = new System.Drawing.Size(347, 40);
             this.dsrTreeInfoLabel.TabIndex = 4;
             // 
             // ReleaseTreeUI
