@@ -105,14 +105,17 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             float screenWidth = Screen.PrimaryScreen.Bounds.Width;
             float screenHeight = Screen.PrimaryScreen.Bounds.Height;
             float baseresolution = 2073600;
-            
+
             if ((screenWidth * screenHeight) != baseresolution)
             {
-                if(screenWidth <= 1024 && screenHeight <= 768)
-                    dsrTreeInfoLabel.Font = new System.Drawing.Font("Arial", 7f, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                else
-                    dsrTreeInfoLabel.Font = new System.Drawing.Font("Arial", 8f, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
+                if (screenWidth <= 1024 && screenHeight <= 768)
+                {                   
+                    treePanel.Size = new System.Drawing.Size(347, 290);
+                    dsrTreeInfoLabel.Size = new System.Drawing.Size(347, 40);                    
+                    tableLayoutPanel2.Size = new System.Drawing.Size(347, 52);                    
+                }
+            }           
+            
             SetLabel(rm, removeAllButton);
             SetLabel(rm, removeButton);
             SetLabel(rm, modifyBillingTierButton);
