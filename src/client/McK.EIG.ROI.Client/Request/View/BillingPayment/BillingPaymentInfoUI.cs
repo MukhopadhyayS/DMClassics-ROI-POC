@@ -327,8 +327,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentUI.TotalAdjustmentAmount + appliedAmount);
                     double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
                     //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - adjustmentUI.TotalAdjustmentAmount);
-                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - adjustmentUI.TotalAdjustmentAmount);
-
+                    //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - adjustmentUI.TotalAdjustmentAmount);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
                     ApplicationEventArgs ae = new ApplicationEventArgs(request.Requestor, this);
                     RequestEvents.OnAccountManagementGridRefresh(Pane, ae);
                 }
@@ -392,7 +392,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
                     //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - paymentUI.TotalApplyAmount + appliedAmount);
 
-                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount);
+                    //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
 
                     release.UnAppliedTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
                     UnAppliedAdjustmentPaymentTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
