@@ -112,7 +112,7 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords.Attachments
             // 
             this.hrPageCountTextBox.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hrPageCountTextBox.Location = new System.Drawing.Point(105, 51);
-            this.hrPageCountTextBox.MaxLength = 4;
+            this.hrPageCountTextBox.MaxLength = 5;
             this.hrPageCountTextBox.Name = "hrPageCountTextBox";
             this.hrPageCountTextBox.Size = new System.Drawing.Size(115, 21);
             this.hrPageCountTextBox.TabIndex = 3;
@@ -234,7 +234,7 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords.Attachments
             // 
             this.rawPageCountTextBox.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rawPageCountTextBox.Location = new System.Drawing.Point(105, 51);
-            this.rawPageCountTextBox.MaxLength = 4;
+            this.rawPageCountTextBox.MaxLength = 5;
             this.rawPageCountTextBox.Name = "rawPageCountTextBox";
             this.rawPageCountTextBox.Size = new System.Drawing.Size(115, 21);
             this.rawPageCountTextBox.TabIndex = 3;
