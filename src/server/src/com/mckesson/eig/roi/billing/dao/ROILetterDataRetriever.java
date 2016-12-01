@@ -181,6 +181,19 @@ extends BaseLetterDataRetriever {
             shippingInfo.setShippingWt(String.valueOf(rcChargesShipping.getShippingWeight()));
             shippingInfo.setState(rcChargesShipping.getState());
             shippingInfo.setTrackingNumber(rcChargesShipping.getTrackingNumber());
+        } else {
+            // If request is in logged state, then set the details from requestor object into shippingInfo Object
+            if (null != requestor) {
+                shippingInfo.setAddressType(requestor.getRequestorTypeName());
+                shippingInfo.setAddress1(requestor.getMainAddress1());
+                shippingInfo.setAddress2(requestor.getMainAddress2());
+                shippingInfo.setAddress3(requestor.getMainAddress3());
+                shippingInfo.setCity(requestor.getMainCity());
+                shippingInfo.setState(requestor.getMainState());
+                shippingInfo.setPostalCode(requestor.getMainPostalCode());
+                shippingInfo.setCountryName(requestor.getMainCountryName());
+                shippingInfo.setCountryCode(requestor.getMainCountryCode());
+            }
         }
 
 
