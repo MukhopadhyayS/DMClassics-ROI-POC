@@ -14,10 +14,13 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.FOUserAgent;
@@ -29,6 +32,8 @@ import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.io.FileLoader;
+
+import jdk.internal.org.xml.sax.InputSource;
 
 public class CCDCCRConversion {
 
@@ -75,18 +80,28 @@ public class CCDCCRConversion {
     	return unmarshal(context, is);
     }
 
-    public Object unmarshal(JAXBContext jc, InputStreamReader is)
-	    throws JAXBException {
+    public Object unmarshal(JAXBContext jc, InputStreamReader is) throws JAXBException {
         
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        org.xml.sax.InputSource source = new  org.xml.sax.InputSource (is);
+        Source xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
     	Unmarshaller unmarshaller = jc.createUnmarshaller();
-    	return unmarshaller.unmarshal(is);
+    	return unmarshaller.unmarshal(xmlSource);
     }
 
-    public Object unmarshal(JAXBContext jc, InputStream is)
-	    throws JAXBException {
-        
+    public Object unmarshal(JAXBContext jc, InputStream is)  throws JAXBException {
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        org.xml.sax.InputSource source = new  org.xml.sax.InputSource (is);
+        Source xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
     	Unmarshaller unmarshaller = jc.createUnmarshaller();
-    	return unmarshaller.unmarshal(is);
+    	
+    	return unmarshaller.unmarshal(xmlSource);
     }
 
     private InputStreamReader getInputStreamISO8859Encoding(InputStream in)
