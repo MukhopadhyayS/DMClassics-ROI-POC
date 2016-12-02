@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -27,6 +27,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.sax.SAXSource;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -143,8 +146,13 @@ public class OutputServerProperties {
      * @throws JAXBException  if error occurd during the conversion
      */
     public static OutputServerProperties valueOf(String xmlString) throws JAXBException {
-
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        org.xml.sax.InputSource source = new  org.xml.sax.InputSource (xmlString);
+        Source xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
         Unmarshaller um = getJAXBContext().createUnmarshaller();
-        return (OutputServerProperties) um.unmarshal(new StringReader(xmlString));
+        return (OutputServerProperties) um.unmarshal(xmlSource);
     }
 }
