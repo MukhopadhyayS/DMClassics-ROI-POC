@@ -192,7 +192,7 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords
             // 
             this.filePageCountTextBox.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filePageCountTextBox.Location = new System.Drawing.Point(142, 89);
-            this.filePageCountTextBox.MaxLength = 4;
+            this.filePageCountTextBox.MaxLength = 5;
             this.filePageCountTextBox.Name = "filePageCountTextBox";
             this.filePageCountTextBox.Size = new System.Drawing.Size(191, 21);
             this.filePageCountTextBox.TabIndex = 6;
