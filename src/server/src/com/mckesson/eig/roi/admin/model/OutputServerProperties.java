@@ -161,10 +161,7 @@ public class OutputServerProperties {
             org.xml.sax.InputSource source = new  org.xml.sax.InputSource (xmlString);
             xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
             um = getJAXBContext().createUnmarshaller();
-        }  catch (SAXNotRecognizedException | SAXNotSupportedException
-                | ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+        }  catch (Exception e) {
             e.printStackTrace();
         }
         return (OutputServerProperties) um.unmarshal(xmlSource);
