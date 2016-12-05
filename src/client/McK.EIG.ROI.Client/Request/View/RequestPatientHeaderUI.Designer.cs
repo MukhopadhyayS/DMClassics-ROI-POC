@@ -43,6 +43,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             // requestInfoPanel
             // 
+            this.requestInfoPanel.AutoSize = true;
             this.requestInfoPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.requestInfoPanel.BackColor = System.Drawing.Color.White;
             this.requestInfoPanel.Controls.Add(this.requestText);
@@ -54,7 +55,7 @@ namespace McK.EIG.ROI.Client.Request.View
             this.requestInfoPanel.Controls.Add(this.requestLabel);
             this.requestInfoPanel.Controls.Add(this.requestorLabel);
             this.requestInfoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.requestInfoPanel.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.requestInfoPanel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.requestInfoPanel.Location = new System.Drawing.Point(0, 0);
             this.requestInfoPanel.Name = "requestInfoPanel";
             this.requestInfoPanel.Size = new System.Drawing.Size(350, 90);
@@ -62,8 +63,9 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             // requestText
             // 
+            this.requestText.AutoSize = true;
             this.requestText.BackColor = System.Drawing.Color.Transparent;
-            this.requestText.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.requestText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.requestText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(81)))), ((int)(((byte)(156)))));
             this.requestText.Location = new System.Drawing.Point(59, 68);
             this.requestText.Name = "requestText";
@@ -73,6 +75,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // requiredText
             // 
             this.requiredText.BackColor = System.Drawing.Color.Transparent;
+            this.requiredText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.requiredText.ForeColor = System.Drawing.Color.Red;
             this.requiredText.Location = new System.Drawing.Point(61, 56);
             this.requiredText.Name = "requiredText";
@@ -82,6 +85,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // phoneText
             // 
             this.phoneText.BackColor = System.Drawing.Color.Transparent;
+            this.phoneText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.phoneText.Location = new System.Drawing.Point(61, 43);
             this.phoneText.Name = "phoneText";
             this.phoneText.Size = new System.Drawing.Size(266, 14);
@@ -91,6 +95,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             this.addressText.AutoEllipsis = true;
             this.addressText.BackColor = System.Drawing.Color.Transparent;
+            this.addressText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addressText.Location = new System.Drawing.Point(61, 29);
             this.addressText.Name = "addressText";
             this.addressText.Size = new System.Drawing.Size(269, 14);
@@ -107,7 +112,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // requestorText
             // 
             this.requestorText.BackColor = System.Drawing.Color.Transparent;
-            this.requestorText.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.requestorText.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.requestorText.Location = new System.Drawing.Point(61, 2);
             this.requestorText.Name = "requestorText";
             this.requestorText.Size = new System.Drawing.Size(272, 14);
@@ -138,6 +143,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.requestInfoPanel);
             this.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -146,6 +152,7 @@ namespace McK.EIG.ROI.Client.Request.View
             this.requestInfoPanel.ResumeLayout(false);
             this.requestInfoPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
