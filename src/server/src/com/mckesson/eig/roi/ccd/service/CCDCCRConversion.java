@@ -95,14 +95,9 @@ public class CCDCCRConversion {
             org.xml.sax.InputSource source = new  org.xml.sax.InputSource (is);
             xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
             unmarshaller = jc.createUnmarshaller();
-        } catch (SAXNotRecognizedException | SAXNotSupportedException
-                | ParserConfigurationException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (SAXException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        } 
         return unmarshaller.unmarshal(xmlSource);
     }
 
@@ -117,12 +112,9 @@ public class CCDCCRConversion {
             org.xml.sax.InputSource source = new  org.xml.sax.InputSource (is);
             xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
         	unmarshaller = jc.createUnmarshaller();
-        } catch (SAXNotRecognizedException | SAXNotSupportedException
-                | ParserConfigurationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+        } 
     	return unmarshaller.unmarshal(xmlSource);
     }
 
