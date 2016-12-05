@@ -27,9 +27,14 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -147,12 +152,21 @@ public class OutputServerProperties {
      */
     public static OutputServerProperties valueOf(String xmlString) throws JAXBException {
         SAXParserFactory spf = SAXParserFactory.newInstance();
-        spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-        spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-        spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-        org.xml.sax.InputSource source = new  org.xml.sax.InputSource (xmlString);
-        Source xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
-        Unmarshaller um = getJAXBContext().createUnmarshaller();
+        Source xmlSource = null;
+        Unmarshaller um = null;
+        try {
+            spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            org.xml.sax.InputSource source = new  org.xml.sax.InputSource (xmlString);
+            xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
+            um = getJAXBContext().createUnmarshaller();
+        }  catch (SAXNotRecognizedException | SAXNotSupportedException
+                | ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
         return (OutputServerProperties) um.unmarshal(xmlSource);
     }
 }
