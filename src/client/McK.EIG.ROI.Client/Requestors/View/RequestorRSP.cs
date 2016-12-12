@@ -142,7 +142,11 @@ namespace McK.EIG.ROI.Client.Requestors.View
         private void Process_NavigateRequestHistory(object sender, EventArgs e)
         {
             if (requestHistoryEditor != null && requestHistoryEditor == currentEditor) return;
-
+            if (requestHistoryEditor != null)
+            {
+                requestHistoryEditor.Cleanup();
+                requestHistoryEditor = null;
+            }
             bool init = (requestHistoryEditor == null);
 
             if (init)
@@ -162,7 +166,11 @@ namespace McK.EIG.ROI.Client.Requestors.View
         private void Process_NavigateAccountManagement(object sender, EventArgs e)
         {
             if (accountManagementEditor != null && accountManagementEditor == currentEditor) return;
-
+            if (accountManagementEditor != null)
+            {
+                accountManagementEditor.Cleanup();
+                accountManagementEditor = null;
+            }
             bool init = (accountManagementEditor == null);
            
             if (init)
@@ -183,11 +191,11 @@ namespace McK.EIG.ROI.Client.Requestors.View
         {
             if (accountHistoryEditor != null && accountHistoryEditor == currentEditor) return;
 
-            //if (accountHistoryEditor != null)
-            //{
-            //    accountHistoryEditor.Cleanup();
-            //    accountHistoryEditor = null;
-            //}
+            if (accountHistoryEditor != null)
+            {
+                accountHistoryEditor.Cleanup();
+                accountHistoryEditor = null;
+            }
 
             bool init = (accountHistoryEditor == null);
 
