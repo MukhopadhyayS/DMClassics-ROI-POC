@@ -186,7 +186,11 @@ extends BaseLetterDataRetriever {
         List<ReleaseInfo> relInfoList = new ArrayList<ReleaseInfo>();
         ReleaseInfo relInfo = new ReleaseInfo();
 		//Modified for CR#374866
-        relInfo.setBalanceDue(formatToCurrency(invoice.getRequestBalanceDue()));
+        if ("PreBill".equalsIgnoreCase(invoice.getType())) {
+            relInfo.setBalanceDue(formatToCurrency(invoice.getBalanceDue()));
+        } else {
+            relInfo.setBalanceDue(formatToCurrency(invoice.getRequestBalanceDue()));  
+        }
         relInfo.setPreviouslyReleasedCost(formatToCurrency(invoice.getPreviouslyReleasedCost()));
         relInfo.setReleaseCost(formatToCurrency(invoice.getReleaseCost()));
 
