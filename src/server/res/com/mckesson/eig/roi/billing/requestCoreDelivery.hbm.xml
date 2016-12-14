@@ -924,9 +924,10 @@
 				coalesce((SELECT request.Unbillable FROM ROI_RequestCore request
 						WHERE request.ROI_RequestCore_Seq = charge.ROI_RequestCore_Seq), 0) unbillable
 						
-			FROM ROI_RequestCoreDeliveryCharges charge,
-			     ROI_RequestCoreDelivery delivery
-			     					
+			FROM ROI_RequestCoreDelivery delivery
+            JOIN ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges R2R on R2R.ROI_RequestCoreDelivery_Seq = delivery.ROI_RequestCoreDelivery_Seq
+            JOIN ROI_RequestCoreDeliveryCharges charge  on R2R.ROI_RequestCoreDeliveryCharges_Seq = charge.ROI_RequestCoreDeliveryCharges_Seq
+
 			WHERE delivery.ROI_RequestCore_Seq = :requestId
 				AND charge.ROI_RequestCoreDeliveryCharges_Seq =
 				 (SELECT TOP 1 ROI_RequestCoreDeliveryCharges_Seq 
