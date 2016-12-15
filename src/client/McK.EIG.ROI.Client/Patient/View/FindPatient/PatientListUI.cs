@@ -439,6 +439,7 @@ namespace McK.EIG.ROI.Client.Patient.View.FindPatient
 
             try
             {
+                Application.DoEvents();
                 ROIController.Instance.CreateAuditEntry(auditEvent);
             }
             catch (ROIException cause)

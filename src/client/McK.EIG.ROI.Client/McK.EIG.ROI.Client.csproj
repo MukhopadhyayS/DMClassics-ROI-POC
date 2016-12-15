@@ -1932,6 +1932,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Request\View\SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Request\View\SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Resources\images.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2151,6 +2157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Request\View\OutputEmailDialog.resx">
       <DependentUpon>OutputEmailDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Cultures\roi.messages.en-US.resx">
       <SubType>Designer</SubType>

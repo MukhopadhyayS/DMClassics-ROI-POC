@@ -378,6 +378,7 @@ namespace McK.EIG.ROI.Client.Base.View
             //RetrieveAllTaxPerFacilities method returns the facilities which has been configured by admin.
             //UserData instance facilities returns the facilities coming from HPF
             //compare both the facilities and set the default facility if any one is set in admin into userdata
+            Application.DoEvents();
             Collection<TaxPerFacilityDetails> taxPerFacilityDetails = BillingAdminController.Instance.RetrieveAllTaxPerFacilities(UserData.Instance.UserId);
             UserData.Instance.DefaultFacility = null;
             foreach (TaxPerFacilityDetails fac in taxPerFacilityDetails)

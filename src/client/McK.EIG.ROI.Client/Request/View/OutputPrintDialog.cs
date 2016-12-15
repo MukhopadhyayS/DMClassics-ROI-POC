@@ -42,7 +42,8 @@ namespace McK.EIG.ROI.Client.Request.View
         private OutputPropertyDetails outputPropertyDetails;
         private OutputPropertiesDialog outputPropertyDialog;
         private Hashtable properties;
-        private DialogResult propertyResult;        
+        private DialogResult propertyResult;
+        private static SplashScreen splash;
 
         #endregion
 
@@ -68,6 +69,12 @@ namespace McK.EIG.ROI.Client.Request.View
 
         #region Methods
 
+        public static void CloseSplashScreen()
+        {
+            splash.Close();
+            splash.Dispose();
+            splash = null;
+        }
         /// <summary>
         /// Localize the UI controls.
         /// </summary>
@@ -283,6 +290,10 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
+            splash = new SplashScreen();
+            splash.BringToFront();
+            splash.TopMost = true;
+            splash.Show();
             if (propertyResult == DialogResult.OK)
             {
                 outputDestinationDetails.PropertyDefinitions.Clear();

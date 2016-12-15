@@ -51,6 +51,8 @@ namespace McK.EIG.ROI.Client.Request.View
         private bool overdueDialog; 
         private OutputDestinationDetails outputDestinationDetails;
         private OutputPropertyDetails outputPropertyDetails;
+        private static SplashScreen splash;
+       
 
         #endregion
 
@@ -73,6 +75,13 @@ namespace McK.EIG.ROI.Client.Request.View
         }
 
         #endregion
+
+        public static void CloseSplashScreen()
+        {
+            splash.Close();
+            splash.Dispose();
+            splash = null;
+        }
 
         #region Methods
 
@@ -252,6 +261,11 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
+            splash = new SplashScreen();
+            splash.BringToFront();
+            splash.TopMost = true;
+            splash.Show();
+            //splash.Show();            
             if (outputDestinationDetails.PasswordRequired)
             {
                 if (string.IsNullOrEmpty(passwordTextBox.Text))

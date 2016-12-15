@@ -1590,6 +1590,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                 }
                             }
                         }
+                        Application.DoEvents();
                         BillingController.Instance.updateInvoiceOutputProperties(invoiceId, letterId, releaseId, forInvoice,
                                                                                  forLetter, forRelease, queueSecure, outputMethod);
                         if (statementCheckBox.Checked)
@@ -1676,6 +1677,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 details.EventRemarks = documentName.Substring(0, documentName.LastIndexOf('.')) + ", output method: " +
                                        tempDestinationType + ", " + outputName;
             }
+            Application.DoEvents();
             RequestController.Instance.CreateComment(details);
             if (coverLetterCheckBox.Checked)
             {
@@ -1700,6 +1702,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 {
                     letterDetails.EventRemarks = coverLetterName;
                 }
+                Application.DoEvents();
                 RequestController.Instance.CreateComment(letterDetails);
             }
         }

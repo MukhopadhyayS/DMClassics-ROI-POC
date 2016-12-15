@@ -103,6 +103,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         ReleaseDialog releaseDialog;
         private bool hasRights;
         public static bool isOnlyNonHPFDocuments = false;
+        private int outputType;
 
         #endregion
 
@@ -851,6 +852,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 request.DefaultFacility = tempDefaultFacility;
                 request.DraftRelease = olddraftRelease;
                 bool isFirstPatient = true;
+                Application.DoEvents();
                 RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                 foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                 {
@@ -981,6 +983,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             auditEvent.Comment = auditmessage.ToString();
             try
             {
+                Application.DoEvents();
                 ROIController.Instance.CreateAuditEntry(auditEvent);
             }
             catch (ROIException cause)
@@ -993,6 +996,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             details.RequestId = requestId;
             details.EventType = (isSalesTaxOverride) ? EventType.SalesTaxChanges : EventType.ChangeOfBillingLocation;
             details.EventRemarks = auditmessage.ToString();
+            Application.DoEvents();
             RequestController.Instance.CreateComment(details);
         }
         
@@ -1012,6 +1016,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             try
             {
                 errorProvider.Clear();
+                Application.DoEvents();
                 ROIViewUtility.MarkBusy(true);
                 if (doSave)
                 {
@@ -1037,6 +1042,16 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 PreBillInvoiceDetails preBillInvoiceDetails = CreatePreBillInvoiceDetails(0, string.Empty, new Collection<NotesDetails>(), new Collection<string>(), string.Empty, 0, false, true);
 
                 DestinationType destinationType = RetrieveDestinationType();
+                if (destinationType == DestinationType.File)
+                    outputType = 1;
+                else if (destinationType == DestinationType.Print)
+                    outputType = 2;
+                else if (destinationType == DestinationType.Fax)
+                    outputType = 3;
+                else if (destinationType == DestinationType.Email)
+                    outputType = 4;
+                else if (destinationType == DestinationType.Disc)
+                    outputType = 5;
                 releaseDialog.PrePopulate(coverLetterTemplates, requestorLetterTemplates, invoiceTemplates, defaultCoverLetterId, defaultRequestorLetterID,
                                           defaultInvoiceId, release.TotalPages, preBillInvoiceDetails,
                                           destinationType, request, eventType,
@@ -1103,6 +1118,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                     }
                                 }
 
+                                Application.DoEvents();
                                 long jobStatus = OutputController.Instance.SubmitOutputRequest(outputNonPrintableRequest, DestinationType.File,
                                                                                          nonPrintableOutputViewDetails, true);
 
@@ -1124,6 +1140,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                                                          release.ReleasedPatients.Count, nonPrintableAttachmentCount, DestinationType.File.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
                                 }
 
+                                Application.DoEvents();
                                 RequestController.Instance.CreateComment(details);
                             }
                         }
@@ -1186,6 +1203,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         
                         try
                         {
+                            Application.DoEvents();
                             long jobStatus = OutputController.Instance.SubmitOutputRequest(outputRequestDetails, RetrieveDestinationType(),
                                                                                          outputViewDetails, true);
 
@@ -1193,6 +1211,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                             {
                                 if (!isOnlyNonHPFDocuments)
                                 {
+                                    Application.DoEvents();
                                     jobStatus = OutputController.Instance.SubmitOutputRequest(outputRequestDetailsForDisc, RetrieveDestinationType(),
                                                                                              outputViewDetails, true);
                                 }
@@ -1283,7 +1302,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         {
                     try
                     {
-                                ROIController.Instance.CreateAuditEntryList(auditEvents);
+                        Application.DoEvents();
+                        ROIController.Instance.CreateAuditEntryList(auditEvents);
                     }
                     catch (ROIException cause)
                     {
@@ -1327,6 +1347,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                             }
 
 
+                            Application.DoEvents();
                             RequestController.Instance.CreateComment(details);
 
 						if (release.RequestPassword == null)
@@ -1363,6 +1384,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                         try
                         {
+                            Application.DoEvents();
                             ROIController.Instance.CreateAuditEntry(auditEvent);
                         }
                         catch (ROIException cause)
@@ -1372,6 +1394,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                         details.EventType = EventType.OverwriteInvoiceDueDays;
                         details.EventRemarks = comment;
+                        Application.DoEvents();
                         RequestController.Instance.CreateComment(details);
                     }
                     release.InvoicesSalesTaxAmount += salesTaxSummaryUI.TotalTaxAmount;
@@ -1397,6 +1420,16 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             }
             finally
             {
+                if (outputType == 1)
+                    OutputFileDialog.CloseSplashScreen();
+                else if (outputType == 2)
+                    OutputPrintDialog.CloseSplashScreen();
+                else if (outputType == 3)
+                    OutputFaxDialog.CloseSplashScreen();
+                else if (outputType == 4)
+                    OutputEmailDialog.CloseSplashScreen();
+                else if (outputType == 5)
+                    OutputDiscDialog.CloseSplashScreen();
                 ROIViewUtility.MarkBusy(false);
             }
         }
@@ -1749,6 +1782,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             try
             {
+                Application.DoEvents();
                 ROIController.Instance.CreateAuditEntry(auditEvent);
             }
             catch (ROIException cause)
@@ -2258,6 +2292,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).MarkAsRelease();
 
                 //TODO: Need to revisit the logic to update the latest values in Patient Information screen
+                Application.DoEvents();
                 RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).PageStatus = requestPatients.PageStatus;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).AttachmentStatus = requestPatients.AttachmentStatus;
@@ -2310,7 +2345,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).AttachmentStatus = requestPatients.AttachmentStatus;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).NonHPFDocumentStatus = requestPatients.NonHpfDocumentStatus;
             } */
-            
+
+            Application.DoEvents();
             chargeHistories = BillingController.Instance.RetrieveChargeHistory(request.Id);
             chargeHistoryButton.Visible = (request.ReleaseCount > 0);            
         }
@@ -2685,6 +2721,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     }
                     else
                     {
+                        Application.DoEvents();
                         requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                     }
                     foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
@@ -2707,7 +2744,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             else
             {
                 RequestDetails requestDetails = (RequestDetails)ROIViewUtility.DeepClone(request);
-
+                Application.DoEvents();
                 RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(requestDetails.Id);
                 foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                 {
@@ -3190,6 +3227,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 isDirty = false;
                 return;
             }
+            Application.DoEvents();
             hasRights = RequestController.Instance.HasSercuirtyRights();
             isSetdata = true;
             this.release = (ReleaseDetails)ROIViewUtility.DeepClone(data);
@@ -3579,6 +3617,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             OutputPropertyDetails outputPropertyDetails = null;
             try
             {
+                Application.DoEvents();
                 outputPropertyDetails = OutputController.Instance.RetrieveDestinations(DestinationType.File.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
             }
             catch (ROIException cause)
@@ -3631,10 +3670,12 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             string pleaseSelect = rm.GetString(ROIConstants.PleaseSelect);
             if (UserData.Instance.IsLdapEnabled)
             {
+                Application.DoEvents();
                 taxPerFacilities = BillingAdminController.Instance.RetrieveAllTaxPerFacilities(UserData.Instance.HpfUserId);
             }
             else
             {
+                Application.DoEvents();
                 taxPerFacilities = BillingAdminController.Instance.RetrieveAllTaxPerFacilities(UserData.Instance.UserId);
             }
             TaxPerFacilityDetails taxPerFacilityDetails = new TaxPerFacilityDetails();
@@ -4289,12 +4330,14 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                         if (letterTemplateType == LetterType.PreBill.ToString())
                         {
+                            Application.DoEvents();
                             BillingController.Instance.updateInvoiceOutputProperties(invoiceId, 0, 0, true, false, false, queuePassword, outputMethodName);                                                                                    
                         }
                         if (releaseDialog != null )
                         {
                             outputRequestDetails.RequestParts.Add(BuildROIReleasePartDetails(releaseDialog.ReleaseAndPreviewDetails));
                         }
+                        Application.DoEvents();
                         long jobStatus = OutputController.Instance.SubmitOutputRequest(outputRequestDetails, destinationType,
                                                                        outputPropertyDetails.OutputViewDetails,
                                                                        false);                        
@@ -4311,6 +4354,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                         try
                         {
+                            Application.DoEvents();
                             ROIController.Instance.CreateAuditEntry(auditEvent);
                         }
                         catch (ROIException cause)
@@ -4366,6 +4410,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                                    outputMethod + ", " + outputName;
                         }                       
 
+                        Application.DoEvents();
                         RequestController.Instance.CreateComment(details);
 
                         //Audit and event entry if invoice due days is overridden
@@ -4378,6 +4423,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                             try
                             {
+                                Application.DoEvents();
                                 ROIController.Instance.CreateAuditEntry(auditEvent);
                             }
                             catch (ROIException cause)
@@ -4387,6 +4433,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                             details.EventType = EventType.OverwriteInvoiceDueDays;
                             details.EventRemarks = comment;
+                            Application.DoEvents();
                             RequestController.Instance.CreateComment(details);
                         }
 
@@ -4506,6 +4553,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                 try
                 {
+                    Application.DoEvents();
                     ROIController.Instance.CreateAuditEntry(auditEvent);
                 }
                 catch (ROIException cause)
@@ -4515,6 +4563,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 
                 details.EventType = EventType.InvoiceSend;
                 details.EventRemarks = remarks;
+                Application.DoEvents();
                 RequestController.Instance.CreateComment(details);
             }
             else
@@ -4534,6 +4583,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                     try
                     {
+                        Application.DoEvents();
                         ROIController.Instance.CreateAuditEntry(auditEvent);
                     }
                     catch (ROIException cause)
@@ -4543,6 +4593,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                     details.EventType = EventType.InvoiceResent;
                     details.EventRemarks = remarks;
+                    Application.DoEvents();
                     RequestController.Instance.CreateComment(details);
                 }
             }

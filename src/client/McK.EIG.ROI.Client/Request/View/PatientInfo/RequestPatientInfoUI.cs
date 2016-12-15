@@ -183,6 +183,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             dsrTreeUI.ResendButton.Enabled = (patientListUI.Grid.RowCount > 0 && !dsrTreeUI.HasPreviouslyReleased);
             //CR#377567
             bool hasRights = true;
+            Application.DoEvents();
             hasRights = RequestController.Instance.HasSercuirtyRights();
             if (hasRights == false)
                 dsrTreeUI.ResendButton.Enabled = false;
@@ -229,6 +230,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
             BillingPaymentInfoUI billingPayment = new BillingPaymentInfoUI();
 
+            Application.DoEvents();
             requestPatients = RequestController.Instance.RetrieveRequestPatients(requestDetails.Id);
             PageStatus = requestPatients.PageStatus;
             NonHPFDocumentStatus = requestPatients.NonHpfDocumentStatus;
@@ -444,7 +446,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                                                                      BillingPaymentInfoUI.NonPrintableAttachmentPageCount,
                                                                      DestinationType.File.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
                                 RequestController.Instance.CreateComment(details);
-
+                                Application.DoEvents();
                                 long jobStatus = OutputController.Instance.SubmitOutputRequest(outputNonPrintableRequest, DestinationType.File,
                                                                                          nonPrintableOutputViewDetails, true);
                             }
@@ -543,6 +545,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
                     try
                     {
+                        Application.DoEvents();
                         ROIController.Instance.CreateAuditEntryList(auditEvents);
                     }
                     catch (ROIException cause)
@@ -590,6 +593,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                             // build part requst part
                             outputRequestDetails.RequestParts.Add(requestPart);
                         }
+                        Application.DoEvents();
                         long jobStatus = OutputController.Instance.SubmitOutputRequest(outputRequestDetails,
                                                                                       BillingPaymentInfoUI.RetrieveDestinationType(releaseDetails.ShippingDetails),
                                                                                       outputViewDetails, true); //Change needs
@@ -1200,6 +1204,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                         if (request.ReleaseCount > 0)
                         {
                             ReleasedPatientDetails releasedPatient;
+                            Application.DoEvents();
                             requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                             foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                             {

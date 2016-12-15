@@ -62,6 +62,7 @@ namespace McK.EIG.ROI.Client.Request.View
         private Hashtable properties;
         private DialogResult propertyResult;
         private string outputNotes;
+        private static SplashScreen splash;
         
         public OutputDiscDialog()
         {
@@ -79,7 +80,12 @@ namespace McK.EIG.ROI.Client.Request.View
             Localize();
             PopulateNotes();
         }
-
+        public static void CloseSplashScreen()
+        {
+            splash.Close();
+            splash.Dispose();
+            splash = null;
+        }
         /// <summary>
         /// Localize UI controls.
         /// </summary>
@@ -470,6 +476,10 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
+            splash = new SplashScreen();
+            splash.BringToFront();
+            splash.TopMost = true;
+            splash.Show();
             this.ParentForm.DialogResult = DialogResult.OK;
             if (outputDestinationDetailsForDisc.PasswordRequired)
             {

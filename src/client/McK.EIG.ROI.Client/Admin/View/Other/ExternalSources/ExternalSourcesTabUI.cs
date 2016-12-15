@@ -740,6 +740,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Configuration.ExternalSources
             auditEvnt.Mrn = null;
             auditEvnt.Encounter = null;
             auditEvnt.Comment = "Clinical Source " + auditextsourcename + " was " + auditEvent;
+            Application.DoEvents();
             ROIController.Instance.CreateAuditEntry(auditEvnt);
         }
 

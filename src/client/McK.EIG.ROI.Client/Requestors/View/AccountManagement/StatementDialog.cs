@@ -934,7 +934,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                     requestPartDetails.PropertyLists.Add(propertyDetails);
                     outputRequestDetails.RequestParts.Add(requestPartDetails);
                     outputRequestDetails.IsGroupingEnabled = statementCheckBox.Checked && statementComboBox.SelectedIndex > 0;
-
+                    Application.DoEvents();
                     OutputController.Instance.SubmitOutputRequest(outputRequestDetails, destinationType,
                                                                               outputViewDetails, false, false);
 

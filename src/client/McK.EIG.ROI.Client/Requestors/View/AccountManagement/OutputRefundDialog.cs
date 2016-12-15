@@ -796,6 +796,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                     {
                         outputRequestDetails.RequestParts.Add(BuildROIRequestPartDetails(info));
                     }
+                    Application.DoEvents();
                     OutputController.Instance.SubmitOutputRequest(outputRequestDetails, destinationType,
                                                                   outputViewDetails, false, false);
 
