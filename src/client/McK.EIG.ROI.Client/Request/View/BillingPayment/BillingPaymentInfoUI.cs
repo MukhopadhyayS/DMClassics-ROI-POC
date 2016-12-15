@@ -302,7 +302,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 if (adjInfoDetail != null)
                 {
                     adjustmentUI.SetData(adjInfoDetail, request.Requestor.Id, request.Requestor);
-                }              
+                }
 
                 DialogResult result = form.ShowDialog(this);
 
@@ -392,9 +392,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                     double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
                     //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - paymentUI.TotalApplyAmount + appliedAmount);
-
-                    //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount);
-                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
+                    if ((releaseDialog != null) || (request.Status == RequestStatus.Completed)  )
+                    { balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount); }
+                    else
+                    { balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue); }
 
                     release.UnAppliedTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
                     UnAppliedAdjustmentPaymentTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
