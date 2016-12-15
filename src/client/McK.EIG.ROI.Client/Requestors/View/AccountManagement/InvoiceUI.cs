@@ -543,6 +543,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
 
 
                     outputRequestDetails.RequestParts.Add(BuildROIRequestPartDetails(documentInfo));
+                    Application.DoEvents();
                     long jobStatus = OutputController.Instance.SubmitOutputRequest(outputRequestDetails, viewer.DestinationType,
                                                                   viewer.OutputPropertyDetails.OutputViewDetails,
                                                                   false);
@@ -559,6 +560,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
 
                     try
                     {
+                        Application.DoEvents();
                         ROIController.Instance.CreateAuditEntry(auditEvent);
                     }
                     catch (ROIException cause)

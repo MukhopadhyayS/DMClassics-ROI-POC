@@ -326,6 +326,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Configuration.TurnaroundTimeDays
                     auditEvent.Mrn = null;
                     auditEvent.Encounter = null;
                     auditEvent.Comment = auditComment;
+                    Application.DoEvents();
                     ROIController.Instance.CreateAuditEntry(auditEvent);
                     turnaroundTimeDays = days;
                     saveConfigButton.Enabled = false;

@@ -308,7 +308,8 @@ namespace McK.EIG.ROI.Client.Request.View.RequestInfo
             get
             {
                 ReleaseDetails releaseDetails = new ReleaseDetails();
-                
+
+                Application.DoEvents();
                 RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                 request.Patients.Clear();
 

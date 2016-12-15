@@ -416,6 +416,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountHistory
 
                         try
                         {
+                            Application.DoEvents();
                             ROIController.Instance.CreateAuditEntry(auditEvent);
                         }
                         catch (ROIException cause)
@@ -423,6 +424,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountHistory
                         }
 
                         outputRequestDetails.RequestParts.Add(BuildROIRequestPartDetails(documentInfo));
+                        Application.DoEvents();
                         long jobStatus = OutputController.Instance.SubmitOutputRequest(outputRequestDetails, viewer.DestinationType,
                                                                       viewer.OutputPropertyDetails.OutputViewDetails,
                                                                       false);

@@ -780,6 +780,7 @@ namespace McK.EIG.ROI.Client.Request.View.RequestInfo
                     SortedList<string, RequestPatientDetails> tempPatientList = new SortedList<string, RequestPatientDetails>();
                     if (requestDetails.Patients.Count == 0)
                     {
+                        Application.DoEvents();
                         RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(requestDetails.Id);
                         foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                         {
@@ -1060,6 +1061,7 @@ namespace McK.EIG.ROI.Client.Request.View.RequestInfo
             ReleaseDetails release = billingPaymentInfoUI.RevertInfo(request);
             if (request.Patients.Count == 0)
             {
+                Application.DoEvents();
                 RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                 foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                 {

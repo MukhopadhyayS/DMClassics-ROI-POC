@@ -140,6 +140,7 @@ namespace McK.EIG.ROI.Client.Base.View
 
                     try
                     {
+                        Application.DoEvents();
                         ROIController.Instance.CreateAuditEntry(auditEvent);
                     }
                     catch (ROIException cause)

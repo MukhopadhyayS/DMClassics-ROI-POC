@@ -470,9 +470,11 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
                         outputMethod = OutputMethod.Email.ToString();
                     }
 
+                    Application.DoEvents();
                     BillingController.Instance.updateInvoiceOutputProperties(0, letterId, 0, false, true, false, queuePassword, outputMethod); 
                     
-                    outputRequestDetails.RequestParts.Add(BuildROIRequestPartDetails(documentInfo));                    
+                    outputRequestDetails.RequestParts.Add(BuildROIRequestPartDetails(documentInfo));
+                    Application.DoEvents();
                     long jobStatus = OutputController.Instance.SubmitOutputRequest(outputRequestDetails, viewer.DestinationType,
                                                                   viewer.OutputPropertyDetails.OutputViewDetails,
                                                                   false);
@@ -493,6 +495,7 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
                     if (release.ReleasedPatients.Count == 0)
                     {
                         ReleasedPatientDetails releasePatient;
+                        Application.DoEvents();
                         RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                         foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                         {
@@ -570,6 +573,7 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
 
                     try
                     {
+                        Application.DoEvents();
                         ROIController.Instance.CreateAuditEntry(auditEvent);
                     }
                     catch (ROIException cause)

@@ -155,6 +155,7 @@ namespace McK.EIG.ROI.Client.Base.View
                     auditEvent.Comment = attachment.Name + ", subtitle: " + attachment.Subtitle + ", attachment - " + attachment.FileDetails.FileName + "." + attachment.FileDetails.Extension + " accessed by a 3rd party application.";
                     try
                     {
+                        Application.DoEvents();
                         ROIController.Instance.CreateAuditEntry(auditEvent);
                     }
                     catch (ROIException cause)

@@ -43,6 +43,7 @@ namespace McK.EIG.ROI.Client.Request.View
         private String requestorEmail;
         private OutputDestinationDetails outputDestinationDetails;
         private OutputPropertyDetails outputPropertyDetails;
+        private static SplashScreen splash;
 
         #endregion
 
@@ -71,6 +72,13 @@ namespace McK.EIG.ROI.Client.Request.View
         #endregion
 
         #region Methods
+
+        public static void CloseSplashScreen()
+        {
+            splash.Close();
+            splash.Dispose();
+            splash = null;
+        }
 
         /// <summary>
         /// Localize UI controls.
@@ -289,6 +297,10 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
+            splash = new SplashScreen();
+            splash.BringToFront();
+            splash.TopMost = true;
+            splash.Show();
             this.ParentForm.DialogResult = DialogResult.None;
 
             validatePrimaryFields();

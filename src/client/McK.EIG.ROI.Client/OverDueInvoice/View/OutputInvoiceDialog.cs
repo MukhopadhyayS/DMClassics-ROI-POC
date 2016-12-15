@@ -993,6 +993,7 @@ namespace McK.EIG.ROI.Client.OverDueInvoice.View
 
             try
             {
+                Application.DoEvents();
                 ROIController.Instance.CreateAuditEntry(auditEvent);
                 RequestController.Instance.CreateCommentsList(commentDetails);
             }

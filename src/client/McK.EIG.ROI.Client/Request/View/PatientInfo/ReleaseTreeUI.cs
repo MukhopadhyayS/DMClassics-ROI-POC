@@ -158,6 +158,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             PreviouslyReleased();
             isMessageDisplayed = false; 
             //CR377567
+            Application.DoEvents();
             hasRights = RequestController.Instance.HasSercuirtyRights();
             resendButton.Enabled = !HasPreviouslyReleased;
             if (hasRights == false)

@@ -165,6 +165,7 @@ namespace McK.EIG.ROI.Client.Request.View.Comments
             ROIViewUtility.MarkBusy(true);
             try
             {
+                Application.DoEvents();
                 CommentDetails commentDetails = RequestController.Instance.CreateComment(GetData());
                 newCommentTextBox.Text = string.Empty;
                 EnableButton(false);

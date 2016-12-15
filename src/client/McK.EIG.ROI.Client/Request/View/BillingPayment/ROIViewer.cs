@@ -217,6 +217,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             try
             {
+                Application.DoEvents();
                 outputPropertyDetails = OutputController.Instance.RetrieveDestinations(DestinationType.Print.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
                 if (outputPropertyDetails.OutputDestinationDetails.Count > 0)
                 {
@@ -303,6 +304,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             try
             {
+                Application.DoEvents();
                 outputPropertyDetails = OutputController.Instance.RetrieveDestinations(DestinationType.Fax.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
 
                 if (outputPropertyDetails.OutputDestinationDetails.Count > 0)
@@ -389,6 +391,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             DialogResult dialogResult = DialogResult.OK;
             try
             {
+                Application.DoEvents();
                 outputPropertyDetails = OutputController.Instance.RetrieveDestinations(DestinationType.File.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
 
                 if (outputPropertyDetails.OutputDestinationDetails.Count > 0)
@@ -482,6 +485,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             DialogResult dialogResult = DialogResult.OK;
             try
             {
+                Application.DoEvents();
                 outputPropertyDetails = OutputController.Instance.RetrieveDestinations(DestinationType.Email.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
 
 
@@ -560,9 +564,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             DialogResult dialogResult = DialogResult.OK;
             try
             {
+                Application.DoEvents();
                 outputPropertyDetailsForDisc = OutputController.Instance.RetrieveDestinations(DestinationType.Disc.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
                 if (outputPropertyDetailsForDisc.OutputDestinationDetails.Count > 0)
                 {
+                    Application.DoEvents();
                     outputPropertyDetails = OutputController.Instance.RetrieveDestinations(DestinationType.Print.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture));
                     outputDiscDialog.PrePopulate(outputPropertyDetailsForDisc, outputPropertyDetails);
 

@@ -40,6 +40,7 @@ namespace McK.EIG.ROI.Client.Request.View
         private string requestorFax;
         private OutputPropertyDetails outputPropertyDetails;
         private OutputDestinationDetails outputDestinationDetails;
+        private static SplashScreen splash;
 
         #endregion
 
@@ -64,6 +65,13 @@ namespace McK.EIG.ROI.Client.Request.View
         #endregion
 
         #region Methods
+
+        public static void CloseSplashScreen()
+        {
+            splash.Close();
+            splash.Dispose();
+            splash = null;
+        }
 
         /// <summary>
         /// Localize the UI Controls.
@@ -214,6 +222,10 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
+            splash = new SplashScreen();
+            splash.BringToFront();
+            splash.TopMost = true;
+            splash.Show();
             string faxNumber = numberTextBox.Text.Trim();
             ResourceManager rm = Context.CultureManager.GetCulture(CultureType.Message.ToString());
             ((Form)(this.Parent)).DialogResult = DialogResult.None;
