@@ -163,6 +163,7 @@ public class OutputServerProperties {
             um = getJAXBContext().createUnmarshaller();
         }  catch (Exception e) {
             e.printStackTrace();
+            throw new JAXBException(e);
         }
         return (OutputServerProperties) um.unmarshal(xmlSource);
     }
