@@ -102,8 +102,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private static bool applyTax;
         ReleaseDialog releaseDialog;
         private bool hasRights;
-        public static bool isOnlyNonHPFDocuments = false;
-        private int outputType;
+        public static bool isOnlyNonHPFDocuments = false;        
 
         #endregion
 
@@ -1043,16 +1042,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 PreBillInvoiceDetails preBillInvoiceDetails = CreatePreBillInvoiceDetails(0, string.Empty, new Collection<NotesDetails>(), new Collection<string>(), string.Empty, 0, false, true);
 
                 DestinationType destinationType = RetrieveDestinationType();
-                if (destinationType == DestinationType.File)
-                    outputType = 1;
-                else if (destinationType == DestinationType.Print)
-                    outputType = 2;
-                else if (destinationType == DestinationType.Fax)
-                    outputType = 3;
-                else if (destinationType == DestinationType.Email)
-                    outputType = 4;
-                else if (destinationType == DestinationType.Disc)
-                    outputType = 5;
                 releaseDialog.PrePopulate(coverLetterTemplates, requestorLetterTemplates, invoiceTemplates, defaultCoverLetterId, defaultRequestorLetterID,
                                           defaultInvoiceId, release.TotalPages, preBillInvoiceDetails,
                                           destinationType, request, eventType,
@@ -1421,16 +1410,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             }
             finally
             {
-                if (outputType == 1)
-                    OutputFileDialog.CloseSplashScreen();
-                else if (outputType == 2)
-                    OutputPrintDialog.CloseSplashScreen();
-                else if (outputType == 3)
-                    OutputFaxDialog.CloseSplashScreen();
-                else if (outputType == 4)
-                    OutputEmailDialog.CloseSplashScreen();
-                else if (outputType == 5)
-                    OutputDiscDialog.CloseSplashScreen();
+                OutputFileDialog.CloseSplashScreen();
+                OutputPrintDialog.CloseSplashScreen();
+                OutputFaxDialog.CloseSplashScreen();
+                OutputEmailDialog.CloseSplashScreen();
+                OutputDiscDialog.CloseSplashScreen();
                 ROIViewUtility.MarkBusy(false);
             }
         }
