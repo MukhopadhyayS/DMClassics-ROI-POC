@@ -82,9 +82,12 @@ namespace McK.EIG.ROI.Client.Request.View
         }
         public static void CloseSplashScreen()
         {
-            splash.Close();
-            splash.Dispose();
-            splash = null;
+            if (splash != null)
+            {
+                splash.Close();
+                splash.Dispose();
+                splash = null;
+            }
         }
         /// <summary>
         /// Localize UI controls.
