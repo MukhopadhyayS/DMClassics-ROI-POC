@@ -618,6 +618,11 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             finally
             {
                 IsResend = false;
+                OutputFileDialog.CloseSplashScreen();
+                OutputPrintDialog.CloseSplashScreen();
+                OutputFaxDialog.CloseSplashScreen();
+                OutputEmailDialog.CloseSplashScreen();
+                OutputDiscDialog.CloseSplashScreen();
                 ROIViewUtility.MarkBusy(false);
             }
         }
