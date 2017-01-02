@@ -48,7 +48,7 @@ namespace McK.EIG.ROI.Client.Base.View.Common
             broadcast = true;
             //Cell auto resizing needs to be validated through out the application
             base.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-            base.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            base.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
         }
 
         protected override void OnCellMouseDown(DataGridViewCellMouseEventArgs e)
