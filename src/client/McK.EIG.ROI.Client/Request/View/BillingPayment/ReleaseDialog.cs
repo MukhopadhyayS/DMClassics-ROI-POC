@@ -1320,52 +1320,55 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 }
 
                 bool launchUnappliedPayAdj = false;
-                
-                if (((unappliedAdjustment != 0) || (unappliedPayment != 0))&&InvoiceInfo.InvoiceBalanceDue!=0)
+
+                if (((unappliedAdjustment != 0) || (unappliedPayment != 0)) && InvoiceInfo.InvoiceBalanceDue != 0)
                 {
-
-                    launchUnappliedPayAdj = true;
-                    UnappliedAdjustmentUI unappliedPaymentUI = new UnappliedAdjustmentUI(Pane);
-                    unappliedPaymentUI.Invoiceinfo = InvoiceInfo;
-                    Form form = ROIViewUtility.ConvertToForm(null, "Unapplied Adjustments / Payments", unappliedPaymentUI);
-                    unappliedPaymentUI.Setdata(unappliedPayment, unappliedAdjustment);
-                    totalUnAppliedAdjustmentPayment = unappliedAdjustment + unappliedPayment;
-                    DialogResult results = form.ShowDialog(this);
-                    //User clicked on cancel button.
-                    if (results == DialogResult.Cancel)
-                    {
-                        isApplied = false;
-                        form.Close();
-
-                    }
-                    else //User selected No radio button on dialog. So do not do changes to invoice.
-                    if (results == DialogResult.Ignore)
-                    {
-                        isApplied = true;
-                        form.Close();
-                    }
-                    else //User selected Yes radio button
-                    if (results == DialogResult.OK)
-                    {
-                        double invoiceBalance = InvoiceInfo.InvoiceBalanceDue;
-                        if (InvoiceInfo.InvoiceBalanceDue > (unappliedAdjustment + unappliedPayment))
+                        totalUnAppliedAdjustmentPayment = unappliedAdjustment + unappliedPayment;
+                        if (IsAllowed(ROISecurityRights.ROIPostPayment))
                         {
-                            appliedAmount = (unappliedAdjustment + unappliedPayment);
-                            //InvoiceInfo.InvoiceBalanceDue = InvoiceInfo.InvoiceBalanceDue - appliedAmount;
-                        }
-                        else
-                        {
-                            appliedAmount = InvoiceInfo.InvoiceBalanceDue;
-                            //InvoiceInfo.InvoiceBalanceDue = 0;
-                        }
-                        isApplied = true;
-                        AppliedAmount = appliedAmount;
-                        totalUnAppliedAdjustmentPayment = unappliedAdjustment + unappliedPayment - invoiceBalance;
-                        if (totalUnAppliedAdjustmentPayment < 0)
-                        {
-                            totalUnAppliedAdjustmentPayment = 0.0;
-                        }
+                            launchUnappliedPayAdj = true;
+                            UnappliedAdjustmentUI unappliedPaymentUI = new UnappliedAdjustmentUI(Pane);
+                            unappliedPaymentUI.Invoiceinfo = InvoiceInfo;
+                            Form form = ROIViewUtility.ConvertToForm(null, "Unapplied Adjustments / Payments", unappliedPaymentUI);
+                            unappliedPaymentUI.Setdata(unappliedPayment, unappliedAdjustment);                          
+                        
+                            DialogResult results = form.ShowDialog(this);
+                            //User clicked on cancel button.
+                            if (results == DialogResult.Cancel)
+                            {
+                                isApplied = false;
+                                form.Close();
 
+                            }
+                            else //User selected No radio button on dialog. So do not do changes to invoice.
+                                if (results == DialogResult.Ignore)
+                                {
+                                    isApplied = true;
+                                    form.Close();
+                                }
+                                else //User selected Yes radio button
+                                    if (results == DialogResult.OK)
+                                    {
+                                        double invoiceBalance = InvoiceInfo.InvoiceBalanceDue;
+                                        if (InvoiceInfo.InvoiceBalanceDue > (unappliedAdjustment + unappliedPayment))
+                                        {
+                                            appliedAmount = (unappliedAdjustment + unappliedPayment);
+                                            //InvoiceInfo.InvoiceBalanceDue = InvoiceInfo.InvoiceBalanceDue - appliedAmount;
+                                        }
+                                        else
+                                        {
+                                            appliedAmount = InvoiceInfo.InvoiceBalanceDue;
+                                            //InvoiceInfo.InvoiceBalanceDue = 0;
+                                        }
+                                        isApplied = true;
+                                        AppliedAmount = appliedAmount;
+                                        totalUnAppliedAdjustmentPayment = unappliedAdjustment + unappliedPayment - invoiceBalance;
+                                        if (totalUnAppliedAdjustmentPayment < 0)
+                                        {
+                                            totalUnAppliedAdjustmentPayment = 0.0;
+                                        }
+
+                                    }
                     }
                 }
 
@@ -1590,7 +1593,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                 }
                             }
                         }
-                        Application.DoEvents();
                         BillingController.Instance.updateInvoiceOutputProperties(invoiceId, letterId, releaseId, forInvoice,
                                                                                  forLetter, forRelease, queueSecure, outputMethod);
                         if (statementCheckBox.Checked)
@@ -1677,7 +1679,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 details.EventRemarks = documentName.Substring(0, documentName.LastIndexOf('.')) + ", output method: " +
                                        tempDestinationType + ", " + outputName;
             }
-            Application.DoEvents();
             RequestController.Instance.CreateComment(details);
             if (coverLetterCheckBox.Checked)
             {
@@ -1702,7 +1703,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 {
                     letterDetails.EventRemarks = coverLetterName;
                 }
-                Application.DoEvents();
                 RequestController.Instance.CreateComment(letterDetails);
             }
         }
