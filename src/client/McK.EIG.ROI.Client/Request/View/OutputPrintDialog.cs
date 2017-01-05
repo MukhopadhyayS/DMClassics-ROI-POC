@@ -293,10 +293,13 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
-            splash = new SplashScreen();
-            splash.BringToFront();
-            splash.TopMost = true;
-            splash.Show();
+            if (splash == null)
+            {
+                splash = new SplashScreen();
+                splash.BringToFront();
+                splash.TopMost = true;
+                splash.Show();
+            }
             if (propertyResult == DialogResult.OK)
             {
                 outputDestinationDetails.PropertyDefinitions.Clear();
