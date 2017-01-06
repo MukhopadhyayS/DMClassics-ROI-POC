@@ -479,13 +479,8 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
-            if (splash == null)
-            {
-                splash = new SplashScreen();
-                splash.BringToFront();
-                splash.TopMost = true;
-                splash.Show();
-            }
+            Boolean hasErrors = false;
+            
             this.ParentForm.DialogResult = DialogResult.OK;
             if (outputDestinationDetailsForDisc.PasswordRequired)
             {
@@ -494,8 +489,16 @@ namespace McK.EIG.ROI.Client.Request.View
                     ResourceManager rm = Context.CultureManager.GetCulture(CultureType.Message.ToString());
                     this.ParentForm.DialogResult = DialogResult.None;
                     errorProvider.SetError(passwordTextBox, rm.GetString(ROIErrorCodes.FilePasswordEmpty));
+                    hasErrors = true;
                     return;
                 }
+            }
+            if (splash == null && hasErrors==false)
+            {
+                splash = new SplashScreen();
+                splash.BringToFront();
+                splash.TopMost = true;
+                splash.Show();
             }
             /*
             if (("Active").Equals(outputDestinationDetailsForDisc.Status))
