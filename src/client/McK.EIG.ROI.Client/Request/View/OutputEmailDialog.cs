@@ -300,13 +300,6 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
-            if (splash == null)
-            {
-                splash = new SplashScreen();
-                splash.BringToFront();
-                splash.TopMost = true;
-                splash.Show();
-            }
             this.ParentForm.DialogResult = DialogResult.None;
 
             validatePrimaryFields();
@@ -419,6 +412,14 @@ namespace McK.EIG.ROI.Client.Request.View
             else
             {
                 this.ParentForm.DialogResult = DialogResult.OK;
+            }
+
+            if (splash == null && hasErrors==false)
+            {
+                splash = new SplashScreen();
+                splash.BringToFront();
+                splash.TopMost = true;
+                splash.Show();
             }
 
         }

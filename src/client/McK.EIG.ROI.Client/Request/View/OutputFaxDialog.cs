@@ -225,13 +225,7 @@ namespace McK.EIG.ROI.Client.Request.View
         private void okButton_Click(object sender, EventArgs e)
         {
             ROIViewUtility.MarkBusy(true);
-            if (splash == null)
-            {
-                splash = new SplashScreen();
-                splash.BringToFront();
-                splash.TopMost = true;
-                splash.Show();
-            }
+            Boolean hasErrors = false;
             string faxNumber = numberTextBox.Text.Trim();
             ResourceManager rm = Context.CultureManager.GetCulture(CultureType.Message.ToString());
             ((Form)(this.Parent)).DialogResult = DialogResult.None;
@@ -241,6 +235,7 @@ namespace McK.EIG.ROI.Client.Request.View
                 if (!Validator.Validate(faxNumber, ROIConstants.FaxValidation))
                 {
                     errorProvider.SetError(numberTextBox, rm.GetString(ROIErrorCodes.InvalidFax));
+                    hasErrors = true;
                 }
                 else
                 {
@@ -250,8 +245,16 @@ namespace McK.EIG.ROI.Client.Request.View
             else
             {
                 errorProvider.SetError(numberTextBox, rm.GetString(ROIErrorCodes.FaxNumberEmpty));
+                hasErrors = true;
             }
 
+            if (splash == null && hasErrors==false)
+            {
+                splash = new SplashScreen();
+                splash.BringToFront();
+                splash.TopMost = true;
+                splash.Show();
+            }
             outputPropertyDetails.OutputViewDetails.IsHeader            = headerCheckBox.Checked;
             outputPropertyDetails.OutputViewDetails.IsFooter            = footerCheckBox.Checked;
             outputPropertyDetails.OutputViewDetails.IsWatermark         = watermarkCheckBox.Checked;
