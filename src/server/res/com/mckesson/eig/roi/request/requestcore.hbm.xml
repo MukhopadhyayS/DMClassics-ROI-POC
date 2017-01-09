@@ -712,7 +712,7 @@
     <sql-query name="retriveProductivityReportDetailsFirstLevel">
 	   <![CDATA[
  		SELECT FullName, UserInstanceId into #temp from [USERS] where FullName in (:userName)
-	   SELECT facility,userName,requestorType,billable,createDate,reqID,pageType,patientName,
+	   SELECT facility,userName,requestorType,requestorName,billable,createDate,reqID,pageType,patientName,
 			       mrn,
 			      reqIdCount, 
 	sum(pages) pages      
@@ -724,6 +724,7 @@
 			      usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      '' requestorType,
+			       '' requestorName,
 			      '' billable,     
 			      null createDate,
 			      '' reqID,
@@ -772,6 +773,7 @@
 			      usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      '' requestorType,
+			       '' requestorName,
 			      '' billable,     
 			      null createDate,
 			      '' reqID,
@@ -817,6 +819,7 @@
 				  usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      '' requestorType,
+			       '' requestorName,
 			      '' billable,     
 			      null createDate,
 			      '' reqID,
@@ -861,6 +864,7 @@
 				  usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      '' requestorType,
+			       '' requestorName,
 			      '' billable,     
 			      null createDate,
 			      '' reqID,
@@ -904,6 +908,7 @@
                     usr.FullName userName,
                     rcdc.FACILITY_NAME facility,
                     '' requestorType,
+                     '' requestorName,
                     '' billable,     
                     null createDate,
                     '' reqID,
@@ -948,6 +953,7 @@
 			      usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      '' requestorType,
+			       '' requestorName,
 			      '' billable,     
 			      null createDate,
 			      '' reqID,
@@ -990,7 +996,7 @@
 			      rcd.FACILITY_NAME, usr.fullNAME
 			)       
 		      ) as temp
-                group by facility,UserName,requestorType,billable,createDate,reqID,pageType,patientName,
+                group by facility,UserName,requestorType,requestorName,billable,createDate,reqID,pageType,patientName,
 			       mrn,reqIdCount
 
 	    ]]>
@@ -999,7 +1005,7 @@
    <sql-query name="retriveProductivityReportDetailsSecondLevel">
 	   <![CDATA[
  		SELECT FullName, UserInstanceId into #temp from [USERS] where FullName in (:userName)
-     SELECT facility,userName,requestorType,patientName,reqID,SUM(pages) pages,mrn,billable,createDate,pageType,
+     SELECT facility,userName,requestorType,requestorName,patientName,reqID,SUM(pages) pages,mrn,billable,createDate,pageType,
 	           Count(distinct reqIDValue) reqIDCount
            
     from 
@@ -1009,6 +1015,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      '' patientName,
 			      '' reqID,
 			      '' mrn,
@@ -1047,7 +1054,7 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   		
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
 			      
 			)
 			union all
@@ -1056,6 +1063,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      '' patientName,
 			      '' reqID,
 			      '' mrn,
@@ -1093,7 +1101,7 @@
 				  and requestSupplementalPatient.ROI_RequestCore_Seq = reqCore.ROI_RequestCore_Seq   	   
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq 
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq 
 			      
 			)
 			union all
@@ -1102,6 +1110,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      '' patientName,
 			      '' reqID,
 			      '' mrn,
@@ -1138,7 +1147,7 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   		
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
 			      
 			)
 			union all
@@ -1147,6 +1156,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      '' patientName,
 			      '' reqID,
 			      '' mrn,
@@ -1182,7 +1192,7 @@
 			      and rcd.Type = 'Invoice'
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   	
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name,req.NameLast,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
 			      )
 			union all
                  (-- NON HPF Patients Attachments
@@ -1190,6 +1200,7 @@
                        rcdc.FACILITY_NAME facility,
                        usr.FullName userName,
                        reqType.Name requestorType,
+                       req.NameLast requestorName,
                        '' patientName,
                        '' reqID,
                        '' mrn,
@@ -1226,7 +1237,7 @@
                        and rcdc.Type = 'Invoice'
                        and suppCore.ROI_SupplementalPatientsCore_Seq = reqCorePat.ROI_SupplementalPatientsCore_Seq
                  GROUP BY
-                       rcdc.FACILITY_NAME, usr.fullNAME ,reqType.Name,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
+                       rcdc.FACILITY_NAME, usr.fullNAME ,reqType.Name,req.NameLast,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
                         ) 
                         
                  union all
@@ -1235,6 +1246,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      '' patientName,
 			      '' reqID,
 			      '' mrn,
@@ -1273,10 +1285,10 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   		
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable,reqCore.ROI_RequestCore_Seq
 			)       
 			      ) as temp
-               group by facility,userName,requestorType,patientName,reqID,mrn,billable,createDate,pageType
+               group by facility,userName,requestorType,requestorName,patientName,reqID,mrn,billable,createDate,pageType
 	                         
           ]]>
    </sql-query>
@@ -1284,7 +1296,7 @@
    <sql-query name="retriveProductivityReportDetailsThirdLevel">
 	   <![CDATA[
  		SELECT FullName, UserInstanceId into #temp from [USERS] where FullName in (:userName)
-        SELECT facility,userName,requestorType,billable,createDate,reqID,pageType,patientName,
+        SELECT facility,userName,requestorType,requestorName,billable,createDate,reqID,pageType,patientName,
 			      mrn,
 			      reqIdCount, 
 	              sum(pages) pages      
@@ -1296,6 +1308,7 @@
 			      usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      reqCore.Unbillable billable,     
 			      reqCore.Created_Dt createDate,
 			      reqCore.ROI_RequestCore_Seq reqID,
@@ -1335,7 +1348,7 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq  
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
 			      
 			)
 			union all
@@ -1344,6 +1357,7 @@
 			      usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      reqCore.Unbillable billable,     
 			      reqCore.Created_Dt createDate,
 			      reqCore.ROI_RequestCore_Seq reqID,
@@ -1382,7 +1396,7 @@
 				  and requestSupplementalPatient.ROI_RequestCore_Seq = reqCore.ROI_RequestCore_Seq      
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
 			      
 			)
 			union all
@@ -1391,6 +1405,7 @@
 				  usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      reqCore.Unbillable billable,     
 			      reqCore.Created_Dt createDate,
 			      reqCore.ROI_RequestCore_Seq reqID,
@@ -1428,7 +1443,7 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   	
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
 			 
 			)
 			union all
@@ -1437,6 +1452,7 @@
 				  usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      reqCore.Unbillable billable,     
 			      reqCore.Created_Dt createDate,
 			      reqCore.ROI_RequestCore_Seq reqID,
@@ -1473,7 +1489,7 @@
 			      and rcd.Type = 'Invoice'
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   	
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name,req.NameLast,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
 			      )
 			      union all
                        (-- Non HPF Patients Attachments 
@@ -1481,6 +1497,7 @@
                        usr.FullName userName,
                        rcdc.FACILITY_NAME facility,
                        reqType.Name requestorType,
+                       req.NameLast requestorName,
                        reqCore.Unbillable billable,     
                        reqCore.Created_Dt createDate,
                        reqCore.ROI_RequestCore_Seq reqID,
@@ -1517,7 +1534,7 @@
                        and rcdc.Type = 'Invoice'
                        and suppCore.ROI_SupplementalPatientsCore_Seq = reqCorePat.ROI_SupplementalPatientsCore_Seq
                  GROUP BY
-                       rcdc.FACILITY_NAME, usr.fullNAME,reqType.Name,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
+                       rcdc.FACILITY_NAME, usr.fullNAME,reqType.Name,req.NameLast,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
                        )
                        
                  union all
@@ -1526,6 +1543,7 @@
 			      usr.FullName userName,
 			      rcd.FACILITY_NAME facility,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      reqCore.Unbillable billable,     
 			      reqCore.Created_Dt createDate,
 			      reqCore.ROI_RequestCore_Seq reqID,
@@ -1564,22 +1582,22 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   		
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
+			      rcd.FACILITY_NAME, usr.fullNAME ,reqType.Name ,req.NameLast,reqCore.Unbillable, reqCore.Created_Dt,reqCore.ROI_RequestCore_Seq
 			      
 	        )
 			      
 			      ) as temp
-                group by facility,UserName,requestorType,billable,createDate,reqID,pageType,patientName,
+                group by facility,UserName,requestorType,requestorName,billable,createDate,reqID,pageType,patientName,
 			       mrn,reqIdCount
 			     		      
        
 	   ]]>
    </sql-query>
      
-   <sql-query name="retriveProductivityReportDetailsFourthLevel">
+    <sql-query name="retriveProductivityReportDetailsFourthLevel">
 	   <![CDATA[
  		SELECT FullName, UserInstanceId into #temp from [USERS] where FullName in (:userName)
-    SELECT facility,userName,requestorType,patientName,reqID,SUM(pages) pages,mrn,billable,createDate,pageType,
+    SELECT facility,userName,requestorType,requestorName,patientName,reqID,SUM(pages) pages,mrn,billable,createDate,pageType,
 	           reqIDCount
 	                 
     from 
@@ -1589,6 +1607,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      pat.NAME patientName,
 			      reqCore.ROI_RequestCore_Seq reqID,
 			      pat.MRN mrn,
@@ -1627,7 +1646,7 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   		
 			      
 			GROUP BY
-			       rcd.FACILITY_NAME,usr.FullName,reqType.Name,reqCore.ROI_RequestCore_Seq,pat.MRN,
+			       rcd.FACILITY_NAME,usr.FullName,reqType.Name,req.NameLast,reqCore.ROI_RequestCore_Seq,pat.MRN,
 			      pat.NAME,reqCore.Unbillable, reqCore.Created_Dt
 			      
 			)
@@ -1637,6 +1656,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      supplementalPatient.LASTNAME + ',' + supplementalPatient.FIRSTNAME patientName,
 			      reqCore.ROI_RequestCore_Seq reqID,
 			      supplementalPatient.MRN mrn,
@@ -1674,7 +1694,7 @@
 				  and requestSupplementalPatient.ROI_RequestCore_Seq = reqCore.ROI_RequestCore_Seq  	    
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,reqCore.ROI_RequestCore_Seq,
+			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,req.NameLast,reqCore.ROI_RequestCore_Seq,
 			      supplementalPatient.LASTNAME , supplementalPatient.FIRSTNAME,supplementalPatient.MRN,
 			      reqCore.Unbillable, reqCore.Created_Dt
 			      
@@ -1685,6 +1705,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      pat.NAME patientName,
 			      reqCore.ROI_RequestCore_Seq reqID,
 			      pat.MRN mrn,
@@ -1721,7 +1742,7 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   		
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,reqCore.ROI_RequestCore_Seq,pat.MRN,
+			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,req.NameLast,reqCore.ROI_RequestCore_Seq,pat.MRN,
 			      pat.NAME,reqCore.Unbillable, reqCore.Created_Dt
 			      
 			)
@@ -1731,6 +1752,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      pat.NAME patientName,
 			      reqCore.ROI_RequestCore_Seq reqID,
 			      pat.MRN mrn,
@@ -1766,7 +1788,7 @@
 			      and rcd.Type = 'Invoice'
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   	
 			GROUP BY
-			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,reqCore.ROI_RequestCore_Seq,pat.MRN,
+			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,req.NameLast,reqCore.ROI_RequestCore_Seq,pat.MRN,
 			      pat.NAME,reqCore.Unbillable, reqCore.Created_Dt
 			      )
 			      union all
@@ -1775,6 +1797,7 @@
                         rcdc.FACILITY_NAME facility,
                         usr.FullName userName,
                         reqType.Name requestorType,
+                        req.NameLast requestorName,
                         pat.LASTNAME + ',' + pat.FIRSTNAME patientName,
                         reqCore.ROI_RequestCore_Seq reqID,
                         pat.MRN mrn,
@@ -1811,7 +1834,7 @@
                         and rcdc.Type = 'Invoice'
                         and suppCore.ROI_SupplementalPatientsCore_Seq = reqCorePat.ROI_SupplementalPatientsCore_Seq
                   GROUP BY
-                        rcdc.FACILITY_NAME,usr.FullName,reqType.Name,reqCore.ROI_RequestCore_Seq,pat.MRN,
+                        rcdc.FACILITY_NAME,usr.FullName,reqType.Name,req.NameLast,reqCore.ROI_RequestCore_Seq,pat.MRN,
                         pat.LASTNAME,pat.firstname,reqCore.Unbillable, reqCore.Created_Dt
                   )
                   
@@ -1821,6 +1844,7 @@
 			      rcd.FACILITY_NAME facility,
 			      usr.FullName userName,
 			      reqType.Name requestorType,
+			      req.NameLast requestorName,
 			      pat.NAME patientName,
 			      reqCore.ROI_RequestCore_Seq reqID,
 			      pat.MRN mrn,
@@ -1859,14 +1883,14 @@
 				  and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   		
 			      
 			GROUP BY
-			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,reqCore.ROI_RequestCore_Seq,pat.MRN,
+			      rcd.FACILITY_NAME,usr.FullName,reqType.Name,req.NameLast,reqCore.ROI_RequestCore_Seq,pat.MRN,
 			      pat.NAME,reqCore.Unbillable, reqCore.Created_Dt
 	        )
 			      
 			      ) as temp
-               group by facility,userName,requestorType,patientName,reqID,mrn,billable,createDate,pageType,reqIDCount
+               group by facility,userName,requestorType,requestorName,patientName,reqID,mrn,billable,createDate,pageType,reqIDCount
 	           
 	    ]]>
-   </sql-query>              
+   </sql-query>          
                    
 </hibernate-mapping>

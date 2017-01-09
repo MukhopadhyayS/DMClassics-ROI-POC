@@ -1395,6 +1395,7 @@ implements RequestCoreService {
                       rptList.get(i).getFacility().trim(),
                       rptList.get(i).getUserName(),
                       rptList.get(i).getRequestorType(),
+                      rptList.get(i).getRequestorName(),
                       rptList.get(i).getPatientName().trim(),
                       rptList.get(i).getReqID(),
                       rptList.get(i).getPages(),
