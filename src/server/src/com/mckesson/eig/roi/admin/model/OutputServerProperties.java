@@ -162,7 +162,7 @@ public class OutputServerProperties {
             xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), source);
             um = getJAXBContext().createUnmarshaller();
         }  catch (Exception e) {
-            e.printStackTrace();
+    
             throw new JAXBException(e);
         }
         return (OutputServerProperties) um.unmarshal(xmlSource);
