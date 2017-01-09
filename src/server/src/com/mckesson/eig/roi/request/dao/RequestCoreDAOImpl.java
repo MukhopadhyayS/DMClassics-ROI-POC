@@ -980,6 +980,9 @@ implements RequestCoreDAO {
             query.addScalar("userName", Hibernate.STRING);
             query.addScalar("patientName", Hibernate.STRING);
             query.addScalar("requestorType", Hibernate.STRING);
+            //if("\"Request ID,MRN\"".equalsIgnoreCase(resultType)){
+               query.addScalar("requestorName", Hibernate.STRING);
+            //}
             query.addScalar("billable", Hibernate.STRING);
             query.addScalar("createDate", Hibernate.TIMESTAMP);
             query.addScalar("pageType", Hibernate.STRING);

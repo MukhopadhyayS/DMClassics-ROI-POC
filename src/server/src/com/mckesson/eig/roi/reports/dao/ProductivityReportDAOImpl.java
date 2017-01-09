@@ -32,14 +32,15 @@ public class ProductivityReportDAOImpl extends ROIReportDAOImpl {
     private static final int FACILITY_POSITION = 0;
     private static final int USER_NAME = 1;
     private static final int REQUESTOR_TYPE = 2;
-    private static final int PATIENT_NAME = 3;
-    private static final int REQUEST_ID = 4;
-    private static final int PAGES = 5;
-    private static final int MRN = 6;
-    private static final int BILLABLE = 7;
-    private static final int CREATEDATE = 8;
-    private static final int PAGETYPE = 9;
-    private static final int REQUESTS = 10;
+    private static final int REQUESTOR_NAME = 3;
+    private static final int PATIENT_NAME = 4;
+    private static final int REQUEST_ID = 5;
+    private static final int PAGES = 6;
+    private static final int MRN = 7;
+    private static final int BILLABLE = 8;
+    private static final int CREATEDATE = 9;
+    private static final int PAGETYPE = 10;
+    private static final int REQUESTS = 11;
     
     private static final String DUMMY_DATE = "01/01/2012 01:01:01";
 
@@ -158,7 +159,7 @@ public class ProductivityReportDAOImpl extends ROIReportDAOImpl {
     private String getHeaders() {
 
         return new StringBuffer()
-                .append("Facility,UserName,RequestorType,PatientName,RequestID,Pages,MRN,Billable,CreateDate,Page Type,Requests")
+                .append("Facility,UserName,RequestorType,RequestorName,PatientName,RequestID,Pages,MRN,Billable,CreateDate,Page Type,Requests")
                 .toString();
     }
 
@@ -181,6 +182,8 @@ public class ProductivityReportDAOImpl extends ROIReportDAOImpl {
                     .append(ROIReportUtil.getStringCsv(result, USER_NAME))
                     .append(CSV_DELIM)
                     .append(ROIReportUtil.getStringCsv(result, REQUESTOR_TYPE))
+                    .append(CSV_DELIM)
+                    .append(ROIReportUtil.getStringCsv(result, REQUESTOR_NAME))
                     .append(CSV_DELIM)
                     .append(ROIReportUtil.getStringCsv(result, PATIENT_NAME))
                     .append(CSV_DELIM)
@@ -220,13 +223,15 @@ public class ProductivityReportDAOImpl extends ROIReportDAOImpl {
             LOG.debug(logSM + ">>Start");
         }
         Object[] result = {facilityName, null, null, null, null, null, null,
-                null, DUMMY_DATE, null, null};
+                null, DUMMY_DATE, null, null, null};
         String csvData = new StringBuffer()
                 .append(ROIReportUtil.getStringCsv(result, FACILITY_POSITION))
                 .append(CSV_DELIM)
                 .append(ROIReportUtil.getStringCsv(result, USER_NAME))
                 .append(CSV_DELIM)
                 .append(ROIReportUtil.getStringCsv(result, REQUESTOR_TYPE))
+                .append(CSV_DELIM)
+                .append(ROIReportUtil.getStringCsv(result, REQUESTOR_NAME))
                 .append(CSV_DELIM)
                 .append(ROIReportUtil.getStringCsv(result, PATIENT_NAME))
                 .append(CSV_DELIM)

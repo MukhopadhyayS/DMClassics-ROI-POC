@@ -18,6 +18,7 @@ public class ProductivityReportDetails implements Serializable {
     private String pageType;
     private int pages;
     private int reqIDCount;
+    private String requestorName;
     
     
     public int getPages() {
@@ -89,6 +90,12 @@ public class ProductivityReportDetails implements Serializable {
     }
     public static long getSerialversionuid() {
         return serialVersionUID;
+    }
+    public String getRequestorName() {
+        return requestorName;
+    }
+    public void setRequestorName(String requestorName) {
+        this.requestorName = requestorName;
     }
    
    
