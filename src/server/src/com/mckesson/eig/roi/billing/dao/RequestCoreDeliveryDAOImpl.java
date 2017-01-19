@@ -30,6 +30,7 @@ import com.mckesson.eig.roi.billing.model.CoverLetterCore;
 import com.mckesson.eig.roi.billing.model.Invoice;
 import com.mckesson.eig.roi.billing.model.InvoiceAndLetterOutputProperties;
 import com.mckesson.eig.roi.billing.model.InvoiceHistory;
+import com.mckesson.eig.roi.billing.model.InvoiceOrPrebillAndPreviewInfo;
 import com.mckesson.eig.roi.billing.model.PastInvoice;
 import com.mckesson.eig.roi.billing.model.PostPaymentReportDetails;
 import com.mckesson.eig.roi.billing.model.PrebillReportDetails;
@@ -46,6 +47,7 @@ import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.utility.log.Log;
 import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
+import com.mckesson.eig.utility.util.StringUtilities;
 
 
 public class RequestCoreDeliveryDAOImpl
@@ -3290,6 +3292,119 @@ implements RequestCoreDeliveryDAO {
                                    e.getMessage());
         }
 
+    }
+	//US16834 changes to Include requests in the pre-bill status on the payments popup(This function will convert prebill payments to invoice payments).
+    public void updatePrebillPaymentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo) {
+        final String logSM = "updatePrebillPaymentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + invOrPrebillPreviewInfo.getRequestCoreId());
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("updatePrebillPaymentsToInvoice").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+	//US16834 changes to Include requests in the pre-bill status on the payments popup(This function will check if there is any prebill payment).
+    public boolean IsPrebillPaymentExists(long requestId) {
+        final String logSM = "IsPrebillPaymentExists(long requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("IsPrebillPaymentExists").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+           
+            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
+
+            BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
+            
+            if (value != null && value.doubleValue() != 0.0) {
+                return true;
+            }
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+            return false;
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+	//US16834 changes to Include requests in the pre-bill status on the payments popup.(this function will calculate total post prebill payments)
+    public double TotalPostPrebillPayments(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo){      
+        
+        final String logSM = "TotalPostPrebillPayments(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + invOrPrebillPreviewInfo.getRequestCoreId());
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("TotalPostPrebillPayments").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+           
+            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(), Hibernate.LONG);
+            sqlQuery.setParameter("Charge", invOrPrebillPreviewInfo.getBaseCharge(), Hibernate.DOUBLE);
+
+            BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
+            double Doublevalue = value.doubleValue();
+            
+            
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
+            }
+            return Doublevalue;
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+                
+        
     }
 
 }

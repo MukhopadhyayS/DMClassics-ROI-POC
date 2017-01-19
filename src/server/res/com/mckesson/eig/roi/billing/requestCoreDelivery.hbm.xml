@@ -1026,8 +1026,16 @@
 
    <sql-query name="updateInvoiceBalance">
         <![CDATA[
+         if exists (select 1 from cabinet..ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq = :invoiceId and type = 'Invoice')
 			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
 				SET Invoice_Balance_Due = :invoiceBalance,
+				Modified_Dt = :modifiedDt,
+				Modified_By_Seq = :modifiedBy
+				WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+		else
+		
+			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+				SET Balance_Due = :invoiceBalance,
 				Modified_Dt = :modifiedDt,
 				Modified_By_Seq = :modifiedBy
 				WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
@@ -2262,5 +2270,32 @@
            WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId 
         ]]>
     </sql-query>
+     <sql-query name="updatePrebillPaymentsToInvoice">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
+		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc )
+				
+		WHERE 
+			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Prebill' )
+									
+   		]]>
+   </sql-query>
+    <sql-query name="IsPrebillPaymentExists">
+  	 <![CDATA[
+		SELECT top 1 Amount from ROI_RequestCoreDeliveryCharges rcd, ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdp 
+		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcdp.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId
+									
+   		]]>
+   </sql-query>
+   <sql-query name="TotalPostPrebillPayments">
+  	 <![CDATA[
+  	 
+  	 	select COALESCE(sum(Amount), 0)  from cabinet..ROI_RequestCoreDeliveryCharges rcd, cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdp 
+		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcdp.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId and rcd.Type = 'Prebill' and rcd.Base_Charge <> :Charge ;
+									
+   		]]>
+   </sql-query>
+   
         
 </hibernate-mapping>

@@ -1486,6 +1486,11 @@ implements RequestorDAO {
                     RequestorPayment paymentInfo = (RequestorPayment) object;
 
                     int index = 1;
+                    pStmt.setLong(index++, paymentInfo.getRequestCoreDeliveryChargesId());
+                    pStmt.setDouble(index++,  paymentInfo.getInvoiceBalance());
+                    pStmt.setTimestamp(index++, getSQLTimeStamp(paymentInfo.getModifiedDt()));
+                    pStmt.setLong(index++, paymentInfo.getModifiedBy());
+                    pStmt.setLong(index++, paymentInfo.getRequestCoreDeliveryChargesId());
                     pStmt.setDouble(index++,  paymentInfo.getInvoiceBalance());
                     pStmt.setTimestamp(index++, getSQLTimeStamp(paymentInfo.getModifiedDt()));
                     pStmt.setLong(index++, paymentInfo.getModifiedBy());
@@ -1493,7 +1498,6 @@ implements RequestorDAO {
 
                 }
             };
-
             String query = session.getNamedQuery("updateRequestorInvoice").getQueryString();
             processor.execute(paymentList, query);
 

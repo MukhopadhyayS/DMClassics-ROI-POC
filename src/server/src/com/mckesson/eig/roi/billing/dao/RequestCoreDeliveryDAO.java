@@ -9,6 +9,7 @@ import com.mckesson.eig.roi.billing.model.ChargeHistoryList;
 import com.mckesson.eig.roi.billing.model.CoverLetterCore;
 import com.mckesson.eig.roi.billing.model.InvoiceAndLetterOutputProperties;
 import com.mckesson.eig.roi.billing.model.InvoiceHistory;
+import com.mckesson.eig.roi.billing.model.InvoiceOrPrebillAndPreviewInfo;
 import com.mckesson.eig.roi.billing.model.PastInvoice;
 import com.mckesson.eig.roi.billing.model.PostPaymentReportDetails;
 import com.mckesson.eig.roi.billing.model.PrebillReportDetails;
@@ -514,5 +515,12 @@ extends ROIDAO {
      void deleteAllMappedAdjustmentInvoicesByInvoiceId(long invoiceId);
 
      void deleteAllMappedPaymentInvoicesByInvoiceId(long invoiceId);
+     //US16834 changes to Include requests in the pre-bill status on the payments popup.(added new functions)
+     void updatePrebillPaymentsToInvoice(
+             InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
 
+     boolean IsPrebillPaymentExists(long requestId);
+
+    double TotalPostPrebillPayments(
+            InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo); 
 }
