@@ -130,7 +130,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
         /// </summary>
         private void InitGrid()
         {
-            DataGridViewTextBoxColumn dgvInvoiceIdColumn = paymentGrid.AddTextBoxColumn(InvoiceIdColumn, "Invoice #", "Id", 80);
+            //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+            DataGridViewTextBoxColumn dgvInvoiceIdColumn = paymentGrid.AddTextBoxColumn(InvoiceIdColumn, "Invoice/Pre-bill #", "Id", 80);
             dgvInvoiceIdColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             DataGridViewTextBoxColumn requestIdColumn = paymentGrid.AddTextBoxColumn(RequestIdColumn, "Request ID", "RequestId", 80);
             requestIdColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;

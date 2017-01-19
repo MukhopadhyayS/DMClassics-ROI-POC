@@ -102,9 +102,15 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private static bool applyTax;
         ReleaseDialog releaseDialog;
         private bool hasRights;
-        public static bool isOnlyNonHPFDocuments = false;        
+        public static bool isOnlyNonHPFDocuments = false;
+        public double balanceDuePrebill;
 
         #endregion
+
+        public double BalanceDuePreBill
+        {
+            get { return balanceDuePrebill; }
+        }
 
         #region Constructor
 
@@ -391,10 +397,17 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                     double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
                     //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - paymentUI.TotalApplyAmount + appliedAmount);
-                    if ((releaseDialog != null) || (request.Status == RequestStatus.Completed)  )
-                    { balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount); }
+                    //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+                    if ((releaseDialog != null) || (request.Status == RequestStatus.Completed) ||(request.Status == RequestStatus.PreBilled) )
+                    {
+                        balanceDuePrebill = balance - paymentUI.TotalApplyAmount;
+                        balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount);
+                    }
                     else
-                    { balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue); }
+                    {
+                        balanceDuePrebill = balanceDue;
+                        balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue); 
+                    }
 
                     release.UnAppliedTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
                     UnAppliedAdjustmentPaymentTotal += Math.Abs(release.PaymentTotal - paymentUI.TotalPaymentAmount);
@@ -3909,18 +3922,32 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             double adjustmentTotal = AdjustmentPaymentTotal;
             double unAppliedAdjPayTotal = UnAppliedAdjustmentPaymentTotal;
             double balanceDue = BalanceDue;
-            
-            if (releaseDialog != null)
+            double balance;
+
+            if (releaseDialog != null )
             {
                 double appliedAmount = Convert.ToDouble(adjPaymentTotalValueLabel.Text.Trim().Substring(1, adjPaymentTotalValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(releaseDialog.AppliedAmount + appliedAmount);
+                //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+                double adjPaymentValue = releaseDialog.AppliedAmount + appliedAmount;
+                if (adjPaymentValue >= PreviouslyReleasedCost)
+                {
+                    adjPaymentValue = PreviouslyReleasedCost;
+                    balance = 0.0;
+                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjPaymentValue);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance);
+                }
+                else
+                {
+                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjPaymentValue);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(PreviouslyReleasedCost - adjPaymentValue);
+                }
                 unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(releaseDialog.TotalUnAppliedAdjustmentPayment);
-                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - releaseDialog.AppliedAmount);
             }
             else
             {
                 unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
                 adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
+                balanceDuePrebill = balanceDue;
                 balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
             }
             
@@ -3986,6 +4013,75 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             //Invioce Sales Tax Amount
             totalInvoicedTaxValueLabel.Text = ((!salesTaxSummaryUI.IsEnabled) ? ReleaseDetails.FormattedAmount(release.InvoicesSalesTaxAmount) :
                                                ReleaseDetails.FormattedAmount(release.InvoicesSalesTaxAmount + salesTaxSummaryUI.TotalTaxAmount)) + "   )";
+        }
+
+        //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+        private void updateBalancePrebill()
+        {            
+            double UnbillableAmt = 0;
+            double totalAppliedAmount=0;
+            double totalBalanceDue;
+            double totalUnappliedAmount= 0;            
+            double totalUnAppliedPaymentAmount = 0.0;
+            double totalUnAppliedAdjustmentAmount = 0.0;         
+
+
+            Collection<RequestInvoiceDetail> reqInvoices = RequestorController.Instance.RetrieveRequestorInvoices(request.RequestorId);
+            ComparableCollection<RequestInvoiceDetail> invList = new ComparableCollection<RequestInvoiceDetail>(reqInvoices);
+            ComparableCollection<RequestInvoiceDetail> requestInvoiceDetailList = (ComparableCollection<RequestInvoiceDetail>)invList;
+
+            foreach (RequestInvoiceDetail reqInv in requestInvoiceDetailList)
+            {
+                if (reqInv.InvoiceType.Equals("Unapplied Payment"))
+                {
+                    totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
+                    totalUnAppliedPaymentAmount += Math.Abs(reqInv.AdjPay);
+                    totalAppliedAmount = Math.Abs(reqInv.PayAdjTotal + reqInv.PayAmount);
+                    UnbillableAmt = reqInv.UnBillableAmount;
+                    totalUnappliedAmount = totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount;
+                }
+                else if (reqInv.InvoiceType.Equals("Prebill"))
+                {
+                    totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
+                    totalUnAppliedPaymentAmount += Math.Abs(reqInv.AdjPay);
+                    totalAppliedAmount = totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount;
+                    UnbillableAmt = reqInv.UnBillableAmount;
+                    totalUnappliedAmount = Math.Abs(reqInv.PayAdjTotal + reqInv.PayAmount);
+                }                                               
+            }
+                 
+                   
+
+            double totalRequestCost = TotalRequestCost;
+            previousReleaseCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalRequestCost);
+            totalRequestCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalRequestCost);
+            
+
+            //Total Request Cost
+            double invoiceAmount = release.InvoicesBalanceDue;
+            totalInvoicedCostValueLabel.Text = ReleaseDetails.FormattedAmount(invoiceAmount);
+            invoicedAmountValueLabel.ForeColor = invoiceAmount < 0 ? Color.FromArgb(32, 125, 41) : Color.Black;
+            adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(totalAppliedAmount);
+            unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(totalUnappliedAmount);
+            //balanceDue_Prebill = totalBalanceDue
+            totalBalanceDue = totalRequestCost - totalAppliedAmount;
+            balanceDuePrebill = totalBalanceDue; ;
+            balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(totalBalanceDue);
+            if (totalBalanceDue == 0)
+            {
+                balanceDueLabel.ForeColor = balanceDueValueLabel.ForeColor = Color.Black;
+            }
+            else if (totalBalanceDue < 0)
+            {
+                balanceDueLabel.ForeColor = balanceDueValueLabel.ForeColor = Color.FromArgb(32, 125, 41);
+            }
+            else
+            {
+                balanceDueLabel.ForeColor = balanceDueValueLabel.ForeColor = Color.Red;
+            }
+            discountsValueLabel.Text = ReleaseDetails.FormattedAmount(UnbillableAmount);
+            totalInvoicedTaxValueLabel.Text = ReleaseDetails.FormattedAmount(UnbillableAmount);
+
         }
 
         /// <summary>
@@ -4201,11 +4297,12 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     InvoiceInfo.Amountpaid = Math.Round(-request.InvoiceAutoAdjustment, 2);
 
                     InvoiceInfo.BaseCharge = prebillInvoiceDetails.Invoice.BaseCharge;
+                    //US16834 - changes to Include requests in the pre-bill status on the payments popup.
                     if (letterTemplateType != "PreBill")
                         InvoiceInfo.InvoiceBalanceDue = prebillInvoiceDetails.Invoice.BalanceDue;
                     else
                         InvoiceInfo.InvoiceBalanceDue = 0;
-                    
+                    InvoiceInfo.BaseCharge = prebillInvoiceDetails.Invoice.BalanceDue;
                     InvoiceInfo.InvoiceBillingLocCode = request.DefaultFacility.FacilityCode as String;
                     InvoiceInfo.InvoiceBillinglocName = request.DefaultFacility.FacilityName;
                     if (letterTemplateType != "PreBill")
@@ -4244,8 +4341,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         InvoiceInfo.RequestTransaction.IsDebit = prebillInvoiceDetails.Release.RequestTransactions[0].IsDebit;
                         InvoiceInfo.RequestTransaction.Amount = prebillInvoiceDetails.Release.RequestTransactions[0].Amount;
                         InvoiceInfo.RequestTransaction.AdjustmentPaymentType = prebillInvoiceDetails.Release.RequestTransactions[0].AdjustmentPaymentType;                        
-                    }
-
+                    }   
+                     
                     if (letterTemplateType == LetterType.PreBill.ToString())
                     {   
                         invoiceAndDocumentDetails = RequestController.Instance.InvoiceOrPrebillPreview(InvoiceInfo);
@@ -4373,15 +4470,15 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                         StringBuilder notes = new StringBuilder();
 
-                        foreach (NotesDetails eventNotes in preBillInvoiceBaseUI.NotesList)
-                        {
-                            notes.Append(eventNotes.DisplayText + ",");
-                        }
-                        
-                        foreach(string eventNotes in preBillInvoiceBaseUI.FreeformNotesList)
-                        {
-                            notes.Append(eventNotes + ",");
-                        }
+                            foreach (NotesDetails eventNotes in preBillInvoiceBaseUI.NotesList)
+                            {
+                                notes.Append(eventNotes.DisplayText + ",");
+                            }
+
+                            foreach (string eventNotes in preBillInvoiceBaseUI.FreeformNotesList)
+                            {
+                                notes.Append(eventNotes + ",");
+                            }
 
                         string outputName;
                         if(outputMethod.ToLower(System.Threading.Thread.CurrentThread.CurrentUICulture) ==  OutputMethod.Fax.ToString().ToLower(System.Threading.Thread.CurrentThread.CurrentUICulture))
@@ -4405,8 +4502,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                                    outputMethod + ", " + outputName;
                         }                       
 
-                        Application.DoEvents();
-                        RequestController.Instance.CreateComment(details);
+                            Application.DoEvents();
+                            RequestController.Instance.CreateComment(details);
+                            //US16834 - changes to Include requests in the pre-bill status on the payments popup.   
+                            updateBalancePrebill();                            
 
                         //Audit and event entry if invoice due days is overridden
                         if (letterTemplateType == LetterType.Invoice.ToString() && preBillInvoiceBaseUI.IsOverWriteDueDays)
@@ -4467,8 +4566,6 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                             //}
                         }
                     
-                        //release.InvoicesBalanceDue = prebillInvoiceDetails.Invoice.BalanceDue;
-
                         SortedList<string, RequestPatientDetails> tempPatientList = new SortedList<string, RequestPatientDetails>();
                         for (int count = 0; count < request.Patients.Count; count++)
                         {

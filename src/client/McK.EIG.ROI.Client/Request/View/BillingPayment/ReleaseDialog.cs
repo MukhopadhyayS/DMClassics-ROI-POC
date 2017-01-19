@@ -1216,13 +1216,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                      InvoiceInfo = new InvoiceOrPrebillPreviewInfo();
                      InvoiceInfo.Amountpaid = Math.Round(-requestInvoiceAutoAdjustment, 2);
 
-                     InvoiceInfo.BaseCharge = preBillInvoiceDetails.Invoice.BaseCharge;
-                     InvoiceInfo.InvoiceBalanceDue = preBillInvoiceDetails.Invoice.BalanceDue;
-
+                     InvoiceInfo.BaseCharge = releaseDetails.TotalRequestCost;                       
                      InvoiceInfo.InvoiceBillingLocCode = defaultFacilityCode;
                      InvoiceInfo.InvoiceBillinglocName = defaultFacilityName;
                      InvoiceInfo.InvoiceDueDays = DueDays;
-
+                     
                      InvoiceInfo.InvoicePrebillDate = DateTime.Now;
                      InvoiceInfo.InvoiceSalesTax = preBillInvoiceDetails.Release.SalesTaxTotalAmount;
                      InvoiceInfo.LetterTemplateFileId = invoiceLetterTemplateId;
@@ -1239,6 +1237,15 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                      InvoiceInfo.QueuePassword = preBillInvoiceDetails.QueuePassword;
                      InvoiceInfo.RequestCoreId = releaseDetails.RequestId;
                      InvoiceInfo.RequestStatus = preBillInvoiceDetails.RequestStatus;
+                     //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+                     if (InvoiceInfo.RequestStatus == "Pre-Billed")
+                     {
+                         InvoiceInfo.InvoiceBalanceDue = billingInfoUI.BalanceDuePreBill;
+                     }
+                     else
+                     {
+                         InvoiceInfo.InvoiceBalanceDue = billingInfoUI.BalanceDue;
+                     } 
                      InvoiceInfo.RequestDate = DateTime.Now;
                      InvoiceInfo.InvoiceDueDate = DateTime.Now;
                      InvoiceInfo.ResendDate = DateTime.Now;
@@ -1318,10 +1325,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     else if (req.Type == "Unapplied Adjustment")
                         unappliedAdjustment = req.Amount;
                 }
-
+                //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+                appliedAmount = (unappliedAdjustment + unappliedPayment);
                 bool launchUnappliedPayAdj = false;
 
-                if (((unappliedAdjustment != 0) || (unappliedPayment != 0)) && InvoiceInfo.InvoiceBalanceDue != 0)
+                if (((unappliedAdjustment != 0) || (unappliedPayment != 0)) && (InvoiceInfo.InvoiceBalanceDue != 0))
                 {
                         totalUnAppliedAdjustmentPayment = unappliedAdjustment + unappliedPayment;
                         if (IsAllowed(ROISecurityRights.ROIPostPayment))
@@ -1353,12 +1361,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                         if (InvoiceInfo.InvoiceBalanceDue > (unappliedAdjustment + unappliedPayment))
                                         {
                                             appliedAmount = (unappliedAdjustment + unappliedPayment);
-                                            //InvoiceInfo.InvoiceBalanceDue = InvoiceInfo.InvoiceBalanceDue - appliedAmount;
                                         }
                                         else
                                         {
                                             appliedAmount = InvoiceInfo.InvoiceBalanceDue;
-                                            //InvoiceInfo.InvoiceBalanceDue = 0;
+                                            
                                         }
                                         isApplied = true;
                                         AppliedAmount = appliedAmount;

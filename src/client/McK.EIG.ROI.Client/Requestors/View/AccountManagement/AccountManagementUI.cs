@@ -367,6 +367,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             totalChargesValueLabel.Text = totalCharge.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             totalAdjPayLabelValue.Text = totalAdjPay.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             UnbillableAmtValueLabel.Text = unbillableAmount.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
+            
             accountBalanceValueLable.Text = totalBalance.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             RefundAmountCalculation();
             accountManagementFooterUI.RefundButton.Enabled = totalBalance < 0 && refundAmount > 0;
@@ -597,8 +598,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 paymentUI = new PaymentUI(selectRequestorHandler, cancelHandler, Pane);
 
                 Form form = ROIViewUtility.ConvertToForm(null, rm.GetString("payments.titlebar.text"), paymentUI);
-                Collection<PaymentMethodDetails> paymentMethods = BillingAdminController.Instance.RetrieveAllPaymentMethods(false);
-
+                Collection<PaymentMethodDetails> paymentMethods = BillingAdminController.Instance.RetrieveAllPaymentMethods(false);                
                 List<RequestInvoiceDetail> list = new List<RequestInvoiceDetail>(reqInvDetail);
                 List<RequestInvoiceDetail> requestInvoices = list.FindAll(delegate(RequestInvoiceDetail item) { return item.Balance > 0; });
                 List<RequestInvoiceDetail> requestInvoiceDetails = new List<RequestInvoiceDetail>();
@@ -619,7 +619,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                             {
                                 foreach (RequestInvoiceDetail req in list)
                                 {
-                                    if ((req.InvoiceType.Equals("Open Invoice")) || (req.InvoiceType.Equals("Closed Invoice")))
+                                    //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+                                    if ((req.InvoiceType.Equals("Open Invoice")) || (req.InvoiceType.Equals("Closed Invoice")) || (req.InvoiceType.Equals("Prebill")))
                                     {
                                         foreach (RequestorAdjustmentsPaymentsDetail reqAdj in req.ReqAdjPay)
                                         {
@@ -648,7 +649,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                         {
                             foreach (RequestInvoiceDetail req in requestInvoices)
                             {
-                                if (req.InvoiceType.Equals("Open Invoice"))
+                                //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+                                if ((req.InvoiceType.Equals("Open Invoice")) || (req.InvoiceType.Equals("Prebill")))
                                 {
                                     requestInvoiceDetails.Add(req);
                                 }
