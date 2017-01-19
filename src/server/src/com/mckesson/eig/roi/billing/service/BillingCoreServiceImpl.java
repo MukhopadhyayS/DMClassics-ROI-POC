@@ -102,16 +102,19 @@ implements BillingCoreService {
 
             long requestCoreId = invOrPrebillPreviewInfo.getRequestCoreId();
             
+	            // Retrieve all the data from Rough Draft tables.
+            RequestCoreCharges requestCoreCharges = rCChargesDAO
+                                    .retrieveRequestCoreBillingPaymentInfo(requestCoreId);
+            
             if("PreBill".equalsIgnoreCase(invOrPrebillPreviewInfo.getLetterType()))
             {
+				//US16834 changes to Include requests in the pre-bill status on the payments popup.(Calculating balance due for prebill when there is change in base charge)
+                invOrPrebillPreviewInfo.setAmountToApply(invOrPrebillPreviewInfo.getAmountpaid());
+                double TotalPostPrebillPayments =  rCDeliveryDAO.TotalPostPrebillPayments(invOrPrebillPreviewInfo);
+                requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid() - TotalPostPrebillPayments);
                 rCChargesDAO.updateRequestReleaseCost(requestCoreId, invOrPrebillPreviewInfo.getBaseCharge(),rCChargesDAO.getDate(),getUser().getInstanceId());
             }
             
-            // Retrieve all the data from Rough Draft tables.
-            RequestCoreCharges requestCoreCharges = rCChargesDAO
-                                    .retrieveRequestCoreBillingPaymentInfo(requestCoreId);
-
-
             RequestCoreDelivery rCoreDelivery = new RequestCoreDelivery();
 
             RequestCoreDeliveryChargesBilling rCDeliveryChargesBilling =
@@ -151,8 +154,9 @@ implements BillingCoreService {
                     rCDeliveryDAO.createRequestCoreDeliveryCharges(requestCoreDeliveryCharges);
             
             //CR-388283
-            if(invOrPrebillPreviewInfo.getAmountToApply() > 0.00)
-            autoApplyToInvoice(rCoreDelivery.getRequestCoreId(), requestCoreDeliveryChargesId);
+            if(invOrPrebillPreviewInfo.getAmountToApply() > 0.00) {
+               autoApplyToInvoice(rCoreDelivery.getRequestCoreId(), requestCoreDeliveryChargesId);
+            }
            //CR-388283
 
             RequestCoreDeliveryChargesShipping shippingCharges =
@@ -180,8 +184,11 @@ implements BillingCoreService {
                                              date,
                                              requestCoreDeliveryChargesId);*/
                 // clear the request release cost only if invoice is created
-                if("Invoice".equalsIgnoreCase(invOrPrebillPreviewInfo.getLetterType()))
+                if("Invoice".equalsIgnoreCase(invOrPrebillPreviewInfo.getLetterType())){
                    rCChargesDAO.clearRequestReleaseCost(requestCoreId);
+				   //US16834 changes to Include requests in the pre-bill status on the payments popup.(making all the prebill payments as invoice payments once invoice is generated.)
+                   rCDeliveryDAO.updatePrebillPaymentsToInvoice(invOrPrebillPreviewInfo);
+                }
             }
 
             List<Long> invoiceIdList = new ArrayList<Long>();
@@ -230,10 +237,20 @@ implements BillingCoreService {
         double releaseCost = 0.0;
         double totalRequestCost = 0.0;
         double balanceDue = invoice.getInvoiceBalanceDue();
+        boolean IsPrebillPaymentExists = false;
         if ("Prebill".equalsIgnoreCase(invoice.getType())) {
 
            invoice.setPrebillStatus("Active");
         } else {
+			//US16834 changes to Include requests in the pre-bill status on the payments popup.(wrote a seperate case when invoice is generated after prebill payments)
+            IsPrebillPaymentExists = rCDeliveryDAO.IsPrebillPaymentExists(requestCoreId);
+            if(IsPrebillPaymentExists)
+            {
+                invoice.setInvoiceBalanceDue(balanceDue);
+                invoice.setPrebillStatus("InActive");
+                rCDeliveryDAO.updatePrebillStatusInvoice(invoice);
+                return;
+            }
 
             List<RequestCoreDeliveryCharges> rcdcPrebillList =
                     rCDeliveryDAO.retrieveRequestCoreDeliveryChargesPrebill(requestCoreId);
@@ -1279,9 +1296,8 @@ implements BillingCoreService {
             RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
             RequestorUnappliedAmountDetailsList unAppliedAmounts =
                                         requestorDAO.retrieveUnappliedAmountDetails(requestId);
-            
-            if (CollectionUtils.isEmpty(unAppliedAmounts.getRequestorUnappliedAmountDetails())
-                    || invoiceInfo.getInvoiceBalanceDue() == 0) {
+            //US16834 changes to Include requests in the pre-bill status on the payments popup.
+            if (CollectionUtils.isEmpty(unAppliedAmounts.getRequestorUnappliedAmountDetails())) {
                 
                 LOG.debug("No Unapplied Amount OR Invoice Balance is Zero");
                 return;
@@ -1308,12 +1324,17 @@ implements BillingCoreService {
             }
             
             //To calculate the total applied amount to invoice
-            if (totalUnAppliedAmount >= invoiceInfo.getInvoiceBalanceDue()) {
+			//US16834 changes to Include requests in the pre-bill status on the payments popup(Wrote a seperate case for prebill).
+            if (totalUnAppliedAmount >= invoiceInfo.getInvoiceBalanceDue() && !"Prebill".equalsIgnoreCase(invoiceInfo.getType())) {
                 
                 amountToApply = invoiceInfo.getInvoiceBalanceDue();
                 invoiceInfo.setInvoiceBalanceDue(0.00);
-            } else {
-                
+            } else if ("Prebill".equalsIgnoreCase(invoiceInfo.getType())) {
+                amountToApply = totalUnAppliedAmount;
+              //invoiceInfo.setInvoiceBalanceDue(0.00);
+                invoiceInfo.setInvoiceBalanceDue(invoiceInfo.getBalanceDue());
+            }
+            else {
                 amountToApply = totalUnAppliedAmount;
                 invoiceInfo.setInvoiceBalanceDue(invoiceInfo.getInvoiceBalanceDue() - amountToApply);
             }
@@ -1469,6 +1490,7 @@ implements BillingCoreService {
                 
                 //Adjustment applied - Add Corresponding Journal entries for the invoice
                 journalService.createApplyAdjustmentToInvoiceJE(adjMappingId);
+                
             }
         }
         
@@ -1551,8 +1573,12 @@ implements BillingCoreService {
                                                                 getUser().getFullName()), 
                                                                 invoiceInfo.getRequestCoreId());
                 
-                //Adjustment applied - Add Corresponding Journal entries for the invoice
-                journalService.createApplyPaymentToInvoiceJE(payMappingId);
+                //Payment applied - Add Corresponding Journal entries for the invoice
+				//US16834 changes to Include requests in the pre-bill status on the payments popup.
+                if(!"Prebill".equalsIgnoreCase(invoiceInfo.getType()))
+                {
+                    journalService.createApplyPaymentToInvoiceJE(payMappingId);
+                }
             }
         }
         

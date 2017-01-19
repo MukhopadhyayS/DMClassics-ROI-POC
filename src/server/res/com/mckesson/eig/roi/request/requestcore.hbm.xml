@@ -672,7 +672,9 @@
    <sql-query name="retrieveRequestInvoiceDetails">
        <![CDATA[
            
-        SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+IF EXISTS (Select 1 from cabinet..ROI_RequestCoreDeliveryCharges invoice where invoice.ROI_RequestCore_Seq = :requestId
+                AND invoice.Type = 'Invoice')
+SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq id,
         		invoice.ROI_RequestCore_Seq requestId,
                   'Invoice ' + CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
                 'Invoice' invoiceType,
@@ -694,7 +696,32 @@
             WHERE
                 invoice.ROI_RequestCore_Seq = :requestId
                 AND invoice.Type = 'Invoice'
-                AND invoice.Invoice_Balance_Due > 0
+                AND invoice.Invoice_Balance_Due > 0  
+
+	ELSE 
+	SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+        		invoice.ROI_RequestCore_Seq requestId,
+                  'Prebill ' + CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
+                'Prebill' invoiceType,
+                invoice.Base_Charge charge,
+                invoice.Balance_Due as balance,
+                COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount,
+                COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) adjustmentAmount,
+                null paymentDescription,
+                null paymentMethod,
+                invoice.Unbillable unbillable,
+                invoice.Unbillable_Amount unbillableAmount,
+                invoice.Created_Dt createdDt,
+                invoice.Created_By_Seq createdBy,
+                invoice.Modified_Dt modifiedDt,
+                invoice.Modified_By_Seq modifiedBy,
+                invoice.Record_Version recordVersion
+            FROM
+                cabinet..ROI_RequestCoreDeliveryCharges invoice
+            WHERE
+                invoice.ROI_RequestCore_Seq = :requestId
+                AND invoice.Type = 'Prebill'
+                AND invoice.Balance_Due > 0   
                                    
        ]]>
    </sql-query>

@@ -355,7 +355,7 @@ extends BaseLetterDataRetriever {
         if(ROIConstants.INVOICE.equalsIgnoreCase(invoice.getType()))
             letterData.setRequestBalanceDue(formatToCurrency(invoice.getRequestBalanceDue()));
          else
-            letterData.setRequestBalanceDue(formatToCurrency(invoice.getBaseCharge())); 
+            letterData.setRequestBalanceDue(formatToCurrency(invoice.getBalanceDue())); 
         letterData.setRequestCreditAmount(formatToCurrency(invoice.getRequestCreditAdjustment()));
         letterData.setRequestDebitAmount(formatToCurrency(invoice.getRequestDebitAdjustment()));
         letterData.setRequestPaymentAmount(formatToCurrency(invoice.getRequestpayment()));
