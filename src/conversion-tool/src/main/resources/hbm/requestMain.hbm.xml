@@ -102,6 +102,7 @@ DECLARE @tmprelease_invoice_mapping table ( releaseid int, isReleased varchar(10
 DECLARE @ROI_RequestCoreDeliveryCharges_IDX table (ROI_RequestCoreDeliveryCharges_Seq bigint, releaseid int);
 declare @tmpPrebill table (ROI_RequestDeliveryCharges_Seq int);
 declare @tmpNewPrebill table(ROI_RequestCoreDeliveryCharges_Seq int, ROI_RequestDeliveryCharges_Seq int);
+DECLARE @tmpPREBILL_RequestCoreDeliveryChargesInvoicePatients table (ROI_RequestCoreDeliveryCharges_Seq bigint, mrn varchar(20), facility varchar(10), patientName varchar(40));
 DECLARE @tmpROI_RequestCoreDeliveryChargesInvoicePatients table (ROI_RequestCoreDeliveryCharges_Seq bigint, mrn varchar(20), facility varchar(10), patientName varchar(40));
 DECLARE @tmpPaymentAdjustments table (draftinvoiceid int, Amount decimal(18,2), PaymentMode varchar(50), Description varchar(256), Date datetime, TransactionType varchar(50), IsDebit varchar(10), Created_By_Seq int, Modified_By_Seq int);
 DECLARE @tmpPaymentAdjustments1 table (id int identity(1,1), draftinvoiceid int, Amount decimal(18,2), PaymentMode varchar(50), Description varchar(256), Date datetime, TransactionType varchar(50), IsDebit varchar(10), Created_By_Seq int, Modified_By_Seq int, Transaction_Seq int null);
@@ -1409,6 +1410,33 @@ select
 from ROI_RequestDeliveryCharges irdc
 join @tmpPrebill prebill on irdc.ROI_RequestDeliveryCharges_Seq=prebill.ROI_RequestDeliveryCharges_Seq
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-doc"]') as p(p);
+
+INSERT into @tmpPREBILL_RequestCoreDeliveryChargesInvoicePatients
+select
+	(select ROI_RequestCoreDeliveryCharges_Seq from @tmpNewPrebill where ROI_RequestDeliveryCharges_Seq = prebill.ROI_RequestDeliveryCharges_Seq),
+	t.c.value('(attribute[@name="patientmrn"]/@value)[1]','varchar(20)') as mrn,
+	t.c.value('(attribute[@name="facility"]/@value)[1]','varchar(10)') as facility,
+	t.c.value('(attribute[@name="patientname"]/@value)[1]','varchar(40)') as patientName
+from ROI_RequestDeliveryCharges drdc
+join @tmpPrebill prebill on drdc.ROI_RequestDeliveryCharges_Seq=prebill.ROI_RequestDeliveryCharges_Seq
+cross apply [RequestDeliveryChargesXML].nodes('/release-item[@type="billing-doc"]/release-item[@type="requestItem"]/release-item') t(c);
+
+INSERT INTO ROI_RequestCoreDeliveryChargesInvoicePatients ( ROI_RequestCoreDeliveryCharges_Seq ,ROI_SupplementalPatientsCore_Seq , ROI_Patients_Seq )
+select
+	a.ROI_RequestCoreDeliveryCharges_Seq, 
+	null as ROI_SupplementalPatientsCore_Seq,
+	b.ROI_Patients_Seq as ROI_Patients_Seq
+	from @tmpPREBILL_RequestCoreDeliveryChargesInvoicePatients a join ROI_Patients b
+	on (a.patientName = b.Name and a.MRN = b.MRN and a.Facility = b.Facility)
+where b.ROI_Patients_seq in	(select ROI_Patients_seq from ROI_RequestCoretoROI_Patients where ROI_RequestCore_Seq = @requestId)
+Union
+select 	
+	a.ROI_RequestCoreDeliveryCharges_Seq,
+	b.ROI_SupplementalPatientsCore_Seq,
+	NULL as ROI_Patients_Seq
+	from 	@tmpPREBILL_RequestCoreDeliveryChargesInvoicePatients a join ROI_SupplementalPatientsCore b
+	on (a.patientName = (b.lastName + ', ' + b.firstName) and a.MRN = b.MRN and a.Facility = b.Facility)
+where b.ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from ROI_RequestCoretoROI_SupplementalPatientsCore where ROI_RequestCore_Seq = @requestId);
 
 insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
 select
