@@ -4053,7 +4053,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                    
 
             double totalRequestCost = TotalRequestCost;
-            previousReleaseCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalRequestCost);
+            previousReleaseCostValueLabel.Text = ReleaseDetails.FormattedAmount(PreviouslyReleasedCost);
             totalRequestCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalRequestCost);
             
 
