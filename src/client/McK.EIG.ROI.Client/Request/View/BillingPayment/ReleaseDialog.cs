@@ -1326,7 +1326,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         unappliedAdjustment = req.Amount;
                 }
                 //US16834 - changes to Include requests in the pre-bill status on the payments popup.
-                appliedAmount = (unappliedAdjustment + unappliedPayment);
+                
                 bool launchUnappliedPayAdj = false;
 
                 if (((unappliedAdjustment != 0) || (unappliedPayment != 0)) && (InvoiceInfo.InvoiceBalanceDue != 0))

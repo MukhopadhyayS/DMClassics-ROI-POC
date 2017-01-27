@@ -348,26 +348,35 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
 
                 if (!reqInv.InvoiceType.Equals("Refund"))
                 {
-                    totalAdj += reqInv.AdjAmount;
-                    totalPay += reqInv.PayAmount;
+                    if (reqInv.InvoiceType.Equals("Unapplied Payment") || reqInv.InvoiceType.Equals("Unapplied Adjustment"))
+                    {
+                        totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
+                        totalUnAppliedPaymentAmount += Math.Abs(reqInv.PayAmount);
+                    }
+                    else
+                    {
+                        totalAdj += reqInv.AdjAmount;
+                        totalPay += reqInv.PayAmount;
+                    }
                 }
                 totalAdjPay = totalAdj + totalPay;
                 totalBalance = totalCharge + totalAdjPay;
-                if (reqInv.InvoiceType.Equals("Unapplied Payment") || reqInv.InvoiceType.Equals("Unapplied Adjustment"))
-                {
-                    totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
-                    totalUnAppliedPaymentAmount += Math.Abs(reqInv.PayAmount);
-                }
+                
                 if (reqInv.InvoiceType.Equals("Open Invoice"))
                 {
                     totalRequestorInvoiceBalance += reqInv.Balance;
+                    totalBalance = totalRequestorInvoiceBalance;
+                }
+                else if (reqInv.InvoiceType.Equals("Closed Invoice"))
+                {
+                    totalBalance = totalUnAppliedPaymentAmount + totalUnAppliedAdjustmentAmount;
                 }
              }
             grid.CellFormatting += new DataGridViewCellFormattingEventHandler(grid_CellFormatting);
             totalChargesValueLabel.Text = totalCharge.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             totalAdjPayLabelValue.Text = totalAdjPay.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             UnbillableAmtValueLabel.Text = unbillableAmount.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
-            
+
             accountBalanceValueLable.Text = totalBalance.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             RefundAmountCalculation();
             accountManagementFooterUI.RefundButton.Enabled = totalBalance < 0 && refundAmount > 0;
