@@ -331,6 +331,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             double totalAdj = 0;
             double totalPay = 0;
             double totalBalance = 0;
+            double totalUnapplied = 0;
             double unbillableAmount = 0;
             totalUnAppliedPaymentAmount = 0.0;
             totalUnAppliedAdjustmentAmount = 0.0;
@@ -348,35 +349,56 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
 
                 if (!reqInv.InvoiceType.Equals("Refund"))
                 {
-                    if (reqInv.InvoiceType.Equals("Unapplied Payment") || reqInv.InvoiceType.Equals("Unapplied Adjustment"))
+
+                    if (reqInv.InvoiceType.Equals("Closed Invoice"))
+                    {
+                        totalAdjPay = reqInv.PayAdjTotal;
+                    }
+                    else if (reqInv.InvoiceType.Equals("Unapplied Payment") || reqInv.InvoiceType.Equals("Unapplied Adjustment"))
                     {
                         totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
                         totalUnAppliedPaymentAmount += Math.Abs(reqInv.PayAmount);
+                        totalUnapplied = (totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount);  
+                        //totalAdjPay += (totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount);
                     }
-                    else
+                    else if (reqInv.InvoiceType.Equals("Open Invoice"))
                     {
-                        totalAdj += reqInv.AdjAmount;
-                        totalPay += reqInv.PayAmount;
+                        totalAdjPay = reqInv.PayAdjTotal;
                     }
                 }
-                totalAdjPay = totalAdj + totalPay;
-                totalBalance = totalCharge + totalAdjPay;
+            }
+
+                    totalAdjPay = (totalAdjPay + totalUnapplied);
+                    totalBalance = totalCharge - totalAdjPay;
+                    
+                    //else
+                    //{
+                    //    if (totalUnapplied > 0)
+                    //    {
+                    //        totalBalance = totalBalance + totalUnapplied;
+                    //    }
+                    //}
+                //    totalAdj += reqInv.AdjAmount;
+                //    totalPay += reqInv.PayAmount;
+                //}
+                //totalAdjPay = totalAdj + totalPay;
+                //totalBalance = totalCharge + totalAdjPay;
+                //if (reqInv.InvoiceType.Equals("Unapplied Payment") || reqInv.InvoiceType.Equals("Unapplied Adjustment"))
+                //{
+                //    totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
+                //    totalUnAppliedPaymentAmount += Math.Abs(reqInv.PayAmount);
+                //}
+                //if (reqInv.InvoiceType.Equals("Open Invoice"))
+                //{
+                //    totalRequestorInvoiceBalance += reqInv.Balance;
+                //    //totalBalance = reqInv.Balance;
+                //    //totalAdjPay = reqInv.AdjAmount + reqInv.PayAmount;
+                //}
                 
-                if (reqInv.InvoiceType.Equals("Open Invoice"))
-                {
-                    totalRequestorInvoiceBalance += reqInv.Balance;
-                    totalBalance = totalRequestorInvoiceBalance;
-                }
-                else if (reqInv.InvoiceType.Equals("Closed Invoice"))
-                {
-                    totalBalance = totalUnAppliedPaymentAmount + totalUnAppliedAdjustmentAmount;
-                }
-             }
             grid.CellFormatting += new DataGridViewCellFormattingEventHandler(grid_CellFormatting);
             totalChargesValueLabel.Text = totalCharge.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             totalAdjPayLabelValue.Text = totalAdjPay.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             UnbillableAmtValueLabel.Text = unbillableAmount.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
-
             accountBalanceValueLable.Text = totalBalance.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             RefundAmountCalculation();
             accountManagementFooterUI.RefundButton.Enabled = totalBalance < 0 && refundAmount > 0;
