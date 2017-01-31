@@ -400,8 +400,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     //US16834 - changes to Include requests in the pre-bill status on the payments popup.
                     if ((releaseDialog != null) || (request.Status == RequestStatus.Completed) ||(request.Status == RequestStatus.PreBilled) )
                     {
-                        balanceDuePrebill = balance - paymentUI.TotalApplyAmount;
-                        balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - paymentUI.TotalApplyAmount);
+                        balanceDuePrebill = balanceDue - paymentUI.TotalApplyAmount;
+                        balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - paymentUI.TotalApplyAmount);
                     }
                     else
                     {
@@ -3920,7 +3920,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             //Adjustment Total
             double adjustmentTotal = AdjustmentPaymentTotal;
-            double unAppliedAdjPayTotal = UnAppliedAdjustmentPaymentTotal;
+            //double unAppliedAdjPayTotal = UnAppliedAdjustmentPaymentTotal;
+            double unAppliedAdjPayTotal = RetrieveUnAppliedAmount(request.Id);
             double balanceDue = BalanceDue;
             double balance;
 
@@ -4034,11 +4035,12 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             {
                 if (reqInv.InvoiceType.Equals("Unapplied Payment"))
                 {
-                    totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
-                    totalUnAppliedPaymentAmount += Math.Abs(reqInv.AdjPay);
-                    totalAppliedAmount = Math.Abs(reqInv.PayAdjTotal + reqInv.PayAmount);
+                    //totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
+                    //totalUnAppliedPaymentAmount += Math.Abs(reqInv.AdjPay);
+                    totalUnappliedAmount += Math.Abs(reqInv.Balance);
+                    totalAppliedAmount = reqInv.AppliedAmount;
                     UnbillableAmt = reqInv.UnBillableAmount;
-                    totalUnappliedAmount = totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount;
+                    //totalUnappliedAmount = totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount;
                 }
                 else if (reqInv.InvoiceType.Equals("Prebill"))
                 {
