@@ -19,8 +19,11 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -231,7 +234,7 @@ extends BaseROIService {
             return null;
         }
 
-        Map<Long, List<RequestDocument>> documents = new HashMap<Long, List<RequestDocument>>();
+        Map<Long, List<RequestDocument>> documents = new LinkedHashMap<Long, List<RequestDocument>>();
         List<RequestDocument> documentList = new ArrayList<RequestDocument>();
 
         Iterator<? extends BaseModel> iterator = requestDocument.iterator();
@@ -242,6 +245,8 @@ extends BaseROIService {
             if (null != retrieveVersion && retrieveVersion.containsKey(document.getDocumentSeq())) {
 
                 List<RequestVersion> versionsList = retrieveVersion.get(document.getDocumentSeq());
+                Comparator<RequestVersion> comparator = Comparator.comparingLong(RequestVersion::getVersionNumber); 
+                Collections.sort(versionsList, comparator);
                 document.setRoiVersions(versionsList);
                 retrieveVersion.remove(document.getDocumentSeq());
             } else {
@@ -290,8 +295,9 @@ extends BaseROIService {
             RequestPatient patient = patientEntry.getValue();
 
             if (null != retrieveDocument && retrieveDocument.containsKey(patientSeq)) {
-
                 List<RequestDocument> globalDocuments = retrieveDocument.get(patientSeq);
+                Comparator<RequestDocument> comparator = Comparator.comparing(RequestDocument::getChartOrderAsInt); 
+                Collections.sort(globalDocuments, comparator);
                 patient.setGlobalDocuments(globalDocuments);
                 retrieveDocument.remove(patientSeq);
             }
@@ -310,7 +316,7 @@ extends BaseROIService {
             return null;
         }
 
-        Map<Long, List<RequestPage>> pages = new HashMap<Long, List<RequestPage>>();
+        Map<Long, List<RequestPage>> pages = new LinkedHashMap<Long, List<RequestPage>>();
         List<RequestPage> pageList = new ArrayList<RequestPage>();
 
         Iterator<? extends BaseModel> iterator = requestPage.iterator();
@@ -349,7 +355,7 @@ extends BaseROIService {
             return null;
         }
 
-        Map<Long, List<RequestVersion>> versions = new HashMap<Long, List<RequestVersion>>();
+        Map<Long, List<RequestVersion>> versions = new LinkedHashMap<Long, List<RequestVersion>>();
         List<RequestVersion> versionList = new ArrayList<RequestVersion>();
 
         Iterator<? extends BaseModel> iterator = requestVersion.iterator();
@@ -360,6 +366,8 @@ extends BaseROIService {
             if (null != retrievePage && retrievePage.containsKey(version.getVersionSeq())) {
 
                 List<RequestPage> pagesList = retrievePage.get(version.getVersionSeq());
+                Comparator<RequestPage> comparator = Comparator.comparing(RequestPage::getPageNumber); 
+                Collections.sort(pagesList, comparator);
                 version.setRoiPages(pagesList);
                 retrievePage.remove(version.getVersionSeq());
             } else {
@@ -401,7 +409,7 @@ extends BaseROIService {
             return null;
         }
 
-        Map<Long, List<RequestDocument>> documents = new HashMap<Long, List<RequestDocument>>();
+        Map<Long, List<RequestDocument>> documents = new LinkedHashMap<Long, List<RequestDocument>>();
         List<RequestDocument> documentList = new ArrayList<RequestDocument>();
 
         Iterator<? extends BaseModel> iterator = requestDocument.iterator();
@@ -412,6 +420,8 @@ extends BaseROIService {
             if (null != retrieveVersion && retrieveVersion.containsKey(document.getDocumentSeq())) {
 
                 List<RequestVersion> versionsList = retrieveVersion.get(document.getDocumentSeq());
+                Comparator<RequestVersion> comparator = Comparator.comparing(RequestVersion::getVersionNumber); 
+                Collections.sort(versionsList, comparator);
                 document.setRoiVersions(versionsList);
                 retrieveVersion.remove(document.getDocumentSeq());
             } else {
@@ -449,7 +459,7 @@ extends BaseROIService {
             return null;
         }
 
-        Map<Long, List<RequestEncounter>> encounters = new HashMap<Long, List<RequestEncounter>>();
+        Map<Long, List<RequestEncounter>> encounters = new LinkedHashMap<Long, List<RequestEncounter>>();
         List<RequestEncounter> encounterList = new ArrayList<RequestEncounter>();
 
         Iterator<? extends BaseModel> iterator = requestEncounter.iterator();
@@ -460,6 +470,8 @@ extends BaseROIService {
             if (null != retrievedDocs && retrievedDocs.containsKey(encounter.getEncounterSeq())) {
 
                 List<RequestDocument> docList = retrievedDocs.get(encounter.getEncounterSeq());
+                Comparator<RequestDocument> comparator = Comparator.comparing(RequestDocument::getChartOrderAsInt); 
+                Collections.sort(docList, comparator);
                 encounter.setRoiDocuments(docList);
                 retrievedDocs.remove(encounter.getEncounterSeq());
             } else {
@@ -497,15 +509,16 @@ extends BaseROIService {
             return new HashMap<Long, RequestPatient>(0);
         }
 
-        Map<Long, RequestPatient> patients = new HashMap<Long, RequestPatient>();
+        Map<Long, RequestPatient> patients = new LinkedHashMap<Long, RequestPatient>();
 
         Iterator<? extends BaseModel> iterator = requestPatient.iterator();
         while (iterator.hasNext()) {
 
             RequestPatient patient = (RequestPatient) iterator.next();
             if (null != retrievedEnc && retrievedEnc.containsKey(patient.getPatientSeq())) {
-
-                List<RequestEncounter> encList = retrievedEnc.get(patient.getPatientSeq());
+               List<RequestEncounter> encList = retrievedEnc.get(patient.getPatientSeq());
+                Comparator<RequestEncounter> comparator = Comparator.comparing(RequestEncounter::getAdmitdate); 
+                Collections.sort(encList, comparator.reversed());
                 patient.setRoiEncounters(encList);
                 retrievedEnc.remove(patient.getPatientSeq());
             }

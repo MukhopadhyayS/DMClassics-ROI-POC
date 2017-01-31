@@ -104,8 +104,13 @@ public class BillingReportDAOImpl extends ROIReportDAOImpl {
         
             for(String ledger : accountNames){ 
                 String[] accountName = ledger.split(",");
-                csvData.append(accountName[0]).append(CSV_DELIM).append(accountName[1]).append(CSV_DELIM).
-                append(accountName[2]).append(CSV_DELIM).append(acctAmountCombination.get(accountName[2]) != null ? acctAmountCombination.get(accountName[2]) : 0).toString();
+                double amount = 0;
+                if(acctAmountCombination.get(accountName[2]) != null) {
+                    amount = acctAmountCombination.get(accountName[2]);
+                }
+                csvData.append(accountName[0]).append(CSV_DELIM).append(accountName[1]).append(CSV_DELIM);
+                csvData.append(accountName[2]).append(CSV_DELIM);
+                csvData.append(amount);
                 out.print(csvData);
                 csvData = new StringBuffer();
                 out.println();
