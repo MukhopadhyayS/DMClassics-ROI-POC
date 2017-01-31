@@ -2277,14 +2277,14 @@
 		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc )
 				
 		WHERE 
-			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Prebill' )
+			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' )
 									
    		]]>
    </sql-query>
     <sql-query name="IsPrebillPaymentExists">
   	 <![CDATA[
 		SELECT top 1 Amount from ROI_RequestCoreDeliveryCharges rcd, ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdp 
-		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcdp.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId
+		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcdp.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId and rcd.Type = 'PreBill'
 									
    		]]>
    </sql-query>
