@@ -218,10 +218,7 @@
 
 	<sql-query name="retrieveRequestorInvoices">
          <![CDATA[
-         IF EXISTS (Select 1 from  cabinet..ROI_RequestCoreDeliveryCharges invoice where invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
-            	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId)
-            	and Type = 'Invoice')
-             SELECT TOP 1000 * from (SELECT 
+         SELECT TOP 1000 * from (SELECT 
             	invoice.ROI_RequestCoreDeliveryCharges_Seq id,
             	invoice.ROI_RequestCore_Seq requestId,
             	'Invoice-'+CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
@@ -260,9 +257,8 @@
                 cabinet..ROI_RequestCoreDeliveryCharges invoice
             WHERE
             	invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
-            	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId)
-            	and Type = 'Invoice'
-            
+            	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId) and Type = 'Invoice') as tmp
+	
             UNION
 			(
 			SELECT 
@@ -289,7 +285,7 @@
             FROM 
                 cabinet..ROI_RequestorAdjustment adj
             WHERE
-            	adj.ROI_Requestor_Seq =:requestorId
+            	adj.ROI_Requestor_Seq = :requestorId
             	and adj.UnappliedAmount is not null 
             	and adj.UnappliedAmount > 0
             	and adj.IsDeleted = 0)
@@ -350,16 +346,10 @@
             FROM 
                 cabinet..ROI_RequestorRefund refund
             WHERE
-            	refund.ROI_Requestor_Seq = :requestorId) ) as tmp
-           ORDER BY modifiedDt desc, id desc 
-           
-          
-          
-          ELSE
-          
-          
-          
-          SELECT TOP 1000 * from (SELECT 
+            	refund.ROI_Requestor_Seq = :requestorId) 
+			UNION
+			
+			 SELECT TOP 1000 * from (SELECT 
             	invoice.ROI_RequestCoreDeliveryCharges_Seq id,
             	invoice.ROI_RequestCore_Seq requestId,
             	'Prebill-'+CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
@@ -395,101 +385,14 @@
 				invoice.Unbillable_Amount unBillableAmount,
 				case(select invoice.Unbillable from ROI_RequestCore where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq) when 0 then 'NO' else 'YES'end AS unbillable
             FROM 
-                cabinet..ROI_RequestCoreDeliveryCharges invoice
+                cabinet..ROI_RequestCoreDeliveryCharges invoice,
+				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment invoicePayment
             WHERE
             	invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
             	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId)
-            	and Type = 'Prebill'
-            
-            UNION
-			(
-			SELECT 
-            	adj.ROI_RequestorAdjustment_Seq id,
-            	0 requestId,
-            	adj.Note as description,
-            	'Unapplied Adjustment' invoiceType,
-			    0.00 charge,
-			    adj.UnappliedAmount as balance,
-			    0.00 paymentAmount,
-			    adj.UnappliedAmount as adjustmentAmount,
-			    0 refundAmount,
-			    null paymentDescription,
-			    null paymentMethod,
-			    null facilityString,
-			    null billingLocation,
-			    adj.Created_Dt createdDt,
-				adj.Created_By_Seq createdBy,
-				adj.Modified_Dt modifiedDt,
-				adj.Modified_By_Seq modifiedBy,
-				adj.Record_Version recordVersion,
-				0.00 unBillableAmount,
-				null unbillable
-            FROM 
-                cabinet..ROI_RequestorAdjustment adj
-            WHERE
-            	adj.ROI_Requestor_Seq =:requestorId
-            	and adj.UnappliedAmount is not null 
-            	and adj.UnappliedAmount > 0
-            	and adj.IsDeleted = 0)
-            
-            UNION
-            (
-            SELECT 
-            	pay.ROI_RequestorPayment_Seq id,
-            	0 requestId,
-            	pay.Description as description,
-            	'Unapplied Payment' invoiceType,
-			    0.00 charge,
-			    pay.UnappliedAmount as balance,
-			    pay.Amount paymentAmount,
-			    0.00 as adjustmentAmount,
-			    pay.RefundAmount refundAmount,
-			    pay.Description paymentDescription,
-			    pay.PaymentType paymentMethod,
-			    null facilityString,
-			    null billingLocation,
-			    pay.Created_Dt createdDt,
-				pay.Created_By_Seq createdBy,
-				pay.PaymentDate modifiedDt,
-				pay.Modified_By_Seq modifiedBy,
-				pay.Record_Version recordVersion,
-				0.00 unBillableAmount,
-				null unbillable
-            FROM 
-                cabinet..ROI_RequestorPayment pay
-            WHERE
-            	pay.ROI_Requestor_Seq = :requestorId
-            	and pay.UnappliedAmount is not null 
-            	and pay.UnappliedAmount > 0
-            	and pay.IsDeleted = 0)
-          UNION
-            (
-            SELECT 
-            	refund.ROI_RequestorRefund_Seq id,
-            	0 requestId,
-            	refund.Note as description,
-            	'Refund' invoiceType,
-			    0.00 charge,
-			    refund.Amount as balance,
-			    refund.Amount paymentAmount,
-			    0.00 as adjustmentAmount,
-			    refund.Amount refundAmount,
-			    refund.Note paymentDescription,
-			    null paymentMethod,
-			    null facilityString,
-			    null billingLocation,
-			    refund.Created_Dt createdDt,
-			    refund.Created_By_Seq createdBy,
-			    refund.Date modifiedDt,
-			    refund.Modified_By_Seq modifiedBy,
-			    refund.Record_Version recordVersion,
-			    0.00 unBillableAmount,
-			    null unbillable
-            FROM 
-                cabinet..ROI_RequestorRefund refund
-            WHERE
-            	refund.ROI_Requestor_Seq = :requestorId) ) as tmp
+            	and invoice.ROI_RequestCoreDeliveryCharges_Seq = invoicePayment.ROI_RequestCoreDeliveryCharges_Seq and Type = 'Prebill' ) as tmp
            ORDER BY modifiedDt desc, id desc 
+
          ]]>
     </sql-query>
     
