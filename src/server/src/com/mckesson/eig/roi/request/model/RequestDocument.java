@@ -77,6 +77,14 @@ implements Serializable {
 
     public String getChartOrder() { return _chartOrder; }
     public void setChartOrder(String chartOrder) { _chartOrder = chartOrder; }
+    
+    public int getChartOrderAsInt() {
+        try {
+            return Integer.valueOf(_chartOrder);
+        } catch(Exception e) {
+            return 0;
+        }
+    }
 
     public long getDocId() { return _docId; }
     public void setDocId(long docId) { _docId = docId; }
