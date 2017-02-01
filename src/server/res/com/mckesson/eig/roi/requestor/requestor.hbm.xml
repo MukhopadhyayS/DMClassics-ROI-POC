@@ -385,12 +385,11 @@
 				invoice.Unbillable_Amount unBillableAmount,
 				case(select invoice.Unbillable from ROI_RequestCore where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq) when 0 then 'NO' else 'YES'end AS unbillable
             FROM 
-                cabinet..ROI_RequestCoreDeliveryCharges invoice,
-				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment invoicePayment
+                cabinet..ROI_RequestCoreDeliveryCharges invoice
             WHERE
             	invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
             	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId)
-            	and invoice.ROI_RequestCoreDeliveryCharges_Seq = invoicePayment.ROI_RequestCoreDeliveryCharges_Seq and Type = 'Prebill' ) as tmp
+            	and Type = 'Prebill' and Balance_Due > 0 and Prebill_Status = 'Active') as tmp
            ORDER BY modifiedDt desc, id desc 
 
          ]]>
