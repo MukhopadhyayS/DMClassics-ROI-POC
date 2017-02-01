@@ -4033,7 +4033,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             foreach (RequestInvoiceDetail reqInv in requestInvoiceDetailList)
             {
-                if (reqInv.InvoiceType.Equals("Unapplied Payment"))
+                if (reqInv.InvoiceType.Equals("Unapplied Payment") || reqInv.InvoiceType.Equals("Unapplied Adjustment"))
                 {
                     //totalUnAppliedAdjustmentAmount += Math.Abs(reqInv.AdjAmount);
                     //totalUnAppliedPaymentAmount += Math.Abs(reqInv.AdjPay);

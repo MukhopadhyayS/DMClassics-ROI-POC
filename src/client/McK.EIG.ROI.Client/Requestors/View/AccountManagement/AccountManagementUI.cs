@@ -33,6 +33,7 @@ using McK.EIG.ROI.Client.Base.View.Common;
 using McK.EIG.ROI.Client.Request.Controller;
 using McK.EIG.ROI.Client.Requestors.Controller;
 using McK.EIG.ROI.Client.Requestors.Model;
+using McK.EIG.ROI.Client.Request.View;
 
 using McK.EIG.Common.Utility.Logging;
 
@@ -411,14 +412,14 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
         private void RefundAmountCalculation()
         {
             refundAmount = 0.0;
-            double invoiceBalance = (totalRequestorInvoiceBalance - totalUnAppliedAdjustmentAmount);
+            double invoiceBalance = (totalRequestorInvoiceBalance - (totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount));
             if (invoiceBalance <= 0)
             {
-                refundAmount = ROIViewUtility.RoundOffValue(totalUnAppliedPaymentAmount, 2);
+                refundAmount = ROIViewUtility.RoundOffValue((totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount), 2);
             }
             else
             {
-                refundAmount = ROIViewUtility.RoundOffValue((invoiceBalance - totalUnAppliedPaymentAmount), 2);
+                refundAmount = ROIViewUtility.RoundOffValue((invoiceBalance - (totalUnAppliedAdjustmentAmount + totalUnAppliedPaymentAmount)), 2);
             }
             refundAmount = Math.Abs(refundAmount);
         }
@@ -874,6 +875,15 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             catch (ROIException cause)
             {
                 ROIViewUtility.Handle(Context, cause);
+            }
+            finally
+            {
+                OutputFileDialog.CloseSplashScreen();
+                OutputPrintDialog.CloseSplashScreen();
+                OutputFaxDialog.CloseSplashScreen();
+                OutputEmailDialog.CloseSplashScreen();
+                OutputDiscDialog.CloseSplashScreen();
+               
             }
         }
 
