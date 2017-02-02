@@ -531,6 +531,16 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             {
                 ROIViewUtility.Handle(Context, cause);
             }
+            finally
+            {
+                OutputFileDialog.CloseSplashScreen();
+                OutputPrintDialog.CloseSplashScreen();
+                OutputFaxDialog.CloseSplashScreen();
+                OutputEmailDialog.CloseSplashScreen();
+                OutputDiscDialog.CloseSplashScreen();
+                
+            }
+            
         }
 
         /// <summary>
