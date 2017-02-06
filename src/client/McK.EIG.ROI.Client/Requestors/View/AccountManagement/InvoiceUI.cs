@@ -43,6 +43,7 @@ using System.Text;
 using McK.EIG.Common.Audit.Model;
 using McK.EIG.ROI.Client.Base.Controller;
 using System.IO;
+using McK.EIG.ROI.Client.Request.View;
 
 namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
 {
@@ -586,6 +587,15 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             catch (ROIException cause)
             {
                 ROIViewUtility.Handle(Context, cause);
+            }
+            finally
+            {
+                OutputFileDialog.CloseSplashScreen();
+                OutputPrintDialog.CloseSplashScreen();
+                OutputFaxDialog.CloseSplashScreen();
+                OutputEmailDialog.CloseSplashScreen();
+                OutputDiscDialog.CloseSplashScreen();
+                
             }
         }
         /// <summary>
