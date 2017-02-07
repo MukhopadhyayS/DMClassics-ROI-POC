@@ -102,17 +102,17 @@ implements BillingCoreService {
 
             long requestCoreId = invOrPrebillPreviewInfo.getRequestCoreId();
             
-	            // Retrieve all the data from Rough Draft tables.
-            RequestCoreCharges requestCoreCharges = rCChargesDAO
-                                    .retrieveRequestCoreBillingPaymentInfo(requestCoreId);
+            RequestCoreCharges requestCoreCharges = new RequestCoreCharges();
             
             if("PreBill".equalsIgnoreCase(invOrPrebillPreviewInfo.getLetterType()))
             {
 				//US16834 changes to Include requests in the pre-bill status on the payments popup.(Calculating balance due for prebill when there is change in base charge)
                 invOrPrebillPreviewInfo.setAmountToApply(invOrPrebillPreviewInfo.getAmountpaid());
                 double TotalPostPrebillPayments =  rCDeliveryDAO.TotalPostPrebillPayments(invOrPrebillPreviewInfo);
-                requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid() - TotalPostPrebillPayments);
                 rCChargesDAO.updateRequestReleaseCost(requestCoreId, invOrPrebillPreviewInfo.getBaseCharge(),rCChargesDAO.getDate(),getUser().getInstanceId());
+                // Retrieve all the data from Rough Draft tables.
+                requestCoreCharges = rCChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestCoreId);
+                requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid() - TotalPostPrebillPayments);
             }
             
             RequestCoreDelivery rCoreDelivery = new RequestCoreDelivery();
