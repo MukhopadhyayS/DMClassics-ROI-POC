@@ -113,6 +113,8 @@ implements BillingCoreService {
                 // Retrieve all the data from Rough Draft tables.
                 requestCoreCharges = rCChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestCoreId);
                 requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid() - TotalPostPrebillPayments);
+            } else {
+                requestCoreCharges = rCChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestCoreId);
             }
             
             RequestCoreDelivery rCoreDelivery = new RequestCoreDelivery();
