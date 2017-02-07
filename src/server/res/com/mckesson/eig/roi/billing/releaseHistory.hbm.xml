@@ -50,7 +50,6 @@
 
     <sql-query name="retrieveReleaseHistoryByRequestId">
         <![CDATA[
-			
 			-- hpf patients non hpf documents
 			SELECT	
 						patient.ROI_Patients_Seq as patientSeq,
@@ -71,14 +70,16 @@
 						shipping.ShippingMethod as shippingMethod,
 						shipping.TrackingNumber as trackingNumber,
 						shipping.OutputMethod as outputMethod, 
-						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId)	as userName,
-						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId) as userId
+						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId )	as userName,
+						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId ) as userId
 				FROM 	ROI_RequestCoreDelivery requestDelivery, 
+				        ROI_RequestCoreCharges coreCharges,
 						ROI_RequestCoreDeliveryChargesShipping shipping,
 					 	ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore hpfDocs, 
 						ROI_SupplementarityDocumentsCore documentsCore,
 			 	     	ROI_PATIENTS patient
 			  	WHERE	hpfDocs.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq AND 
+				        coreCharges.ROI_RequestCore_Seq = requestDelivery.ROI_RequestCore_Seq AND
 						documentsCore.ROI_SupplementarityDocumentsCore_Seq = hpfDocs.ROI_SupplementarityDocumentsCore_Seq AND 
 						documentsCore.ROI_Patients_Seq = patient.ROI_Patients_Seq AND  
 						shipping.ROI_RequestCoreDeliveryCharges_Seq  = (SELECT max(charges.ROI_RequestCoreDeliveryCharges_Seq) 
@@ -86,8 +87,7 @@
 																				  ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges chargesMapping
 																			WHERE chargesMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq
 																				AND chargesMapping.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq) AND
-						requestDelivery.ROI_RequestCore_Seq = :requestId
-				
+						requestDelivery.ROI_RequestCore_Seq = :requestId 			
 				UNION
 			
 				-- hpf patients hpf documents
@@ -111,8 +111,8 @@
 					 	shipping.ShippingMethod as shippingMethod,
 					 	shipping.TrackingNumber as trackingNumber, 
 					 	shipping.OutputMethod as outputMethod,
-						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId)	as userName,
-						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId) as userId		 				
+						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId )	as userName,
+						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId ) as userId		 				
 				FROM 	ROI_PATIENTS patients, 
 						ROI_Encounters encounters ,
 					 	ROI_Documents documents,
@@ -120,6 +120,7 @@
 						ROI_Pages page, 
 						ROI_RequestCoreDeliverytoROI_Pages pagMapping,
 					 	ROI_RequestCoreDelivery requestDelivery, 
+						ROI_RequestCoreCharges coreCharges,
 						ROI_RequestCoreDeliveryChargesShipping shipping
 					
 				WHERE 	encounters.ROI_Patients_Seq = patients.ROI_Patients_Seq AND 
@@ -127,13 +128,14 @@
 						documents.ROI_Documents_Seq = versions.ROI_Documents_Seq AND
 						pagMapping.ROI_Pages_seq = page.ROI_Pages_Seq AND
 						pagMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq AND 
+						coreCharges.ROI_RequestCore_Seq = requestDelivery.ROI_RequestCore_Seq AND
 						page.ROI_Versions_Seq = versions.ROI_Versions_Seq AND									
 						shipping.ROI_RequestCoreDeliveryCharges_Seq  = (SELECT max(charges.ROI_RequestCoreDeliveryCharges_Seq) 
 																			FROM ROI_RequestCoreDeliveryCharges charges, 
 																				  ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges chargesMapping
 																			WHERE chargesMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq
 																				AND chargesMapping.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq) AND
-				      	requestDelivery.ROI_RequestCore_Seq = :requestId
+				      	requestDelivery.ROI_RequestCore_Seq = :requestId 
 						
 				UNION
 			
@@ -158,8 +160,8 @@
 					 	shipping.ShippingMethod as shippingMethod,
 					 	shipping.TrackingNumber as trackingNumber, 
 					 	shipping.OutputMethod as outputMethod,
-						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId)	as userName,
-						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId) as userId		 				
+						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId )	as userName,
+						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId ) as userId		 				
 				FROM 	ROI_PATIENTS patients, 
 						ROI_Encounters encounters,
 					 	ROI_Documents documents,
@@ -167,6 +169,7 @@
 						ROI_Pages page, 
 						ROI_RequestCoreDeliverytoROI_Pages pagMapping,
 					 	ROI_RequestCoreDelivery requestDelivery, 
+						ROI_RequestCoreCharges coreCharges,
 						ROI_RequestCoreDeliveryChargesShipping shipping
 					
 				WHERE 	documents.ROI_Patients_Seq = patients.ROI_Patients_Seq AND 
@@ -174,13 +177,14 @@
 						documents.ROI_Documents_Seq = versions.ROI_Documents_Seq AND
 						pagMapping.ROI_Pages_seq = page.ROI_Pages_Seq AND
 						pagMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq AND 
+						coreCharges.ROI_RequestCore_Seq = requestDelivery.ROI_RequestCore_Seq AND
 						page.ROI_Versions_Seq = versions.ROI_Versions_Seq AND									
 						shipping.ROI_RequestCoreDeliveryCharges_Seq  = (SELECT max(charges.ROI_RequestCoreDeliveryCharges_Seq) 
 																			FROM ROI_RequestCoreDeliveryCharges charges, 
 																				  ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges chargesMapping
 																			WHERE chargesMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq
 																				AND chargesMapping.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq) AND
-				      	requestDelivery.ROI_RequestCore_Seq = :requestId			
+				      	requestDelivery.ROI_RequestCore_Seq = :requestId 			
 				      
 			    UNION
 			    
@@ -203,23 +207,25 @@
 						shipping.ShippingMethod as shippingMethod,
 						shipping.TrackingNumber as trackingNumber, 
 						shipping.OutputMethod as outputMethod,
-						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId)	as userName,
-						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId) as userId						
+						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId )	as userName,
+						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId ) as userId						
 				FROM 	ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore,
 						ROI_SupplementarityAttachmentsCore ROI_SupplementarityAttachmentsCore,
 					 	ROI_PATIENTS patients, 
 					 	ROI_RequestCoreDelivery requestDelivery, 
+						ROI_RequestCoreCharges coreCharges,
 						ROI_RequestCoreDeliveryChargesShipping shipping
 					
 				WHERE   ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore.ROI_SupplementarityAttachmentsCore_Seq = ROI_SupplementarityAttachmentsCore.ROI_SupplementarityAttachmentsCore_Seq AND
 						ROI_SupplementarityAttachmentsCore.ROI_Patients_Seq = patients.ROI_Patients_Seq AND
-					    ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq  AND
+					    ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq  
+						AND coreCharges.ROI_RequestCore_Seq = requestDelivery.ROI_RequestCore_Seq AND
 						shipping.ROI_RequestCoreDeliveryCharges_Seq  = (SELECT max(charges.ROI_RequestCoreDeliveryCharges_Seq) 
 																			FROM ROI_RequestCoreDeliveryCharges charges, 
 																				  ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges chargesMapping
 																			WHERE chargesMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq
 																				AND chargesMapping.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq) AND
-					    requestDelivery.ROI_RequestCore_Seq = :requestId
+					    requestDelivery.ROI_RequestCore_Seq = :requestId 
 			
 				UNION
 			
@@ -250,14 +256,16 @@
 						shipping.ShippingMethod as shippingMethod,
 						shipping.TrackingNumber as trackingNumber, 
 						shipping.OutputMethod as outputMethod,
-						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId)	as userName,
-						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId) as userId
+						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId )	as userName,
+						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId ) as userId
 			    FROM	ROI_RequestCoreDelivery requestDelivery, 
+				        ROI_RequestCoreCharges coreCharges,
 						ROI_RequestCoreDeliveryChargesShipping shipping,
 				   		ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore,
 						ROI_SupplementalDocumentsCore documentsCore,
 			 	   		ROI_SupplementalPatientsCore as patient
 			    WHERE   ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq AND 
+					    coreCharges.ROI_RequestCore_Seq = requestDelivery.ROI_RequestCore_Seq AND
 					    documentsCore.ROI_SupplementalDocumentsCore_Seq = ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore.ROI_SupplementalDocumentsCore_Seq AND 
 					    documentsCore.ROI_SupplementalPatientsCore_Seq = patient.ROI_SupplementalPatientsCore_Seq AND 
 						shipping.ROI_RequestCoreDeliveryCharges_Seq  = (SELECT max(charges.ROI_RequestCoreDeliveryCharges_Seq) 
@@ -265,11 +273,11 @@
 																				  ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges chargesMapping
 																			WHERE chargesMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq
 																				AND chargesMapping.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq) AND
-					    requestDelivery.ROI_RequestCore_Seq = :requestId
+					    requestDelivery.ROI_RequestCore_Seq = :requestId 
 			
 				UNION
 			
-				--Non hpf patiets attachments
+				--Non hpf patients attachments
 				SELECT  DISTINCT(patients.ROI_SupplementalPatientsCore_Seq) as patientSeq,
 						(case  
 				          when patients.LASTNAME IS NULL then '' 
@@ -296,23 +304,25 @@
 						shipping.ShippingMethod as shippingMethod,
 						shipping.TrackingNumber as trackingNumber, 
 						shipping.OutputMethod as outputMethod,
-						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId)	as userName,
-						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = requestDelivery.created_BY_Seq AND requestDelivery.ROI_RequestCore_Seq = :requestId) as userId			
+						(SELECT users.NAME FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId )	as userName,
+						(SELECT users.UserInstanceId  FROM cabinet..USERS users  WHERE users.UserInstanceId = coreCharges.Modified_By_Seq AND coreCharges.ROI_RequestCore_Seq = :requestId ) as userId			
 				FROM 	ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore,
 			 			ROI_SupplementalAttachmentsCore ROI_SupplementalAttachmentsCore,
 					 	ROI_SupplementalPatientsCore as patients,
 						ROI_RequestCoreDelivery requestDelivery,
+						ROI_RequestCoreCharges coreCharges,
 						ROI_RequestCoreDeliveryChargesShipping shipping
 					
 				WHERE   ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore.ROI_SupplementalAttachmentsCore_Seq = ROI_SupplementalAttachmentsCore.ROI_SupplementalAttachmentsCore_Seq AND
 						patients.ROI_SupplementalPatientsCore_Seq = ROI_SupplementalAttachmentsCore.ROI_SupplementalPatientsCore_Seq AND
 						ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq AND
+						coreCharges.ROI_RequestCore_Seq = requestDelivery.ROI_RequestCore_Seq AND
 						shipping.ROI_RequestCoreDeliveryCharges_Seq  = (SELECT max(charges.ROI_RequestCoreDeliveryCharges_Seq) 
 																			FROM ROI_RequestCoreDeliveryCharges charges, 
 																				  ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges chargesMapping
 																			WHERE chargesMapping.ROI_RequestCoreDelivery_Seq = requestDelivery.ROI_RequestCoreDelivery_Seq
 																				AND chargesMapping.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq) AND
-					    requestDelivery.ROI_RequestCore_Seq = :requestId 
+					    requestDelivery.ROI_RequestCore_Seq = :requestId  
 		   		
         ]]>
     </sql-query>

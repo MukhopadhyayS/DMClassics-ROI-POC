@@ -7,7 +7,11 @@
 
 	<sql-query name="createRequestCoreDelivery">
         <![CDATA[
-           INSERT INTO  cabinet..ROI_RequestCoreDelivery (ROI_RequestCore_Seq) VALUES (:requestCoreId);
+           declare @modifiedBySeq int;
+		   set @modifiedBySeq = (select Modified_By_Seq from cabinet..ROI_RequestCoreCharges 
+		   where ROI_RequestCore_Seq = :requestCoreId)
+           INSERT INTO  cabinet..ROI_RequestCoreDelivery (ROI_RequestCore_Seq, Created_By_Seq, 
+           Modified_By_Seq) VALUES (:requestCoreId, @modifiedBySeq, @modifiedBySeq);
            SELECT SCOPE_IDENTITY() as requestCoreDeliveryId;
         ]]>
     </sql-query>
