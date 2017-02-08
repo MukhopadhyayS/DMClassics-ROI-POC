@@ -345,7 +345,11 @@ namespace McK.EIG.ROI.Client.Request.Controller
 
             OutputRequest serverOutputRequest = new OutputRequest();
             List<MapModel> mapModelLists = new List<MapModel>();
-
+            if(requestId > 0) 
+            {
+                 mapModelLists.Add(CreateMapModel("ROIRequestId", requestId.ToString()));
+            }
+ 
             serverOutputRequest.requestId = requestSource + requestId.ToString(System.Threading.Thread.CurrentThread.CurrentUICulture);
             serverOutputRequest.destName = clientOutputRequest.OutputDestinationDetails.Name;
             serverOutputRequest.destType = clientOutputRequest.OutputDestinationDetails.Type;
