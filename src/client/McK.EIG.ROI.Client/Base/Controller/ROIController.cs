@@ -913,7 +913,9 @@ namespace McK.EIG.ROI.Client.Base.Controller
             {
                 encryptedKey.Append(hashByte.ToString("x2", System.Threading.Thread.CurrentThread.CurrentUICulture));
             }*/
-            return strBuilder.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture);
+            //return strBuilder.ToString().ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture);
+            //Fix for DM-9083(Can't Login to ROI with lowercase passwords)
+            return strBuilder.ToString();
         }
 
         /// <summary>
