@@ -8,22 +8,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.xml.sax.InputSource;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -31,6 +33,10 @@ import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.io.FileLoader;
 
 public class CCDCCRConversion {
+
+    private static final String FEATURE1 = "http://xml.org/sax/features/external-general-entities";
+    private static final String FEATURE2 = "http://xml.org/sax/features/external-parameter-entities";
+    private static final String FEATURE3 = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
 
     private static final String CCD_CONTEXT = "org.hl7.sdtc";
     private static final String CCR_CONTEXT = "org.astm.ccr";
@@ -63,30 +69,41 @@ public class CCDCCRConversion {
     	return _ccrContext;
     }
 
-    public Object unmarshalCCD(InputStream is) throws JAXBException {
+    public Object unmarshalCCD(InputStream is) throws Exception {
         
     	JAXBContext context = getCCDContext();
     	return unmarshal(context, is);
     }
 
-    public Object unmarshalCCR(InputStream is) throws JAXBException {
+    public Object unmarshalCCR(InputStream is) throws Exception {
         
     	JAXBContext context = getCCRContext();
     	return unmarshal(context, is);
     }
-
-    public Object unmarshal(JAXBContext jc, InputStreamReader is)
-	    throws JAXBException {
-        
-    	Unmarshaller unmarshaller = jc.createUnmarshaller();
-    	return unmarshaller.unmarshal(is);
+    
+    private SAXParserFactory getSAXParserFactory() throws Exception {
+    	SAXParserFactory spf = SAXParserFactory.newInstance();
+    	spf.setNamespaceAware(true);
+    	spf.setFeature(FEATURE1, false);
+    	spf.setFeature(FEATURE2, false);
+    	spf.setFeature(FEATURE3, false);
+    	return spf;
     }
 
-    public Object unmarshal(JAXBContext jc, InputStream is)
-	    throws JAXBException {
-        
-    	Unmarshaller unmarshaller = jc.createUnmarshaller();
-    	return unmarshaller.unmarshal(is);
+    public Object unmarshal(JAXBContext jc, InputStreamReader is) throws Exception {
+    	SAXParserFactory spf = getSAXParserFactory();
+    	Source xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), new InputSource(is));
+    	Unmarshaller um = jc.createUnmarshaller();
+    	Object o = um.unmarshal(xmlSource);    
+    	return o;
+    }
+
+    public Object unmarshal(JAXBContext jc, InputStream is) throws Exception {
+    	SAXParserFactory spf = getSAXParserFactory();
+    	Source xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), new InputSource(is));
+    	Unmarshaller um = jc.createUnmarshaller();
+    	Object o = um.unmarshal(xmlSource);    
+    	return o;
     }
 
     private InputStreamReader getInputStreamISO8859Encoding(InputStream in)
