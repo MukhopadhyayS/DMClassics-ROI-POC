@@ -82,6 +82,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.grid.AllowUserToDeleteRows = false;
             this.grid.AllowUserToResizeColumns = false;
             this.grid.AllowUserToResizeRows = false;
+            this.grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.grid.BackgroundColor = System.Drawing.Color.White;
             this.grid.ChangeValidator = null;
