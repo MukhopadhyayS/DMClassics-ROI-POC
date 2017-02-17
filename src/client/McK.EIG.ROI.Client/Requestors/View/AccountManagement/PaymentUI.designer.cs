@@ -402,6 +402,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             this.paymentGrid.AllowUserToAddRows = false;
             this.paymentGrid.AllowUserToDeleteRows = false;
             this.paymentGrid.AllowUserToResizeRows = false;
+            this.paymentGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.paymentGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.paymentGrid.BackgroundColor = System.Drawing.Color.White;
             this.paymentGrid.ChangeValidator = null;
