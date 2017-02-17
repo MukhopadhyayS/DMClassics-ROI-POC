@@ -223,7 +223,7 @@ namespace McK.EIG.ROI.Client.Base.View
 
             if (!string.IsNullOrEmpty(currentPasswordTextBox.Text))
             {
-                if (!Validator.Validate(currentPasswordTextBox.Text, ROIConstants.PasswordValidation))
+                if (!Validator.Validate(currentPasswordTextBox.Text, ROIConstants.AllCharacters))
                 {
                     errorProvider.SetError(currentPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidPassword));
                     flag = false;
@@ -231,7 +231,7 @@ namespace McK.EIG.ROI.Client.Base.View
             }
             if (!string.IsNullOrEmpty(newPasswordTextBox.Text))
             {
-                if (!Validator.Validate(newPasswordTextBox.Text, ROIConstants.PasswordValidation))
+                if (!Validator.Validate(newPasswordTextBox.Text, ROIConstants.AllCharacters))
                 {
                     errorProvider.SetError(newPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidPassword));
                     flag = false;
@@ -239,7 +239,7 @@ namespace McK.EIG.ROI.Client.Base.View
             }
             if (!string.IsNullOrEmpty(confirmPasswordTextBox.Text))
             {
-                if (!Validator.Validate(confirmPasswordTextBox.Text, ROIConstants.PasswordValidation))
+                if (!Validator.Validate(confirmPasswordTextBox.Text, ROIConstants.AllCharacters))
                 {
                     errorProvider.SetError(confirmPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidPassword));
                     flag = false;
