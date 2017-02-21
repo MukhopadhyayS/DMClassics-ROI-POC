@@ -283,6 +283,8 @@ namespace McK.EIG.ROI.Client.Base.View
             if (menuItem.Name == ROIConstants.ChangePasswordMenu)
             {
                 ChangePassword();
+                ROIController.Instance.LogOff();
+                Application.Restart();
                 return;
             }
 
