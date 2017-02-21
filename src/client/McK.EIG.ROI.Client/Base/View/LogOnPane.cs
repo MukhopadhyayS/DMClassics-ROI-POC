@@ -169,6 +169,7 @@ namespace McK.EIG.ROI.Client.Base.View
                 roiController.LogOff();
                 dialog.Close();
                 }
+            Application.Restart();
             }
             catch (ROIException cause)
             {
