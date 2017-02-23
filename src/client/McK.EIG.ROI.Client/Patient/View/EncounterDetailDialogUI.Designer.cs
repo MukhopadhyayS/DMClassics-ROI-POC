@@ -53,13 +53,13 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.topPanel.Location = new System.Drawing.Point(9, 9);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(923, 90);
+            this.topPanel.Size = new System.Drawing.Size(984, 90);
             this.topPanel.TabIndex = 2;
             // 
             // closeButton
             // 
             this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.closeButton.Location = new System.Drawing.Point(446, 3);
+            this.closeButton.Location = new System.Drawing.Point(477, 3);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(87, 27);
             this.closeButton.TabIndex = 5;
@@ -73,7 +73,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.gridPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridPanel.Location = new System.Drawing.Point(9, 105);
             this.gridPanel.Name = "gridPanel";
-            this.gridPanel.Size = new System.Drawing.Size(923, 375);
+            this.gridPanel.Size = new System.Drawing.Size(984, 375);
             this.gridPanel.TabIndex = 0;
             // 
             // grid
@@ -94,7 +94,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.grid.RowHeadersVisible = false;
             this.grid.SelectionHandler = null;
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid.Size = new System.Drawing.Size(923, 343);
+            this.grid.Size = new System.Drawing.Size(984, 343);
             this.grid.SortEnabled = false;
             this.grid.TabIndex = 4;
             // 
@@ -105,7 +105,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.countOuterPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.countOuterPanel.Location = new System.Drawing.Point(0, 0);
             this.countOuterPanel.Name = "countOuterPanel";
-            this.countOuterPanel.Size = new System.Drawing.Size(923, 32);
+            this.countOuterPanel.Size = new System.Drawing.Size(984, 32);
             this.countOuterPanel.TabIndex = 3;
             // 
             // countPanel
@@ -115,7 +115,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.countPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.countPanel.Location = new System.Drawing.Point(0, 2);
             this.countPanel.Name = "countPanel";
-            this.countPanel.Size = new System.Drawing.Size(923, 30);
+            this.countPanel.Size = new System.Drawing.Size(984, 30);
             this.countPanel.TabIndex = 2;
             // 
             // countLabel
@@ -142,7 +142,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.outerTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 381F));
             this.outerTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             this.outerTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.outerTableLayoutPanel.Size = new System.Drawing.Size(941, 531);
+            this.outerTableLayoutPanel.Size = new System.Drawing.Size(1002, 531);
             this.outerTableLayoutPanel.TabIndex = 1;
             // 
             // bottomPanel
@@ -153,7 +153,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.bottomPanel.Location = new System.Drawing.Point(6, 483);
             this.bottomPanel.Margin = new System.Windows.Forms.Padding(0);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(929, 42);
+            this.bottomPanel.Size = new System.Drawing.Size(990, 42);
             this.bottomPanel.TabIndex = 3;
             // 
             // customFieldInfo
@@ -172,7 +172,7 @@ namespace McK.EIG.ROI.Client.Patient.View
             this.Controls.Add(this.outerTableLayoutPanel);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "EncounterDetailDialogUI";
-            this.Size = new System.Drawing.Size(941, 531);
+            this.Size = new System.Drawing.Size(1002, 531);
             this.gridPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.countOuterPanel.ResumeLayout(false);
