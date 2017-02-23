@@ -17,12 +17,15 @@ package com.mckesson.eig.roi.billing.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.dao.BaseLetterDataRetriever;
 import com.mckesson.eig.roi.billing.letter.model.BillingInfo;
 import com.mckesson.eig.roi.billing.letter.model.Charge;
+import com.mckesson.eig.roi.billing.letter.model.ChargeItem;
 import com.mckesson.eig.roi.billing.letter.model.LetterData;
 import com.mckesson.eig.roi.billing.letter.model.Note;
 import com.mckesson.eig.roi.billing.letter.model.ReleaseInfo;
@@ -31,6 +34,9 @@ import com.mckesson.eig.roi.billing.letter.model.RequestorInfo;
 import com.mckesson.eig.roi.billing.letter.model.ShippingInfo;
 import com.mckesson.eig.roi.billing.model.CoverLetterCore;
 import com.mckesson.eig.roi.request.model.RequestCoreCharges;
+import com.mckesson.eig.roi.request.model.RequestCoreChargesBilling;
+import com.mckesson.eig.roi.request.model.RequestCoreChargesDocument;
+import com.mckesson.eig.roi.request.model.RequestCoreChargesFee;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesShipping;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
@@ -73,7 +79,7 @@ extends BaseLetterDataRetriever {
         long requestId = coverLetter.getRequestId();
 
         // Retrieve data from RequestCoreCharges and Shipping Table
-        RequestCoreCharges rcCharges = rcChargesDAO.retrieveRequestCoreCharges(requestId);
+        RequestCoreCharges rcCharges = rcChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestId);
         if (null != rcCharges) {
             coverLetter.setChargesDetails(rcCharges);
             RequestCoreChargesShipping rcChargesShipping =
@@ -209,7 +215,6 @@ extends BaseLetterDataRetriever {
         ReleaseInfo relInfo = new ReleaseInfo();
         if(null != chargesDetails) {
             relInfo.setBalanceDue(formatToCurrency(chargesDetails.getInvoicesBalance()));
-            
             relInfo.setPreviouslyReleasedCost(formatToCurrency(chargesDetails.getPreviouslyReleasedCost()));
             relInfo.setReleaseCost(formatToCurrency(chargesDetails.getReleaseCost()));
             Date releaseDate = chargesDetails.getReleaseDate();
@@ -218,10 +223,77 @@ extends BaseLetterDataRetriever {
             relInfo.setTotPages(String.valueOf(chargesDetails.getTotalPages()));
             relInfo.setTotalCost(formatToCurrency(chargesDetails.getTotalRequestCost()));
             relInfoList.add(relInfo);
-        }
+        } 
         List<Charge> chargeList = new ArrayList<Charge>();
         Charge charge = new Charge();
         charge.setReleases(relInfoList);
+        
+        //Document and Fee
+        List<Charge> docChargeList = new ArrayList<Charge>();
+        List<Charge> feeChargeList = new ArrayList<Charge>();
+        List<ChargeItem> docItemsList = new ArrayList<ChargeItem>();
+        Charge docCharge = new Charge();
+        RequestCoreChargesBilling requestCoreChargesBilling = coverLetter.getChargesDetails().getRequestCoreChargesBilling();
+        
+        if (null != requestCoreChargesBilling) {
+            Set<RequestCoreChargesDocument> rcdChargesDocument = requestCoreChargesBilling.getRequestCoreChargesDocument();
+            if (null != rcdChargesDocument) {
+    
+                Iterator<RequestCoreChargesDocument> it = rcdChargesDocument.iterator();
+                while (it.hasNext()) {
+                    RequestCoreChargesDocument rcdcDocument = it.next();
+                    ChargeItem dcItem = new ChargeItem();
+                    dcItem.setAmount(formatToCurrency(rcdcDocument.getAmount()));
+                    dcItem.setCopies(String.valueOf(rcdcDocument.getCopies()));
+                    dcItem.setName(rcdcDocument.getBillingTierName());
+                    dcItem.setBillingTierName(rcdcDocument.getBillingTierName());
+                    dcItem.setPages(String.valueOf(rcdcDocument.getPages()));
+                    dcItem.setBillingTierId(rcdcDocument.getBillingtierId());
+                    docItemsList.add(dcItem);
+                }
+            }
+            docCharge.setChargeItems(docItemsList);
+            docChargeList.add(docCharge);
+    
+            //Fee
+            List<ChargeItem> feeItemsList = new ArrayList<ChargeItem>();
+            Charge feeCharge = new Charge();
+            Set<RequestCoreChargesFee> rcdChargesFee = requestCoreChargesBilling.getRequestCoreChargesFee();
+            if (null != rcdChargesFee) {
+    
+                Iterator<RequestCoreChargesFee> it = rcdChargesFee.iterator();
+                while (it.hasNext()) {
+                    RequestCoreChargesFee rcdcFee = it.next();
+                    ChargeItem fcItem = new ChargeItem();
+                    fcItem.setAmount(formatToCurrency(rcdcFee.getAmount()));
+                    fcItem.setName(rcdcFee.getFeeType());
+                    fcItem.setFeeType(rcdcFee.getFeeType());
+                    feeItemsList.add(fcItem);
+                }
+            }
+            feeCharge.setChargeItems(feeItemsList);
+            feeChargeList.add(feeCharge);
+        }
+        RequestCoreChargesShipping requestCoreChargesShipping = coverLetter.getChargesDetails().getRequestCoreChargesShipping();
+        //Ship
+        List<Charge> shipChargeList = new ArrayList<Charge>();
+        List<ChargeItem> sxnItemsList = new ArrayList<ChargeItem>();
+        Charge shipCharge = new Charge();
+
+        ChargeItem scItem = new ChargeItem();
+        scItem.setAmount((null == requestCoreChargesShipping) ? "0.00"
+                                : formatToCurrency(requestCoreChargesShipping.getShippingCharge()));
+        sxnItemsList.add(scItem);
+        shipCharge.setCharges((null == requestCoreChargesShipping) ? "0.00"
+                                : formatToCurrency(requestCoreChargesShipping.getShippingCharge()));
+
+        shipCharge.setChargeItems(sxnItemsList);
+
+        shipChargeList.add(shipCharge);
+
+        charge.setDocCharge(docChargeList);
+        charge.setFeeCharge(feeChargeList);
+        charge.setShippingCharge(shipChargeList);
         chargeList.add(charge);
         billingInfo.setCharges(chargeList);
         letterData.setBillingInfo(billingInfo);
