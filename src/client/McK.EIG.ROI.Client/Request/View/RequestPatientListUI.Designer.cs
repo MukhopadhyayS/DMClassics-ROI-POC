@@ -30,6 +30,7 @@ namespace McK.EIG.ROI.Client.Request.View
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RequestPatientListUI));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -98,6 +99,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             // patientInfopanel
             // 
+            this.patientInfopanel.AutoScroll = true;
             this.patientInfopanel.Controls.Add(this.mrnValueLabel);
             this.patientInfopanel.Controls.Add(this.mrnLabel);
             this.patientInfopanel.Controls.Add(this.facilityValueLabel);
@@ -179,16 +181,16 @@ namespace McK.EIG.ROI.Client.Request.View
             this.flowLayoutPanel2.Controls.Add(this.viewEditPatientButton);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(209, 0);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(486, 0);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(169, 159);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(169, 142);
             this.flowLayoutPanel2.TabIndex = 44;
             // 
             // addPatientButton
             // 
             this.addPatientButton.AutoSize = true;
-            this.addPatientButton.Location = new System.Drawing.Point(3, 129);
+            this.addPatientButton.Location = new System.Drawing.Point(3, 112);
             this.addPatientButton.Name = "addPatientButton";
             this.addPatientButton.Size = new System.Drawing.Size(87, 27);
             this.addPatientButton.TabIndex = 1;
@@ -197,7 +199,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // addAnotherPatientButton
             // 
             this.addAnotherPatientButton.AutoSize = true;
-            this.addAnotherPatientButton.Location = new System.Drawing.Point(3, 96);
+            this.addAnotherPatientButton.Location = new System.Drawing.Point(3, 79);
             this.addAnotherPatientButton.Name = "addAnotherPatientButton";
             this.addAnotherPatientButton.Size = new System.Drawing.Size(124, 27);
             this.addAnotherPatientButton.TabIndex = 4;
@@ -207,7 +209,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // removePatientButton
             // 
             this.removePatientButton.AutoSize = true;
-            this.removePatientButton.Location = new System.Drawing.Point(3, 63);
+            this.removePatientButton.Location = new System.Drawing.Point(3, 46);
             this.removePatientButton.Name = "removePatientButton";
             this.removePatientButton.Size = new System.Drawing.Size(155, 27);
             this.removePatientButton.TabIndex = 3;
@@ -217,7 +219,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // viewEditPatientButton
             // 
             this.viewEditPatientButton.AutoSize = true;
-            this.viewEditPatientButton.Location = new System.Drawing.Point(3, 30);
+            this.viewEditPatientButton.Location = new System.Drawing.Point(3, 13);
             this.viewEditPatientButton.Name = "viewEditPatientButton";
             this.viewEditPatientButton.Size = new System.Drawing.Size(146, 27);
             this.viewEditPatientButton.TabIndex = 2;
@@ -311,7 +313,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             // lockedPatientIcon
             // 
-            this.lockedPatientIcon.BackgroundImage = global::McK.EIG.ROI.Client.Resources.images.locked_patient_icon;
+            this.lockedPatientIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("lockedPatientIcon.BackgroundImage")));
             this.lockedPatientIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.lockedPatientIcon.Location = new System.Drawing.Point(270, 3);
             this.lockedPatientIcon.Name = "lockedPatientIcon";
@@ -322,7 +324,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             // vipPatientIcon
             // 
-            this.vipPatientIcon.BackgroundImage = global::McK.EIG.ROI.Client.Resources.images.vip_patient_icon;
+            this.vipPatientIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("vipPatientIcon.BackgroundImage")));
             this.vipPatientIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.vipPatientIcon.Location = new System.Drawing.Point(296, 3);
             this.vipPatientIcon.Name = "vipPatientIcon";
