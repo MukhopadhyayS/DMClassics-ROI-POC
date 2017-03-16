@@ -888,9 +888,7 @@ implements RequestorDAO {
 
         List<Long> invoiceIds = new ArrayList<Long>();
         for (RequestorInvoice reqInvoice : requestInvoices) {
-            if ("Invoice".equalsIgnoreCase(reqInvoice.getInvoiceType())) {
-                invoiceIds.add(reqInvoice.getId());
-            }
+             invoiceIds.add(reqInvoice.getId());
         }
         List<RequestorAdjustmentsPayments> reqAdjPay = null;
 
@@ -910,7 +908,7 @@ implements RequestorDAO {
 
                 reqInvoice.setInvoiceStatus("Open");
                 reqInvoice.setInvoiceType("Open Invoice");
-            }
+            } 
 
             double amount = 0.00;
             List<RequestorAdjustmentsPayments> adjPays =

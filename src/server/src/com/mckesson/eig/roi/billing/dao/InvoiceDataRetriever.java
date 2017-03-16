@@ -353,7 +353,7 @@ extends BaseLetterDataRetriever {
         letterData.setTemplateName(invoice.getLetterTemplateName());
         letterData.setInvoiceDueDate(formatDate(invoice.getInvoiceDueDate(), BILL_DATE_FORMAT));
         if(ROIConstants.INVOICE.equalsIgnoreCase(invoice.getType()))
-            letterData.setRequestBalanceDue(formatToCurrency(invoice.getRequestBalanceDue()));
+            letterData.setRequestBalanceDue(formatToCurrency(invoice.getInvoiceBalanceDue()));
          else
             letterData.setRequestBalanceDue(formatToCurrency(invoice.getBalanceDue())); 
         letterData.setRequestCreditAmount(formatToCurrency(invoice.getRequestCreditAdjustment()));

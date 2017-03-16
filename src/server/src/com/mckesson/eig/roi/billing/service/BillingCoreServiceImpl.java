@@ -106,13 +106,16 @@ implements BillingCoreService {
             
             if("PreBill".equalsIgnoreCase(invOrPrebillPreviewInfo.getLetterType()))
             {
-				//US16834 changes to Include requests in the pre-bill status on the payments popup.(Calculating balance due for prebill when there is change in base charge)
+				//US16834 changes to Include requests in the pre-bill status on the payments/adjustments popup.
+                // (Calculating balance due for prebill when there is change in base charge)
                 invOrPrebillPreviewInfo.setAmountToApply(invOrPrebillPreviewInfo.getAmountpaid());
-                double TotalPostPrebillPayments =  rCDeliveryDAO.TotalPostPrebillPayments(invOrPrebillPreviewInfo);
+                double totalPostPrebillPayments =  rCDeliveryDAO.totalPostPrebillPayments(invOrPrebillPreviewInfo);
+                double totalPostPrebillAdjustments =  rCDeliveryDAO.totalPostPrebillAdjustments(invOrPrebillPreviewInfo);
                 rCChargesDAO.updateRequestReleaseCost(requestCoreId, invOrPrebillPreviewInfo.getBaseCharge(),rCChargesDAO.getDate(),getUser().getInstanceId());
                 // Retrieve all the data from Rough Draft tables.
                 requestCoreCharges = rCChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestCoreId);
-                requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid() - TotalPostPrebillPayments);
+                requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid() - 
+                        totalPostPrebillPayments - totalPostPrebillAdjustments);
             } else {
                 requestCoreCharges = rCChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestCoreId);
             }
@@ -188,8 +191,9 @@ implements BillingCoreService {
                 // clear the request release cost only if invoice is created
                 if("Invoice".equalsIgnoreCase(invOrPrebillPreviewInfo.getLetterType())){
                    rCChargesDAO.clearRequestReleaseCost(requestCoreId);
-				   //US16834 changes to Include requests in the pre-bill status on the payments popup.(making all the prebill payments as invoice payments once invoice is generated.)
+				   //US16834 changes to Include requests in the pre-bill status on the payments popup.(making all the prebill payments and adjustments as invoice payments and adjustments once invoice is generated.)
                    rCDeliveryDAO.updatePrebillPaymentsToInvoice(invOrPrebillPreviewInfo);
+                   rCDeliveryDAO.updatePrebillAdjustmentsToInvoice(invOrPrebillPreviewInfo);
                 }
             }
 
@@ -239,14 +243,16 @@ implements BillingCoreService {
         double releaseCost = 0.0;
         double totalRequestCost = 0.0;
         double balanceDue = invoice.getInvoiceBalanceDue();
-        boolean IsPrebillPaymentExists = false;
+        boolean prebillPaymentExists = false;
+        boolean prebillAdjustmentExists = false;
         if ("Prebill".equalsIgnoreCase(invoice.getType())) {
 
            invoice.setPrebillStatus("Active");
         } else {
 			//US16834 changes to Include requests in the pre-bill status on the payments popup.(wrote a seperate case when invoice is generated after prebill payments)
-            IsPrebillPaymentExists = rCDeliveryDAO.IsPrebillPaymentExists(requestCoreId);
-            if(IsPrebillPaymentExists)
+            prebillPaymentExists = rCDeliveryDAO.prebillPaymentExists(requestCoreId);
+            prebillAdjustmentExists = rCDeliveryDAO.prebillAdjustmentExists(requestCoreId);
+            if(prebillPaymentExists || prebillAdjustmentExists)
             {
                 invoice.setInvoiceBalanceDue(balanceDue);
                 invoice.setPrebillStatus("InActive");

@@ -306,7 +306,7 @@ implements RequestCoreChargesDAO {
         }
     }
 
-/**
+    /**
      * This method updates the RequestBillingPayment values
      *
      * @param requestCoreChargesSeq
