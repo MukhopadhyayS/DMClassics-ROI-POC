@@ -518,9 +518,16 @@ extends ROIDAO {
      //US16834 changes to Include requests in the pre-bill status on the payments popup.(added new functions)
      void updatePrebillPaymentsToInvoice(
              InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
+     
+     void updatePrebillAdjustmentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
 
-     boolean IsPrebillPaymentExists(long requestId);
+     boolean prebillPaymentExists(long requestId);
 
-    double TotalPostPrebillPayments(
-            InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo); 
+     double totalPostPrebillPayments(
+            InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
+     
+     boolean prebillAdjustmentExists(long requestId);
+
+     double totalPostPrebillAdjustments(
+            InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
 }
