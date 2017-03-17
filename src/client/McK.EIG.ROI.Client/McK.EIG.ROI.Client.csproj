@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -33,7 +33,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -45,6 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +54,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Apache.NMS, Version=1.5.0.2194, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
@@ -569,16 +571,12 @@
       <DependentUpon>AmountTextBoxClass.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\View\Common\CustomTextBoxImageColumn.cs" />
-    <Compile Include="Base\View\Common\CustomTextBoxColumn.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Base\View\Common\CustomTextBoxColumn.cs" />
     <Compile Include="Base\View\Common\EIGDGVColumnHeader.cs" />
     <Compile Include="Base\View\Common\MaskedEditDateControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Base\View\Common\NumericTextBoxColumn.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Base\View\Common\NumericTextBoxColumn.cs" />
     <Compile Include="Base\View\Common\NumericTextBoxClass.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -2181,6 +2179,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="McK.EIG.ROI.Client.snk" />
     <None Include="Web References\Web_References.AlertServiceWS\AlertService.wsdl" />
     <None Include="Web References\Web_References.AlertServiceWS\oasis-200401-wss-wssecurity-secext-1.xsd">
@@ -3383,8 +3382,8 @@
     </None>
     <None Include="Web References\Web_References.OutputServiceWS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\Web_References.OutputServiceWS\ROIOutputService.wsdl" />
     <None Include="Web References\Web_References.OutputServiceWS\xml.xsd">
