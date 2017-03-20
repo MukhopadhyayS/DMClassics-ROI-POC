@@ -334,7 +334,16 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
                     //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - adjustmentUI.TotalAdjustmentAmount);
                     //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - adjustmentUI.TotalAdjustmentAmount);
-                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
+                    if ((releaseDialog != null) || (request.Status == RequestStatus.Completed) || (request.Status == RequestStatus.PreBilled))
+                    {
+                        balanceDuePrebill = balanceDue - adjustmentUI.TotalAdjustmentAmount;
+                        balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - adjustmentUI.TotalAdjustmentAmount);
+                    }
+                    else
+                    {
+                        balanceDuePrebill = balanceDue;
+                        balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
+                    }
                     ApplicationEventArgs ae = new ApplicationEventArgs(request.Requestor, this);
                     RequestEvents.OnAccountManagementGridRefresh(Pane, ae);
                 }

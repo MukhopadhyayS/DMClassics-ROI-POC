@@ -5604,6 +5604,10 @@ please map them at this time.</value>
     <value>Invoice</value>
     <comment>InvoiceUI - AccountManagement</comment>
   </data>
+  <data name="prebill.titlebar.text" xml:space="preserve">
+    <value>Pre-Bill</value>
+    <comment>InvoiceUI - AccountManagement</comment>
+  </data>
   <data name="noteLabel.RefundUI" xml:space="preserve">
     <value>Note:</value>
     <comment>Refund - AccountManagement</comment>
