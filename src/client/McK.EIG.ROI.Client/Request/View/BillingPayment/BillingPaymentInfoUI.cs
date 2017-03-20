@@ -4017,7 +4017,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         }
 
         //US16834 - changes to Include requests in the pre-bill status on the payments popup.
-        private void updateBalancePrebill()
+        public void updateBalancePrebill()
         {            
             double UnbillableAmt = 0;
             double totalAppliedAmount=0;
