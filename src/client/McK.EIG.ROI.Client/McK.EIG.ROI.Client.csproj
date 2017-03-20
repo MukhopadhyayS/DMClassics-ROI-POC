@@ -2179,7 +2179,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="McK.EIG.ROI.Client.snk" />
     <None Include="Web References\Web_References.AlertServiceWS\AlertService.wsdl" />
     <None Include="Web References\Web_References.AlertServiceWS\oasis-200401-wss-wssecurity-secext-1.xsd">
