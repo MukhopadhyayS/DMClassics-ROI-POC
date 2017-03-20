@@ -99,6 +99,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private void Process_UpdateTotalTax(object sender, EventArgs e)
         {
             billingPaymentInfoUI.UpdateTotalTax();
+            billingPaymentInfoUI.updateBalancePrebill();
         }
 
         private void Process_UpdateBillingApplyTax(object sender, EventArgs e)
