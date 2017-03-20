@@ -746,6 +746,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                     //if (requestorDetails != null)
                     //{
                         adjInfoDetail = RequestorController.Instance.RetrieveAdjustmentInfo(requestorDetails.Id);
+                        Collection<RequestInvoiceDetail> requestInvoices = RequestorController.Instance.RetrieveRequestorInvoices(requestorDetails.Id);                        
+                        adjInfoDetail.RequestorInvoicesList = requestInvoices;
 
                         if (adjInfoDetail != null)
                         {
@@ -968,6 +970,75 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             }
         }
 
+        /// <summary>
+        /// Shows the invoice Dialog
+        /// </summary>
+        private void ShowpreBillDialog()
+        {
+            try
+            {
+                ResourceManager rm = Context.CultureManager.GetCulture(CultureType.UIText.ToString());
+
+                EventHandler selectAdjustmentHandler = new EventHandler(Process_SelectAdjsustment);
+                EventHandler cancelHandler = new EventHandler(Process_CancelAdjsustment);
+
+                invoiceUI = new InvoiceUI(selectAdjustmentHandler, cancelHandler, Pane);
+
+                Form form = ROIViewUtility.ConvertToForm(null, rm.GetString("prebill.titlebar.text") + " - " + invoiceId.ToString(System.Threading.Thread.CurrentThread.CurrentUICulture), invoiceUI);
+                form.FormClosing += delegate { invoiceUI.CleanUp(); };
+
+                RequestInvoiceDetail invDetail = new RequestInvoiceDetail();
+                invDetail = (RequestInvoiceDetail)grid.SelectedRows[0].DataBoundItem;
+
+                Collection<RequestInvoiceDetail> reqInvoices = new Collection<RequestInvoiceDetail>();
+                reqInvoices.Add(invDetail);
+                Collection<RequestorAdjustmentsPaymentsDetail> reqAdjPays = new Collection<RequestorAdjustmentsPaymentsDetail>();
+                foreach (RequestorAdjustmentsPaymentsDetail reqAdjPay in invDetail.ReqAdjPay)
+                {
+                    reqAdjPays.Add(reqAdjPay);
+                }
+
+                //Code for Total Charges
+
+                ComparableCollection<RequestorAdjustmentsPaymentsDetail> list = new ComparableCollection<RequestorAdjustmentsPaymentsDetail>(reqAdjPays);
+
+                list.ApplySort(TypeDescriptor.GetProperties(typeof(RequestorAdjustmentsPaymentsDetail))["Date"], ListSortDirection.Ascending);
+                //list.SetSortedInfo(TypeDescriptor.GetProperties(typeof(RequestorAdjustmentsPaymentsDetail))["Date"], ListSortDirection.Descending);
+                ComparableCollection<RequestorAdjustmentsPaymentsDetail> requestorAdjustmentsPaymentsDetail = new ComparableCollection<RequestorAdjustmentsPaymentsDetail>();
+                RequestorAdjustmentsPaymentsDetail reqTotalAdjPay = new RequestorAdjustmentsPaymentsDetail();
+                reqTotalAdjPay.AppliedAmount = invDetail.Charges;
+                reqTotalAdjPay.Date = invDetail.CreatedDate.ToString(ROIConstants.DateFormat, CultureInfo.InvariantCulture);
+                reqTotalAdjPay.TxnType = "Total Charges";
+                requestorAdjustmentsPaymentsDetail.Add(reqTotalAdjPay);
+                foreach (RequestorAdjustmentsPaymentsDetail reqAdjPay in list)
+                {
+                    requestorAdjustmentsPaymentsDetail.Add(reqAdjPay);
+                }
+                invoiceUI.SetData(requestorAdjustmentsPaymentsDetail, invDetail, requestorDetails.Id, requestorDetails);
+                int scrollPosition = grid.FirstDisplayedScrollingRowIndex;
+                DialogResult result = form.ShowDialog(this);
+                if (result == DialogResult.Cancel)
+                {
+                    form.Close();
+                }
+                var selectionItem = (RequestInvoiceDetail)grid.SelectedRows[0].DataBoundItem;
+                //CR# 385093
+                int index = grid.SelectedRows[0].Index;
+                direction = (grid.SortOrder == SortOrder.Ascending) ? ListSortDirection.Ascending : ListSortDirection.Descending;
+                sortedColumn = grid.SortedColumn.DataPropertyName;
+                Collection<RequestInvoiceDetail> reqInvoiceList = RequestorController.Instance.RetrieveRequestorInvoices(requestorDetails.Id);
+                ComparableCollection<RequestInvoiceDetail> requestInvoiceDetailList = new ComparableCollection<RequestInvoiceDetail>(reqInvoiceList);
+                PopulateData(requestInvoiceDetailList);
+                reqInvDetail = requestInvoiceDetailList;
+                //CR# 385093
+                RetainGridSelection(index, scrollPosition, selectionItem);
+            }
+            catch (ROIException cause)
+            {
+                ROIViewUtility.Handle(Context, cause);
+            }
+        }
+
         private void RetainGridSelection(RequestInvoiceDetail selectionItem)
         {
             try
@@ -1126,6 +1197,10 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             else if (grid.SelectedCells[1].FormattedValue.ToString() == "Refund")
             {
                 ShowRefundDialog((RequestInvoiceDetail)grid.SelectedRows[0].DataBoundItem, true);
+            }
+            else if (grid.SelectedCells[1].FormattedValue.ToString() == "Prebill")
+            {
+                ShowpreBillDialog();
             }
             else
             {

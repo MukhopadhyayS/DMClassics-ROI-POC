@@ -162,7 +162,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
         private void InitGrid()
         {
             dgvColumnHeader = new EIGCheckedColumnHeader();
-            adjustmentGrid.AddTextBoxColumn(InvoiceIdColumn, "Invoice #", "Id", 80);
+            adjustmentGrid.AddTextBoxColumn(InvoiceIdColumn, "Invoice/PreBill #", "Id", 80);
 			//CR-377441 fix
             adjustmentGrid.AddTextBoxColumn(RequestIdColumn, "Request ID", "RequestId", 80);
             DataGridViewTextBoxColumn dgvCreatedDateColumn = adjustmentGrid.AddTextBoxColumn(DateColumn, "Date", "CreatedDate", 65);
@@ -258,7 +258,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                     this.applyButton.Enabled = false;
                 this.requestorDetails = requestorDetails;
                 
-                currentAdjInfo = RequestorController.Instance.RetrieveAdjustmentInfoByAdjustmentId(adjId, requestorId);
+                currentAdjInfo = RequestorController.Instance.RetrieveAdjustmentInfoByAdjustmentId(adjId,requestorId);
                 if (currentAdjInfo.RequestorInvoicesList != null)
                 {
                     currentAdjInfo.RequestorInvoicesList = PrepareOpenInvoiceList();
