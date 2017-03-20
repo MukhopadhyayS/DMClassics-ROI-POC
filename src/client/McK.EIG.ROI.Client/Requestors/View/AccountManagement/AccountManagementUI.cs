@@ -705,7 +705,9 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 requestInvoiceDetailList.SetSortedInfo(TypeDescriptor.GetProperties(typeof(RequestInvoiceDetail))["CreatedDate"], ListSortDirection.Ascending);
                 PopulateData(requestInvoiceDetailList);
                 reqInvDetail = requestInvoiceDetailList;
-				//CR# 385093
+                RequestEvents.OnTotalTaxChanged(null, null);
+
+                //CR# 385093
                 if ((grid.Items != null) && (grid.Items.Count > 0))
                 {
                     accountManagementFooterUI.StatementsButton.Enabled = true;
