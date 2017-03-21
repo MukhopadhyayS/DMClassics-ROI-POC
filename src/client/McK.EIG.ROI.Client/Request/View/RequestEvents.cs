@@ -63,6 +63,7 @@ namespace McK.EIG.ROI.Client.Request.View
         public static event EventHandler StdFeeTaxChanged;
         public static event EventHandler CustomFeeTaxChanged;
         public static event EventHandler TotalTaxChanged;
+        public static event EventHandler ReleaseInfoUIChanged;
         public static event EventHandler ApplyTaxChanged;
         public static event EventHandler ChargeAmountChanged;
 
@@ -349,6 +350,14 @@ namespace McK.EIG.ROI.Client.Request.View
             if (TotalTaxChanged != null)
             {
                 TotalTaxChanged(sender, e);
+            }
+        }
+
+        internal static void OnReleaseInfoUIChanged(object sender, EventArgs e)
+        {
+            if (ReleaseInfoUIChanged != null)
+            {
+                ReleaseInfoUIChanged(sender, e);
             }
         }
         
