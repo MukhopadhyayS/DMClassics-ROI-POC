@@ -39,6 +39,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         private EventHandler updateTotalTaxHandler;
 
+        private EventHandler updateReleaseinfoUI;
+
         private EventHandler updateBillingApplyTax;
 
         private EventHandler updateTaxAmount;
@@ -66,7 +68,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             updatePendingReleaseCostHandler = new EventHandler(Process_UpdatePendingReleaseCost);
             updateTotalTaxHandler = new EventHandler(Process_UpdateTotalTax);
             updateBillingApplyTax = new EventHandler(Process_UpdateBillingApplyTax);
+            updateReleaseinfoUI = new EventHandler(Process_UpdatereleaseInfoUI);
             updateTaxAmount = new EventHandler(Process_UpdateTaxAmount);
+
+            RequestEvents.ReleaseInfoUIChanged += updateReleaseinfoUI;
             RequestEvents.ReleaseCostChanged += updatePendingReleaseCostHandler;            
             RequestEvents.TotalTaxChanged += updateTotalTaxHandler;
             RequestEvents.ApplyTaxChanged += updateBillingApplyTax;
@@ -84,6 +89,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             RequestEvents.TotalTaxChanged -= updateTotalTaxHandler;
             RequestEvents.ApplyTaxChanged -= updateBillingApplyTax;
             RequestEvents.ChargeAmountChanged -= updateTaxAmount;
+            RequestEvents.ReleaseInfoUIChanged -= updateReleaseinfoUI;
         }
 
         /// <summary>
@@ -99,7 +105,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private void Process_UpdateTotalTax(object sender, EventArgs e)
         {
             billingPaymentInfoUI.UpdateTotalTax();
-            billingPaymentInfoUI.updateBalancePrebill();
+        }
+        
+        private void Process_UpdatereleaseInfoUI(object sender, EventArgs e)
+        {
+            billingPaymentInfoUI.UpdateUIWithDetails();
         }
 
         private void Process_UpdateBillingApplyTax(object sender, EventArgs e)
