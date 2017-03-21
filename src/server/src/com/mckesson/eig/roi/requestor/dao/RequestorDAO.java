@@ -34,6 +34,7 @@ import com.mckesson.eig.roi.requestor.model.RequestorInvoice;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
 import com.mckesson.eig.roi.requestor.model.RequestorPayment;
 import com.mckesson.eig.roi.requestor.model.RequestorPaymentList;
+import com.mckesson.eig.roi.requestor.model.RequestorPrebillsList;
 import com.mckesson.eig.roi.requestor.model.RequestorRefund;
 import com.mckesson.eig.roi.requestor.model.RequestorSearchCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetailsList;
@@ -359,5 +360,11 @@ extends ROIDAO {
      * @return count of number of adjustment & payment
      */
     long retrieveRequestorAdjPaymentCount(long requestorId);
+    
+    /**
+     * This method retrieves the Prebills associated to the requestor
+     * @param requestorId
+     */
+    RequestorPrebillsList retrieveRequestorPrebills(long requestorId);
 
  }
