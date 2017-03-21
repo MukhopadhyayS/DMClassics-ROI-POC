@@ -705,7 +705,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 requestInvoiceDetailList.SetSortedInfo(TypeDescriptor.GetProperties(typeof(RequestInvoiceDetail))["CreatedDate"], ListSortDirection.Ascending);
                 PopulateData(requestInvoiceDetailList);
                 reqInvDetail = requestInvoiceDetailList;
-                RequestEvents.OnTotalTaxChanged(null, null);
+                RequestEvents.OnReleaseInfoUIChanged(null, null);
 
                 //CR# 385093
                 if ((grid.Items != null) && (grid.Items.Count > 0))
@@ -792,7 +792,10 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 requestInvoiceDetailList.SetSortedInfo(TypeDescriptor.GetProperties(typeof(RequestInvoiceDetail))["CreatedDate"], ListSortDirection.Ascending);
                 PopulateData(requestInvoiceDetailList);
                 reqInvDetail = requestInvoiceDetailList;
-				//CR# 385093
+
+                RequestEvents.OnReleaseInfoUIChanged(null, null);
+
+                //CR# 385093
                 if (grid.Items != null)
                 {
                     if (grid.Items.Count > 0)
@@ -885,6 +888,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 reqInvDetail = requestInvoiceDetailList;
 				//CR# 385093
                 RetainGridSelection(index,scrollPosition, selectionItem);
+
+                RequestEvents.OnReleaseInfoUIChanged(null, null);
             }
             catch (ROIException cause)
             {
