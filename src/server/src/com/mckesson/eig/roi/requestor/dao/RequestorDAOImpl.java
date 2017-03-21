@@ -63,6 +63,8 @@ import com.mckesson.eig.roi.requestor.model.RequestorInvoice;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
 import com.mckesson.eig.roi.requestor.model.RequestorPayment;
 import com.mckesson.eig.roi.requestor.model.RequestorPaymentList;
+import com.mckesson.eig.roi.requestor.model.RequestorPrebill;
+import com.mckesson.eig.roi.requestor.model.RequestorPrebillsList;
 import com.mckesson.eig.roi.requestor.model.RequestorRefund;
 import com.mckesson.eig.roi.requestor.model.RequestorSearchCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetails;
@@ -936,6 +938,58 @@ implements RequestorDAO {
 
         return new RequestorInvoicesList(requestInvoices);
     }
+    
+    @Override
+    public RequestorPrebillsList retrieveRequestorPrebills(long requestorId) {
+        final String logSM = "retrieveRequestorPrebills(requestorId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestorId);
+        }
+
+        List<RequestorPrebill> requestPrebills = retrieveRequestorPrebillDetails(requestorId);
+        if (CollectionUtilities.isEmpty(requestPrebills)) {
+            return null;
+        }
+
+        List<Long> prebillIds = new ArrayList<Long>();
+        for (RequestorPrebill reqPrebill : requestPrebills) {
+            prebillIds.add(reqPrebill.getId());
+        }
+        List<RequestorAdjustmentsPayments> reqAdjPay = null;
+
+        if (!prebillIds.isEmpty()) {
+            reqAdjPay = retrieveAdjustmentsPayments(prebillIds);
+        }
+
+        for (RequestorPrebill reqPrebill : requestPrebills) {
+
+            double amount = 0.00;
+            List<RequestorAdjustmentsPayments> adjPays =
+                                        new ArrayList<RequestorAdjustmentsPayments>();
+            if (reqAdjPay == null) {
+                continue;
+            }
+
+            for (RequestorAdjustmentsPayments adjPay : reqAdjPay) {
+
+                if (reqPrebill.getId() == adjPay.getInvoiceId()) {
+
+                    adjPays.add(adjPay);
+                    if ("Payment".equalsIgnoreCase(adjPay.getTxnType())
+                            && adjPay.getAppliedAmount() != null) {
+
+                        amount = amount + adjPay.getAppliedAmount();
+                        reqPrebill.setPaymentAmount(amount);
+                    }
+                }
+            }
+
+            reqPrebill.setRequestorAdjPay(adjPays);
+        }
+
+        return new RequestorPrebillsList(requestPrebills);
+    }
 
     @SuppressWarnings("unchecked")
     private List<RequestorInvoice> retrieveRequestorInvoiceDetails(long requestorId) {
@@ -989,6 +1043,59 @@ implements RequestorDAO {
                                    e.getMessage());
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    private List<RequestorPrebill> retrieveRequestorPrebillDetails(long requestCoreId) {
+        final String logSM = "retrieveRequestorPrebillDetails(requestorId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreId);
+        }
+        try {
+
+            Session session = getSession();
+            String queryString = session.getNamedQuery("retrieveRequestorPrebills")
+                                        .getQueryString();
+            SQLQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreId", requestCoreId, Hibernate.LONG);
+
+            query.addScalar("id", Hibernate.LONG);
+            query.addScalar("requestId", Hibernate.LONG);
+            query.addScalar("invoiceType", Hibernate.STRING);
+            query.addScalar("charge", Hibernate.DOUBLE);
+            query.addScalar("balance", Hibernate.DOUBLE);
+            query.addScalar("paymentAmount", Hibernate.DOUBLE);
+            query.addScalar("adjustmentAmount", Hibernate.DOUBLE);
+            query.addScalar("refundAmount", Hibernate.DOUBLE);
+            query.addScalar("description", Hibernate.STRING);
+            query.addScalar("paymentDescription", Hibernate.STRING);
+            query.addScalar("paymentMethod", Hibernate.STRING);
+            query.addScalar("facilityString", Hibernate.STRING);
+            query.addScalar("billingLocation", Hibernate.STRING);
+            query.addScalar("unbillable", Hibernate.STRING);
+            query.addScalar("createdDt", Hibernate.TIMESTAMP);
+            query.addScalar("createdBy", Hibernate.LONG);
+            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
+            query.addScalar("modifiedBy", Hibernate.LONG);
+            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("unBillableAmount", Hibernate.DOUBLE);
+            query.setResultTransformer(Transformers.aliasToBean(RequestorPrebill.class));
+            List<RequestorPrebill> requestorPrebillList = query.list();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+            return requestorPrebillList;
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                                   e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                                   e.getMessage());
+        }
+    }
 
     @SuppressWarnings("unchecked")
     private List<RequestorAdjustmentsPayments> retrieveAdjustmentsPayments(List<Long> invoiceIds) {
@@ -1014,6 +1121,7 @@ implements RequestorDAO {
             query.addScalar("txnType", Hibernate.STRING);
             query.addScalar("description", Hibernate.STRING);
             query.addScalar("paymentMethod", Hibernate.STRING);
+            query.addScalar("requestorId", Hibernate.LONG);
             query.addScalar("invoiceId", Hibernate.LONG);
             query.setResultTransformer(Transformers.aliasToBean(
                                                         RequestorAdjustmentsPayments.class));

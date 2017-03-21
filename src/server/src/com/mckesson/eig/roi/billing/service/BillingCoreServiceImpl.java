@@ -57,6 +57,9 @@ import com.mckesson.eig.roi.requestor.model.RequestorAdjustmentsPayments;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoice;
 import com.mckesson.eig.roi.requestor.model.RequestorPayment;
+import com.mckesson.eig.roi.requestor.model.RequestorPaymentList;
+import com.mckesson.eig.roi.requestor.model.RequestorPrebill;
+import com.mckesson.eig.roi.requestor.model.RequestorPrebillsList;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetails;
@@ -99,7 +102,7 @@ implements BillingCoreService {
 
             RequestCorePatientDAO rCPatientDAO =
                     (RequestCorePatientDAO) getDAO(DAOName.REQUEST_PATIENT_DAO);
-
+            
             long requestCoreId = invOrPrebillPreviewInfo.getRequestCoreId();
             
             RequestCoreCharges requestCoreCharges = new RequestCoreCharges();
@@ -111,11 +114,12 @@ implements BillingCoreService {
                 invOrPrebillPreviewInfo.setAmountToApply(invOrPrebillPreviewInfo.getAmountpaid());
                 double totalPostPrebillPayments =  rCDeliveryDAO.totalPostPrebillPayments(invOrPrebillPreviewInfo);
                 double totalPostPrebillAdjustments =  rCDeliveryDAO.totalPostPrebillAdjustments(invOrPrebillPreviewInfo);
-                rCChargesDAO.updateRequestReleaseCost(requestCoreId, invOrPrebillPreviewInfo.getBaseCharge(),rCChargesDAO.getDate(),getUser().getInstanceId());
+                // Convert the applied payments on past prebills for the request to unapplied payment
+                appliedToUnappliedPaymentPrebill (totalPostPrebillPayments, totalPostPrebillAdjustments, requestCoreId);
+                rCChargesDAO.updateRequestReleaseCost(requestCoreId, invOrPrebillPreviewInfo.getBaseCharge(), rCChargesDAO.getDate(), getUser().getInstanceId());
                 // Retrieve all the data from Rough Draft tables.
                 requestCoreCharges = rCChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestCoreId);
-                requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid() - 
-                        totalPostPrebillPayments - totalPostPrebillAdjustments);
+                requestCoreCharges.setBalanceDue(requestCoreCharges.getBalanceDue() - invOrPrebillPreviewInfo.getAmountpaid());
             } else {
                 requestCoreCharges = rCChargesDAO.retrieveRequestCoreBillingPaymentInfo(requestCoreId);
             }
@@ -1591,5 +1595,51 @@ implements BillingCoreService {
         }
         
         return amountToApply;
+    }
+    
+    private void appliedToUnappliedPaymentPrebill (double totalPostPrebillPayments, double totalPostPrebillAdjustments, long requestCoreId) {
+        RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
+        RequestorPrebillsList reqPrebillList = new RequestorPrebillsList();
+        if (totalPostPrebillPayments != 0.0 || totalPostPrebillAdjustments != 0.0) {
+            reqPrebillList = requestorDAO.retrieveRequestorPrebills(requestCoreId);
+        }
+        if (null != reqPrebillList) {
+            List<RequestorPrebill> requestorPrebill = reqPrebillList.getRequestorPrebills();
+            if (CollectionUtilities.hasContent(requestorPrebill)) {
+                for (RequestorPrebill reqPrebill : requestorPrebill) {
+                     List<RequestorAdjustmentsPayments> reqAdjPayList = reqPrebill.getRequestorAdjPay();
+                     for (RequestorAdjustmentsPayments reqAdjPay : reqAdjPayList) {
+                          if ("Payment".equalsIgnoreCase(reqAdjPay.getTxnType())) {
+                              RequestorPaymentList paymentInfoList = new RequestorPaymentList();
+                              RequestorPayment paymentInfo = new RequestorPayment();
+                              Timestamp date = requestorDAO.getDate();
+                              paymentInfoList.setPaymentAmount(reqAdjPay.getAppliedAmount());
+                              paymentInfoList.setUnAppliedAmount(reqAdjPay.getAppliedAmount());
+                              paymentInfoList.setPaymentMode("Unapplied Payment");
+                              paymentInfoList.setPaymentDate(date);  
+                              paymentInfoList.setRequestorId(reqAdjPay.getRequestorId());
+                              setDefaultDetails(paymentInfoList, date, true);
+                              paymentInfo.setRequestCoreDeliveryChargesId(reqPrebill.getId());
+                              paymentInfo.setPaymentId(reqAdjPay.getId());
+                              requestorDAO.deleteInvoiceToPayment(paymentInfo);
+                              requestorDAO.createRequestorPayment(paymentInfoList);
+                          } else {
+                              RequestorAdjustment adjustmentInfo = new RequestorAdjustment();
+                              Timestamp date = requestorDAO.getDate();
+                              adjustmentInfo.setAmount(reqAdjPay.getAppliedAmount());
+                              adjustmentInfo.setUnappliedAmount(reqAdjPay.getAppliedAmount());
+                              adjustmentInfo.setAdjustmentType(AdjustmentType.BILLING_ADJUSTMENT);
+                              adjustmentInfo.setAdjustmentDate(date);  
+                              adjustmentInfo.setRequestorSeq(reqAdjPay.getRequestorId());
+                              adjustmentInfo.setDelete(false);
+                              setDefaultDetails(adjustmentInfo, date, true);
+                              requestorDAO.deleteMappedInvoicesByAdjustmentAndInvoiceId(reqAdjPay.getId(), reqPrebill.getId());
+                              requestorDAO.saveAdjustmentInfo(adjustmentInfo);
+                          }
+                     }
+                }
+            }
+            
+        }
     }
 }
