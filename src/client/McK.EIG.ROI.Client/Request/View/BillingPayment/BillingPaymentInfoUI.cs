@@ -4026,7 +4026,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         }
 
         //US16834 - changes to Include requests in the pre-bill status on the payments popup.
-        public void updateBalancePrebill()
+        private void updateBalancePrebill()
         {            
             double UnbillableAmt = 0;
             double totalAppliedAmount=0;
@@ -4095,6 +4095,22 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         }
 
+        public void UpdateUIWithDetails()
+        {
+
+            requestBillingInfo = RequestController.Instance.RetrieveRequestBillingPaymentInfo(request.Id);
+            double requestammount = requestBillingInfo.TotalRequestCost;
+            double paymentammt = requestBillingInfo.PaymentAmount;
+            adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(requestBillingInfo.PaymentAmount);
+
+            double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+            if (balanceDue > 0)
+            {
+                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(requestammount - paymentammt);
+            }
+
+            unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(requestBillingInfo.UnAppliedAmount);
+        }
         /// <summary>
         /// Occurs when user clicks the Charge History button
         /// </summary>
