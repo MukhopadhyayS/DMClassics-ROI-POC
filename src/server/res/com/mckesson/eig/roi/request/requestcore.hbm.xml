@@ -699,7 +699,7 @@ SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq id,
                 AND invoice.Invoice_Balance_Due > 0  
 
 	ELSE 
-	SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+	SELECT TOP 1 invoice.ROI_RequestCoreDeliveryCharges_Seq id,
         		invoice.ROI_RequestCore_Seq requestId,
                   'Prebill ' + CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
                 'Prebill' invoiceType,
@@ -721,7 +721,8 @@ SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq id,
             WHERE
                 invoice.ROI_RequestCore_Seq = :requestId
                 AND invoice.Type = 'Prebill'
-                AND invoice.Balance_Due > 0   
+                AND invoice.Balance_Due >= 0 
+                order by ROI_RequestCoreDeliveryCharges_Seq desc  
                                    
        ]]>
    </sql-query>
