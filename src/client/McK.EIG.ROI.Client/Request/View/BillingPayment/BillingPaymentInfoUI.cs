@@ -4101,12 +4101,13 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             requestBillingInfo = RequestController.Instance.RetrieveRequestBillingPaymentInfo(request.Id);
             double requestammount = requestBillingInfo.TotalRequestCost;
             double paymentammt = requestBillingInfo.PaymentAmount;
-            adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(requestBillingInfo.PaymentAmount);
+            double creditadjamnt = requestBillingInfo.CreditAdjustmentAmount;
+            adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(paymentammt + creditadjamnt);
 
             double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
             if (balanceDue > 0)
             {
-                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(requestammount - paymentammt);
+                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(requestammount - (paymentammt + creditadjamnt));
             }
 
             unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(requestBillingInfo.UnAppliedAmount);
