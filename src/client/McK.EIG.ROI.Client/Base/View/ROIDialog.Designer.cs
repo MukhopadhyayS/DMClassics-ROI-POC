@@ -56,7 +56,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.dialogOuterPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dialogOuterPanel.Location = new System.Drawing.Point(0, 0);
             this.dialogOuterPanel.Name = "dialogOuterPanel";
-            this.dialogOuterPanel.Size = new System.Drawing.Size(540, 189);
+            this.dialogOuterPanel.Size = new System.Drawing.Size(530, 196);
             this.dialogOuterPanel.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -67,7 +67,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.flowLayoutPanel1.Controls.Add(this.ignoreButton);
             this.flowLayoutPanel1.Controls.Add(this.okButton);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(204, 150);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(194, 150);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(314, 33);
             this.flowLayoutPanel1.TabIndex = 5;
@@ -162,15 +162,15 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 189);
+            this.ClientSize = new System.Drawing.Size(530, 196);
             this.Controls.Add(this.dialogOuterPanel);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(546, 213);
+            this.MaximumSize = new System.Drawing.Size(546, 235);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(546, 213);
+            this.MinimumSize = new System.Drawing.Size(546, 235);
             this.Name = "ROIDialog";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

@@ -273,7 +273,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.Controls.Add(this.logonButton);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "LogOnUI";
-            this.Size = new System.Drawing.Size(522, 270);
+            this.Size = new System.Drawing.Size(522, 288);
             this.outerPanel.ResumeLayout(false);
             this.outerWhitePanel.ResumeLayout(false);
             this.flowLayoutPanel.ResumeLayout(false);
