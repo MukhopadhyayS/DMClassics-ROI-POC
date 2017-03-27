@@ -4330,7 +4330,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         InvoiceInfo.InvoiceBalanceDue = prebillInvoiceDetails.Invoice.BalanceDue;
                     else
                         InvoiceInfo.InvoiceBalanceDue = 0;
-                    InvoiceInfo.BaseCharge = prebillInvoiceDetails.Invoice.BalanceDue;
+                    InvoiceInfo.BaseCharge = prebillInvoiceDetails.Invoice.BaseCharge;
                     InvoiceInfo.InvoiceBillingLocCode = request.DefaultFacility.FacilityCode as String;
                     InvoiceInfo.InvoiceBillinglocName = request.DefaultFacility.FacilityName;
                     if (letterTemplateType != "PreBill")
@@ -4878,7 +4878,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             double invoiceBalanceDue = Math.Round(BalanceDue - release.InvoicesBalanceDue, 2);
             InvoiceDet invoiceDetails = new InvoiceDet();            
             invoiceDetails.AmountPaid = 0;
-            invoiceDetails.BalanceDue = invoiceDetails.BaseCharge = invoiceBalanceDue;
+            invoiceDetails.BalanceDue = invoiceBalanceDue;
+            invoiceDetails.BaseCharge = release.TotalRequestCost;
             if (IsUnbillable())
             {
                 invoiceDetails.BalanceDue = 0;
