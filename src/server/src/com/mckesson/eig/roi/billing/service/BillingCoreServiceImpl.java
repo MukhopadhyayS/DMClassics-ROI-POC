@@ -1600,6 +1600,7 @@ implements BillingCoreService {
     private void appliedToUnappliedPaymentPrebill (double totalPostPrebillPayments, double totalPostPrebillAdjustments, long requestCoreId) {
         RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
         RequestorPrebillsList reqPrebillList = new RequestorPrebillsList();
+        //JournalService journalService = (JournalService) getService(ServiceName.JOURNEL_SERVICE);
         if (totalPostPrebillPayments != 0.0 || totalPostPrebillAdjustments != 0.0) {
             reqPrebillList = requestorDAO.retrieveRequestorPrebills(requestCoreId);
         }
@@ -1618,11 +1619,14 @@ implements BillingCoreService {
                               paymentInfoList.setPaymentMode("Unapplied Payment");
                               paymentInfoList.setPaymentDate(date);  
                               paymentInfoList.setRequestorId(reqAdjPay.getRequestorId());
+                              paymentInfoList.setPaymentId(reqAdjPay.getId());
                               setDefaultDetails(paymentInfoList, date, true);
                               paymentInfo.setRequestCoreDeliveryChargesId(reqPrebill.getId());
                               paymentInfo.setPaymentId(reqAdjPay.getId());
                               requestorDAO.deleteInvoiceToPayment(paymentInfo);
                               requestorDAO.createRequestorPayment(paymentInfoList);
+                              /*journalService.createUnApplyPaymentFromInvoiceJE(reqAdjPay.getId());
+                              journalService.createAcceptPaymentJE(reqAdjPay.getId());*/
                           } else {
                               RequestorAdjustment adjustmentInfo = new RequestorAdjustment();
                               Timestamp date = requestorDAO.getDate();
@@ -1632,9 +1636,15 @@ implements BillingCoreService {
                               adjustmentInfo.setAdjustmentDate(date);  
                               adjustmentInfo.setRequestorSeq(reqAdjPay.getRequestorId());
                               adjustmentInfo.setDelete(false);
+                              adjustmentInfo.setId(reqAdjPay.getId());
                               setDefaultDetails(adjustmentInfo, date, true);
                               requestorDAO.deleteMappedInvoicesByAdjustmentAndInvoiceId(reqAdjPay.getId(), reqPrebill.getId());
+                              //requestorDAO.createRequestorPayment(adjustmentInfo);
                               requestorDAO.saveAdjustmentInfo(adjustmentInfo);
+                             /* createJournalEntryForAdjustment(
+                                      ROIConstants.UNAPPLY_ADJ_FROM_INVOICE, adjustmentInfo.getAdjustmentType(), reqAdjPay.getId());
+                              createJournalEntryForAdjustment(
+                                      ROIConstants.CREATE_ADJUSTMENT, adjustmentInfo.getAdjustmentType(), reqAdjPay.getId());*/
                           }
                      }
                 }
