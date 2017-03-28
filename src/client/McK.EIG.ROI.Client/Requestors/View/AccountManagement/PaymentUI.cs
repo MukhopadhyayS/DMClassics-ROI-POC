@@ -491,7 +491,9 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 //removed the invoices when the user does not have facility permission
                 if (!requestInvoiceDetail.HasMaskedRequestorFacility && !requestInvoiceDetail.HasBlockedRequestorFacility)
                 {
-                    requestInvoiceDetails.Add(requestInvoiceDetail);
+                    if(requestInvoiceDetail.Balance > 0)
+                    { requestInvoiceDetails.Add(requestInvoiceDetail); }
+                    
                 }
                 else
                 {
