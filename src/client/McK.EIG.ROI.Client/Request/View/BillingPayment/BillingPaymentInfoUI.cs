@@ -3957,7 +3957,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             {
                 unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
                 adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
-                balanceDuePrebill = balanceDue;
+                //balanceDuePrebill = balanceDue;
                 balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
             }
             
