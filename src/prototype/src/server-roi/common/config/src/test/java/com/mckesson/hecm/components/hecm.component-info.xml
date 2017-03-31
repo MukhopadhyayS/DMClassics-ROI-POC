@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<componentInfo componentID="hecm" componentDisplayName="HECM">
+    <applicationInfo>
+        <componentName>Application</componentName>
+        <productName>HECM</productName>
+        <productType>HECM</productType>
+        <version></version>
+        <path>null\server\default\deploy\hecm.ear</path>
+    </applicationInfo>
+    <configurationInfo>WEB-SERVER-PORT=8080,MAX-MEMORY=512m,MIN-MEMORY=128m</configurationInfo>
+    <updateInfo/>
+    <logConfig>
+        <file>com/mckesson/eig/workflow/logging.xml</file>
+        <appenders>
+            <appender>eigLogAppender</appender>
+        </appenders>
+        <categories>
+            <category>com.quickstream</category>
+            <category>com.mckesson.hecm</category>
+            <category>com.mckesson.eig</category>
+        </categories>
+    </logConfig>
+</componentInfo>

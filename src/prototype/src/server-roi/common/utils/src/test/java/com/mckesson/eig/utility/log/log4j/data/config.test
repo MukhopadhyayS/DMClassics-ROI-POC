@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- ******************************************************************
+*    All configuration files must have a root element of configuration
+******************************************************************* -->
+
+<configuration>
+
+	<initializer name="logger" class="com.mckesson.eig.common.log.log4j.Log4JInitializer">
+	    
+	    <file type="properties" name="com/mckesson/eig/common/log/log4j/data/log4j.config" />
+	
+	</initializer>
+	
+</configuration>

@@ -1,0 +1,2964 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment name="defaultServerConfig"
+		xmlns="http://xml.apache.org/axis/wsdd/"
+		xmlns:java="http://xml.apache.org/axis/wsdd/providers/java"
+		xmlns:handler="http://xml.apache.org/axis/wsdd/providers/handler"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:eig="urn:eig.mckesson.com">
+
+	<globalConfiguration>
+		<parameter name="disablePrettyXML" value="true"/>
+	</globalConfiguration>
+
+  	<!-- define Security Authorization handler -->
+	<handler type="java:com.mckesson.eig.wsfw.security.authorization.AuthorizationHandler" name="HPFSecurityAuthorizationHandler"/>
+
+	<transport name="http">
+		<parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+		<requestFlow>
+			<handler type="java:org.apache.axis.handlers.http.URLMapper"/>
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+		</requestFlow>
+	</transport>
+
+<!--  Not exposed
+    <service name="securitylogon" style="wrapped" use="literal" provider="Handler">
+
+        <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.LogonCallbackHandler"/>
+            </handler>
+
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/securitylogon.wsdl</wsdlFile>
+        <parameter name="alias" value="SecurityLogonService"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="SecurityLogonPortType"/>
+        <parameter name="wsdlServiceElement" value="SecurityLogonService"/>
+        <parameter name="wsdlServicePort" value="securityLogon"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.hpf.service.HPFSecurityAuthenticationService"/>
+
+        <parameter name="allowedMethods" value="logon"/>
+        <parameter name="scope" value="session"/>
+
+        <operation name="logon"
+                   qname="eig:logon"
+                   returnQName="eig:logonResult"
+                   returnType="eig:userAccount">
+        </operation>
+
+        <typeMapping qname="eig:userAccount"
+            type="java:com.mckesson.eig.roi.hpf.model.User"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+    </service>
+     -->
+
+    <service name="securitylogoff" style="wrapped" use="literal" provider="Handler">
+
+      <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/securitylogoff.wsdl</wsdlFile>
+        <parameter name="alias" value="SecurityLogoffService"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="SecurityLogoffPortType"/>
+        <parameter name="wsdlServiceElement" value="SecurityLogoffService"/>
+        <parameter name="wsdlServicePort" value="securityLogoff"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.hpf.service.HPFSecurityAuthenticationService"/>
+        <parameter name="allowedMethods" value="logoff"/>
+        <parameter name="forceInvalidateSession" value="true"/>
+        <parameter name="scope" value="session"/>
+        <operation name="logoff" qname="eig:logoff" returnQName="eig:logoffResult">
+      </operation>
+    </service>
+
+  <service name="BillingAdminService" style="wrapped" use="literal" provider="Handler">
+
+       <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+      <!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow -->
+           <handler type="HPFSecurityAuthorizationHandler" />
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/billing.admin.wsdl</wsdlFile>
+        <parameter name="alias" value="BillingAdmin"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="AdminPortType"/>
+        <parameter name="wsdlServiceElement" value="BillingAdmin"/>
+        <parameter name="wsdlServicePort" value="adminPort"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.admin.service.BillingAdminServiceImpl"/>
+        <parameter name="allowedMethods" value="createMediaType,
+                                                retrieveMediaType,
+                                                retrieveAllMediaTypes,
+                                                updateMediaType,
+                                                deleteMediaType,
+                                                createFeeType,
+                                                deleteFeeType,
+                                                retrieveFeeType,
+                                                retrieveAllFeeTypes,
+                                                updateFeeType,
+                                                createPaymentMethod,
+                                                retrievePaymentMethod,
+                                                retrieveAllPaymentMethods,
+                                                updatePaymentMethod,
+                                                deletePaymentMethod,
+                                                retrieveAllBillingTemplates,
+                                                retrieveBillingTemplate,
+                                                updateBillingTemplate,
+                                                createBillingTemplate,
+                                                deleteBillingTemplate,
+                                                createBillingTier,
+                                                retrieveBillingTier,
+                                                retrieveAllBillingTiers,
+                                                updateBillingTier,
+                                                deleteBillingTier,
+                                                retrieveBillingTiersByMediaTypeName,
+                                                createTaxPerFacility,
+                                                retrieveTaxPerFacility,
+                                                retrieveAllTaxPerFacilities,
+                                                retrieveAllTaxPerFacilitiesByUser,
+                                                updateTaxPerFacility,
+                                                deleteTaxPerFacility,
+                                                retrieveBillingAndPaymentInfo "/>
+
+        <parameter name="scope" value="session"/>
+
+        <operation name="createMediaType"
+                   qname="eig:createMediaType"
+                   returnQName="eig:mediaTypeId"
+                   returnType="xsd:long">
+            <parameter qname="eig:mediaTypeDetails" type="eig:MediaType"/>
+        </operation>
+
+       <operation name="retrieveMediaType"
+                   qname="eig:retrieveMediaType"
+                   returnQName="eig:mediaTypeDetails"
+                   returnType="eig:MediaType">
+            <parameter qname="eig:mediaTypeId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllMediaTypes"
+                   qname="eig:retrieveAllMediaTypes"
+                   returnQName="eig:mediaTypes"
+                   returnType="eig:MediaTypeList">
+                <parameter qname="detailedFetch" type="xsd:boolean"/>
+        </operation>
+
+        <operation name="updateMediaType"
+                   qname="eig:udpateMediaType"
+                   returnQName="eig:udpateMediaTypeResponse"
+                   returnType="eig:MediaType">
+             <parameter qname="eig:mediaTypeDetails" type="eig:MediaType"/>
+        </operation>
+
+        <operation name="deleteMediaType"
+                   qname="eig:deleteMediaType"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:mediaTypeId" type="xsd:long"/>
+        </operation>
+
+         <operation name="createFeeType"
+                    qname="eig:createFeeType"
+                    returnQName="eig:feeTypeId"
+                    returnQType="xsd:long">
+          <parameter qname="eig:feeTypeDetails" type="eig:FeeType"/>
+         </operation>
+
+        <operation name="retrieveFeeType"
+                    qname="eig:retrieveFeeType"
+                    returnQName="eig:feeTypeDetails"
+                    returnQType="eig:FeeType">
+         <parameter name="eig:feeTypeId" type="xsd:long" />
+         </operation>
+
+         <operation name="deleteFeeType"
+                   qname="eig:deleteFeeType"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:feeTypeId" type="xsd:long"/>
+        </operation>
+
+          <operation name="retrieveAllFeeTypes"
+                    qname="eig:retrieveAllFeeTypes"
+                    returnQName="eig:feeTypes"
+                    returnQType="eig:FeeTypes">
+                <parameter qname="detailedFetch" type="xsd:boolean"/>
+         </operation>
+
+         <operation name="updateFeeType"
+                    qname="eig:updateFeeType"
+                    returnQName="eig:feeTypeDetails"
+                    returnQType="eig:FeeType">
+          <parameter qname="eig:feeTypeDetails" type="eig:FeeType" />
+         </operation>
+
+         <operation name="createPaymentMethod"
+                   qname="eig:createPaymentMethod"
+                   returnQName="eig:paymentMethodId"
+                   returnType="xsd:long">
+            <parameter qname="eig:paymentMethodDetails" type="eig:PaymentMethod"/>
+        </operation>
+
+        <operation name="retrievePaymentMethod"
+                   qname="eig:retrievePaymentMethod"
+                   returnQName="eig:paymentMethodDetails"
+                   returnType="eig:PaymentMethod">
+            <parameter qname="eig:paymentMethodId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllPaymentMethods"
+                   qname="eig:retrieveAllPaymentMethods"
+                   returnQName="eig:paymentMethods"
+                   returnType="eig:PaymentMethodList">
+                 <parameter qname="detailedFetch" type="xsd:boolean"/>
+        </operation>
+
+        <operation name="updatePaymentMethod"
+                   qname="eig:updatePaymentMethod"
+                   returnQName="eig:paymentMethodDetails"
+                   returnType="eig:PaymentMethod">
+             <parameter qname="eig:paymentMethodDetails" type="eig:PaymentMethod"/>
+        </operation>
+
+        <operation name="deletePaymentMethod"
+                   qname="eig:deletePaymentMethod"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+           <parameter qname="eig:paymentMethodId" type="xsd:long"/>
+        </operation>
+
+        <operation name="createBillingTemplate"
+                   qname="eig:createBillingTemplate"
+                   returnQName="eig:billingTemplateId"
+                   returnType="xsd:long">
+            <parameter qname="eig:billingTempate" type="eig:BillingTemplate"/>
+        </operation>
+
+        <operation name="retrieveBillingTemplate"
+                   qname="eig:retrieveBillingTemplate"
+                   returnQName="eig:billingTemplate"
+                   returnType="eig:BillingTemplate">
+            <parameter qname="eig:billingTempalteId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllBillingTemplates"
+                   qname="eig:retrieveAllBillingTemplates"
+                   returnQName="eig:billingTemplates"
+                   returnType="eig:BillingTemplateList">
+                   <parameter qname="getAssociation" type="xsd:boolean"/>
+        </operation>
+
+        <operation name="updateBillingTemplate"
+                   qname="eig:updateBillingTemplate"
+                   returnQName="eig:updateBillingTemplateResponse"
+                   returnType="eig:BillingTemplate">
+             <parameter qname="eig:billingTempate" type="eig:BillingTemplate"/>
+        </operation>
+
+        <operation name="deleteBillingTemplate"
+                   qname="eig:deleteBillingTemplate"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:billingTemplateId" type="xsd:long"/>
+        </operation>
+
+           <!-- BillingTier operations -->
+        <operation name="createBillingTier"
+                   qname="eig:createBillingTier"
+                   returnQName="eig:BillingTier"
+                   returnType="eig:BillingTier">
+             <parameter qname="eig:bt" type="eig:BillingTier"/>
+        </operation>
+
+        <operation name="retrieveBillingTier"
+                   qname="eig:retrieveBillingTier"
+                   returnQName="eig:bt"
+                   returnType="eig:BillingTier">
+              <parameter qname="eig:billingTierId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllBillingTiers"
+                   qname="eig:retrieveAllBillingTiers"
+                   returnQName="eig:billingTiers"
+                   returnType="eig:BillingTierList">
+                   <parameter qname="loadAssociation" type="xsd:boolean"/>
+        </operation>
+
+        <operation name="updateBillingTier"
+                   qname="eig:updateBillingTier"
+                   returnQName="eig:bt"
+                   returnType="eig:BillingTier">
+              <parameter qname="eig:bt" type="eig:BillingTier"/>
+         </operation>
+
+        <operation name="deleteBillingTier"
+                   qname="eig:deleteBillingTier"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+               <parameter qname="eig:billingTierId" type="xsd:long"/>
+         </operation>
+
+         <operation name="retrieveBillingTiersByMediaTypeName"
+                    qname="eig:retrieveBillingTiersByMediaTypeName"
+                    returnQName="eig:billingTiers"
+                    returnType="eig:BillingTierList">
+            <parameter qname="eig:mediaTypeName" type="xsd:string" />
+         </operation>
+
+         <operation name="createTaxPerFacility"
+                    qname="eig:TaxPerFacility"
+                    returnQName="eig:TaxPerFacility"
+                    returnType="xsd:long">
+            <parameter qname="eig:createTaxPerFacility" type="eig:TaxPerFacility" />
+         </operation>
+
+         <operation name="updateTaxPerFacility"
+                    qname="eig:TaxPerFacility"
+                    returnQName="eig:TaxPerFacility"
+                    returnType="eig:TaxPerFacility">
+            <parameter qname="eig:updateTaxPerFacility" type="eig:TaxPerFacility" />
+         </operation>
+
+         <operation name="retrieveTaxPerFacility"
+                    qname="eig:TaxPerFacility"
+                    returnQName="eig:TaxPerFacility"
+                    returnType="eig:TaxPerFacility">
+            <parameter qname="eig:retrieveTaxPerFacility" type="xsd:long" />
+         </operation>
+
+         <operation name="retrieveAllTaxPerFacilities"
+                    qname="eig:TaxPerFacility"
+                    returnQName="eig:TaxPerFacilityList"
+                    returnType="eig:TaxPerFacilityList">
+         </operation>
+
+         <operation name="retrieveAllTaxPerFacilitiesByUser"
+                    qname="eig:TaxPerFacility"
+                    returnQName="eig:TaxPerFacilityList"
+                    returnType="eig:TaxPerFacilityList">
+            <parameter qname="eig:retrieveAllTaxPerFacilitiesByUser" type="xsd:string" />
+         </operation>
+
+         <operation name="deleteTaxPerFacility"
+                    qname="eig:TaxPerFacility"
+                    returnQName="xsd:void"
+                    returnType="xsd:void">
+            <parameter qname="eig:deleteTaxPerFacility" type="xsd:long" />
+         </operation>
+
+         <operation name="retrieveBillingAndPaymentInfo"
+                    qname="eig:retrieveBillingAndPaymentInfo"
+                    returnQName="eig:billingPaymentInfo"
+                    returnType="eig:BillingPaymentInfo">
+            <parameter qname="eig:requestorTypeId" type="xsd:long" />
+         </operation>
+
+        <typeMapping qname="eig:MediaType"
+            type="java:com.mckesson.eig.roi.admin.model.MediaType"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:MediaTypeList"
+            type="java:com.mckesson.eig.roi.admin.model.MediaTypesList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:FeeType"
+                      type="java:com.mckesson.eig.roi.admin.model.FeeType"
+                      serializer   ="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+                      deserializer ="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+                      encodingStyle=""
+         />
+         <typeMapping qname="eig:FeeTypes"
+                      type="java:com.mckesson.eig.roi.admin.model.FeeTypesList"
+                      serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+                      deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+                      encodingStyle=""
+          />
+
+         <typeMapping qname="eig:PaymentMethod"
+            type="java:com.mckesson.eig.roi.admin.model.PaymentMethod"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        <typeMapping qname="eig:PaymentMethodList"
+            type="java:com.mckesson.eig.roi.admin.model.PaymentMethodList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:BillingTemplate"
+            type="java:com.mckesson.eig.roi.admin.model.BillingTemplate"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:RelatedFeeType"
+            type="java:com.mckesson.eig.roi.admin.model.RelatedFeeType"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:BillingTemplateList"
+            type="java:com.mckesson.eig.roi.admin.model.BillingTemplatesList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+         <!-- Billing Tier Type Mappings-->
+        <typeMapping qname="eig:BillingTier"
+            type="java:com.mckesson.eig.roi.admin.model.BillingTier"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        <typeMapping qname="eig:BillingTierList"
+            type="java:com.mckesson.eig.roi.admin.model.BillingTiersList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+         <typeMapping qname="eig:PageLevelTier"
+            type="java:com.mckesson.eig.roi.admin.model.PageLevelTier"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+         <!-- Sales Tax Per Facility Mappings-->
+         <typeMapping qname="eig:TaxPerFacility"
+            type="java:com.mckesson.eig.roi.admin.model.TaxPerFacility"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+         <typeMapping qname="eig:TaxPerFacilityList"
+            type="java:com.mckesson.eig.roi.admin.model.TaxPerFacilityList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+         <typeMapping qname="eig:BillingPaymentInfo"
+            type="java:com.mckesson.eig.roi.admin.model.BillingPaymentInfo"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+    </service>
+
+    <service name="ROIAdminService" style="wrapped" use="literal" provider="Handler">
+		 <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+        <!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow-->
+           <handler type="HPFSecurityAuthorizationHandler" />
+        </requestFlow>
+    <namespace>urn:eig.mckesson.com</namespace>
+    <wsdlFile>/WEB-INF/eig/roi/roi.admin.wsdl</wsdlFile>
+        <parameter name="alias" value="ROIAdmin"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="ROIAdminPortType"/>
+        <parameter name="wsdlServiceElement" value="ROIAdminService"/>
+        <parameter name="wsdlServicePort" value="adminPort"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.admin.service.ROIAdminServiceImpl"/>
+        <parameter name="allowedMethods" value="createDeliveryMethod,
+                                                retrieveDeliveryMethod,
+                                                retrieveAllDeliveryMethods,
+                                                updateDeliveryMethod,
+                                                deleteDeliveryMethod,
+                                                updateWeight,
+                                                retrieveWeight,
+                                                retrieveAllReasonsByType,
+                                                retrieveReason,
+                                                updateReason,
+                                                createReason,
+                                                deleteReason,
+                                                retrieveAllRequestStatus,
+                                                retrieveReasonsByStatus,
+                                                createRequestorType,
+                                                retrieveRequestorType,
+                                                retrieveAllRequestorTypes,
+                                                deleteRequestorType,
+                                                updateRequestorType,
+                                                designateDocumentTypes,
+                                                createLetterTemplate,
+                                                retrieveLetterTemplate,
+                                                retrieveAllLetterTemplates,
+                                                updateLetterTemplate,
+                                                deleteLetterTemplate,
+                                                createNote,
+                                                retrieveNote,
+                                                retrieveAllNotes,
+                                                deleteNote,
+                                                updateNote,
+                                                retrieveSSNMask,
+                                                retrieveROIAppData,
+                                                updateSSNMask,
+                                                retrieveDesignations,
+                                                retrieveDocTypeIdsByDesignation,
+                                                retrieveMUDocTypes,
+                                                hasLetterTemplate,
+                                                getUser,
+                                                enableOutputService,
+                                                retrieveOutputServerProperties,
+                                                saveOutputServerProperties,
+                                                retrieveAttachmentLocation,
+                                                updateAttachmentLocation,
+                                                updateInvoiceDueDays,
+                                                retrieveInvoiceDueDays,                                              
+                                                updateCountryCode,
+                                                retrieveAllCountries,
+                                                updateUnbillableRequestFlag,
+                                                retrieveUnbillableRequestFlag"/>
+
+        <parameter name="scope" value="session"/>
+
+		<!-- getUser -->
+        <operation name="getUser" qname="eig:getUser" returnQName="eig:user" returnType="eig:user">
+			<parameter qname="eig:userId" type="xsd:string"/>
+		</operation>
+
+		<typeMapping qname="eig:user"
+        			type="java:com.mckesson.eig.roi.hpf.model.User"
+	        		serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+		        	deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			        encodingStyle=""
+		/>
+
+        <!-- DeliveryMethod -->
+        <operation name="createDeliveryMethod"
+                   qname="eig:createDeliveryMethodRequest"
+                   returnQName="eig:deliveryMethodId"
+                   returnType="xsd:long">
+            <parameter qname="eig:deliveryMethodDetails" type="eig:DeliveryMethod"/>
+        </operation>
+
+        <operation name="retrieveDeliveryMethod"
+                   qname="eig:retrieveDeliveryMethod"
+                   returnQName="eig:deliveryMethodDetails"
+                   returnType="eig:DeliveryMethod">
+            <parameter qname="eig:deliveryMethodId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllDeliveryMethods"
+                   qname="eig:retrieveAllDeliveryMethods"
+                   returnQName="eig:deliveryMethods"
+                   returnType="eig:DeliveryMethodList">
+                 <parameter qname="detailedFetch" type="xsd:boolean"/>
+        </operation>
+
+        <operation name="updateDeliveryMethod"
+                   qname="eig:updateDeliveryMethod"
+                   returnQName="eig:deliveryMethodDetails"
+                   returnType="eig:DeliveryMethod">
+             <parameter qname="eig:deliveryMethodDetails" type="eig:DeliveryMethod"/>
+        </operation>
+
+        <operation name="deleteDeliveryMethod"
+                   qname="eig:deleteDeliveryMethod"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+           <parameter qname="eig:deliveryMethodId" type="xsd:long"/>
+        </operation>
+
+         <!--  Weight -->
+        <operation name="updateWeight"
+                   qname="eig:updateWeight"
+                   returnQName="eig:weightDetails"
+                   returnType="eig:Weight">
+             <parameter qname="eig:weightDetails" type="eig:WeightDetail"/>
+        </operation>
+
+         <operation name="retrieveWeight"
+                   qname="eig:retrieveWeight"
+                   returnQName="eig:weightDetails"
+                   returnType="eig:Weight">
+ 	</operation>
+
+        <!--  Reason -->
+        <operation name="createReason"
+                   qname="eig:createReason"
+                   returnQName="eig:reasonId"
+                   returnType="xsd:long">
+            <parameter qname="eig:reason" type="eig:Reason"/>
+        </operation>
+
+        <operation name="retrieveReason"
+                   qname="eig:retrieveReason"
+                   returnQName="eig:reason"
+                   returnType="eig:Reason">
+            <parameter qname="eig:reasonId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllReasonsByType"
+                   qname="eig:retrieveAllReasonsByType"
+                   returnQName="eig:reasons"
+                   returnType="eig:ReasonList">
+            <parameter qname="eig:type" type="xsd:string"/>
+        </operation>
+
+        <operation name="updateReason"
+                   qname="eig:updateReason"
+                   returnQName="eig:updateReasonResponse"
+                   returnType="eig:Reason">
+             <parameter qname="eig:reason" type="eig:Reason"/>
+        </operation>
+
+        <operation name="deleteReason"
+                   qname="eig:deleteReason"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:reasonId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllRequestStatus"
+                   qname="eig:retrieveAllRequestStatus"
+                   returnQName="eig:requestStatusMap"
+                   returnType="eig:RequestStatusMap">
+        </operation>
+
+        <operation name="retrieveReasonsByStatus"
+                   qname="eig:retrieveReasonsByStatus"
+                   returnQName="eig:statusReason"
+                   returnType="eig:Reasons">
+             <parameter qname="eig:statusId" type="xsd:int"/>
+        </operation>
+
+        <!--  Requestor Type Operations -->
+    	<operation name="createRequestorType"
+        	       qname="eig:createRequestorType"
+            	   returnQName="eig:requestorType"
+               	   returnType="eig:RequestorType">
+               <parameter qname="eig:requestorType" type="eig:RequestorType"/>
+    	</operation>
+
+    	<operation name="retrieveRequestorType"
+        		   qname="eig:retrieveRequestorType"
+               	   returnQName="eig:requestorType"
+                   returnType="eig:RequestorType">
+               <parameter qname="eig:requestorTypeId" type="xsd:long"/>
+	    </operation>
+
+    	<operation name="retrieveAllRequestorTypes"
+            	   qname="eig:retrieveAllRequestorTypes"
+        	       returnQName="eig:requestorTypes"
+               	   returnType="eig:RequestorTypeList">
+          <parameter qname="eig:requestorTypeId" type="xsd:boolean"/>
+	    </operation>
+
+    	<operation name="updateRequestorType"
+                   qname="eig:updateRequestorType"
+           	 	   returnQName="eig:requestorType"
+               	   returnType="eig:RequestorType">
+               <parameter qname="eig:requestorType" type="eig:RequestorType"/>
+   		 </operation>
+
+    	<operation name="deleteRequestorType"
+        	      qname="eig:deleteRequestorType"
+             	  returnQName="xsd:void"
+            	  returnType="xsd:void">
+               <parameter qname="eig:requestorTypeId" type="xsd:long"/>
+    	</operation>
+
+	<!--  Designate Document Types  -->
+
+        <operation name="designateDocumentTypes"
+                   qname="eig:designateDocumentTypes"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+            <parameter qname="eig:codeSetId"   type="xsd:long"/>
+            <parameter qname="eig:docTypeDesignation" type="eig:DocTypeDesignations"/>
+            <parameter qname="eig:docTypeAuditList" type="eig:DocTypeAuditList" />
+        </operation>
+
+        <operation name="retrieveDesignations"
+                   qname="eig:retrieveDesignations"
+                   returnQName="eig:docTypeDesignation"
+                   returnType="eig:DocTypeDesignations">
+             <parameter qname="eig:codeSetId"   type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveDocTypeIdsByDesignation"
+                   qname="eig:retrieveDocTypeIdsByDesignation"
+                   returnQName="eig:designation"
+                   returnType="eig:Designation">
+            <parameter qname="eig:type"   type="xsd:string"/>
+        </operation>
+
+        <operation name="retrieveMUDocTypes"
+            	   qname="eig:retrieveMUDocTypes"
+        	       returnQName="eig:mudoclist"
+               	   returnType="xsd:string">
+
+	    </operation>
+
+        <!--  Letter Template -->
+
+        <operation name="createLetterTemplate"
+                   qname="eig:createLetterTemplate"
+                   returnQName="eig:letterTemplateId"
+                   returnType="xsd:long">
+            <parameter qname="eig:letterTemplateDetails" type="eig:LetterTemplate"/>
+        </operation>
+
+        <operation name="retrieveLetterTemplate"
+                   qname="eig:retrieveLetterTemplate"
+                   returnQName="eig:letterTemplateDetails"
+                   returnType="eig:LetterTemplate">
+            <parameter qname="eig:letterTemplateId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllLetterTemplates"
+                   qname="eig:retrieveAllLetterTemplates"
+                   returnQName="eig:letterTemplates"
+                   returnType="eig:LetterTemplateList">
+        </operation>
+
+        <operation name="updateLetterTemplate"
+                   qname="eig:updateLetterTemplate"
+                   returnQName="eig:letterTemplateDetails"
+                   returnType="eig:LetterTemplate">
+             <parameter qname="eig:letterTemplateDetails" type="eig:LetterTemplate"/>
+        </operation>
+
+        <operation name="deleteLetterTemplate"
+                   qname="eig:deleteLetterTemplate"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+           <parameter qname="eig:letterTemplateId" type="xsd:long"/>
+        </operation>
+
+        <operation name="hasLetterTemplate"
+                   qname="eig:hasLetterTemplate"
+                   returnQName="eig:hasLetterTemplate"
+                   returnType="xsd:boolean">
+           <parameter qname="eig:letterType" type="xsd:string"/>
+        </operation>
+
+        <!-- Note Type Operation -->
+
+         <operation name="createNote"
+                   qname="eig:createNote"
+                   returnQName="eig:noteId"
+                   returnType="xsd:long">
+            <parameter qname="eig:noteDetails" type="eig:Note"/>
+        </operation>
+
+        <operation name="retrieveNote"
+                   qname="eig:retrieveNote"
+                   returnQName="eig:noteDetails"
+                   returnType="eig:Note">
+            <parameter qname="eig:noteId" type="xsd:long"/>
+        </operation>
+
+        <operation name="retrieveAllNotes"
+                   qname="eig:retrieveAllNotes"
+                   returnQName="eig:notes"
+                   returnType="eig:NotesList">
+        </operation>
+
+        <operation name="updateNote"
+                   qname="eig:updateNote"
+                   returnQName="eig:noteDetails"
+                   returnType="eig:Note">
+             <parameter qname="eig:noteDetails" type="eig:Note"/>
+        </operation>
+
+        <operation name="deleteNote"
+                   qname="eig:deleteNote"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+           <parameter qname="eig:noteId" type="xsd:long"/>
+        </operation>
+
+        <!-- SSNMask operations -->
+
+        <operation name="retrieveSSNMask"
+                   qname="eig:retrieveSSNMask"
+                   returnQName="eig:maskDetails"
+                   returnType="eig:SSNMask">
+        </operation>
+
+        <operation name="retrieveROIAppData"
+                   qname="eig:retrieveROIAppData"
+                   returnQName="eig:roiAppData"
+                   returnType="eig:ROIAppData">
+        </operation>
+
+        <operation name="updateSSNMask"
+                   qname="eig:updateSSNMask"
+                   returnQName="eig:maskDetails"
+                   returnType="eig:SSNMask">
+             <parameter qname="eig:maskDetails" type="eig:SSNMask"/>
+        </operation>
+
+        <operation name="enableOutputService"
+                   qname="eig:enableOutputService"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:enabled" type="xsd:boolean"/>
+        </operation>
+
+        <operation name="retrieveOutputServerProperties"
+                   qname="eig:retrieveOutputServerProperties"
+                   returnQName="eig:outputServerProperties"
+                   returnType="eig:OutputServerProperties">
+        </operation>
+
+        <operation name="saveOutputServerProperties"
+                   qname="eig:saveOutputServerProperties"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:outpusServerProperites" type="eig:OutputServerProperties"/>
+        </operation>
+
+        <operation name="retrieveAttachmentLocation"
+                   qname="eig:retrieveAttachmentLocation"
+                   returnQName="eig:attachmentLocation"
+                   returnType="eig:attLocation">
+        </operation>
+
+        <operation name="updateAttachmentLocation"
+                   qname="eig:updateAttachmentLocation"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:attachmentLocation" type="eig:attLocation"/>
+        </operation>
+
+        <!--  Invoice Due -->
+        <operation name="updateInvoiceDueDays"
+                   qname="eig:updateInvoiceDue"
+                   returnQName="eig:InvoiceDue"
+                   returnType="eig:InvoiceDue">
+             <parameter qname="eig:InvoiceDue" type="eig:InvoiceDue"/>
+        </operation>
+
+         <operation name="retrieveInvoiceDueDays"
+                   qname="eig:retrieveInvoiceDue"
+                   returnQName="eig:InvoiceDue"
+                   returnType="eig:InvoiceDue">
+ 		</operation>
+ 		
+ 		<!-- CountryCode Configure -->
+
+        <operation name="updateCountryCode"
+                   qname="eig:updateCountryCode"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+             <parameter qname="eig:country" type="eig:Country"/>
+        </operation>
+        
+        <operation name="retrieveAllCountries"
+        			qname="eig:retrieveAllCountries"
+        			returnQName="xsd:country"
+        			returnType="xsd:Country">        	
+        </operation> 
+        
+        <!-- Configure Unbillable Request -->
+        
+        <operation name="updateUnbillableRequestFlag"
+        		   qname="eig:updateUnbillableRequestFlag"
+	               returnQName="xsd:void"
+	               returnType="xsd:void">
+        <parameter qname="eig:checked" type="xsd:boolean"/>
+        </operation>
+        
+        <operation name="retrieveUnbillableRequestFlag"
+				   qname="eig:retrieveUnbillableRequestFlag"
+			       returnQName="eig:checked" 
+				   returnType="xsd:boolean">
+		</operation>
+
+        <typeMapping qname="eig:DeliveryMethod"
+            type="java:com.mckesson.eig.roi.admin.model.DeliveryMethod"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:DeliveryMethodList"
+            type="java:com.mckesson.eig.roi.admin.model.DeliveryMethodList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:Weight"
+            type="java:com.mckesson.eig.roi.admin.model.Weight"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+ 		<typeMapping qname="eig:Reason"
+            type="java:com.mckesson.eig.roi.admin.model.Reason"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:ReasonsList"
+            type="java:com.mckesson.eig.roi.admin.model.ReasonsList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:Reasons"
+            type="java:com.mckesson.eig.roi.admin.model.Reasons"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:RequestStatusMap"
+            type="java:com.mckesson.eig.roi.admin.model.RequestStatusMap"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+         <!-- RequestorType Mappings -->
+
+        <typeMapping qname="eig:RequestorType"
+            type="java:com.mckesson.eig.roi.admin.model.RequestorType"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+         />
+
+        <typeMapping qname="eig:RequestorTypeList"
+            type="java:com.mckesson.eig.roi.admin.model.RequestorTypesList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+         <typeMapping qname="eig:RelatedBillingTemplate"
+            type="java:com.mckesson.eig.roi.admin.model.RelatedBillingTemplate"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <!-- Disclosure DocumentType Mappings -->
+
+        <typeMapping qname="eig:DocTypeDesignations"
+            type="java:com.mckesson.eig.roi.admin.model.DocTypeDesignations"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+         <typeMapping qname="eig:LetterTemplate"
+            type="java:com.mckesson.eig.roi.admin.model.LetterTemplate"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:LetterTemplateList"
+            type="java:com.mckesson.eig.roi.admin.model.LetterTemplateList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+            <!-- Note Type Mappings -->
+
+         <typeMapping qname="eig:Note"
+            type="java:com.mckesson.eig.roi.admin.model.Note"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:NotesList"
+            type="java:com.mckesson.eig.roi.admin.model.NotesList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+            <!-- SSNMask Type mappings -->
+
+        <typeMapping qname="eig:SSNMask"
+            type="java:com.mckesson.eig.roi.admin.model.SSNMask"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:attLocation"
+            type="java:com.mckesson.eig.roi.admin.model.AttachmentLocation"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:Designation"
+            type="java:com.mckesson.eig.roi.admin.model.Designation"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+            
+        <typeMapping qname="eig:MUDocTypeDto"
+            type="java:com.mckesson.eig.roi.admin.model.MUDocTypeDto"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:ROIAppData"
+            type="java:com.mckesson.eig.roi.admin.model.ROIAppData"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+       <typeMapping qname="eig:OutputServerProperties"
+            type="java:com.mckesson.eig.roi.admin.model.OutputServerProperties"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:InvoiceDue"
+            type="java:com.mckesson.eig.roi.admin.model.InvoiceDueDays"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>        
+        
+        <typeMapping qname="eig:Country"
+    		type="java:com.mckesson.eig.roi.admin.model.Country"
+    		serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+    		deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+    		encodingStyle=""/>
+
+        <typeMapping qname="eig:DocTypeAudit"
+		type="java:com.mckesson.eig.roi.admin.model.DocTypeAudit"
+		serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+		deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+		encodingStyle=""/>
+        
+        <typeMapping qname="eig:DocTypeAuditList"
+		type="java:com.mckesson.eig.roi.admin.model.DocTypeAuditList"
+		serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+		deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+		encodingStyle=""/>
+
+   </service>
+
+    <service name="RequestorService" style="wrapped" use="literal" provider="Handler">
+       <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+        <!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow -->
+           <handler type="HPFSecurityAuthorizationHandler" />
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/requestor.wsdl</wsdlFile>
+        <parameter name="alias" value="RequestorService"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="RequestorPortType"/>
+        <parameter name="wsdlServiceElement" value="RequestorService"/>
+        <parameter name="wsdlServicePort" value="requestorPort"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.requestor.service.RequestorServiceImpl"/>
+        <parameter name="allowedMethods" value="findRequestor,
+                                                createRequestor,
+                                                retrieveRequestor,
+                                                updateRequestor,
+                                                deleteRequestor,
+                                                checkDuplicateRequestorName,
+                                                searchMatchingRequestors,
+                                                retrieveRequestorLetterHistory,
+                                                viewRequestorLetter,
+        										createRequestorLetterEntry,
+        										retrieveRequestorInvoices,
+        										retrieveAdjustmentInfo,
+        										saveAdjustmentInfo,
+        										createRequestorPayment,
+        										updateRequestorPayment,
+        										retrieveAdjustmentInfoByAdjustmentId,
+        										retrieveRequestorPastInvoices,
+        										generateRequestorStatement,
+        										createRequestorStatement,
+												retrieveRequestorSummaries,
+												createRequestorRefund,
+												viewRequestorDetails,
+												retrieveUnappliedAmountDetails,
+												viewRequestorRefund,
+												deleteRequestorPayment"/>
+
+        <operation name="findRequestor"
+                   qname="eig:findRequestor"
+                   returnQName="eig:requestorSearchResult"
+                   returnType="eig:RequestorSearchResult">
+            <parameter qname="eig:requestorSearchCriteria" type="eig:RequestorSearchCriteria"/>
+        </operation>
+
+        <operation name="createRequestor"
+                   qname="eig:createRequestor"
+                   returnQName="eig:requestorId"
+                   returnType="xsd:long">
+            <parameter qname="eig:requestor" type="eig:Requestor"/>
+        </operation>
+
+        <operation name="retrieveRequestor"
+                   qname="eig:retrieveRequestor"
+                   returnQName="eig:requestor"
+                   returnType="eig:Requestor">
+            <parameter qname="eig:requestorId" type="xsd:long"/>
+            <parameter qname="eig:isSearchRetrieve" type="xsd:boolean"/>
+        </operation>
+        <operation name="updateRequestor"
+                   qname="eig:updateRequestor"
+                   returnQName="xsd:requestor"
+                   returnType="xsd:Requestor">
+            <parameter qname="eig:requestor" type="eig:Requestor"/>
+        </operation>
+
+        <operation name="deleteRequestor"
+                   qname="eig:deleteRequestor"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+            <parameter qname="eig:requestorId" type="xsd:long"/>
+        </operation>
+
+        <operation name="checkDuplicateRequestorName"
+                   qname="eig:checkDuplicateRequestorName"
+                   returnQName="eig:available"
+                   returnType="xsd:boolean">
+            <parameter qname="eig:id" type="xsd:long"/>
+            <parameter qname="eig:name" type="xsd:string"/>
+        </operation>
+
+        <operation name="searchMatchingRequestors"
+                   qname="eig:searchMatchingRequestors"
+                   returnQName="eig:requestorSearchResult"
+                   returnType="eig:RequestorSearchResult">
+            <parameter qname="eig:matchCriteriaList" type="eig:MatchCriteriaList"/>
+        </operation>
+        
+        <operation name="retrieveRequestorLetterHistory"
+				qname="eig:retrieveRequestorLetterHistory"
+				returnQName="eig:RequestorLetterHistoryList"
+				returnType="eig:RequestorLetterHistoryList" >
+			<parameter qname="eig:requestorId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="viewRequestorLetter"
+				qname="eig:viewRequestorLetter"
+				returnQName="eig:docInfo"
+				returnType="eig:DocInfo" >
+			<parameter qname="eig:requestorLetterId" type="xsd:long"/>
+			<parameter qname="eig:docType" type="xsd:string"/>
+		</operation>
+		
+		<operation name="createRequestorLetterEntry"
+				qname="eig:createRequestorLetterEntry"
+				returnQName="eig:requestorLetterHistory"
+				returnType="eig:RequestorLetterHistory" >
+			<parameter qname="eig:RegeneratedInvoiceInfo" type="eig:RegeneratedInvoiceInfo"/>
+		</operation>
+ 
+	<operation name="retrieveRequestorInvoices"
+		qname="eig:retrieveRequestorInvoices"
+		returnQName="eig:requestorInvoicesList"
+		returnType="eig:RequestorInvoicesList" >
+		<parameter qname="eig:requestorId" type="xsd:long"/>
+	</operation>
+	
+		 <operation name="retrieveAdjustmentInfo"
+			qname="eig:retrieveAdjustmentInfo"
+			returnQName="eig:adjustmentInfo"
+			returnType="eig:AdjustmentInfo">
+			<parameter qname="eig:requestorId" type="xsd:long"/>
+	  </operation>
+	  
+	  <operation name="saveAdjustmentInfo"
+			qname="eig:saveAdjustmentInfo"
+			returnQName="xsd:void"
+			returnType="xsd:void">
+			<parameter qname="eig:adjustmentInfo" type="eig:AdjustmentInfo"/>
+	 </operation>
+	 
+	<operation name="createRequestorPayment"
+			qname="eig:createRequestorPayment"
+			returnQName="xsd:void"
+			returnType="xsd:void">
+			<parameter qname="eig:requestorPaymentList" type="eig:RequestorPaymentList"/>
+	</operation>
+
+	<operation name="updateRequestorPayment"
+			qname="eig:updateRequestorPayment"
+			returnQName="xsd:void"
+			returnType="xsd:void">
+			<parameter qname="eig:requestorPaymentList" type="eig:RequestorPaymentList"/>
+	</operation>
+	
+	<operation name="retrieveAdjustmentInfoByAdjustmentId"
+			qname="eig:retrieveAdjustmentInfoByAdjustmentId"
+			returnQName="eig:adjustmentInfo"
+			returnType="eig:AdjustmentInfo">
+			<parameter qname="eig:adjustmentId" type="xsd:long"/>
+			<parameter qname="eig:requestorId" type="xsd:long"/>
+    </operation>
+    		
+     <operation name="retrieveRequestorPastInvoices"
+                 qname="eig:retrieveRequestorPastInvoices"
+                 returnQName="eig:PastInvoiceList"
+                 returnType="eig:PastInvoiceList">
+            <parameter qname="eig:requestorId" type="xsd:long"/>
+     </operation>
+     
+     <operation name="retrieveRequestorSummaries"
+		     qname="eig:retrieveRequestorSummaries"
+		     returnQName="eig:requestorHistoryList"
+		     returnType="eig:RequestorHistoryList">
+			<parameter qname="eig:requestorId" type="xsd:long"/>
+	</operation>
+	
+	<operation name="viewRequestorDetails"
+	qname="eig:viewRequestorDetails" 
+	returnQName="eig:docInfo"
+	returnType="eig:DocInfo">
+		<parameter qname="eig:invoiceId" type="xsd:long"/>
+		<parameter qname="eig:requestId" type="xsd:long"/>
+		 <parameter qname="eig:docType" type="xsd:string"/>
+		 <parameter qname="eig:retrieverType" type="xsd:string"/>
+		 <parameter qname="eig:letterType" type="xsd:string"/>
+	</operation>
+        
+     <operation name="generateRequestorStatement"
+                 qname="eig:generateRequestorStatement"
+                 returnQName="eig:DocInfoList"
+                 returnType="eig:DocInfoList">
+            <parameter qname="eig:requestorStatementCriteria" type="eig:RequestorStatementCriteria"/>
+     </operation>
+     
+      <operation name="createRequestorStatement"
+                 qname="eig:createRequestorStatement"
+                 returnQName="eig:requestorStatementId"
+                 returnType="xsd:long">
+            <parameter qname="eig:requestorStatementCriteria" type="eig:RequestorStatementCriteria"/>
+     </operation>
+     
+	 <operation name="retrieveUnappliedAmountDetails"
+	     qname="eig:retrieveUnappliedAmountDetails"
+	     returnQName="eig:requestorUnappliedAmountDetailsList"
+	     returnType="eig:RequestorUnappliedAmountDetailsList">
+	<parameter qname="eig:requestId" type="xsd:long"/>
+	
+	</operation>
+     
+      <operation name="createRequestorRefund"
+                 qname="eig:createRequestorRefund"
+                 returnQName="eig:DocInfoList"
+                 returnType="eig:DocInfoList">
+            <parameter qname="eig:requestorRefund" type="eig:RequestorRefund"/>
+     </operation>
+	 
+       <operation name="viewRequestorRefund"
+                 qname="eig:viewRequestorRefund"
+                 returnQName="eig:DocInfoList"
+                 returnType="eig:DocInfoList">
+         <parameter qname="eig:requestorRefund" type="eig:RequestorRefund"/>
+      </operation>
+      
+      <operation name="deleteRequestorPayment"
+                 qname="eig:deleteRequestorPayment"
+                 returnQName="xsd:void"
+                 returnType="xsd:void">
+            <parameter qname="eig:paymentId" type="xsd:long"/>
+            <parameter qname="eig:requestorName" type="xsd:string"/>
+      </operation>
+     
+        <typeMapping qname="eig:RequestorStatementCriteria"
+            type="java:com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        <typeMapping qname="eig:Requestor"
+            type="java:com.mckesson.eig.roi.requestor.model.Requestor"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:RequestorSearchResult"
+            type="java:com.mckesson.eig.roi.requestor.model.RequestorSearchResult"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:RequestorSearchCriteria"
+            type="java:com.mckesson.eig.roi.requestor.model.RequestorSearchCriteria"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:Address"
+            type="java:com.mckesson.eig.roi.base.model.Address"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:MatchCriteriaList"
+            type="java:com.mckesson.eig.roi.base.model.MatchCriteriaList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+         <typeMapping qname="eig:RequestorLetterHistoryList"
+            type="java:com.mckesson.eig.roi.billing.model.RequestorLetterHistoryList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:RequestorLetterHistory"
+            type="java:com.mckesson.eig.roi.billing.model.RequestorLetterHistory"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:DocInfo"
+            type="java:com.mckesson.eig.roi.billing.model.DocInfo"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        	
+        <typeMapping qname="eig:DocInfoList"
+	        type="java:com.mckesson.eig.roi.billing.model.DocInfoList"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:RegeneratedInvoiceInfo"
+            type="java:com.mckesson.eig.roi.billing.model.RegeneratedInvoiceInfo"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+                
+        <typeMapping qname="eig:RequestorInvoice"
+	            type="java:com.mckesson.eig.roi.requestor.model.RequestorInvoice"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:RequestorInvoicesList"
+		            type="java:com.mckesson.eig.roi.requestor.model.RequestorInvoicesList"
+		            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+		            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+		            encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:RequestorAdjustmentsPayments"
+		            type="java:com.mckesson.eig.roi.requestor.model.RequestorAdjustmentsPayments"
+		            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+		            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+		            encodingStyle=""
+        />     
+        
+        <typeMapping qname="eig:Reason"
+			        type="java:com.mckesson.eig.roi.admin.model.Reason"
+			        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			        encodingStyle=""
+	    />
+
+		<typeMapping qname="eig:ReasonsList"
+			        type="java:com.mckesson.eig.roi.admin.model.ReasonsList"
+			        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+					encodingStyle=""
+		/>
+
+	<typeMapping qname="eig:TaxPerFacility"
+				  type="java:com.mckesson.eig.roi.admin.model.TaxPerFacility"
+				  serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+				  deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+				  encodingStyle=""
+	/>
+	
+	<typeMapping qname="eig:TaxPerFacilityList"
+				  type="java:com.mckesson.eig.roi.admin.model.TaxPerFacilityList"
+				  serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+				  deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+				  encodingStyle=""
+	/>
+
+	<typeMapping qname="eig:AdjustmentInfo"
+			   type="java:com.mckesson.eig.roi.requestor.model.AdjustmentInfo"
+			   serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			   deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			   encodingStyle=""
+	/>
+
+	<typeMapping qname="eig:RequestorAdjustmentsFeeList"
+		   type="java:com.mckesson.eig.roi.requestor.model.RequestorAdjustmentsFeeList"
+		   serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+		   deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+		   encodingStyle=""
+	/>
+
+	<typeMapping qname="eig:RequestorAdjustmentsFee"
+			type="java:com.mckesson.eig.roi.requestor.model.RequestorAdjustmentsFee"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+	/>
+
+	<typeMapping qname="eig:RequestorAdjustment"
+			type="java:com.mckesson.eig.roi.requestor.model.RequestorAdjustment"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+	/>
+	
+	<typeMapping qname="eig:GeneralFeeTypes"
+			type="java:com.mckesson.eig.roi.requestor.model.GeneralFeeTypes"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+	/>
+	
+	<typeMapping qname="eig:RequestorPaymentList"
+		type="java:com.mckesson.eig.roi.requestor.model.RequestorPaymentList"
+		serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+		deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+		encodingStyle=""
+	/>
+	
+    <typeMapping qname="eig:PastInvoiceList"
+        type="java:com.mckesson.eig.roi.billing.model.PastInvoiceList"
+        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+        encodingStyle=""
+    />
+    
+    <typeMapping qname="eig:RequestorHistory"
+    type="java:com.mckesson.eig.roi.requestor.model.RequestorHistory"
+    serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+    deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+    encodingStyle=""
+    />
+    
+    <typeMapping qname="eig:RequestorHistoryList"
+    type="java:com.mckesson.eig.roi.requestor.model.RequestorHistoryList"
+    serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+    deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+    encodingStyle=""
+    />
+    <typeMapping qname="eig:RequestorUnappliedAmountDetails"
+    type="java:com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetails"
+    serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+    deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+    encodingStyle=""
+    />
+    
+    <typeMapping qname="eig:RequestorUnappliedAmountDetailsList"
+    type="java:com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetailsList"
+    serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+    deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+    encodingStyle=""
+    />
+	
+    <typeMapping qname="eig:RequestorRefund"
+	    type="java:com.mckesson.eig.roi.requestor.model.RequestorRefund"
+	    serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	    deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	    encodingStyle=""
+    />
+	
+</service>
+
+	<service name="CcdConversionService" style="wrapped" use="literal" provider="Handler">
+
+		<requestFlow>
+			<handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+				<parameter name="action" value="UsernameToken Timestamp"/>
+				<parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+			</handler>
+		</requestFlow>
+
+		<namespace>urn:eig.mckesson.com</namespace>
+		<wsdlFile>/WEB-INF/eig/roi/ccd.conversion.wsdl</wsdlFile>
+			<parameter name="alias" value="CcdConversionService"/>
+			<parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+			<parameter name="wsdlPortType" value="CcdConversionServicePortType"/>
+			<parameter name="wsdlServiceElement" value="CcdConversionService"/>
+			<parameter name="wsdlServicePort" value="ccdConvert"/>
+			<parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+			<parameter name="className" value="com.mckesson.eig.roi.ccd.service.CcdConversionServiceImpl"/>
+			<parameter name="allowedMethods" value="ccdConvert,getAvailableProviders,getExternalSources,createSource,deleteSource,updateSource,updateSourceConfig,retrieveCCD,testConfiguration,getExternalSourceNameForFacility"/>
+			<parameter name="forceInvalidateSession" value="true"/>
+			<parameter name="scope" value="session"/>
+			<operation name="ccdConvert" 
+					qname="eig:ccdConvert" 
+					returnQName="eig:ccdConvertResult" 
+					returnType="eig:ccdConvertResult" >
+				<parameter qname="eig:uuid" type="xsd:string"/>
+			</operation>
+			
+			<operation name="getAvailableProviders" 
+					qname="eig:getAvailableProviders" 
+					returnQName="eig:ccdSourceDtoList" 
+					returnType="eig:CcdSourceDtoList" >
+			</operation>
+
+			<operation name="getExternalSources" 
+					qname="eig:getExternalSources" 
+					returnQName="eig:ccdSourceDtoList" 
+					returnType="eig:CcdSourceDtoList" >
+			</operation>
+			
+			<operation name="createSource" 
+					qname="eig:createSource" 
+					returnQName="eig:sourceId" 
+					returnType="xsd:int">
+					<parameter qname="eig:ccdSourceDto" type="eig:CcdSourceDto"/>
+			</operation>
+			
+			<operation name="deleteSource" 
+					qname="eig:deleteSource" 
+					returnQName="eig:ccdDeleteRes" 
+					returnType="xsd:boolean">
+					<parameter qname="eig:sourceId" type="xsd:int"/>
+			</operation>
+			
+			<operation name="updateSource" 
+					qname="eig:updateSource" 
+					returnQName="eig:ccdSourceDtoRes" 
+					returnType="xsd:boolean">
+					<parameter qname="eig:ccdSourceDto" type="eig:CcdSourceDto"/>
+			</operation>
+			
+			<operation name="updateSourceConfig" 
+					qname="eig:updateSourceConfig" 
+					returnQName="eig:ccdSourceConfigDtoRes" 
+					returnType="xsd:boolean">
+					<parameter qname="eig:ccdSourceDto" type="eig:CcdSourceDto"/>
+			</operation>
+			
+			<operation name="retrieveCCD" 
+					qname="eig:retrieveCCD" 
+					returnQName="eig:ccdDocuments" 
+					returnType="eig:CcdDocuments">
+					<parameter qname="eig:retrieveParameters" type="eig:RetrieveCCDDtoList"/>
+			</operation>
+		
+		    <operation name="testConfiguration" 
+					qname="eig:testConfiguration" 
+					returnQName="eig:testConfigurationRes" 
+					returnType="xsd:boolean">
+					<parameter qname="eig:testCcdSourceDto" type="eig:CcdSourceDto"/>
+			</operation>
+			
+			<operation name="getExternalSourceNameForFacility" 
+					qname="eig:getExternalSourceNameForFacility" 
+					returnQName="eig:externalsourcename" 
+					returnType="xsd:string">
+					<parameter qname="eig:facility" type="xsd:string"/>
+			</operation>
+			
+			<typeMapping qname="eig:ccdConvertResult"
+	            type="java:com.mckesson.eig.roi.ccd.model.CcdConvertValue"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+		
+		<typeMapping qname="eig:CcdSourceDto"
+	            type="java:com.mckesson.eig.roi.ccd.provider.local.CcdSourceDto"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />   
+	                
+	         <typeMapping qname="eig:CcdSourceDtoList"
+	            type="java:com.mckesson.eig.roi.ccd.provider.local.CcdSourceDtoList"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+	        
+	          <typeMapping qname="eig:CcdSourceConfigDto"
+	            type="java:com.mckesson.eig.roi.ccd.provider.local.CcdSourceConfigDto"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+	          <typeMapping qname="eig:CcdDocuments"
+	            type="java:com.mckesson.eig.roi.ccd.provider.model.CcdDocumentList"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+	        <typeMapping qname="eig:CcdDocument"
+	            type="java:com.mckesson.eig.roi.ccd.provider.model.CcdDocument"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+	        <typeMapping qname="eig:RetrieveCCDDto"
+	            type="java:com.mckesson.eig.roi.ccd.provider.local.RetrieveCCDDto"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+	        <typeMapping qname="eig:RetrieveCCDDtoList"
+	            type="java:com.mckesson.eig.roi.ccd.provider.local.RetrieveCCDDtoList"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+		
+	</service>
+
+	<service name="ConfigureDaysService" style="wrapped" use="literal" provider="Handler">
+		<requestFlow>
+			<handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+				<parameter name="action" value="UsernameToken Timestamp"/>
+				<parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+			</handler>
+		</requestFlow>
+
+		<namespace>urn:eig.mckesson.com</namespace>
+		<wsdlFile>/WEB-INF/eig/roi/configuredays.wsdl</wsdlFile>
+			<parameter name="alias" value="ConfigureDaysService"/>
+			<parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+			<parameter name="wsdlPortType" value="ConfigureDaysPortType"/>
+			<parameter name="wsdlServiceElement" value="ConfigureDaysService"/>
+			<parameter name="wsdlServicePort" value="configureDaysService"/>
+			<parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+			<parameter name="className" value="com.mckesson.eig.roi.configuredays.service.ConfigureDaysServiceImpl"/>
+			<parameter name="allowedMethods" value="updateDaysStatus,retrieveWeekendDays,retrieveConfigureDaysStatus"/>
+			<parameter name="forceInvalidateSession" value="true"/>
+			<parameter name="scope" value="session"/>
+			
+			<operation name="updateDaysStatus"
+					qname="eig:updateDaysStatus"
+					returnQName="eig:configureDaysStatusResElement"
+					returnType="xsd:boolean" >
+				<parameter qname="eig:configureDaysStatusReqElement" type="eig:ConfigureDaysDtoList"/>
+			</operation>
+			
+		    <operation name="retrieveWeekendDays"
+					qname="eig:retrieveWeekendDays"
+					returnQName="eig:retrieveWeekendDaysResElement"
+					returnType="xsd:int" >
+			</operation>
+			
+			<operation name="retrieveConfigureDaysStatus"
+					qname="eig:retrieveConfigureDaysStatus"
+					returnQName="eig:configureDaysStatusReqElement"
+					returnType="eig:ConfigureDaysDtoList" >
+			</operation>
+			
+			<typeMapping qname="eig:ConfigureDaysDto"
+	            type="java:com.mckesson.eig.roi.configuredays.model.ConfigureDaysDto"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+	        
+	          <typeMapping qname="eig:ConfigureDaysDtoList"
+	            type="java:com.mckesson.eig.roi.configuredays.model.ConfigureDaysDtoList"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""
+	        />
+			
+	  </service>
+
+       <service name="ROIAttachmentService" style="wrapped" use="literal" provider="Handler">
+
+	       <requestFlow>
+	            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+	                <parameter name="action" value="UsernameToken Timestamp"/>
+	                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+	            </handler>
+	      <!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow -->
+	           <handler type="HPFSecurityAuthorizationHandler" />
+	        </requestFlow>
+
+	        <namespace>urn:eig.mckesson.com</namespace>
+	        <wsdlFile>/WEB-INF/eig/roi/roi.attachment.wsdl</wsdlFile>
+	        <parameter name="alias" value="ROIAttachmentInfo"/>
+	        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+	        <parameter name="wsdlPortType" value="AttachmentPortType"/>
+	        <parameter name="wsdlServiceElement" value="ROIAdminPortType"/>
+	        <parameter name="wsdlServicePort" value="attachmentPort"/>
+	        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+	        <parameter name="className" value="com.mckesson.eig.roi.admin.service.ROIAttachmentServiceImpl"/>
+	        <parameter name="allowedMethods" value="getAllAttachments,
+	        										retrieveAttachmentsInfo,
+	        										deleteROIAttachments"/>
+        
+	        <parameter name="scope" value="session"/>
+        
+	         <operation name="retrieveAttachmentsInfo"
+	                   qname="eig:retrieveAttachmentsInfo"
+	                   returnQName="eig:AttachmentInfoList"
+	                   returnType="eig:AttachmentInfoList">
+
+	             <parameter qname="eig:mrn" type="xsd:string"/>
+	             <parameter qname="eig:facilityCode" type="xsd:string"/>
+	             <parameter qname="eig:encounter" type="xsd:string"/>
+	        </operation>
+
+	         <operation name="getAllAttachments"
+	                   qname="eig:getAllAttachments"
+	                   returnQName="eig:AttachmentInfoList"
+	                   returnType="eig:AttachmentInfoList">
+
+	             <parameter qname="eig:mrn" type="xsd:string"/>
+	             <parameter qname="eig:facilityCode" type="xsd:string"/>
+	        </operation>
+
+	         <operation name="deleteROIAttachments"
+	                   qname="eig:deleteROIAttachments"
+	                   returnQName="eig:AttachmentDeleteStatusList"
+	                   returnType="eig:AttachmentDeleteStatusList">
+
+	             <parameter qname="eig:AttachmentSequenceList" type="eig:AttachmentSequenceList" />
+	        </operation>
+        
+	        <typeMapping qname="eig:ROIAttachment"
+	            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""/>
+            
+	        <typeMapping qname="eig:AttachmentInfoList"
+	            type="java:com.mckesson.eig.roi.supplementary.model.AttachmentInfoList"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""/>
+
+	        <typeMapping qname="eig:AttachmentDeleteStatus"
+	            type="java:com.mckesson.eig.roi.supplementary.model.AttachmentDeleteStatus"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""/>
+            
+            <typeMapping qname="eig:AttachmentDeleteStatusList"
+	            type="java:com.mckesson.eig.roi.supplementary.model.AttachmentDeleteStatusList"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""/>
+
+            <typeMapping qname="eig:AttachmentSequenceList"
+	            type="java:com.mckesson.eig.roi.supplementary.model.AttachmentSequenceList"
+	            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	            encodingStyle=""/>
+            
+ 	</service>
+ 	
+ 	 <service name="RequestCoreService" style="wrapped" use="literal" provider="Handler">
+		 <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+        <!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow-->
+           <handler type="HPFSecurityAuthorizationHandler" />
+        </requestFlow>
+    <namespace>urn:eig.mckesson.com</namespace>
+    <wsdlFile>/WEB-INF/eig/roi/roi.requestcore.wsdl</wsdlFile>
+        <parameter name="alias" value="RequestCoreService"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="RequestCorePortType"/>
+        <parameter name="wsdlServiceElement" value="RequestCoreService"/>
+        <parameter name="wsdlServicePort" value="requestCorePort"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.request.service.RequestCoreServiceImpl"/>
+        <parameter name="allowedMethods" value="searchRequest,
+        										createRequest,
+        										updateRequest,
+        										retrieveRequest,
+        										retrieveRequestPatient,
+												saveRequestPatient,
+												deleteRequest,
+												saveRequestCoreCharges,
+												retrieveRequestCoreCharges,
+												retrieveInvoicesAndAdjPay,
+												retrieveComments,
+												getEventHistory,
+												retrieveAllEventTypes,
+												getRequestCount,
+												addEvent,
+												getGeneratedPassword, 
+												addAuditAndEvent,
+												retrieveReleasedDocumentChargesByBillingTier,
+												retrieveRequestInvoices,
+												hasSecurityRightsForRelease" />
+
+        <parameter name="scope" value="session"/>
+
+        <!-- search Request -->
+        <operation name="searchRequest"
+                   qname="eig:searchRequest"
+                   returnQName="eig:requestCoreSearchResultList"
+                   returnType="eig:RequestCoreSearchResultList">
+            <parameter qname="eig:requestCoreSearchCriteria" type="eig:RequestCoreSearchCriteria"/>
+        </operation>
+
+        <!-- createRequest -->
+        <operation name="createRequest"
+                   qname="eig:createRequest"
+                   returnQName="eig:requestCore"
+                   returnType="eig:Request">
+            <parameter qname="eig:request" type="eig:Request"/>
+        </operation>
+        
+        <!-- retrieveRequest -->
+        <operation name="retrieveRequest"
+                   qname="eig:createRequest"
+                   returnQName="eig:requestCore"
+                   returnType="eig:Request">
+            <parameter qname="eig:id" type="xsd:long"/>
+            <parameter qname="eig:isSearchRetrieve" type="xsd:boolean"/>
+        </operation>
+        
+        <!-- deleteRequest -->
+        <operation name="deleteRequest"
+                   qname="eig:deleteRequest"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+            <parameter qname="eig:id" type="xsd:long"/>
+        </operation>
+        
+        <!-- updateRequest -->
+  		 <operation name="updateRequest"
+                   qname="eig:updateRequest"
+                   returnQName="eig:requestCore"
+                   returnType="eig:Request">
+            <parameter qname="eig:request" type="eig:Request"/>
+            
+        </operation>
+        
+         <!-- Retrieve Patient -->
+  		 <operation name="retrieveRequestPatient"
+                   qname="eig:retrieveRequestPatient"
+                   returnQName="eig:RequestPatientsList"
+                   returnType="eig:RequestPatientsList">
+            <parameter qname="patientSeq" type="xsd:long"/>
+            
+        </operation>
+        
+        <!-- save Patient -->
+  		 <operation name="saveRequestPatient"
+                   qname="eig:saveRequestPatient"
+                   returnQName="eig:RequestPatientsList"
+                   returnType="eig:RequestPatientsList">
+            <parameter qname="eig:SaveRequestPatientList" type="eig:SaveRequestPatientList"/>
+            
+        </operation>
+
+		<!-- retrieveComments -->        
+        <operation name="retrieveComments"
+                   qname="eig:retrieveComments"
+                   returnQName="eig:retrieveCommentsResponse"
+                   returnType="eig:Comments">
+
+            <parameter qname="eig:requestId" type="xsd:long"/>
+        </operation>
+        
+        <!-- getEventHistory -->        
+		<operation name="getEventHistory"
+                   qname="eig:getEventHistory"
+                   returnQName="eig:requestEvents"
+                   returnType="eig:RequestEvents">
+
+            <parameter qname="eig:requestId" type="xsd:long"/>
+        </operation>
+        
+        <!-- retrieveAllEventTypes -->
+        <operation name="retrieveAllEventTypes"
+                   qname="eig:retrieveAllEventTypes"
+                   returnQName="eig:eventType"
+                   returnType="eig:EventTypes">
+        </operation>
+        
+        <!-- getRequestCount -->
+        <operation name="getRequestCount"
+                   qname="eig:getRequestCount"
+                   returnQName="eig:getRequestCountResult"
+                   returnType="xsd:long">
+            <parameter qname="eig:requestCoreSearchCriteria" type="eig:RequestCoreSearchCriteria"/>
+        </operation>
+        
+        <!-- addEvent -->
+        <operation name="addEvent"
+                   qname="eig:addEvent"
+                   returnQName="eig:addEventResponse"
+                   returnType="eig:RequestEvent">
+
+            <parameter qname="eig:events" type="eig:RequestEvent"/>
+        </operation>
+        
+        <operation name="getGeneratedPassword"
+                   qname="eig:getGeneratedPassword" 
+                   returnQName="eig:getGeneratedPasswordResult"
+                   returnType="xsd:string">
+        </operation>
+        
+        <operation name="addAuditAndEvent"
+                   qname="eig:addAuditAndEvent"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+           <parameter qname="eig:auditAndEventList" type="eig:AuditAndEventList"/>
+        </operation>
+
+        <operation name="retrieveReleasedDocumentChargesByBillingTier"
+                   qname="eig:retrieveReleasedDocumentChargesByBillingTier"
+                   returnQName="eig:retrieveReleasedDocumentChargesByBillingTier"
+                   returnType="eig:RequestCoreChargesDocument">
+           <parameter qname="eig:requestId" type="xsd:long"/>
+        </operation>
+        
+        
+        
+         <!--REQUEST CORE CHARGES-->
+        
+        <operation name="saveRequestCoreCharges"
+	        qname="eig:saveRequestCoreCharges"
+	        returnQName="xsd:void"
+	        returnType="xsd:void">
+        <parameter qname="eig:requestCoreChargesReq" type="eig:RequestCoreCharges"/>
+        </operation>
+        
+        <operation name="retrieveRequestCoreCharges"
+	        qname="eig:retrieveRequestCoreCharges"
+	        returnQName="eig:requestCoreChargesReq"
+	        returnType="eig:RequestCoreCharges">
+        <parameter qname="eig:requestId" type="xsd:long"/>
+        </operation>
+        
+        <operation name="retrieveInvoicesAndAdjPay"
+				qname="eig:retrieveInvoicesAndAdjPay"
+				returnQName="eig:requestCoreChargesInvoicesList"
+				returnType="eig:RequestCoreChargesInvoicesList">
+			<parameter qname="eig:requestCoreId" type="xsd:long"/>
+		</operation>
+        
+        <operation name="retrieveRequestInvoices"
+				qname="eig:retrieveRequestInvoices"
+				returnQName="eig:requestorInvoicesList"
+				returnType="eig:RequestorInvoicesList">
+			<parameter qname="eig:requestCoreId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="hasSecurityRightsForRelease"
+                qname="eig:hasSecurityRightsForRelease"
+                returnQName="eig:result"
+                returnType="xsd:boolean">
+        </operation>
+	
+ 		<!-- searchRequest -->
+        <typeMapping qname="eig:RequestCoreSearchCriteria"
+        	type="java:com.mckesson.eig.roi.request.model.RequestCoreSearchCriteria"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:RequestCoreSearchResultList"
+        	type="java:com.mckesson.eig.roi.request.model.RequestCoreSearchResultList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+ 		<!-- createRequest -->
+        <typeMapping qname="eig:Request"
+        	type="java:com.mckesson.eig.roi.request.model.RequestCore"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+  		
+		<!-- retrieveRequestPatient -->  
+        <typeMapping qname="eig:RequestPatientsList"
+            type="java:com.mckesson.eig.roi.request.model.RequestPatientsList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+		<!-- saveRequestPatient -->  
+        <typeMapping qname="eig:SaveRequestPatientList"
+            type="java:com.mckesson.eig.roi.request.model.SaveRequestPatientsList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+        <!--REQUEST CORE CHARGES-->
+        <typeMapping qname="eig:RequestCoreCharges"
+	        type="java:com.mckesson.eig.roi.request.model.RequestCoreCharges"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:RequestCoreChargesBilling"
+	        type="java:com.mckesson.eig.roi.request.model.RequestCoreChargesBilling"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:RequestCoreChargesDocument"
+	        type="java:com.mckesson.eig.roi.request.model.RequestCoreChargesDocument"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:RequestCoreChargesFee"
+	        type="java:com.mckesson.eig.roi.request.model.RequestCoreChargesFee"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:RequestCoreChargesShipping"
+	        type="java:com.mckesson.eig.roi.request.model.RequestCoreChargesShipping"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:RequestCoreChargesInvoice"
+	        type="java:com.mckesson.eig.roi.request.model.RequestCoreChargesInvoice"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:RequestCoreChargesInvoicesList"
+	        type="java:com.mckesson.eig.roi.request.model.RequestCoreChargesInvoicesList"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:RequestCoreDeliveryChargesAdjustmentPayment"
+	        type="java:com.mckesson.eig.roi.billing.model.RequestCoreDeliveryChargesAdjustmentPayment"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+	    <typeMapping qname="eig:SalesTaxSummary"
+	        type="java:com.mckesson.eig.roi.billing.model.SalesTaxSummary"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+        <typeMapping qname="eig:SalesTaxReason"
+	        type="java:com.mckesson.eig.roi.billing.model.SalesTaxReason"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+	    />
+	    
+        <typeMapping qname="eig:RequestEvent"
+            type="java:com.mckesson.eig.roi.request.model.RequestEvent"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:AuditEvent"
+            type="java:com.mckesson.eig.audit.model.AuditEvent"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:RequestEvents"
+            type="java:com.mckesson.eig.roi.request.model.RequestEvents"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:EventTypes"
+            type="java:com.mckesson.eig.roi.request.model.EventTypes"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:Comment"
+		       type="java:com.mckesson.eig.roi.request.model.Comment"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:Comments"
+               type="java:com.mckesson.eig.roi.request.model.Comments"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:getGeneratedPassword"
+            type="java:com.mckesson.eig.roi.request.model.EventTypes"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:AuditAndEventList"
+            type="java:com.mckesson.eig.roi.request.model.AuditAndEventList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:RequestorInvoicesList"
+            type="java:com.mckesson.eig.roi.requestor.model.RequestorInvoicesList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+ 
+   </service>
+
+    <service name="SupplementaryService" style="wrapped" use="literal" provider="Handler">
+
+       <requestFlow>
+        <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass"
+                   value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+            <handler type="HPFSecurityAuthorizationHandler" />
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/roi.supplementary.wsdl</wsdlFile>
+        <parameter name="alias" value="SupplementaryService"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="ROISupplementaryPortType"/>
+        <parameter name="wsdlServiceElement" value="supplementary"/>
+        <parameter name="wsdlServicePort" value="ROISupplementaryPort"/>
+        <parameter name="handlerClass"  value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.supplementary.service.ROISupplementaryServiceImpl"/>
+        <parameter name="allowedMethods" value="createSupplementalPatient,
+                                                createSupplementalDocument,
+                                                createSupplementalAttachment,
+                                                createSupplementarityDocument,
+                                                createSupplementarityAttachment,
+                                                getSupplementalPatient,
+                                                getSupplementalDocuments,
+                                                getSupplementalAttachments,
+                                                getSupplementarityDocuments,
+                                                getSupplementarityAttachments,
+                                                deleteSupplementalPatient,
+                                                deleteSupplementalDocument,
+                                                deleteSupplementalAttachment,
+                                                deleteSupplementarityDocument,
+                                                deleteSupplementarityAttachment,
+                                                updateSupplementalPatient,
+                                                updateSupplementalDocument,
+                                                updateSupplementalAttachment,
+                                                updateSupplementarityDocument,
+                                                updateSupplementarityAttachment,
+                                                searchSupplementalPatient,
+                                                checkDuplicates"/>
+
+        <parameter name="scope" value="session"/>
+
+        <operation name="createSupplementalPatient"
+                   qname="eig:createSupplementalPatient"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:patient" type="eig:SupplementalPatient"/>
+        </operation>
+
+        <operation name="createSupplementalDocument"
+                   qname="eig:createSupplementalDocument"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:supplementalDocument" type="eig:SupplementalDocument"/>
+        </operation>
+        
+        <operation name="createSupplementarityDocument"
+                   qname="eig:createSupplementarityDocument"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:supplementarityDocument" type="eig:SupplementarityDocument"/>
+        </operation>
+        
+        <operation name="createSupplementalAttachment"
+                   qname="eig:createSupplementalAttachment"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementalAttachmentResult">
+	         <parameter qname="eig:supplementalAttachment" type="eig:SupplementalAttachment"/>
+        </operation>
+        
+        <operation name="createSupplementarityAttachment"
+                   qname="eig:createSupplementarityAttachment"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementarityAttachmentResult">
+            <parameter qname="eig:supplementarityAttachment" type="eig:SupplementarityAttachment"/>
+        </operation>
+        
+        <operation name="updateSupplementalPatient"
+                   qname="eig:updateSupplementalPatient"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:patient" type="eig:SupplementalPatient"/>
+        </operation>
+
+        <operation name="updateSupplementalDocument"
+                   qname="eig:updateSupplementalDocument"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:supplementalDocument" type="eig:SupplementalDocument"/>
+        </operation>
+        
+        <operation name="updateSupplementarityDocument"
+                   qname="eig:updateSupplementarityDocument"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:supplementarityDocument" type="eig:SupplementarityDocument"/>
+        </operation>
+        
+        <operation name="updateSupplementalAttachment"
+                   qname="eig:updateSupplementalAttachment"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementalAttachmentResult">
+	         <parameter qname="eig:supplementalAttachment" type="eig:SupplementalAttachment"/>
+        </operation>
+        
+        <operation name="updateSupplementarityAttachment"
+                   qname="eig:updateSupplementarityAttachment"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementarityAttachmentResult">
+            <parameter qname="eig:supplementarityAttachment" type="eig:SupplementarityAttachment"/>
+        </operation>
+
+        <operation name="deleteSupplementalPatient"
+                   qname="eig:deleteSupplementalPatient"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:id" type="xsd:long"/>
+        </operation>
+
+        <operation name="deleteSupplementalDocument"
+                   qname="eig:deleteSupplementalDocument"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:id" type="xsd:long"/>
+            <parameter qname="eig:requestId" type="xsd:long"/>
+        </operation>
+        
+        <operation name="deleteSupplementarityDocument"
+                   qname="eig:deleteSupplementarityDocument"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:id" type="xsd:long"/>
+            <parameter qname="eig:requestId" type="xsd:long"/>
+            <parameter qname="eig:patientId" type="xsd:long"/>
+        </operation>
+        
+        <operation name="deleteSupplementalAttachment"
+                   qname="eig:deleteSupplementalAttachment"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:id" type="xsd:long"/>
+            <parameter qname="eig:requestId" type="xsd:long"/>
+        </operation>
+        
+        <operation name="deleteSupplementarityAttachment"
+                   qname="eig:deleteSupplementarityAttachment"
+                   returnQName="eig:id"
+                   returnType="xsd:long">
+            <parameter qname="eig:id" type="xsd:long"/>
+            <parameter qname="eig:requestId" type="xsd:long"/>
+            <parameter qname="eig:patientId" type="xsd:long"/>
+        </operation>
+
+        <operation name="getSupplementalPatient"
+                   qname="eig:getSupplementalPatient"
+                   returnQName="eig:patient"
+                   returnType="eig:SupplementalPatient">
+            <parameter qname="eig:id" type="xsd:long"/>
+            <parameter qname="eig:isSearchRetrieve" type="xsd:boolean"/>
+        </operation>
+
+        <operation name="getSupplementalDocuments"
+                   qname="eig:getSupplementalDocuments"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementalDocumentResult">
+            <parameter qname="eig:id" type="xsd:long"/>
+        </operation>
+        
+        <operation name="getSupplementarityDocuments"
+                   qname="eig:getSupplementarityDocuments"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementarityDocumentResult">
+            <parameter qname="eig:mrn" type="xsd:string"/>
+            <parameter qname="eig:facility" type="xsd:string"/>
+        </operation>
+        
+        <operation name="getSupplementalAttachments"
+                   qname="eig:getSupplementalAttachments"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementalAttachmentResult">
+            <parameter qname="eig:id" type="xsd:long"/>
+        </operation>
+        
+        <operation name="getSupplementarityAttachments"
+                   qname="eig:getSupplementarityAttachments"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementarityAttachmentResult">
+            <parameter qname="eig:mrn" type="xsd:string"/>
+            <parameter qname="eig:facility" type="xsd:string"/>
+        </operation>
+
+        <operation name="checkDuplicates"
+                   qname="eig:checkDuplicates"
+                   returnQName="eig:result"
+                   returnType="xsd:boolean">
+            <parameter qname="eig:lastName" type="xsd:string"/>
+            <parameter qname="eig:firstName" type="xsd:string"/>
+            <parameter qname="eig:supplementalId" type="xsd:long"/>
+        </operation>
+
+        <operation name="searchSupplementalPatient"
+                   qname="eig:searchSupplementalPatient"
+                   returnQName="eig:result"
+                   returnType="eig:SupplementalPatientResult">
+            <parameter qname="eig:searchCriteria" type="eig:SearchCriteria"/>
+        </operation>
+
+        <typeMapping qname="eig:SearchCriteria"
+            type="java:com.mckesson.eig.roi.base.model.SearchCriteria"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+       	<typeMapping qname="eig:SupplementalPatient"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:SupplementarityDocument"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+         <typeMapping qname="eig:SupplementalDocument"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:SupplementarityAttachment"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+         <typeMapping qname="eig:SupplementalAttachment"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:SupplementalPatientResult"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementalPatients"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:SupplementarityDocumentResult"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocuments"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+         <typeMapping qname="eig:SupplementalDocumentResult"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementalDocuments"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:SupplementarityAttachmentResult"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachments"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+        
+         <typeMapping qname="eig:SupplementalAttachmentResult"
+            type="java:com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachments"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+    </service>
+	
+	<service name="BillingCoreService" style="wrapped" use="literal" provider="Handler">
+		<requestFlow>
+			<handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler">
+				<parameter name="action" value="UsernameToken Timestamp"/>
+				<parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+			</handler>
+			<!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow-->
+			<handler type="HPFSecurityAuthorizationHandler" />
+		</requestFlow>
+		<namespace>urn:eig.mckesson.com</namespace>
+		<wsdlFile>/WEB-INF/eig/roi/billingcore.wsdl</wsdlFile>
+		<parameter name="alias" value="BillingCoreService"/>
+		<parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+		<parameter name="wsdlPortType" value="BillingCorePortType"/>
+		<parameter name="wsdlServiceElement" value="BillingCoreService"/>
+		<parameter name="wsdlServicePort" value="billingCorePort"/>
+		<parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+		<parameter name="className" value="com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl"/>
+		<parameter name="allowedMethods" value="createReleaseAndPreviewInfo,
+        										cancelRelease,
+        										createInvoiceOrPrebillAndPreview,
+        										cancelInvoiceOrPrebillAndPreview,
+        										retrieveReleaseHistoryList,
+        										createLetterAndPreview,
+        										cancelCoverLetter,
+        										retrieveInvoiceSummaries,
+        										viewInvoice,
+        										retrievePastInvoices,
+        										retrieveChargeHistory,
+        										updateInvoiceOutputProperties,
+        										setDisplayBillingInfo,
+        										autoApplyToInvoice" />
+        <parameter name="scope" value="session"/>
+        
+		<operation name="createReleaseAndPreviewInfo"
+				qname="eig:createReleaseAndPreviewInfo"
+				returnQName="eig:releaseAndPreviewInfo"
+				returnType="eig:ReleaseAndPreviewInfo">
+			<parameter qname="eig:releaseCore" type="eig:ReleaseCore"/>
+			<parameter qname="eig:amtAppliedFlag" type="xsd:boolean"/>
+			<parameter qname="eig:appliedAmount" type="xsd:double"/>
+		</operation>
+		
+		<operation name="cancelRelease"
+				qname="eig:cancelRelease"
+				returnQName="xsd:void"
+				returnType="xsd:void">
+			<parameter qname="eig:releaseId" type="xsd:long"/>
+			<parameter qname="eig:invoiceId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="createLetterAndPreview"
+				qname="eig:createLetterAndPreview"
+				returnQName="xsd:docInfo"
+				returnType="xsd:DocInfo">
+			<parameter qname="eig:letterInfo" type="eig:LetterInfo"/>
+		</operation>
+		
+		<operation name="cancelCoverLetter"
+				qname="eig:cancelCoverLetter"
+				returnQName="xsd:void"
+				returnType="xsd:void">
+			<parameter qname="eig:requestId" type="xsd:long"/>
+			<parameter qname="eig:coverLetterId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="createInvoiceOrPrebillAndPreview"
+				qname="eig:createInvoiceOrPrebillAndPreview"
+				returnQName="eig:docInfo"
+				returnType="eig:DocInfo">
+			<parameter qname="eig:invoiceOrPrebillAndPreviewInfo" type="eig:InvoiceOrPrebillAndPreviewInfo"/>			
+		</operation>
+		
+		<operation name="cancelInvoiceOrPrebillAndPreview"
+				qname="eig:cancelInvoiceOrPrebillAndPreview"
+				returnQName="xsd:void"
+				returnType="xsd:void">
+			<parameter qname="eig:requestCoreId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="retrieveReleaseHistoryList"
+				qname="eig:retrieveReleaseHistoryList"
+				returnQName="eig:releaseHistoryList"
+				returnType="eig:ReleaseHistoryList">
+			<parameter qname="eig:releaseId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="retrieveInvoiceSummaries"
+				qname="eig:retrieveInvoiceSummaries"
+				returnQName="eig:invoiceHistory"
+				returnType="eig:InvoiceHistory">
+			<parameter qname="eig:requestCoreId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="viewInvoice"
+				qname="eig:viewInvoice"
+				returnQName="eig:docInfo"
+				returnType="eig:DocInfo">
+			<parameter qname="eig:invoiceId" type="xsd:long"/>
+			<parameter qname="eig:docType" type="xsd:string"/>
+		</operation>
+		
+        <operation name="retrievePastInvoices"
+                 qname="eig:retrievePastInvoices"
+                 returnQName="eig:PastInvoiceList"
+                 returnType="eig:PastInvoiceList">
+            <parameter qname="eig:requestId" type="xsd:long"/>
+        </operation>
+        
+		<operation name="retrieveChargeHistory"
+				qname="eig:retrieveChargeHistory"
+				returnQName="eig:chargeHistoryList"
+				returnType="eig:ChargeHistoryList">
+			<parameter qname="eig:requestId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="updateInvoiceOutputProperties"
+				qname="eig:updateInvoiceOutputProperties"
+				returnQName="xsd:void"
+				returnType="xsd:void">
+			<parameter qname="eig:invoiceAndLetterOutputProperties" type="eig:InvoiceAndLetterOutputProperties"/>
+		</operation>
+
+		<operation name="setDisplayBillingInfo"
+				qname="eig:setDisplayBillingInfo"
+				returnQName="xsd:void"
+				returnType="xsd:void">
+			<parameter qname="eig:requestId" type="xsd:long"/>
+			<parameter qname="eig:displayBillingInfo" type="xsd:boolean"/>
+		</operation>
+		
+		<operation name="autoApplyToInvoice"
+				qname="eig:autoApplyToInvoice"
+				returnQName="xsd:void"
+				returnType="xsd:void">
+			<parameter qname="eig:requestId" type="xsd:long"/>
+			<parameter qname="eig:invoiceId" type="xsd:long"/>
+		</operation>
+
+		<typeMapping qname="eig:ReleaseCore"
+			type="java:com.mckesson.eig.roi.billing.model.ReleaseCore"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+	    />
+	    
+	    <typeMapping qname="eig:letterInfo"
+			type="java:com.mckesson.eig.roi.billing.model.LetterInfo"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+	    />
+		
+		<typeMapping qname="eig:DocInfo"
+	        type="java:com.mckesson.eig.roi.billing.model.DocInfo"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+        />
+		
+        <typeMapping qname="eig:DocInfoList"
+	        type="java:com.mckesson.eig.roi.billing.model.DocInfoList"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:ReleaseAndPreviewInfo"
+			type="java:com.mckesson.eig.roi.billing.model.ReleaseAndPreviewInfo"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+	    />
+        
+        <typeMapping qname="eig:ReleaseHistoryPatient"
+	        type="java:com.mckesson.eig.roi.billing.model.ReleaseHistoryPatient"
+	        serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+	        deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+	        encodingStyle=""
+        />
+        
+        <typeMapping qname="eig:InvoiceOrPrebillAndPreviewInfo"
+			type="java:com.mckesson.eig.roi.billing.model.InvoiceOrPrebillAndPreviewInfo"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+	    />	
+        
+			
+        <typeMapping qname="eig:ReleaseHistoryItem"
+			type="java:com.mckesson.eig.roi.billing.model.ReleaseHistoryItem"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+        />
+		
+	    <typeMapping qname="eig:ReleaseHistoryList"
+			type="java:com.mckesson.eig.roi.billing.model.ReleaseHistoryList"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		
+		<typeMapping qname="eig:InvoiceHistory"
+			type="java:com.mckesson.eig.roi.billing.model.InvoiceHistory"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		<typeMapping qname="eig:Invoice"
+			type="java:com.mckesson.eig.roi.billing.model.Invoice"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		<typeMapping qname="eig:InvoiceDetails"
+			type="java:com.mckesson.eig.roi.billing.model.InvoiceDetails"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		<typeMapping qname="eig:InvoiceDetailsList"
+			type="java:com.mckesson.eig.roi.billing.model.InvoiceDetailsList"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		
+		<typeMapping qname="eig:PastInvoice"
+            type="java:com.mckesson.eig.roi.billing.model.PastInvoice"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+        <typeMapping qname="eig:PastInvoiceList"
+            type="java:com.mckesson.eig.roi.billing.model.PastInvoiceList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+
+		<typeMapping qname="eig:ChargeHistoryList"
+			type="java:com.mckesson.eig.roi.billing.model.ChargeHistoryList"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+
+		<typeMapping qname="eig:InvoiceAndLetterOutputProperties"
+			type="java:com.mckesson.eig.roi.billing.model.InvoiceAndLetterOutputProperties"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		<typeMapping qname="eig:RegeneratedInvoiceInfo"
+			type="java:com.mckesson.eig.roi.billing.model.RegeneratedInvoiceInfo"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+
+	</service>
+	
+	<service name="OverdueInvoiceCoreService" style="wrapped" use="literal" provider="Handler">
+
+       <requestFlow>
+        <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass"
+                   value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+            <!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow -->
+            <handler type="HPFSecurityAuthorizationHandler" />
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/overdue.invoicecore.wsdl</wsdlFile>
+        <parameter name="alias" value="OverDueInvoiceCore"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="OverDueInvoiceCorePortType"/>
+        <parameter name="wsdlServiceElement" value="OverDueInvoiceCoreService"/>
+        <parameter name="wsdlServicePort" value="OverDueInvoiceCore"/>
+        <parameter name="handlerClass"  value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreServiceImpl"/>
+        <parameter name="allowedMethods" value="searchOverDueInvoices,
+        										regenerateInvoiceCoreAndLetter" />
+
+        <parameter name="scope" value="session"/>
+
+		<operation name="searchOverDueInvoices"
+				qname="eig:searchOverDueInvoices"
+				returnQName="eig:searchPastDueInvoiceResult"
+				returnType="eig:SearchPastDueInvoiceResult" >
+			<parameter qname="eig:PastDueInvoiceCriteria" type="eig:SearchPastDueInvoiceCriteria"/>
+		</operation>
+		
+		<operation name="regenerateInvoiceCoreAndLetter"
+				qname="eig:regenerateInvoiceCoreAndLetter"
+				returnQName="eig:overDueDocInfoList"
+				returnType="eig:OverDueDocInfoList" >
+			<parameter qname="InvoiceAndLetterInfo" type="eig:InvoiceAndLetterInfo"/>
+			<parameter qname="forPreview" type="xsd:boolean"/>
+		</operation>
+		
+		<typeMapping qname="eig:SearchPastDueInvoiceCriteria"
+			type="java:com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceCriteria"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		
+		<typeMapping qname="eig:OverDueDocInfoList"
+			type="java:com.mckesson.eig.roi.billing.model.OverDueDocInfoList"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		
+		<typeMapping qname="eig:InvoiceAndLetterInfo"
+			type="java:com.mckesson.eig.roi.billing.model.InvoiceAndLetterInfo"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+
+		<typeMapping qname="eig:SearchPastDueInvoiceResult"
+			type="java:com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceResult"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+	</service>	
+	
+	<service name="ROIOutputService" style="wrapped" use="literal" provider="Handler">
+
+       <requestFlow>
+        <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass"
+                   value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+            <!-- Add the HPFSecurityAuthorizationHandler after the Authentication handler to the requestflow -->
+            <handler type="HPFSecurityAuthorizationHandler" />
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/roi.output.wsdl</wsdlFile>
+        <parameter name="alias" value="ROIOutput"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="ROIOutputPortType"/>
+        <parameter name="wsdlServiceElement" value="ROIOutputService"/>
+        <parameter name="wsdlServicePort" value="ROIOutput"/>
+        <parameter name="handlerClass"  value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"/>
+        <parameter name="allowedMethods" value="submitOutputRequest,
+        										getServiceProperties,
+        										queryOutputJob,
+        										getDestinations" />
+
+        <parameter name="scope" value="session"/>
+
+		<operation name="submitOutputRequest"
+				qname="eig:submitOutputRequest"
+				returnQName="eig:jobId"
+				returnType="xsd:long" >
+			<parameter qname="eig:OutputRequest" type="eig:OutputRequest"/>
+		</operation>
+		
+		<operation name="getServiceProperties"
+				qname="eig:getServiceProperties"
+				returnQName="eig:OutputFeature"
+				returnType="eig:OutputFeature" >
+		</operation>
+		
+		<operation name="queryOutputJob"
+				qname="eig:queryOutputJob"
+				returnQName="eig:status"
+				returnType="xsd:long" >
+			<parameter qname="job" type="xsd:int"/>
+		</operation>
+		
+		<operation name="getDestinations"
+				qname="eig:getDestinations"
+				returnQName="eig:DestInfoList"
+				returnType="eig:DestInfoList" >
+			<parameter qname="typeName" type="xsd:string"/>
+		</operation>
+		
+		
+		<typeMapping qname="eig:OutputRequest"
+			type="java:com.mckesson.eig.roi.output.model.OutputRequest"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		
+		<typeMapping qname="eig:OutputFeature"
+			type="java:com.mckesson.eig.roi.output.model.OutputFeature"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		
+		<typeMapping qname="eig:DestInfoList"
+			type="java:com.mckesson.eig.roi.output.model.DestInfoList"
+			serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+			deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+			encodingStyle=""
+		/>
+		
+	</service>		
+	
+	<service name="InUseService" style="wrapped" use="literal" provider="Handler">
+        <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/roi/inuse.wsdl</wsdlFile>
+        <parameter name="alias" value="InUseService"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="InUsePortType"/>
+        <parameter name="wsdlServiceElement" value="InUseService"/>
+        <parameter name="wsdlServicePort" value="InUseService"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.roi.inuse.service.InUseService"/>
+        <parameter name="allowedMethods" value="releaseInUseRecord,
+                                                retrieveAllInUseRecords,
+                                                retrieveInUseRecord,
+                                                retrieveInUseRecordsByType,
+                                                createInUseRecord,
+                                                touchInUseRecord,
+                                                retrieveInUseRecordsByIDs"/>
+
+        <parameter name="scope" value="session"/>
+
+        <operation name="releaseInUseRecord"
+                   qname="eig:releaseInUseRecord"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+               <parameter qname="eig:objectType" type="xsd:string"/>
+               <parameter qname="eig:objectID" type="xsd:string"/>
+               <parameter qname="eig:applicationID" type="xsd:string"/>
+               <parameter qname="eig:userID" type="xsd:string"/>
+        </operation>
+
+        <operation name="createInUseRecord"
+                   qname="eig:createInUseRecord"
+                   returnQName="eig:inUseRecord"
+                   returnType="eig:InUseRecord">
+
+               <parameter qname="eig:objectType" type="xsd:string"/>
+               <parameter qname="eig:objectID" type="xsd:string"/>
+               <parameter qname="eig:applicationID" type="xsd:string"/>
+               <parameter qname="eig:userID" type="xsd:string"/>
+               <parameter qname="eig:expiresMinutes" type="xsd:int"/>
+        </operation>
+
+        <operation name="retrieveInUseRecord"
+                   qname="eig:retrieveInUseRecord"
+                   returnQName="eig:inUseRecord"
+                   returnType="eig:InUseRecord">
+
+               <parameter qname="eig:objectType" type="xsd:string"/>
+               <parameter qname="eig:objectID" type="xsd:string"/>
+        </operation>
+
+        <operation name="retrieveAllInUseRecords"
+                   qname="eig:retrieveAllInUseRecords"
+                   returnQName="eig:inUseRecords"
+                   returnType="eig:InUseRecordList">
+        </operation>
+
+         <operation name="retrieveInUseRecordsByType"
+                   qname="eig:retrieveInUseRecordsByType"
+                   returnQName="eig:inUseRecords"
+                   returnType="eig:InUseRecordList">
+               <parameter qname="eig:objectType" type="xsd:string"/>
+        </operation>
+
+        <operation name="touchInUseRecord"
+                   qname="eig:touchInUseRecord"
+                   returnQName="eig:inUseRecord"
+                   returnType="eig:InUseRecordType">
+               <parameter qname="eig:objectType" type="xsd:string"/>
+               <parameter qname="eig:objectID" type="xsd:string"/>
+               <parameter qname="eig:applicationID" type="xsd:string"/>
+               <parameter qname="eig:userID" type="xsd:string"/>
+        </operation>
+
+        <operation name="retrieveInUseRecordsByIDs"
+                   qname="eig:retrieveInUseRecordsByIDs"
+                   returnQName="eig:inUseRecords"
+                   returnType="eig:InUseRecordTypeList">
+               <parameter qname="eig:objectType" type="xsd:string"/>
+               <parameter qname="eig:objectIds" type="xsd:string"/>
+               <parameter qname="eig:applicationId" type="xsd:string"/>
+               <parameter qname="eig:userID" type="xsd:string"/>
+        </operation>
+
+         <typeMapping qname="eig:InUseRecord"
+            type="java:com.mckesson.eig.roi.inuse.model.InUseRecord"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+
+        <typeMapping qname="eig:InUseRecordList"
+            type="java:com.mckesson.eig.roi.inuse.model.InUseRecordList"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""
+        />
+    </service>
+	
+ </deployment>

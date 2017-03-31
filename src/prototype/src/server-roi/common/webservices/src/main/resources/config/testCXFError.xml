@@ -1,0 +1,171 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:jaxws="http://cxf.apache.org/jaxws"
+      xmlns:cxf="http://cxf.apache.org/core"
+      xmlns:simple="http://cxf.apache.org/simple"
+      xmlns:soap="http://cxf.apache.org/bindings/soap"
+      xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://cxf.apache.org/jaxws                 http://cxf.apache.org/schemas/jaxws.xsd
+      http://cxf.apache.org/core                  http://cxf.apache.org/schemas/core.xsd
+      http://cxf.apache.org/bindings/soap         http://cxf.apache.org/schemas/configuration/soap.xsd
+      http://cxf.apache.org/simple                http://cxf.apache.org/schemas/simple.xsd">
+
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
+  <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+  <import resource="classpath:META-INF/cxf/cxf-extension-local.xml"/>
+  <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+  <bean id="HeaderParameterRemover"
+        class="com.mckesson.eig.wsfw.cxf.HeaderParameterRemover"/>
+  <bean id="SoapMessageReader" class="com.mckesson.eig.wsfw.cxf.SoapMessageReader"/> 
+  <bean id="EIGIn" class="com.mckesson.eig.wsfw.cxf.EIGSessionInitializer"/>
+  <bean id="SAAJIn" class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"/>
+  <bean id="com.mckesson.eig.wsfw.exception.ErrorHandler" 
+        class="com.mckesson.eig.wsfw.test.MockErrorHandler"/>
+
+  <bean id="EIGSoap11FaultOut" class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor"/>
+  <bean id ="RouteOneWay" class="com.mckesson.eig.wsfw.cxf.RouteOneWay"/>
+
+  <jaxws:endpoint  name="employeeService" 
+                   address="local://message"
+                   implementor="com.mckesson.eig.wsfw.test.service.EmployeeServiceImpl">
+
+      <jaxws:inInterceptors>
+           <ref bean="RouteOneWay"/>
+      </jaxws:inInterceptors>
+
+      <jaxws:invoker>
+          <bean class="com.mckesson.eig.wsfw.cxf.CXFDirectServiceInvoker">
+              <constructor-arg>
+                  <bean class="com.mckesson.eig.wsfw.test.service.EmployeeServiceImpl"/>
+              </constructor-arg>
+          </bean>
+      </jaxws:invoker>
+  </jaxws:endpoint>  
+
+  <jaxws:endpoint id="employee"
+                  wsdlLocation="WEB-INF/employee.wsdl"
+                  implementor="com.mckesson.eig.wsfw.test.service.EmployeeServiceImpl"
+                  address="/employee">
+    <jaxws:properties>
+      <entry key="forceInvalidateSession" value="true"/>
+      <entry key="jmsConfigName" value="eig_testq_config"/>
+    </jaxws:properties>
+
+    <jaxws:inInterceptors><ref bean="EIGIn"/></jaxws:inInterceptors>
+
+    <jaxws:invoker>
+      <bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+      <constructor-arg>
+        <bean class="com.mckesson.eig.wsfw.test.service.EmployeeServiceImpl"/>
+      </constructor-arg>
+      </bean>
+    </jaxws:invoker>
+
+  </jaxws:endpoint>
+
+  <jaxws:endpoint id="employeeAsync"
+                  wsdlLocation="WEB-INF/employee.wsdl"
+                  implementor="com.mckesson.eig.wsfw.test.service.EmployeeServiceImpl"
+                  address="/employee.async.error">
+    <jaxws:properties>
+      <entry key="jmsConfigName" value="eig_auditq_config"/>
+    </jaxws:properties>
+
+    <jaxws:inInterceptors><ref bean="EIGIn"/></jaxws:inInterceptors>
+
+    <jaxws:invoker>
+      <bean class="com.mckesson.eig.wsfw.cxf.AsynchronousServiceInvoker">
+      <constructor-arg>
+        <bean class="com.mckesson.eig.wsfw.test.service.EmployeeServiceImpl"/>
+      </constructor-arg>
+      </bean>
+    </jaxws:invoker>
+  </jaxws:endpoint>
+
+  <bean id="eig_auditq_config"
+      class="com.mckesson.eig.wsfw.jms.MessagePoster">
+      <property name="queue">
+        <ref bean="testQueue"/>
+      </property>
+      <property name="connectionFactory">
+        <ref bean="connectionFactory"/>
+      </property>
+  </bean>
+
+  <bean id="connectionFactory"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiTemplate">
+      <ref bean="jndiTemplate" />
+    </property>
+    <property name="jndiName">
+      <value>java:activemq/QueueConnectionFactory</value>
+    </property>
+  </bean>
+
+  <bean id="testQueue"
+    class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiTemplate">
+      <ref bean="jndiTemplate" />
+    </property>
+    <property name="jndiName">
+      <value>queue/testQueue</value>
+    </property>
+  </bean>
+
+  <bean id="jndiTemplate"
+        class="org.springframework.jndi.JndiTemplate">
+        <property name="environment">
+            <props>
+                <prop key="java.naming.factory.initial">
+                    org.mockejb.jndi.MockContextFactory
+                </prop>
+            </props>
+        </property>
+  </bean>
+
+  <bean id="listenerContainer"
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+      <property name="concurrentConsumers" value="5" />
+      <property name="connectionFactory"  ref="connectionFactory" />
+      <property name="destination"        ref="testQueue" />
+      <property name="messageListener"    ref="messageListener" />
+      <property name="transactionManager" ref="transactionManager" />
+  </bean>
+
+  <bean id="messageListener"
+        class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+    <constructor-arg>
+      <bean id="messageCaller"
+        class="com.mckesson.eig.wsfw.cxf.CXFDirectServiceCaller">
+        <constructor-arg value="true"/>
+      </bean>
+    </constructor-arg>
+    <property name="defaultListenerMethod" value="callService" />
+    <!-- we don't want automatic message context extraction -->
+    <property name="messageConverter">
+        <null />
+    </property>
+  </bean>
+
+  <bean id="transactionManager"
+        class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="connectionFactory" />
+  </bean>
+
+  <bean id="cxf" class="org.apache.cxf.bus.CXFBusImpl">
+      <property name="inInterceptors">
+          <list>
+	          <ref bean="SoapMessageReader"/>    
+              <ref bean="HeaderParameterRemover"/>
+          </list>
+      </property>
+      <property name="outFaultInterceptors">
+          <list>
+            <ref bean="EIGSoap11FaultOut"/>
+          </list>
+      </property>
+  </bean>
+
+</beans>

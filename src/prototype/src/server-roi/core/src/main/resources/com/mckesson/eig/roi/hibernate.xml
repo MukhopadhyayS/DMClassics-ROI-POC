@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+
+    <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+
+    <property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+
+    <property name="hibernate.connection.pool_size">10</property>
+
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.use_sql_comments">true</property>
+
+    <!-- HPF Service -->
+    <mapping resource="com/mckesson/eig/roi/hpf/mapping/User.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/hpf/mapping/facility.hbm.xml" />
+
+    <!-- ROIBilling Service -->
+    <mapping resource="com/mckesson/eig/roi/admin/media.type.hbm.xml" />
+	<mapping resource="com/mckesson/eig/roi/admin/sales.tax.facility.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/fee.type.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/delivery.method.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/roi.parameter.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/payment.method.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/weight.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/billing.template.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/billing.template.to.fee.type.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/page.level.tier.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/billing.tier.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/requestor.type.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/requestor.type.to.billing.template.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/reason.hbm.xml" />
+	<mapping resource="com/mckesson/eig/roi/admin/designate.document.type.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/letter.template.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/letter.template.document.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/letter.template.file.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/admin.lov.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/requestor.type.to.billing.tier.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/sysparam.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/invoice.due.days.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/admin/eiwGlobalData.hbm.xml" />
+
+    <!-- Patient CRUD -->
+    <mapping resource="com/mckesson/eig/roi/base/address.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/base/email.phone.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/base/common.hbm.xml" />
+
+    <!-- Requestor Mappings -->
+    <mapping resource="com/mckesson/eig/roi/requestor/contact.emailphone.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/requestor/contact.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/requestor/related.address.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/requestor/related.contact.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/requestor/related.emailphone.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/requestor/requestor.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/requestor/requestor.detail.hbm.xml" />
+
+    <!-- Request CRUD -->
+	<mapping resource="com/mckesson/eig/roi/request/request.comment.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/request/request.event.hbm.xml" />
+
+    <!-- CCD -->
+    <mapping resource="com/mckesson/eig/roi/ccd/mapping/ccd.hbm.xml" />
+    
+    <!-- MU ROI OUTBOUND-->
+    <mapping resource="com/mckesson/eig/roi/muroioutbound/mapping/roi.outbound.hbm.xml" />
+      
+    <!-- Request Core-->
+    <mapping resource="com/mckesson/eig/roi/request/requestcore.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/request/requestPatientcore.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/billing/requestCoreDelivery.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/supplementary/mapping/roi.supplementary.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/request/requestcore.charges.hbm.xml" />
+    
+    <!-- Mapping for Requestor Letter and Regenerated Invoice -->
+    <mapping resource="com/mckesson/eig/roi/requestor/statement.lettercore.hbm.xml" />
+    <mapping resource="com/mckesson/eig/roi/billing/coverletter.core.hbm.xml" />
+    
+    <!-- FreeFormFacility-->
+    <mapping resource="com/mckesson/eig/roi/admin/roi.freeform.facility.hbm.xml" />
+    
+    <!--Realese History -->
+    <mapping resource="com/mckesson/eig/roi/billing/releaseHistory.hbm.xml" />
+
+	<!-- CountryCode -->
+	<mapping resource="com/mckesson/eig/roi/admin/countrycode.hbm.xml" />
+	
+	<!-- Report Mapping -->
+	<mapping resource="com/mckesson/eig/roi/report/mapping/report.hbm.xml" />
+	    
+	<mapping resource="com/mckesson/eig/roi/journal/mapping/roi.journal.hbm.xml" /> 
+	
+	<!--Inuse Mapping-->
+	<mapping resource="com/mckesson/eig/roi/inuse/inuse.hbm.xml" />
+
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<componentInfo componentID="audit" componentDisplayName="HECM Audit">
+    <applicationInfo>
+        <componentName>System</componentName>
+        <productName>HECMHECM Audit</productName>
+        <productType>Embedded Audit</productType>
+    </applicationInfo>
+    <configurationInfo></configurationInfo>
+    <updateInfo>
+        <update>
+            <date>2008-04-14T22:24:30.440+05:30</date>
+            <comments>Initial Version</comments>
+            <version>1.0.0.329</version>
+        </update>
+        <update>
+            <date>2008-04-14T23:34:54.225+05:30</date>
+        </update>
+    </updateInfo>
+    <logConfig>
+        <file>com/mckesson/eig/audit/logging.xml</file>
+        <appenders>
+            <appender>eigLogAppender</appender>
+        </appenders>
+        <categories>
+            <category>com.mckesson.eig.utility.metric</category>
+            <category>com.mckesson.eig</category>
+        </categories>
+    </logConfig>
+</componentInfo>
