@@ -330,30 +330,45 @@ implements BillingCoreService {
             chargesDao.revertRequestReleaseCost(requestCoreDeliveryCharges.getRequestCoreId(),
                                                 requestCoreDeliveryCharges.getBaseCharge());
 
-            //Delete the Documents for the corresponding DeliveryCharges Seq.
+            // Delete the Documents for the corresponding DeliveryCharges Seq.
             requestCoreDeliveryDAO.deleteRequestCoreDeliveryChargesDocument(invoiceId);
 
-            //Delete the Fee for the corresponding DeliveryCharges Seq.
+            // Delete the Fee for the corresponding DeliveryCharges Seq.
             requestCoreDeliveryDAO.deleteRequestCoreDeliveryChargesFee(invoiceId);
 
-            //Delete the Shipping for the corresponding DeliveryCharges Seq.
+            // Delete the Shipping for the corresponding DeliveryCharges Seq.
             requestCoreDeliveryDAO.deleteRequestCoreDeliveryChargesShipping(invoiceId);
 
-            //Delete the AdjustmentPayment for the corresponding DeliveryCharges Seq.
+            // Delete the AdjustmentPayment for the corresponding DeliveryCharges Seq.
             //requestCoreDeliveryDAO.deleteRequestCoreDeliveryChargesAdjustmentPayment(invoiceId);
 
-            //Delete the Patients for the corresponding DeliveryCharges Seq.
+            // Delete the Patients for the corresponding DeliveryCharges Seq.
             requestCoreDeliveryDAO.deleteRequestCoreDeliveryChargesInvoicePatients(invoiceId);
+            
+            // Revert the payments applied on invoice to latest active prebill
+            requestCoreDeliveryDAO.updateInvoicePaymentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
+            
+            // Revert the adjustments applied on invoice to latest active prebill
+            requestCoreDeliveryDAO.updateInvoiceAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
+            
+            // Update the Un-applied payments to applied payments to latest active prebill
+            requestCoreDeliveryDAO.updateUnappliedToAppliedPaymentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
+            
+            // Update the Un-applied adjustments to applied payments to latest active prebill
+            requestCoreDeliveryDAO.updateUnappliedToAppliedAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
+            
+            // Activate Latest Prebill Status to active since invoice request is canceled
+            requestCoreDeliveryDAO.activateLatestPrebill(requestCoreDeliveryCharges.getRequestCoreId());
 
-            //Delete all the applied adjustment to the invoices
+            // Delete all the applied adjustment to the invoices
             requestCoreDeliveryDAO.deleteAllMappedAdjustmentInvoicesByInvoiceId(invoiceId);
 
-            //Delete all the applied payment to the invoices
+            // Delete all the applied payment to the invoices
             requestCoreDeliveryDAO.deleteAllMappedPaymentInvoicesByInvoiceId(invoiceId);
-
+            
             //Delete the Charges for the corresponding RqeuestCore Seq.
             requestCoreDeliveryDAO.deleteRequestCoreDeliveryCharges(invoiceId);
-
+            
             // deletes the invoice auto adjustment event
             //requestCoreDeliveryDAO.deleteInvoiceAutoAdjEvent(invoiceId);
 
@@ -1616,7 +1631,8 @@ implements BillingCoreService {
                               Timestamp date = requestorDAO.getDate();
                               paymentInfoList.setPaymentAmount(reqAdjPay.getAppliedAmount());
                               paymentInfoList.setUnAppliedAmount(reqAdjPay.getAppliedAmount());
-                              paymentInfoList.setPaymentMode("Unapplied Payment");
+                              paymentInfoList.setPaymentMode(reqAdjPay.getPaymentMethod());
+                              paymentInfoList.setDescription(reqAdjPay.getDescription());
                               paymentInfoList.setPaymentDate(date);  
                               paymentInfoList.setRequestorId(reqAdjPay.getRequestorId());
                               paymentInfoList.setPaymentId(reqAdjPay.getId());
@@ -1632,11 +1648,18 @@ implements BillingCoreService {
                               Timestamp date = requestorDAO.getDate();
                               adjustmentInfo.setAmount(reqAdjPay.getAppliedAmount());
                               adjustmentInfo.setUnappliedAmount(reqAdjPay.getAppliedAmount());
-                              adjustmentInfo.setAdjustmentType(AdjustmentType.BILLING_ADJUSTMENT);
+                              if (AdjustmentType.CUSTOMER_GOODWILL_ADJUSTMENT.toString().equalsIgnoreCase(reqAdjPay.getPaymentMethod())) {
+                                  adjustmentInfo.setAdjustmentType(AdjustmentType.CUSTOMER_GOODWILL_ADJUSTMENT);
+                              } else if (AdjustmentType.BAD_DEBT_ADJUSTMENT.toString().equalsIgnoreCase(reqAdjPay.getPaymentMethod())) {
+                                  adjustmentInfo.setAdjustmentType(AdjustmentType.BAD_DEBT_ADJUSTMENT);
+                              } else {
+                                  adjustmentInfo.setAdjustmentType(AdjustmentType.BILLING_ADJUSTMENT);
+                              }
                               adjustmentInfo.setAdjustmentDate(date);  
                               adjustmentInfo.setRequestorSeq(reqAdjPay.getRequestorId());
                               adjustmentInfo.setDelete(false);
                               adjustmentInfo.setId(reqAdjPay.getId());
+                              adjustmentInfo.setNote(reqAdjPay.getDescription());
                               setDefaultDetails(adjustmentInfo, date, true);
                               requestorDAO.deleteMappedInvoicesByAdjustmentAndInvoiceId(reqAdjPay.getId(), reqPrebill.getId());
                               //requestorDAO.createRequestorPayment(adjustmentInfo);

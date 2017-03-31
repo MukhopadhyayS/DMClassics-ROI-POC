@@ -520,6 +520,14 @@ extends ROIDAO {
              InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
      
      void updatePrebillAdjustmentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
+     
+     void updateInvoicePaymentsToPrebill(long requestId);
+     
+     void updateInvoiceAdjustmentsToPrebill(long requestId);
+     
+     void updateUnappliedToAppliedPaymentsToPrebill(long requestId);
+     
+     void updateUnappliedToAppliedAdjustmentsToPrebill(long requestId);
 
      boolean prebillPaymentExists(long requestId);
 
@@ -530,4 +538,6 @@ extends ROIDAO {
 
      double totalPostPrebillAdjustments(
             InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
+     
+     void activateLatestPrebill(long requestId);
 }

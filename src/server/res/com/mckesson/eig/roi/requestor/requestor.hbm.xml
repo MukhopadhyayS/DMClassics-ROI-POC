@@ -458,8 +458,8 @@
 			    adj.UnappliedAmount unAppliedAmt,
 			    adj.Amount paymentAmount,
 			    0 refundAmount,
-			    null description,
-			    null paymentMethod,
+			    adj.Note description,
+			    adj.AdjustmentType paymentMethod,
 			    adj.ROI_Requestor_Seq requestorId,
 			    rcdAdj.ROI_RequestCoreDeliveryCharges_Seq invoiceId
 			FROM 
@@ -470,7 +470,7 @@
 				AND rcdAdj.ROI_RequestorAdjustment_Seq = adj.ROI_RequestorAdjustment_Seq
 				AND rcdAdj.IsDeleted = 0
 			GROUP BY rcdAdj.ROI_RequestorAdjustment_Seq, rcdAdj.ROI_RequestCoreDeliveryCharges_Seq,
-					 adj.ROI_Requestor_Seq, adj.AdjustmentDate, adj.UnappliedAmount, adj.Amount
+					 adj.ROI_Requestor_Seq, adj.AdjustmentDate, adj.UnappliedAmount, adj.Amount, adj.Note, adj.AdjustmentType
 			UNION
 			(SELECT 
 				rcdPay.ROI_RequestorPayment_Seq id,

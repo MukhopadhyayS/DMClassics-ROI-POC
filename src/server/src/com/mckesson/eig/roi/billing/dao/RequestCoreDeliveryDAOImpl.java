@@ -3362,6 +3362,178 @@ implements RequestCoreDeliveryDAO {
          }
     }
     
+    public void updateInvoicePaymentsToPrebill(long requestId) {
+        final String logSM = "updateInvoicePaymentsToPrebill(requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("updateInvoicePaymentsToPrebill").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+    
+    //US16834 changes to Include requests in the pre-bill status on the payments/adjustments popup(This function will convert prebill adjustments to invoice adjustments).
+    public void updateInvoiceAdjustmentsToPrebill(long requestId) {
+        final String logSM = "updateInvoiceAdjustmentsToPrebill(requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("updateInvoiceAdjustmentsToPrebill").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+    
+    public void updateUnappliedToAppliedPaymentsToPrebill(long requestId) {
+        final String logSM = "updateUnappliedToAppliedPaymentsToPrebill(requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("updateUnappliedToAppliedPaymentsToPrebill").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+    
+    public void updateUnappliedToAppliedAdjustmentsToPrebill(long requestId) {
+        final String logSM = "updateUnappliedToAppliedAdjustmentsToPrebill(requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("updateUnappliedToAppliedAdjustmentsToPrebill").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+    
+    //US16834 changes to Include requests in the pre-bill status on the payments/adjustments popup(This function will convert prebill adjustments to invoice adjustments).
+    public void activateLatestPrebill(long requestId) {
+        final String logSM = "activateLatestPrebill(requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("activateLatestPrebill").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+    
 	//US16834 changes to Include requests in the pre-bill status on the payments popup(This function will check if there is any prebill payment).
     public boolean prebillPaymentExists(long requestId) {
         final String logSM = "IsPrebillPaymentExists(long requestId)";
