@@ -3905,7 +3905,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         {
             //Previouly Released Cost
             previousReleaseCostValueLabel.Text = ReleaseDetails.FormattedAmount(PreviouslyReleasedCost);
-
+            
             double totalRequestCost = TotalRequestCost;
             totalRequestCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalRequestCost);
 
@@ -3934,37 +3934,23 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             double balanceDue = BalanceDue;
             double balance;
 
-            if (releaseDialog != null )
+            if (releaseDialog != null)
             {
-                double appliedAmount = Convert.ToDouble(adjPaymentTotalValueLabel.Text.Trim().Substring(1, adjPaymentTotalValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
-                //US16834 - changes to Include requests in the pre-bill status on the payments popup.
-                double adjPaymentValue = releaseDialog.AppliedAmount + appliedAmount;
-                if (adjPaymentValue >= PreviouslyReleasedCost)
-                {
-                    adjPaymentValue = PreviouslyReleasedCost;
-                    balance = 0.0;
-                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjPaymentValue);
-                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance);
-                }
-                else
-                {
-                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjPaymentValue);
-                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(PreviouslyReleasedCost - adjPaymentValue);
-                }
-                unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(releaseDialog.TotalUnAppliedAdjustmentPayment);
+                UpdateUIWithDetails();
             }
             else
             {
                 unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
                 adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
-                //balanceDuePrebill = balanceDue;
-                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
+                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);                
             }
-            
+
             adjPaymentTotalValueLabel.ForeColor = (adjustmentTotal < 0) ? Color.FromArgb(32, 125, 41) : Color.Black;
             double invoiceBaseCharge = Math.Round(BalanceDue - release.InvoicesBalanceDue, 2);
             
+
             
+
 
             //Added for CR#377438
             //List<RequestorUnappliedAmountDetail> ReqstrUnApplied = new List<RequestorUnappliedAmountDetail>();
@@ -3977,7 +3963,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             //    else if (req.Type == "Unapplied Adjustment")
             //        unAppliedAdjPayTotal+=req.Amount;
             //}
-                    
+
             //if (releaseDialog != null)
             //{
             //    if (releaseDialog.AppliedAmount > 0)
@@ -3992,7 +3978,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             //        }
             //    }
             //}
-            
+
 
             //Apply Tax
             this.applyTaxCheckBox.CheckedChanged -= new System.EventHandler(this.applyTaxCheckBox_CheckedChanged);
@@ -4102,11 +4088,15 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             double requestammount = requestBillingInfo.TotalRequestCost;
             double paymentammt = requestBillingInfo.PaymentAmount;
             double creditadjamnt = requestBillingInfo.CreditAdjustmentAmount;
+            double balance;
             adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(paymentammt + creditadjamnt);
 
             double balanceDue = Convert.ToDouble(balanceDueValueLabel.Text.Trim().Substring(1, balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+            balanceDuePrebill = balanceDue;
             if (balanceDue > 0)
             {
+                balance = requestammount - (paymentammt + creditadjamnt);
+                balanceDuePrebill = balance;
                 balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(requestammount - (paymentammt + creditadjamnt));
             }
 

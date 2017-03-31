@@ -399,10 +399,13 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
            
            foreach (RequestInvoiceDetail requestInvoiceDetail in currentAdjInfo.RequestorInvoicesList)
            {
-               if (requestInvoiceDetail.Balance > 0)
-               {
-                   requestorInvoiceList.Add(requestInvoiceDetail);
-               }
+                if (!(requestInvoiceDetail.InvoiceType.Equals("Refund")))
+                {
+                    if (requestInvoiceDetail.Balance > 0)
+                    {
+                        requestorInvoiceList.Add(requestInvoiceDetail);
+                    }
+                }
            }
            currentAdjInfo.RequestorInvoicesList.Clear();
            return requestorInvoiceList;
