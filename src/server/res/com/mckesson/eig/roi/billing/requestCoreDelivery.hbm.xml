@@ -2298,6 +2298,61 @@
 									
    		]]>
     </sql-query>
+    
+    <sql-query name="updateInvoicePaymentsToPrebill">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
+		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc )
+				
+		WHERE 
+			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Invoice' )
+									
+   		]]>
+   </sql-query>
+   
+   <sql-query name="updateInvoiceAdjustmentsToPrebill">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
+		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc )
+				
+		WHERE 
+			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Invoice' )
+									
+   		]]>
+    </sql-query>
+    
+    <sql-query name="updateUnappliedToAppliedPaymentsToPrebill">
+  	 <![CDATA[
+			
+        UPDATE ROI_RequestorPayment set UnappliedAmount = 0.00 
+        where ROI_RequestorPayment_Seq in (select ROI_RequestorPayment_Seq from ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
+        where ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges 
+        where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)) 
+									
+   		]]>
+    </sql-query>
+    
+    <sql-query name="updateUnappliedToAppliedAdjustmentsToPrebill">
+  	 <![CDATA[
+			
+        UPDATE ROI_RequestorAdjustment set UnappliedAmount = 0.00 
+        where ROI_RequestorAdjustment_Seq in (select ROI_RequestorAdjustment_Seq from ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
+        where ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges 
+        where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)) 
+									
+   		]]>
+    </sql-query>
+    
+    <sql-query name="activateLatestPrebill">
+  	 <![CDATA[
+  	 
+  	    UPDATE ROI_RequestCoreDeliveryCharges set PreBill_Status = 'Active' where ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where 
+		ROI_RequestCore_Seq = :requestId  and type='Prebill' and PreBill_Status = 'InActive' order by ROI_RequestCoreDeliveryCharges_Seq desc)
+		
+   		]]>
+    </sql-query>
    
     <sql-query name="prebillPaymentExists">
   	 <![CDATA[
