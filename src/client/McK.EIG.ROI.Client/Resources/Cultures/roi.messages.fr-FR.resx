@@ -2379,7 +2379,7 @@ Do you want to continue and save this requestor?.fr</value>
     <comment>Requestor Statement</comment>
   </data>
   <data name="ROI.11.2.05" xml:space="preserve">
-    <value>Create Requestor Refund Operation Failed.fr</value>
+    <value>Refund is not valid on Adjustment/Payment.fr</value>
     <comment>Requestor Refund</comment>
   </data>
   <data name="ROI.11.2.06" xml:space="preserve">
