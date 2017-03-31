@@ -1,0 +1,30 @@
+<componentInfo componentID="Audit" componentDisplayName="Audit">
+
+    <applicationInfo>
+        <componentName>System</componentName>
+        <productName>Audit</productName>
+        <productType>Embedded Audit</productType>
+        <version></version>
+        <path></path>
+    </applicationInfo>
+
+    <configurationInfo>
+      <![CDATA[    
+      ]]>
+    </configurationInfo>
+
+    <updateInfo>
+    </updateInfo>
+    
+    <logConfig>
+        <file>com/mckesson/eig/audit/audit.logging.xml</file>
+        <appenders>
+            <appender>eigLogAppender</appender>
+        </appenders>
+        
+        <categories>
+            <category>com.mckesson.eig</category>
+        </categories>
+    </logConfig>
+        
+</componentInfo>

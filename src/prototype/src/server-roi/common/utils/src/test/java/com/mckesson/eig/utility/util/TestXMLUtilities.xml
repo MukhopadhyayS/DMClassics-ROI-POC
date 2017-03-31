@@ -1,0 +1,4 @@
+<component outerAttribute="outerAttribute">
+	<application-id innerAttribute="innerAttribute1" intVal="8675309">HECM</application-id>
+	<application-id innerAttribute="innerAttribute2" intVal="1900">HPF</application-id>
+</component>

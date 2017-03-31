@@ -1,0 +1,2337 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<sql-query name="createRequestCoreDelivery">
+        <![CDATA[
+           declare @modifiedBySeq int;
+		   set @modifiedBySeq = (select Modified_By_Seq from cabinet..ROI_RequestCoreCharges 
+		   where ROI_RequestCore_Seq = :requestCoreId)
+           INSERT INTO  cabinet..ROI_RequestCoreDelivery (ROI_RequestCore_Seq, Created_By_Seq, 
+           Modified_By_Seq) VALUES (:requestCoreId, @modifiedBySeq, @modifiedBySeq);
+           SELECT SCOPE_IDENTITY() as requestCoreDeliveryId;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteRequestCoreDelivery">
+        <![CDATA[
+			DELETE FROM cabinet..ROI_RequestCoreDelivery where ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+
+    <sql-query name="retrieveRequestIdForRequestCoreDelivery">
+        <![CDATA[
+			SELECT ROI_RequestCore_Seq requestId
+			FROM cabinet..ROI_RequestCoreDelivery
+			WHERE ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createRequestCoreDeliveryCharges">
+        <![CDATA[
+           INSERT INTO  ROI_RequestCoreDeliveryCharges (	
+					 ROI_RequestCore_Seq,
+					 Previously_Released_Cost,
+				     Release_Date,
+				     Total_Pages,
+				     Total_Pages_Released,
+				     Salestax_Total_Amount,
+				     Salestax_Percentage_BillingLoc,
+				     Letter_Template_Name,
+				     Request_Status,
+				     Request_Date,
+				     LetterTemplate_FileId,
+				     Type,
+				     Invoice_Prebill_Date,
+				     Invoice_Due_Date,
+				     Resend_Date,
+				     Output_Method,
+				     Queue_Password,
+				     Overwrite_Due_Date,
+				     Invoice_Salestax,
+				     Base_Charge,
+				     Balance_Due,
+				     Facility_Code,
+				     Facility_Name,
+				     Invoice_Balance_Due,
+				     Is_Released,
+				     Billing_Type,
+				     Apply_SalesTax,
+				     Notes,
+				     Invoice_Due_Days,
+				     Unbillable,
+				     Unbillable_Amount,
+				     Created_Dt,
+					 Created_By_Seq,
+					 Modified_Dt,
+					 Modified_By_Seq,
+					 Prebill_Status
+					) VALUES (:requestCoreId, :previouslyReleasedCost, :releaseDate, 
+							  :totalPages, :totalPagesReleased, :salesTaxAmount, 
+							  :salesTaxPercentage, :letterTemplateName,
+							  :requestStatus, :requestDate, :letterTemplateFileId, :type, :invoicePrebillDate, 
+							  :invoiceDueDate, :resendDate, :outputMethod, :queuePassword, 
+							  :overwriteDueDate, :invoiceSalesTax, :baseCharge, :balanceDue, :invoiceBillingLocCode,
+							  :invoiceBillinglocName, :invoiceBalanceDue, :isReleased, :billingType,
+							  :applySalesTax, :notes, :invoiceDueDays, 
+							  :unbillable, :unbillableAmount,
+							  :createdDate, :createdBy, :modifiedDate, :modifiedBy , :prebillStatus) ; SELECT SCOPE_IDENTITY();
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createRequestCoreDeliveryChargesDocument">
+        <![CDATA[
+           INSERT INTO  ROI_RequestCoreDeliveryChargesDocument (	
+					ROI_RequestCoreDeliveryCharges_Seq,
+					Amount,
+					Copies,
+					BillingTierName,
+					TotalPages,
+					Pages,
+					BillingTierId,
+					ReleaseCount,
+					IsElectronic,
+					RemoveBaseCharge,
+					Has_Salestax,
+					SalesTax_Amount,
+					Created_Dt,
+					Created_By_Seq,
+					Modified_Dt,
+					Modified_By_Seq) VALUES (:requestCoreDeliveryChargesId, 
+											:amount, :copies, :billingtierName, :totalPages, :pages,
+											:billingtierId, :releaseCount, :isElectronic, :removeBasecharge,
+											:hasSalesTax, :salesTaxAmount, 
+											:createdDate, :createdBy, :modifiedDate,
+											:modifiedBy) ; SELECT SCOPE_IDENTITY();
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createRequestCoreDeliveryChargesFee">
+        <![CDATA[
+           INSERT INTO  ROI_RequestCoreDeliveryChargesFee (	
+					ROI_RequestCoreDeliveryCharges_Seq,
+					Amount,
+					IsCustomFee,
+					FeeType,
+					Has_Salestax,
+					SalesTax_Amount,
+					Created_Dt,
+					Created_By_Seq,
+					Modified_Dt,
+					Modified_By_Seq) VALUES (:requestCoreDeliveryChargesId, :amount, :isCustomFee, :feeType,
+											:hasSalesTax, :salesTaxAmount, :createdDate, :createdBy, 
+											:modifiedDate, :modifiedBy) ; SELECT SCOPE_IDENTITY();
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createRequestCoreDeliveryChargesShipping">
+        <![CDATA[
+  			INSERT INTO ROI_RequestCoreDeliveryChargesShipping(
+						ROI_RequestCoreDeliveryCharges_Seq,
+						ShippingCharge,
+						PostalCode,
+						AddressType,
+						State,
+						ShippingUrl,
+						Address1,
+						Address2,
+						ShippingWeight,
+						TrackingNumber,
+						Address3,
+						City,
+						WillReleaseShipped,
+						ShippingMethod,
+						OutputMethod,
+						ShippingMethodId,
+						Nonprintable_Attachment_Queue,
+						Created_Dt,
+						Created_By_Seq,
+						Modified_Dt,
+					    Modified_By_Seq,
+					    Country_Code,
+					    Country_Name) VALUES( :requestCoreDeliveryChargesId, :shippingCharge, :postalCode,
+					    						:addressType, :state, :shippingUrl, :address1, :address2,
+					    						:shippingWeight, :trackingNumber, :address3, :city,
+												:willReleaseShipped, :shippingMethod, :outputMethod, 
+												:shippingMethodId, :nonPrintableAttachmentQueue, :createdDate,
+												:createdBy, :modifiedDate, :modifiedBy, :countryCode, :countryName); SELECT SCOPE_IDENTITY();
+   		]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestCoreDelivery">
+        <![CDATA[
+            SELECT TOP 1
+                ROI_RequestCoreDelivery_Seq id,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_RequestCoreDelivery
+            WHERE 
+            	ROI_RequestCore_Seq = :requestCoreDeliveryId ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestCoreDeliveryCharges">
+        <![CDATA[
+            SELECT 
+            	invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+            	invoice.Is_Released isReleased,
+				invoice.Previously_Released_Cost previouslyReleasedCost,
+                invoice.Release_Date releaseDate,
+                invoice.Base_Charge releaseCost,
+                invoice.Total_Pages totalPages,
+                (COALESCE(invoice.Previously_Released_Cost, 0) + COALESCE(invoice.Base_Charge, 0)) totalRequestCost,
+                invoice.Total_Pages_Released totalPagesReleased,
+                invoice.Salestax_Total_Amount salesTaxAmount,
+                invoice.Salestax_Percentage_BillingLoc salesTaxPercentage,
+                invoice.Billing_Type billingType,
+                invoice.Letter_Template_Name letterTemplateName,
+			    invoice.Request_Status requestStatus,
+			    invoice.Request_Date requestDate,
+			    invoice.LetterTemplate_FileId letterTemplateFileId,
+			    invoice.Type type,
+			    invoice.Invoice_Prebill_Date invoicePrebillDate,
+			    invoice.Invoice_Due_Date invoiceDueDate,
+			    invoice.Resend_Date resendDate,
+			    invoice.Output_Method outputMethod,
+			    invoice.Queue_Password queuePassword,
+			    invoice.Overwrite_Due_Date overwriteDueDate,
+			    invoice.Invoice_Salestax invoiceSalesTax,
+			    invoice.Base_Charge baseCharge,
+			    invoice.Balance_Due balanceDue,
+			    invoice.Facility_Code invoiceBillingLocCode,
+			    invoice.Facility_Name invoiceBillinglocName,
+			    invoice.Invoice_Balance_Due invoiceBalanceDue,
+			    COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount,
+			    COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) creditAdjustmentAmount,
+			    0.00 debitAdjustmentAmount,
+			    invoice.Apply_SalesTax applySalesTax,
+			    invoice.Notes notes,
+			    RTRIM(COALESCE((select u.FullName from cabinet..USERS u where u.UserInstanceId = invoice.created_By_Seq), 'Deleted User - ' + CAST(invoice.created_By_Seq AS varchar(256)))) creator,
+			    invoice.Invoice_Due_Days invoiceDueDays,
+			    invoice.Unbillable unbillable,
+			    COALESCE (invoice.Unbillable_Amount, 0) unbillableAmount,
+			    invoice.Created_Dt createdDt,
+				invoice.Created_By_Seq createdBy,
+				invoice.Modified_Dt modifiedDt,
+				invoice.Modified_By_Seq modifiedBy,
+				invoice.Record_Version recordVersion,
+				invoice.Prebill_Status prebillStatus
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryCharges invoice
+            WHERE 
+            	invoice.ROI_RequestCore_Seq = :requestCoreId 
+            	AND invoice.Type = 'Invoice' 
+			ORDER BY invoice.Modified_Dt desc;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestCoreDeliveryChargesAdjustmentPayment">
+        <![CDATA[
+           		SELECT 
+				requestorPayment.ROI_RequestorPayment_Seq id,
+				requestorPayment.ROI_Requestor_Seq requestorId,
+            	invpayment.ROI_RequestCoreDeliveryCharges_Seq requestCoreDeliveryChargesId,
+				invpayment.Amount invoiceAppliedAmount,
+				requestorPayment.Amount baseAmount,
+				requestorPayment.UnappliedAmount totalUnappliedAmount,
+		    	requestorPayment.PaymentType paymentMode,
+		    	requestorPayment.PaymentDate paymentDate,
+				requestorPayment.Description description,
+				'Payment' transactionType,
+				requestorPayment.Created_Dt createdDt,
+				requestorPayment.Created_By_Seq createdBy,
+				requestorPayment.Modified_Dt modifiedDt,
+				requestorPayment.Modified_By_Seq modifiedBy,
+				requestorPayment.Record_Version recordVersion
+            FROM 
+                cabinet..ROI_RequestorPayment requestorPayment,
+                cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment invpayment
+            WHERE 
+            	invpayment.ROI_RequestorPayment_Seq = requestorPayment.ROI_RequestorPayment_Seq AND 
+             	invpayment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds)
+             	AND invPayment.IsDeleted = 0
+		UNION
+
+           SELECT 
+				requestorAdjustment.ROI_RequestorAdjustment_Seq id,
+				requestorAdjustment.ROI_Requestor_Seq requestorId,
+            	invAdjustment.ROI_RequestCoreDeliveryCharges_Seq requestCoreDeliveryChargesId,
+				invAdjustment.Amount invoiceAppliedAmount,
+				invAdjustment.Amount baseAmount,
+				requestorAdjustment.UnappliedAmount totalUnappliedAmount,
+		    	requestorAdjustment.Reason paymentMode,
+		    	requestorAdjustment.AdjustmentDate paymentDate,
+				requestorAdjustment.Note description,
+				'Adjustment' transactionType,
+				requestorAdjustment.Created_Dt createdDt,
+				requestorAdjustment.Created_By_Seq createdBy,
+				requestorAdjustment.Modified_Dt modifiedDt,
+				requestorAdjustment.Modified_By_Seq modifiedBy,
+				requestorAdjustment.Record_Version recordVersion
+            FROM 
+                cabinet..ROI_RequestorAdjustment requestorAdjustment,
+                cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment invAdjustment
+            WHERE 
+            	invAdjustment.ROI_RequestorAdjustment_Seq = requestorAdjustment.ROI_RequestorAdjustment_Seq AND 
+             	invAdjustment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds)
+             	AND invAdjustment.IsDeleted = 0
+        ]]>
+    </sql-query>
+        
+    <sql-query name="deleteRequestCoreDeliveryCharges">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryCharges
+           WHERE 
+           	    ROI_RequestCoreDeliveryCharges_Seq = :requestCoreDeliveryChargesSeq
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteRequestCoreDeliveryChargesFee">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesFee
+           WHERE 
+           	    ROI_RequestCoreDeliveryCharges_Seq = :requestCoreDeliveryChargesSeq
+        ]]>
+    </sql-query>
+    <sql-query name="deleteRequestCoreDeliveryChargesDocument">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesDocument 
+           WHERE 
+           	    ROI_RequestCoreDeliveryCharges_Seq = :requestCoreDeliveryChargesSeq
+        ]]>
+    </sql-query>
+    <sql-query name="deleteRequestCoreDeliveryChargesShipping">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesShipping
+           WHERE 
+           	    ROI_RequestCoreDeliveryCharges_Seq = :requestCoreDeliveryChargesId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteRequestCoreDeliveryChargesInvoicePatients">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients
+           WHERE 
+           	    ROI_RequestCoreDeliveryCharges_Seq = :requestCoreDeliveryChargesId
+        ]]>
+    </sql-query>
+    <sql-query name="createInvoicePatients">
+        <![CDATA[
+           INSERT INTO  ROI_RequestCoreDeliveryChargesInvoicePatients (	
+					ROI_RequestCoreDeliveryCharges_Seq,
+					ROI_Patients_Seq,
+					ROI_SupplementalPatientsCore_Seq,
+					Created_Dt,
+					Created_By_Seq,
+					Modified_Dt,
+					Modified_By_Seq
+					) VALUES (:requestCoreDeliveryChargesId, :requestHpfPatientsId, :requestNonHpfPatientsId, :createdDt, :createdBy, :modifiedDt,
+											:modifiedBy) ; SELECT SCOPE_IDENTITY();
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestCoreDeliveryChargesShipping">
+        <![CDATA[
+            SELECT ROI_RequestCoreDeliveryChargesShipping_Seq id,
+            	ROI_RequestCoreDeliveryCharges_Seq requestCoreDeliveryChargesId,
+				ShippingCharge shippingCharge,
+				PostalCode postalCode,
+				AddressType addressType,
+				State state,
+				ShippingUrl shippingUrl,
+				Address1 address1,
+				Address2 address2,
+				ShippingWeight shippingWeight,
+				TrackingNumber trackingNumber,
+				Address3 address3,
+				City city,
+				WillReleaseShipped willReleaseShipped,
+				ShippingMethod shippingMethod,
+				OutputMethod outputMethod,
+				ShippingMethodId shippingMethodId,
+				Nonprintable_Attachment_Queue nonPrintableAttachmentQueue,
+				Created_Dt createdDt,
+				Created_By_Seq createdBy,
+				Modified_Dt modifiedDt,
+				Modified_By_Seq modifiedBy,
+				Record_Version recordVersion,
+				Country_Code countryCode,
+				Country_Name countryName
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryChargesShipping
+            WHERE 
+            	ROI_RequestCoreDeliveryCharges_Seq in ( :requestCoreDeliveryChargesId )
+            ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query>
+    <sql-query name="createROI_RequestCoreDeliverytoROI_Pages_deprecated">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliverytoROI_Pages(ROI_RequestCoreDelivery_Seq,ROI_Pages_Seq)
+			(	SELECT :requestCoreDeliveryId, pages.ROI_Pages_Seq
+				FROM
+				cabinet..ROI_Pages pages,
+				cabinet..ROI_Versions versions,
+				cabinet..ROI_Documents documents,
+				cabinet..ROI_ENCOUNTERS encounters,
+				cabinet..ROI_PATIENTS patients,
+				cabinet..ROI_RequestCoreToROI_Patients rctrp
+				WHERE pages.ROI_Versions_Seq = versions.ROI_Versions_Seq
+				AND versions.ROI_Documents_Seq = documents.ROI_Documents_Seq
+				AND documents.ROI_Encounters_Seq = encounters.ROI_Encounters_Seq
+				AND encounters.ROI_Patients_Seq = patients.ROI_Patients_Seq
+				AND patients.ROI_Patients_Seq = rctrp.ROI_Patients_Seq
+				AND rctrp.ROI_RequestCore_Seq = :requestCoreId
+				AND pages.imnet IN (:imnets)
+			)
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createROI_RequestCoreDeliverytoROI_Pages">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliverytoROI_Pages(
+				ROI_RequestCoreDelivery_Seq, 
+				ROI_Pages_Seq, 
+				PAYOR_SELF_PAY)
+				
+			VALUES ( 
+			
+				:requestCoreDeliveryId, 
+				:roiPagesId, 
+				:selfPayEncounter);
+						
+			UPDATE cabinet..ROI_Pages set IsReleased = 1, SelectedForRelease = 0 where ROI_Pages_Seq = :roiPagesId ;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteROI_RequestCoreDeliverytoROI_Pages">
+        <![CDATA[
+        	DELETE FROM cabinet..ROI_RequestCoreDeliverytoROI_Pages where ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+
+    <sql-query name="retrievePagesAndReleasedCount">
+        <![CDATA[
+        	
+			SELECT rp.ROI_Pages_Seq id,
+				  COUNT(rp.ROI_Pages_Seq) releasedCount
+			FROM ROI_RequestCoreDeliverytoROI_Pages rp, 
+				 ROI_RequestCoreDelivery delivery 
+			WHERE delivery.ROI_RequestCoreDelivery_Seq = rp.ROI_RequestCoreDelivery_Seq
+				AND delivery.ROI_RequestCore_Seq = (SELECT d.ROI_RequestCore_seq 
+													FROM ROI_RequestCoreDelivery d 
+													WHERE d.ROI_RequestCoreDelivery_seq = :requestCoreDeliveryId)
+				AND rp.ROI_Pages_Seq IN (SELECT p.ROI_Pages_Seq 
+										 FROM ROI_RequestCoreDeliverytoROI_Pages p 
+										 WHERE p.ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId)
+			GROUP BY rp.ROI_Pages_Seq
+
+        ]]>
+    </sql-query>
+
+    <sql-query name="updatePagesReleaseStatus">
+        <![CDATA[
+        	UPDATE ROI_Pages 
+			SET SelectedForRelease = 1, isreleased = :isReleased
+			WHERE ROI_Pages_Seq = :pagesSeq
+        ]]>
+    </sql-query>
+
+    <sql-query name="createROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore(ROI_RequestCoreDelivery_Seq,ROI_SupplementalAttachmentsCore_Seq)
+			VALUES ( :requestCoreDeliveryId, :roiSupplementalAttachmentId);
+			UPDATE cabinet..ROI_SupplementalAttachmentsCore set isreleased = 1, SelectedForRelease = 0 where ROI_SupplementalAttachmentsCore_Seq=:roiSupplementalAttachmentId ;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveSupplementalAttachmentAndReleasedCount">
+        <![CDATA[
+        	
+			SELECT rp.ROI_SupplementalAttachmentsCore_Seq id,
+				  COUNT(rp.ROI_SupplementalAttachmentsCore_Seq) releasedCount
+			FROM ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore rp, 
+				 ROI_RequestCoreDelivery delivery 
+			WHERE delivery.ROI_RequestCoreDelivery_Seq = rp.ROI_RequestCoreDelivery_Seq
+				AND delivery.ROI_RequestCore_Seq = (SELECT d.ROI_RequestCore_seq 
+													FROM ROI_RequestCoreDelivery d 
+													WHERE d.ROI_RequestCoreDelivery_seq = :requestCoreDeliveryId)
+				AND rp.ROI_SupplementalAttachmentsCore_Seq IN (SELECT p.ROI_SupplementalAttachmentsCore_Seq 
+																FROM ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore p 
+																WHERE p.ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId)
+			GROUP BY rp.ROI_SupplementalAttachmentsCore_Seq
+			
+			
+        ]]>
+    </sql-query>
+    
+     <sql-query name="updateSupplementalAttachmentsReleaseStatus">
+        <![CDATA[
+        	UPDATE ROI_SupplementalAttachmentsCore 
+			SET SelectedForRelease = 1, isreleased = :isReleased
+			WHERE ROI_SupplementalAttachmentsCore_Seq = :roiSupplementalAttachmentId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore">
+        <![CDATA[
+        	DELETE FROM cabinet..ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore where ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore(ROI_RequestCoreDelivery_Seq,ROI_SupplementalDocumentsCore_Seq)
+			VALUES ( :requestCoreDeliveryId, :roiSupplementalDocumentId);
+			UPDATE cabinet..ROI_SupplementalDocumentsCore set isreleased = 1, SelectedForRelease = 0 where ROI_SupplementalDocumentsCore_Seq=:roiSupplementalDocumentId ;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveSupplementalDocumentAndReleasedCount">
+        <![CDATA[
+        	
+			SELECT rp.ROI_SupplementalDocumentsCore_Seq id,
+				  COUNT(rp.ROI_SupplementalDocumentsCore_Seq) releasedCount
+			FROM ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore rp, 
+				 ROI_RequestCoreDelivery delivery 
+			WHERE delivery.ROI_RequestCoreDelivery_Seq = rp.ROI_RequestCoreDelivery_Seq
+				AND delivery.ROI_RequestCore_Seq = (SELECT d.ROI_RequestCore_seq 
+													FROM ROI_RequestCoreDelivery d 
+													WHERE d.ROI_RequestCoreDelivery_seq = :requestCoreDeliveryId)
+				AND rp.ROI_SupplementalDocumentsCore_Seq IN (SELECT p.ROI_SupplementalDocumentsCore_Seq 
+																FROM ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore p 
+																WHERE p.ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId)
+			GROUP BY rp.ROI_SupplementalDocumentsCore_Seq
+			
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateSupplementalDocumentsReleaseStatus">
+        <![CDATA[
+        	UPDATE ROI_SupplementalDocumentsCore 
+			SET SelectedForRelease = 1, isreleased = :isReleased
+			WHERE ROI_SupplementalDocumentsCore_Seq = :roiSupplementalDocumentId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore">
+        <![CDATA[
+        	DELETE FROM cabinet..ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore where ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore(ROI_RequestCoreDelivery_Seq,ROI_SupplementarityAttachmentsCore_Seq)
+			VALUES ( :requestCoreDeliveryId, :roiSupplementarityAttachmentId);
+			UPDATE cabinet..ROI_SupplementarityAttachmentsCore set isreleased = 1, SelectedForRelease = 0 where ROI_SupplementarityAttachmentsCore_Seq=:roiSupplementarityAttachmentId ;
+        ]]>
+    </sql-query>
+    
+     <sql-query name="retrieveSupplementarityAttachmentAndReleasedCount">
+        <![CDATA[
+        	
+			SELECT rp.ROI_SupplementarityAttachmentsCore_Seq id,
+				  COUNT(rp.ROI_SupplementarityAttachmentsCore_Seq) releasedCount
+			FROM ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore rp, 
+				 ROI_RequestCoreDelivery delivery 
+			WHERE delivery.ROI_RequestCoreDelivery_Seq = rp.ROI_RequestCoreDelivery_Seq
+				AND delivery.ROI_RequestCore_Seq = (SELECT d.ROI_RequestCore_seq 
+													FROM ROI_RequestCoreDelivery d 
+													WHERE d.ROI_RequestCoreDelivery_seq = :requestCoreDeliveryId)
+				AND rp.ROI_SupplementarityAttachmentsCore_Seq IN (SELECT p.ROI_SupplementarityAttachmentsCore_Seq 
+																FROM ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore p 
+																WHERE p.ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId)
+			GROUP BY rp.ROI_SupplementarityAttachmentsCore_Seq
+			
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateSupplementarityAttachmentsReleaseStatus">
+        <![CDATA[
+        	UPDATE ROI_SupplementarityAttachmentsCore 
+			SET SelectedForRelease = 1, isreleased = :isReleased
+			WHERE ROI_SupplementarityAttachmentsCore_Seq = :roiSupplementarityAttachmentId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore">
+        <![CDATA[
+        	DELETE FROM cabinet..ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore where ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore(ROI_RequestCoreDelivery_Seq,ROI_SupplementarityDocumentsCore_Seq)
+			VALUES ( :requestCoreDeliveryId, :roiSupplementarityDocumentId);
+			UPDATE cabinet..ROI_SupplementarityDocumentsCore set isreleased = 1, SelectedForRelease = 0 where ROI_SupplementarityDocumentsCore_Seq = :roiSupplementarityDocumentId ;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveSupplementarityDocumentAndReleasedCount">
+        <![CDATA[
+			
+			SELECT rp.ROI_SupplementarityDocumentsCore_Seq id,
+				  COUNT(rp.ROI_SupplementarityDocumentsCore_Seq) releasedCount
+			FROM ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore rp, 
+				 ROI_RequestCoreDelivery delivery 
+			WHERE delivery.ROI_RequestCoreDelivery_Seq = rp.ROI_RequestCoreDelivery_Seq
+				AND delivery.ROI_RequestCore_Seq = (SELECT d.ROI_RequestCore_seq 
+													FROM ROI_RequestCoreDelivery d 
+													WHERE d.ROI_RequestCoreDelivery_seq = :requestCoreDeliveryId)
+				AND rp.ROI_SupplementarityDocumentsCore_Seq IN (SELECT p.ROI_SupplementarityDocumentsCore_Seq 
+																FROM ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore p 
+																WHERE p.ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId)
+			GROUP BY rp.ROI_SupplementarityDocumentsCore_Seq
+			
+        ]]>
+    </sql-query>
+    
+     <sql-query name="updateSupplementarityDocumentsReleaseStatus">
+        <![CDATA[
+        	UPDATE ROI_SupplementarityDocumentsCore 
+			SET SelectedForRelease = 1, isreleased = :isReleased
+			WHERE ROI_SupplementarityDocumentsCore_Seq = :roiSupplementarityDocumentId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore">
+        <![CDATA[
+        	DELETE FROM cabinet..ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore where ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges(ROI_RequestCoreDelivery_Seq,ROI_RequestCoreDeliveryCharges_Seq)
+			VALUES ( :requestCoreDeliveryId, :requestCoreDeliveryChargesId)
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges">
+        <![CDATA[
+        	DELETE FROM cabinet..ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges where ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveNonReleasedInvoices">
+        <![CDATA[
+        	SELECT ROI_RequestCoreDeliveryCharges_Seq as invoiceId
+       		FROM cabinet..ROI_RequestCoreDeliveryCharges
+       		WHERE ROI_RequestCore_Seq = :requestCoreId
+       		AND Is_Released=0
+        ]]>
+    </sql-query>
+
+    <sql-query name="isRequestContainsNonReleasedInvoices">
+        <![CDATA[
+        	SELECT CAST((
+        		SELECT Count(ROI_RequestCoreDeliveryCharges_Seq)
+       				FROM cabinet..ROI_RequestCoreDeliveryCharges
+       				WHERE ROI_RequestCore_Seq = :requestCoreId
+       					AND Is_Released = 0
+       					AND Type = 'Invoice') AS bit) as isInvoiced
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveInvoicesForRelease">
+        <![CDATA[
+        	SELECT ROI_RequestCoreDeliveryCharges_Seq as invoiceId
+       		FROM cabinet..ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges
+       		WHERE ROI_RequestCoreDelivery_Seq = :releaseId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateInvoiceReleased">
+        <![CDATA[
+        	UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+        	SET Is_Released=1
+        	WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateInvoiceReleaseCancelled">
+        <![CDATA[
+        	UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+        	SET Is_Released=0
+        	WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createSalesTaxReason">
+	    <![CDATA[
+	        INSERT INTO  ROI_RequestCoreChargesSalesTaxReason (	
+	        	ROI_RequestCoreCharges_Seq,
+				Reason,
+				Reason_Date,
+				Created_Dt,
+				Created_By_Seq,
+				Modified_Dt,
+				Modified_By_Seq
+				) VALUES (:requestCoreChargesSeq, :reason, :reasonDate, :createdDate, :createdBy,
+							:modifiedDate, :modifiedBy) ; SELECT SCOPE_IDENTITY();
+	                ]]>
+	</sql-query>
+	            
+	<sql-query name="retrieveSalesTaxReason">
+        <![CDATA[
+            SELECT 
+                ROI_RequestCoreChargesSalesTaxReason_Seq id,
+                Reason reason,
+                Reason_Date reasonDate,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_RequestCoreChargesSalesTaxReason
+            WHERE 
+            	ROI_RequestCoreCharges_Seq = :requestCoreChargesSeq ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestCoreDeliveryChargesInvoice">
+        <![CDATA[
+           SELECT 
+           		invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+           		invoice.ROI_RequestCore_Seq requestCoreId,
+           		invoice.Is_Released isReleased,
+				invoice.Previously_Released_Cost previouslyReleasedCost,
+               	invoice.Release_Date releaseDate,
+               	invoice.Base_Charge releaseCost,
+               	invoice.Total_Pages totalPages,
+               	(COALESCE(invoice.Previously_Released_Cost, 0) + COALESCE(invoice.Base_Charge, 0)) totalRequestCost,
+               	invoice.Total_Pages_Released totalPagesReleased,
+               	invoice.Salestax_Total_Amount salesTaxAmount,
+               	invoice.Salestax_Percentage_BillingLoc salesTaxPercentage,
+               	invoice.Billing_Type billingType,
+               	invoice.Letter_Template_Name letterTemplateName,
+		    	invoice.Request_Status requestStatus,
+		    	invoice.Request_Date requestDate,
+		    	invoice.LetterTemplate_FileId letterTemplateFileId,
+		    	invoice.Type type,
+		    	invoice.Invoice_Prebill_Date invoicePrebillDate,
+		    	invoice.Invoice_Due_Date invoiceDueDate,
+		    	invoice.Resend_Date resendDate,
+		    	invoice.Output_Method outputMethod,
+		    	invoice.Queue_Password queuePassword,
+		    	invoice.Overwrite_Due_Date overwriteDueDate,
+		    	invoice.Invoice_Salestax invoiceSalesTax,
+		    	invoice.Base_Charge baseCharge,
+		    	invoice.Balance_Due balanceDue,
+		    	invoice.Facility_Code invoiceBillingLocCode,
+		    	invoice.Facility_Name invoiceBillinglocName,
+		    	invoice.Invoice_Balance_Due invoiceBalanceDue,
+		    	COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount,
+			    COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) creditAdjustmentAmount,
+			    0.00 debitAdjustmentAmount,
+		    	invoice.Apply_SalesTax applySalesTax,
+		    	invoice.Notes notes,
+		    	RTRIM(COALESCE((select u.FullName from cabinet..USERS u where u.UserInstanceId = invoice.created_By_Seq), 'Deleted User - ' + CAST(invoice.created_By_Seq AS varchar(256)))) creator,
+		    	invoice.Invoice_Due_Days invoiceDueDays,
+			    
+		    	COALESCE((SELECT SUM(adj.Amount) FROM ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment adj, ROI_RequestCoreDeliveryCharges inv WHERE adj.ROI_RequestCoreDeliveryCharges_Seq = inv.ROI_RequestCoreDeliveryCharges_Seq AND inv.ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq AND adj.IsDeleted = 0), 0) requestCreditAdjustment,
+				0.00 requestDebitAdjustment,
+				COALESCE((SELECT SUM(inv.Invoice_Balance_Due) FROM cabinet..ROI_RequestCoreDeliveryCharges inv WHERE inv.ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) requestBalanceDue,
+				COALESCE((SELECT SUM(pay.Amount) FROM ROI_RequestCoreDeliveryChargestoROI_RequestorPayment pay, ROI_RequestCoreDeliveryCharges inv WHERE pay.ROI_RequestCoreDeliveryCharges_Seq = inv.ROI_RequestCoreDeliveryCharges_Seq AND inv.ROI_RequestCore_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND pay.IsDeleted = 0), 0) requestpayment,
+				invoice.Unbillable unbillable,
+				COALESCE (invoice.Unbillable_Amount, 0) unbillableAmount,
+			    invoice.Created_Dt createdDt,
+				invoice.Created_By_Seq createdBy,
+				invoice.Modified_Dt modifiedDt,
+				invoice.Modified_By_Seq modifiedBy,
+				invoice.Record_Version recordVersion
+           FROM 
+               cabinet..ROI_RequestCoreDeliveryCharges invoice
+           WHERE 
+           	ROI_RequestCoreDeliveryCharges_Seq in ( :requestCoreDeliveryChargesId ) 
+          ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query>
+   
+    <sql-query name="retrieveOverDueInvoicesWithGreaterRestriction">
+        <![CDATA[
+            SELECT invoice.Facility_Code billingLocation,
+					invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceNumber,
+					invoice.ROI_RequestCore_Seq requestId,
+					invoice.Invoice_Balance_Due overdueAmount,
+					(isnull(requestor.NameLast,'') + ' ' + isnull(requestor.NameFirst,'')) requestorName,
+					requestor.ContactPhone phoneNumber,
+					requestor.RequestorTypeName requestorType,
+					requestor.ROI_Requestor_Seq requestorId,
+					DATEDIFF(dd, invoice.Invoice_Due_Date, getDate()) overDueDays,
+					DATEDIFF(dd, invoice.Created_Dt, getDate()) invoiceAge
+				FROM ROI_RequestCoreDeliveryCharges invoice,
+				 	 ROI_RequestCoreRequestor requestor
+				WHERE requestor.ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq
+				 	 AND invoice.Invoice_Balance_Due > 0
+					 AND invoice.Facility_Code in ( :facility )
+					 AND requestor.RequestorType in ( :requestorType )
+					 AND requestor.NameLast like (:requestorName) ESCAPE('+')
+					 AND DATEDIFF(dd, invoice.Invoice_Due_Date, getDate()) >= :overDueFrom
+        ]]>
+    </sql-query>
+
+    <sql-query name="retrieveOverDueInvoicesWithBetweenRestriction">
+        <![CDATA[
+            SELECT invoice.Facility_Code billingLocation,
+					invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceNumber,
+					invoice.ROI_RequestCore_Seq requestId,
+					invoice.Invoice_Balance_Due overdueAmount,
+					(isnull(requestor.NameLast,'') + ' ' + isnull(requestor.NameFirst,'')) requestorName,
+					requestor.ContactPhone phoneNumber,
+					requestor.RequestorTypeName requestorType,
+					requestor.ROI_Requestor_Seq requestorId,
+					DATEDIFF(dd, invoice.Invoice_Due_Date, getDate()) overDueDays,
+					DATEDIFF(dd, invoice.Created_Dt, getDate()) invoiceAge
+				FROM ROI_RequestCoreDeliveryCharges invoice,
+				 	 ROI_RequestCoreRequestor requestor
+				WHERE requestor.ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq
+				 	 AND invoice.Invoice_Balance_Due > 0
+					 AND invoice.Facility_Code in ( :facility )
+					 AND requestor.RequestorType in ( :requestorType )
+					 AND requestor.NameLast like  (:requestorName) ESCAPE('+')
+					 AND DATEDIFF(dd, invoice.Invoice_Due_Date, getDate()) >= :overDueFrom
+					 AND DATEDIFF(dd, invoice.Invoice_Due_Date, getDate()) <= :overDueTo
+        ]]>
+    </sql-query>
+     <sql-query name="retrieveDeliveryChargesDocument">
+        <![CDATA[
+            SELECT 
+                Amount amount,
+                Copies copies,
+                BillingTierName billingTierName,
+                TotalPages totalPages,
+                Pages pages,
+                BillingTierId billingtierId,
+                ReleaseCount releaseCount,
+                isElectronic isElectronic ,
+                RemoveBasecharge removeBaseCharge,
+                Has_Salestax hasSalesTax,
+                SalesTax_Amount salesTaxAmount,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_RequestCoreDeliveryChargesDocument
+            WHERE ROI_RequestCoreDeliveryCharges_Seq in ( :rcdChargesSeq ) 
+            ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="retrieveDeliveryChargesDistinctDocument">
+        <![CDATA[
+            SELECT DISTINCT
+                BillingTierName billingTierName
+			FROM 
+                cabinet..ROI_RequestCoreDeliveryChargesDocument
+            WHERE ROI_RequestCoreDeliveryCharges_Seq in ( :rcdChargesSeq ) 
+            ORDER BY BillingTierName desc;
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="retrieveDeliveryChargesFee">
+        <![CDATA[
+            SELECT 
+            	Has_Salestax hasSalesTax,
+                SalesTax_Amount salesTaxAmount,
+                Amount amount,
+			    IsCustomFee isCustomFee,
+			    FeeType feeType,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryChargesFee
+            WHERE ROI_RequestCoreDeliveryCharges_Seq in ( :rcdChargesSeq ) 
+            ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveDeliveryChargesDistinctFee">
+        <![CDATA[
+            SELECT DISTINCT
+                FeeType feeType
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryChargesFee
+            WHERE ROI_RequestCoreDeliveryCharges_Seq in ( :rcdChargesSeq ) 
+            ORDER BY FeeType desc;
+        ]]>
+    </sql-query>
+
+     <sql-query name="deleteSalesTaxReason">
+        <![CDATA[
+            DELETE FROM cabinet..ROI_RequestCoreChargesSalesTaxReason 
+			WHERE ROI_RequestCoreCharges_Seq= :requestCoreChargesSeq
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveInvoicePatients">
+        <![CDATA[
+            SELECT 
+                 ROI_Patients_Seq requestHpfPatientsId,
+                 ROI_SupplementalPatientsCore_Seq requestNonHpfPatientsId
+			FROM 
+                cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients
+            WHERE 
+            	ROI_RequestCoreDeliveryCharges_Seq in ( :requestCoreDeliveryChargesId )
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveAllPastInvoices">
+        <![CDATA[
+        	SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceId,
+        		   invoice.Created_Dt createdDate,
+        		   invoice.Invoice_Balance_Due amount
+        	FROM 
+        		cabinet..ROI_RequestCoreDeliveryCharges invoice
+            WHERE 
+            	invoice.ROI_RequestCore_Seq = :requestId
+            	AND invoice.Type = 'Invoice' 
+            	ORDER BY invoice.Created_Dt desc;
+        ]]>
+    </sql-query>
+	    
+    <sql-query name="retrieveReleaseChargeHistory">
+        <![CDATA[
+			SELECT
+				delivery.Created_Dt releaseDate, 
+		 		coalesce((SUM(charge.Invoice_Salestax)), 0) totalSalesTax,
+		 		coalesce((SELECT Sum(d.Amount) FROM ROI_RequestCoreDeliveryChargesDocument d
+						WHERE d.ROI_RequestCoreDeliveryCharges_Seq = charge.ROI_RequestCoreDeliveryCharges_Seq), 0) totalDocumentCharge,
+				coalesce((SELECT Sum(f.Amount) FROM ROI_RequestCoreDeliveryChargesfee f
+						WHERE f.ROI_RequestCoreDeliveryCharges_Seq = charge.ROI_RequestCoreDeliveryCharges_Seq), 0) totalFeeCharge,
+				coalesce((SELECT Sum(s.shippingCharge) FROM ROI_RequestCoreDeliveryChargesShipping s
+						WHERE s.ROI_RequestCoreDeliveryCharges_Seq = charge.ROI_RequestCoreDeliveryCharges_Seq), 0) totalShippingCharge,
+				coalesce((SELECT request.Unbillable FROM ROI_RequestCore request
+						WHERE request.ROI_RequestCore_Seq = charge.ROI_RequestCore_Seq), 0) unbillable
+						
+			FROM ROI_RequestCoreDelivery delivery
+            JOIN ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges R2R on R2R.ROI_RequestCoreDelivery_Seq = delivery.ROI_RequestCoreDelivery_Seq
+            JOIN ROI_RequestCoreDeliveryCharges charge  on R2R.ROI_RequestCoreDeliveryCharges_Seq = charge.ROI_RequestCoreDeliveryCharges_Seq
+
+			WHERE delivery.ROI_RequestCore_Seq = :requestId
+				AND charge.ROI_RequestCoreDeliveryCharges_Seq =
+				 (SELECT TOP 1 ROI_RequestCoreDeliveryCharges_Seq 
+				 	FROM ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges 
+					WHERE ROI_RequestCoreDelivery_Seq = delivery.ROI_RequestCoreDelivery_Seq 
+						AND charge.TYPE = 'Invoice'
+					ORDER BY Created_Dt, ROI_RequestCoreDeliveryCharges_Seq desc)
+					
+			GROUP BY charge.ROI_RequestCoreDeliveryCharges_Seq, 
+					 delivery.Created_Dt,
+        			 charge.ROI_RequestCore_Seq
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateInvoiceProperty">
+        <![CDATA[
+			UPDATE ROI_RequestCoreDeliveryCharges
+			SET Output_Method = :outputMethod,
+				Queue_Password = :queuePassword
+			WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+        ]]>
+    </sql-query>
+
+    <sql-query name="updateReleaseOutputProperty">
+        <![CDATA[
+			UPDATE ROI_RequestCoreDelivery
+			SET Queue_Password = :queuePassword
+			WHERE ROI_RequestCoreDelivery_Seq = :releaseId
+        ]]>
+    </sql-query>
+	
+    <sql-query name="updateLetterProperty">
+        <![CDATA[
+			UPDATE ROI_CoverLetterCore
+			SET Queue_Password = :queuePassword
+			WHERE ROI_CoverLetterCore_Seq = :letterId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteAllInvoicesByRequestId">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryCharges
+           WHERE 
+           	    ROI_RequestCore_Seq = :requestId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteAllFeeByRequestId">
+        <![CDATA[
+           DELETE fee
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesFee fee,
+           		cabinet..ROI_RequestCoreDeliveryCharges charges
+           WHERE 
+           	    fee.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq
+           	    and charges.ROI_RequestCore_Seq = :requestId
+        ]]>
+    </sql-query>
+    <sql-query name="deleteAllDocumentByRequestId">
+        <![CDATA[
+           DELETE document
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesDocument document,
+           		cabinet..ROI_RequestCoreDeliveryCharges charges
+           WHERE 
+           	    document.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq
+           	    and charges.ROI_RequestCore_Seq = :requestId
+        ]]>
+    </sql-query>
+    <sql-query name="deleteAllShippingByRequestId">
+        <![CDATA[
+           DELETE shipping
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesShipping shipping,
+           		cabinet..ROI_RequestCoreDeliveryCharges charges
+           WHERE 
+           	    shipping.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq
+           	    and charges.ROI_RequestCore_Seq = :requestId
+           
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteAllInvoicePatientsByRequestId">
+        <![CDATA[
+           DELETE patients
+           FROM 
+           		cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients patients,
+           		cabinet..ROI_RequestCoreDeliveryCharges charges
+           WHERE 
+           	    patients.ROI_RequestCoreDeliveryCharges_Seq = charges.ROI_RequestCoreDeliveryCharges_Seq
+           	    and charges.ROI_RequestCore_Seq = :requestId
+        ]]>
+    </sql-query>
+
+   <sql-query name="updateInvoiceBalance">
+        <![CDATA[
+         if exists (select 1 from cabinet..ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq = :invoiceId and type = 'Invoice')
+			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+				SET Invoice_Balance_Due = :invoiceBalance,
+				Modified_Dt = :modifiedDt,
+				Modified_By_Seq = :modifiedBy
+				WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+		else
+		
+			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+				SET Balance_Due = :invoiceBalance,
+				Modified_Dt = :modifiedDt,
+				Modified_By_Seq = :modifiedBy
+				WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="updatePrebillStatusInvoice">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+				SET Prebill_Status = :prebillStatus
+				WHERE ROI_RequestCore_Seq = :reqCoreSeq and Prebill_Status = 'Active'
+        ]]>
+    </sql-query> 
+    
+     <sql-query name="retrieveRequestCoreDeliveryChargesPrebill">
+        <![CDATA[
+            SELECT 
+            	invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+            	invoice.Is_Released isReleased,
+				invoice.Previously_Released_Cost previouslyReleasedCost,
+                invoice.Release_Date releaseDate,
+                invoice.Base_Charge releaseCost,
+                invoice.Total_Pages totalPages,
+                (COALESCE(invoice.Previously_Released_Cost, 0) + COALESCE(invoice.Base_Charge, 0)) totalRequestCost,
+                invoice.Total_Pages_Released totalPagesReleased,
+                invoice.Salestax_Total_Amount salesTaxAmount,
+                invoice.Salestax_Percentage_BillingLoc salesTaxPercentage,
+                invoice.Billing_Type billingType,
+                invoice.Letter_Template_Name letterTemplateName,
+			    invoice.Request_Status requestStatus,
+			    invoice.Request_Date requestDate,
+			    invoice.LetterTemplate_FileId letterTemplateFileId,
+			    invoice.Type type,
+			    invoice.Invoice_Prebill_Date invoicePrebillDate,
+			    invoice.Invoice_Due_Date invoiceDueDate,
+			    invoice.Resend_Date resendDate,
+			    invoice.Output_Method outputMethod,
+			    invoice.Queue_Password queuePassword,
+			    invoice.Overwrite_Due_Date overwriteDueDate,
+			    invoice.Invoice_Salestax invoiceSalesTax,
+			    invoice.Base_Charge baseCharge,
+			    invoice.Balance_Due balanceDue,
+			    invoice.Facility_Code invoiceBillingLocCode,
+			    invoice.Facility_Name invoiceBillinglocName,
+			    invoice.Invoice_Balance_Due invoiceBalanceDue,
+			    COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount,
+			    COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) creditAdjustmentAmount,
+			    0.00 debitAdjustmentAmount,
+			    invoice.Apply_SalesTax applySalesTax,
+			    invoice.Notes notes,
+			    RTRIM(COALESCE((select u.FullName from cabinet..USERS u where u.UserInstanceId = invoice.created_By_Seq), 'Deleted User - ' + CAST(invoice.created_By_Seq AS varchar(256)))) creator,
+			    invoice.Invoice_Due_Days invoiceDueDays,
+			    invoice.Unbillable unbillable,
+			    COALESCE (invoice.Unbillable_Amount, 0) unbillableAmount,
+			    invoice.Created_Dt createdDt,
+				invoice.Created_By_Seq createdBy,
+				invoice.Modified_Dt modifiedDt,
+				invoice.Modified_By_Seq modifiedBy,
+				invoice.Record_Version recordVersion,
+				invoice.Prebill_Status prebillStatus
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryCharges invoice
+            WHERE 
+            	invoice.ROI_RequestCore_Seq = :requestCoreId 
+            	AND invoice.Type = 'Prebill' 
+
+			ORDER BY invoice.Modified_Dt desc;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrievePrebillReportDetailsFirstLevelWithRequestorName">
+        <![CDATA[
+        declare @RedCD nvarchar(10)
+		set @RedCD = :balanceCriteria
+		if(@RedCD = 'AtLeast')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due >= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end 
+		else if(@RedCD = 'AtMost')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq  
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and rcd.Balance_Due <= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end
+		else if(@RedCD = 'Equal')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq  
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due = :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end 
+		else 
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq  
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone,
+		       requestId,prebillNumber,prebillDate,aging 
+		end 
+		
+      ]]>
+    </sql-query>
+    <sql-query name="retrievePrebillReportDetailsFirstLevelWithoutRequestorName">
+        <![CDATA[
+        declare @RedCD nvarchar(10)
+		set @RedCD = :balanceCriteria
+		if(@RedCD = 'AtLeast')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq  
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due >= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone,
+		       requestId,prebillNumber,prebillDate,aging 
+		end 
+		else if(@RedCD = 'AtMost')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and rcd.Balance_Due <= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone,
+		       requestId,prebillNumber,prebillDate,aging 
+		end
+		else if(@RedCD = 'Equal')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq  
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due = :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone,
+		       requestId,prebillNumber,prebillDate,aging 
+		end 
+		else 
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            '' as requestorName,  
+		            '' as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone,
+		       requestId,prebillNumber,prebillDate,aging 
+		end 
+
+      ]]>
+    </sql-query>
+    <sql-query name="retrievePrebillReportDetailsSecondLevelWithRequestorName">
+        <![CDATA[
+        declare @RedCD nvarchar(10)
+		set @RedCD = :balanceCriteria
+		if(@RedCD = 'AtLeast')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due >= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end 
+		else if(@RedCD = 'AtMost')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		       
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and rcd.Balance_Due <= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end
+		else if(@RedCD = 'Equal')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,        
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		            
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due = :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end 
+		else 
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,        
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		          
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		         
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone,
+		       requestId,prebillNumber,prebillDate,aging 
+		end 
+		
+      ]]>
+    </sql-query>
+    <sql-query name="retrievePrebillReportDetailsSecondLevelWithoutRequestorName">
+        <![CDATA[
+        declare @RedCD nvarchar(10)
+		set @RedCD = :balanceCriteria
+		if(@RedCD = 'AtLeast')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		          
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		       
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due >= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end 
+		else if(@RedCD = 'AtMost')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		           
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		       
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and rcd.Balance_Due <= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end
+		else if(@RedCD = 'Equal')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,        
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		           
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due = :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging 
+		end 
+		else 
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select  rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,        
+		            '' as requestId,  
+		            '' as  prebillNumber, 
+		            null as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            '' as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		           
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Invoice_Prebill_Date)as temp
+		       group by facility,requestorType,requestorName,requestorPhone,
+		       requestId,prebillNumber,prebillDate,aging 
+		end 
+		
+      ]]>
+    </sql-query>
+    <sql-query name="retrievePrebillReportDetailsThirdLevelWithRequestorName">
+        <![CDATA[
+        declare @RedCD nvarchar(10)
+		set @RedCD = :balanceCriteria
+		if(@RedCD = 'AtLeast')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		            
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		         
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due >= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging 
+		end 
+		else if(@RedCD = 'AtMost')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		           
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and rcd.Balance_Due <= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging  
+		end
+		else if(@RedCD = 'Equal')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		           
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due = :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging 
+		end 
+		else 
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		            
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCoreReq.NameLast like (:requestorName) ESCAPE('+')
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging 
+		end 
+		
+      ]]>
+    </sql-query>
+    <sql-query name="retrievePrebillReportDetailsThirdLevelWithoutRequestorName">
+        <![CDATA[
+        declare @RedCD nvarchar(10)
+		set @RedCD = :balanceCriteria
+		if(@RedCD = 'AtLeast')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		            
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		       
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.FACILITY_NAME IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due >= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging 
+		end 
+		else if(@RedCD = 'AtMost')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		   
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		        
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and rcd.Balance_Due <= :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging  
+		end
+		else if(@RedCD = 'Equal')
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		            
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 		         
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       and  rcd.Balance_Due = :balanceDue
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging 
+		end 
+		else 
+		begin
+		select facility,requestorType,requestorName,requestorPhone
+		,requestId,prebillNumber,prebillDate,aging,SUM(prebillAmount) prebillAmount
+		FROM
+		(
+		select rcd.Facility_Name as facility,                           
+		            reqType.Name as requestorType,                             
+		            reqCoreReq.NameLast as requestorName,  
+		            reqCoreReq.WorkPhone as requestorPhone,         
+		            reqCoreReq.ROI_RequestCore_Seq as requestId,  
+		            'PRE'+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as  prebillNumber, 
+		            rcd.Created_Dt as prebillDate,        
+		            sum(rcd.Base_Charge) as prebillAmount,
+		            DATEDIFF(d,rcd.Created_Dt,GETDATE()) as aging
+		   from ROI_Requestor req, 
+		        ROI_RequestorType reqType, 
+		            ROI_RequestCoreRequestor reqCoreReq,		            
+		            ROI_RequestCoreDeliveryCharges rcd,
+		            ROI_RequestCore reqCore
+		       where reqType.ROI_RequestorType_Seq = req.ROI_RequestorType_Seq 
+		       and req.ROI_Requestor_Seq = reqCoreReq.ROI_Requestor_Seq 	       
+		       and rcd.ROI_RequestCore_Seq = reqCoreReq.ROI_RequestCore_Seq   
+		       and reqCore.ROI_RequestCore_Seq = rcd.ROI_RequestCore_Seq   
+		       and rcd.Type ='PreBill'
+		       and rcd.Prebill_Status = 'Active' 
+		       and rcd.Facility_Name IN(:facilities)
+		       and reqType.Name IN(:requestorTypeName)
+		       and reqCore.RequestStatus IN(:requestStatus)
+		       and rcd.Created_Dt >= :fromDt
+		       and rcd.Created_Dt <= :toDt
+		       group by rcd.Facility_Name,reqType.Name,reqCoreReq.NameLast,
+		       reqCoreReq.ROI_RequestCore_Seq,reqCoreReq.WorkPhone,reqCoreReq.ROI_RequestCore_Seq,
+		       ROI_RequestCoreDeliveryCharges_Seq,rcd.Created_Dt)as temp
+		       group by facility,requestorType,requestorName,requestId,requestorPhone,
+		prebillNumber,prebillDate,aging 
+		end 
+		
+      ]]>
+    </sql-query>
+     <sql-query name="retrievePostPaymentReportDetailsFirstLevel">
+        <![CDATA[
+        
+			SELECT FullName userName, UserInstanceId userId into #temp from [USERS] where FullName in (:userName)
+			select userdata.userName,
+						'' as facility,
+						null as createdDate,
+						'' as requestorType,
+						'' as requestorName,
+						'' as requestId,
+						'' as mrn,
+						'' as invoiceNumber,
+						'' as paymentMethod,
+						'' as paymentDetails,
+						0 as paymentId,
+						COALESCE(SUM(paymentAmount), 0.00) paymentAmount
+					   
+					From
+					(
+					select 
+						us.userName as userName,
+						us.userId as userId,
+						rrcp.Amount as paymentAmount
+					 FROM
+						  ROI_Requestor rr,
+						  ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rrcp,
+						  ROI_RequestCoreDeliveryCharges rdc,
+						  ROI_RequestorType rrt,
+						  ROI_RequestorPayment rrp,
+						  #temp us 
+
+					where us.userId = rrcp.Created_By_Seq
+						  and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
+						  and rrcp.ROI_RequestorPayment_Seq = rrp.ROI_RequestorPayment_Seq
+						  and rdc.ROI_RequestCoreDeliveryCharges_Seq = rrcp.ROI_RequestCoreDeliveryCharges_Seq
+						  and rr.ROI_RequestorType_Seq = rrt.ROI_RequestorType_Seq
+						  and rrcp.Created_Dt <= :toDt
+						  and rrcp.Created_Dt >= :fromDt
+						  and rrt.Name IN(:requestorType)
+						  and rdc.FACILITY_NAME in (:facilities)
+						  and rrcp.IsDeleted <> '1'
+
+			   UNION ALL
+			   
+					select us.userName as userName,
+					us.userId as userId,
+					rrp.UnappliedAmount as paymentAmount
+					FROM
+						  ROI_Requestor rr,
+						  ROI_RequestorType rrt,
+						  ROI_RequestorPayment rrp,
+						  #temp us 
+
+					where us.userId = rrp.Created_By_Seq 
+						  and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
+						  and rr.ROI_RequestorType_Seq = rrt.ROI_RequestorType_Seq
+						  and rrp.Created_Dt <= :toDt
+						  and rrp.Created_Dt >= :fromDt 
+						  and rrt.Name IN(:requestorType)
+						  and rrp.IsDeleted <> '1'
+					 ) as temp 
+					 RIGHT JOIN #temp userdata on temp.userName = userdata.userName
+					 group by userdata.userName, userdata.userId
+					 order by userdata.userName		   
+		]]>
+    </sql-query>
+    
+    <sql-query name="retrievePostPaymentReportDetailsSecondLevel">
+        <![CDATA[
+ 		SELECT FullName, UserInstanceId into #temp from [USERS] where FullName in (:userName)
+       select us.FullName as userName,
+        		rdc.FACILITY_NAME as facility,
+        		rrcp.Created_Dt as createdDate,
+        		rrt.Name as requestorType,
+                rr.NameLast as requestorName,
+                rdc.ROI_RequestCore_Seq as requestId,
+                pat.MRN as mrn,
+                rdc.ROI_RequestCoreDeliveryCharges_Seq as invoiceNumber,
+                rrp.PaymentType as paymentMethod,
+                (select case when upper(rrp.PaymentType) <> 'CASH' 
+                			then rrp.Description 
+                		else '' 
+                	end) as paymentDetails,
+                CAST(rrcp.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq as varchar) as paymentId,
+               	rrcp.Amount as paymentAmount
+            FROM
+                  ROI_Requestor rr,
+                  ROI_RequestorType rrt,
+                  ROI_PATIENTS pat,
+                  ROI_RequestCoretoROI_Patients rpt,
+                  ROI_RequestCoreDeliveryCharges rdc,
+                  ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rrcp,
+                  ROI_RequestorPayment rrp,
+				  #temp us
+
+            where us.UserInstanceId = rrcp.Created_By_Seq
+                  and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
+                    and rr.ROI_RequestorType_Seq = rrt.ROI_RequestorType_Seq
+                    and pat.ROI_Patients_Seq = rpt.ROI_Patients_Seq
+                    and rpt.ROI_RequestCore_Seq = rdc.ROI_RequestCore_Seq
+                    and rdc.ROI_RequestCoreDeliveryCharges_Seq = rrcp.ROI_RequestCoreDeliveryCharges_Seq
+                    and rrcp.ROI_RequestorPayment_Seq = rrp.ROI_RequestorPayment_Seq
+                    and rrcp.Created_Dt <= :toDt
+                    and rrcp.Created_Dt >= :fromDt
+                    and rrt.Name IN(:requestorType)
+                    and rdc.FACILITY_NAME in (:facilities)
+                    and rrcp.IsDeleted <> '1'
+        group by us.FullName,rdc.FACILITY_NAME,rrcp.Created_Dt,rrt.Name,rr.NameLast,rdc.ROI_RequestCore_Seq,pat.MRN
+                        ,rdc.ROI_RequestCoreDeliveryCharges_Seq,rrp.ROI_RequestorPayment_Seq,rrp.PaymentType,rrp.Description,rrcp.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq,rrcp.Amount
+                        
+        UNION
+        
+        select us.FullName as userName,
+        		rdc.FACILITY_NAME as facility,
+        		rrcp.Created_Dt as createdDate,
+        		rrt.Name as requestorType,
+                rr.NameLast as requestorName,
+                rdc.ROI_RequestCore_Seq as requestId,
+                rspat.MRN as mrn,
+                rdc.ROI_RequestCoreDeliveryCharges_Seq as invoiceNumber,
+                rrp.PaymentType as paymentMethod,
+                (select case when upper(rrp.PaymentType) <> 'CASH' 
+                			then rrp.Description 
+                		else '' 
+                	end) as paymentDetails,
+                CAST(rrcp.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq as varchar) as paymentId,
+               	rrcp.Amount as paymentAmount
+            FROM
+ 				  #temp us,
+                  ROI_Requestor rr,
+                  ROI_RequestorType rrt,
+                  ROI_SupplementalPatients pat,
+                  ROI_SupplementalPatientsCore rspat,
+                  ROI_RequestCoretoROI_SupplementalPatientsCore rrs,
+                  ROI_RequestCoreDeliveryCharges rdc,
+                  ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rrcp,
+                  ROI_RequestorPayment rrp
+
+            where us.UserInstanceId = rrcp.Created_By_Seq
+                  and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
+                    and rr.ROI_RequestorType_Seq = rrt.ROI_RequestorType_Seq
+                    and pat.ROI_SupplementalPatients_Seq = rspat.ROI_SupplementalPatients_Seq
+                    and rspat.ROI_SupplementalPatientsCore_Seq = rrs.ROI_SupplementalPatientsCore_Seq
+                    and rrs.ROI_RequestCore_Seq = rdc.ROI_RequestCore_Seq
+                    and rdc.ROI_RequestCoreDeliveryCharges_Seq = rrcp.ROI_RequestCoreDeliveryCharges_Seq
+                    and rrcp.ROI_RequestorPayment_Seq = rrp.ROI_RequestorPayment_Seq
+                    and rrcp.Created_Dt <= :toDt
+                    and rrcp.Created_Dt >= :fromDt
+                    and rrt.Name IN(:requestorType)
+                    and rdc.FACILITY_NAME in (:facilities)
+                    and rrcp.IsDeleted <> '1'
+        group by us.FullName,rdc.FACILITY_NAME,rrcp.Created_Dt,rrt.Name,rr.NameLast,rdc.ROI_RequestCore_Seq,rspat.MRN
+                        ,rdc.ROI_RequestCoreDeliveryCharges_Seq,rrp.ROI_RequestorPayment_Seq,rrp.PaymentType,rrp.Description,rrcp.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq,rrcp.Amount
+
+            UNION
+            
+        select us.FullName as userName,
+        		 '' as facility,
+        		 rrp.Created_Dt as createdDate,
+        		 rrt.Name as requestorType,
+        		 rr.NameLast as requestorName,
+        		 '' as requestId,
+        		 '' as mrn,
+        		 '' as invoiceNumber, 
+        		 rrp.PaymentType as paymentMethod,
+        		 (select case when upper(rrp.PaymentType) <> 'CASH' 
+        		 			then rrp.Description 
+        		 		else '' 
+        		 	end) as paymentDetails,
+        		 'UN-' + CAST(rrp.ROI_RequestorPayment_Seq as varchar) as paymentId,
+        		 rrp.UnappliedAmount  as paymentAmount
+            FROM
+                  #temp us,
+                  ROI_Requestor rr,
+                  ROI_RequestorType rrt,
+                  ROI_RequestorPayment rrp
+
+            where us.UserInstanceId = rrp.Created_By_Seq 
+                        and rr.ROI_RequestorType_Seq = rrt.ROI_RequestorType_Seq
+                        and rr.ROI_Requestor_Seq = rrp.ROI_Requestor_Seq
+                        and rrp.Created_Dt <= :toDt
+                        and rrp.Created_Dt >= :fromDt 
+                        and rrt.Name IN(:requestorType)
+                        and rrp.UnappliedAmount != 0
+                        and rrp.IsDeleted <> '1'
+            group by us.FullName,rrp.Created_Dt,rrt.Name,rr.NameLast,rrp.ROI_RequestorPayment_Seq,rrp.PaymentType,rrp.Description,rrp.UnappliedAmount
+             
+      ]]>
+    </sql-query>
+
+
+	<sql-query name="deleteAllMappedAdjustmentInvoicesByInvoiceId">
+        <![CDATA[
+           DELETE FROM cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
+           WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId 
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteAllMappedPaymentInvoicesByInvoiceId">
+        <![CDATA[
+           DELETE FROM cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
+           WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId 
+        ]]>
+    </sql-query>
+    
+     <sql-query name="updatePrebillPaymentsToInvoice">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
+		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc )
+				
+		WHERE 
+			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' )
+									
+   		]]>
+   </sql-query>
+   
+   <sql-query name="updatePrebillAdjustmentsToInvoice">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
+		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc )
+				
+		WHERE 
+			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' )
+									
+   		]]>
+    </sql-query>
+   
+    <sql-query name="prebillPaymentExists">
+  	 <![CDATA[
+		SELECT top 1 Amount from ROI_RequestCoreDeliveryCharges rcd, ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdp 
+		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcdp.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId and rcd.Type = 'PreBill'
+									
+   		]]>
+    </sql-query>
+    
+    <sql-query name="prebillAdjustmentExists">
+  	 <![CDATA[
+		SELECT top 1 Amount from ROI_RequestCoreDeliveryCharges rcd, ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment rcda 
+		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcda.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId and rcd.Type = 'PreBill'
+									
+   		]]>
+    </sql-query>
+   
+    <sql-query name="totalPostPrebillPayments">
+  	 <![CDATA[
+  	 
+  	 	select COALESCE(sum(Amount), 0)  from cabinet..ROI_RequestCoreDeliveryCharges rcd, cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdp 
+		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcdp.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId and rcd.Type = 'Prebill' and rcd.Base_Charge <> :Charge ;
+									
+   		]]>
+    </sql-query>
+    
+    <sql-query name="totalPostPrebillAdjustments">
+  	 <![CDATA[
+  	 
+  	 	select COALESCE(sum(Amount), 0)  from cabinet..ROI_RequestCoreDeliveryCharges rcd, cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment rcda 
+		WHERE rcd.ROI_RequestCoreDeliveryCharges_Seq = rcda.ROI_RequestCoreDeliveryCharges_Seq and rcd.ROI_RequestCore_Seq = :requestId and rcd.Type = 'Prebill' and rcd.Base_Charge <> :Charge ;
+									
+   		]]>
+    </sql-query>
+   
+        
+</hibernate-mapping>

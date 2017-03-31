@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <import resource="logging.xml"/>
+
+	<bean id="com.mckesson.eig.common.filetransfer.services.BasetFileDownloaderTester_Retriever"
+		class="com.mckesson.eig.common.filetransfer.controller.BaseContentRetrieverTester"/>
+</beans>

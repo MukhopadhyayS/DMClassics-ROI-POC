@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.mckesson.eig.server</groupId>
+		<artifactId>roi-common</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<name>McKesson Patient Folder ROI InUse</name>
+	<description>POM for building McKesson Patient Folder ROI InUse</description>
+
+	<groupId>com.mckesson.eig.server</groupId>
+	<artifactId>roi-common-inuse</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.mckesson.eig.server</groupId>
+			<artifactId>roi-common-utils</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mckesson.eig.server</groupId>
+			<artifactId>roi-common-webservices</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mckesson.eig.server</groupId>
+			<artifactId>roi-common-config</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mckesson.eig.server</groupId>
+			<artifactId>roi-common-webservices</artifactId>
+			<version>${project.version}</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="eigLogAppender"
+	    class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="eig.log" />
+	    <param name="Append" value="true" />
+	    <param name="MaxFileSize" value="4MB" />
+	    <param name="MaxBackupIndex" value="" />
+	    <layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+	    </layout>
+    </appender>
+
+    <appender name="eigMetricsAppender"
+	    class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="eig-metrics.log" />
+	    <param name="Append" value="true" />
+	    <param name="MaxFileSize" value="20MB" />
+	    <param name="MaxBackupIndex" value="10" />
+	    <layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+	    </layout>
+    </appender>
+
+    <appender name="eigConsoleAppender"
+              class="org.apache.log4j.ConsoleAppender">
+	    <layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+	    </layout>
+    </appender>
+
+  <category name="com.quickstream" additivity="false">
+    <priority value="debug" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="com.mckesson.hecm" additivity="false">
+    <priority value="debug" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="com.mckesson.eig" additivity="false">
+    <priority value="debug" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="com.mckesson.eig.utility.metric" additivity="false">
+    <priority value="info" />
+    <appender-ref ref="eigMetricsAppender" />
+  </category>
+
+  <category name="org.apache">
+    <priority value="info" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="org.hibernate">
+    <priority value="info" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="servletunit">
+    <priority value="debug" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="net.sf.ehcache">
+    <priority value="info" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="org.exolab.castor">
+    <priority value="info" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+
+  <category name="org.springframework">
+    <priority value="info" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+  
+  <category name="org.castor">
+    <priority value="info" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+      
+  <category name="com.mchange">
+    <priority value="info" />
+    <appender-ref ref="eigLogAppender" />
+    <appender-ref ref="eigConsoleAppender" />
+  </category>
+  
+</log4j:configuration>

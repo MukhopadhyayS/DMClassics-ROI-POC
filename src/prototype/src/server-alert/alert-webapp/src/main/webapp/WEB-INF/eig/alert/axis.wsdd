@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment name="defaultServerConfig"
+		xmlns="http://xml.apache.org/axis/wsdd/"
+		xmlns:java="http://xml.apache.org/axis/wsdd/providers/java"
+		xmlns:handler="http://xml.apache.org/axis/wsdd/providers/handler"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:eig="urn:eig.mckesson.com">
+
+	<globalConfiguration>
+		<parameter name="disablePrettyXML" value="true"/>
+	</globalConfiguration>
+
+  	<!-- define Security Authorization handler -->
+	<handler type="java:com.mckesson.eig.wsfw.security.authorization.AuthorizationHandler" name="HPFSecurityAuthorizationHandler"/>
+
+	<transport name="http">
+		<parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+		<requestFlow>
+			<handler type="java:org.apache.axis.handlers.http.URLMapper"/>
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+		</requestFlow>
+	</transport>
+	
+	<service name="AlertService" style="wrapped" use="literal" provider="Handler">
+        <requestFlow>
+            <handler type="java:com.mckesson.eig.wsfw.security.WsSecurityHandler" >
+                <parameter name="action" value="UsernameToken Timestamp"/>
+                <parameter name="passwordCallbackClass" value="com.mckesson.eig.wsfw.security.PasswordCallbackHandler"/>
+            </handler>
+        </requestFlow>
+
+        <namespace>urn:eig.mckesson.com</namespace>
+        <wsdlFile>/WEB-INF/eig/alert/alert.wsdl</wsdlFile>
+        <parameter name="alias" value="AlertService"/>
+        <parameter name="wsdlTargetNamespace" value="urn:eig.mckesson.com"/>
+        <parameter name="wsdlPortType" value="AlertPortType"/>
+        <parameter name="wsdlServiceElement" value="AlertService"/>
+        <parameter name="wsdlServicePort" value="AlertService"/>
+        <parameter name="handlerClass" value="com.mckesson.eig.wsfw.axis.BusinessServiceHandler"/>
+        <parameter name="className" value="com.mckesson.eig.alert.service.AlertHandler"/>
+        <parameter name="allowedMethods" value="alert"/>
+
+        <parameter name="scope" value="session"/>
+
+        <operation name="alert"
+                   qname="eig:alert"
+                   returnQName="xsd:void"
+                   returnType="xsd:void">
+          <parameter qname="eig:message" type="xsd:string"/>
+        </operation>
+    </service>
+	
+ </deployment>

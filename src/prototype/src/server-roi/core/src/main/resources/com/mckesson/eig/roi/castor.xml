@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE databases PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+        "http://castor.exolab.org/mapping.dtd">
+
+<mapping xmlns:eig="urn:eig.mckesson.com">
+
+    <include href="/com/mckesson/eig/roi/hpf/castor/user.castor.xml" />
+    <!--  Admin -->
+    <include href="/com/mckesson/eig/roi/admin/castor/media.castor.xml" />
+	<include href="/com/mckesson/eig/roi/admin/castor/sales.tax.facility.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/feetype.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/letter.template.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/delivery.method.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/payment.method.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/weight.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/billing.template.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/billing.tier.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/reason.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/configure.notes.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/ssn.mask.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/roi.app.data.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/document.type.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/output.server.property.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/attachment.location.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/invoice.due.days.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/countrycode.castor.xml" />
+
+    <!--  Requestor -->
+    <include href="/com/mckesson/eig/roi/requestor/castor/requestor.type.castor.xml" />
+    <include href="/com/mckesson/eig/roi/requestor/castor/requestor.castor.xml" />
+    <include href="/com/mckesson/eig/roi/requestor/castor/requestor.search.castor.xml" />
+
+    <!-- Patient requestor matching -->
+    <include href="/com/mckesson/eig/roi/request/castor/request.status.castor.xml" />
+
+    <!--Request-->
+
+    <include href="/com/mckesson/eig/roi/request/castor/request.event.castor.xml" />
+    <include href="/com/mckesson/eig/roi/request/castor/comments.castor.xml" />
+
+    <!--Billing-->
+    <include href="/com/mckesson/eig/roi/billing/castor/past.invoice.castor.xml" />
+    <include href="/com/mckesson/eig/roi/billing/castor/billingcore.castor.xml" />
+    <include href="/com/mckesson/eig/roi/billing/castor/chargehistory.castor.xml" />
+    
+    <!-- PastDue Invoices -->
+    <include href="/com/mckesson/eig/roi/billing/castor/overdue.invoice.castor.xml" />
+	<include href="/com/mckesson/eig/roi/billing/castor/invoices.letter.castor.xml" />
+	
+    <!-- ROISupplemental -->
+    <include href="/com/mckesson/eig/roi/ccd/castor/ccd.castor.xml" />
+    
+    <include href="/com/mckesson/eig/roi/configuredays/castor/configuredays.castor.xml" />
+    
+    <!--RequestCore-->
+     <include href="/com/mckesson/eig/roi/request/castor/requestcore.castor.xml" />
+     <include href="/com/mckesson/eig/roi/request/castor/requestcore.search.castor.xml" />
+     <include href="/com/mckesson/eig/roi/request/castor/request.patientcore.castor.xml" />
+     <include href="/com/mckesson/eig/roi/supplementary/castor/supplementary.castor.xml" />
+     
+     <!--OutputService-->
+     <include href="/com/mckesson/eig/roi/output/castor/roi.output.castor.xml" />
+     
+     <!--inuse-->
+     <include href="/com/mckesson/eig/roi/inuse/castor/inuse.castor.xml" />
+
+</mapping>

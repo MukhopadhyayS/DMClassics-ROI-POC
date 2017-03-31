@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<componentInfo componentID="ComponentID"
+componentDisplayName="ComponentDisplayName">
+  <applicationInfo>
+    <path>applicationPath</path>
+    <componentName>componentName</componentName>
+  </applicationInfo>
+  <configuration-info>configurationInfo</configuration-info>
+  <logConfig>
+    <appenders>
+      <appender>app1</appender>
+      <appender>app2</appender>
+    </appenders>
+    <categories>
+      <category>cat1</category>
+      <category>cat2</category>
+    </categories>
+    <file>logPath</file>
+  </logConfig>
+  <updateInfo>
+    <update>
+      <comments>comments</comments>
+      <updatedOn>2010-07-14T12:45:48+05:30</updatedOn>
+      <updatedOn>2010-07-14T12:45:48+05:30</updatedOn>
+      <version>version</version>
+    </update>
+    <update>
+      <comments>comments</comments>
+      <updatedOn>2010-07-14T12:45:49+05:30</updatedOn>
+      <updatedOn>2010-07-14T12:45:49+05:30</updatedOn>
+      <version>version</version>
+    </update>
+  </updateInfo>
+</componentInfo>
