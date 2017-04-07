@@ -119,8 +119,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             SetTotalAmountAndPages();   
             ((BillingPaymentInfoUI)Pane.View).MarkDirty(sender, e);
-            RequestEvents.OnReleaseCostChanged(Pane, null);
-            RequestEvents.OnChargeAmountChanged(Pane, null);
+            RequestEvents.OnReleaseCostUpdated(Pane, null);
         }
 
         /// <summary>

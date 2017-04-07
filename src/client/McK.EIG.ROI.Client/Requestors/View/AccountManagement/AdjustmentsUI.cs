@@ -914,6 +914,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                            reqInv.ApplyAmount = reqInv.ApplyAmt;
                            totalApplyAmount += reqInv.ApplyAmt;
                            this.TotalInvBalance = this.TotalInvBalance + reqInv.Balance;
+                           if(reqInv.InvoiceType == "Prebill")
+                            { adjInfoSave.ReqAdjustmentDetails.IsPrebillAdjustment = true; }                             
                         }
                     
                     
