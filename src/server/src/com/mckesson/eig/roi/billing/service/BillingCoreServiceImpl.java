@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.util.CollectionUtils;
+
+
+
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.mckesson.eig.roi.admin.dao.LetterTemplateDAO;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -322,9 +326,15 @@ implements BillingCoreService {
             //Retrieve the DeliveryCharges object to get the DeliveryCharges Seq.
             RequestCoreDeliveryCharges requestCoreDeliveryCharges =
                     requestCoreDeliveryDAO.retrieveDeliveryChargesUsingInvoiceId(invoiceId);
-
+            
+            List<RequestorAdjustmentsPayments> amtList = requestorDAO
+                    .retrieveRequestorAdjAndPayDetailsForCancelReq(invoiceId);
+            
+            // unMapPaymentsAdjustmentsDoneByDialog(requestCoreDeliveryDAO, requestCoreDeliveryCharges.getRequestCoreId());
+            
             // To add back the amount to Requestor Account
-            revertInvoiceAppliedAmount(invoiceId, date);
+            revertInvoiceAppliedAmount(amtList, invoiceId, requestCoreDeliveryCharges.getRequestCoreId(), date, requestCoreDeliveryDAO);
+            
             // reverts the request level charges for the invoices
             // the Release Cost is the base charge of the newly created invoice
             chargesDao.revertRequestReleaseCost(requestCoreDeliveryCharges.getRequestCoreId(),
@@ -352,10 +362,10 @@ implements BillingCoreService {
             requestCoreDeliveryDAO.updateInvoiceAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
             
             // Update the Un-applied payments to applied payments to latest active prebill
-            requestCoreDeliveryDAO.updateUnappliedToAppliedPaymentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
+            //requestCoreDeliveryDAO.updateUnappliedToAppliedPaymentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
             
             // Update the Un-applied adjustments to applied payments to latest active prebill
-            requestCoreDeliveryDAO.updateUnappliedToAppliedAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
+            //requestCoreDeliveryDAO.updateUnappliedToAppliedAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
             
             // Activate Latest Prebill Status to active since invoice request is canceled
             requestCoreDeliveryDAO.activateLatestPrebill(requestCoreDeliveryCharges.getRequestCoreId());
@@ -384,6 +394,36 @@ implements BillingCoreService {
                                ROIClientErrorCodes.CANCEL_REQUEST_CORE_DELIVERY_OPERATION_FAILED);
         }
     }
+    
+    /*private void unMapPaymentsAdjustmentsDoneByDialog(RequestCoreDeliveryDAO requestCoreDeliveryDAO, long requestCoreId) {
+        long adjustmentId = requestCoreDeliveryDAO.retrieveAdjustmentDetailsFromDialog(requestCoreId);
+        
+        List<Long> adjustmentsNewList = new ArrayList<Long>();
+        if (null != adjustmentsList && adjustmentsList.size() >= 1) {
+            for (long adjSeq : adjustmentsList) {
+                 if (!adjustmentsNewList.contains(adjSeq)) {
+                     adjustmentsNewList.add(adjSeq);
+                 }
+            }
+            if (adjustmentsNewList.size() == 1) {
+                requestCoreDeliveryDAO.unmapAdjustmentsFromInvoiceFromDialog(adjustmentsNewList.get(0).longValue()); 
+            }
+        }
+        
+        List<Long> paymentsList = requestCoreDeliveryDAO.retrievePaymentDetailsFromDialog(requestCoreId);
+        List<Long> paymentsNewList = new ArrayList<Long>();
+        if (null != paymentsList && paymentsList.size() >= 1) {
+            for (long paySeq : paymentsList) {
+                if (!paymentsNewList.contains(paySeq)) {
+                    paymentsNewList.add(paySeq);
+                }
+            }
+            if (paymentsNewList.size() == 1) {
+                requestCoreDeliveryDAO.unmapPaymentsFromInvoiceFromDialog(paymentsNewList.get(0).longValue()); 
+            }
+        } 
+    }*/
+    
 
 
     /**
@@ -391,30 +431,69 @@ implements BillingCoreService {
      * @param invoiceId
      * @param requestorDAO
      */
-    private void revertInvoiceAppliedAmount(long invoiceId, Timestamp date) {
-
+    private void revertInvoiceAppliedAmount(List<RequestorAdjustmentsPayments> amtList, long invoiceId, long requestCoreId, Timestamp date, RequestCoreDeliveryDAO requestCoreDeliveryDAO) {
         RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
-        List<RequestorAdjustmentsPayments> amtList = requestorDAO
-                .retrieveRequestorAdjAndPayDetailsForCancelReq(invoiceId);
-
-        for (RequestorAdjustmentsPayments req : amtList) {
-
+        List<RequestorAdjustmentsPayments> filteredPrebillPayAdjList = null;
+        List<RequestorAdjustmentsPayments> prebillAmtList = filterPrebillPaymentsAdjustments(amtList);
+        if (!CollectionUtilities.isEmpty(prebillAmtList)) {
+            filteredPrebillPayAdjList = new ArrayList<RequestorAdjustmentsPayments>(prebillAmtList);
+        } else {
+            filteredPrebillPayAdjList = new ArrayList<RequestorAdjustmentsPayments>(amtList); 
+        }
+        for (RequestorAdjustmentsPayments req : filteredPrebillPayAdjList) {
             if (req.getTxnType().equalsIgnoreCase("Adjustment")) {
-
-                req.setUnAppliedAmt(req.getUnAppliedAmt() + req.getAppliedAmount());
-                req.setAmount(0.0);
                 requestorDAO.updateRequestorAdjustmentDetails(req.getId(),
-                                                              req.getAmount(),
-                                                              req.getUnAppliedAmt(),
-                                                              date,
-                                                              getUser());
+                                                                  req.getAmount(),
+                                                                  req.getUnAppliedAmt().doubleValue(),
+                                                                  date,
+                                                                  getUser());
             } else if (req.getTxnType().equalsIgnoreCase("Payment")) {
-
-                req.setUnAppliedAmt(req.getAppliedAmount() + req.getUnAppliedAmt());
-                requestorDAO.updateRequestorPaymentDetails(req.getId().longValue(),
-                                                           req.getUnAppliedAmt(),
+                    requestorDAO.updateRequestorPaymentDetails(req.getId().longValue(),
+                                                           req.getUnAppliedAmt().doubleValue(),
                                                            date,
                                                            getUser());
+            }
+        }
+        // Revert the payments and adjustments done through payment and adjustment dialog
+        unmapPaymentsAdjustmentsFromInvoiceFromDialog(filteredPrebillPayAdjList, amtList, requestCoreId, date, requestCoreDeliveryDAO, requestorDAO);
+    }
+    
+    private List<RequestorAdjustmentsPayments> filterPrebillPaymentsAdjustments (List<RequestorAdjustmentsPayments> amtList) {
+         List<RequestorAdjustmentsPayments> filteredList = new ArrayList<RequestorAdjustmentsPayments>();
+         for (RequestorAdjustmentsPayments req : amtList) {
+             if (req.isPrebillPaymentsAdjustments()) {
+                 filteredList.add(req);
+             }
+         }
+         return filteredList;
+    }
+    
+    private void unmapPaymentsAdjustmentsFromInvoiceFromDialog(List<RequestorAdjustmentsPayments> filteredPrebillPayAdjList, List<RequestorAdjustmentsPayments> amtList, 
+            long requestCoreId, Timestamp date, RequestCoreDeliveryDAO requestCoreDeliveryDAO, RequestorDAO requestorDAO) {
+        for (RequestorAdjustmentsPayments req : amtList) {
+            if (CollectionUtilities.isEmpty(filteredPrebillPayAdjList) || 
+                    (!CollectionUtilities.isEmpty(filteredPrebillPayAdjList) && !filteredPrebillPayAdjList.contains(req))) {
+                if (req.getTxnType().equalsIgnoreCase("Adjustment")) {
+                    if (!req.isPrebillPaymentsAdjustments()) {
+                        requestorDAO.updateRequestorAdjustmentDetails(req.getId(),
+                                req.getAmount(),
+                                req.getUnAppliedAmt().doubleValue(),
+                                date,
+                                getUser());
+                        long adjustmentId = requestCoreDeliveryDAO.retrieveAdjustmentDetailsFromDialog(requestCoreId);
+                        if (adjustmentId == req.getId().longValue()) {
+                            requestCoreDeliveryDAO.unmapAdjustmentsFromInvoiceFromDialog(adjustmentId);
+                        }
+                    }
+                }
+                else if (req.getTxnType().equalsIgnoreCase("Payment")) {
+                    if (!req.isPrebillPaymentsAdjustments()) {
+                        long paymentId = requestCoreDeliveryDAO.retrievePaymentDetailsFromDialog(requestCoreId);
+                        if (paymentId == req.getId().longValue()) {
+                            requestCoreDeliveryDAO.unmapPaymentsFromInvoiceFromDialog(paymentId);
+                        }
+                    }
+                }
             }
         }
     }
@@ -1401,6 +1480,38 @@ implements BillingCoreService {
             throw new ROIException(ROIClientErrorCodes.FAILED_TO_CREATE_AUTO_APPLY_TO_INVOICE);
         }
     }
+    
+    /**
+     * Update Invoice Balance
+     *
+     * @param invoiceId
+     * @param invoiceBalance
+     */
+    @Override
+    public void updateInvoiceBalance(long invoiceId, double invoiceBalance) {
+        final String logSM = "updateInvoiceBalance()";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start: " + "invoiceBalance: " + invoiceBalance + "Invoice ID: " + invoiceId);
+        }
+       
+        try {  
+            RequestCoreDeliveryDAO rCDeliveryDAO =
+                    (RequestCoreDeliveryDAO) getDAO(DAOName.REQUEST_CORE_DELIVERY_DAO);
+            
+            rCDeliveryDAO.updateInvoiceBalance(invoiceId, invoiceBalance,
+                    rCDeliveryDAO.getDate(), getUser());
+            
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End:" );
+            }
+        } catch (ROIException e) {
+            throw e;
+        } catch (Throwable e) {
+
+            LOG.error(e);
+            throw new ROIException(ROIClientErrorCodes.FAILED_TO_UPDATE_INVOICE_BALANCE);
+        }
+    }
 
     /**
      * This method is to create event details
@@ -1493,7 +1604,7 @@ implements BillingCoreService {
                 reqAdj.setModifiedDt(date);
                 adjustmentInfo.setRequestorAdjustment(reqAdj);
                 adjMappingId = requestorDAO.saveDeliveryChargesMapping(adjustmentInfo,
-                                                   amtApplied, invoiceInfo.getId());
+                                                   amtApplied, invoiceInfo.getId(), reqAdj.getInvoiceSeq());
                 
                 RequestorInvoice requestorInvoice = new RequestorInvoice();
                 requestorInvoice.setRequestId(invoiceInfo.getRequestCoreId());
@@ -1583,6 +1694,9 @@ implements BillingCoreService {
                 requestorPay.setLastAppliedAmount(amtApplied);
                 requestorPay.setTotalAppliedAmount(amtApplied);
                 requestorPay.setRequestId(invoiceInfo.getRequestCoreId());
+                if ("Prebill".equalsIgnoreCase(invoiceInfo.getType())) {
+                    requestorPay.setPrebillPayment(true);
+                } 
                 payMappingId = requestorDAO.createInvoiceToPayment(requestorPay);
                 
                 //Audits the Requestor Apply Payment operation

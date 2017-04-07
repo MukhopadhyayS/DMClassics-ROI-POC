@@ -2307,6 +2307,7 @@
 				
 		WHERE 
 			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Invoice' )
+			
 									
    		]]>
    </sql-query>
@@ -2323,24 +2324,42 @@
    		]]>
     </sql-query>
     
-    <sql-query name="updateUnappliedToAppliedPaymentsToPrebill">
+    <sql-query name="retrievePaymentDetailsFromDialog">
   	 <![CDATA[
-			
-        UPDATE ROI_RequestorPayment set UnappliedAmount = 0.00 
-        where ROI_RequestorPayment_Seq in (select ROI_RequestorPayment_Seq from ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
-        where ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges 
-        where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)) 
+  	 
+  	    select ROI_RequestorPayment_Seq as paymentId from cabinet.dbo.ROI_RequestorPayment
+        where ROI_RequestorPayment_Seq = (select top 1 rcdp.ROI_RequestorPayment_Seq from ROI_RequestCoreDeliveryCharges rcd,
+			 ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdp where rcd.ROI_RequestCore_Seq = :requestId and rcd.type = 'Invoice' and rcd.ROI_RequestCoreDeliveryCharges_Seq
+			 = rcdp.ROI_RequestCoreDeliveryCharges_Seq and rcdp.IsPrebillPayment = 0 and rcdp.IsDeleted = 0)
+  	 
+  	 ]]>
+    </sql-query>
+     
+    <sql-query name="retrieveAdjustmentDetailsFromDialog">
+  	 <![CDATA[
+  	 
+  	    select ROI_RequestorAdjustment_Seq as adjustmentId from cabinet.dbo.ROI_RequestorAdjustment
+        where ROI_RequestorAdjustment_Seq = (select top 1 rcda.ROI_RequestorAdjustment_Seq from ROI_RequestCoreDeliveryCharges rcd,
+			 ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment rcda where rcd.ROI_RequestCore_Seq = :requestId and rcd.type = 'Invoice' and rcd.ROI_RequestCoreDeliveryCharges_Seq
+			 = rcda.ROI_RequestCoreDeliveryCharges_Seq and rcda.IsPrebillAdjustment = 0 and rcda.IsDeleted = 0)
+  	 
+  	 ]]>
+    </sql-query>
+    
+    <sql-query name="unmapPaymentsFromInvoiceFromDialog">
+  	 <![CDATA[
+  	 
+  	    UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorPayment set IsDeleted = 1 where  
+		ROI_RequestorPayment_Seq = :requestorPaymentSeq and IsPrebillPayment = 0
 									
    		]]>
     </sql-query>
     
-    <sql-query name="updateUnappliedToAppliedAdjustmentsToPrebill">
+    <sql-query name="unmapAdjustmentsFromInvoiceFromDialog">
   	 <![CDATA[
-			
-        UPDATE ROI_RequestorAdjustment set UnappliedAmount = 0.00 
-        where ROI_RequestorAdjustment_Seq in (select ROI_RequestorAdjustment_Seq from ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
-        where ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges 
-        where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)) 
+  	 
+  	    UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment set IsDeleted = 1 where  
+		ROI_RequestorAdjustment_Seq = :requestorAdjustmentSeq and IsPrebillAdjustment = 0
 									
    		]]>
     </sql-query>

@@ -576,12 +576,11 @@
 					Created_By_Seq,
 					Modified_Dt,
 					Modified_By_Seq,
-					Record_Version
+					Record_Version,
+					IsPrebillAdjustment
 					) 
 					VALUES (:reqDelChargesSeq, 
-							(SELECT TOP 1 ROI_RequestorAdjustment_Seq FROM
-								ROI_RequestorAdjustment where ROI_Requestor_Seq = :requestorSeq 
-								ORDER BY Modified_Dt desc), 
+							:requestorAdjSeq, 
 							(SELECT 
 								(CASE when rdc.Apply_SalesTax = 1
 								then (((rdc.Invoice_Salestax)/(rdc.Base_Charge)) * (:amount))
@@ -594,7 +593,7 @@
 						    :createdBy, 
 						    :modifiedDate, 
 						    :modifiedBy, 
-						    :recordVersion) ; SELECT SCOPE_IDENTITY();   
+						    :recordVersion, :prebillAdjustment) ; SELECT SCOPE_IDENTITY();   
       ]]> 
    </sql-query>
    
@@ -1464,32 +1463,36 @@ WHERE
           	 SELECT 
 				rcdAdj.ROI_RequestorAdjustment_Seq id,
 				adj.Amount amount,
-				adj.UnappliedAmount unAppliedAmt,
+				CASE WHEN (adj.amount = rcdAdj.Amount) and (adj.UnappliedAmount = 0.00) and rcdAdj.IsPrebillAdjustment = 0 then rcdAdj.Amount
+				else (adj.Amount - rcdAdj.Amount) END unAppliedAmt,
 				rcdAdj.Amount appliedAmount,
-				'Adjustment' txnType
+				'Adjustment' txnType,
+				rcdAdj.IsPrebillAdjustment prebillPaymentsAdjustments
 				
 			FROM 
 				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment rcdAdj,
 				cabinet..ROI_RequestorAdjustment adj
 			WHERE 
-				rcdAdj.ROI_RequestCoreDeliveryCharges_Seq in (:invoiceId )
+				rcdAdj.ROI_RequestCoreDeliveryCharges_Seq in (:invoiceId)
 				AND rcdAdj.ROI_RequestorAdjustment_Seq = adj.ROI_RequestorAdjustment_Seq
-				AND rcdAdj.IsDeleted = 0
+				AND rcdAdj.IsDeleted = 0 
 			UNION
 			(SELECT 
 				rcdPay.ROI_RequestorPayment_Seq id,
 				pay.Amount amount,
-				pay.UnappliedAmount unAppliedAmt,
+				CASE WHEN (pay.amount = rcdPay.Amount) and (pay.UnappliedAmount = 0.00) and rcdPay.IsPrebillPayment = 0 then pay.Amount
+				else (pay.Amount - rcdPay.Amount) END unAppliedAmt,
 				rcdPay.Amount appliedAmount,
-				'Payment' txnType
+				'Payment' txnType,
+				rcdPay.IsPrebillPayment prebillPaymentsAdjustments
 			FROM 
 				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdPay,
 				cabinet..ROI_RequestorPayment pay
 			WHERE 
-				rcdPay.ROI_RequestCoreDeliveryCharges_Seq in ( :invoiceId )
+				rcdPay.ROI_RequestCoreDeliveryCharges_Seq in (:invoiceId)
 				AND rcdPay.ROI_RequestorPayment_Seq = pay.ROI_RequestorPayment_Seq
 				AND rcdPay.IsDeleted = 0)
-			        ]]>
+		]]>
 	 </sql-query>
 	 
 	 <sql-query name="retrieveRequestorPayment">
@@ -1578,9 +1581,10 @@ WHERE
 				Modified_Dt,
 				Modified_By_Seq,
 				Record_Version,
-				Amount
+				Amount,
+				IsPrebillPayment
 				) VALUES (:invoiceId, :paymentId, :createdDate, :createdBy, 
-						  :modifiedDate, :modifiedBy, :recordVersion, :amount); 
+						  :modifiedDate, :modifiedBy, :recordVersion, :amount, :prebillPayment); 
 						  SELECT SCOPE_IDENTITY();
         ]]>
     </sql-query>

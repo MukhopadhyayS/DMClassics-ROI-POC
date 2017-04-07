@@ -3431,7 +3431,7 @@ implements RequestCoreDeliveryDAO {
          }
     }
     
-    public void updateUnappliedToAppliedPaymentsToPrebill(long requestId) {
+    /*public void updateUnappliedToAppliedPaymentsToPrebill(long requestId) {
         final String logSM = "updateUnappliedToAppliedPaymentsToPrebill(requestId)";
 
         if (DO_DEBUG) {
@@ -3463,9 +3463,9 @@ implements RequestCoreDeliveryDAO {
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
                         e.getMessage());
          }
-    }
+    }*/
     
-    public void updateUnappliedToAppliedAdjustmentsToPrebill(long requestId) {
+    /*public void updateUnappliedToAppliedAdjustmentsToPrebill(long requestId) {
         final String logSM = "updateUnappliedToAppliedAdjustmentsToPrebill(requestId)";
 
         if (DO_DEBUG) {
@@ -3481,6 +3481,155 @@ implements RequestCoreDeliveryDAO {
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }*/
+    
+    public long retrievePaymentDetailsFromDialog(long requestId) {
+        final String logSM = "retrievePaymentDetailsFromDialog(requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        long paymentId = 0L;
+        Long paymentValue = null;
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("retrievePaymentDetailsFromDialog").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
+            sqlQuery.addScalar("paymentId", Hibernate.LONG);
+            paymentValue = (Long) sqlQuery.uniqueResult();
+            
+            if (null != paymentValue) {
+                paymentId = paymentValue.longValue();
+            }
+            
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+        return paymentId;
+    }
+    
+    public long retrieveAdjustmentDetailsFromDialog(long requestId) {
+        final String logSM = "retrieveAdjustmentDetailsFromDialog(requestId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestId);
+        }
+        long adjustmentId = 0L;
+        Long adjustmentValue = null;
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("retrieveAdjustmentDetailsFromDialog").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
+            sqlQuery.addScalar("adjustmentId", Hibernate.LONG);
+            adjustmentValue = (Long) sqlQuery.uniqueResult();
+            
+            if (null != adjustmentValue) {
+                adjustmentId = adjustmentValue.longValue();
+            }
+            
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + requestId);
+            }
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+        return adjustmentId;
+    }
+    
+    public void unmapPaymentsFromInvoiceFromDialog(long paymentId) {
+        final String logSM = "unmapPaymentsFromInvoiceFromDialog(paymentId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + paymentId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("unmapPaymentsFromInvoiceFromDialog").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestorPaymentSeq", paymentId, Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + paymentId);
+            }
+
+
+         } catch (DataIntegrityViolationException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                        e.getMessage());
+         } catch (HibernateOptimisticLockingFailureException e) {
+           throw new ROIException(e,
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                        e.getMessage());
+         } catch (Throwable e) {
+           throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                        e.getMessage());
+         }
+    }
+    
+    public void unmapAdjustmentsFromInvoiceFromDialog(long adjustmentId) {
+        final String logSM = "unmapAdjustmentsFromInvoiceFromDialog(adjustmentId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + adjustmentId);
+        }
+        try {
+
+            Session session = getSession();
+            String query = session.getNamedQuery("unmapAdjustmentsFromInvoiceFromDialog").getQueryString();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestorAdjustmentSeq", adjustmentId, Hibernate.LONG);
+            sqlQuery.executeUpdate();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>End:" + adjustmentId);
             }
 
 

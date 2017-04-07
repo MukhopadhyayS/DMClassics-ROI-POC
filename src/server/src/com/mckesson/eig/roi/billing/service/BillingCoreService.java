@@ -161,4 +161,12 @@ public interface BillingCoreService {
      */
     public void autoApplyToInvoice(long requestId, long invoiceId);
     
+    /**
+     * Update Invoice Balance
+     *
+     * @param invoiceId
+     * @param invoiceBalance
+     */
+    public void updateInvoiceBalance(long invoiceId, double invoiceBalance);
+    
 }

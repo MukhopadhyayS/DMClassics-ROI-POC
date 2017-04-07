@@ -2185,7 +2185,7 @@ implements RequestorService {
 
                         setDefaultDetails(adjustmentInfo.getRequestorAdjustment(), date, true);
                         adjToInvoiceId = requestorDAO.saveDeliveryChargesMapping(
-                                        adjustmentInfo, applyAmount, invoiceId);
+                                        adjustmentInfo, applyAmount, invoiceId, adjustmentId);
                         //Adjustment applied - Add Corresponding Journal entries for the invoice
                         createJournalEntryForAdjustment(
                                 ROIConstants.APPLY_ADJ_TO_INVOICE, adjType, adjToInvoiceId);
@@ -2219,7 +2219,7 @@ implements RequestorService {
 
                 setDefaultDetails(adjustmentInfo.getRequestorAdjustment(), date, true);
                 adjToInvoiceId = requestorDAO.saveDeliveryChargesMapping(
-                                adjustmentInfo, applyAmount, invoiceId);
+                                adjustmentInfo, applyAmount, invoiceId, adjustmentId);
                 //Adjustment applied - Add Corresponding Journal entries for the invoice
                 createJournalEntryForAdjustment(
                         ROIConstants.APPLY_ADJ_TO_INVOICE, adjType, adjToInvoiceId);

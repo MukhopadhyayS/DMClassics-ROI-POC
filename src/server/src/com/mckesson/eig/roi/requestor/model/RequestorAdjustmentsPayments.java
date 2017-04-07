@@ -16,6 +16,7 @@ public class RequestorAdjustmentsPayments {
     private Double _refundAmount;
     private Double _amount; 
     private long _requestorId;
+    private boolean _prebillPaymentsAdjustments;
 
     public Double getAmount() {
         return _amount;
@@ -55,6 +56,13 @@ public class RequestorAdjustmentsPayments {
     
     public long getRequestorId() { return _requestorId; }
     public void setRequestorId(long requestorId) { _requestorId = requestorId; }
+    
+    public boolean isPrebillPaymentsAdjustments() {
+        return _prebillPaymentsAdjustments;
+    }
+    public void setPrebillPaymentsAdjustments(boolean prebillPaymentsAdjustments) {
+        _prebillPaymentsAdjustments = prebillPaymentsAdjustments;
+    }
     
     @Override
     public String toString() {

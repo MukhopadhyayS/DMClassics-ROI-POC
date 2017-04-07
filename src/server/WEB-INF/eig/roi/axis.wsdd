@@ -2474,7 +2474,8 @@
         										retrieveChargeHistory,
         										updateInvoiceOutputProperties,
         										setDisplayBillingInfo,
-        										autoApplyToInvoice" />
+        										autoApplyToInvoice,
+        										updateInvoiceBalance"/>
         <parameter name="scope" value="session"/>
         
 		<operation name="createReleaseAndPreviewInfo"
@@ -2580,6 +2581,14 @@
 				returnType="xsd:void">
 			<parameter qname="eig:requestId" type="xsd:long"/>
 			<parameter qname="eig:invoiceId" type="xsd:long"/>
+		</operation>
+		
+		<operation name="updateInvoiceBalance"
+				qname="eig:updateInvoiceBalance"
+				returnQName="xsd:void"
+				returnType="xsd:void">
+			<parameter qname="eig:invoiceId" type="xsd:long"/>
+			<parameter qname="eig:invoiceBalance" type="xsd:double"/>
 		</operation>
 
 		<typeMapping qname="eig:ReleaseCore"
