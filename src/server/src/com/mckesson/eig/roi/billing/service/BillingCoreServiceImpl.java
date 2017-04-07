@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+
 import org.apache.commons.collections.CollectionUtils;
 
 import com.mckesson.eig.roi.admin.dao.LetterTemplateDAO;
@@ -431,6 +432,7 @@ implements BillingCoreService {
      * @param invoiceId
      * @param requestorDAO
      */
+    @SuppressWarnings({"unchecked"})
     private void revertInvoiceAppliedAmount(List<RequestorAdjustmentsPayments> amtList, long invoiceId, long requestCoreId, Timestamp date, RequestCoreDeliveryDAO requestCoreDeliveryDAO) {
         RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
         List<RequestorAdjustmentsPayments> filteredPrebillPayAdjList = null;
@@ -454,8 +456,9 @@ implements BillingCoreService {
                                                            getUser());
             }
         }
+        List<RequestorAdjustmentsPayments> filteredInvoicePayAdjList = (List<RequestorAdjustmentsPayments>) CollectionUtils.subtract(amtList, filteredPrebillPayAdjList);
         // Revert the payments and adjustments done through payment and adjustment dialog
-        unmapPaymentsAdjustmentsFromInvoiceFromDialog(filteredPrebillPayAdjList, amtList, requestCoreId, date, requestCoreDeliveryDAO, requestorDAO);
+        unmapPaymentsAdjustmentsFromInvoiceFromDialog(filteredInvoicePayAdjList, requestCoreId, date, requestCoreDeliveryDAO, requestorDAO);
     }
     
     private List<RequestorAdjustmentsPayments> filterPrebillPaymentsAdjustments (List<RequestorAdjustmentsPayments> amtList) {
@@ -468,33 +471,30 @@ implements BillingCoreService {
          return filteredList;
     }
     
-    private void unmapPaymentsAdjustmentsFromInvoiceFromDialog(List<RequestorAdjustmentsPayments> filteredPrebillPayAdjList, List<RequestorAdjustmentsPayments> amtList, 
+    private void unmapPaymentsAdjustmentsFromInvoiceFromDialog(List<RequestorAdjustmentsPayments> filteredInvoicePayAdjList,
             long requestCoreId, Timestamp date, RequestCoreDeliveryDAO requestCoreDeliveryDAO, RequestorDAO requestorDAO) {
-        for (RequestorAdjustmentsPayments req : amtList) {
-            if (CollectionUtilities.isEmpty(filteredPrebillPayAdjList) || 
-                    (!CollectionUtilities.isEmpty(filteredPrebillPayAdjList) && !filteredPrebillPayAdjList.contains(req))) {
-                if (req.getTxnType().equalsIgnoreCase("Adjustment")) {
-                    if (!req.isPrebillPaymentsAdjustments()) {
-                        requestorDAO.updateRequestorAdjustmentDetails(req.getId(),
+        for (RequestorAdjustmentsPayments req : filteredInvoicePayAdjList) {
+             if (req.getTxnType().equalsIgnoreCase("Adjustment")) {
+                 if (!req.isPrebillPaymentsAdjustments()) {
+                     requestorDAO.updateRequestorAdjustmentDetails(req.getId(),
                                 req.getAmount(),
                                 req.getUnAppliedAmt().doubleValue(),
                                 date,
                                 getUser());
-                        long adjustmentId = requestCoreDeliveryDAO.retrieveAdjustmentDetailsFromDialog(requestCoreId);
-                        if (adjustmentId == req.getId().longValue()) {
-                            requestCoreDeliveryDAO.unmapAdjustmentsFromInvoiceFromDialog(adjustmentId);
-                        }
-                    }
-                }
-                else if (req.getTxnType().equalsIgnoreCase("Payment")) {
+                     long adjustmentId = requestCoreDeliveryDAO.retrieveAdjustmentDetailsFromDialog(requestCoreId);
+                     if (adjustmentId == req.getId().longValue()) {
+                         requestCoreDeliveryDAO.unmapAdjustmentsFromInvoiceFromDialog(adjustmentId);
+                     }
+                  }
+             }
+             else if (req.getTxnType().equalsIgnoreCase("Payment")) {
                     if (!req.isPrebillPaymentsAdjustments()) {
                         long paymentId = requestCoreDeliveryDAO.retrievePaymentDetailsFromDialog(requestCoreId);
                         if (paymentId == req.getId().longValue()) {
                             requestCoreDeliveryDAO.unmapPaymentsFromInvoiceFromDialog(paymentId);
                         }
                     }
-                }
-            }
+             }
         }
     }
 

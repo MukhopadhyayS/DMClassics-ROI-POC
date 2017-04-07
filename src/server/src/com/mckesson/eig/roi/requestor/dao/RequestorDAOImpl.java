@@ -1325,7 +1325,6 @@ implements RequestorDAO {
 
             query.setParameter("reqDelChargesSeq", invoiceId, Hibernate.LONG);
             query.setParameter("requestorAdjSeq", requestorAdjId, Hibernate.LONG);
-            query.setParameter("requestorSeq", requestorAdjustment.getRequestorSeq(), Hibernate.LONG);
             query.setParameter("amount", amount, Hibernate.DOUBLE);
             query.setParameter("createdDate", requestorAdjustment.getCreatedDt(), Hibernate.TIMESTAMP);
             query.setParameter("createdBy", requestorAdjustment.getCreatedBy(), Hibernate.LONG);
