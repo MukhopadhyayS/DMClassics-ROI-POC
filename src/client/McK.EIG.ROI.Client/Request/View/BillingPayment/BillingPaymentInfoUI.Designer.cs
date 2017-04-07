@@ -736,7 +736,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private System.Windows.Forms.TableLayoutPanel adjPayTableLayoutPanel;
         private System.Windows.Forms.GroupBox totalBalanceDueGroupBox;
         private System.Windows.Forms.TableLayoutPanel totalBalanceTableLayoutPanel;
-        private System.Windows.Forms.Label balanceDueValueLabel;
+        public System.Windows.Forms.Label balanceDueValueLabel;
         private System.Windows.Forms.Label balanceDueLabel;
         private System.Windows.Forms.Panel pendingReleaseCostPanel;
         private System.Windows.Forms.Button chargeHistoryButton;

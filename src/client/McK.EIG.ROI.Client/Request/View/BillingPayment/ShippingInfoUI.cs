@@ -315,7 +315,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 noError = true;
             }
 
-            RequestEvents.OnReleaseCostChanged(Pane, null);
+            RequestEvents.OnReleaseCostUpdated(Pane, null);
             dirtyDataHandler(sender, e);
         }
         

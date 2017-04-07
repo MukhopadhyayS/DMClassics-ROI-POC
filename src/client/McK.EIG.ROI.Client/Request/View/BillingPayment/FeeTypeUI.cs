@@ -149,7 +149,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 Regex.IsMatch(Convert.ToString(amount, System.Threading.Thread.CurrentThread.CurrentUICulture), FeeChargeDetails.AmountFormat))
             {                
                 //if (this.hasSalesTax != null && this.hasSalesTax.ToLower().Equals("yes"))
-                updateFeeTypeAmountHandler(sender, e);
+              updateFeeTypeAmountHandler(sender, e);
                 noError = true;
             }
             else

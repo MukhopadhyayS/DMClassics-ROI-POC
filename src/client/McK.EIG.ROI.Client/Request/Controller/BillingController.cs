@@ -85,6 +85,19 @@ namespace McK.EIG.ROI.Client.Request.Controller
             object response = ROIHelper.Invoke(billingCoreService, "createReleaseAndPreviewInfo", requestParams);
             return (ReleaseAndPreviewInfo)response;
         }
+        //
+        /// <summary>
+        /// Updates the Invoice/prebill balance each time the balance is changed.
+        /// </summary>
+        /// <param name="InvoiceBalance"></param>
+        /// <param name="InvoiceId"></param>
+        /// <returns></returns>
+        public void updateInvoiceBalance(long invoiceId, double invoiceBalance)
+        {
+            object[] requestParams = new object[] {invoiceId,invoiceBalance};
+            ROIHelper.Invoke(billingCoreService, "updateInvoiceBalance",requestParams);
+
+        }
 
         /// <summary>
         /// Deletes the release.

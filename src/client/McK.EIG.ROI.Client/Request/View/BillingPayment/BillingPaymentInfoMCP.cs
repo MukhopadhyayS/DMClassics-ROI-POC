@@ -45,6 +45,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         private EventHandler updateTaxAmount;
 
+        private EventHandler UpdateReleaseCost;
+
         #endregion
 
         #region Methods
@@ -70,12 +72,14 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             updateBillingApplyTax = new EventHandler(Process_UpdateBillingApplyTax);
             updateReleaseinfoUI = new EventHandler(Process_UpdatereleaseInfoUI);
             updateTaxAmount = new EventHandler(Process_UpdateTaxAmount);
+            UpdateReleaseCost = new EventHandler(Process_UpdateReleaseCost);
 
             RequestEvents.ReleaseInfoUIChanged += updateReleaseinfoUI;
             RequestEvents.ReleaseCostChanged += updatePendingReleaseCostHandler;            
             RequestEvents.TotalTaxChanged += updateTotalTaxHandler;
             RequestEvents.ApplyTaxChanged += updateBillingApplyTax;
             RequestEvents.ChargeAmountChanged += updateTaxAmount;
+            RequestEvents.ReleaseCostUpdated += UpdateReleaseCost;
         }
 
         /// <summary>
@@ -90,6 +94,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             RequestEvents.ApplyTaxChanged -= updateBillingApplyTax;
             RequestEvents.ChargeAmountChanged -= updateTaxAmount;
             RequestEvents.ReleaseInfoUIChanged -= updateReleaseinfoUI;
+            RequestEvents.ReleaseCostUpdated -= UpdateReleaseCost;
         }
 
         /// <summary>
@@ -100,6 +105,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private void Process_UpdatePendingReleaseCost(object sender, EventArgs e)
         {
             billingPaymentInfoUI.UpdatePendingReleaseCost();
+        }
+        private void Process_UpdateReleaseCost(object sender, EventArgs e)
+        {
+            billingPaymentInfoUI.UpdateBalance();
         }
 
         private void Process_UpdateTotalTax(object sender, EventArgs e)

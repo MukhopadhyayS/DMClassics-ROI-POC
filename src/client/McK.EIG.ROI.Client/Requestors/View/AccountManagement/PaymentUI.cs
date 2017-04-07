@@ -625,6 +625,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                             if ((applyAmount <= 0) && (appliedAmount <= 0) && (appliedAmount == appliedCopyAmount)) continue;
                             double previousPaymentAmount = Math.Abs(requestInvoiceDetail.Payments);
                             //to calcalucate the total payment amount for the invoice
+                            if(requestInvoiceDetail.InvoiceType == "Prebill")
+                            { requestorInvoiceDetails.IsPrebillPayment = true; }                            
                             requestorInvoiceDetails.AmountPaid = ROIViewUtility.RoundOffValue((requestInvoiceDetail.Adjustments + previousPaymentAmount + applyAmount - (appliedCopyAmount - appliedAmount)), 2);
                             requestorInvoiceDetails.PaymentTotal = ROIViewUtility.RoundOffValue((previousPaymentAmount + applyAmount - (appliedCopyAmount - appliedAmount)), 2);
                             requestorInvoiceDetails.InvoiceId = requestInvoiceDetail.Id;

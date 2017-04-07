@@ -331,8 +331,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             }
 
             SetTotalStdFeeAmount();
-            RequestEvents.OnReleaseCostChanged(Pane, null);
-            RequestEvents.OnChargeAmountChanged(Pane, null);
+            RequestEvents.OnReleaseCostUpdated(Pane, null);
+
 
         }
 
@@ -504,8 +504,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             }
 
             SetTotalCustomFeeAmount();
-            RequestEvents.OnReleaseCostChanged(Pane, null);
-            RequestEvents.OnChargeAmountChanged(Pane, null);
+            RequestEvents.OnReleaseCostUpdated(Pane,null);
+            //RequestEvents.OnReleaseCostChanged(Pane, null);
+            //RequestEvents.OnChargeAmountChanged(Pane, null);
         }
 
         private void SetTotalCustomFeeAmount()

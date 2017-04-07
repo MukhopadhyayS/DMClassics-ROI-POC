@@ -64,6 +64,7 @@ namespace McK.EIG.ROI.Client.Request.View
         public static event EventHandler CustomFeeTaxChanged;
         public static event EventHandler TotalTaxChanged;
         public static event EventHandler ReleaseInfoUIChanged;
+        public static event EventHandler ReleaseCostUpdated;
         public static event EventHandler ApplyTaxChanged;
         public static event EventHandler ChargeAmountChanged;
 
@@ -360,7 +361,14 @@ namespace McK.EIG.ROI.Client.Request.View
                 ReleaseInfoUIChanged(sender, e);
             }
         }
-        
+        internal static void OnReleaseCostUpdated(object sender, EventArgs e)
+        {
+            if (ReleaseCostUpdated != null)
+            {
+                ReleaseCostUpdated(sender, e);
+            }
+        }
+
         /// <summary>
         /// Occurs when release cost is being updated
         /// </summary>
