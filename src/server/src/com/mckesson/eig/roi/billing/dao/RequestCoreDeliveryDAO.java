@@ -525,9 +525,9 @@ extends ROIDAO {
      
      void updateInvoiceAdjustmentsToPrebill(long requestId);
      
-     void updateUnappliedToAppliedPaymentsToPrebill(long requestId);
+    /* void updateUnappliedToAppliedPaymentsToPrebill(long requestId);
      
-     void updateUnappliedToAppliedAdjustmentsToPrebill(long requestId);
+     void updateUnappliedToAppliedAdjustmentsToPrebill(long requestId);*/
 
      boolean prebillPaymentExists(long requestId);
 
@@ -540,4 +540,12 @@ extends ROIDAO {
             InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
      
      void activateLatestPrebill(long requestId);
+     
+     long retrievePaymentDetailsFromDialog(long requestId);
+     
+     long retrieveAdjustmentDetailsFromDialog(long requestId);
+     
+     void unmapPaymentsFromInvoiceFromDialog(long paymentId);
+     
+     void unmapAdjustmentsFromInvoiceFromDialog(long adjustmentId);
 }

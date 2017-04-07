@@ -24,7 +24,9 @@ extends BaseModel {
     private Double _unappliedAmount;
     private Double _appliedAmount;
     private boolean _delete;
+    private boolean _prebillAdjustment;
 
+    
     public long getRequestorSeq() { return _requestorSeq; }
     public void setRequestorSeq(long requestorSeq) { this._requestorSeq = requestorSeq; }
 
@@ -64,6 +66,13 @@ extends BaseModel {
     public void setAdjustmentType(AdjustmentType adjustmentType) {
         _adjustmentType = adjustmentType;
     }
+    
+    public boolean isPrebillAdjustment() {
+        return _prebillAdjustment;
+    }
+    public void setPrebillAdjustment(boolean prebillAdjustment) {
+        _prebillAdjustment = prebillAdjustment;
+    }
 
     public String getAdjustmentTypeAsString() {
         return (null == _adjustmentType) ? null : _adjustmentType.name();
@@ -88,6 +97,8 @@ extends BaseModel {
             }
         }
     }
+    
+   
 
     /**
      * This method create audit comment for Requestor Post Adjustment

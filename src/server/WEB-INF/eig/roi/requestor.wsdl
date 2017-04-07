@@ -111,6 +111,7 @@
                     <xsd:element name="invoiceAmountPaid" type="xsd:double"/>
                     <xsd:element name="invoicePaymentTotal" type="xsd:double"/>
                     <xsd:element name="facility" type="xsd:string"/>
+                    <xsd:element name="prebillPayment" type="xsd:boolean"/>
                 </xsd:sequence>
             </xsd:complexType>
             
@@ -388,6 +389,7 @@
 		            <xsd:element name="adjustmentDate" type="xsd:dateTime"></xsd:element>
 		            <xsd:element name="note" type="xsd:string"></xsd:element>
 		            <xsd:element name="delete" type="xsd:boolean"></xsd:element>
+		            <xsd:element name="prebillAdjustment" type="xsd:boolean"/>
 		        </xsd:sequence>
 		      </xsd:complexType>
 		      

@@ -44,6 +44,7 @@ extends BaseModel {
     private double _unAppliedAmount;
     private double _refundAmount;
     private String _facility;
+    private boolean _prebillPayment;
     
     public long getRequestCoreDeliveryChargesId() { return _requestCoreDeliveryChargesId; }
     public void setRequestCoreDeliveryChargesId(long requestCoreDeliveryChargesId) {
@@ -90,6 +91,12 @@ extends BaseModel {
     public double getLastAppliedAmount() { return _lastAppliedAmount; }
     public void setLastAppliedAmount(double lastAppliedAmount) {
         _lastAppliedAmount = lastAppliedAmount;
+    }
+    public boolean isPrebillPayment() {
+        return _prebillPayment;
+    }
+    public void setPrebillPayment(boolean prebillPayment) {
+        _prebillPayment = prebillPayment;
     }
     
     /**

@@ -1309,7 +1309,7 @@ implements RequestorDAO {
      * @param invoiceId
      */
     @Override
-    public long saveDeliveryChargesMapping(AdjustmentInfo adjustmentInfo, double amount, long invoiceId) {
+    public long saveDeliveryChargesMapping(AdjustmentInfo adjustmentInfo, double amount, long invoiceId, long requestorAdjId) {
 
         final String logSM = "saveDeliveryChargesMapping(adjustmentInfo)";
         if (DO_DEBUG) {
@@ -1324,6 +1324,7 @@ implements RequestorDAO {
             Query query = session.getNamedQuery("createRequestCoreDeliveryChargesMapping");
 
             query.setParameter("reqDelChargesSeq", invoiceId, Hibernate.LONG);
+            query.setParameter("requestorAdjSeq", requestorAdjId, Hibernate.LONG);
             query.setParameter("requestorSeq", requestorAdjustment.getRequestorSeq(), Hibernate.LONG);
             query.setParameter("amount", amount, Hibernate.DOUBLE);
             query.setParameter("createdDate", requestorAdjustment.getCreatedDt(), Hibernate.TIMESTAMP);
@@ -1331,6 +1332,7 @@ implements RequestorDAO {
             query.setParameter("modifiedDate", requestorAdjustment.getModifiedDt(), Hibernate.TIMESTAMP);
             query.setParameter("modifiedBy", requestorAdjustment.getModifiedBy(), Hibernate.LONG);
             query.setParameter("recordVersion", requestorAdjustment.getRecordVersion(), Hibernate.INTEGER);
+            query.setParameter("prebillAdjustment", requestorAdjustment.isPrebillAdjustment(), Hibernate.BOOLEAN);
 
             BigDecimal adjToInvoiceValue = (BigDecimal) query.uniqueResult();
 
@@ -2262,6 +2264,7 @@ implements RequestorDAO {
            query.addScalar("unAppliedAmt", Hibernate.DOUBLE);
            query.addScalar("amount", Hibernate.DOUBLE);
            query.addScalar("txnType", Hibernate.STRING);
+           query.addScalar("prebillPaymentsAdjustments", Hibernate.BOOLEAN);
            query.setResultTransformer(Transformers.aliasToBean(RequestorAdjustmentsPayments.class));
            @SuppressWarnings("unchecked")
           List<RequestorAdjustmentsPayments> invoiceList = query.list();
@@ -2567,7 +2570,8 @@ implements RequestorDAO {
              query.setParameter("modifiedBy", paymentInfo.getModifiedBy(), Hibernate.LONG);
              query.setParameter("recordVersion", paymentInfo.getRecordVersion(), Hibernate.INTEGER);
              query.setParameter("amount", paymentInfo.getLastAppliedAmount(), Hibernate.DOUBLE);
-
+             query.setParameter("prebillPayment", paymentInfo.isPrebillPayment(), Hibernate.BOOLEAN);
+             
              BigDecimal payToInvoiceValue = (BigDecimal) query.uniqueResult();
 
              if (DO_DEBUG) {

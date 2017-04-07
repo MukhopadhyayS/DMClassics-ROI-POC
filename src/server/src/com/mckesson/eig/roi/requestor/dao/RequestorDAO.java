@@ -162,7 +162,7 @@ extends ROIDAO {
     * @param invoiceId
     * @return adjustmentToInvoiceId
     */
-   long saveDeliveryChargesMapping(AdjustmentInfo adjustmentInfo, double amount, long invoiceId);
+   long saveDeliveryChargesMapping(AdjustmentInfo adjustmentInfo, double amount, long invoiceId, long requestorAdjId);
 
    /**
     * This method is used to save requestor's adjustment fee info
