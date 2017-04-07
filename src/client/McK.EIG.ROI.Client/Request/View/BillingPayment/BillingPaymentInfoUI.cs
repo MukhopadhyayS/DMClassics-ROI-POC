@@ -110,6 +110,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         public double BalanceDuePreBill
         {
             get { return balanceDuePrebill; }
+            set { balanceDuePrebill = value; }
         }
 
         #region Constructor
@@ -336,7 +337,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     //balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balance - adjustmentUI.TotalAdjustmentAmount);
                     if ((releaseDialog != null) || (request.Status == RequestStatus.Completed) || (request.Status == RequestStatus.PreBilled))
                     {
-                        balanceDuePrebill = balanceDue - adjustmentUI.TotalAdjustmentAmount;
+                        balanceDuePrebill = balanceDue - adjustmentUI.TotalAdjustmentAmount;                        
                         balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue - adjustmentUI.TotalAdjustmentAmount);
                     }
                     else
@@ -3897,6 +3898,59 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             Hashtable taxItemStates = salesTaxSummaryUI.RetrieveTaxItemStates();
             SetSalesTaxSummaryUI(taxItemStates);
         }
+        public void UpdateBalance()
+        {
+            previousReleaseCostValueLabel.Text = ReleaseDetails.FormattedAmount(PreviouslyReleasedCost);
+
+            double totalRequestCost = TotalRequestCost;
+            totalRequestCostValueLabel.Text = ReleaseDetails.FormattedAmount(totalRequestCost);
+
+            //Total Request Cost
+            double invoiceAmount = release.InvoicesBalanceDue;
+            totalInvoicedCostValueLabel.Text = ReleaseDetails.FormattedAmount(invoiceAmount);
+            invoicedAmountValueLabel.ForeColor = invoiceAmount < 0 ? Color.FromArgb(32, 125, 41) : Color.Black;
+            double unAppliedAdjPayTotal = RetrieveUnAppliedAmount(request.Id);
+            double adjustmentTotal = AdjustmentPaymentTotal;
+            double balanceDue = BalanceDue;
+            unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
+            Collection<RequestInvoiceDetail> reqInvoices = RequestorController.Instance.RetrieveRequestorInvoices(request.RequestorId);
+                if (reqInvoices.Count < 1)
+                {
+                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
+                }
+                else
+                {
+                    foreach (RequestInvoiceDetail reqInv in reqInvoices)
+                    {
+                        if ((reqInv.InvoiceType == "Prebill" || reqInv.InvoiceType == "Invoice") && (reqInv.RequestId == request.Id))
+                        {
+
+                            balanceDue = totalRequestCost - reqInv.PayAdjTotal;
+                            BillingController.Instance.updateInvoiceBalance(reqInv.Id, balanceDue);
+                            adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(reqInv.PayAdjTotal);
+                            balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
+                        }
+                    }
+                }
+                    if (balanceDue == 0)
+                    {
+                        balanceDueLabel.ForeColor = balanceDueValueLabel.ForeColor = Color.Black;
+                    }
+                    else if (balanceDue < 0)
+                    {
+                        balanceDueLabel.ForeColor = balanceDueValueLabel.ForeColor = Color.FromArgb(32, 125, 41);
+                    }
+                    else
+                    {
+                        balanceDueLabel.ForeColor = balanceDueValueLabel.ForeColor = Color.Red;
+                    }
+                    discountsValueLabel.Text = ReleaseDetails.FormattedAmount(UnbillableAmount);
+                    totalInvoicedTaxValueLabel.Text = ReleaseDetails.FormattedAmount(UnbillableAmount);
+
+                }
+            
+        
 
         /// <summary>
         /// Update the balance due
@@ -3933,7 +3987,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             double unAppliedAdjPayTotal = RetrieveUnAppliedAmount(request.Id);
             double balanceDue = BalanceDue;
             double balance;
-
+            
+            Collection<RequestInvoiceDetail> reqInvoices = RequestorController.Instance.RetrieveRequestorInvoices(request.RequestorId);
             if (releaseDialog != null)
             {
                 UpdateUIWithDetails();
@@ -3941,8 +3996,23 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             else
             {
                 unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
-                adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
-                balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);                
+                if ((reqInvoices.Count < 1) || (request.Status == RequestStatus.Logged))
+                {
+                    
+                    adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
+                    balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
+                }
+                else
+                {
+                    foreach (RequestInvoiceDetail reqInv in reqInvoices)
+                    {
+                        if((reqInv.InvoiceType == "Prebill") && (reqInv.RequestId == request.Id))
+                        {
+                            adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(reqInv.PayAdjTotal);
+                            balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(reqInv.Balance);
+                        }
+                    }
+                }              
             }
 
             adjPaymentTotalValueLabel.ForeColor = (adjustmentTotal < 0) ? Color.FromArgb(32, 125, 41) : Color.Black;
@@ -4100,7 +4170,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(requestammount - (paymentammt + creditadjamnt));
             }
 
-            unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(requestBillingInfo.UnAppliedAmount);
+                    unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(requestBillingInfo.UnAppliedAmount);
         }
         /// <summary>
         /// Occurs when user clicks the Charge History button

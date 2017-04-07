@@ -1240,11 +1240,13 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                      //US16834 - changes to Include requests in the pre-bill status on the payments popup.
                      if (InvoiceInfo.RequestStatus == "Pre-Billed")
                      {
-                         InvoiceInfo.InvoiceBalanceDue = billingInfoUI.BalanceDuePreBill;
-                     }
+                        InvoiceInfo.InvoiceBalanceDue = Convert.ToDouble(billingInfoUI.balanceDueValueLabel.Text.Trim().Substring(1, billingInfoUI.balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
+                        
+                        //InvoiceInfo.InvoiceBalanceDue = preBillInvoiceDetails.Release.BalanceDue;
+                    }
                      else
                      {
-                         InvoiceInfo.InvoiceBalanceDue = billingInfoUI.BalanceDue;
+                         InvoiceInfo.InvoiceBalanceDue = preBillInvoiceDetails.Release.BalanceDue;
                      } 
                      InvoiceInfo.RequestDate = DateTime.Now;
                      InvoiceInfo.InvoiceDueDate = DateTime.Now;
