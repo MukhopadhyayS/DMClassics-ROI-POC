@@ -43,6 +43,7 @@ namespace McK.EIG.ROI.Client.Requestors.Model
         private long requestId;
         private string facility;
         private double currentAppliedAmount;
+        private bool isPrebillPayment;
 
         #endregion
 
@@ -117,7 +118,13 @@ namespace McK.EIG.ROI.Client.Requestors.Model
             get { return currentAppliedAmount; }
             set { currentAppliedAmount = value; }
         }
-        
+
+        public bool IsPrebillPayment
+        {
+            get { return isPrebillPayment; }
+            set { isPrebillPayment = value; }
+        }
+
         #endregion
     }
 }

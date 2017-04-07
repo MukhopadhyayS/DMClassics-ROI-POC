@@ -476,6 +476,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
                 adjInfo.requestorAdjustment.requestorName = adjInfoDetail.ReqAdjustmentDetails.RequestorName;
                 adjInfo.requestorAdjustment.requestorType = adjInfoDetail.ReqAdjustmentDetails.RequestorType;
                 adjInfo.requestorAdjustment.delete = adjInfoDetail.ReqAdjustmentDetails.IsRemoveAdjustment;
+                adjInfo.requestorAdjustment.prebillAdjustment = adjInfoDetail.ReqAdjustmentDetails.IsPrebillAdjustment;
                 if (!adjInfoDetail.ReqAdjustmentDetails.AdjustmentType.Equals(McK.EIG.ROI.Client.Requestors.Model.AdjustmentType.PleaseSelect))
                 {
                     adjInfo.requestorAdjustment.adjustmentType = (McK.EIG.ROI.Client.Web_References.ROIRequestorWS.AdjustmentType)Enum.Parse
@@ -596,6 +597,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
                 requestorPayment.paymentId = requestorInviceList.PaymentId;
                 requestorPayment.facility = requestorInvoiceDetails.Facility;
                 requestorPayment.requestId = requestorInvoiceDetails.RequestId;
+                requestorPayment.prebillPayment = requestorInvoiceDetails.IsPrebillPayment;
                 RequestCoreDeliveryChargesPayments.Add(requestorPayment);
             }
             requestorPaymentList.paymentList = RequestCoreDeliveryChargesPayments.ToArray();

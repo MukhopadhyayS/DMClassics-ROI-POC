@@ -62,6 +62,8 @@ namespace McK.EIG.ROI.Client.Web_References.BillingCoreWS {
         
         private System.Threading.SendOrPostCallback autoApplyToInvoiceOperationCompleted;
         
+        private System.Threading.SendOrPostCallback updateInvoiceBalanceOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -159,6 +161,9 @@ namespace McK.EIG.ROI.Client.Web_References.BillingCoreWS {
         
         /// <remarks/>
         public event autoApplyToInvoiceCompletedEventHandler autoApplyToInvoiceCompleted;
+        
+        /// <remarks/>
+        public event updateInvoiceBalanceCompletedEventHandler updateInvoiceBalanceCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("transactionId")]
@@ -610,6 +615,38 @@ namespace McK.EIG.ROI.Client.Web_References.BillingCoreWS {
             if ((this.autoApplyToInvoiceCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.autoApplyToInvoiceCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("transactionId")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("Security")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:eig.mckesson.com/updateInvoiceBalance", RequestNamespace="urn:eig.mckesson.com", ResponseNamespace="urn:eig.mckesson.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void updateInvoiceBalance(long invoiceId, double invoiceBalance) {
+            this.Invoke("updateInvoiceBalance", new object[] {
+                        invoiceId,
+                        invoiceBalance});
+        }
+        
+        /// <remarks/>
+        public void updateInvoiceBalanceAsync(long invoiceId, double invoiceBalance) {
+            this.updateInvoiceBalanceAsync(invoiceId, invoiceBalance, null);
+        }
+        
+        /// <remarks/>
+        public void updateInvoiceBalanceAsync(long invoiceId, double invoiceBalance, object userState) {
+            if ((this.updateInvoiceBalanceOperationCompleted == null)) {
+                this.updateInvoiceBalanceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnupdateInvoiceBalanceOperationCompleted);
+            }
+            this.InvokeAsync("updateInvoiceBalance", new object[] {
+                        invoiceId,
+                        invoiceBalance}, this.updateInvoiceBalanceOperationCompleted, userState);
+        }
+        
+        private void OnupdateInvoiceBalanceOperationCompleted(object arg) {
+            if ((this.updateInvoiceBalanceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.updateInvoiceBalanceCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2722,6 +2759,10 @@ namespace McK.EIG.ROI.Client.Web_References.BillingCoreWS {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
     public delegate void autoApplyToInvoiceCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
+    public delegate void updateInvoiceBalanceCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 }
 
 #pragma warning restore 1591

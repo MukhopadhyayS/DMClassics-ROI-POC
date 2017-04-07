@@ -19,6 +19,7 @@ namespace McK.EIG.ROI.Client.Requestors.Model
         private string requestorName;
         private string requestorType;
         private bool isRemoveAdjustment;
+        private bool isPrebillAdjustment;
         #endregion
 
         #region Properties
@@ -79,6 +80,13 @@ namespace McK.EIG.ROI.Client.Requestors.Model
         {
             get { return adjustmentType; }
             set { adjustmentType = value; }
+        }
+
+        /// <remarks/>
+        public bool IsPrebillAdjustment
+        {
+            get { return isPrebillAdjustment; }
+            set { isPrebillAdjustment = value; }            
         }
         #endregion
     }

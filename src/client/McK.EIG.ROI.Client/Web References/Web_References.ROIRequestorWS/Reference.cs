@@ -1769,6 +1769,8 @@ namespace McK.EIG.ROI.Client.Web_References.ROIRequestorWS {
         
         private string facilityField;
         
+        private bool prebillPaymentField;
+        
         /// <remarks/>
         public long requestCoreDeliveryChargesId {
             get {
@@ -1866,6 +1868,16 @@ namespace McK.EIG.ROI.Client.Web_References.ROIRequestorWS {
             }
             set {
                 this.facilityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool prebillPayment {
+            get {
+                return this.prebillPaymentField;
+            }
+            set {
+                this.prebillPaymentField = value;
             }
         }
     }
@@ -2034,6 +2046,8 @@ namespace McK.EIG.ROI.Client.Web_References.ROIRequestorWS {
         
         private bool deleteField;
         
+        private bool prebillAdjustmentField;
+        
         /// <remarks/>
         public long id {
             get {
@@ -2161,6 +2175,16 @@ namespace McK.EIG.ROI.Client.Web_References.ROIRequestorWS {
             }
             set {
                 this.deleteField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool prebillAdjustment {
+            get {
+                return this.prebillAdjustmentField;
+            }
+            set {
+                this.prebillAdjustmentField = value;
             }
         }
     }
