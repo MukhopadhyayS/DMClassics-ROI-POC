@@ -3816,7 +3816,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         private void EnableInvoiceButton(bool enable)
         {
-            billingPaymentActionUI.PreBillButton.Enabled =
+            billingPaymentActionUI.PreBillButton.Enabled = (enable &&
+                                                            (release.Id > 0 || (request.HasDraftRelease || (request.ReleaseCount > 0 ? true : false))) &&
+                                                            documentChargeUI.TotalPages > 0);
             billingPaymentActionUI.InvoiceButton.Enabled =  Math.Round(BalanceDue - release.InvoicesBalanceDue, 2) > 0 && (enable &&
                                                             (release.Id > 0 || (request.HasDraftRelease || (request.ReleaseCount > 0 ? true : false))) &&
                                                             documentChargeUI.TotalPages > 0);
@@ -3927,6 +3929,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         {
 
                             balanceDue = totalRequestCost - reqInv.PayAdjTotal;
+                            if(balanceDue < 0)
+                            {
+                                double amt = Math.Abs(balanceDue);
+                                balanceDue = 0;
+                            }
                             BillingController.Instance.updateInvoiceBalance(reqInv.Id, balanceDue);
                             adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(reqInv.PayAdjTotal);
                             balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
