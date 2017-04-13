@@ -2367,6 +2367,12 @@
     <sql-query name="activateLatestPrebill">
   	 <![CDATA[
   	 
+  	    declare @reqDelChargesSeq bigint;
+  	    set @reqDelChargesSeq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where 
+		ROI_RequestCore_Seq = :requestId  and type='Prebill' and PreBill_Status = 'InActive' order by ROI_RequestCoreDeliveryCharges_Seq desc)
+		
+		if @reqDelChargesSeq is not null and @reqDelChargesSeq <> ''
+  	 
   	    UPDATE ROI_RequestCoreDeliveryCharges set PreBill_Status = 'Active' where ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where 
 		ROI_RequestCore_Seq = :requestId  and type='Prebill' and PreBill_Status = 'InActive' order by ROI_RequestCoreDeliveryCharges_Seq desc)
 		
