@@ -362,10 +362,10 @@ implements BillingCoreService {
                 
                 // Revert the adjustments applied on invoice to latest active prebill
                 requestCoreDeliveryDAO.updateInvoiceAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
-                
-                // Activate Latest Prebill Status to active since invoice request is canceled
-                requestCoreDeliveryDAO.activateLatestPrebill(requestCoreDeliveryCharges.getRequestCoreId());
             }
+            
+            // Activate Latest Prebill Status to active since invoice request is canceled
+            requestCoreDeliveryDAO.activateLatestPrebill(requestCoreDeliveryCharges.getRequestCoreId());
             
             // Update the Un-applied payments to applied payments to latest active prebill
             //requestCoreDeliveryDAO.updateUnappliedToAppliedPaymentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
