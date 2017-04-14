@@ -15,7 +15,7 @@ as
 BEGIN
 BEGIN TRY
 SET NOCOUNT ON
-if exists(select 1 from cabinet.dbo.ROI_ConversionStatus_RequestMain where ROI_RequestMain_Seq=@requestId)
+if exists(select 1 from cabinet.dbo.ROI_RequestMain where ROI_RequestMain_Seq=@requestId)
 begin
 exec ROI_Conversion_Delete_RequestCore @requestId
 end
@@ -71,13 +71,13 @@ DECLARE @tmpROIEncounter table (
 	MRN varchar(20), FACILITY varchar(10), ENCOUNTER varchar(20), ADMITTED smalldatetime, DISCHARGED smalldatetime, PT_TYPE varchar(10), SERVICE varchar(10), VIP bit, LOCKOUT bit, HAS_DEFICIENCY bit
 );
 DECLARE @tmpROIDocument table (
-	MRN varchar(20), FACILITY varchar(10), ENCOUNTER varchar(20), DOC_NAME varchar(30), SUBTITLE varchar(30), CHART_ORDER varchar(10), DOC_TYPE_ID varchar(max), DOC_ID varchar(max)
+	MRN varchar(20), FACILITY varchar(10), ENCOUNTER varchar(20), DOC_NAME varchar(30), SUBTITLE varchar(30), CHART_ORDER varchar(10), DOC_TYPE_ID varchar(max), DOC_ID float, [IMNET] varchar(50)
 );
 DECLARE @tmpROIVersion table (
-	DOC_ID varchar(max), VersionNumber varchar(max)
+	MRN varchar(20), FACILITY varchar(10), ENCOUNTER varchar(20), DOC_NAME varchar(30), SUBTITLE varchar(30), DOC_ID float, [IMNET] varchar(50), [VersionNumber] int
 );
 DECLARE @tmpROIPage table (
-	DOC_ID varchar(max), VersionNumber varchar(max), page varchar(max), imnet varchar(30), ContentCount varchar(max), SelectedForRelease bit, isreleased bit
+	MRN varchar(20), FACILITY varchar(10), ENCOUNTER varchar(20), DOC_NAME varchar(30), SUBTITLE varchar(30), DOC_ID float, [IMNET] varchar(50), [VersionNumber] int, PAGE varchar(max), ContentCount varchar(max), SelectedForRelease bit, isreleased bit
 );
 DECLARE @tmpROISupplementarityDocuments table (
 	DOCUMENTID varchar(max), DATEOFSERVICE smalldatetime, encounter varchar(256), docname varchar(30), subtitle varchar(256), MRN varchar(20), FACILITY varchar(10), DEPARTMENT varchar(256), PAGECOUNT varchar(max), COMMENT varchar(max), isreleased bit, ROI_BillingTier_Seq varchar(max), SelectedForRelease bit, DOCFACILITY varchar(256)
@@ -157,6 +157,7 @@ DECLARE @SupplementarityDocuments_IDX table (
 	,[ROI_SupplementarityDocuments_Seq] bigint NOT NULL
 	,[ROI_SupplementarityDocumentsCore_Seq] bigint NOT NULL
 );
+
 DECLARE @SupplementarityAttachments_IDX table (
 	[MRN] varchar(20)
 	,[FACILITY] char(10)
@@ -434,7 +435,7 @@ BEGIN CATCH
 END CATCH
 
 insert into @tmpROIPatient
-select
+SELECT
 	NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
 	NULLIF(t.c.value('@facility','varchar(10)'), '') as [FACILITY],
 	NULLIF(t.c.value('name[1]','varchar(40)'), '') as [NAME],
@@ -444,10 +445,10 @@ select
 	NULLIF(t.c.value('epn[1]','varchar(50)'), '') as [EPN],
 	[VIP] = case t.c.value('is-vip[1]','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
 	[PATIENTLOCKED] = case t.c.value('patientLocked[1]','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end
-from @request.nodes('/request/item[@source="hpf"]/patient') as t(c);
+FROM @request.nodes('/request/item[@source="hpf"]/patient') as t(c);
 
 insert into @tmpROIEncounter
-select
+SELECT
 	NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
 	NULLIF(t.c.value('@facility','varchar(10)'), '') as [FACILITY],
 	NULLIF(t2.c2.value('@id','varchar(20)'), '') as [ENCOUNTER],
@@ -458,11 +459,11 @@ select
 	[VIP] = case t2.c2.value('is-vip[1]','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
 	[LOCKOUT] = case t2.c2.value('is-locked[1]','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
 	[HAS_DEFICIENCY] = case t2.c2.value('hasDeficiency[1]','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end
-from @request.nodes('/request/item[@source="hpf"]/patient') as t(c)
+FROM @request.nodes('/request/item[@source="hpf"]/patient') as t(c)
 cross apply t.c.nodes('encounter') as t2(c2);
 
 insert into @tmpROIDocument
-	select
+	SELECT
 		NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
 		NULLIF(t.c.value('@facility','varchar(10)'), '') as [FACILITY],
 		null as [ENCOUNTER],
@@ -470,11 +471,13 @@ insert into @tmpROIDocument
 		NULLIF(t1.c1.value('subtitle[1]','varchar(30)'), '') as [SUBTITLE],
 		NULLIF(t1.c1.value('chart-order[1]','varchar(10)'), '') as [CHART_ORDER],
 		NULLIF(t1.c1.value('doc-id[1]','varchar(max)'), '') as [DOC_TYPE_ID],
-		NULLIF(t1.c1.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID]
-	from @request.nodes('/request/item[@source="hpf"]/patient') as t(c)
+		NULLIF(t1.c1.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
+		NULLIF(t0.c0.value('@imnet-id[1]','varchar(50)'), '') as [IMNET]
+	FROM @request.nodes('/request/item[@source="hpf"]/patient') as t(c)
 	cross apply t.c.nodes('global-document') as t1(c1)
+	cross apply t1.c1.nodes('version/page[1]') as t0(c0)
 Union
-	select
+	SELECT
 		NULLIF(t2.c2.value('@mrn','varchar(20)'), '') as [MRN],
 		NULLIF(t2.c2.value('@facility','varchar(10)'), '') as [FACILITY],
 		NULLIF(t3.c3.value('@id','varchar(20)'), '') as [ENCOUNTER],
@@ -482,49 +485,120 @@ Union
 		NULLIF(t4.c4.value('subtitle[1]','varchar(30)'), '') as [SUBTITLE],
 		NULLIF(t4.c4.value('chart-order[1]','varchar(10)'), '') as [CHART_ORDER],
 		NULLIF(t4.c4.value('doc-id[1]','varchar(max)'), '') as [DOC_TYPE_ID],
-		NULLIF(t4.c4.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID]
-	from @request.nodes('/request/item[@source="hpf"]/patient') as t2(c2)
+		NULLIF(t4.c4.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
+		NULLIF(t5.c5.value('@imnet-id[1]','varchar(50)'), '1') as [IMNET]
+	FROM @request.nodes('/request/item[@source="hpf"]/patient') as t2(c2)
 	cross apply t2.c2.nodes('encounter') as t3(c3)
-	cross apply t3.c3.nodes('document') as t4(c4);
+	cross apply t3.c3.nodes('document') as t4(c4)
+	cross apply t4.c4.nodes('version/page[1]') as t5(c5);
+	
+UPDATE a
+  SET a.doc_id = d.doc_id
+  FROM @tmpROIDocument a
+    JOIN cabinet.dbo.documents d on (
+    	a.facility = d.facility 
+    	AND a.encounter = d.encounter
+    	AND a.doc_name = d.doc_name 
+    	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
+	JOIN cabinet.dbo.pages p on (a.IMNET = p.imnet)
+	JOIN versions v on p.version_id = v.version_id
+  WHERE a.doc_id IS NULL
 
 insert into @tmpROIVersion
-	select
-		NULLIF(t.c.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
-		NULLIF(t1.c1.value('@number','varchar(max)'), '') as [VersionNumber]
-	from @request.nodes('/request/item[@source="hpf"]/patient/global-document') as t(c)
-	cross apply t.c.nodes('version') as t1(c1)
-Union
-	select
-		NULLIF(t2.c2.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
-		NULLIF(t3.c3.value('@number','varchar(max)'), '') as [VersionNumber]
-	from @request.nodes('/request/item[@source="hpf"]/patient/encounter/document') as t2(c2)
-	cross apply t2.c2.nodes('version') as t3(c3)
-
-insert into @tmpROIPage
-	select
+	SELECT
+		NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
+		NULLIF(t.c.value('@facility','varchar(10)'), '') as [FACILITY],
+		null as [ENCOUNTER],
+		NULLIF(t1.c1.value('@type','varchar(30)'), '') as [DOC_NAME],
+		NULLIF(t1.c1.value('subtitle[1]','varchar(30)'), '') as [SUBTITLE],
 		NULLIF(t1.c1.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
-		NULLIF(t2.c2.value('@number','varchar(max)'), '') as [VersionNumber],
-		NULLIF(t3.c3.value('@number','varchar(max)'), '') as [page],
-		NULLIF(t3.c3.value('@imnet-id','varchar(30)'), '') as [imnet],
-		NULLIF(t3.c3.value('@content-count','varchar(max)'), '') as [ContentCount],
-		[SelectedForRelease] = case t3.c3.value('@selected-for-release','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
-		[isreleased] = case t3.c3.value('@is-released','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end
-	from @request.nodes('/request/item[@source="hpf"]/patient/global-document') as t1(c1)
-	cross apply t1.c1.nodes('version') as t2(c2)
-	cross apply t2.c2.nodes('page') as t3(c3)
-Union 
-	select
+		NULLIF(t7.c7.value('@imnet-id[1]','varchar(50)'), '') as [IMNET],
+		NULLIF(t6.c6.value('@number','varchar(max)'), '') as [VersionNumber]
+	from @request.nodes('/request/item[@source="hpf"]/patient') as t(c)
+	cross apply t.c.nodes('global-document') as t1(c1)
+	cross apply t.c.nodes('version') as t6(c6)
+	cross apply t6.c6.nodes('page[1]') as t7(c7)
+Union
+	SELECT
+		NULLIF(t2.c2.value('@mrn','varchar(20)'), '') as [MRN],
+		NULLIF(t2.c2.value('@facility','varchar(10)'), '') as [FACILITY],
+		NULLIF(t3.c3.value('@id','varchar(20)'), '') as [ENCOUNTER],
+		NULLIF(t4.c4.value('@type','varchar(30)'), '') as [DOC_NAME],
+		NULLIF(t4.c4.value('subtitle[1]','varchar(30)'), '') as [SUBTITLE],
 		NULLIF(t4.c4.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
-		NULLIF(t5.c5.value('@number','varchar(max)'), '') as [VersionNumber],
-		NULLIF(t6.c6.value('@number','varchar(max)'), '') as [page],
-		NULLIF(t6.c6.value('@imnet-id','varchar(30)'), '') as [imnet],
-		NULLIF(t6.c6.value('@content-count','varchar(max)'), '') as [ContentCount],
-		[SelectedForRelease] = case t6.c6.value('@selected-for-release','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
-		[isreleased] = case t6.c6.value('@is-released','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end
-	from @request.nodes('/request/item[@source="hpf"]/patient/encounter/document') as t4(c4)
+		NULLIF(t8.c8.value('@imnet-id[1]','varchar(50)'), '1') as [IMNET],
+		NULLIF(t5.c5.value('@number','varchar(max)'), '') as [VersionNumber]
+	from @request.nodes('/request/item[@source="hpf"]/patient') as t2(c2)
+	cross apply t2.c2.nodes('encounter') as t3(c3)
+	cross apply t3.c3.nodes('document') as t4(c4)
 	cross apply t4.c4.nodes('version') as t5(c5)
-	cross apply t5.c5.nodes('page') as t6(c6);
+	cross apply t5.c5.nodes('page[1]') as t8(c8);
+
+UPDATE a
+  SET a.doc_id = d.doc_id
+  FROM @tmpROIVersion a
+    JOIN cabinet.dbo.documents d ON (
+    	a.facility = d.facility 
+    	AND a.encounter = d.encounter
+    	AND a.doc_name = d.doc_name 
+    	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
+	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
+	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+		AND v.VersionNumber = a.VersionNumber)
+  WHERE a.doc_id IS NULL
 	
+	
+ insert into @tmpROIPage
+	SELECT
+		NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
+		NULLIF(t.c.value('@facility','varchar(10)'), '') as [FACILITY],
+		null as [ENCOUNTER],
+		NULLIF(t1.c1.value('@type','varchar(30)'), '') as [DOC_NAME],
+		NULLIF(t1.c1.value('subtitle[1]','varchar(30)'), '') as [SUBTITLE],
+		NULLIF(t1.c1.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
+		NULLIF(t7.c7.value('@imnet-id','varchar(30)'), '') as [IMNET],
+		NULLIF(t6.c6.value('@number','varchar(max)'), '') as [VersionNumber],
+		NULLIF(t7.c7.value('@number','varchar(max)'), '') as [page],
+		NULLIF(t7.c7.value('@content-count','varchar(max)'), '') as [ContentCount],
+		[SelectedForRelease] = case t7.c7.value('@selected-for-release','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
+		[isreleased] = case t7.c7.value('@is-released','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end
+	from @request.nodes('/request/item[@source="hpf"]/patient') as t(c)
+	cross apply t.c.nodes('global-document') as t1(c1)
+	cross apply t.c.nodes('version') as t6(c6)
+	cross apply t6.c6.nodes('page') as t7(c7)
+Union
+	SELECT
+		NULLIF(t2.c2.value('@mrn','varchar(20)'), '') as [MRN],
+		NULLIF(t2.c2.value('@facility','varchar(10)'), '') as [FACILITY],
+		NULLIF(t3.c3.value('@id','varchar(20)'), '') as [ENCOUNTER],
+		NULLIF(t4.c4.value('@type','varchar(30)'), '') as [DOC_NAME],
+		NULLIF(t4.c4.value('subtitle[1]','varchar(30)'), '') as [SUBTITLE],
+		NULLIF(t4.c4.value('(doc-id/@value)[1]','varchar(max)'), '') as [DOC_ID],
+		NULLIF(t8.c8.value('@imnet-id','varchar(30)'), '') as [IMNET],
+		NULLIF(t5.c5.value('@number','varchar(max)'), '') as [VersionNumber],
+		NULLIF(t8.c8.value('@number','varchar(max)'), '') as [page],
+		NULLIF(t8.c8.value('@content-count','varchar(max)'), '') as [ContentCount],
+		[SelectedForRelease] = case t8.c8.value('@selected-for-release','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
+		[isreleased] = case t8.c8.value('@is-released','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end
+	from @request.nodes('/request/item[@source="hpf"]/patient') as t2(c2)
+	cross apply t2.c2.nodes('encounter') as t3(c3)
+	cross apply t3.c3.nodes('document') as t4(c4)
+	cross apply t4.c4.nodes('version') as t5(c5)
+	cross apply t5.c5.nodes('page') as t8(c8);
+
+  UPDATE a
+  SET a.doc_id = d.doc_id
+  FROM @tmpROIPage a
+    JOIN cabinet.dbo.documents d ON (
+    	a.facility = d.facility 
+    	AND a.encounter = d.encounter
+    	AND a.doc_name = d.doc_name 
+    	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
+	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
+	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+		AND v.VersionNumber = a.VersionNumber)
+  WHERE a.doc_id IS NULL
+  	
 insert into [cabinet].[dbo].[ROI_PATIENTS] ([MRN] ,[NAME] ,[SSN] ,[SEX] ,[DOB] ,[FACILITY] ,[EPN] ,[VIP] ,[LOCKOUT] )
 OUTPUT inserted.[ROI_Patients_Seq], inserted.[MRN], inserted.[FACILITY] INTO @ROI_PATIENTS_IDX
 select [MRN] ,[NAME] ,[SSN] ,[SEX] ,[DOB] ,[FACILITY] ,[EPN] ,[VIP] ,[PATIENTLOCKED]
@@ -566,7 +640,8 @@ from @tmpROIPage a
 join @ROI_VERSIONS_IDX b on  a.[DOC_ID] = b.[DOC_ID] and a.[VersionNumber] = b.[VersionNumber]
 
 insert into @tmpROISupplementarityDocuments
-select
+select [DOCUMENTID],  max([DATEOFSERVICE]), [encounter], [docname], [subtitle], [MRN], [FACILITY], max([DEPARTMENT]), max([PAGECOUNT]), max([COMMENT]), [isreleased], max([ROI_BillingTier_Seq]), max([SelectedForRelease]), [DOCFACILITY] 
+FROM (SELECT 
 	NULLIF(t.c.value('@id','varchar(max)'), '') as [DOCUMENTID],
 	NULLIF(t.c.value('date-of-service[1]','smalldatetime'), '') as [DATEOFSERVICE],
 	NULLIF(t.c.value('encounter[1]','varchar(256)'), '') as [encounter],
@@ -581,10 +656,12 @@ select
 	NULLIF(t.c.value('billing-tier[1]','varchar(max)'), '') as [ROI_BillingTier_Seq],
 	[SelectedForRelease] = case t.c.value('selected-for-release[1]','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
 	NULLIF(t.c.value('facility[1]','varchar(256)'), '') as [DOCFACILITY]
-from @request.nodes('/request/item[@source="hpf"]/patient/supplemental-encounter/document') as t(c);
+from @request.nodes('/request/item[@source="hpf"]/patient/supplemental-encounter/document') as t(c) 
+) as x
+group by [DOCUMENTID], [encounter], [docname], [subtitle], [MRN], [FACILITY],  [isreleased], [DOCFACILITY] 
 
 insert into [cabinet].[dbo].[ROI_SupplementarityDocumentsCore] ( [ROI_SupplementarityDocuments_Seq] ,[ROI_Patients_Seq] ,[DATEOFSERVICE] ,[encounter] ,[docname] ,[subtitle] ,[MRN] ,[FACILITY] ,[DEPARTMENT] ,[PAGECOUNT] ,[COMMENT] ,[isreleased] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
-OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityDocuments_Seq], inserted.[ROI_SupplementarityDocumentsCore_Seq] INTO @SupplementarityDocuments_IDX
+OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityDocuments_Seq], inserted.[ROI_SupplementarityDocumentsCore_Seq], inserted DATEOFSERVICE, INSERTED SUBTITLE INTO @SupplementarityDocuments_IDX
 select * from
 (select
 	(select [ROI_SupplementarityDocuments_Seq] from [cabinet].[dbo].ROI_ConversionMapping_SupplementarityDocuments  c  where a.MRN = c.[MRN] and a.FACILITY = c.facility and a.[DOCUMENTID] = c.document_id and c.ROI_RequestCore_Seq is null) as ROI_SupplementarityDocuments_Seq
@@ -2437,6 +2514,15 @@ END
         <![CDATA[
 			exec cabinet.dbo.ROI_Conversion_RequestMain :requestId, ':conversionSource', ':isWheaton'
         ]]>
+	</sql-query>
+
+	<sql-query name="getRequestToConvert">
+        <![CDATA[
+			SELECT t1.ROI_RequestMain_Seq
+			FROM cabinet.dbo.ROI_RequestMain t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_RequestMain t2
+			on t1.ROI_RequestMain_Seq = t2.ROI_RequestMain_Seq
+			where t1.ROI_RequestMain_Seq = :requestId and t2.Status != 'Completed'
+	    ]]>
 	</sql-query>
 
 	<sql-query name="getRequestsToConvert">
