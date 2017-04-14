@@ -640,8 +640,7 @@ from @tmpROIPage a
 join @ROI_VERSIONS_IDX b on  a.[DOC_ID] = b.[DOC_ID] and a.[VersionNumber] = b.[VersionNumber]
 
 insert into @tmpROISupplementarityDocuments
-select [DOCUMENTID],  max([DATEOFSERVICE]), [encounter], [docname], [subtitle], [MRN], [FACILITY], max([DEPARTMENT]), max([PAGECOUNT]), max([COMMENT]), [isreleased], max([ROI_BillingTier_Seq]), max([SelectedForRelease]), [DOCFACILITY] 
-FROM (SELECT 
+select
 	NULLIF(t.c.value('@id','varchar(max)'), '') as [DOCUMENTID],
 	NULLIF(t.c.value('date-of-service[1]','smalldatetime'), '') as [DATEOFSERVICE],
 	NULLIF(t.c.value('encounter[1]','varchar(256)'), '') as [encounter],
@@ -656,12 +655,11 @@ FROM (SELECT
 	NULLIF(t.c.value('billing-tier[1]','varchar(max)'), '') as [ROI_BillingTier_Seq],
 	[SelectedForRelease] = case t.c.value('selected-for-release[1]','varchar(10)') when 'true' then 1  when 'false' then 0 else 0 end,
 	NULLIF(t.c.value('facility[1]','varchar(256)'), '') as [DOCFACILITY]
-from @request.nodes('/request/item[@source="hpf"]/patient/supplemental-encounter/document') as t(c) 
-) as x
-group by [DOCUMENTID], [encounter], [docname], [subtitle], [MRN], [FACILITY],  [isreleased], [DOCFACILITY] 
+from @request.nodes('/request/item[@source="hpf"]/patient/supplemental-encounter/document') as t(c);
 
 insert into [cabinet].[dbo].[ROI_SupplementarityDocumentsCore] ( [ROI_SupplementarityDocuments_Seq] ,[ROI_Patients_Seq] ,[DATEOFSERVICE] ,[encounter] ,[docname] ,[subtitle] ,[MRN] ,[FACILITY] ,[DEPARTMENT] ,[PAGECOUNT] ,[COMMENT] ,[isreleased] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
-OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityDocuments_Seq], inserted.[ROI_SupplementarityDocumentsCore_Seq], inserted DATEOFSERVICE, INSERTED SUBTITLE INTO @SupplementarityDocuments_IDX
+OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityDocuments_Seq], inserted.[ROI_SupplementarityDocumentsCore_Seq] INTO @SupplementarityDocuments_IDX
+
 select * from
 (select
 	(select [ROI_SupplementarityDocuments_Seq] from [cabinet].[dbo].ROI_ConversionMapping_SupplementarityDocuments  c  where a.MRN = c.[MRN] and a.FACILITY = c.facility and a.[DOCUMENTID] = c.document_id and c.ROI_RequestCore_Seq is null) as ROI_SupplementarityDocuments_Seq
