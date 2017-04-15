@@ -115,7 +115,7 @@ DECLARE @tmpRequestCoreDeliveryPage table (
 	ROI_RequestDelivery_seq int, page varchar(max), imnet varchar(30)
 );
 DECLARE @tmpRequestCoreDeliverySupplementarityDocuments table (
-	ROI_RequestDelivery_seq int, DOCUMENTID varchar(max), MRN varchar(20), FACILITY varchar(10)
+	ROI_RequestDelivery_seq int, DOCUMENTID varchar(max), MRN varchar(20), FACILITY varchar(10), ROW_NUMBER int 
 );
 DECLARE @tmpRequestCoreDeliverySupplementarityAttachments table (
 	ROI_RequestDelivery_seq int, ATTACHMENTID varchar(max), MRN varchar(20), FACILITY varchar(10)
