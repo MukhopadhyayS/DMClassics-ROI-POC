@@ -659,7 +659,6 @@ from @request.nodes('/request/item[@source="hpf"]/patient/supplemental-encounter
 
 insert into [cabinet].[dbo].[ROI_SupplementarityDocumentsCore] ( [ROI_SupplementarityDocuments_Seq] ,[ROI_Patients_Seq] ,[DATEOFSERVICE] ,[encounter] ,[docname] ,[subtitle] ,[MRN] ,[FACILITY] ,[DEPARTMENT] ,[PAGECOUNT] ,[COMMENT] ,[isreleased] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
 OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityDocuments_Seq], inserted.[ROI_SupplementarityDocumentsCore_Seq] INTO @SupplementarityDocuments_IDX
-
 select * from
 (select
 	(select [ROI_SupplementarityDocuments_Seq] from [cabinet].[dbo].ROI_ConversionMapping_SupplementarityDocuments  c  where a.MRN = c.[MRN] and a.FACILITY = c.facility and a.[DOCUMENTID] = c.document_id and c.ROI_RequestCore_Seq is null) as ROI_SupplementarityDocuments_Seq
@@ -805,7 +804,7 @@ insert into [cabinet].[dbo].[ROI_RequestCoretoROI_SupplementalPatientsCore] (ROI
 -- Update Conversion Mapping
 insert into [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityDocuments] ( [ROI_RequestCore_Seq] ,[MRN] ,[FACILITY] ,[document_id] ,[ROI_SupplementarityDocuments_Seq] ,[ROI_SupplementarityDocumentsCore_Seq])
 select @requestId, a.[MRN], a.[FACILITY], b.[document_id], a.[ROI_SupplementarityDocuments_Seq], a.[ROI_SupplementarityDocumentsCore_Seq]
-from @SupplementarityDocuments_IDX a join [cabinet].[dbo].ROI_ConversionMapping_SupplementarityDocuments b on a.ROI_SupplementarityDocuments_Seq = b.ROI_SupplementarityDocuments_Seq
+from @SupplementarityDocuments_IDX a join [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityDocuments] b on a.ROI_SupplementarityDocuments_Seq = b.ROI_SupplementarityDocuments_Seq
 where b.[ROI_RequestCore_Seq] is null
 
 insert into [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityAttachments] ([ROI_RequestCore_Seq] ,[MRN] ,[FACILITY] ,[attachment_id] ,[ROI_SupplementarityAttachments_Seq] ,[ROI_SupplementarityAttachmentsCore_Seq])
@@ -2000,28 +1999,51 @@ select @delSeqValue as ROI_RequestCoreDelivery_seq,
 set @pagesCount = (select MIN([ROI_Pages_Seq]) from @ROI_PAGES_IDX c,@tmpRequestCoreDeliveryPage a where a.[IMNET] = c.[IMNET] AND a.[page] = c.[page] and [ROI_Pages_Seq] > @pagesCount)
 end
 -- CR 387959/CR 388558 - End
-insert into @tmpRequestCoreDeliverySupplementarityDocuments
-select
+
+-- DE10558
+INSERT INTO @tmpRequestCoreDeliverySupplementarityDocuments
+SELECT *,
+	ROW_NUMBER() OVER(PARTITION BY [DOCUMENTID] ORDER BY [DOCUMENTID]) as ROW_NUMBER FROM (
+SELECT
 	ROI_RequestDelivery_seq as ROI_RequestDelivery_seq,
 	NULLIF(t.c.value('@id','varchar(max)'), '') as [DOCUMENTID],
 	NULLIF(t.c.value('../../@mrn','varchar(max)'), '') as [MRN],
 	NULLIF(t.c.value('../../@facility','varchar(max)'), '') as [FACILITY]
 from ROI_RequestDelivery
-	cross apply [RequestDeliveryXML].nodes('/release/item[@source="hpf"]/patient/supplemental-encounter/document') t(c)
+	cross apply [RequestDeliveryXML].nodes('/release/item[@source="hpf"]/patient/supplemental-encounter/document') t(c) ) as X
 where
 	[ROI_RequestDelivery_seq] in (Select [ROI_RequestDelivery_seq] from @ROI_RequestCoreDelivery_IDX);
 
-insert into ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore ( ROI_RequestCoreDelivery_seq ,ROI_SupplementarityDocumentsCore_Seq)
-select * from 
-(select
-	(select [ROI_RequestCoreDelivery_Seq] from @ROI_RequestCoreDelivery_IDX  b where a.[ROI_RequestDelivery_Seq] = b.[ROI_RequestDelivery_Seq]) as ROI_RequestCoreDelivery_Seq,
-	(select [ROI_SupplementarityDocumentsCore_Seq] from ROI_ConversionMapping_SupplementarityDocuments  c
+
+DECLARE @tmpROI_ConversionMapping_SupplementarityDocuments table (
+	[mrn] [varchar](20) NOT NULL,
+	[facility] [varchar](10) NOT NULL,
+	[document_id] [bigint] NOT NULL,
+	[ROI_RequestCore_Seq] [bigint] NULL,
+	[ROI_SupplementarityDocuments_Seq] [bigint] NOT NULL,
+	[ROI_SupplementarityDocumentsCore_Seq] [bigint] NOT NULL,
+	ROW_NUMBER int NOT NULL
+);
+
+INSERT into @tmpROI_ConversionMapping_SupplementarityDocuments
+SELECT [mrn],[facility],[document_id],[ROI_RequestCore_Seq],[ROI_SupplementarityDocuments_Seq],[ROI_SupplementarityDocumentsCore_Seq],
+ROW_NUMBER() OVER(PARTITION BY [document_id] ORDER BY [ROI_SupplementarityDocumentsCore_Seq]) as ROW_NUMBER
+FROM ROI_ConversionMapping_SupplementarityDocuments
+WHERE ROI_RequestCore_Seq = @requestId
+
+INSERT into ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore ( ROI_RequestCoreDelivery_seq ,ROI_SupplementarityDocumentsCore_Seq)
+SELECT * from 
+(SELECT  
+	(SELECT [ROI_RequestCoreDelivery_Seq] from @ROI_RequestCoreDelivery_IDX  b where a.[ROI_RequestDelivery_Seq] = b.[ROI_RequestDelivery_Seq]) as ROI_RequestCoreDelivery_Seq,
+	(SELECT [ROI_SupplementarityDocumentsCore_Seq] from @tmpROI_ConversionMapping_SupplementarityDocuments c
 		where a.[MRN] = c.[MRN]
 		AND a.[FACILITY] = c.[FACILITY]
 		AND a.[DOCUMENTID] = c.[document_id]
-		AND c.ROI_RequestCore_Seq = @requestId	) as ROI_SupplementarityDocumentsCore_Seq
-from @tmpRequestCoreDeliverySupplementarityDocuments a) d
-where d.ROI_SupplementarityDocumentsCore_Seq is not null
+		AND c.ROI_RequestCore_Seq = @requestId 
+		AND a.ROW_NUMBER = c.ROW_NUMBER ) as ROI_SupplementarityDocumentsCore_Seq
+FROM @tmpRequestCoreDeliverySupplementarityDocuments a) d
+WHERE d.ROI_SupplementarityDocumentsCore_Seq is not null;
+-- END DE10558
 
 insert into @tmpRequestCoreDeliverySupplementarityAttachments
 select
