@@ -3362,8 +3362,8 @@ implements RequestCoreDeliveryDAO {
          }
     }
     
-    public void updateInvoicePaymentsToPrebill(long requestId) {
-        final String logSM = "updateInvoicePaymentsToPrebill(requestId)";
+    public void updateInvoicePaymentsToPrebill(long requestId, long invoiceId) {
+        final String logSM = "updateInvoicePaymentsToPrebill(requestId, invoiceId)";
 
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + requestId);
@@ -3373,7 +3373,8 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String query = session.getNamedQuery("updateInvoicePaymentsToPrebill").getQueryString();
             SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
+            sqlQuery.setParameter("invoiceId", invoiceId, Hibernate.LONG);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3397,8 +3398,8 @@ implements RequestCoreDeliveryDAO {
     }
     
     //US16834 changes to Include requests in the pre-bill status on the payments/adjustments popup(This function will convert prebill adjustments to invoice adjustments).
-    public void updateInvoiceAdjustmentsToPrebill(long requestId) {
-        final String logSM = "updateInvoiceAdjustmentsToPrebill(requestId)";
+    public void updateInvoiceAdjustmentsToPrebill(long requestId, long invoiceId) {
+        final String logSM = "updateInvoiceAdjustmentsToPrebill(requestId, invoiceId)";
 
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + requestId);
@@ -3408,7 +3409,8 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String query = session.getNamedQuery("updateInvoiceAdjustmentsToPrebill").getQueryString();
             SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
+            sqlQuery.setParameter("invoiceId", invoiceId, Hibernate.LONG);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {

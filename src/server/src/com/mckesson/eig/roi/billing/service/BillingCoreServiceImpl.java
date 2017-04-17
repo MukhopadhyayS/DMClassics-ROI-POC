@@ -334,7 +334,7 @@ implements BillingCoreService {
             // unMapPaymentsAdjustmentsDoneByDialog(requestCoreDeliveryDAO, requestCoreDeliveryCharges.getRequestCoreId());
             
             // To add back the amount to Requestor Account
-            boolean onlyInvoicePaymentsAdjustments = revertInvoiceAppliedAmount(amtList, invoiceId, requestCoreDeliveryCharges.getRequestCoreId(), date, requestCoreDeliveryDAO);
+            revertInvoiceAppliedAmount(amtList, invoiceId, requestCoreDeliveryCharges.getRequestCoreId(), date, requestCoreDeliveryDAO);
             
             // reverts the request level charges for the invoices
             // the Release Cost is the base charge of the newly created invoice
@@ -356,13 +356,11 @@ implements BillingCoreService {
             // Delete the Patients for the corresponding DeliveryCharges Seq.
             requestCoreDeliveryDAO.deleteRequestCoreDeliveryChargesInvoicePatients(invoiceId);
             
-            if (!onlyInvoicePaymentsAdjustments) {
-                // Revert the payments applied on invoice to latest active prebill
-                requestCoreDeliveryDAO.updateInvoicePaymentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
+            // Revert the payments applied on invoice to latest active prebill
+            requestCoreDeliveryDAO.updateInvoicePaymentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId(), invoiceId);
                 
-                // Revert the adjustments applied on invoice to latest active prebill
-                requestCoreDeliveryDAO.updateInvoiceAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId());
-            }
+            // Revert the adjustments applied on invoice to latest active prebill
+            requestCoreDeliveryDAO.updateInvoiceAdjustmentsToPrebill(requestCoreDeliveryCharges.getRequestCoreId(), invoiceId);
             
             // Activate Latest Prebill Status to active since invoice request is canceled
             requestCoreDeliveryDAO.activateLatestPrebill(requestCoreDeliveryCharges.getRequestCoreId());
@@ -435,10 +433,9 @@ implements BillingCoreService {
      * @param requestorDAO
      */
     @SuppressWarnings({"unchecked"})
-    private boolean revertInvoiceAppliedAmount(List<RequestorAdjustmentsPayments> amtList, long invoiceId, long requestCoreId, Timestamp date, RequestCoreDeliveryDAO requestCoreDeliveryDAO) {
+    private void revertInvoiceAppliedAmount(List<RequestorAdjustmentsPayments> amtList, long invoiceId, long requestCoreId, Timestamp date, RequestCoreDeliveryDAO requestCoreDeliveryDAO) {
         RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
         List<RequestorAdjustmentsPayments> filteredPrebillPayAdjList = null;
-        boolean onlyInvoicePaymentsAdjustments = false;
         List<RequestorAdjustmentsPayments> prebillAmtList = filterPrebillPaymentsAdjustments(amtList);
         if (!CollectionUtilities.isEmpty(prebillAmtList)) {
             filteredPrebillPayAdjList = new ArrayList<RequestorAdjustmentsPayments>(prebillAmtList);
@@ -461,12 +458,10 @@ implements BillingCoreService {
         }
         List<RequestorAdjustmentsPayments> filteredInvoicePayAdjList = (List<RequestorAdjustmentsPayments>) CollectionUtils.subtract(amtList, filteredPrebillPayAdjList);
         if (filteredInvoicePayAdjList != null && filteredInvoicePayAdjList.size() == 0) {
-            onlyInvoicePaymentsAdjustments = true;
             filteredInvoicePayAdjList = new ArrayList<RequestorAdjustmentsPayments>(amtList);
         }
         // Revert the payments and adjustments done through payment and adjustment dialog
         unmapPaymentsAdjustmentsFromInvoiceFromDialog(filteredInvoicePayAdjList, requestCoreId, date, requestCoreDeliveryDAO, requestorDAO);
-        return onlyInvoicePaymentsAdjustments;
     }
     
     private List<RequestorAdjustmentsPayments> filterPrebillPaymentsAdjustments (List<RequestorAdjustmentsPayments> amtList) {

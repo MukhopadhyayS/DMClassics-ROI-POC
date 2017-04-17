@@ -2279,10 +2279,10 @@
   	 <![CDATA[
 			
 		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
-		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc )
+		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc)
 				
 		WHERE 
-			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' )
+			ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)
 									
    		]]>
    </sql-query>
@@ -2294,19 +2294,24 @@
 		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc )
 				
 		WHERE 
-			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' )
+			ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)
 									
    		]]>
     </sql-query>
     
     <sql-query name="updateInvoicePaymentsToPrebill">
   	 <![CDATA[
+  	 
+  	    declare @reqDelChargesSeq bigint;
+  	    set @reqDelChargesSeq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc )
 			
+	    if @reqDelChargesSeq is not null and @reqDelChargesSeq <> ''
+	    
 		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
-		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc )
+		SET ROI_RequestCoreDeliveryCharges_Seq = @reqDelChargesSeq
 				
 		WHERE 
-			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Invoice' )
+			ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
 			
 									
    		]]>
@@ -2314,12 +2319,17 @@
    
    <sql-query name="updateInvoiceAdjustmentsToPrebill">
   	 <![CDATA[
+  	 
+  	    declare @reqDelChargesSeq bigint;
+  	    set @reqDelChargesSeq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)
 			
+		if @reqDelChargesSeq is not null and @reqDelChargesSeq <> ''
+		
 		UPDATE ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
-		SET ROI_RequestCoreDeliveryCharges_Seq = (select top 1 ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type='Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc )
-				
+		SET ROI_RequestCoreDeliveryCharges_Seq = @reqDelChargesSeq
+					
 		WHERE 
-			ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = :requestId and type = 'Invoice' )
+			ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
 									
    		]]>
     </sql-query>

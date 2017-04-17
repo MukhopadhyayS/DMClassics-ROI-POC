@@ -521,9 +521,9 @@ extends ROIDAO {
      
      void updatePrebillAdjustmentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo);
      
-     void updateInvoicePaymentsToPrebill(long requestId);
+     void updateInvoicePaymentsToPrebill(long requestId, long invoiceId);
      
-     void updateInvoiceAdjustmentsToPrebill(long requestId);
+     void updateInvoiceAdjustmentsToPrebill(long requestId, long invoiceId);
      
     /* void updateUnappliedToAppliedPaymentsToPrebill(long requestId);
      
