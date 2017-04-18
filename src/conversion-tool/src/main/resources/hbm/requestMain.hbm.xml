@@ -504,6 +504,23 @@ UPDATE a
 	JOIN versions v on p.version_id = v.version_id
   WHERE a.doc_id IS NULL
 
+UPDATE a
+  SET a.doc_id = d.doc_id
+  FROM @tmpROIDocument a
+    JOIN cabinet.dbo.documents d on (
+    	a.facility = d.facility 
+    	AND a.mrn = d.mrn
+    	AND a.doc_name = d.doc_name 
+    	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
+	JOIN cabinet.dbo.pages p on (a.IMNET = p.imnet)
+	JOIN versions v on p.version_id = v.version_id
+  WHERE a.doc_id IS NULL
+
+UPDATE a
+  SET a.doc_id = (select doc_id from versions where version_id = (select version_id from pages where imnet = a.imnet))
+  FROM @tmpROIDocument a
+  WHERE a.doc_id IS NULL
+
 insert into @tmpROIVersion
 	SELECT
 		NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
@@ -546,7 +563,24 @@ UPDATE a
 	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL
-	
+
+UPDATE a
+  SET a.doc_id = d.doc_id
+  FROM @tmpROIVersion a
+    JOIN cabinet.dbo.documents d ON (
+    	a.facility = d.facility 
+    	AND a.mrn = d.mrn
+    	AND a.doc_name = d.doc_name 
+    	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
+	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
+	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+		AND v.VersionNumber = a.VersionNumber)
+  WHERE a.doc_id IS NULL	
+
+UPDATE a
+  SET a.doc_id = (select doc_id from versions where version_id = (select version_id from pages where imnet = a.imnet))
+  FROM @tmpROIVersion a
+  WHERE a.doc_id IS NULL	
 	
  insert into @tmpROIPage
 	SELECT
@@ -598,6 +632,24 @@ Union
 	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL
+  
+  UPDATE a
+  SET a.doc_id = d.doc_id
+  FROM @tmpROIPage a
+    JOIN cabinet.dbo.documents d ON (
+    	a.facility = d.facility 
+    	AND a.mrn = d.mrn
+    	AND a.doc_name = d.doc_name 
+    	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
+	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
+	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+		AND v.VersionNumber = a.VersionNumber)
+  WHERE a.doc_id IS NULL
+
+UPDATE a
+  SET a.doc_id = (select doc_id from versions where version_id = (select version_id from pages where imnet = a.imnet))
+  FROM @tmpROIPage a
+  WHERE a.doc_id IS NULL 
   	
 insert into [cabinet].[dbo].[ROI_PATIENTS] ([MRN] ,[NAME] ,[SSN] ,[SEX] ,[DOB] ,[FACILITY] ,[EPN] ,[VIP] ,[LOCKOUT] )
 OUTPUT inserted.[ROI_Patients_Seq], inserted.[MRN], inserted.[FACILITY] INTO @ROI_PATIENTS_IDX
@@ -640,7 +692,7 @@ from @tmpROIPage a
 join @ROI_VERSIONS_IDX b on  a.[DOC_ID] = b.[DOC_ID] and a.[VersionNumber] = b.[VersionNumber]
 
 insert into @tmpROISupplementarityDocuments
-select
+SELECT
 	NULLIF(t.c.value('@id','varchar(max)'), '') as [DOCUMENTID],
 	NULLIF(t.c.value('date-of-service[1]','smalldatetime'), '') as [DATEOFSERVICE],
 	NULLIF(t.c.value('encounter[1]','varchar(256)'), '') as [encounter],
@@ -661,7 +713,14 @@ insert into [cabinet].[dbo].[ROI_SupplementarityDocumentsCore] ( [ROI_Supplement
 OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityDocuments_Seq], inserted.[ROI_SupplementarityDocumentsCore_Seq] INTO @SupplementarityDocuments_IDX
 select * from
 (select
-	(select [ROI_SupplementarityDocuments_Seq] from [cabinet].[dbo].ROI_ConversionMapping_SupplementarityDocuments  c  where a.MRN = c.[MRN] and a.FACILITY = c.facility and a.[DOCUMENTID] = c.document_id and c.ROI_RequestCore_Seq is null) as ROI_SupplementarityDocuments_Seq
+	(select c.[ROI_SupplementarityDocuments_Seq] from ROI_ConversionMapping_SupplementarityDocuments c  
+	join ROI_SupplementarityDocuments sd on (c.ROI_SupplementarityDocuments_Seq = sd.ROI_SupplementarityDocuments_Seq)
+	where a.MRN = sd.[MRN] and a.FACILITY = sd.facility 
+	AND a.[DOCUMENTID] = c.document_id 
+	AND a.DOCNAME = sd.DOCNAME 
+	AND a.DOCFACILITY = sd.DOCFACILITY 
+	AND a.SUBTITLE = sd.SUBTITLE 
+	AND c.ROI_RequestCore_Seq is null) as ROI_SupplementarityDocuments_Seq
 	,b.[ROI_Patients_Seq]  ,a.[DATEOFSERVICE] ,a.[encounter] ,a.[docname] ,a.[subtitle] ,a.[MRN] ,a.[FACILITY] ,a.[DEPARTMENT] ,a.[PAGECOUNT] ,a.[COMMENT] ,a.[isreleased] ,a.[ROI_BillingTier_Seq] ,a.[SelectedForRelease] ,a.[DOCFACILITY] ,@Created_Dt as Created_Dt  ,@Modified_Dt as Modified_Dt ,@Created_By_Seq as Created_By_Seq ,@Modified_By_Seq as Modified_By_Seq ,@Record_Version as Record_Version
 from @tmpROISupplementarityDocuments a inner join @ROI_PATIENTS_IDX b on  a.MRN = b.[MRN] and a.FACILITY = b.facility) d
 where d.ROI_SupplementarityDocuments_Seq is not null
@@ -2540,8 +2599,8 @@ END
         <![CDATA[
 			SELECT t1.ROI_RequestMain_Seq
 			FROM cabinet.dbo.ROI_RequestMain t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_RequestMain t2
-			on t1.ROI_RequestMain_Seq = t2.ROI_RequestMain_Seq
-			where t1.ROI_RequestMain_Seq = :requestId and t2.Status != 'Completed'
+			on t1.ROI_RequestMain_Seq = t2.ROI_RequestMain_Seq and (t2.Status = 'Completed')
+			where t2.ROI_RequestMain_Seq IS NULL AND t1.ROI_RequestMain_Seq = :requestId
 	    ]]>
 	</sql-query>
 
@@ -2576,6 +2635,7 @@ END
 			where t2.ROI_RequestMain_Seq IS NULL
         ]]>
 	</sql-query>
+	
 
 	<sql-query name="cleanupRequestCoreTables">
         <![CDATA[
