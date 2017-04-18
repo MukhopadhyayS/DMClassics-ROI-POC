@@ -28,10 +28,6 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.codecs.OracleCodec;
-import org.owasp.esapi.codecs.PushbackString;
-import org.owasp.esapi.codecs.WindowsCodec;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
@@ -52,7 +48,7 @@ import com.mckesson.eig.roi.request.model.RequestEventCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoice;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
-import com.mckesson.eig.roi.utils.MSSQLCodec;
+import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
 import com.mckesson.eig.utility.log.Log;
 import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
@@ -71,6 +67,7 @@ implements RequestCoreDAO {
     private static final Log LOG = LogFactory.getLogger(RequestCoreDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static RequestCoreDAOHelper _helper = new RequestCoreDAOHelper();
+    private static final SqlEncoderAdvanced ENCODER_ADVANCED = new SqlEncoderAdvanced();
 
     /**
      * @see com.mckesson.eig.roi.request.dao.RequestCoreDAO
@@ -92,11 +89,8 @@ implements RequestCoreDAO {
             boolean hasPagination = (paginationData != null);
             HashMap<String, String> parameters =  new HashMap<String, String>();
             Session session = getSession();
-            MSSQLCodec codec = new MSSQLCodec();
-            String finalQuery = ESAPI.encoder().encodeForSQL(codec, _helper.constructSearchSQLQuery(searchCriteria, session, parameters));
-            finalQuery = ESAPI.encoder().encodeForSQL(codec, _helper.constructRetrieveRequestDataQuery(searchCriteria, session, finalQuery));
-            String updateSQL = ESAPI.encoder().encodeForSQL(codec, finalQuery);
-            SQLQuery sqlQuery = session.createSQLQuery(updateSQL);
+            String finalQuery =  _helper.constructSearchSQLQuery(searchCriteria, session, parameters);
+            SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
             sqlQuery.addScalar("requestId", Hibernate.LONG);
             sqlQuery.addScalar("receiptDate", Hibernate.TIMESTAMP);
             sqlQuery.addScalar("requestStatus", Hibernate.STRING);
@@ -116,7 +110,8 @@ implements RequestCoreDAO {
             Set<String> keys = parameters.keySet();
             for(String key: keys){
                 String value = parameters.get(key);
-                sqlQuery.setParameter(key, value);
+                String encodedValue = ENCODER_ADVANCED.encodeForSql(value);
+                sqlQuery.setParameter(key, encodedValue);
             }
 
             sqlQuery.setResultTransformer(Transformers.aliasToBean(RequestCoreSearchResult.class));
@@ -161,15 +156,14 @@ implements RequestCoreDAO {
         try {
             Session session = getSession();
             HashMap<String, String> parameters =  new HashMap<String, String>();
-            MSSQLCodec codec = new MSSQLCodec();
-            String finalQuery = ESAPI.encoder().encodeForSQL(codec, _helper.constructSearchSQLQuery(searchCriteria, session, parameters));
-            String updateSQL = ESAPI.encoder().encodeForSQL(codec, finalQuery);
-            SQLQuery sqlQuery = session.createSQLQuery(updateSQL);
+            String finalQuery = _helper.constructSearchSQLQuery(searchCriteria, session, parameters);
+            SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
             sqlQuery.addScalar("requestId", Hibernate.LONG);
             Set<String> keys = parameters.keySet();
             for(String key: keys){
                 String value = parameters.get(key);
-                sqlQuery.setParameter(key, value);
+                String encodedValue = ENCODER_ADVANCED.encodeForSql(value);
+                sqlQuery.setParameter(key, encodedValue);
             }
 
             List<Long> list = sqlQuery.list();
