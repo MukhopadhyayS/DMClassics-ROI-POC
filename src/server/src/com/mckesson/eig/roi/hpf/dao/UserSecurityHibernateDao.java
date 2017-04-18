@@ -18,15 +18,13 @@ package com.mckesson.eig.roi.hpf.dao;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.owasp.esapi.ESAPI;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.hpf.model.UserFacility;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.eig.roi.utils.MSSQLCodec;
-import com.mckesson.eig.roi.utils.MSSQLCodecAdvanced;
+import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
 import com.mckesson.eig.utility.log.Log;
 import com.mckesson.eig.utility.log.LogFactory;
 
@@ -41,6 +39,7 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
             .getLogger(UserSecurityHibernateDao.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static Object[] _params;
+    private static final SqlEncoderAdvanced ENCODER_ADVANCED = new SqlEncoderAdvanced();
 
     public UserSecurityHibernateDao() {
         super();
@@ -58,10 +57,9 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + loginId);
         }
-        final MSSQLCodecAdvanced codec = new MSSQLCodecAdvanced();
         User user = (User) getHibernateTemplate().execute(new HibernateCallback() {
 
-                    String cleanLoginId = ESAPI.encoder().encodeForSQL(codec, loginId);
+                    String cleanLoginId = ENCODER_ADVANCED.encodeForSql(loginId);
                     public Object doInHibernate(Session s) {
                         return s.createQuery("select u from User u where u.loginId ='" + cleanLoginId + "'").uniqueResult();
                     }
