@@ -90,6 +90,7 @@ implements RequestCoreDAO {
             HashMap<String, String> parameters =  new HashMap<String, String>();
             Session session = getSession();
             String finalQuery =  _helper.constructSearchSQLQuery(searchCriteria, session, parameters);
+            finalQuery = _helper.constructRetrieveRequestDataQuery(searchCriteria, session, finalQuery);
             SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
             sqlQuery.addScalar("requestId", Hibernate.LONG);
             sqlQuery.addScalar("receiptDate", Hibernate.TIMESTAMP);
