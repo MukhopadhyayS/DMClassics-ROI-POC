@@ -44,6 +44,15 @@ public class ConversionProcessor implements Runnable {
     private static final int SLEEP_TIME = 100;
     private static Map<String, BillingLocation> _facilityMapper;
     private static Map<String, BillingLocation> _userMapper;
+    private int _requestId = 0;
+    
+	public int getRequestId() {
+		return _requestId;
+	}
+
+	public void setRequestId(int requestId) {
+		_requestId = requestId;
+	}
 
 	private enum TASK {
 		FREEFORM_FACILITY("Non-HPF Freeform Facilities"), SUPPLEMENTAL("Non-HPF Patients"), REQUEST("Requests"), REQUESTOR_LETTER("Requestor letters");
@@ -69,6 +78,7 @@ public class ConversionProcessor implements Runnable {
 		ConversionProcessor.logger.debug("Entering");
 		ConversionStatus.getInstance().setFreeformFacilitiesTotal(this.totalTasksToConvert(Constants.QUERY_TOTAL_FREEFORM_FACILITITES));
 		ConversionStatus.getInstance().setSupplementalsTotal(this.totalTasksToConvert(Constants.QUERY_TOTAL_SUPPLEMENTALS));
+		
 		ConversionStatus.getInstance().setRequestsTotal(this.totalTasksToConvert(Constants.QUERY_TOTAL_REQUESTS));
 //		ConversionStatus.getInstance().setRequestorLettersTotal(this.totalTasksToConvert(Constants.QUERY_TOTAL_REQUESTORLETTERS));
 
@@ -165,63 +175,74 @@ public class ConversionProcessor implements Runnable {
 		if(ConversionStatus.getInstance().getErrored()) {
 			return;
 		}
-		System.out.println("\nConverting Requests...");
 		int numThreads = Integer.parseInt(Configuration.getProperties().getProperty(Constants.NUM_THREADS_PROPERTY));
         WorkerPool pool = new WorkerPool(numThreads);
-        List<RequestUnitOfWork> tasks = createConvertTask();
-		Iterator<RequestUnitOfWork> i = tasks.iterator();
-		
-		// convert first request within this thread. this would allow for sql server to compile stored procedure
-		RequestUnitOfWork work = i.next();
-		work.run();
-		
-		while (i.hasNext()) {
-            while (!pool.isWorkerAvailable()) {
-    			try {
-    				// remove lock
-    				Thread.sleep(SLEEP_TIME);
-    			} catch (InterruptedException ie) {
-    				// ignored
-    			}
-            }
-            work = i.next();
-            int retry = 0;
-            Worker worker  = pool.getWorkerForWorkload(work);
-            while (worker == null && retry < 5) {
-            	try {
-            		ConversionProcessor.logger.warn("Fail to get work. Request Id = " + work.getRequestId() + " . Retry " + (retry + 1));
-    				Thread.sleep(SLEEP_TIME);
-                	worker  = pool.getWorkerForWorkload(work);
-	   			} catch (Throwable  ie) {
-	    				// ignored
-    			}
-	            retry ++;
-            	if (retry == 5) {
-            		ConversionProcessor.logger.error("Thread pool is corrupted. Creating new pool. Some requests might not be converted. Rerun conversion tool");
-            		pool.finishAll();
-            		pool = new WorkerPool(numThreads);
-            		ConversionStatus.getInstance().incrementRequestsErrored();
-             	}
-            }
-		}
-        boolean isFinished = false;
-        while (!isFinished) {
-        	if (pool.isAllWorkersAvailable()) {
-        		isFinished = true;
-        	} else {
- 				try {
-					// remove lock
-					Thread.sleep(SLEEP_TIME);
-				} catch (InterruptedException ie) {
-					// ignored
-				}
-        	}
+		List<RequestUnitOfWork> tasks = null;
+        if (_requestId == 0) {
+    		System.out.println("\nConverting Requests...");
+        	tasks = createConvertTask();
+        } else {
+    		System.out.println("\nConverting Request:" + _requestId);
+        	tasks = createConvertTask(_requestId);
         }
-		if(ConversionStatus.getInstance().getErrored()) {
-			System.out.println("\nConverting Requests... ERROR");
-		} else {
-			System.out.println("\nConverting Requests... SUCCESS");
-		}
+        if(tasks.size() > 0) {
+			Iterator<RequestUnitOfWork> i = tasks.iterator();
+			
+			// convert first request within this thread. this would allow for sql server to compile stored procedure
+			RequestUnitOfWork work = i.next();
+			work.run();
+			
+			while (i.hasNext()) {
+	            while (!pool.isWorkerAvailable()) {
+	    			try {
+	    				// remove lock
+	    				Thread.sleep(SLEEP_TIME);
+	    			} catch (InterruptedException ie) {
+	    				// ignored
+	    			}
+	            }
+	            work = i.next();
+	            int retry = 0;
+	            Worker worker  = pool.getWorkerForWorkload(work);
+	            while (worker == null && retry < 5) {
+	            	try {
+	            		ConversionProcessor.logger.warn("Fail to get work. Request Id = " + work.getRequestId() + " . Retry " + (retry + 1));
+	    				Thread.sleep(SLEEP_TIME);
+	                	worker  = pool.getWorkerForWorkload(work);
+		   			} catch (Throwable  ie) {
+		    				// ignored
+	    			}
+		            retry ++;
+	            	if (retry == 5) {
+	            		ConversionProcessor.logger.error("Thread pool is corrupted. Creating new pool. Some requests might not be converted. Rerun conversion tool");
+	            		pool.finishAll();
+	            		pool = new WorkerPool(numThreads);
+	            		ConversionStatus.getInstance().incrementRequestsErrored();
+	             	}
+	            }
+			
+		        boolean isFinished = false;
+		        while (!isFinished) {
+		        	if (pool.isAllWorkersAvailable()) {
+		        		isFinished = true;
+		        	} else {
+		 				try {
+							// remove lock
+							Thread.sleep(SLEEP_TIME);
+						} catch (InterruptedException ie) {
+							// ignored
+						}
+		        	}
+		        }
+				if(ConversionStatus.getInstance().getErrored()) {
+					System.out.println("\nConverting Requests... ERROR");
+				} else {
+					System.out.println("\nConverting Requests... SUCCESS");
+				}
+	        } 
+        }else {
+    		System.out.println("\nNo request is found.");
+         }
 	}
 	
 	private List<RequestUnitOfWork> createConvertTask() {
@@ -234,6 +255,16 @@ public class ConversionProcessor implements Runnable {
 		return result;
 	}
 	
+	private List<RequestUnitOfWork> createConvertTask(int requestId) {
+		Queue<Integer> queue = getTasksToConvert(requestId);
+	   	List<RequestUnitOfWork> result = new ArrayList<RequestUnitOfWork>();
+	   	if (queue.size() > 0) {
+	   		RequestUnitOfWork work = new RequestUnitOfWork(requestId, _facilityMapper, _userMapper);
+	   		result.add(work);
+	   	}
+		return result;
+	}
+
 	private UnitOfWork getUnitOfWork(TASK task, Integer taskId) {
 		if (task == TASK.SUPPLEMENTAL) {
 			return new SupplementalUnitOfWork(taskId);
@@ -274,6 +305,21 @@ public class ConversionProcessor implements Runnable {
 		return queue;
 	}
 
+	private Queue<Integer> getTasksToConvert(int requestId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.getNamedQuery("getRequestToConvert");
+		query.setParameter("requestId", requestId);
+		List<Integer> list = (List<Integer>) query.list();
+		tx.commit();
+		if (list == null) {
+			return null;
+		}
+		Queue<Integer> queue = new LinkedList<Integer>(list);
+		return queue;
+	}
+	
+	
 	private int totalTasksToConvert(String namedQuery) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
@@ -283,6 +329,16 @@ public class ConversionProcessor implements Runnable {
 		return count;
 	}
 
+	private int totalRequestToConvert(int requestId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.getNamedQuery("getRequestToConvert");
+		query.setParameter("requestId", requestId);
+		Integer count = (Integer) query.uniqueResult();
+		tx.commit();
+		return count;
+	}	
+	
 	private boolean isWheaton() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
@@ -314,7 +370,8 @@ public class ConversionProcessor implements Runnable {
 	private static void dropStoredProceduresTemporary() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		Query query = session.getNamedQuery("drop_ROI_Conversion_RequestMain_SP");
+		Query query = null;
+		query = session.getNamedQuery("drop_ROI_Conversion_RequestMain_SP");
 		query.executeUpdate();
 		query = session.getNamedQuery("drop_ROI_Conversion_Supplemental_SP");
 		query.executeUpdate();
