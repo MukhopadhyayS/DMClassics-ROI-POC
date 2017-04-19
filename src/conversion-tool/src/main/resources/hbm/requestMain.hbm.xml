@@ -516,11 +516,6 @@ UPDATE a
 	JOIN versions v on p.version_id = v.version_id
   WHERE a.doc_id IS NULL
 
-UPDATE a
-  SET a.doc_id = (select doc_id from versions where version_id = (select version_id from pages where imnet = a.imnet))
-  FROM @tmpROIDocument a
-  WHERE a.doc_id IS NULL
-
 insert into @tmpROIVersion
 	SELECT
 		NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
@@ -577,11 +572,6 @@ UPDATE a
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL	
 
-UPDATE a
-  SET a.doc_id = (select doc_id from versions where version_id = (select version_id from pages where imnet = a.imnet))
-  FROM @tmpROIVersion a
-  WHERE a.doc_id IS NULL	
-	
  insert into @tmpROIPage
 	SELECT
 		NULLIF(t.c.value('@mrn','varchar(20)'), '') as [MRN],
@@ -646,10 +636,6 @@ Union
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL
 
-UPDATE a
-  SET a.doc_id = (select doc_id from versions where version_id = (select version_id from pages where imnet = a.imnet))
-  FROM @tmpROIPage a
-  WHERE a.doc_id IS NULL 
   	
 insert into [cabinet].[dbo].[ROI_PATIENTS] ([MRN] ,[NAME] ,[SSN] ,[SEX] ,[DOB] ,[FACILITY] ,[EPN] ,[VIP] ,[LOCKOUT] )
 OUTPUT inserted.[ROI_Patients_Seq], inserted.[MRN], inserted.[FACILITY] INTO @ROI_PATIENTS_IDX

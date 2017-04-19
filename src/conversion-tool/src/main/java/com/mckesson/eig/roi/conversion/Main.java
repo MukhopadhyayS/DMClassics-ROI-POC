@@ -171,7 +171,21 @@ public class Main {
 	}
 
 	private static void start() throws ConversionException {
-		System.out.print("\nStart conversion (Y/N)? ");
+		
+		System.out.print("\nEnter requestid to convert: A for all failed or unconverted requests? ");
+		String requestIdString = new java.util.Scanner(System.in).nextLine();
+		int requestId = 0;
+		try {
+			requestId = Integer.valueOf(requestIdString.trim());
+		} catch (Exception e) {
+			
+		}
+		if(requestId > 0) {
+			processor.setRequestId(requestId);
+			System.out.print("\nStart conversion for request " + requestId + " (Y/N)? ");
+		} else {
+			System.out.print("\nStart conversion all requests (Y/N)? ");
+		}
 		String startConversion = new java.util.Scanner(System.in).nextLine();
 		if (!startConversion.equalsIgnoreCase("Y")) {
 			return;
