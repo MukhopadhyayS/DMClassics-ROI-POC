@@ -15,20 +15,19 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 
 package com.mckesson.eig.roi.hpf.service;
 
-import javax.xml.soap.SOAPException;
-
-import org.apache.axis.client.Stub;
-import org.apache.axis.message.SOAPHeaderElement;
-import org.apache.axis.transport.http.HTTPConstants;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.BeanFactory;
 
-
-import com.mckesson.eig.ConfigurationPortType;
-import com.mckesson.eig.ConfigurationServiceLocator;
+import com.mckesson.dm.security.util.OCSecurityFacilitator;
+import com.mckesson.dm.security.util.OCSecurityFacilitatorFactory;
 import com.mckesson.eig.iws.security.Ticket;
+import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
 import com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao;
 import com.mckesson.eig.roi.hpf.model.User;
+import com.mckesson.eig.utility.log.Log;
+import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
+import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
 import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
 import com.mckesson.eig.wsfw.session.WsSession;
@@ -46,12 +45,39 @@ implements AuthenticationStrategy {
     private String _authenticationUrl;
 //    private static final int MAX_LOGON_ATTEMPTS = 500;
     protected static final String AUTHENTICATED_ROI_USER = "authenticated_roi_user";
+    private OCSecurityFacilitator _ocSecurityFacilitator;
+    /**
+     * Initialize the logger.
+     */
+    private static final Log LOG = LogFactory.getLogger(HPFAuthenticationStrategy.class);
+    private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     public HPFAuthenticationStrategy() {
 
         super();
         _userSecurityDao = (UserSecurityHibernateDao)
                             BEAN_FACTORY.getBean(UserSecurityHibernateDao.class.getName());
+        DataSource ds = _userSecurityDao.getDataSource();
+        _ocSecurityFacilitator = OCSecurityFacilitatorFactory.createOCSecurityFacilitator();
+        
+        BootstrapConfiguration config = BootstrapConfiguration.getInstance();
+        String tenantId = config.getTenantId();
+        
+        if (!StringUtilities.isEmpty(tenantId)) {
+            
+            String coreHostName = config.getProperty(tenantId + ".core.server.hostname");
+            String corePort = config.getProperty(tenantId + ".core.server.port");
+           
+            try {
+                _ocSecurityFacilitator.init(coreHostName, Integer.valueOf(corePort), "http", "ROI_SERVER", tenantId, ds);
+            } catch (Exception e) {
+                if (DO_DEBUG) {
+                    LOG.debug("Failed to initialize OCSecurityFacilitator.");
+                }
+            }
+       }
+
+        
     }
 
     /**
@@ -74,7 +100,20 @@ implements AuthenticationStrategy {
             // Get the HPF user id based on type of authentication.
             int index = userId.indexOf("~");
             String hpfUser = (index > 0) ? userId.substring(index + 1) : userId;
-
+            
+            if (null != password) {
+                if ( password.contains("%%ICA||")) 
+                {
+                    try {
+                        _ocSecurityFacilitator.getSecureToken(hpfUser, password);
+                    } catch (Exception e) {
+                        result.setState(AuthenticatedResult.AUTHENTICATION_FAILED);
+                        return result;
+                    }
+                    
+                }
+            }
+            
             user = _userSecurityDao.retrieveUser(hpfUser);
             if (user == null) { // if the user id does not exist
                 result.setState(AuthenticatedResult.AUTHENTICATION_FAILED);
@@ -127,4 +166,6 @@ implements AuthenticationStrategy {
 
     public String getAuthenticationUrl() { return _authenticationUrl; }
     public void setAuthenticationUrl(String url) { _authenticationUrl = url; }
+    
+    
 }

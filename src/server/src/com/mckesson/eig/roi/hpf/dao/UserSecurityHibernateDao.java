@@ -17,8 +17,14 @@ package com.mckesson.eig.roi.hpf.dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.connection.ConnectionProvider;
+import org.hibernate.impl.SessionFactoryImpl;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.LocalDataSourceConnectionProvider;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.mckesson.eig.roi.hpf.model.User;
@@ -174,4 +180,19 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
         }
         return _params;
     }
+    
+    
+    //Support OCSecurity Internal Security Model
+    public DataSource getDataSource() {
+        DataSource ds = null;
+        
+        SessionFactory sessionFactory = this.getSession().getSessionFactory();
+        if (sessionFactory instanceof SessionFactoryImpl) {
+            ConnectionProvider cp = ((SessionFactoryImpl) sessionFactory).getConnectionProvider();
+            if (cp instanceof LocalDataSourceConnectionProvider) {
+                return ((LocalDataSourceConnectionProvider) cp).getDataSource();
+            }
+        }
+        return ds;
+    }    
 }

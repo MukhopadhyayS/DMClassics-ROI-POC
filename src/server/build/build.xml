@@ -63,9 +63,6 @@
 			<include name="jbossws-native-jaxrpc.jar" />
 			<include name="quartz.jar" />
 		</fileset>
-		<fileset dir="${jboss.home}/lib/endorsed">
-			<include name="xercesImpl.jar" />
-		</fileset>
 		<fileset dir="${jboss.home}/lib">
 			<include name="dom4j.jar" />
 		</fileset>
@@ -88,6 +85,7 @@
 		<fileset dir="${dir.lib}">
 			<include name="hpf.stub.config.jar" />
 			<include name="hpf-signIn-stub.jar" />
+			<include name="OCInternalComm-17.5.2.jar" />
 		</fileset>
 	</path>
 
