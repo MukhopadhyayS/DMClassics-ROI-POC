@@ -233,71 +233,73 @@ extends BaseLetterDataRetriever {
         List<Charge> feeChargeList = new ArrayList<Charge>();
         List<ChargeItem> docItemsList = new ArrayList<ChargeItem>();
         Charge docCharge = new Charge();
-        RequestCoreChargesBilling requestCoreChargesBilling = coverLetter.getChargesDetails().getRequestCoreChargesBilling();
+        if (null != chargesDetails) {
+            RequestCoreChargesBilling requestCoreChargesBilling = chargesDetails.getRequestCoreChargesBilling();
+            
+            if (null != requestCoreChargesBilling) {
+                Set<RequestCoreChargesDocument> rcdChargesDocument = requestCoreChargesBilling.getRequestCoreChargesDocument();
+                if (null != rcdChargesDocument) {
         
-        if (null != requestCoreChargesBilling) {
-            Set<RequestCoreChargesDocument> rcdChargesDocument = requestCoreChargesBilling.getRequestCoreChargesDocument();
-            if (null != rcdChargesDocument) {
-    
-                Iterator<RequestCoreChargesDocument> it = rcdChargesDocument.iterator();
-                while (it.hasNext()) {
-                    RequestCoreChargesDocument rcdcDocument = it.next();
-                    ChargeItem dcItem = new ChargeItem();
-                    dcItem.setAmount(formatToCurrency(rcdcDocument.getAmount()));
-                    dcItem.setCopies(String.valueOf(rcdcDocument.getCopies()));
-                    dcItem.setName(rcdcDocument.getBillingTierName());
-                    dcItem.setBillingTierName(rcdcDocument.getBillingTierName());
-                    dcItem.setPages(String.valueOf(rcdcDocument.getPages()));
-                    dcItem.setBillingTierId(rcdcDocument.getBillingtierId());
-                    docItemsList.add(dcItem);
+                    Iterator<RequestCoreChargesDocument> it = rcdChargesDocument.iterator();
+                    while (it.hasNext()) {
+                        RequestCoreChargesDocument rcdcDocument = it.next();
+                        ChargeItem dcItem = new ChargeItem();
+                        dcItem.setAmount(formatToCurrency(rcdcDocument.getAmount()));
+                        dcItem.setCopies(String.valueOf(rcdcDocument.getCopies()));
+                        dcItem.setName(rcdcDocument.getBillingTierName());
+                        dcItem.setBillingTierName(rcdcDocument.getBillingTierName());
+                        dcItem.setPages(String.valueOf(rcdcDocument.getPages()));
+                        dcItem.setBillingTierId(rcdcDocument.getBillingtierId());
+                        docItemsList.add(dcItem);
+                    }
                 }
-            }
-            docCharge.setChargeItems(docItemsList);
-            docChargeList.add(docCharge);
-    
-            //Fee
-            List<ChargeItem> feeItemsList = new ArrayList<ChargeItem>();
-            Charge feeCharge = new Charge();
-            Set<RequestCoreChargesFee> rcdChargesFee = requestCoreChargesBilling.getRequestCoreChargesFee();
-            if (null != rcdChargesFee) {
-    
-                Iterator<RequestCoreChargesFee> it = rcdChargesFee.iterator();
-                while (it.hasNext()) {
-                    RequestCoreChargesFee rcdcFee = it.next();
-                    ChargeItem fcItem = new ChargeItem();
-                    fcItem.setAmount(formatToCurrency(rcdcFee.getAmount()));
-                    fcItem.setName(rcdcFee.getFeeType());
-                    fcItem.setFeeType(rcdcFee.getFeeType());
-                    feeItemsList.add(fcItem);
+                docCharge.setChargeItems(docItemsList);
+                docChargeList.add(docCharge);
+        
+                //Fee
+                List<ChargeItem> feeItemsList = new ArrayList<ChargeItem>();
+                Charge feeCharge = new Charge();
+                Set<RequestCoreChargesFee> rcdChargesFee = requestCoreChargesBilling.getRequestCoreChargesFee();
+                if (null != rcdChargesFee) {
+        
+                    Iterator<RequestCoreChargesFee> it = rcdChargesFee.iterator();
+                    while (it.hasNext()) {
+                        RequestCoreChargesFee rcdcFee = it.next();
+                        ChargeItem fcItem = new ChargeItem();
+                        fcItem.setAmount(formatToCurrency(rcdcFee.getAmount()));
+                        fcItem.setName(rcdcFee.getFeeType());
+                        fcItem.setFeeType(rcdcFee.getFeeType());
+                        feeItemsList.add(fcItem);
+                    }
                 }
+                feeCharge.setChargeItems(feeItemsList);
+                feeChargeList.add(feeCharge);
             }
-            feeCharge.setChargeItems(feeItemsList);
-            feeChargeList.add(feeCharge);
+            RequestCoreChargesShipping requestCoreChargesShipping = chargesDetails.getRequestCoreChargesShipping();
+            
+            //Ship
+            List<Charge> shipChargeList = new ArrayList<Charge>();
+            List<ChargeItem> sxnItemsList = new ArrayList<ChargeItem>();
+            if (null != requestCoreChargesShipping) {
+                Charge shipCharge = new Charge();
+        
+                ChargeItem scItem = new ChargeItem();
+                scItem.setAmount(formatToCurrency(requestCoreChargesShipping.getShippingCharge()));
+                sxnItemsList.add(scItem);
+                shipCharge.setCharges(formatToCurrency(requestCoreChargesShipping.getShippingCharge()));
+        
+                shipCharge.setChargeItems(sxnItemsList);
+        
+                shipChargeList.add(shipCharge);
+            }
+    
+            charge.setDocCharge(docChargeList);
+            charge.setFeeCharge(feeChargeList);
+            charge.setShippingCharge(shipChargeList);
+            chargeList.add(charge);
+            billingInfo.setCharges(chargeList);
+            letterData.setBillingInfo(billingInfo);
         }
-        RequestCoreChargesShipping requestCoreChargesShipping = coverLetter.getChargesDetails().getRequestCoreChargesShipping();
-        //Ship
-        List<Charge> shipChargeList = new ArrayList<Charge>();
-        List<ChargeItem> sxnItemsList = new ArrayList<ChargeItem>();
-        Charge shipCharge = new Charge();
-
-        ChargeItem scItem = new ChargeItem();
-        scItem.setAmount((null == requestCoreChargesShipping) ? "0.00"
-                                : formatToCurrency(requestCoreChargesShipping.getShippingCharge()));
-        sxnItemsList.add(scItem);
-        shipCharge.setCharges((null == requestCoreChargesShipping) ? "0.00"
-                                : formatToCurrency(requestCoreChargesShipping.getShippingCharge()));
-
-        shipCharge.setChargeItems(sxnItemsList);
-
-        shipChargeList.add(shipCharge);
-
-        charge.setDocCharge(docChargeList);
-        charge.setFeeCharge(feeChargeList);
-        charge.setShippingCharge(shipChargeList);
-        chargeList.add(charge);
-        billingInfo.setCharges(chargeList);
-        letterData.setBillingInfo(billingInfo);
-        
         String notestring = coverLetter.getNotes();
         if (StringUtilities.hasContent(notestring)) {
 
