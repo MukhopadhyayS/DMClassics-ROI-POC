@@ -3,13 +3,13 @@
 #Wed Aug 22 22:56:47 EDT 2012
 assembly.number=3003
 assembly.servicePack=0
-project.name=ROI-17.5.6
-assembly.minor=5
-build.minor=5
+project.name=ROI-17.6
+assembly.minor=6
+build.minor=6
 Company=McKesson Corporation
 assembly.major=17
 build.major=17
-build.servicePack=6
+build.servicePack=0
 build.number=3003
 build.date=2017-04-27T08\:41\:33.006Z
 Product=
