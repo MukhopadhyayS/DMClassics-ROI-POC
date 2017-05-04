@@ -4003,7 +4003,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             else
             {
                 unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
-                if ((reqInvoices.Count < 1) || (request.Status == RequestStatus.Logged))
+                if ((reqInvoices.Count < 1) || (request.Status == RequestStatus.Logged) ||(request.Status == RequestStatus.Completed))
                 {
                     
                     adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
