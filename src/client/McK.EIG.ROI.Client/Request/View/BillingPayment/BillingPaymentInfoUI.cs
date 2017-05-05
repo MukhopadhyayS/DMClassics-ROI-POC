@@ -879,7 +879,13 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                 foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                 {
-                    request.Patients.Add(requestPatientDetails.Key, requestPatientDetails);
+                    if (!request.Patients.ContainsKey(requestPatientDetails.Key))
+                        request.Patients.Add(requestPatientDetails.Key, requestPatientDetails);
+                    else
+                    {
+                        log.Info("UPMC - found duplicate key while saving the billing location - " + requestPatientDetails.Key);
+                    }
+
                 }
                 for (int count = 0;count<tempPatientList.Count;count++)
                 {
