@@ -1731,6 +1731,8 @@ implements BillingCoreService {
     
     private void appliedToUnappliedPaymentPrebill (double totalPostPrebillPayments, double totalPostPrebillAdjustments, long requestCoreId) {
         RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
+        RequestCoreDeliveryDAO rCDeliveryDAO =
+                (RequestCoreDeliveryDAO) getDAO(DAOName.REQUEST_CORE_DELIVERY_DAO);
         RequestorPrebillsList reqPrebillList = new RequestorPrebillsList();
         //JournalService journalService = (JournalService) getService(ServiceName.JOURNEL_SERVICE);
         if (totalPostPrebillPayments != 0.0 || totalPostPrebillAdjustments != 0.0) {
@@ -1740,6 +1742,8 @@ implements BillingCoreService {
             List<RequestorPrebill> requestorPrebill = reqPrebillList.getRequestorPrebills();
             if (CollectionUtilities.hasContent(requestorPrebill)) {
                 for (RequestorPrebill reqPrebill : requestorPrebill) {
+                     double invoiceBalance = 0.0;
+                     invoiceBalance += reqPrebill.getBalance();
                      List<RequestorAdjustmentsPayments> reqAdjPayList = reqPrebill.getRequestorAdjPay();
                      for (RequestorAdjustmentsPayments reqAdjPay : reqAdjPayList) {
                           if ("Payment".equalsIgnoreCase(reqAdjPay.getTxnType())) {
@@ -1758,6 +1762,8 @@ implements BillingCoreService {
                               paymentInfo.setPaymentId(reqAdjPay.getId());
                               requestorDAO.deleteInvoiceToPayment(paymentInfo);
                               requestorDAO.createRequestorPayment(paymentInfoList);
+                              invoiceBalance += reqAdjPay.getAppliedAmount();
+                              rCDeliveryDAO.updateInvoiceBalance(reqPrebill.getId(), invoiceBalance, date, getUser());
                               /*journalService.createUnApplyPaymentFromInvoiceJE(reqAdjPay.getId());
                               journalService.createAcceptPaymentJE(reqAdjPay.getId());*/
                           } else {
@@ -1781,6 +1787,8 @@ implements BillingCoreService {
                               requestorDAO.deleteMappedInvoicesByAdjustmentAndInvoiceId(reqAdjPay.getId(), reqPrebill.getId());
                               //requestorDAO.createRequestorPayment(adjustmentInfo);
                               requestorDAO.saveAdjustmentInfo(adjustmentInfo);
+                              invoiceBalance += reqAdjPay.getAppliedAmount();
+                              rCDeliveryDAO.updateInvoiceBalance(reqPrebill.getId(), invoiceBalance, date, getUser());
                              /* createJournalEntryForAdjustment(
                                       ROIConstants.UNAPPLY_ADJ_FROM_INVOICE, adjustmentInfo.getAdjustmentType(), reqAdjPay.getId());
                               createJournalEntryForAdjustment(
