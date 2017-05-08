@@ -3940,7 +3940,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                 double amt = Math.Abs(balanceDue);
                                 balanceDue = 0;
                             }
-                            BillingController.Instance.updateInvoiceBalance(reqInv.Id, balanceDue);
+                            //BillingController.Instance.updateInvoiceBalance(reqInv.Id, balanceDue);
                             adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(reqInv.PayAdjTotal);
                             balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
                         }
