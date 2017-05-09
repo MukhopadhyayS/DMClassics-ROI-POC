@@ -1738,6 +1738,7 @@ implements BillingCoreService {
         if (totalPostPrebillPayments != 0.0 || totalPostPrebillAdjustments != 0.0) {
             reqPrebillList = requestorDAO.retrieveRequestorPrebills(requestCoreId);
         }
+        Timestamp date = requestorDAO.getDate();
         if (null != reqPrebillList) {
             List<RequestorPrebill> requestorPrebill = reqPrebillList.getRequestorPrebills();
             if (CollectionUtilities.hasContent(requestorPrebill)) {
@@ -1749,7 +1750,6 @@ implements BillingCoreService {
                           if ("Payment".equalsIgnoreCase(reqAdjPay.getTxnType())) {
                               RequestorPaymentList paymentInfoList = new RequestorPaymentList();
                               RequestorPayment paymentInfo = new RequestorPayment();
-                              Timestamp date = requestorDAO.getDate();
                               paymentInfoList.setPaymentAmount(reqAdjPay.getAppliedAmount());
                               paymentInfoList.setUnAppliedAmount(reqAdjPay.getAppliedAmount());
                               paymentInfoList.setPaymentMode(reqAdjPay.getPaymentMethod());
@@ -1763,12 +1763,10 @@ implements BillingCoreService {
                               requestorDAO.deleteInvoiceToPayment(paymentInfo);
                               requestorDAO.createRequestorPayment(paymentInfoList);
                               invoiceBalance += reqAdjPay.getAppliedAmount();
-                              rCDeliveryDAO.updateInvoiceBalance(reqPrebill.getId(), invoiceBalance, date, getUser());
                               /*journalService.createUnApplyPaymentFromInvoiceJE(reqAdjPay.getId());
                               journalService.createAcceptPaymentJE(reqAdjPay.getId());*/
                           } else {
                               RequestorAdjustment adjustmentInfo = new RequestorAdjustment();
-                              Timestamp date = requestorDAO.getDate();
                               adjustmentInfo.setAmount(reqAdjPay.getAppliedAmount());
                               adjustmentInfo.setUnappliedAmount(reqAdjPay.getAppliedAmount());
                               if (AdjustmentType.CUSTOMER_GOODWILL_ADJUSTMENT.toString().equalsIgnoreCase(reqAdjPay.getPaymentMethod())) {
@@ -1788,13 +1786,13 @@ implements BillingCoreService {
                               //requestorDAO.createRequestorPayment(adjustmentInfo);
                               requestorDAO.saveAdjustmentInfo(adjustmentInfo);
                               invoiceBalance += reqAdjPay.getAppliedAmount();
-                              rCDeliveryDAO.updateInvoiceBalance(reqPrebill.getId(), invoiceBalance, date, getUser());
                              /* createJournalEntryForAdjustment(
                                       ROIConstants.UNAPPLY_ADJ_FROM_INVOICE, adjustmentInfo.getAdjustmentType(), reqAdjPay.getId());
                               createJournalEntryForAdjustment(
                                       ROIConstants.CREATE_ADJUSTMENT, adjustmentInfo.getAdjustmentType(), reqAdjPay.getId());*/
                           }
                      }
+                     rCDeliveryDAO.updateInvoiceBalance(reqPrebill.getId(), invoiceBalance, date, getUser());
                 }
             }
             
