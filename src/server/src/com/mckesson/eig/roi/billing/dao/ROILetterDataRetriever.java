@@ -298,8 +298,8 @@ extends BaseLetterDataRetriever {
             charge.setShippingCharge(shipChargeList);
             chargeList.add(charge);
             billingInfo.setCharges(chargeList);
-            letterData.setBillingInfo(billingInfo);
         }
+        letterData.setBillingInfo(billingInfo);
         String notestring = coverLetter.getNotes();
         if (StringUtilities.hasContent(notestring)) {
 
