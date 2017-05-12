@@ -5,7 +5,7 @@
 	
 	<sql-query name="drop_ROI_Conversion_Supplemental_SP">
         <![CDATA[
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[cabinet].[dbo].[ROI_Conversion_Supplemental]') AND type in (N'P', N'PC'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Conversion_Supplemental]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ROI_Conversion_Supplemental]
         ]]>
 	</sql-query>
@@ -66,7 +66,7 @@ select
 	@modifiedDt = Modified_Dt,
 	@modifiedBySeq = Modified_By_Seq,
 	@recordVersion = Record_Version
-from cabinet.dbo.ROI_Supplemental WITH (NOLOCK) where ROI_Supplemental_Seq = @ROI_Supplemental_Seq;
+from ROI_Supplemental WITH (NOLOCK) where ROI_Supplemental_Seq = @ROI_Supplemental_Seq;
 if(@patient is null)
 begin
 RETURN
@@ -97,7 +97,7 @@ select * into #tmpROISupplementalPatients from
 	t.c.value('home-phone[1]','varchar(256)') as homePhone,
 	isVip = case t.c.value('@is-vip','varchar(10)') when 'true' then '1'  when 'false' then '0' else '0' end,
 	null as country,
-	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from cabinet.dbo.ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(255)')) else null end
+	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(255)')) else null end
 from @patient.nodes('/patient') as t(c)) as mytable;
 
 select * into #tmpROISupplementalDocuments from
@@ -112,7 +112,7 @@ select * into #tmpROISupplementalDocuments from
 	t.c.value('date-of-service[1]','datetime') as DATEOFSERVICE,
 	t.c.value('comment[1]','varchar(max)') as COMMENT,
 	ROW_NUMBER() OVER(ORDER BY t.c.value('@id','int')) as rownum,
-	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from cabinet.dbo.ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(255)')) else null end
+	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(255)')) else null end
 from @patient.nodes('/patient/supplemental-encounter/document') as t(c)) as mytable;
 
 select * into #tmpROISupplementalAttachments from
@@ -136,37 +136,37 @@ select * into #tmpROISupplementalAttachments from
 	t.c.value('comment[1]','varchar(max)') as COMMENT,
 	ROW_NUMBER() OVER(ORDER BY t.c.value('@id','int')) as rownum,
 	printable_flag = case t.c.value('printable-flag[1]','varchar(10)') when 'True' then 1  when 'False' then 0 else 0 end,
-	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from cabinet.dbo.ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(255)')) else null end
+	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(255)')) else null end
 from @patient.nodes('/patient/attachment-encounter/attachment') as t(c)
-left outer join cabinet.dbo.ROI_Attachments a
+left outer join ROI_Attachments a
 on a.ROI_Supplemental_Seq = @ROI_Supplemental_Seq and a.ROI_Document_Seq = t.c.value('@id','int')) as mytable;
 
 -- insert into supplemental patient
-insert into cabinet.dbo.ROI_SupplementalPatients(MRN, FACILITY, EPN, LASTNAME, FIRSTNAME, GENDER, DOB, SSN, ADDRESS1, ADDRESS2, ADDRESS3, CITY, STATE, ZIP, HOMEPHONE,WORKPHONE, VIP, COUNTRY, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
+insert into ROI_SupplementalPatients(MRN, FACILITY, EPN, LASTNAME, FIRSTNAME, GENDER, DOB, SSN, ADDRESS1, ADDRESS2, ADDRESS3, CITY, STATE, ZIP, HOMEPHONE,WORKPHONE, VIP, COUNTRY, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
 select MRN, FACILITY, EPN, LASTNAME, FIRSTNAME, GENDER, DOB, SSN, ADDRESS1, ADDRESS2, ADDRESS3, CITY, STATE, ZIP, HOMEPHONE,WORKPHONE, isVip, COUNTRY, ROI_FreeFormFacilityLov_Seq, @createdBySeq, @createdDt, @modifiedBySeq, @modifiedDt, @recordVersion from #tmpROISupplementalPatients;
 select @ROI_SupplementalPatients_Seq = SCOPE_IDENTITY();
-insert into cabinet.dbo.ROI_ConversionMapping_SupplementalPatient (patient_id, ROI_SupplementalPatients_Seq, ROI_SupplementalPatientsCore_Seq) values (@ROI_Supplemental_Seq, @ROI_SupplementalPatients_Seq, -1);
+insert into ROI_ConversionMapping_SupplementalPatient (patient_id, ROI_SupplementalPatients_Seq, ROI_SupplementalPatientsCore_Seq) values (@ROI_Supplemental_Seq, @ROI_SupplementalPatients_Seq, -1);
 
 -- insert into supplemental documents
-insert into cabinet.dbo.ROI_SupplementalDocuments(ROI_SupplementalPatients_Seq, DOCNAME, ENCOUNTER, FACILITY, DEPARTMENT, SUBTITLE, PAGECOUNT, DATEOFSERVICE, COMMENT, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
+insert into ROI_SupplementalDocuments(ROI_SupplementalPatients_Seq, DOCNAME, ENCOUNTER, FACILITY, DEPARTMENT, SUBTITLE, PAGECOUNT, DATEOFSERVICE, COMMENT, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
 output inserted.ROI_SupplementalDocuments_Seq, inserted.Created_By_Seq into @SupplementalDocuments_IDX(ROI_SupplementalDocuments_Seq,rownum)
 select @ROI_SupplementalPatients_Seq, DOCNAME, ENCOUNTER, FACILITY, DEPARTMENT, SUBTITLE, PAGECOUNT, DATEOFSERVICE, COMMENT, ROI_FreeFormFacilityLov_Seq, rownum, @createdDt, @modifiedBySeq, @modifiedDt, @recordVersion from #tmpROISupplementalDocuments
 
 update a set doc_id = tmp.doc_id from @SupplementalDocuments_IDX a
 join #tmpROISupplementalDocuments tmp ON a.rownum = tmp.rownum
 
-insert into cabinet.dbo.ROI_ConversionMapping_SupplementalDocuments(patient_id, document_id,ROI_SupplementalDocuments_Seq, ROI_SupplementalDocumentsCore_Seq)
+insert into ROI_ConversionMapping_SupplementalDocuments(patient_id, document_id,ROI_SupplementalDocuments_Seq, ROI_SupplementalDocumentsCore_Seq)
 select @ROI_Supplemental_Seq, doc_id,ROI_SupplementalDocuments_Seq, -1 from @SupplementalDocuments_IDX;
 
 -- insert into supplemental attachments
-insert into cabinet.dbo.ROI_SupplementalAttachments(ROI_SupplementalPatients_Seq, TYPE, ENCOUNTER, DOCFACILITY, SUBTITLE, PAGECOUNT, ISDELETED, DATEOFSERVICE, ATTACHMENTDATE, UUID, FILENAME, VOLUME, PATH, FILETYPE, FILEEXT, SUBMITTEDBY, COMMENT, printable_flag, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
+insert into ROI_SupplementalAttachments(ROI_SupplementalPatients_Seq, TYPE, ENCOUNTER, DOCFACILITY, SUBTITLE, PAGECOUNT, ISDELETED, DATEOFSERVICE, ATTACHMENTDATE, UUID, FILENAME, VOLUME, PATH, FILETYPE, FILEEXT, SUBMITTEDBY, COMMENT, printable_flag, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
 output inserted.ROI_SupplementalAttachments_Seq, inserted.Created_By_Seq into @SupplementalAttachments_IDX(ROI_SupplementalAttachments_Seq, rownum)
 select @ROI_SupplementalPatients_Seq, TYPE, ENCOUNTER, DOCFACILITY, SUBTITLE, PAGECOUNT, ISDELETED, DATEOFSERVICE, ATTACHMENTDATE, UUID, FILENAME, VOLUME, PATH, FILETYPE, FILEEXT, SUBMITTEDBY, COMMENT, printable_flag, ROI_FreeFormFacilityLov_Seq, rownum, @createdDt, @modifiedBySeq, @modifiedDt, @recordVersion from #tmpROISupplementalAttachments
 
 update a set attachment_id = tmp.attachment_id from @SupplementalAttachments_IDX a
 join #tmpROISupplementalAttachments tmp ON a.rownum = tmp.rownum
 
-insert into cabinet.dbo.ROI_ConversionMapping_SupplementalAttachments(patient_id, attachment_id,ROI_SupplementalAttachments_Seq, ROI_SupplementalAttachmentsCore_Seq)
+insert into ROI_ConversionMapping_SupplementalAttachments(patient_id, attachment_id,ROI_SupplementalAttachments_Seq, ROI_SupplementalAttachmentsCore_Seq)
 select @ROI_Supplemental_Seq, attachment_id,ROI_SupplementalAttachments_Seq, -1 from @SupplementalAttachments_IDX;
 
 END
@@ -193,7 +193,7 @@ select * into #tmpROISupplementarityDocuments from
 	t.c.value('date-of-service[1]','datetime') as DATEOFSERVICE,
 	t.c.value('comment[1]','varchar(max)') as COMMENT,
 	ROW_NUMBER() OVER(ORDER BY t.c.value('@id','int')) as rownum,
-	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from cabinet.dbo.ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(10)')) else null end
+	ROI_FreeFormFacilityLov_Seq = case t.c.value('is-freeformfacility[1]','varchar(10)') when 'True' then (select ROI_FreeFormFacilityLov_Seq from ROI_FreeFormFacilityLOV where FreeFormFACILITY = t.c.value('facility[1]','varchar(10)')) else null end
 from @patient.nodes('/patient/supplemental-encounter/document') as t(c)) as mytable;
 
 select * into #tmpROISupplementarityAttachments from
@@ -220,29 +220,29 @@ select * into #tmpROISupplementarityAttachments from
 	ROW_NUMBER() OVER(ORDER BY t.c.value('@id','int')) as rownum,
 	printable_flag = case t.c.value('printable-flag[1]','varchar(10)') when 'True' then 1  when 'False' then 0 else 0 end
 from @patient.nodes('/patient/attachment-encounter/attachment') as t(c)
-left outer join cabinet.dbo.ROI_Attachments a
+left outer join ROI_Attachments a
 on a.ROI_Supplemental_Seq = @ROI_Supplemental_Seq and a.ROI_Document_Seq = t.c.value('@id','int')) as mytable;
 
 -- insert into supplementarity documents
-insert into cabinet.dbo.ROI_SupplementarityDocuments(MRN, FACILITY, DOCNAME, ENCOUNTER, DOCFACILITY, DEPARTMENT, SUBTITLE, PAGECOUNT, DATEOFSERVICE, COMMENT, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
+insert into ROI_SupplementarityDocuments(MRN, FACILITY, DOCNAME, ENCOUNTER, DOCFACILITY, DEPARTMENT, SUBTITLE, PAGECOUNT, DATEOFSERVICE, COMMENT, ROI_FreeFormFacilityLov_Seq, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
 output inserted.ROI_SupplementarityDocuments_Seq, inserted.Created_By_Seq into @SupplementarityDocuments_IDX(ROI_SupplementarityDocuments_Seq, rownum)
 select MRN, FACILITY, DOCNAME, ENCOUNTER, DOCFACILITY, DEPARTMENT, SUBTITLE, PAGECOUNT, DATEOFSERVICE, COMMENT, ROI_FreeFormFacilityLov_Seq, rownum, @createdDt, @modifiedBySeq, @modifiedDt, @recordVersion from #tmpROISupplementarityDocuments
 
 update a set doc_id = tmp.doc_id from @SupplementarityDocuments_IDX a
 join #tmpROISupplementarityDocuments tmp ON a.rownum = tmp.rownum
 
-insert into cabinet.dbo.ROI_ConversionMapping_SupplementarityDocuments(mrn, facility, document_id,ROI_SupplementarityDocuments_Seq, ROI_SupplementarityDocumentsCore_Seq)
+insert into ROI_ConversionMapping_SupplementarityDocuments(mrn, facility, document_id,ROI_SupplementarityDocuments_Seq, ROI_SupplementarityDocumentsCore_Seq)
 select @MRN, @Facility, doc_id,ROI_SupplementarityDocuments_Seq, -1 from @SupplementarityDocuments_IDX;
 
 -- insert into supplementarity documents
-insert into cabinet.dbo.ROI_SupplementarityAttachments(MRN, FACILITY, TYPE, ENCOUNTER, DOCFACILITY, SUBTITLE, PAGECOUNT, ISDELETED, DATEOFSERVICE, ATTACHMENTDATE, UUID, FILENAME, VOLUME, PATH, FILETYPE, FILEEXT, SUBMITTEDBY, COMMENT, printable_flag, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
+insert into ROI_SupplementarityAttachments(MRN, FACILITY, TYPE, ENCOUNTER, DOCFACILITY, SUBTITLE, PAGECOUNT, ISDELETED, DATEOFSERVICE, ATTACHMENTDATE, UUID, FILENAME, VOLUME, PATH, FILETYPE, FILEEXT, SUBMITTEDBY, COMMENT, printable_flag, Created_By_Seq, Created_Dt, Modified_By_Seq, Modified_Dt, Record_Version)
 output inserted.ROI_SupplementarityAttachments_Seq, inserted.Created_By_Seq into @SupplementarityAttachments_IDX(ROI_SupplementarityAttachments_Seq, rownum)
 select MRN, FACILITY, TYPE, ENCOUNTER, DOCFACILITY, SUBTITLE, PAGECOUNT, ISDELETED, DATEOFSERVICE, ATTACHMENTDATE, UUID, FILENAME, VOLUME, PATH, FILETYPE, FILEEXT, SUBMITTEDBY, COMMENT, printable_flag,rownum, @createdDt, @modifiedBySeq, @modifiedDt, @recordVersion from #tmpROISupplementarityAttachments
 
 update a set attachment_id = tmp.attachment_id from @SupplementarityAttachments_IDX a
 join #tmpROISupplementarityAttachments tmp ON a.rownum = tmp.rownum
 
-insert into cabinet.dbo.ROI_ConversionMapping_SupplementarityAttachments(mrn, facility, attachment_id,ROI_SupplementarityAttachments_Seq, ROI_SupplementarityAttachmentsCore_Seq)
+insert into ROI_ConversionMapping_SupplementarityAttachments(mrn, facility, attachment_id,ROI_SupplementarityAttachments_Seq, ROI_SupplementarityAttachmentsCore_Seq)
 select @MRN, @Facility, attachment_id,ROI_SupplementarityAttachments_Seq, -1 from @SupplementarityAttachments_IDX;
 
 END
@@ -269,14 +269,14 @@ END
 	
 	<sql-query name="execSupplementalSP">
         <![CDATA[
-			exec cabinet.dbo.ROI_Conversion_Supplemental :supplementalId
+			exec ROI_Conversion_Supplemental :supplementalId
         ]]>
 	</sql-query>
 	
 	<sql-query name="getSupplementalsToConvert">
         <![CDATA[
 			SELECT t1.ROI_Supplemental_Seq
-			FROM cabinet.dbo.ROI_Supplemental t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_Supplemental t2
+			FROM ROI_Supplemental t1 LEFT JOIN ROI_ConversionStatus_Supplemental t2
 			on t1.ROI_Supplemental_Seq = t2.ROI_Supplemental_Seq and (t2.Status = 'Completed')
 			where t2.ROI_Supplemental_Seq IS NULL
         ]]>
@@ -298,7 +298,7 @@ END
 	<sql-query name="supplementalsToConvertCount">
         <![CDATA[
 			SELECT COUNT(t1.ROI_Supplemental_Seq)
-			FROM cabinet.dbo.ROI_Supplemental t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_Supplemental t2
+			FROM ROI_Supplemental t1 LEFT JOIN ROI_ConversionStatus_Supplemental t2
 			on t1.ROI_Supplemental_Seq = t2.ROI_Supplemental_Seq and (t2.Status = 'Completed')
 			where t2.ROI_Supplemental_Seq IS NULL
         ]]>

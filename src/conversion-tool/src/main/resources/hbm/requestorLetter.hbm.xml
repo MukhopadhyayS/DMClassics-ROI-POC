@@ -5,7 +5,7 @@
 	
 	<sql-query name="drop_ROI_Conversion_RequestorLetter_SP">
         <![CDATA[
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[cabinet].[dbo].[ROI_Conversion_RequestorLetter]') AND type in (N'P', N'PC'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Conversion_RequestorLetter]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ROI_Conversion_RequestorLetter]
         ]]>
 	</sql-query>
@@ -87,14 +87,14 @@ END
 	
 	<sql-query name="execRequestorLetterSP">
         <![CDATA[
-			exec cabinet.dbo.ROI_Conversion_RequestorLetter :requestorLetterId
+			exec ROI_Conversion_RequestorLetter :requestorLetterId
         ]]>
 	</sql-query>
 	
 	<sql-query name="getRequestorLettersToConvert">
         <![CDATA[
 			SELECT t1.ROI_RequestorLetter_Seq
-			FROM cabinet.dbo.ROI_RequestorLetter t1 JOIN cabinet.dbo.ROI_ConversionStatus_RequestorLetter t2
+			FROM ROI_RequestorLetter t1 JOIN ROI_ConversionStatus_RequestorLetter t2
 			on t1.ROI_RequestorLetter_Seq = t2.ROI_RequestorLetter_Seq and (t2.Status = 'Completed')
 			where t2.ROI_RequestorLetter_Seq IS NULL
         ]]>
@@ -116,7 +116,7 @@ END
 	<sql-query name="requestorLettersToConvertCount">
         <![CDATA[
 			SELECT COUNT(t1.ROI_RequestorLetter_Seq)
-			FROM cabinet.dbo.ROI_RequestorLetter t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_RequestorLetter t2
+			FROM ROI_RequestorLetter t1 LEFT JOIN ROI_ConversionStatus_RequestorLetter t2
 			on t1.ROI_RequestorLetter_Seq = t2.ROI_RequestorLetter_Seq and (t2.Status = 'Completed')
 			where t2.ROI_RequestorLetter_Seq IS NULL
         ]]>
