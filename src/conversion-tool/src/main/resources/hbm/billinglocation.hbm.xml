@@ -10,7 +10,7 @@
 		BEGIN
 			BEGIN TRY
 				declare @request xml;
-				select @request = RequestMainXML from [cabinet].[dbo].[ROI_RequestMain] where [ROI_RequestMain_Seq] = @requestId;
+				select @request = RequestMainXML from [ROI_RequestMain] where [ROI_RequestMain_Seq] = @requestId;
 				select
 					NULLIF(t.c.value('@facility','varchar(10)'), '') as [FACILITY]
 				from @request.nodes('/request/item[@source="hpf"]/patient') as t(c)
@@ -33,27 +33,27 @@
 
 	<sql-query name="drop_ROI_Conversion_Get_Facilities_RequestMain_SP">
         <![CDATA[
-	IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[cabinet].[dbo].[ROI_Conversion_Get_Facilities_RequestMain]') AND type in (N'P', N'PC'))
+	IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Conversion_Get_Facilities_RequestMain]') AND type in (N'P', N'PC'))
 	DROP PROCEDURE [dbo].[ROI_Conversion_Get_Facilities_RequestMain]
         ]]>
 	</sql-query>
 	
 	<sql-query name="getUsernameFromRequestId">
         <![CDATA[
-			select a.name FROM Users a join [cabinet].[dbo].[ROI_RequestMain] b on (b.[Created_By_Seq] = a.[UserInstanceId]) where b.[ROI_RequestMain_Seq] = :requestId
+			select a.name FROM Users a join [ROI_RequestMain] b on (b.[Created_By_Seq] = a.[UserInstanceId]) where b.[ROI_RequestMain_Seq] = :requestId
          ]]>
 	</sql-query>
 
 	<sql-query name="getUsernamesFromAllRequests">
         <![CDATA[
-			select distinct a.name as name FROM Users a join [cabinet].[dbo].[ROI_RequestMain] b on (b.[Created_By_Seq] = a.[UserInstanceId])
+			select distinct a.name as name FROM Users a join [ROI_RequestMain] b on (b.[Created_By_Seq] = a.[UserInstanceId])
          ]]>
 	</sql-query>
 
 	<sql-query name="getInvalidUserRequests">
         <![CDATA[
-			select ROI_RequestMain_seq as requestId FROM [cabinet].[dbo].[ROI_RequestMain] where  [Created_By_Seq] not in (
-			select userinstanceId from [cabinet].[dbo].[Users]);
+			select ROI_RequestMain_seq as requestId FROM [ROI_RequestMain] where  [Created_By_Seq] not in (
+			select userinstanceId from [Users]);
          ]]>
 	</sql-query>
 
@@ -75,7 +75,7 @@
 				set @requestId = (select top 1 [ROI_RequestMain_seq] from [ROI_RequestMain] order by [ROI_RequestMain_seq])
 				while @requestId is not null 
 				begin
-					select @request = RequestMainXML from [cabinet].[dbo].[ROI_RequestMain] where [ROI_RequestMain_Seq] = @requestId;
+					select @request = RequestMainXML from [ROI_RequestMain] where [ROI_RequestMain_Seq] = @requestId;
 					insert into @tmp
 					select
 						NULLIF(t.c.value('@facility','varchar(10)'), '') as [FACILITY]
@@ -102,7 +102,7 @@
 	
 	<sql-query name="drop_ROI_Conversion_Get_All_Facilities_RequestMain_SP">
         <![CDATA[
-			IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[cabinet].[dbo].[ROI_Conversion_Get_All_Facilities_RequestMain]') AND type in (N'P', N'PC'))
+			IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Conversion_Get_All_Facilities_RequestMain]') AND type in (N'P', N'PC'))
 			DROP PROCEDURE [dbo].[ROI_Conversion_Get_All_Facilities_RequestMain]
         ]]>
 	</sql-query>

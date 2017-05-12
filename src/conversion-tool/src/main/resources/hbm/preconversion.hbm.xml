@@ -21,7 +21,7 @@
 		DECLARE RequestCursor CURSOR LOCAL FOR  
 		SELECT 
 			DISTINCT Created_By_Seq 
-			FROM [cabinet].[dbo].[ROI_RequestMain]
+			FROM [ROI_RequestMain]
 		
 		OPEN RequestCursor   
 		FETCH NEXT FROM RequestCursor INTO @CreatedBySeq
@@ -30,7 +30,7 @@
 			SET @FacilityCSV = ''
 			
 			SELECT @Name = NAME, @FullName = FullName 
-				FROM [cabinet].[dbo].[USERS] 
+				FROM [USERS] 
 				WHERE UserInstanceId = @CreatedBySeq
 				
 			SELECT @FacilityCSV = LTRIM(RTRIM(FACILITY)) + ',' + @FacilityCSV 
@@ -64,7 +64,7 @@
 		--Insert the facility code from the table ROI_SalesTaxPerFacility into temporary table when the access facility column is empty.
 		SET @ListOfFacilities = ''
 		SELECT @ListOfFacilities =  @ListOfFacilities + ','+ LTRIM(RTRIM(Facility_Code))
-			FROM [cabinet].[dbo].[ROI_SalesTaxPerFacility]
+			FROM [ROI_SalesTaxPerFacility]
 			
 		UPDATE @tmpUserAccessFacility 
 			SET AccessFacility = @ListOfFacilities 
@@ -90,7 +90,7 @@
 	
 	<sql-query name="retrieveSalestaxBillingLocation">
 		<![CDATA[
-		    SELECT COUNT(Facility_Code) FROM [cabinet].[dbo].[ROI_SalesTaxPerFacility]
+		    SELECT COUNT(Facility_Code) FROM [ROI_SalesTaxPerFacility]
 		]]>
 	</sql-query>
 	
@@ -98,13 +98,13 @@
 		<return-scalar type="string" column="faciltyCode" /> 
 		<return-scalar type="string" column="facilityName" />	
 		<![CDATA[
-		    select RTRIM(FACILITY_CODE) as facilityCode, RTRIM(FACILITY_NAME) as facilityName from [cabinet].[dbo].[FACILITY_FILE] where FACILITY_CODE IN (:facilityCodes)
+		    select RTRIM(FACILITY_CODE) as facilityCode, RTRIM(FACILITY_NAME) as facilityName from [FACILITY_FILE] where FACILITY_CODE IN (:facilityCodes)
 		]]>
 	</sql-query>
 	
 	<sql-query name="getConfiguredBillingLocations">
 		<![CDATA[
-		    SELECT RTRIM(Facility_Code) as facilityCode FROM [cabinet].[dbo].[ROI_SalesTaxPerFacility]
+		    SELECT RTRIM(Facility_Code) as facilityCode FROM [ROI_SalesTaxPerFacility]
 		]]>
 	</sql-query>
 	

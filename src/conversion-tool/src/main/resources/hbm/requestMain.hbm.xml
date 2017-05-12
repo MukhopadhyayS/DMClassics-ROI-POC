@@ -15,7 +15,7 @@ as
 BEGIN
 BEGIN TRY
 SET NOCOUNT ON
-if exists(select 1 from cabinet.dbo.ROI_RequestMain where ROI_RequestMain_Seq=@requestId)
+if exists(select 1 from ROI_RequestMain where ROI_RequestMain_Seq=@requestId)
 begin
 exec ROI_Conversion_Delete_RequestCore @requestId
 end
@@ -240,7 +240,7 @@ select @request = RequestMainXML,
 	   @Modified_By_Seq = Modified_By_Seq,
 	   @Modified_Dt = Modified_Dt,
 	   @Record_Version = Record_Version
-from [cabinet].[dbo].[ROI_RequestMain] where [ROI_RequestMain_Seq] = @requestId;
+from [ROI_RequestMain] where [ROI_RequestMain_Seq] = @requestId;
 
 if(@request is null or @defaultFacilityCode is null or @defaultFacilityName is null or @defaultInvoiceDueDays is null or @isWheaton is null)
 begin
@@ -292,11 +292,11 @@ from @request.nodes('/request') as t(c);
 
 set @request_reason=(select top 1 ROI_Reason from @tmpRequestCore);
 
-set identity_insert [cabinet].[dbo].[ROI_RequestCore] on
-insert into [cabinet].[dbo].[ROI_RequestCore]( [ROI_RequestCore_Seq] ,[RequestStatus] ,[ReceiptDate] ,[StatusReason] ,[RequestReasonAttribute] ,[CompletedDate] ,[ReqPassword] ,[ROI_Reason] ,[StatusChanged] ,[AuthDoc] ,[AuthDocName] ,[AuthDocSubtitle] ,[AuthDocDatetime] ,[ConversionSource] ,[Unbillable] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
+set identity_insert [ROI_RequestCore] on
+insert into [ROI_RequestCore]( [ROI_RequestCore_Seq] ,[RequestStatus] ,[ReceiptDate] ,[StatusReason] ,[RequestReasonAttribute] ,[CompletedDate] ,[ReqPassword] ,[ROI_Reason] ,[StatusChanged] ,[AuthDoc] ,[AuthDocName] ,[AuthDocSubtitle] ,[AuthDocDatetime] ,[ConversionSource] ,[Unbillable] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
 select @requestId ,[RequestStatus] ,[ReceiptDate] ,[StatusReason] ,[RequestReasonAttribute] ,[CompletedDate] ,[ReqPassword] ,[ROI_Reason] ,[StatusChanged] ,[AuthDoc] ,[AuthDocName] ,[AuthDocSubtitle] ,[AuthDocDatetime] ,@ConversionSource ,1, @Created_Dt  ,@Modified_Dt ,@Created_By_Seq ,@Modified_By_Seq ,@Record_Version
 from @tmpRequestCore;
-set identity_insert [cabinet].[dbo].[ROI_RequestCore] off
+set identity_insert [ROI_RequestCore] off
 --Changes for DM5028
 declare @tempID as int
 declare @tempTypeID as int
@@ -308,32 +308,32 @@ select @tempID = ISNULL(t.c.value('@id','varchar(max)'),0) ,
 
 if @tempID = 0
 begin
-	 if not exists (select 1 from [cabinet].[dbo].[ROI_RequestorType] where name='Migrated Requestor')
+	 if not exists (select 1 from [ROI_RequestorType] where name='Migrated Requestor')
 		begin
-			insert into [cabinet].[dbo].[ROI_RequestorType](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,Organization_Seq,RecordView,Active,Name,Description,RecordViewDescription,SalesTaxEnable)
+			insert into [ROI_RequestorType](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,Organization_Seq,RecordView,Active,Name,Description,RecordViewDescription,SalesTaxEnable)
 				values(@Created_Dt,@Created_By_Seq,@Modified_Dt,@Modified_By_Seq,@Record_Version,1,
 				(select RecordView from ROI_RequestorType where [ROI_RequestorType_Seq]=-1),1,'Migrated Requestor',NULL,
 				(select RecordViewDescription from ROI_RequestorType where [ROI_RequestorType_Seq]=-1),'N') 
 			select @tempTypeID=SCOPE_IDENTITY()
-			insert into [Cabinet].[dbo].[ROI_RequestorTypeToBillingTier]([Created_Dt],[Created_By_Seq],[Modified_Dt],[Modified_By_Seq],[Record_Version]
+			insert into [ROI_RequestorTypeToBillingTier]([Created_Dt],[Created_By_Seq],[Modified_Dt],[Modified_By_Seq],[Record_Version]
 				,[ROI_RequestorType_Seq],[ROI_BillingTier_Seq],[HPF],[HECM],[CEVA],[Supplemental])
 				SELECT @Created_Dt, @Created_By_Seq,@Modified_Dt,@Modified_By_Seq, @Record_Version,@tempTypeID,[ROI_BillingTier_Seq]
-				,[HPF],[HECM],[CEVA],[Supplemental] FROM [Cabinet].[dbo].[ROI_RequestorTypeToBillingTier] where [ROI_RequestorType_Seq]=-1
+				,[HPF],[HECM],[CEVA],[Supplemental] FROM [ROI_RequestorTypeToBillingTier] where [ROI_RequestorType_Seq]=-1
 		end	
 	 else
 		begin
-			select top 1 @tempTypeID=ROI_RequestorType_Seq  from [cabinet].[dbo].[ROI_RequestorType] where name='Migrated Requestor'
+			select top 1 @tempTypeID=ROI_RequestorType_Seq  from [ROI_RequestorType] where name='Migrated Requestor'
 		end
 		
-	  if not exists ( select 1 from [cabinet].[dbo].[ROI_Requestor] where ROI_RequestorType_Seq=@tempTypeID and NameLast=@tempName)
+	  if not exists ( select 1 from [ROI_Requestor] where ROI_RequestorType_Seq=@tempTypeID and NameLast=@tempName)
 		begin
-			insert into [cabinet].[dbo].[ROI_Requestor](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,ROI_RequestorType_Seq,AccountNumber,Active,Frequent,PrePayRequired,CertLetterRequired,IsPatient,Title,NameFirst,NameMiddle,NameLast,Suffix)
+			insert into [ROI_Requestor](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,ROI_RequestorType_Seq,AccountNumber,Active,Frequent,PrePayRequired,CertLetterRequired,IsPatient,Title,NameFirst,NameMiddle,NameLast,Suffix)
 				values(@Created_Dt,@Created_By_Seq,@Modified_Dt,@Modified_By_Seq,@Record_Version,@tempTypeID,NULL,1,1,0,0,0,NULL,'',NULL,@tempName ,NULL)
 			SELECT @tempID=SCOPE_IDENTITY()
 		end
 	 else
 		begin
-			SELECT top 1 @tempID=ROI_Requestor_Seq from [cabinet].[dbo].[ROI_Requestor] where ROI_RequestorType_Seq=@tempTypeID and NameLast=@tempName
+			SELECT top 1 @tempID=ROI_Requestor_Seq from [ROI_Requestor] where ROI_RequestorType_Seq=@tempTypeID and NameLast=@tempName
 		end
 
 
@@ -375,7 +375,7 @@ set @requestor_seq=(select top 1 ROI_Requestor_Seq from @tmpRequestCoreRequestor
 set @requestor_type_name=(select top 1 RequestorTypeName from @tmpRequestCoreRequestor);
 
 Begin TRY
-insert into [cabinet].[dbo].[ROI_RequestCoreRequestor] ( ROI_RequestCore_Seq, ROI_Requestor_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, RequestorTypeName, WorkPhone, HomePhone, CellPhone, ContactName, ContactPhone, Fax, NameFirst, nameLast, RequestorType) 
+insert into [ROI_RequestCoreRequestor] ( ROI_RequestCore_Seq, ROI_Requestor_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, RequestorTypeName, WorkPhone, HomePhone, CellPhone, ContactName, ContactPhone, Fax, NameFirst, nameLast, RequestorType) 
 select @requestId, ROI_Requestor_Seq, @Created_Dt, @Created_By_Seq, @Modified_Dt, @Modified_By_Seq ,@Record_Version, RequestorTypeName, WorkPhone, HomePhone, CellPhone, ContactName, ContactPhone, Fax, NameFirst, nameLast, RequestorType
 from @tmpRequestCoreRequestor;
 END TRY
@@ -387,27 +387,27 @@ BEGIN CATCH
 			set @nFirst=(select top 1 NameFirst from @tmpRequestCoreRequestor);
 			set @nLast=(select top 1 nameLast from @tmpRequestCoreRequestor);
 		
-			if not exists (select 1 from [cabinet].[dbo].[ROI_RequestorType] where name=@requestor_type_name)
+			if not exists (select 1 from [ROI_RequestorType] where name=@requestor_type_name)
 				begin
-					insert into [cabinet].[dbo].[ROI_RequestorType](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,
+					insert into [ROI_RequestorType](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,
 						Organization_Seq,RecordView,Active,Name,Description,RecordViewDescription,SalesTaxEnable)
 						values(@Created_Dt,@Created_By_Seq,@Modified_Dt,@Modified_By_Seq,@Record_Version,
 						1,(select RecordView from ROI_RequestorType where [ROI_RequestorType_Seq]=-1),1,@requestor_type_name,NULL,(select RecordViewDescription from ROI_RequestorType where [ROI_RequestorType_Seq]=-1),'N') 
 					SELECT @tempTypeID=SCOPE_IDENTITY()		
-					insert into [Cabinet].[dbo].[ROI_RequestorTypeToBillingTier]([Created_Dt],[Created_By_Seq],[Modified_Dt],[Modified_By_Seq],[Record_Version]
+					insert into [ROI_RequestorTypeToBillingTier]([Created_Dt],[Created_By_Seq],[Modified_Dt],[Modified_By_Seq],[Record_Version]
 						,[ROI_RequestorType_Seq],[ROI_BillingTier_Seq],[HPF],[HECM],[CEVA],[Supplemental])
 						SELECT @Created_Dt, @Created_By_Seq,@Modified_Dt,@Modified_By_Seq, @Record_Version,@tempTypeID,[ROI_BillingTier_Seq]
-						,[HPF],[HECM],[CEVA],[Supplemental] FROM [Cabinet].[dbo].[ROI_RequestorTypeToBillingTier] where [ROI_RequestorType_Seq]=-1
+						,[HPF],[HECM],[CEVA],[Supplemental] FROM [ROI_RequestorTypeToBillingTier] where [ROI_RequestorType_Seq]=-1
 						
 				end
 			else
 				begin
-					select top 1 @tempTypeID=ROI_RequestorType_Seq  from [cabinet].[dbo].[ROI_RequestorType] where name=@requestor_type_name
+					select top 1 @tempTypeID=ROI_RequestorType_Seq  from [ROI_RequestorType] where name=@requestor_type_name
 				end
 			
-			if not exists (select 1 from [cabinet].[dbo].[ROI_Requestor] where NameFirst=@nFirst and NameLast=@nLast and ROI_RequestorType_Seq=@tempTypeID)
+			if not exists (select 1 from [ROI_Requestor] where NameFirst=@nFirst and NameLast=@nLast and ROI_RequestorType_Seq=@tempTypeID)
 				begin
-					insert into [cabinet].[dbo].[ROI_Requestor](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,ROI_RequestorType_Seq,AccountNumber,Active,Frequent,PrePayRequired,CertLetterRequired,IsPatient,
+					insert into [ROI_Requestor](Created_Dt,Created_By_Seq,Modified_Dt,Modified_By_Seq,Record_Version,ROI_RequestorType_Seq,AccountNumber,Active,Frequent,PrePayRequired,CertLetterRequired,IsPatient,
 						Title,NameFirst,NameMiddle,NameLast,Suffix)
 						values(@Created_Dt,@Created_By_Seq,@Modified_Dt,@Modified_By_Seq,@Record_Version,@tempTypeID,NULL,1,1,0,0,0,NULL,@nFirst,NULL,
 						@nLast,NULL)
@@ -415,10 +415,10 @@ BEGIN CATCH
 				end
 			else
 				begin
-					select top 1 @tempID=ROI_Requestor_Seq  from [cabinet].[dbo].[ROI_Requestor] where NameFirst=@nFirst and NameLast=@nLast and ROI_RequestorType_Seq=@tempTypeID
+					select top 1 @tempID=ROI_Requestor_Seq  from [ROI_Requestor] where NameFirst=@nFirst and NameLast=@nLast and ROI_RequestorType_Seq=@tempTypeID
 				end
 				
-			insert into [cabinet].[dbo].[ROI_RequestCoreRequestor] ( ROI_RequestCore_Seq, ROI_Requestor_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, RequestorTypeName, WorkPhone, HomePhone, CellPhone, ContactName, ContactPhone, Fax, NameFirst, nameLast, RequestorType) 
+			insert into [ROI_RequestCoreRequestor] ( ROI_RequestCore_Seq, ROI_Requestor_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, RequestorTypeName, WorkPhone, HomePhone, CellPhone, ContactName, ContactPhone, Fax, NameFirst, nameLast, RequestorType) 
 				select @requestId, @tempID, @Created_Dt, @Created_By_Seq, @Modified_Dt, @Modified_By_Seq ,@Record_Version, RequestorTypeName, WorkPhone, HomePhone, CellPhone, ContactName, ContactPhone, Fax, NameFirst, nameLast, RequestorType
 				from @tmpRequestCoreRequestor;
 			set @requestor_seq=@tempID;			
@@ -495,24 +495,24 @@ Union
 UPDATE a
   SET a.doc_id = d.doc_id
   FROM @tmpROIDocument a
-    JOIN cabinet.dbo.documents d on (
+    JOIN documents d on (
     	a.facility = d.facility 
     	AND a.encounter = d.encounter
     	AND a.doc_name = d.doc_name 
     	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
-	JOIN cabinet.dbo.pages p on (a.IMNET = p.imnet)
+	JOIN pages p on (a.IMNET = p.imnet)
 	JOIN versions v on p.version_id = v.version_id
   WHERE a.doc_id IS NULL
 
 UPDATE a
   SET a.doc_id = d.doc_id
   FROM @tmpROIDocument a
-    JOIN cabinet.dbo.documents d on (
+    JOIN documents d on (
     	a.facility = d.facility 
     	AND a.mrn = d.mrn
     	AND a.doc_name = d.doc_name 
     	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
-	JOIN cabinet.dbo.pages p on (a.IMNET = p.imnet)
+	JOIN pages p on (a.IMNET = p.imnet)
 	JOIN versions v on p.version_id = v.version_id
   WHERE a.doc_id IS NULL
 
@@ -549,26 +549,26 @@ Union
 UPDATE a
   SET a.doc_id = d.doc_id
   FROM @tmpROIVersion a
-    JOIN cabinet.dbo.documents d ON (
+    JOIN documents d ON (
     	a.facility = d.facility 
     	AND a.encounter = d.encounter
     	AND a.doc_name = d.doc_name 
     	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
-	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
-	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+	JOIN pages p ON (a.IMNET = p.imnet)
+	JOIN versions v on (p.version_id = v.version_id
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL
 
 UPDATE a
   SET a.doc_id = d.doc_id
   FROM @tmpROIVersion a
-    JOIN cabinet.dbo.documents d ON (
+    JOIN documents d ON (
     	a.facility = d.facility 
     	AND a.mrn = d.mrn
     	AND a.doc_name = d.doc_name 
     	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
-	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
-	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+	JOIN pages p ON (a.IMNET = p.imnet)
+	JOIN versions v on (p.version_id = v.version_id
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL	
 
@@ -613,36 +613,36 @@ Union
   UPDATE a
   SET a.doc_id = d.doc_id
   FROM @tmpROIPage a
-    JOIN cabinet.dbo.documents d ON (
+    JOIN documents d ON (
     	a.facility = d.facility 
     	AND a.encounter = d.encounter
     	AND a.doc_name = d.doc_name 
     	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
-	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
-	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+	JOIN pages p ON (a.IMNET = p.imnet)
+	JOIN versions v on (p.version_id = v.version_id
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL
   
   UPDATE a
   SET a.doc_id = d.doc_id
   FROM @tmpROIPage a
-    JOIN cabinet.dbo.documents d ON (
+    JOIN documents d ON (
     	a.facility = d.facility 
     	AND a.mrn = d.mrn
     	AND a.doc_name = d.doc_name 
     	AND coalesce(a.subtitle, '') = coalesce(d.subtitle, ''))
-	JOIN cabinet.dbo.pages p ON (a.IMNET = p.imnet)
-	JOIN cabinet.dbo.versions v on (p.version_id = v.version_id
+	JOIN pages p ON (a.IMNET = p.imnet)
+	JOIN versions v on (p.version_id = v.version_id
 		AND v.VersionNumber = a.VersionNumber)
   WHERE a.doc_id IS NULL
 
   	
-insert into [cabinet].[dbo].[ROI_PATIENTS] ([MRN] ,[NAME] ,[SSN] ,[SEX] ,[DOB] ,[FACILITY] ,[EPN] ,[VIP] ,[LOCKOUT] )
+insert into [ROI_PATIENTS] ([MRN] ,[NAME] ,[SSN] ,[SEX] ,[DOB] ,[FACILITY] ,[EPN] ,[VIP] ,[LOCKOUT] )
 OUTPUT inserted.[ROI_Patients_Seq], inserted.[MRN], inserted.[FACILITY] INTO @ROI_PATIENTS_IDX
 select [MRN] ,[NAME] ,[SSN] ,[SEX] ,[DOB] ,[FACILITY] ,[EPN] ,[VIP] ,[PATIENTLOCKED]
 from @tmpROIPatient
 
-insert into [cabinet].[dbo].[ROI_ENCOUNTERS] ([ROI_Patients_Seq] ,[ENCOUNTER] ,[MRN] ,[ADMITTED] ,[DISCHARGED] ,[FACILITY] ,[PT_TYPE] ,[SERVICE] ,[LOCKOUT] ,[VIP] ,[HAS_DEFICIENCY] )
+insert into [ROI_ENCOUNTERS] ([ROI_Patients_Seq] ,[ENCOUNTER] ,[MRN] ,[ADMITTED] ,[DISCHARGED] ,[FACILITY] ,[PT_TYPE] ,[SERVICE] ,[LOCKOUT] ,[VIP] ,[HAS_DEFICIENCY] )
 OUTPUT inserted.[ROI_Encounters_Seq], inserted.[ROI_Patients_Seq], inserted.[ENCOUNTER], inserted.[FACILITY] INTO @ROI_ENCOUNTERS_IDX
 select min(b.[ROI_Patients_Seq]), a.[ENCOUNTER], a.[MRN], min(a.[ADMITTED]), max(a.[DISCHARGED]), max(a.[FACILITY]), max(a.[PT_TYPE]), max(a.[SERVICE]), max(cast(a.[LOCKOUT] as int)), max(cast(a.[VIP] as int)), max(cast(a.[HAS_DEFICIENCY] as int))
 from @tmpROIEncounter a
@@ -651,27 +651,27 @@ and a.FACILITY = b.facility
 group by a.MRN, a.ENCOUNTER, a.FACILITY
 
  -- Global Document
-insert into [cabinet].[dbo].[ROI_Documents] ( [ROI_Patients_Seq] ,[MRN] ,[FACILITY] ,[DOC_NAME] ,[SUBTITLE] ,[DOC_ID] ,[DOCTYPE_ID] ,[CHART_ORDER] )
+insert into [ROI_Documents] ( [ROI_Patients_Seq] ,[MRN] ,[FACILITY] ,[DOC_NAME] ,[SUBTITLE] ,[DOC_ID] ,[DOCTYPE_ID] ,[CHART_ORDER] )
 OUTPUT inserted.[ROI_Documents_Seq], inserted.[DOC_ID] INTO @ROI_DOCUMENTS_IDX
 select b.[ROI_Patients_Seq] ,a.[MRN] ,a.[FACILITY] ,a.[DOC_NAME] ,a.[SUBTITLE] ,a.[DOC_ID] ,a.[DOC_TYPE_ID] ,a.[CHART_ORDER]
 from @tmpROIDocument a
 join @ROI_PATIENTS_IDX b on  a.[MRN] = b.[MRN] and a.[FACILITY] = b.[FACILITY]
 where a.[ENCOUNTER] is null
 
-insert into [cabinet].[dbo].[ROI_Documents] ( [ROI_Patients_Seq] ,[ROI_Encounters_Seq] ,[ENCOUNTER] ,[MRN] ,[FACILITY] ,[DOC_NAME] ,[SUBTITLE] ,[DOC_ID] ,[DOCTYPE_ID] ,[CHART_ORDER] )
+insert into [ROI_Documents] ( [ROI_Patients_Seq] ,[ROI_Encounters_Seq] ,[ENCOUNTER] ,[MRN] ,[FACILITY] ,[DOC_NAME] ,[SUBTITLE] ,[DOC_ID] ,[DOCTYPE_ID] ,[CHART_ORDER] )
 OUTPUT inserted.[ROI_Documents_Seq], inserted.[DOC_ID] INTO @ROI_DOCUMENTS_IDX
 select  b.[ROI_Patients_Seq] ,b.[ROI_Encounters_Seq] ,a.[ENCOUNTER] ,a.[MRN] ,a.[FACILITY] ,a.[DOC_NAME] ,a.[SUBTITLE] ,a.[DOC_ID] ,a.[DOC_TYPE_ID] ,a.[CHART_ORDER]
 from @tmpROIDocument a
 join @ROI_ENCOUNTERS_IDX b on  a.[ENCOUNTER] = b.[ENCOUNTER] and a.[FACILITY] = b.[FACILITY]
-where a.[ENCOUNTER] is not NULL
+where a.[ENCOUNTER] is not NULL AND a.[DOC_ID] is NOT NULL
 
-insert into [cabinet].[dbo].[ROI_Versions] ( [ROI_Documents_Seq] ,[DOC_ID] ,[VersionNumber] )
+insert into [ROI_Versions] ( [ROI_Documents_Seq] ,[DOC_ID] ,[VersionNumber] )
 OUTPUT inserted.[ROI_Versions_Seq], inserted.[DOC_ID], inserted.[VersionNumber] INTO @ROI_VERSIONS_IDX
 select b.[ROI_Documents_Seq] ,a.[DOC_ID] ,a.[VersionNumber]
 from @tmpROIVersion a
 join @ROI_DOCUMENTS_IDX b on  a.[DOC_ID] = b.[DOC_ID]
 
-insert into [cabinet].[dbo].[ROI_Pages] ( [ROI_Versions_Seq] ,[imnet] ,[page] ,[ContentCount] ,[isreleased] ,[SelectedForRelease] )
+insert into [ROI_Pages] ( [ROI_Versions_Seq] ,[imnet] ,[page] ,[ContentCount] ,[isreleased] ,[SelectedForRelease] )
 OUTPUT inserted.[ROI_Pages_Seq], inserted.[imnet], inserted.[page] INTO @ROI_PAGES_IDX
 select  b.[ROI_Versions_Seq] ,a.[IMNET] ,a.[page] ,a.[ContentCount] ,a.[isreleased] ,a.[SelectedForRelease]
 from @tmpROIPage a
@@ -695,16 +695,17 @@ SELECT
 	NULLIF(t.c.value('facility[1]','varchar(256)'), '') as [DOCFACILITY]
 from @request.nodes('/request/item[@source="hpf"]/patient/supplemental-encounter/document') as t(c);
 
-insert into [cabinet].[dbo].[ROI_SupplementarityDocumentsCore] ( [ROI_SupplementarityDocuments_Seq] ,[ROI_Patients_Seq] ,[DATEOFSERVICE] ,[encounter] ,[docname] ,[subtitle] ,[MRN] ,[FACILITY] ,[DEPARTMENT] ,[PAGECOUNT] ,[COMMENT] ,[isreleased] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
+insert into [ROI_SupplementarityDocumentsCore] ( [ROI_SupplementarityDocuments_Seq] ,[ROI_Patients_Seq] ,[DATEOFSERVICE] ,[encounter] ,[docname] ,[subtitle] ,[MRN] ,[FACILITY] ,[DEPARTMENT] ,[PAGECOUNT] ,[COMMENT] ,[isreleased] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
 OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityDocuments_Seq], inserted.[ROI_SupplementarityDocumentsCore_Seq] INTO @SupplementarityDocuments_IDX
 select * from
 (select
-	(select c.[ROI_SupplementarityDocuments_Seq] from ROI_ConversionMapping_SupplementarityDocuments c  
+	(select max(c.[ROI_SupplementarityDocuments_Seq]) from ROI_ConversionMapping_SupplementarityDocuments c  
 	join ROI_SupplementarityDocuments sd on (c.ROI_SupplementarityDocuments_Seq = sd.ROI_SupplementarityDocuments_Seq)
 	where a.MRN = sd.[MRN] and a.FACILITY = sd.facility 
 	AND a.[DOCUMENTID] = c.document_id 
 	AND a.DOCNAME = sd.DOCNAME 
 	AND a.DOCFACILITY = sd.DOCFACILITY 
+	AND a.DATEOFSERVICE = sd.DATEOFSERVICE 
 	AND a.SUBTITLE = sd.SUBTITLE 
 	AND c.ROI_RequestCore_Seq is null) as ROI_SupplementarityDocuments_Seq
 	,b.[ROI_Patients_Seq]  ,a.[DATEOFSERVICE] ,a.[encounter] ,a.[docname] ,a.[subtitle] ,a.[MRN] ,a.[FACILITY] ,a.[DEPARTMENT] ,a.[PAGECOUNT] ,a.[COMMENT] ,a.[isreleased] ,a.[ROI_BillingTier_Seq] ,a.[SelectedForRelease] ,a.[DOCFACILITY] ,@Created_Dt as Created_Dt  ,@Modified_Dt as Modified_Dt ,@Created_By_Seq as Created_By_Seq ,@Modified_By_Seq as Modified_By_Seq ,@Record_Version as Record_Version
@@ -734,11 +735,11 @@ select
 	NULLIF(t.c.value('facility[1]','varchar(10)'), '') as [DOCFACILITY]
 from @request.nodes('/request/item[@source="hpf"]/patient/attachment-encounter/attachment') as t(c);
 
-insert into [cabinet].[dbo].[ROI_SupplementarityAttachmentsCore] ( [ROI_SupplementarityAttachments_Seq] ,[ROI_Patients_Seq] ,[DATEOFSERVICE] ,[ENCOUNTER] ,[SUBTITLE] ,[isReleased] ,[MRN] ,[FACILITY] ,[TYPE] ,[PAGECOUNT] ,[UUID] ,[FILENAME] ,[FILETYPE] ,[FILEEXT] ,[COMMENT] ,[ATTACHMENTDATE] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[printable_flag] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
+insert into [ROI_SupplementarityAttachmentsCore] ( [ROI_SupplementarityAttachments_Seq] ,[ROI_Patients_Seq] ,[DATEOFSERVICE] ,[ENCOUNTER] ,[SUBTITLE] ,[isReleased] ,[MRN] ,[FACILITY] ,[TYPE] ,[PAGECOUNT] ,[UUID] ,[FILENAME] ,[FILETYPE] ,[FILEEXT] ,[COMMENT] ,[ATTACHMENTDATE] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[printable_flag] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
 OUTPUT inserted.[MRN], inserted.[FACILITY], inserted.[ROI_SupplementarityAttachments_Seq], inserted.[ROI_SupplementarityAttachmentsCore_Seq] INTO @SupplementarityAttachments_IDX
 select * from
 (select
-	(select [ROI_SupplementarityAttachments_Seq] from [cabinet].[dbo].ROI_ConversionMapping_SupplementarityAttachments  c where a.MRN = c.[MRN] and a.FACILITY = c.facility and a.[ATTACHMENTID] = c.[ATTACHMENT_ID] and c.ROI_RequestCore_Seq is null) as ROI_SupplementarityAttachments_Seq
+	(select max([ROI_SupplementarityAttachments_Seq]) from ROI_ConversionMapping_SupplementarityAttachments  c where a.MRN = c.[MRN] and a.FACILITY = c.facility and a.[ATTACHMENTID] = c.[ATTACHMENT_ID] and c.ROI_RequestCore_Seq is null) as ROI_SupplementarityAttachments_Seq
 	,b.[ROI_Patients_Seq]  ,a.[DATEOFSERVICE] ,a.[ENCOUNTER] ,a.[SUBTITLE] ,a.[isReleased] ,a.[MRN] ,a.[FACILITY] ,a.[TYPE] ,a.[PAGECOUNT] ,a.[UUID] ,a.[FILENAME] ,a.[FILETYPE] ,a.[FILEEXT] ,a.[COMMENT] ,a.[ATTACHMENTDATE] ,a.[ROI_BillingTier_Seq] ,a.[SelectedForRelease] ,a.[printable_flag] ,a.[DOCFACILITY] ,@Created_Dt as Created_Dt  ,@Modified_Dt as Modified_Dt ,@Created_By_Seq as Created_By_Seq ,@Modified_By_Seq as Modified_By_Seq ,@Record_Version as Record_Version
 from @tmpROISupplementarityAttachments a inner join @ROI_PATIENTS_IDX b on  a.MRN = b.[MRN] and a.FACILITY = b.facility) d
 where d.ROI_SupplementarityAttachments_Seq is not null
@@ -801,75 +802,75 @@ select
 	NULLIF(t.c.value('facility[1]','varchar(256)'), '') as [DOCFACILITY]
 from @request.nodes('/request/item[@source="roi"]/patient/attachment-encounter/attachment') as t(c);
 
-insert into [cabinet].[dbo].[ROI_SupplementalPatientsCore] ( [ROI_SupplementalPatients_Seq] ,[MRN] ,[FACILITY] ,[EPN] ,[LASTNAME] ,[FIRSTNAME] ,[GENDER] ,[DOB] ,[SSN] ,[VIP] ,[FreeFormFacility] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
+insert into [ROI_SupplementalPatientsCore] ( [ROI_SupplementalPatients_Seq] ,[MRN] ,[FACILITY] ,[EPN] ,[LASTNAME] ,[FIRSTNAME] ,[GENDER] ,[DOB] ,[SSN] ,[VIP] ,[FreeFormFacility] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
 OUTPUT inserted.[ROI_SupplementalPatientsCore_Seq], inserted.[ROI_SupplementalPatients_Seq] INTO @SupplementalPatients_IDX
 select
-	(select [ROI_SupplementalPatients_Seq] from [cabinet].[dbo].ROI_ConversionMapping_SupplementalPatient  c where a.[PATIENTID] = c.[patient_id] and c.ROI_RequestCore_Seq is null)
+	(select [ROI_SupplementalPatients_Seq] from ROI_ConversionMapping_SupplementalPatient  c where a.[PATIENTID] = c.[patient_id] and c.ROI_RequestCore_Seq is null)
 	,a.[MRN] ,a.[FACILITY] ,a.[EPN] ,a.[LASTNAME] ,a.[FIRSTNAME] ,a.[GENDER] ,a.[DOB] ,a.[SSN] ,a.[VIP] ,a.[FreeFormFacility] ,@Created_Dt  ,@Modified_Dt ,@Created_By_Seq ,@Modified_By_Seq ,@Record_Version
 from @tmpROISupplementalPatients a
 
-insert into [cabinet].[dbo].[ROI_SupplementalDocumentsCore] ( [ROI_SupplementalDocuments_Seq] ,[ROI_SupplementalPatientsCore_Seq] ,[DATEOFSERVICE] ,[ENCOUNTER] ,[DOCNAME] ,[SUBTITLE] ,[FACILITY] ,[DEPARTMENT] ,[PAGECOUNT] ,[isreleased] ,[COMMENT] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
+insert into [ROI_SupplementalDocumentsCore] ( [ROI_SupplementalDocuments_Seq] ,[ROI_SupplementalPatientsCore_Seq] ,[DATEOFSERVICE] ,[ENCOUNTER] ,[DOCNAME] ,[SUBTITLE] ,[FACILITY] ,[DEPARTMENT] ,[PAGECOUNT] ,[isreleased] ,[COMMENT] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[DOCFACILITY] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
 OUTPUT inserted.[ROI_SupplementalDocumentsCore_Seq], inserted.[ROI_SupplementalDocuments_Seq], inserted.[ROI_SupplementalPatientsCore_Seq] INTO @SupplementalDocuments_IDX
 select
-	(select [ROI_SupplementalDocuments_Seq] from [cabinet].[dbo].[ROI_ConversionMapping_SupplementalDocuments] d where a.[PATIENTID] = d.[patient_id] and a.[DOCUMENTID] = d.[document_id] and d.ROI_RequestCore_Seq is null)
+	(select [ROI_SupplementalDocuments_Seq] from [ROI_ConversionMapping_SupplementalDocuments] d where a.[PATIENTID] = d.[patient_id] and a.[DOCUMENTID] = d.[document_id] and d.ROI_RequestCore_Seq is null)
 	,b.[ROI_SupplementalPatientsCore_Seq] ,a.[DATEOFSERVICE] ,a.[ENCOUNTER] ,a.[DOCNAME] ,a.[SUBTITLE] ,a.[FACILITY] ,a.[DEPARTMENT] ,a.[PAGECOUNT] ,a.[isreleased] ,a.[COMMENT] ,a.[ROI_BillingTier_Seq] ,a.[SelectedForRelease] ,a.[DOCFACILITY] ,@Created_Dt  ,@Modified_Dt ,@Created_By_Seq ,@Modified_By_Seq ,@Record_Version
-from @tmpROISupplementalDocuments a join [cabinet].[dbo].ROI_ConversionMapping_SupplementalPatient c on ( a.[PATIENTID] = c.[patient_id]) join @SupplementalPatients_IDX b on (b.[ROI_SupplementalPatients_Seq] = c.[ROI_SupplementalPatients_Seq])
+from @tmpROISupplementalDocuments a join ROI_ConversionMapping_SupplementalPatient c on ( a.[PATIENTID] = c.[patient_id]) join @SupplementalPatients_IDX b on (b.[ROI_SupplementalPatients_Seq] = c.[ROI_SupplementalPatients_Seq])
 where c.ROI_RequestCore_Seq is NULL
 
-insert into [cabinet].[dbo].[ROI_SupplementalAttachmentsCore] ( [ROI_SupplementalAttachments_Seq] ,[ROI_SupplementalPatientsCore_Seq] ,[DATEOFSERVICE] ,[ENCOUNTER] ,[SUBTITLE] ,[isReleased] ,[TYPE] ,[PAGECOUNT] ,[UUID] ,[FILENAME] ,[FILETYPE] ,[FILEEXT] ,[COMMENT] ,[ATTACHMENTDATE] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[printable_flag] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
+insert into [ROI_SupplementalAttachmentsCore] ( [ROI_SupplementalAttachments_Seq] ,[ROI_SupplementalPatientsCore_Seq] ,[DATEOFSERVICE] ,[ENCOUNTER] ,[SUBTITLE] ,[isReleased] ,[TYPE] ,[PAGECOUNT] ,[UUID] ,[FILENAME] ,[FILETYPE] ,[FILEEXT] ,[COMMENT] ,[ATTACHMENTDATE] ,[ROI_BillingTier_Seq] ,[SelectedForRelease] ,[printable_flag] ,[Created_Dt] ,[Modified_Dt] ,[Created_By_Seq] ,[Modified_By_Seq] ,[Record_Version] )
 OUTPUT inserted.[ROI_SupplementalAttachmentsCore_Seq], inserted.[ROI_SupplementalAttachments_Seq], inserted.[ROI_SupplementalPatientsCore_Seq] INTO @SupplementalAttachments_IDX
 select
-	(select [ROI_SupplementalAttachments_Seq] from [cabinet].[dbo].[ROI_ConversionMapping_SupplementalAttachments] d where a.[PATIENTID] = d.[patient_id] and a.[ATTACHMENTID] = d.[attachment_id] and d.ROI_RequestCore_Seq is null)
+	(select [ROI_SupplementalAttachments_Seq] from [ROI_ConversionMapping_SupplementalAttachments] d where a.[PATIENTID] = d.[patient_id] and a.[ATTACHMENTID] = d.[attachment_id] and d.ROI_RequestCore_Seq is null)
 	,b.[ROI_SupplementalPatientsCore_Seq] ,a.[DATEOFSERVICE] ,a.[ENCOUNTER] ,a.[SUBTITLE] ,a.[isReleased] ,a.[TYPE] ,a.[PAGECOUNT] ,a.[UUID] ,a.[FILENAME] ,a.[FILETYPE] ,a.[FILEEXT] ,a.[COMMENT] ,a.[ATTACHMENTDATE] ,a.[ROI_BillingTier_Seq] ,a.[SelectedForRelease] ,a.[printable_flag] ,@Created_Dt  ,@Modified_Dt ,@Created_By_Seq ,@Modified_By_Seq ,@Record_Version
-from @tmpROISupplementalAttachments a join [cabinet].[dbo].ROI_ConversionMapping_SupplementalPatient c on ( a.[PATIENTID] = c.[patient_id]) join @SupplementalPatients_IDX b on (b.[ROI_SupplementalPatients_Seq] = c.[ROI_SupplementalPatients_Seq])
+from @tmpROISupplementalAttachments a join ROI_ConversionMapping_SupplementalPatient c on ( a.[PATIENTID] = c.[patient_id]) join @SupplementalPatients_IDX b on (b.[ROI_SupplementalPatients_Seq] = c.[ROI_SupplementalPatients_Seq])
 where c.ROI_RequestCore_Seq is NULL
 
-insert into cabinet.dbo.ROI_RequestCoreEvent
+insert into ROI_RequestCoreEvent
 (ROI_RequestCore_Seq, Name, Description, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version)
-select ROI_RequestMain_Seq, Name, Description, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version from cabinet.dbo.ROI_RequestEvent where ROI_RequestMain_Seq = @requestId;
+select ROI_RequestMain_Seq, Name, Description, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version from ROI_RequestEvent where ROI_RequestMain_Seq = @requestId;
 
-insert into cabinet.dbo.ROI_RequestCoreEvent(ROI_RequestCore_Seq,Name,Description)
+insert into ROI_RequestCoreEvent(ROI_RequestCore_Seq,Name,Description)
 values(@requestId,'Upgrade Migration','Requests migrated..')
 
-insert into cabinet.dbo.ROI_EXT_SOURCE_DOCUMENTCore
+insert into ROI_EXT_SOURCE_DOCUMENTCore
 (ROI_REQUESTCORE_SEQ, REQUEST_TYPE, REQUEST_STATUS, MRN, ENCOUNTER, FACILITY, ATT_ID, OUTBOUND, REFERENCE_ID, RETRY, RECEIVE_DATE, FULFILL_DATE, OUTPUT_TYPE)
-select ROI_REQUESTMAIN_SEQ, REQUEST_TYPE, REQUEST_STATUS, MRN, ENCOUNTER, FACILITY, ATT_ID, OUTBOUND, REFERENCE_ID, RETRY, RECEIVE_DATE, FULFILL_DATE, OUTPUT_TYPE from cabinet.dbo.ROI_EXT_SOURCE_DOCUMENT where ROI_REQUESTMAIN_SEQ = @requestId;
+select ROI_REQUESTMAIN_SEQ, REQUEST_TYPE, REQUEST_STATUS, MRN, ENCOUNTER, FACILITY, ATT_ID, OUTBOUND, REFERENCE_ID, RETRY, RECEIVE_DATE, FULFILL_DATE, OUTPUT_TYPE from ROI_EXT_SOURCE_DOCUMENT where ROI_REQUESTMAIN_SEQ = @requestId;
 
-insert into cabinet.dbo.ROI_Outbound_StatisticsCore
+insert into ROI_Outbound_StatisticsCore
 (ROI_RequestCore_Seq, Request_Status, Requested_Dt, Available_Dt, Fulfilled_Dt, Discharge_Dt, Cancelled_Dt, TAHours, TotalDays, WeekendDays, MRN, Encounter, Facility, HPFMUDocumentType, UserInstanceId, ExternalSource, Report_Sname, Requested_For, Document_Type, Pat_Seq, Available_By, CPI_Seq, PatientFirstName, PatientLastName, PatientDOB, PatientSex, Outbound)
-select ROI_RequestMain_Seq, Request_Status, Requested_Dt, Available_Dt, Fulfilled_Dt, Discharge_Dt, Cancelled_Dt, TAHours, TotalDays, WeekendDays, MRN, Encounter, Facility, HPFMUDocumentType, UserInstanceId, ExternalSource, Report_Sname, Requested_For, Document_Type, Pat_Seq, Available_By, CPI_Seq, PatientFirstName, PatientLastName, PatientDOB, PatientSex, Outbound from cabinet.dbo.ROI_Outbound_Statistics where ROI_RequestMain_Seq = @requestId;
+select ROI_RequestMain_Seq, Request_Status, Requested_Dt, Available_Dt, Fulfilled_Dt, Discharge_Dt, Cancelled_Dt, TAHours, TotalDays, WeekendDays, MRN, Encounter, Facility, HPFMUDocumentType, UserInstanceId, ExternalSource, Report_Sname, Requested_For, Document_Type, Pat_Seq, Available_By, CPI_Seq, PatientFirstName, PatientLastName, PatientDOB, PatientSex, Outbound from ROI_Outbound_Statistics where ROI_RequestMain_Seq = @requestId;
 
 -- Update Mapping
-insert into [cabinet].[dbo].[ROI_RequestCoretoROI_Patients] (ROI_RequestCore_Seq, ROI_Patients_Seq)
+insert into [ROI_RequestCoretoROI_Patients] (ROI_RequestCore_Seq, ROI_Patients_Seq)
 	select @requestId, [ROI_Patients_Seq] from @ROI_PATIENTS_IDX
 
-insert into [cabinet].[dbo].[ROI_RequestCoretoROI_SupplementalPatientsCore] (ROI_RequestCore_Seq, [ROI_SupplementalPatientsCore_Seq])
+insert into [ROI_RequestCoretoROI_SupplementalPatientsCore] (ROI_RequestCore_Seq, [ROI_SupplementalPatientsCore_Seq])
 	select @requestId, [ROI_SupplementalPatientsCore_Seq] from @SupplementalPatients_IDX
 
 -- Update Conversion Mapping
-insert into [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityDocuments] ( [ROI_RequestCore_Seq] ,[MRN] ,[FACILITY] ,[document_id] ,[ROI_SupplementarityDocuments_Seq] ,[ROI_SupplementarityDocumentsCore_Seq])
+insert into [ROI_ConversionMapping_SupplementarityDocuments] ( [ROI_RequestCore_Seq] ,[MRN] ,[FACILITY] ,[document_id] ,[ROI_SupplementarityDocuments_Seq] ,[ROI_SupplementarityDocumentsCore_Seq])
 select @requestId, a.[MRN], a.[FACILITY], b.[document_id], a.[ROI_SupplementarityDocuments_Seq], a.[ROI_SupplementarityDocumentsCore_Seq]
-from @SupplementarityDocuments_IDX a join [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityDocuments] b on a.ROI_SupplementarityDocuments_Seq = b.ROI_SupplementarityDocuments_Seq
+from @SupplementarityDocuments_IDX a join [ROI_ConversionMapping_SupplementarityDocuments] b on a.ROI_SupplementarityDocuments_Seq = b.ROI_SupplementarityDocuments_Seq
 where b.[ROI_RequestCore_Seq] is null
 
-insert into [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityAttachments] ([ROI_RequestCore_Seq] ,[MRN] ,[FACILITY] ,[attachment_id] ,[ROI_SupplementarityAttachments_Seq] ,[ROI_SupplementarityAttachmentsCore_Seq])
+insert into [ROI_ConversionMapping_SupplementarityAttachments] ([ROI_RequestCore_Seq] ,[MRN] ,[FACILITY] ,[attachment_id] ,[ROI_SupplementarityAttachments_Seq] ,[ROI_SupplementarityAttachmentsCore_Seq])
 select @requestId, a.[MRN], a.[FACILITY], b.[attachment_id], a.[ROI_SupplementarityAttachments_Seq], a.[ROI_SupplementarityAttachmentsCore_Seq]
-from @SupplementarityAttachments_IDX a join [cabinet].[dbo].ROI_ConversionMapping_SupplementarityAttachments b on a.ROI_SupplementarityAttachments_Seq = b.ROI_SupplementarityAttachments_Seq
+from @SupplementarityAttachments_IDX a join ROI_ConversionMapping_SupplementarityAttachments b on a.ROI_SupplementarityAttachments_Seq = b.ROI_SupplementarityAttachments_Seq
 where b.[ROI_RequestCore_Seq] is null
 
-insert into [cabinet].[dbo].[ROI_ConversionMapping_SupplementalPatient] ([ROI_RequestCore_Seq] ,[patient_id] ,[ROI_SupplementalPatients_Seq] ,[ROI_SupplementalPatientsCore_Seq])
+insert into [ROI_ConversionMapping_SupplementalPatient] ([ROI_RequestCore_Seq] ,[patient_id] ,[ROI_SupplementalPatients_Seq] ,[ROI_SupplementalPatientsCore_Seq])
 select @requestId, b.[patient_id], a.[ROI_SupplementalPatients_Seq], a.[ROI_SupplementalPatientsCore_Seq]
-from @SupplementalPatients_IDX a join [cabinet].[dbo].ROI_ConversionMapping_SupplementalPatient b on a.ROI_SupplementalPatients_Seq = b.ROI_SupplementalPatients_Seq
+from @SupplementalPatients_IDX a join ROI_ConversionMapping_SupplementalPatient b on a.ROI_SupplementalPatients_Seq = b.ROI_SupplementalPatients_Seq
 where b.[ROI_RequestCore_Seq] is null
 
-insert into [cabinet].[dbo].[ROI_ConversionMapping_SupplementalDocuments] ([ROI_RequestCore_Seq] ,[patient_id] ,[document_id] ,[ROI_SupplementalDocuments_Seq] ,[ROI_SupplementalDocumentsCore_Seq])
+insert into [ROI_ConversionMapping_SupplementalDocuments] ([ROI_RequestCore_Seq] ,[patient_id] ,[document_id] ,[ROI_SupplementalDocuments_Seq] ,[ROI_SupplementalDocumentsCore_Seq])
 select @requestId, b.[patient_id], b.[document_id], a.[ROI_SupplementalDocuments_Seq], a.[ROI_SupplementalDocumentsCore_Seq]
-from @SupplementalDocuments_IDX a join [cabinet].[dbo].ROI_ConversionMapping_SupplementalDocuments b on a.ROI_SupplementalDocuments_Seq = b.ROI_SupplementalDocuments_Seq
+from @SupplementalDocuments_IDX a join ROI_ConversionMapping_SupplementalDocuments b on a.ROI_SupplementalDocuments_Seq = b.ROI_SupplementalDocuments_Seq
 where b.[ROI_RequestCore_Seq] is null
 
-insert into [cabinet].[dbo].[ROI_ConversionMapping_SupplementalAttachments] ([ROI_RequestCore_Seq] ,[patient_id] ,[attachment_id] ,[ROI_SupplementalAttachments_Seq] ,[ROI_SupplementalAttachmentsCore_Seq])
+insert into [ROI_ConversionMapping_SupplementalAttachments] ([ROI_RequestCore_Seq] ,[patient_id] ,[attachment_id] ,[ROI_SupplementalAttachments_Seq] ,[ROI_SupplementalAttachmentsCore_Seq])
 select @requestId, b.[patient_id], b.[attachment_id], a.[ROI_SupplementalAttachments_Seq], a.[ROI_SupplementalAttachmentsCore_Seq]
-from @SupplementalAttachments_IDX a join [cabinet].[dbo].ROI_ConversionMapping_SupplementalAttachments b on a.ROI_SupplementalAttachments_Seq = b.ROI_SupplementalAttachments_Seq
+from @SupplementalAttachments_IDX a join ROI_ConversionMapping_SupplementalAttachments b on a.ROI_SupplementalAttachments_Seq = b.ROI_SupplementalAttachments_Seq
 where b.[ROI_RequestCore_Seq] is null
 		]]>
 	</sql-query>
@@ -896,7 +897,7 @@ SELECT
 @applySalesTax = CASE p.value('apply-salestax[1]','varchar(10)') WHEN 'True' THEN 1  WHEN 'False' THEN 0 ELSE 0 END
 FROM @request.nodes('/request') as p(p);
 
-INSERT INTO cabinet.dbo.ROI_RequestCoreCharges(ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Release_Date, Release_Cost, Total_Pages, Total_Pages_Released, Salestax_Percentage, Billing_Type, FACILITY_CODE, FACILITY_NAME, Apply_SalesTax, DisplayBillingInfo, Unbillable)
+INSERT INTO ROI_RequestCoreCharges(ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Release_Date, Release_Cost, Total_Pages, Total_Pages_Released, Salestax_Percentage, Billing_Type, FACILITY_CODE, FACILITY_NAME, Apply_SalesTax, DisplayBillingInfo, Unbillable)
 SELECT
 	@requestid, @Created_Dt, @Created_By_Seq, @Modified_Dt, @Modified_By_Seq, @Record_Version,
 	NULLIF(p.value('(attribute[@name="release-date"]/@value)[1]','smalldatetime'), @Modified_Dt) as Release_Date,
@@ -913,7 +914,7 @@ SELECT
 FROM @reqDelCharges.nodes('/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="release-info"]') as p(p);
 SELECT @rcChargesId = SCOPE_IDENTITY();
 
-INSERT INTO cabinet.dbo.ROI_RequestCoreChargesDocument(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
+INSERT INTO ROI_RequestCoreChargesDocument(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
 SELECT
 	@rcChargesId, @Created_Dt, @Created_By_Seq, @Modified_Dt, @Modified_By_Seq, @Record_Version,
 	REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(p.value('(./attribute[@name="amount"]/@value)[1]','varchar(max)'),0.00), '$',''), ')', ''), '(', '-'),',','') as Amount,
@@ -929,7 +930,7 @@ SELECT
 	REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(p.value('(./attribute[@name="salestax-amount"]/@value)[1]','varchar(max)'),0.00), '$',''), ')', ''), '(', '-'),',','') as Salestax_Amount
 FROM @reqDelCharges.nodes('/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="DocumentCharge"]/release-item') as p(p);
 
-INSERT INTO cabinet.dbo.ROI_RequestCoreChargesFee(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
+INSERT INTO ROI_RequestCoreChargesFee(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
 SELECT
 	@rcChargesId, @Created_Dt, @Created_By_Seq, @Modified_Dt, @Modified_By_Seq, @Record_Version,
 	REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(p.value('(./attribute[@name="amount"]/@value)[1]','varchar(max)'),0.00), '$',''), ')', ''), '(', '-'),',','') as Amount,
@@ -939,7 +940,7 @@ SELECT
 	REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(p.value('(./attribute[@name="salestax-amount"]/@value)[1]','varchar(max)'),0.00), '$',''), ')', ''), '(', '-'),',','') as Salestax_Amount
 FROM @reqDelCharges.nodes('/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="FeeCharge"]/release-item') as p(p);
 
-INSERT INTO cabinet.dbo.ROI_RequestCoreChargesShipping(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId, Nonprintable_Attachment_Queue, Country_Code, Country_Name)
+INSERT INTO ROI_RequestCoreChargesShipping(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId, Nonprintable_Attachment_Queue, Country_Code, Country_Name)
 SELECT
 	@rcChargesId, @Created_Dt, @Created_By_Seq, @Modified_Dt, @Modified_By_Seq, @Record_Version,
 	REPLACE(REPLACE(REPLACE(REPLACE(ISNULL(p.value('(../release-item[@type="charges"]/release-item[@type="shipping-charge"]/attribute[@name="shipping-charge"]/@value)[1]','varchar(max)'),0.00), '$',''), ')', ''), '(', '-'),',','') as ShippingCharge,
@@ -960,7 +961,7 @@ SELECT
 	null, null, null
 FROM @reqDelCharges.nodes('/release-item[@type="billing-info"]/release-item[@type="shipping-info"]') as p(p);
 
-INSERT INTO cabinet.dbo.ROI_RequestCoreChargesSalesTaxReason(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Reason, Reason_Date)
+INSERT INTO ROI_RequestCoreChargesSalesTaxReason(ROI_RequestCoreCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Reason, Reason_Date)
 SELECT
 	@rcChargesId, @Created_Dt, @Created_By_Seq, @Modified_Dt, @Modified_By_Seq, @Record_Version,
 	ISNULL(p.value('(attribute[@name="reason"]/@value)[1]','varchar(256)'),'') as Reason,
@@ -1008,7 +1009,7 @@ left join @tmpInvoice i on r.ROI_RequestDelivery_Seq = i.ROI_RequestDelivery_Seq
 left join @tmpDraftInvoice di on r.ROI_RequestDelivery_Seq = di.ROI_RequestDelivery_Seq
 where (r.isReleased <> 'False' or i.ROI_RequestDeliveryCharges_Seq is not  null) and (r.isReleased <> 'False')
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryCharges (ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Previously_Released_Cost, Release_Date, Total_Pages, Total_Pages_Released, Salestax_Total_Amount, Salestax_Percentage_BillingLoc, Letter_Template_Name, Request_Status, Request_Date, LetterTemplate_FileId, Type, Invoice_Prebill_Date, Invoice_Due_Date, Resend_Date, Output_Method, Queue_Password, Invoice_Salestax, Base_Charge, Balance_Due, FACILITY_CODE, FACILITY_NAME, Invoice_Balance_Due, Is_Released, Billing_Type, Apply_SalesTax, Notes, Invoice_Due_Days, Overwrite_Due_Date, Unbillable, PreBill_Status, Unbillable_Amount)
+insert into ROI_RequestCoreDeliveryCharges (ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Previously_Released_Cost, Release_Date, Total_Pages, Total_Pages_Released, Salestax_Total_Amount, Salestax_Percentage_BillingLoc, Letter_Template_Name, Request_Status, Request_Date, LetterTemplate_FileId, Type, Invoice_Prebill_Date, Invoice_Due_Date, Resend_Date, Output_Method, Queue_Password, Invoice_Salestax, Base_Charge, Balance_Due, FACILITY_CODE, FACILITY_NAME, Invoice_Balance_Due, Is_Released, Billing_Type, Apply_SalesTax, Notes, Invoice_Due_Days, Overwrite_Due_Date, Unbillable, PreBill_Status, Unbillable_Amount)
 output inserted.ROI_RequestCoreDeliveryCharges_Seq, inserted.Created_By_Seq into @ROI_RequestCoreDeliveryCharges_IDX
 select 
 @requestid, rcdc2.Created_Dt, rcdc2.Created_By_Seq, rcdc2.Modified_Dt, rcdc2.Modified_By_Seq, rcdc2.Record_Version, rcdc2.Previously_Released_Cost, rcdc2.Release_Date,
@@ -1059,7 +1060,7 @@ order by rcdc2.releaseid
 
 update idx1 set newinvoiceid=idx2.ROI_RequestCoreDeliveryCharges_Seq from @tmprelease_invoice_mapping idx1 join @ROI_RequestCoreDeliveryCharges_IDX idx2 on idx1.releaseid = idx2.releaseid;
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
+insert into ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @ROI_RequestCoreDeliveryCharges_IDX where releaseid = rim.releaseid),
 	drdc.Created_Dt,
@@ -1082,7 +1083,7 @@ from ROI_RequestDeliveryCharges drdc
 join @tmprelease_invoice_mapping rim on drdc.ROI_RequestDeliveryCharges_Seq = rim.draftinvoiceid
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="DocumentCharge"]/release-item') as p(p);
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesFee (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
+insert into ROI_RequestCoreDeliveryChargesFee (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @ROI_RequestCoreDeliveryCharges_IDX where releaseid = rim.releaseid),
 	drdc.Created_Dt,
@@ -1099,7 +1100,7 @@ from ROI_RequestDeliveryCharges drdc
 join @tmprelease_invoice_mapping rim on drdc.ROI_RequestDeliveryCharges_Seq = rim.draftinvoiceid
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="FeeCharge"]/release-item') as p(p);
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesShipping (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId)
+insert into ROI_RequestCoreDeliveryChargesShipping (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @ROI_RequestCoreDeliveryCharges_IDX where releaseid = rim.releaseid),
 	drdc.Created_Dt,
@@ -1244,11 +1245,11 @@ and idx1.TransactionType='Adjustment' and idx1.IsDebit='True';
 
 if not exists (select * from @ROI_RequestCoreDeliveryCharges_IDX)
 begin
-update rcc set release_cost=release_cost+isnull((select SUM(amount) from @tmpPaymentAdjustments1 idx1 where idx1.draftinvoiceid in (select max(ROI_RequestDeliveryCharges_Seq) from @tmpDraftInvoice) and idx1.TransactionType='Adjustment' and idx1.IsDebit='True'),0.00) from cabinet.dbo.ROI_RequestCoreCharges rcc where rcc.ROI_RequestCoreCharges_Seq = @rcChargesId;
+update rcc set release_cost=release_cost+isnull((select SUM(amount) from @tmpPaymentAdjustments1 idx1 where idx1.draftinvoiceid in (select max(ROI_RequestDeliveryCharges_Seq) from @tmpDraftInvoice) and idx1.TransactionType='Adjustment' and idx1.IsDebit='True'),0.00) from ROI_RequestCoreCharges rcc where rcc.ROI_RequestCoreCharges_Seq = @rcChargesId;
 end
 else
 begin
-update cabinet.dbo.roi_requestcorecharges set release_cost=0.00, DisplayBillingInfo=0 where roi_requestcorecharges_seq=@rcChargesId;
+update roi_requestcorecharges set release_cost=0.00, DisplayBillingInfo=0 where roi_requestcorecharges_seq=@rcChargesId;
 end
 
 set @count = 1;
@@ -1471,10 +1472,10 @@ begin
 	set @count = @count+1;
 end -- end while1
 
-insert into cabinet.dbo.ROI_ConversionMapping_RequestorPayment (ROI_RequestorPayment_Seq, ROI_RequestCore_Seq)
+insert into ROI_ConversionMapping_RequestorPayment (ROI_RequestorPayment_Seq, ROI_RequestCore_Seq)
 	select Transaction_Seq, @requestId from @tmpPaymentAdjustments1 where TransactionType='Payment' and Transaction_Seq is not null;
 
-insert into cabinet.dbo.ROI_ConversionMapping_RequestorAdjustment (ROI_RequestorAdjustment_Seq, ROI_RequestCore_Seq)
+insert into ROI_ConversionMapping_RequestorAdjustment (ROI_RequestorAdjustment_Seq, ROI_RequestCore_Seq)
 	select Transaction_Seq, @requestId from @tmpPaymentAdjustments1 where TransactionType='Adjustment' and IsDebit='False' and Transaction_Seq is not null;
 
 
@@ -1485,13 +1486,13 @@ insert into cabinet.dbo.ROI_ConversionMapping_RequestorAdjustment (ROI_Requestor
 		<![CDATA[
 insert into @tmpPrebill
 select rdc.ROI_RequestDeliveryCharges_Seq 
-from cabinet.dbo.ROI_RequestDeliveryCharges rdc join ROI_RequestDelivery rd on rdc.ROI_RequestDelivery_Seq=rd.ROI_RequestDelivery_Seq
+from ROI_RequestDeliveryCharges rdc join ROI_RequestDelivery rd on rdc.ROI_RequestDelivery_Seq=rd.ROI_RequestDelivery_Seq
 where rdc.isInvoiced=1 and rd.ROI_RequestMain_Seq=@requestId
 and rdc.RequestDeliveryChargesXML.value('(/release-item[@type="billing-doc"]/attribute[@name="type"]/@value)[1]','varchar(max)') = 'PreBill'
 
 if exists (select * from @tmpPrebill)
 begin
-insert into cabinet.dbo.ROI_RequestCoreDeliveryCharges (ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Previously_Released_Cost, Release_Date, Total_Pages, Total_Pages_Released, Salestax_Total_Amount, Salestax_Percentage_BillingLoc, Letter_Template_Name, Request_Status, Request_Date, LetterTemplate_FileId, Type, Invoice_Prebill_Date, Invoice_Due_Date, Resend_Date, Output_Method, Queue_Password, Invoice_Salestax, Base_Charge, Balance_Due, FACILITY_CODE, FACILITY_NAME, Invoice_Balance_Due, Is_Released, Billing_Type, Apply_SalesTax, Notes, Invoice_Due_Days, Overwrite_Due_Date, Unbillable, PreBill_Status, Unbillable_Amount)
+insert into ROI_RequestCoreDeliveryCharges (ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Previously_Released_Cost, Release_Date, Total_Pages, Total_Pages_Released, Salestax_Total_Amount, Salestax_Percentage_BillingLoc, Letter_Template_Name, Request_Status, Request_Date, LetterTemplate_FileId, Type, Invoice_Prebill_Date, Invoice_Due_Date, Resend_Date, Output_Method, Queue_Password, Invoice_Salestax, Base_Charge, Balance_Due, FACILITY_CODE, FACILITY_NAME, Invoice_Balance_Due, Is_Released, Billing_Type, Apply_SalesTax, Notes, Invoice_Due_Days, Overwrite_Due_Date, Unbillable, PreBill_Status, Unbillable_Amount)
 output inserted.ROI_RequestCoreDeliveryCharges_Seq, inserted.Created_By_Seq into @tmpNewPrebill
 select
 	@requestId, irdc.Created_Dt, prebill.ROI_RequestDeliveryCharges_Seq, irdc.Modified_Dt, irdc.Modified_By_Seq, irdc.Record_Version,
@@ -1557,7 +1558,7 @@ select
 	on (a.patientName = (b.lastName + ', ' + b.firstName) and a.MRN = b.MRN and a.Facility = b.Facility)
 where b.ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from ROI_RequestCoretoROI_SupplementalPatientsCore where ROI_RequestCore_Seq = @requestId);
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
+insert into ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @tmpNewPrebill where ROI_RequestDeliveryCharges_Seq = prebill.ROI_RequestDeliveryCharges_Seq),
 	drdc.Created_Dt,
@@ -1580,7 +1581,7 @@ from ROI_RequestDeliveryCharges drdc
 join @tmpPrebill prebill on drdc.ROI_RequestDeliveryCharges_Seq=prebill.ROI_RequestDeliveryCharges_Seq
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-doc"]/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="DocumentCharge"]/release-item') as p(p);
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesFee (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
+insert into ROI_RequestCoreDeliveryChargesFee (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @tmpNewPrebill where ROI_RequestDeliveryCharges_Seq = prebill.ROI_RequestDeliveryCharges_Seq),
 	drdc.Created_Dt,
@@ -1597,7 +1598,7 @@ from ROI_RequestDeliveryCharges drdc
 join @tmpPrebill prebill on drdc.ROI_RequestDeliveryCharges_Seq=prebill.ROI_RequestDeliveryCharges_Seq
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-doc"]/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="FeeCharge"]/release-item') as p(p);
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesShipping (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId)
+insert into ROI_RequestCoreDeliveryChargesShipping (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @tmpNewPrebill where ROI_RequestDeliveryCharges_Seq = prebill.ROI_RequestDeliveryCharges_Seq),
 	drdc.Created_Dt,
@@ -1657,7 +1658,7 @@ left join @tmpInvoice i on r.ROI_RequestDelivery_Seq = i.ROI_RequestDelivery_Seq
 left join @tmpDraftInvoice di on r.ROI_RequestDelivery_Seq = di.ROI_RequestDelivery_Seq
 where r.isReleased <> 'False' or i.ROI_RequestDeliveryCharges_Seq is not  null
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryCharges (ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Previously_Released_Cost, Release_Date, Total_Pages, Total_Pages_Released, Salestax_Total_Amount, Salestax_Percentage_BillingLoc, Letter_Template_Name, Request_Status, Request_Date, LetterTemplate_FileId, Type, Invoice_Prebill_Date, Invoice_Due_Date, Resend_Date, Output_Method, Queue_Password, Invoice_Salestax, Base_Charge, Balance_Due, FACILITY_CODE, FACILITY_NAME, Invoice_Balance_Due, Is_Released, Billing_Type, Apply_SalesTax, Notes, Invoice_Due_Days, Overwrite_Due_Date, Unbillable, PreBill_Status, Unbillable_Amount)
+insert into ROI_RequestCoreDeliveryCharges (ROI_RequestCore_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Previously_Released_Cost, Release_Date, Total_Pages, Total_Pages_Released, Salestax_Total_Amount, Salestax_Percentage_BillingLoc, Letter_Template_Name, Request_Status, Request_Date, LetterTemplate_FileId, Type, Invoice_Prebill_Date, Invoice_Due_Date, Resend_Date, Output_Method, Queue_Password, Invoice_Salestax, Base_Charge, Balance_Due, FACILITY_CODE, FACILITY_NAME, Invoice_Balance_Due, Is_Released, Billing_Type, Apply_SalesTax, Notes, Invoice_Due_Days, Overwrite_Due_Date, Unbillable, PreBill_Status, Unbillable_Amount)
 output inserted.ROI_RequestCoreDeliveryCharges_Seq, inserted.Created_By_Seq into @ROI_RequestCoreDeliveryCharges_IDX
 select
 	@requestId, irdc.Created_Dt, rim.invoiceid, irdc.Modified_Dt, irdc.Modified_By_Seq, irdc.Record_Version,
@@ -1702,7 +1703,7 @@ update ROI_RequestCoreDeliveryCharges set Invoice_Due_Days=DATEDIFF(day,Request_
 update ROI_RequestCoreDeliveryCharges set PreBill_Status='InActive' where ROI_RequestCoreDeliveryCharges_Seq in (select newinvoiceid from @tmprelease_invoice_mapping where releaseid in (select releaseid from @tmprelease_invoice_mapping where Type ='Invoice'));
 update idx1 set Base_Charge=(select Base_Charge from ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq in (select top 1 newinvoiceid from @tmprelease_invoice_mapping where releaseid in (select releaseid from @tmprelease_invoice_mapping where newinvoiceid=idx1.ROI_RequestCoreDeliveryCharges_Seq))) from ROI_RequestCoreDeliveryCharges idx1 where Type='Invoice';
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
+insert into ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @ROI_RequestCoreDeliveryCharges_IDX where releaseid = rim.invoiceid),
 	drdc.Created_Dt,
@@ -1725,7 +1726,7 @@ from ROI_RequestDeliveryCharges drdc
 join @tmprelease_invoice_mapping rim on drdc.ROI_RequestDeliveryCharges_Seq = rim.invoiceid
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-doc"]/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="DocumentCharge"]/release-item') as p(p);
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesFee (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
+insert into ROI_RequestCoreDeliveryChargesFee (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, IsCustomFee, FeeType, Has_Salestax, Salestax_Amount)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @ROI_RequestCoreDeliveryCharges_IDX where releaseid = rim.invoiceid),
 	drdc.Created_Dt,
@@ -1742,7 +1743,7 @@ from ROI_RequestDeliveryCharges drdc
 join @tmprelease_invoice_mapping rim on drdc.ROI_RequestDeliveryCharges_Seq = rim.invoiceid
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-doc"]/release-item[@type="billing-info"]/release-item[@type="charges"]/release-item[@type="FeeCharge"]/release-item') as p(p);
 
-insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesShipping (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId)
+insert into ROI_RequestCoreDeliveryChargesShipping (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, ShippingCharge, AddressType, Address1, Address2, Address3, City, State, PostalCode, ShippingUrl, ShippingWeight, TrackingNumber, WillReleaseShipped, ShippingMethod, OutputMethod, ShippingMethodId)
 select
 	(select ROI_RequestCoreDeliveryCharges_Seq from @ROI_RequestCoreDeliveryCharges_IDX where releaseid = rim.invoiceid),
 	drdc.Created_Dt,
@@ -1952,10 +1953,10 @@ begin
 	set @count = @count+1;
 end -- end while1
 
-insert into cabinet.dbo.ROI_ConversionMapping_RequestorPayment (ROI_RequestorPayment_Seq, ROI_RequestCore_Seq)
+insert into ROI_ConversionMapping_RequestorPayment (ROI_RequestorPayment_Seq, ROI_RequestCore_Seq)
 	select Transaction_Seq, @requestId from @tmpPaymentAdjustments1 where TransactionType='Payment' and Transaction_Seq is not null;
 
-insert into cabinet.dbo.ROI_ConversionMapping_RequestorAdjustment (ROI_RequestorAdjustment_Seq, ROI_RequestCore_Seq)
+insert into ROI_ConversionMapping_RequestorAdjustment (ROI_RequestorAdjustment_Seq, ROI_RequestCore_Seq)
 	select Transaction_Seq, @requestId from @tmpPaymentAdjustments1 where TransactionType='Adjustment' and IsDebit='False' and Transaction_Seq is not null;
 
 		]]>
@@ -2436,14 +2437,14 @@ END
 
 	<sql-query name="drop_ROI_Conversion_RequestMain_SP">
         <![CDATA[
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[cabinet].[dbo].[ROI_Conversion_RequestMain]') AND type in (N'P', N'PC'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Conversion_RequestMain]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ROI_Conversion_RequestMain]
         ]]>
 	</sql-query>
 	
 	<sql-query name="drop_ROI_Conversion_DeleteRequestCore_SP">
         <![CDATA[
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[cabinet].[dbo].[ROI_Conversion_Delete_RequestCore]') AND type in (N'P', N'PC'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ROI_Conversion_Delete_RequestCore]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[ROI_Conversion_Delete_RequestCore]
         ]]>
 	</sql-query>
@@ -2457,16 +2458,16 @@ BEGIN
 BEGIN TRY
 SET NOCOUNT ON
 Delete from  ROI_RequestCoreDeliverytoROI_Pages where ROI_RequestCoreDelivery_Seq in (select ROI_RequestCoreDelivery_Seq from  ROI_RequestCoreDelivery where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_Pages] where ROI_Versions_Seq in (Select ROI_Versions_Seq from [ROI_Versions] where ROI_Documents_Seq in (select ROI_Documents_Seq from [ROI_Documents] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)))
-Delete from  [cabinet].[dbo].[ROI_Versions] where ROI_Documents_Seq in (select ROI_Documents_Seq from [ROI_Documents] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId))
-Delete from  [cabinet].[dbo].[ROI_Documents] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_ENCOUNTERS] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
+Delete from  [ROI_Pages] where ROI_Versions_Seq in (Select ROI_Versions_Seq from [ROI_Versions] where ROI_Documents_Seq in (select ROI_Documents_Seq from [ROI_Documents] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)))
+Delete from  [ROI_Versions] where ROI_Documents_Seq in (select ROI_Documents_Seq from [ROI_Documents] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId))
+Delete from  [ROI_Documents] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
+Delete from  [ROI_ENCOUNTERS] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
 Delete from  ROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore where ROI_RequestCoreDelivery_Seq in (select ROI_RequestCoreDelivery_Seq from  ROI_RequestCoreDelivery where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_SupplementarityDocumentsCore] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
+Delete from  [ROI_SupplementarityDocumentsCore] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
 Delete from  ROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore where ROI_RequestCoreDelivery_Seq in (select ROI_RequestCoreDelivery_Seq from  ROI_RequestCoreDelivery where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_SupplementarityAttachmentsCore] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityDocuments] where ROI_RequestCore_Seq = @requestId
-Delete from  [cabinet].[dbo].[ROI_ConversionMapping_SupplementarityAttachments] where ROI_RequestCore_Seq = @requestId
+Delete from  [ROI_SupplementarityAttachmentsCore] where ROI_Patients_Seq in (Select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId)
+Delete from  [ROI_ConversionMapping_SupplementarityDocuments] where ROI_RequestCore_Seq = @requestId
+Delete from  [ROI_ConversionMapping_SupplementarityAttachments] where ROI_RequestCore_Seq = @requestId
 Delete from  ROI_RequestCoreDeliveryChargesInvoicePatients where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = @requestId)
 DECLARE @ROI_PATIENTS_IDX table (
 	ROI_Patients_Seq bigint
@@ -2474,16 +2475,16 @@ DECLARE @ROI_PATIENTS_IDX table (
 Insert into @ROI_PATIENTS_IDX 
 select ROI_Patients_Seq from [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId
 
-Delete from  [cabinet].[dbo].[ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId
-Delete from  [cabinet].[dbo].[ROI_PATIENTS] where ROI_Patients_Seq in ( select ROI_Patients_Seq from @ROI_PATIENTS_IDX)
+Delete from  [ROI_RequestCoretoROI_Patients] where ROI_RequestCore_Seq = @requestId
+Delete from  [ROI_PATIENTS] where ROI_Patients_Seq in ( select ROI_Patients_Seq from @ROI_PATIENTS_IDX)
 Delete from  ROI_RequestCoreDeliverytoROI_Pages where ROI_RequestCoreDelivery_Seq in (select ROI_RequestCoreDelivery_Seq from  ROI_RequestCoreDelivery where ROI_RequestCore_Seq = @requestId)
 Delete from  ROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore where ROI_RequestCoreDelivery_Seq in (select ROI_RequestCoreDelivery_Seq from  ROI_RequestCoreDelivery where ROI_RequestCore_Seq = @requestId)
 Delete from  ROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore where ROI_RequestCoreDelivery_Seq in (select ROI_RequestCoreDelivery_Seq from  ROI_RequestCoreDelivery where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_SupplementalDocumentsCore] where ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from [ROI_RequestCoretoROI_SupplementalPatientsCore] where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_SupplementalAttachmentsCore] where ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from [ROI_RequestCoretoROI_SupplementalPatientsCore] where ROI_RequestCore_Seq = @requestId)
-Delete from  [cabinet].[dbo].[ROI_ConversionMapping_SupplementalDocuments] where ROI_RequestCore_Seq = @requestId
-Delete from  [cabinet].[dbo].[ROI_ConversionMapping_SupplementalAttachments] where ROI_RequestCore_Seq = @requestId
-Delete from  [cabinet].[dbo].[ROI_ConversionMapping_SupplementalPatient] where ROI_RequestCore_Seq = @requestId
+Delete from  [ROI_SupplementalDocumentsCore] where ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from [ROI_RequestCoretoROI_SupplementalPatientsCore] where ROI_RequestCore_Seq = @requestId)
+Delete from  [ROI_SupplementalAttachmentsCore] where ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from [ROI_RequestCoretoROI_SupplementalPatientsCore] where ROI_RequestCore_Seq = @requestId)
+Delete from  [ROI_ConversionMapping_SupplementalDocuments] where ROI_RequestCore_Seq = @requestId
+Delete from  [ROI_ConversionMapping_SupplementalAttachments] where ROI_RequestCore_Seq = @requestId
+Delete from  [ROI_ConversionMapping_SupplementalPatient] where ROI_RequestCore_Seq = @requestId
 DECLARE @ROI_SupplementalPatientsCore_IDX table (
 	ROI_SupplementalPatientsCore_Seq bigint
 );
@@ -2491,8 +2492,8 @@ Insert into @ROI_SupplementalPatientsCore_IDX
 select ROI_SupplementalPatientsCore_Seq from [ROI_RequestCoretoROI_SupplementalPatientsCore] where ROI_RequestCore_Seq = @requestId
 
 Delete from  ROI_RequestCoretoROI_SupplementalPatientsCore where ROI_RequestCore_Seq = @requestId
-Delete from  [cabinet].[dbo].[ROI_SupplementalPatientsCore] where ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from @ROI_SupplementalPatientsCore_IDX)
-Delete from  [cabinet].[dbo].[ROI_RequestCoretoROI_SupplementalPatientsCore] where ROI_RequestCore_Seq = @requestId
+Delete from  [ROI_SupplementalPatientsCore] where ROI_SupplementalPatientsCore_Seq in (select ROI_SupplementalPatientsCore_Seq from @ROI_SupplementalPatientsCore_IDX)
+Delete from  [ROI_RequestCoretoROI_SupplementalPatientsCore] where ROI_RequestCore_Seq = @requestId
 Delete from  ROI_RequestCoreDeliveryChargesDocument  where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = @requestId)
 Delete from  ROI_RequestCoreDeliveryChargesFee where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = @requestId)
 Delete from ROI_RequestCoreDeliveryChargesMigrated where ROI_RequestCore_Seq=@requestId
@@ -2535,17 +2536,17 @@ delete from ROI_JournalDetail where ROI_JournalEntry_Seq in (select seq from @tm
 
 delete from @tmp;
 insert into @tmp
-select ROI_RequestorPayment_Seq from cabinet.dbo.ROI_ConversionMapping_RequestorPayment where ROI_RequestCore_Seq=@requestId;
-delete from cabinet.dbo.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq=@requestId)
-delete from cabinet.dbo.ROI_RequestorPayment where ROI_RequestorPayment_Seq in (select seq from @tmp);
-delete from cabinet.dbo.ROI_ConversionMapping_RequestorPayment where ROI_RequestCore_Seq=@requestId;
+select ROI_RequestorPayment_Seq from ROI_ConversionMapping_RequestorPayment where ROI_RequestCore_Seq=@requestId;
+delete from ROI_RequestCoreDeliveryChargestoROI_RequestorPayment where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq=@requestId)
+delete from ROI_RequestorPayment where ROI_RequestorPayment_Seq in (select seq from @tmp);
+delete from ROI_ConversionMapping_RequestorPayment where ROI_RequestCore_Seq=@requestId;
 
 delete from @tmp;
 insert into @tmp
-select ROI_RequestorAdjustment_Seq from cabinet.dbo.ROI_ConversionMapping_RequestorAdjustment where ROI_RequestCore_Seq=@requestId;
-delete from cabinet.dbo.ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq=@requestId)
-delete from cabinet.dbo.ROI_RequestorAdjustment where ROI_RequestorAdjustment_Seq in (select seq from @tmp);
-delete from cabinet.dbo.ROI_ConversionMapping_RequestorAdjustment where ROI_RequestCore_Seq=@requestId;
+select ROI_RequestorAdjustment_Seq from ROI_ConversionMapping_RequestorAdjustment where ROI_RequestCore_Seq=@requestId;
+delete from ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq=@requestId)
+delete from ROI_RequestorAdjustment where ROI_RequestorAdjustment_Seq in (select seq from @tmp);
+delete from ROI_ConversionMapping_RequestorAdjustment where ROI_RequestCore_Seq=@requestId;
 
 Delete from  ROI_RequestCoreDeliveryChargesShipping where ROI_RequestCoreDeliveryCharges_Seq in (select ROI_RequestCoreDeliveryCharges_Seq from ROI_RequestCoreDeliveryCharges where ROI_RequestCore_Seq = @requestId)
 Delete from  ROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges where ROI_RequestCoreDelivery_Seq in (select ROI_RequestCoreDelivery_Seq from  ROI_RequestCoreDelivery where ROI_RequestCore_Seq = @requestId)
@@ -2577,14 +2578,14 @@ END
 	
 	<sql-query name="execRequestSP">
         <![CDATA[
-			exec cabinet.dbo.ROI_Conversion_RequestMain :requestId, ':conversionSource', ':isWheaton'
+			exec ROI_Conversion_RequestMain :requestId, ':conversionSource', ':isWheaton'
         ]]>
 	</sql-query>
 
 	<sql-query name="getRequestToConvert">
         <![CDATA[
 			SELECT t1.ROI_RequestMain_Seq
-			FROM cabinet.dbo.ROI_RequestMain t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_RequestMain t2
+			FROM ROI_RequestMain t1 LEFT JOIN ROI_ConversionStatus_RequestMain t2
 			on t1.ROI_RequestMain_Seq = t2.ROI_RequestMain_Seq and (t2.Status = 'Completed')
 			where t2.ROI_RequestMain_Seq IS NULL AND t1.ROI_RequestMain_Seq = :requestId
 	    ]]>
@@ -2593,7 +2594,7 @@ END
 	<sql-query name="getRequestsToConvert">
         <![CDATA[
 			SELECT t1.ROI_RequestMain_Seq
-			FROM cabinet.dbo.ROI_RequestMain t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_RequestMain t2
+			FROM ROI_RequestMain t1 LEFT JOIN ROI_ConversionStatus_RequestMain t2
 			on t1.ROI_RequestMain_Seq = t2.ROI_RequestMain_Seq and (t2.Status = 'Completed')
 			where t2.ROI_RequestMain_Seq IS NULL
 			order by t1.Created_Dt desc
@@ -2616,7 +2617,7 @@ END
 	<sql-query name="requestsToConvertCount">
         <![CDATA[
 			SELECT COUNT(t1.ROI_RequestMain_Seq)
-			FROM cabinet.dbo.ROI_RequestMain t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_RequestMain t2
+			FROM ROI_RequestMain t1 LEFT JOIN ROI_ConversionStatus_RequestMain t2
 			on t1.ROI_RequestMain_Seq = t2.ROI_RequestMain_Seq and (t2.Status = 'Completed')
 			where t2.ROI_RequestMain_Seq IS NULL
         ]]>

@@ -14,14 +14,14 @@
 	</sql-query>
 	<sql-query name="validateDefaultBillingFacilityCode">
         <![CDATA[
-			SELECT COUNT(*) as count FROM cabinet.dbo.FACILITY_FILE where FACILITY_CODE= :facilityCode and FACILITY_NAME=:facilityName
+			SELECT COUNT(*) as count FROM FACILITY_FILE where FACILITY_CODE= :facilityCode and FACILITY_NAME=:facilityName
         ]]>
 	</sql-query>
 	<sql-query name="createDefaultBillingFacilityCode">
         <![CDATA[
-			if not exists( select * from cabinet.dbo.ROI_SalesTaxPerFacility where Facility_Code=':facilityCode' )
+			if not exists( select * from ROI_SalesTaxPerFacility where Facility_Code=':facilityCode' )
 			begin
-			insert into cabinet.dbo.ROI_SalesTaxPerFacility(Facility_Code,TaxRate,EnterpriseDefault) values (':facilityCode',0.00,'N');
+			insert into ROI_SalesTaxPerFacility(Facility_Code,TaxRate,EnterpriseDefault) values (':facilityCode',0.00,'N');
 			end
         ]]>
 	</sql-query>
