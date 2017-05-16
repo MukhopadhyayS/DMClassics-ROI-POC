@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-cascade="none" auto-import="true"
+	default-lazy="false" catalog="cabinet" schema="dbo">
+	<sql-query name="migrateFreeFormFacilities">
+        <![CDATA[
+            INSERT INTO cabinet.dbo.ROI_FreeFormFacilityLOV(FreeFormFACILITY) (select distinct(RTRIM(Value)) from cabinet.dbo.ROI_SearchLOV where Item = 'freeform.facility')
+        ]]>
+	</sql-query>
+	<sql-query name="freeFormFacilititesToConvertCount">
+        <![CDATA[
+			SELECT 
+				COUNT(DISTINCT(Value)) 
+			FROM cabinet.dbo.ROI_SearchLOV 
+			WHERE Item='freeform.facility' 
+			AND Value NOT IN (SELECT FreeFormFACILITY FROM cabinet.dbo.ROI_FreeFormFacilityLOV)
+        ]]>
+	</sql-query>
+</hibernate-mapping>
