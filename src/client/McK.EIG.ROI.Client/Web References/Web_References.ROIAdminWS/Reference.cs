@@ -2880,6 +2880,8 @@ namespace McK.EIG.ROI.Client.Web_References.ROIAdminWS {
         
         private string salesTaxField;
         
+        private string invoiceOptionalField;
+        
         /// <remarks/>
         public long requestorTypeId {
             get {
@@ -2990,6 +2992,16 @@ namespace McK.EIG.ROI.Client.Web_References.ROIAdminWS {
             }
             set {
                 this.salesTaxField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string invoiceOptional {
+            get {
+                return this.invoiceOptionalField;
+            }
+            set {
+                this.invoiceOptionalField = value;
             }
         }
     }

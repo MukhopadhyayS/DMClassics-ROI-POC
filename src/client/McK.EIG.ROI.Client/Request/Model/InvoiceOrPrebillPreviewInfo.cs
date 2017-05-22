@@ -49,6 +49,8 @@ namespace McK.EIG.ROI.Client.Request.Model
 
         private string letterType;
 
+        private bool willInvoiceShipped;
+
         private List<RequestCoreDeliveryInvoicePatientsList> invoicePatients;
 
         private RequestTransaction requestTransaction;
@@ -178,6 +180,12 @@ namespace McK.EIG.ROI.Client.Request.Model
         {
             get { return letterType; }
             set { letterType = value; }
+        }
+
+        public bool WillInvoiceShipped
+        {
+            get { return willInvoiceShipped; }
+            set { willInvoiceShipped = value; }
         }
 
         public List<RequestCoreDeliveryInvoicePatientsList> InvoicePatients

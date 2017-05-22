@@ -123,6 +123,7 @@
           <xsd:element name="amountpaid" type="xsd:double" />
           <xsd:element minOccurs="0" maxOccurs="unbounded" name="notes" type="xsd:string" />
           <xsd:element name="letterType" type="xsd:string" />
+          <xsd:element name="willInvoiceShipped" type="xsd:boolean" />
           <xsd:element minOccurs="0" maxOccurs="unbounded" name="autoAdjustments" type="eig:RequestCoreDeliveryChargesAdjustmentPayment" />
         </xsd:sequence>
       </xsd:complexType>

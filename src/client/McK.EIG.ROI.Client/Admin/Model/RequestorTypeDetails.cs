@@ -62,6 +62,10 @@ namespace McK.EIG.ROI.Client.Admin.Model
 
         private string salesTax;
 
+        private string invoiceOptional;
+
+        public static bool invoiceOptionalFlag;
+
         #endregion
 
         #region Constructors
@@ -176,6 +180,27 @@ namespace McK.EIG.ROI.Client.Admin.Model
 
         #endregion
 
+        #region InvoiceOptional
+
+        /// <summary>
+        /// This property is used to get or sets invoice for requestor type 
+        /// </summary>
+        public string InvoiceOptional
+        {
+            get {
+                if (invoiceOptional == "Yes")
+                    invoiceOptionalFlag = false;
+                else
+                    invoiceOptionalFlag = true;
+                return invoiceOptional; }
+            set { invoiceOptional = value;
+                if (invoiceOptional == "Yes")
+                    invoiceOptionalFlag = false;
+                else
+                    invoiceOptionalFlag = true;
+            }
+        }
+        #endregion
 
         #region RecordViewName
 

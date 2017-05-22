@@ -117,6 +117,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private List<string> invoiceNotes;
         private List<string> coverLetterNotes;
         private string coverLetterName;
+        public bool invoiceflag = RequestorTypeDetails.invoiceOptionalFlag;
         #endregion
 
         #region Constructor
@@ -367,6 +368,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                 EventType eventType, bool isBillingLocationSelected,
                                 ReleaseDetails releaseDetails, String defaultFacilityCode, String defaultFacilityName)
         {
+            if (!invoiceflag)
+            {
+                invoiceGroupBox.Enabled = false;
+                invoiceHistoryGroupBox.Enabled = false;
+            }
             LetterTemplateDetails forSelect = new LetterTemplateDetails();
             forSelect.Id = 0;
             forSelect.Name = GetLocalizedString("letterTemplateText");
@@ -1237,6 +1243,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                      InvoiceInfo.QueuePassword = preBillInvoiceDetails.QueuePassword;
                      InvoiceInfo.RequestCoreId = releaseDetails.RequestId;
                      InvoiceInfo.RequestStatus = preBillInvoiceDetails.RequestStatus;
+                    InvoiceInfo.WillInvoiceShipped = invoiceflag;
                      //US16834 - changes to Include requests in the pre-bill status on the payments popup.
                      if (InvoiceInfo.RequestStatus == "Pre-Billed")
                      {
@@ -1460,11 +1467,11 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                                                         coverLetterTemplateName,
                                                                         invoiceLetterTemplateName,
                                                                         coverLetterNotes, invoiceNotes);*/
-
+                        if(invoiceflag)
                         result = ShowViewer(releaseAndPreviewInfo.docInfoList.name);
                     }
 
-                    if ((!coverLetterCheckBox.Checked) && (!invoiceCheckBox.Checked) && (!pastInvoiceCheckBox.Checked))
+                    if ((!coverLetterCheckBox.Checked) && (!invoiceCheckBox.Checked) && (!pastInvoiceCheckBox.Checked)|| result == DialogResult.None)
                     {
                         if (destinationType == DestinationType.Print || destinationType == DestinationType.Fax)
                         {

@@ -228,6 +228,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             hpfBillingTierComboBox.SelectedIndex = 0;
             nonHpfBillingTierComboBox.SelectedIndex = 0;
             salesTaxCheckBox.Checked = false;
+            InvoiceCheckBox.Checked = false;
             nameTextBox.Focus();
 
         }
@@ -271,6 +272,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             requestorType.HpfBillingTier = (BillingTierDetails)hpfBillingTierComboBox.SelectedItem;
             requestorType.NonHpfBillingTier = (BillingTierDetails)nonHpfBillingTierComboBox.SelectedItem;
             requestorType.SalesTax = (salesTaxCheckBox.Checked) ? ROIConstants.Yes : ROIConstants.No;
+            requestorType.InvoiceOptional=(InvoiceCheckBox.Checked)? ROIConstants.Yes : ROIConstants.No;
 
             return requestorType;
         }
@@ -323,6 +325,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
                 nonHpfBillingTierComboBox.SelectedValue = requestorTypeDetails.NonHpfBillingTier.Id;
                 salesTaxCheckBox.Checked = !(string.IsNullOrEmpty(requestorTypeDetails.SalesTax)) 
                                              ? (requestorTypeDetails.SalesTax.ToLower(System.Threading.Thread.CurrentThread.CurrentUICulture).Equals("yes")) : false;
+                InvoiceCheckBox.Checked = !(string.IsNullOrEmpty(requestorTypeDetails.InvoiceOptional))
+                                            ? (requestorTypeDetails.InvoiceOptional.ToLower(System.Threading.Thread.CurrentThread.CurrentUICulture).Equals("yes")) : false;
 
                 BillingTemplateDetails billingTemplateDetails;
                 string defaultItem = string.Empty;
@@ -410,6 +414,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             billingTemplateCheckedListBox.Click            += dirtyDataHandler;
             defaultComboBox.SelectedIndexChanged           += dirtyDataHandler;
             salesTaxCheckBox.CheckedChanged                += dirtyDataHandler;
+            InvoiceCheckBox.CheckedChanged                 += dirtyDataHandler;
         }
 
         /// <summary>
@@ -424,6 +429,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             billingTemplateCheckedListBox.Click            -= dirtyDataHandler;
             defaultComboBox.SelectedIndexChanged           -= dirtyDataHandler;
             salesTaxCheckBox.CheckedChanged                -= dirtyDataHandler;
+            InvoiceCheckBox.CheckedChanged                 -= dirtyDataHandler;
         }
 
         /// <summary>
@@ -476,6 +482,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             SetLabel(rm, defaultLabel);
             SetLabel(rm, billingTemplateGroupBox);
             SetLabel(rm, salesTaxLabel);
+            SetLabel(rm, InvoiceLabel);
         }
 
         private void billingTemplateCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)

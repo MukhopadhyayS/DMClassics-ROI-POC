@@ -2049,6 +2049,8 @@ namespace McK.EIG.ROI.Client.Web_References.BillingCoreWS {
         
         private string letterTypeField;
         
+        private bool willInvoiceShippedField;
+        
         private RequestCoreDeliveryChargesAdjustmentPayment[] autoAdjustmentsField;
         
         /// <remarks/>
@@ -2259,6 +2261,16 @@ namespace McK.EIG.ROI.Client.Web_References.BillingCoreWS {
             }
             set {
                 this.letterTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool willInvoiceShipped {
+            get {
+                return this.willInvoiceShippedField;
+            }
+            set {
+                this.willInvoiceShippedField = value;
             }
         }
         
