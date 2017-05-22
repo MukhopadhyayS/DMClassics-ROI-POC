@@ -629,6 +629,7 @@ implements RequestCoreDeliveryDAO {
             query.setParameter("countryCode", requestCoreDeliveryChargesShipping.getCountryCode(), Hibernate.STRING);
             query.setParameter("countryName", requestCoreDeliveryChargesShipping.getCountryName(), Hibernate.STRING);
             query.setParameter("willReleaseShipped", requestCoreDeliveryChargesShipping.isWillReleaseShipped(), Hibernate.BOOLEAN);
+            query.setParameter("willInvoiceShipped", requestCoreDeliveryChargesShipping.isWillInvoiceShipped(), Hibernate.BOOLEAN);
             query.setParameter("shippingMethod", requestCoreDeliveryChargesShipping.getShippingMethod(), Hibernate.STRING);
             query.setParameter("outputMethod", requestCoreDeliveryChargesShipping.getOutputMethod(), Hibernate.STRING);
             query.setParameter("shippingMethodId", requestCoreDeliveryChargesShipping.getShippingMethodId(), Hibernate.LONG);
@@ -769,6 +770,7 @@ implements RequestCoreDeliveryDAO {
             query.addScalar("countryCode", Hibernate.STRING);
             query.addScalar("countryName", Hibernate.STRING);
             query.addScalar("willReleaseShipped", Hibernate.BOOLEAN);
+            query.addScalar("willInvoiceShipped", Hibernate.BOOLEAN);
             query.addScalar("shippingMethod", Hibernate.STRING);
             query.addScalar("outputMethod", Hibernate.STRING);
             query.addScalar("shippingMethodId", Hibernate.LONG);
@@ -2134,6 +2136,7 @@ implements RequestCoreDeliveryDAO {
             query.addScalar("countryCode", Hibernate.STRING);
             query.addScalar("countryName", Hibernate.STRING);
             query.addScalar("willReleaseShipped", Hibernate.BOOLEAN);
+            query.addScalar("willInvoiceShipped", Hibernate.BOOLEAN);
             query.addScalar("shippingMethod", Hibernate.STRING);
             query.addScalar("outputMethod", Hibernate.STRING);
             query.addScalar("shippingMethodId", Hibernate.LONG);

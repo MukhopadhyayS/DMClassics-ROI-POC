@@ -53,6 +53,10 @@
 		 <field name="salesTax" type="char">
 			<bind-xml name="eig:salesTax" node="element" />
 		</field>
+		
+		<field name="invoiceOptional" type="char">
+			<bind-xml name="eig:invoiceOptional" node="element" />
+		</field>
 
 	</class>
 

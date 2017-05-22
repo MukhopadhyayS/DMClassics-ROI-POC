@@ -58,6 +58,7 @@ implements RequestorTypeDAO {
     private static final int RELATED_BILLINGTIER_ID_POSITION = 8;
     private static final int BTIER_RECORDVERSION_POSITION = 9;
     private static final int SALES_TAX = 10;
+    private static final int INVOICE_OPTIONAL = 11;
 
     private static final int REQUESTOR_TYPE_ID_POSITION = 0;
     private static final int BILLINGTEMPLATE_ID_POSITION = 1;
@@ -128,7 +129,8 @@ implements RequestorTypeDAO {
                                         .add(Projections.property("relBillTier.isSupplemental"))
                                         .add(Projections.property("relBillTier.id"))
                                         .add(Projections.property("relBillTier.recordVersion"))
-                                        .add(Projections.property("salesTax")))
+                                        .add(Projections.property("salesTax"))
+                                        .add(Projections.property("invoiceOptional")))
                          .addOrder(Order.asc("name"))
                          .list();
 
@@ -148,6 +150,7 @@ implements RequestorTypeDAO {
             rt.setName((String) values[REQUESTOR_TYPE_NAME]);
             rt.setRv((String) values[RECORD_VIEW]);
             rt.setSalesTax(Character.toUpperCase(((Character) values[SALES_TAX]).charValue()));
+            rt.setInvoiceOptional(Character.toUpperCase(((Character) values[INVOICE_OPTIONAL]).charValue()));
 
             RelatedBillingTier rbt = new RelatedBillingTier();
             rbt.setBillingTierId(toPlong((Long) values[BILLINGTIER_ID]));

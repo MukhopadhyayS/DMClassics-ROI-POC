@@ -189,6 +189,7 @@ implements BillingCoreService {
                 // creating the RequestCoreDeliveryChargesShipping for
                 // requestCoreDeliveryChargesId
                 shippingCharges.setRequestCoreDeliveryChargesId(requestCoreDeliveryChargesId);
+                shippingCharges.setWillInvoiceShipped(invOrPrebillPreviewInfo.isWillInvoiceShipped());
                 rCDeliveryDAO.createRequestCoreDeliveryChargesShipping(shippingCharges);
 
                 _helper.createInvoicePatients(invOrPrebillPreviewInfo, date,

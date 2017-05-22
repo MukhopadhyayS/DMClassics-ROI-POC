@@ -54,6 +54,10 @@
 	<property name="salesTax" >
         <column name="SalesTaxEnable" sql-type="char(1)" not-null="true"/>
     </property>
+    
+    <property name="invoiceOptional" >
+        <column name="InvoiceOptional" sql-type="char(1)" not-null="true"/>
+    </property>
 
     <set name="relatedBillingTemplate" fetch="join" cascade="all,delete-orphan" lazy="false">
         <key column="ROI_RequestorType_Seq" not-null="true"/>

@@ -130,6 +130,7 @@
                          minOccurs="0" maxOccurs="unbounded" nillable="true"></xsd:element>
             <xsd:element name="isAssociated" type="xsd:boolean"/>
              <xsd:element name="salesTax" type="xsd:string" minOccurs="0"></xsd:element>
+             <xsd:element name="invoiceOptional" type="xsd:string" minOccurs="0"></xsd:element>
         </xsd:sequence>
       </xsd:complexType>
 

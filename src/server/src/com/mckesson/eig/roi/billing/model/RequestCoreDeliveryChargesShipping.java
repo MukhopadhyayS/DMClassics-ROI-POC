@@ -18,6 +18,7 @@ public class RequestCoreDeliveryChargesShipping extends BaseModel {
     private String _address3;
     private String _city;
     private boolean _willReleaseShipped;
+    private boolean _willInvoiceShipped;
     private String _shippingMethod;
     private String _outputMethod;
     private long _shippingMethodId;
@@ -109,6 +110,12 @@ public class RequestCoreDeliveryChargesShipping extends BaseModel {
     }
     public void setWillReleaseShipped(boolean willReleaseShipped) {
         _willReleaseShipped = willReleaseShipped;
+    }
+    public boolean isWillInvoiceShipped() {
+        return _willInvoiceShipped;
+    }
+    public void setWillInvoiceShipped(boolean willInvoiceShipped) {
+        _willInvoiceShipped = willInvoiceShipped;
     }
     public String getShippingMethod() {
         return _shippingMethod;
