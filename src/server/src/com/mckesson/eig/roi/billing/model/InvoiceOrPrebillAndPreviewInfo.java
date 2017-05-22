@@ -39,6 +39,7 @@ implements Serializable {
     private String[] _notes;
     private String _letterType;
     private String _prebillStatus;
+    private boolean _willInvoiceShipped;
     private List<RequestCoreDeliveryChargesAdjustmentPayment> _autoAdjustments;
 
     private boolean _isReleased;
@@ -156,5 +157,12 @@ implements Serializable {
 
     public double getAmountToApply() { return _amountToApply; }
     public void setAmountToApply(double amountToApply) { _amountToApply = amountToApply; }
+    
+    public boolean isWillInvoiceShipped() {
+        return _willInvoiceShipped;
+    }
+    public void setWillInvoiceShipped(boolean willInvoiceShipped) {
+        _willInvoiceShipped = willInvoiceShipped;
+    }
 
 }

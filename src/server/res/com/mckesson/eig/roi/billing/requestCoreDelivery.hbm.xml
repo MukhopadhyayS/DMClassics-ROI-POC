@@ -143,6 +143,7 @@
 						Address3,
 						City,
 						WillReleaseShipped,
+						WillInvoiceShipped,
 						ShippingMethod,
 						OutputMethod,
 						ShippingMethodId,
@@ -155,7 +156,7 @@
 					    Country_Name) VALUES( :requestCoreDeliveryChargesId, :shippingCharge, :postalCode,
 					    						:addressType, :state, :shippingUrl, :address1, :address2,
 					    						:shippingWeight, :trackingNumber, :address3, :city,
-												:willReleaseShipped, :shippingMethod, :outputMethod, 
+												:willReleaseShipped, :willInvoiceShipped, :shippingMethod, :outputMethod, 
 												:shippingMethodId, :nonPrintableAttachmentQueue, :createdDate,
 												:createdBy, :modifiedDate, :modifiedBy, :countryCode, :countryName); SELECT SCOPE_IDENTITY();
    		]]>
@@ -363,6 +364,7 @@
 				Address3 address3,
 				City city,
 				WillReleaseShipped willReleaseShipped,
+				WillInvoiceShipped willInvoiceShipped,
 				ShippingMethod shippingMethod,
 				OutputMethod outputMethod,
 				ShippingMethodId shippingMethodId,

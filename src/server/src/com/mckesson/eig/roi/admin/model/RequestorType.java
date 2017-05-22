@@ -50,6 +50,7 @@ implements Serializable {
     private String  _rvDesc;
     private int     _recordVersion;
     private char _salesTax = 'N';
+    private char _invoiceOptional = 'N';
 
     private List<Long> _billingTemplateIds;
 
@@ -104,6 +105,14 @@ implements Serializable {
     public void setSalesTax(char salesTax) { 
         _salesTax = (ROIConstants.Y  == salesTax || ROIConstants.LY == salesTax)
                         ? ROIConstants.Y : ROIConstants.N;
+    }
+    
+    public char getInvoiceOptional() {
+        return _invoiceOptional;
+    }
+    public void setInvoiceOptional(char invoiceOptional) {
+        _invoiceOptional = (ROIConstants.Y  == invoiceOptional || ROIConstants.LY == invoiceOptional)
+                ? ROIConstants.Y : ROIConstants.N;
     }
     
     public Set<RelatedBillingTemplate> getRelatedBillingTemplate() {
