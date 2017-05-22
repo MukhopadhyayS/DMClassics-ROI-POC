@@ -2267,6 +2267,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
             server.requestDate = client.RequestDate;
             server.resendDate = client.ResendDate;
             server.letterType = client.LetterType;
+            server.willInvoiceShipped = client.WillInvoiceShipped;
 
             if (client.RequestTransaction != null)
             {

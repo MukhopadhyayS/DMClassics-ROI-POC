@@ -49,6 +49,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             this.recordViewLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
+            this.InvoiceCheckBox = new System.Windows.Forms.CheckBox();
+            this.InvoiceLabel = new System.Windows.Forms.Label();
             this.requestorTypeODPPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.img3)).BeginInit();
@@ -61,6 +63,8 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             // 
             this.requestorTypeODPPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.requestorTypeODPPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.requestorTypeODPPanel.Controls.Add(this.InvoiceLabel);
+            this.requestorTypeODPPanel.Controls.Add(this.InvoiceCheckBox);
             this.requestorTypeODPPanel.Controls.Add(this.salesTaxLabel);
             this.requestorTypeODPPanel.Controls.Add(this.salesTaxCheckBox);
             this.requestorTypeODPPanel.Controls.Add(this.pictureBox1);
@@ -280,6 +284,25 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             this.nameLabel.Size = new System.Drawing.Size(0, 15);
             this.nameLabel.TabIndex = 2;
             // 
+            // InvoiceCheckBox
+            // 
+            this.InvoiceCheckBox.AutoSize = true;
+            this.InvoiceCheckBox.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InvoiceCheckBox.Location = new System.Drawing.Point(123, 128);
+            this.InvoiceCheckBox.Name = "InvoiceCheckBox";
+            this.InvoiceCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.InvoiceCheckBox.TabIndex = 17;
+            this.InvoiceCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // InvoiceLabel
+            // 
+            this.InvoiceLabel.AutoSize = true;
+            this.InvoiceLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InvoiceLabel.Location = new System.Drawing.Point(17, 127);
+            this.InvoiceLabel.Name = "InvoiceLabel";
+            this.InvoiceLabel.Size = new System.Drawing.Size(0, 15);
+            this.InvoiceLabel.TabIndex = 18;
+            // 
             // RequestorTypeTabUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -322,5 +345,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
         private System.Windows.Forms.ComboBox nonHpfBillingTierComboBox;
         private System.Windows.Forms.Label salesTaxLabel;
         private System.Windows.Forms.CheckBox salesTaxCheckBox;
+        private System.Windows.Forms.Label InvoiceLabel;
+        private System.Windows.Forms.CheckBox InvoiceCheckBox;
     }
 }

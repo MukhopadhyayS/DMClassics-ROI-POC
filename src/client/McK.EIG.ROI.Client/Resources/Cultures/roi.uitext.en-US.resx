@@ -4881,6 +4881,10 @@ please map them at this time.</value>
     <value>Sales Tax</value>
     <comment>RequestorTypeTabUI</comment>
   </data>
+  <data name="invoiceOptional.columnHeader" xml:space="preserve">
+    <value>Invoice Optional</value>
+    <comment>RequestorTypeTabUI</comment>
+  </data>
   <data name="connectionproperties_titleLabel" xml:space="preserve">
     <value>Connection Properties</value>
     <comment>External Sources</comment>
@@ -4911,6 +4915,10 @@ please map them at this time.</value>
   </data>
   <data name="salesTaxLabel.RequestorTypeTabUI" xml:space="preserve">
     <value>Sales Tax:</value>
+    <comment>RequestorTypeTabUI</comment>
+  </data>
+  <data name="InvoiceLabel.RequestorTypeTabUI" xml:space="preserve">
+    <value>Invoice Optional:</value>
     <comment>RequestorTypeTabUI</comment>
   </data>
   <data name="TaxPercentage.columnHeader" xml:space="preserve">

@@ -41,6 +41,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
         private const string HPFBillingTierColumn = "hpfBillingtier";
         private const string NonHPFBillingTierColumn = "nonHpfBillingtier";
         private const string BillingTemplateColumn = "billingtemplate";
+        private const string InvoiceColumn = "invoiceOptional";
 
         private Hashtable htbillingTiers;
         private Hashtable htbillingTemplates;
@@ -71,6 +72,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             grid.AddTextBoxColumn(HPFBillingTierColumn, "HPF Billing Tier", "HPFBillingTierName", 150);
             grid.AddTextBoxColumn(NonHPFBillingTierColumn, "Non-HPF Billing Tier", "NonHPFBillingTierName", 150);
             grid.AddTextBoxColumn(SalesTaxColumn, "Sales Tax", "SalesTax", 90);
+            grid.AddTextBoxColumn(InvoiceColumn, "Invoice Optional", "InvoiceOptional", 90);
             DataGridViewTextBoxColumn dgvBillingTemplateColumn = grid.AddTextBoxColumn(BillingTemplateColumn,
                                                                                        "Billing Template",
                                                                                        "billingTemplateValues",
@@ -139,6 +141,7 @@ namespace McK.EIG.ROI.Client.Admin.View.Billing.RequestorType
             grid.Columns[NonHPFBillingTierColumn].HeaderText = rm.GetString("nonHpfBillingTier.columnHeader");
             grid.Columns[BillingTemplateColumn].HeaderText = rm.GetString("billingTemplate.columnHeader");
             grid.Columns[SalesTaxColumn].HeaderText = rm.GetString("salesTax.columnHeader");
+            grid.Columns[InvoiceColumn].HeaderText = rm.GetString("invoiceOptional.columnHeader");
 
             rm = Context.CultureManager.GetCulture(CultureType.ToolTip.ToString());
 

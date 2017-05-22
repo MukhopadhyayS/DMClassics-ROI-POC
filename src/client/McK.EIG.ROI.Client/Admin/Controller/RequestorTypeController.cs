@@ -144,6 +144,7 @@ namespace McK.EIG.ROI.Client.Admin.Controller
             serverRequestorType.rvDesc              = clientRequestorType.RecordViewDetails.Name;
             serverRequestorType.relatedBillingTier  = PrepareBillingTiersForRequestorType(clientRequestorType);
             serverRequestorType.salesTax            = clientRequestorType.SalesTax.ToLower(System.Threading.Thread.CurrentThread.CurrentCulture).Equals("yes") ? "Y" : "N";
+            serverRequestorType.invoiceOptional     = clientRequestorType.InvoiceOptional.ToLower(System.Threading.Thread.CurrentThread.CurrentCulture).Equals("yes") ? "Y" : "N";
 
 
             if (clientRequestorType.AssociatedBillingTemplates != null)
@@ -188,6 +189,10 @@ namespace McK.EIG.ROI.Client.Admin.Controller
             if (serverRequestorType.salesTax != null)
             {
                 clientRequestorType.SalesTax = (serverRequestorType.salesTax.ToUpper(System.Threading.Thread.CurrentThread.CurrentCulture).Equals("Y")) ? ROIConstants.Yes : ROIConstants.No;
+            }
+            if (serverRequestorType.invoiceOptional != null)
+            {
+                clientRequestorType.InvoiceOptional = (serverRequestorType.invoiceOptional.ToUpper(System.Threading.Thread.CurrentThread.CurrentCulture).Equals("Y")) ? ROIConstants.Yes : ROIConstants.No;
             }
 
             if (serverRequestorType.relatedBillingTier != null)
