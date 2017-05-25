@@ -177,7 +177,7 @@
 		where u.NAME = :userId  
 		and rs.roleId = (select RoleId from User_Role where userInstanceId = u.UserInstanceId) 
 		and rs.Facility = :facilityCode  
-		and sr.SECURITY_DESC = :securityDesc
+		and sr.SECURITY_DESC in ('ROI Email', 'ROI Print/Fax', 'ROI Write To Disc')
 						  
 		EXCEPT
 		   
@@ -190,7 +190,7 @@
 	   where  u.NAME = :userId  
 	   and us.overrideAction = 0  
 	   and us.Facility = :facilityCode 
-	   and sr.SECURITY_DESC = :securityDesc
+	   and sr.SECURITY_DESC in ('ROI Email', 'ROI Print/Fax', 'ROI Write To Disc')
 	)
 	
 	UNION  
@@ -203,7 +203,7 @@
 		where u.NAME   = :userId  
 	    and us.overrideAction = 1   
 		and us.Facility = :facilityCode
-		and sr.SECURITY_DESC = :securityDesc
+		and sr.SECURITY_DESC in ('ROI Email', 'ROI Print/Fax', 'ROI Write To Disc')
 	]]>
     </sql-query>
 
