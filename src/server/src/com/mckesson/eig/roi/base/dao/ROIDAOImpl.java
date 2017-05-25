@@ -536,7 +536,7 @@ implements ROIDAO {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public UserSecurity retrieveROIUserSecurityForOutputType(String userID,String securityName) {
+    public UserSecurity retrieveROIUserSecurityForOutputType(String userID) {
 
         final String logSM = "retrieveROIUserSecurityForOutputType(userID,securityName)";
         if (DO_DEBUG) {
@@ -553,7 +553,6 @@ implements ROIDAO {
             SQLQuery query = session.createSQLQuery(queryString);
             query.setString("userId", userID);
             query.setString("facilityCode", ROIConstants.DEFAULT_FACILITY);
-            query.setString("securityDesc", securityName);
 
             query.setResultTransformer(Transformers.aliasToBean(UserSecurity.class));          
             userSecurity = query.list();

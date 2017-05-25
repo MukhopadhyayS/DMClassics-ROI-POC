@@ -67,7 +67,7 @@ public interface ROIDAO {
      */
     FreeFormFacility retrieveFreeFormFacilitiesByName(String facility, long userId);
     
-    public UserSecurity retrieveROIUserSecurityForOutputType(String userID,String securityName);
+    public UserSecurity retrieveROIUserSecurityForOutputType(String userID);
     
     /**
      * This method retrieve the EIWDATAConfiguration location from database

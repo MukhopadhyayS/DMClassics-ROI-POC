@@ -589,12 +589,12 @@ extends BaseROIValidator {
      * This method validates if the logged in user has the permission to release a document/attachment
      * 
      */
-    public boolean validateSecurityRightsForOutputMethod(String userID,ROIDAO dao,String securityName)
+    public boolean validateSecurityRightsForOutputMethod(String userID, ROIDAO dao)
     {
         boolean hasSecurityRights = false;
         if(userID != null)
         {
-           UserSecurity userSecurity = dao.retrieveROIUserSecurityForOutputType(userID,securityName);
+           UserSecurity userSecurity = dao.retrieveROIUserSecurityForOutputType(userID);
            if(userSecurity != null)
            {
               hasSecurityRights = true;

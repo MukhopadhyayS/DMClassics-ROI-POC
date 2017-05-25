@@ -1427,18 +1427,11 @@ implements RequestCoreService {
        {
         BillingAdminServiceValidator validator = new BillingAdminServiceValidator();
         RequestCoreDAO dao = (RequestCoreDAO) getDAO(DAOName.REQUEST_CORE_DAO);
-        boolean rightsFlag = false;
         // to check whether the user has security rights to release or not by
         // any output method
-        boolean emailRightsFlag = validator
+        boolean rightsFlag = validator
                 .validateSecurityRightsForOutputMethod(getUser().getLoginId(),
-                        dao, "ROI Email");
-        boolean printFaxRightsFlag = validator
-                .validateSecurityRightsForOutputMethod(getUser().getLoginId(),
-                        dao, "ROI Print/Fax");
-        if (emailRightsFlag || printFaxRightsFlag) {
-            rightsFlag = true;
-        }
+                        dao);
         return rightsFlag;
     }
 }
