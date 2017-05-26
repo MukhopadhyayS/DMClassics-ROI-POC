@@ -1642,10 +1642,12 @@ cross apply RequestDeliveryXML.nodes('/release') as p(p)
 where ROI_RequestMain_Seq=@requestId
 
 insert into @tmpInvoice
+select * from (
 select ROI_RequestDelivery_Seq, ROI_RequestDeliveryCharges_Seq as invoiceId, p.value('(./attribute[@name="type"]/@value)[1]','varchar(10)') as Type
 from ROI_RequestDeliveryCharges 
 cross apply RequestDeliveryChargesXML.nodes('/release-item[@type="billing-doc"]') as p(p)
 where isInvoiced=1 and  ROI_RequestDelivery_Seq in (select ROI_RequestDelivery_Seq from @tmpRelease)
+) as X where type= 'Invoice'
 
 insert into @tmpInvoiceMigrated
 select 
@@ -1711,7 +1713,7 @@ update idx1 set newinvoiceid=idx2.ROI_RequestCoreDeliveryCharges_Seq from @tmpre
 update idx1 set Is_Released=idx3.isReleased from ROI_RequestCoreDeliveryCharges idx1 join @tmprelease_invoice_mapping idx2 on idx1.ROI_RequestCoreDeliveryCharges_Seq=idx2.newinvoiceid join ROI_RequestDeliveryCharges idx3 on idx2.draftinvoiceid=idx3.ROI_RequestDeliveryCharges_Seq;
 update ROI_RequestCoreDeliveryCharges set Invoice_Due_Days=DATEDIFF(day,Request_Date,Invoice_Due_Date) where ROI_RequestCoreDeliveryCharges_Seq in (select newinvoiceid from @tmprelease_invoice_mapping)
 update ROI_RequestCoreDeliveryCharges set PreBill_Status='InActive' where ROI_RequestCoreDeliveryCharges_Seq in (select newinvoiceid from @tmprelease_invoice_mapping where releaseid in (select releaseid from @tmprelease_invoice_mapping where Type ='Invoice'));
-update idx1 set Base_Charge=NULLIF(0, (select Base_Charge from ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq in (select top 1 newinvoiceid from @tmprelease_invoice_mapping where releaseid in (select releaseid from @tmprelease_invoice_mapping where newinvoiceid=idx1.ROI_RequestCoreDeliveryCharges_Seq)))) from ROI_RequestCoreDeliveryCharges idx1 where Type='Invoice';
+update idx1 set Base_Charge=ISNULL((select Base_Charge from ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq in (select top 1 newinvoiceid from @tmprelease_invoice_mapping where releaseid in (select releaseid from @tmprelease_invoice_mapping where newinvoiceid=idx1.ROI_RequestCoreDeliveryCharges_Seq))), 0) from ROI_RequestCoreDeliveryCharges idx1 where Type='Invoice';
 
 insert into cabinet.dbo.ROI_RequestCoreDeliveryChargesDocument (ROI_RequestCoreDeliveryCharges_Seq, Created_Dt, Created_By_Seq, Modified_Dt, Modified_By_Seq, Record_Version, Amount, Copies, TotalPages, Pages, BillingTierName, BillingTierId, ReleaseCount, isElectronic, RemoveBasecharge, Has_Salestax, Salestax_Amount)
 select
