@@ -3155,6 +3155,10 @@ If this is the wrong patient, see help to learn how patient can be merged.</valu
     <value>Please Select</value>
     <comment>Billing &amp; Payment</comment>
   </data>
+  <data name="noneLetterTemplateText" xml:space="preserve">
+    <value>None</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
   <data name="RequestStatusSummary" xml:space="preserve">
     <value>ROI - Request Status Summary Report</value>
     <comment>Reports</comment>

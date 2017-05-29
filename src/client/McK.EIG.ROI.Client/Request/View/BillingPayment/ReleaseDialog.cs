@@ -118,6 +118,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private List<string> coverLetterNotes;
         private string coverLetterName;
         public bool invoiceflag = RequestorTypeDetails.invoiceOptionalFlag;
+        private long defaultInvoiceLetterTemplateId;
+        private string defaultInvoiceLetterTemplateName;
         #endregion
 
         #region Constructor
@@ -368,130 +370,137 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                 EventType eventType, bool isBillingLocationSelected,
                                 ReleaseDetails releaseDetails, String defaultFacilityCode, String defaultFacilityName)
         {
+           
+            LetterTemplateDetails forSelect = new LetterTemplateDetails();
             if (!invoiceflag)
             {
-                invoiceGroupBox.Enabled = false;
-                invoiceHistoryGroupBox.Enabled = false;
-            }
-            LetterTemplateDetails forSelect = new LetterTemplateDetails();
-            forSelect.Id = 0;
-            forSelect.Name = GetLocalizedString("letterTemplateText");
-
-            coverLetterTemplates.Insert(0, forSelect);
-            invoiceTemplates.Insert(0, forSelect);
-            requestorLetterTemplates.Insert(0, forSelect);
-
-            this.totalPagesForRelease = totalPages;
-            this.eventType = eventType;
-
-            this.releaseDetails = releaseDetails;
-            //this.invoiceCheckBox.Checked = true;
-            //this.invoiceCheckBox.Enabled = false; 
-
-            if (coverLetterTemplates.Count > 1)
-            {
-                coverLetterComboBox.DataSource = coverLetterTemplates;
-                coverLetterComboBox.DisplayMember = "Name";
-                coverLetterComboBox.ValueMember = "DocumentId";
-                coverLetterComboBox.SelectedValue = defaultCoverLetterId;
+                forSelect.Id = 0;
+                forSelect.Name = GetLocalizedString("noneLetterTemplateText");
+                coverLetterTemplates.Insert(0, forSelect);
+                invoiceTemplates.Insert(0, forSelect);
+                requestorLetterTemplates.Insert(0, forSelect);                
             }
             else
             {
-                coverLetterMessageLabel.Visible = true;
-                coverLetterPanel.Visible = false;
+                forSelect.Id = 0;
+                forSelect.Name = GetLocalizedString("letterTemplateText");
+                coverLetterTemplates.Insert(0, forSelect);
+                invoiceTemplates.Insert(0, forSelect);
+                requestorLetterTemplates.Insert(0, forSelect);
             }
 
-            if (invoiceTemplates.Count > 1)
-            {
-                invoiceComboBox.DataSource = invoiceTemplates;
-                invoiceComboBox.DisplayMember = "Name";
-                invoiceComboBox.ValueMember = "DocumentId";
-                invoiceComboBox.SelectedValue = defaultInvoiceId;
-            }
-            else
-            {
-                invoiceMessageLabel.Visible = true;
-                invoicePanel.Visible = false;
-            }
+                this.totalPagesForRelease = totalPages;
+                this.eventType = eventType;
 
-            if (requestorLetterTemplates.Count > 1)
-            {
-                statementComboBox.DataSource = requestorLetterTemplates;
-                statementComboBox.DisplayMember = "Name";
-                statementComboBox.ValueMember = "DocumentId";
-                statementComboBox.SelectedValue = defaultRequestorLetterId;
-            }
-            else
-            {
-                statementMessageLabel.Visible = true;
-                statementPanel.Visible = false;
-            }
+                this.releaseDetails = releaseDetails;
+               
+                if (coverLetterTemplates.Count > 1)
+                {
+                    coverLetterComboBox.DataSource = coverLetterTemplates;
+                    coverLetterComboBox.DisplayMember = "Name";
+                    coverLetterComboBox.ValueMember = "DocumentId";
+                    coverLetterComboBox.SelectedValue = defaultCoverLetterId;
+                }
+                else
+                {
+                    coverLetterMessageLabel.Visible = true;
+                    coverLetterPanel.Visible = false;
+                }
 
-            if (totalPages > 1)
-            {
-                header.Information = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture,
-                                               GetLocalizedString(GetType().Name + ".header.info"),
-                                               totalPages);
-            }
-            else
-            {
-                header.Information = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture,
-                                             GetLocalizedString(GetType().Name + ".header.info.single"),
-                                             totalPages);
-            }
+                if (invoiceTemplates.Count > 1)
+                {
+                    invoiceComboBox.DataSource = invoiceTemplates;
+                    invoiceComboBox.DisplayMember = "Name";
+                    invoiceComboBox.ValueMember = "DocumentId";
+                    invoiceComboBox.SelectedValue = defaultInvoiceId;
+                    defaultInvoiceLetterTemplateId = invoiceTemplates[1].DocumentId;
+                    defaultInvoiceLetterTemplateName = invoiceTemplates[1].Name;
+                }
+                else
+                {
+                    invoiceMessageLabel.Visible = true;
+                    invoicePanel.Visible = false;
+                }
 
-            coverLetterComboBox.Enabled = false;
-            invoiceComboBox.Enabled = false;
-            invoiceDueTextBox.Enabled = false;
-            statementComboBox.Enabled = false;
-            dateRangeComboBox.Enabled = false;
+                if (requestorLetterTemplates.Count > 1)
+                {
+                    statementComboBox.DataSource = requestorLetterTemplates;
+                    statementComboBox.DisplayMember = "Name";
+                    statementComboBox.ValueMember = "DocumentId";
+                    statementComboBox.SelectedValue = defaultRequestorLetterId;
+                }
+                else
+                {
+                    statementMessageLabel.Visible = true;
+                    statementPanel.Visible = false;
+                }
 
-            coverLetterNotesGroupPanel.Enabled = false;
-            invoiceNotesGroupPanel.Enabled = false;
+                if (totalPages > 1)
+                {
+                    header.Information = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture,
+                                                   GetLocalizedString(GetType().Name + ".header.info"),
+                                                   totalPages);
+                }
+                else
+                {
+                    header.Information = string.Format(System.Threading.Thread.CurrentThread.CurrentUICulture,
+                                                 GetLocalizedString(GetType().Name + ".header.info.single"),
+                                                 totalPages);
+                }
 
-            if (requestDetails.Status == Admin.Model.RequestStatus.Completed)
-            {
-                yesRadioButton.Enabled = false;
-                noRadioButton.Enabled = false;
-                yesRadioButton.Checked = false;
-            }
+                coverLetterComboBox.Enabled = false;
+                invoiceComboBox.Enabled = false;
+                invoiceDueTextBox.Enabled = false;
+                statementComboBox.Enabled = false;
+                dateRangeComboBox.Enabled = false;
 
-            this.preBillInvoiceDetails = preBillInvoiceDetails;
-            this.requestorFax = requestDetails.RequestorFax;
-            this.requestorEmail = requestDetails.Requestor.Email;
-            this.destinationType = destinationType;
-            requestId = requestDetails.Id;
-            this.requestorId = requestDetails.Requestor.Id;
-            salesTaxPercentage = requestDetails.TaxPercentage.ToString("n2", System.Threading.Thread.CurrentThread.CurrentUICulture);
-            PopulateInvoiceDueDays();
-            PopulatePastInvoices();
-			//CR#359333. Invoice checkbox is checked by default when invoice is enabled
-            //invoiceCheckBox.Enabled = invoiceCheckBox.Checked = enableInvoice || hasPrebilledRequest;            
-            this.isBillingLocationSelected = isBillingLocationSelected;
-			//CR#359276 - Add automatic adjustment transaction for the current invoice
-            this.requestInvoiceAutoAdjustment = requestDetails.InvoiceAutoAdjustment;
-			//CR#367826 -  Enhance the PreBill feature to behave like the Invoice except aging
-            this.hasPrebilledRequest = hasPrebilledRequest;            
-            this.prebillBalanceDue = prebillBalanceDue;
-            this.defaultFacilityCode = defaultFacilityCode;
-            this.defaultFacilityName = defaultFacilityName;
-            this.invoiceCheckBox.Checked = true;
-            this.invoiceCheckBox.Enabled = false;
-            PopulateDateRange();
-            if (requestDetails.Status == Admin.Model.RequestStatus.PreBilled)
-            {
-                this.invoiceCheckBox.Visible = false;
-                this.InvoiceCheckbox2.Visible = true;
-                this.InvoiceCheckbox2.Checked = true;
-                this.InvoiceCheckbox2.Enabled = false;
-            }
-            else
-            {
-                this.invoiceCheckBox.Visible = true;
-                this.InvoiceCheckbox2.Visible = false;
+                coverLetterNotesGroupPanel.Enabled = false;
+                invoiceNotesGroupPanel.Enabled = false;
+
+                if (requestDetails.Status == Admin.Model.RequestStatus.Completed)
+                {
+                    yesRadioButton.Enabled = false;
+                    noRadioButton.Enabled = false;
+                    yesRadioButton.Checked = false;
+                }
+
+                this.preBillInvoiceDetails = preBillInvoiceDetails;
+                this.requestorFax = requestDetails.RequestorFax;
+                this.requestorEmail = requestDetails.Requestor.Email;
+                this.destinationType = destinationType;
+                requestId = requestDetails.Id;
+                this.requestorId = requestDetails.Requestor.Id;
+                salesTaxPercentage = requestDetails.TaxPercentage.ToString("n2", System.Threading.Thread.CurrentThread.CurrentUICulture);
+                PopulateInvoiceDueDays();
+                PopulatePastInvoices();
+                //CR#359333. Invoice checkbox is checked by default when invoice is enabled
+                //invoiceCheckBox.Enabled = invoiceCheckBox.Checked = enableInvoice || hasPrebilledRequest;            
+                this.isBillingLocationSelected = isBillingLocationSelected;
+                //CR#359276 - Add automatic adjustment transaction for the current invoice
+                this.requestInvoiceAutoAdjustment = requestDetails.InvoiceAutoAdjustment;
+                //CR#367826 -  Enhance the PreBill feature to behave like the Invoice except aging
+                this.hasPrebilledRequest = hasPrebilledRequest;
+                this.prebillBalanceDue = prebillBalanceDue;
+                this.defaultFacilityCode = defaultFacilityCode;
+                this.defaultFacilityName = defaultFacilityName;
+                this.invoiceCheckBox.Checked = true;
                 this.invoiceCheckBox.Enabled = false;
-                this.invoiceCheckBox.Enabled = false;
-            }
+                PopulateDateRange();
+                if (requestDetails.Status == Admin.Model.RequestStatus.PreBilled)
+                {
+                    this.invoiceCheckBox.Visible = false;
+                    this.InvoiceCheckbox2.Visible = true;
+                    this.InvoiceCheckbox2.Checked = true;
+                    this.InvoiceCheckbox2.Enabled = false;
+                }
+                else
+                {
+                    this.invoiceCheckBox.Visible = true;
+                    this.InvoiceCheckbox2.Visible = false;
+                    this.invoiceCheckBox.Enabled = false;
+                    this.invoiceCheckBox.Enabled = false;
+                }
+            
         }
 
         ///<summary>
@@ -917,6 +926,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private void EnableContinueButton()
         {
             continueButton.Enabled = true;
+            string selected = this.invoiceComboBox.GetItemText(this.invoiceComboBox.SelectedItem);
+            
+            if (selected == "None")
+                pastInvoiceCheckBox.Enabled = false;
 
             if (coverLetterCheckBox.Checked)
             {
@@ -932,7 +945,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
             if (invoiceCheckBox.Checked)
             {
-                if (invoiceComboBox.SelectedIndex > 0)
+                if (invoiceComboBox.SelectedIndex > 0|| selected == "None")
                 {
                     continueButton.Enabled = (!string.IsNullOrEmpty(invoiceDueTextBox.Text.Trim()));
                     if (!continueButton.Enabled) return;
@@ -1146,9 +1159,16 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             if (invoiceCheckBox.Checked)
             {
                 AddNotes(invoiceNotesPanel, invoiceNotes);
-                invoiceLetterTemplateId = (long)invoiceComboBox.SelectedValue;
-                invoiceLetterTemplateName = ((LetterTemplateDetails)invoiceComboBox.SelectedItem).Name;
-                if (eventType == EventType.DocumentsReleased)
+                if (((LetterTemplateDetails)invoiceComboBox.SelectedItem).Name == "None")
+                {
+                    invoiceLetterTemplateId = defaultInvoiceLetterTemplateId;
+                    invoiceLetterTemplateName = defaultInvoiceLetterTemplateName;
+                }
+                else {
+                    invoiceLetterTemplateId = (long)invoiceComboBox.SelectedValue;
+                    invoiceLetterTemplateName = ((LetterTemplateDetails)invoiceComboBox.SelectedItem).Name;
+                }
+                    if (eventType == EventType.DocumentsReleased)
                 {
                     preBillInvoiceDetails.Release.TotalPagesReleased += totalPagesForRelease;
                 }
@@ -1243,9 +1263,14 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                      InvoiceInfo.QueuePassword = preBillInvoiceDetails.QueuePassword;
                      InvoiceInfo.RequestCoreId = releaseDetails.RequestId;
                      InvoiceInfo.RequestStatus = preBillInvoiceDetails.RequestStatus;
-                    InvoiceInfo.WillInvoiceShipped = invoiceflag;
-                     //US16834 - changes to Include requests in the pre-bill status on the payments popup.
-                     if (InvoiceInfo.RequestStatus == "Pre-Billed")
+
+                     if (((LetterTemplateDetails)invoiceComboBox.SelectedItem).Name == "None")
+                        InvoiceInfo.WillInvoiceShipped = false;
+                     else
+                        InvoiceInfo.WillInvoiceShipped = true;
+
+                    //US16834 - changes to Include requests in the pre-bill status on the payments popup.
+                    if (InvoiceInfo.RequestStatus == "Pre-Billed")
                      {
                         InvoiceInfo.InvoiceBalanceDue = Convert.ToDouble(billingInfoUI.balanceDueValueLabel.Text.Trim().Substring(1, billingInfoUI.balanceDueValueLabel.Text.Length - 1), System.Threading.Thread.CurrentThread.CurrentUICulture);
                         
@@ -1466,35 +1491,35 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                                                                         invoiceLetterTemplateId,
                                                                         coverLetterTemplateName,
                                                                         invoiceLetterTemplateName,
-                                                                        coverLetterNotes, invoiceNotes);*/
-                        if(invoiceflag)
-                        result = ShowViewer(releaseAndPreviewInfo.docInfoList.name);
+                                                                        coverLetterNotes, invoiceNotes);*/                      
+                        if (((LetterTemplateDetails)invoiceComboBox.SelectedItem).Name != "None")                       
+                            result = ShowViewer(releaseAndPreviewInfo.docInfoList.name);                        
                     }
 
-                    if ((!coverLetterCheckBox.Checked) && (!invoiceCheckBox.Checked) && (!pastInvoiceCheckBox.Checked)|| result == DialogResult.None)
+                    if ((!coverLetterCheckBox.Checked) && (!invoiceCheckBox.Checked) && (!pastInvoiceCheckBox.Checked)||(result==DialogResult.None))
                     {
-                        if (destinationType == DestinationType.Print || destinationType == DestinationType.Fax)
-                        {
-                            if (!IsAllowed(ROISecurityRights.ROIPrintFax))
-                            {
-                                HandleSecurityRights(ROIErrorCodes.PrintFaxAccessDenied);
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            if (!IsAllowed(ROISecurityRights.ROIExportToPDF))
-                            {
-                                HandleSecurityRights(ROIErrorCodes.ExportToPdfDenied);
-                                return;
-                            }
-                            if (!IsAllowed(ROISecurityRights.ROIEmail))
-                            {
-                                HandleSecurityRights(ROIErrorCodes.ExportToEmailDenied);
-                                return;
-                            }
+                        //if (destinationType == DestinationType.Print || destinationType == DestinationType.Fax)
+                        //{
+                        //    if (!IsAllowed(ROISecurityRights.ROIPrintFax))
+                        //    {
+                        //        HandleSecurityRights(ROIErrorCodes.PrintFaxAccessDenied);
+                        //        return;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (!IsAllowed(ROISecurityRights.ROIExportToPDF))
+                        //    {
+                        //        HandleSecurityRights(ROIErrorCodes.ExportToPdfDenied);
+                        //        return;
+                        //    }
+                        //    if (!IsAllowed(ROISecurityRights.ROIEmail))
+                        //    {
+                        //        HandleSecurityRights(ROIErrorCodes.ExportToEmailDenied);
+                        //        return;
+                        //    }
 
-                        }
+                        //}
                         result = DialogResult.OK;
 
                         ROIViewer viewer = new ROIViewer(Pane, string.Empty, GetType().Name);
