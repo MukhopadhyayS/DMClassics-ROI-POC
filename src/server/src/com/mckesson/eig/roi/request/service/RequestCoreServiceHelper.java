@@ -516,9 +516,12 @@ extends BaseROIService {
 
             RequestPatient patient = (RequestPatient) iterator.next();
             if (null != retrievedEnc && retrievedEnc.containsKey(patient.getPatientSeq())) {
-               List<RequestEncounter> encList = retrievedEnc.get(patient.getPatientSeq());
-                Comparator<RequestEncounter> comparator = Comparator.comparing(RequestEncounter::getAdmitdate); 
-                Collections.sort(encList, comparator.reversed());
+                List<RequestEncounter> encList = retrievedEnc.get(patient.getPatientSeq());
+                boolean admitDateFlag = validateAdmitDate(encList);
+                if (admitDateFlag) {
+                    Comparator<RequestEncounter> comparator = Comparator.comparing(RequestEncounter::getAdmitdate); 
+                    Collections.sort(encList, comparator.reversed());
+                }
                 patient.setRoiEncounters(encList);
                 retrievedEnc.remove(patient.getPatientSeq());
             }
@@ -526,6 +529,17 @@ extends BaseROIService {
             patients.put(patient.getPatientSeq(), patient);
         }
         return patients;
+    }
+    
+    private boolean validateAdmitDate(List<RequestEncounter> encList) {
+        boolean validate = true;
+        for(RequestEncounter enc : encList) {
+            if(enc.getAdmitdate() == null) {
+               validate = false;
+               break;
+            }
+        }
+       return validate;
     }
 
     /**
