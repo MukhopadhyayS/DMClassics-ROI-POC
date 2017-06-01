@@ -108,7 +108,7 @@ public class RequestCoreCharges extends BaseModel {
     public int getTotalPages() { return _totalPages; }
     public void setTotalPages(int totalPages) { _totalPages = totalPages; }
 
-    public double getTotalRequestCost() { return _previouslyReleasedCost + _releaseCost; }
+    public double getTotalRequestCost() { return _totalRequestCost; }
     public void setTotalRequestCost(double totalRequestCost) {
         _totalRequestCost = totalRequestCost;
     }

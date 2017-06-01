@@ -135,6 +135,8 @@
                 COALESCE((SELECT SUM(inv.Base_Charge) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) previouslyReleasedCost,
                 charges.Release_Date releaseDate,
                 charges.Release_Cost releaseCost,
+                COALESCE((SELECT SUM(inv.Base_Charge) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) + 
+				charges.Release_Cost totalRequestCost,
                 charges.Total_Pages totalPages,
                 COALESCE((SELECT SUM(inv.Invoice_Balance_Due) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) + COALESCE(charges.Release_Cost, 0) balanceDue,
                 charges.Total_Pages_Released totalPagesReleased,
@@ -190,7 +192,8 @@
 							 ROI_RequestCoreRequestor requestorCoreRequestor							
 						where adjustment.ROI_Requestor_Seq = requestorCoreRequestor.ROI_Requestor_Seq
 							AND requestorCoreRequestor.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq
-							 AND adjustment.IsDeleted = 0), 0) totalUnappliedAdjustmentAmount
+							 AND adjustment.IsDeleted = 0), 0) totalUnappliedAdjustmentAmount,
+			    COALESCE((SELECT TOP 1 inv.Base_Charge FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc), 0) invoiceBaseCharge
             FROM 
                 cabinet..ROI_RequestCoreCharges charges
             WHERE charges.ROI_RequestCore_Seq = :requestCoreSeq 
