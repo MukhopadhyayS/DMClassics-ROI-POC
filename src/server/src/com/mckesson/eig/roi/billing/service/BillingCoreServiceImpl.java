@@ -493,6 +493,7 @@ implements BillingCoreService {
              }
              else if (req.getTxnType().equalsIgnoreCase("Payment")) {
                     if (!req.isPrebillPaymentsAdjustments()) {
+                        requestorDAO.updateRequestorPaymentDetails(req.getId(), req.getUnAppliedAmt().doubleValue(), date, getUser());
                         long paymentId = requestCoreDeliveryDAO.retrievePaymentDetailsFromDialog(requestCoreId);
                         if (paymentId == req.getId().longValue()) {
                             requestCoreDeliveryDAO.unmapPaymentsFromInvoiceFromDialog(paymentId);
