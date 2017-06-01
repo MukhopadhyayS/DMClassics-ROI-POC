@@ -4009,9 +4009,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             else
             {
                 unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
-                if ((reqInvoices.Count < 1) || (request.Status == RequestStatus.Logged) ||(request.Status == RequestStatus.Completed))
+                if ((reqInvoices.Count < 1) || (request.Status == RequestStatus.Logged) || (request.Status == RequestStatus.Completed))
                 {
-                    
                     adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
                     balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(balanceDue);
                 }
@@ -4019,14 +4018,15 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 {
                     foreach (RequestInvoiceDetail reqInv in reqInvoices)
                     {
-                        if((reqInv.InvoiceType == "Prebill") && (reqInv.RequestId == request.Id))
+                        if ((reqInv.InvoiceType == "Prebill") && (reqInv.RequestId == request.Id))
                         {
                             adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(reqInv.PayAdjTotal);
                             balanceDueValueLabel.Text = ReleaseDetails.FormattedAmount(reqInv.Balance);
                         }
                     }
-                }              
-            }
+                }
+            }              
+            
 
             adjPaymentTotalValueLabel.ForeColor = (adjustmentTotal < 0) ? Color.FromArgb(32, 125, 41) : Color.Black;
             double invoiceBaseCharge = Math.Round(BalanceDue - release.InvoicesBalanceDue, 2);
@@ -4166,9 +4166,12 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
         public void UpdateUIWithDetails()
         {
-
+            double requestammount;
             requestBillingInfo = RequestController.Instance.RetrieveRequestBillingPaymentInfo(request.Id);
-            double requestammount = requestBillingInfo.TotalRequestCost;
+            if (request.Status == RequestStatus.PreBilled)
+            { requestammount = requestBillingInfo.TotalRequestCost; }
+            else
+            { requestammount = requestBillingInfo.InvoiceBaseCharge; }
             double paymentammt = requestBillingInfo.PaymentAmount;
             double creditadjamnt = requestBillingInfo.CreditAdjustmentAmount;
             double balance;
