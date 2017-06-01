@@ -84,6 +84,7 @@ implements RequestCoreChargesDAO {
             query.addScalar("previouslyReleasedCost", Hibernate.DOUBLE);
             query.addScalar("releaseDate", Hibernate.TIMESTAMP);
             query.addScalar("releaseCost", Hibernate.DOUBLE);
+            query.addScalar("totalRequestCost", Hibernate.DOUBLE);
             query.addScalar("totalPages", Hibernate.INTEGER);
             query.addScalar("balanceDue", Hibernate.DOUBLE);
             query.addScalar("totalPagesReleased", Hibernate.INTEGER);
@@ -104,7 +105,8 @@ implements RequestCoreChargesDAO {
             query.addScalar("invoicesSalesTaxAmount", Hibernate.DOUBLE);
             query.addScalar("totalUnappliedPaymentAmount", Hibernate.DOUBLE);
             query.addScalar("totalUnappliedAdjustmentAmount", Hibernate.DOUBLE);
-
+            query.addScalar("invoiceBaseCharge", Hibernate.DOUBLE);
+            
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreCharges.class));
 
             RequestCoreCharges requestCoreCharges = (RequestCoreCharges) query.uniqueResult();
