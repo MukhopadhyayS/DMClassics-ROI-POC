@@ -61,7 +61,10 @@ public class JournalConstants {
         APPLY_BAD_DEBT_TO_INVOICE("Apply Bad Debt To Invoice", -18, TransactionType.ADJUSTMENT_TO_INVOICE),
         UNAPPLY_BAD_DEBT_FROM_INVOICE("Unapply Bad Debt From Invoice", -19, TransactionType.ADJUSTMENT_TO_INVOICE),
         REMOVE_CUSTOMER_GOODWILL("Remove Customer Goodwill", -20, TransactionType.ADJUSTMENT),
-        REMOVE_BAD_DEBT("Remove Bad Debt", -21, TransactionType.ADJUSTMENT);
+        REMOVE_BAD_DEBT("Remove Bad Debt", -21, TransactionType.ADJUSTMENT),
+        ACCEPT_PREBILL_PAYMENT("Accept Prebill Payment", -22, TransactionType.PAYMENT),
+        REMOVE_PREBILL_PAYMENT("Remove Prebill Payment", -23, TransactionType.PAYMENT);
+        
         
         private final String _eventDescription;
         private final int _eventCode;
