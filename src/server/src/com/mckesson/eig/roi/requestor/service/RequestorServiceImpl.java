@@ -1224,7 +1224,7 @@ implements RequestorService {
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + paymentInfoList);
         }
-
+        boolean prebillPayment = false;
         try {
 
             BillingCoreServiceValidator validator = new BillingCoreServiceValidator();
@@ -1248,13 +1248,19 @@ implements RequestorService {
                     .getFullName()), getUser().getInstanceId(), date,
                     ROIConstants.AUDIT_ACTION_CODE_ROI_POST,
                     ROIConstants.DEFAULT_FACILITY, null, null);
-
-            //Payment added - Add Corresponding Journal entries for the Payment
+           
+            List<RequestorPayment> invoicePaymentsList = paymentInfoList.getPaymentList();
+            if (!CollectionUtilities.isEmpty(invoicePaymentsList)) {
+                for (RequestorPayment paymentInfo : invoicePaymentsList) {
+                     prebillPayment = paymentInfo.isPrebillPayment();
+                     break;
+                }
+            }
             JournalService journalService =
                     (JournalService) getService(ServiceName.JOURNEL_SERVICE);
-            journalService.createAcceptPaymentJE(paymentId);
-
-            List<RequestorPayment> invoicePaymentsList = paymentInfoList.getPaymentList();
+            if (!prebillPayment) {
+                journalService.createAcceptPaymentJE(paymentId);
+            }
             if (CollectionUtilities.isEmpty(invoicePaymentsList)) {
 
                 if (DO_DEBUG) {
@@ -1263,7 +1269,7 @@ implements RequestorService {
                 }
                 return;
             }
-
+            
             for (RequestorPayment paymentInfo : invoicePaymentsList) {
 
                 paymentInfo.setPaymentId(paymentId);
@@ -1289,7 +1295,9 @@ implements RequestorService {
                     createEvent(paymentInfo, 0, null, ROIConstants.CLOSED_INVOICE_EVENT,
                             paymentInfo.getRequestId(), date, null);
                 }
-
+                if (prebillPayment) {
+                    journalService.createAcceptPrebillPaymentJE(paymentId);
+                } 
                 //Payment applied - Add Corresponding Journal entries for the invoice
                 journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
             }

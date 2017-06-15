@@ -285,7 +285,60 @@
              	AND invAdjustment.IsDeleted = 0
         ]]>
     </sql-query>
-        
+    
+    <sql-query name="retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment">
+        <![CDATA[
+           		SELECT 
+				requestorPayment.ROI_RequestorPayment_Seq id,
+				requestorPayment.ROI_Requestor_Seq requestorId,
+            	invpayment.ROI_RequestCoreDeliveryCharges_Seq requestCoreDeliveryChargesId,
+				invpayment.Amount invoiceAppliedAmount,
+				requestorPayment.Amount baseAmount,
+				requestorPayment.UnappliedAmount totalUnappliedAmount,
+		    	requestorPayment.PaymentType paymentMode,
+		    	requestorPayment.PaymentDate paymentDate,
+				requestorPayment.Description description,
+				'Payment' transactionType,
+				requestorPayment.Created_Dt createdDt,
+				requestorPayment.Created_By_Seq createdBy,
+				requestorPayment.Modified_Dt modifiedDt,
+				requestorPayment.Modified_By_Seq modifiedBy,
+				requestorPayment.Record_Version recordVersion
+            FROM 
+                cabinet..ROI_RequestorPayment requestorPayment,
+                cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment invpayment
+            WHERE 
+            	invpayment.ROI_RequestorPayment_Seq = requestorPayment.ROI_RequestorPayment_Seq AND 
+             	invpayment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds)
+             	AND invPayment.IsDeleted = 0 AND invpayment.IsPrebillPayment = 1
+		UNION
+
+           SELECT 
+				requestorAdjustment.ROI_RequestorAdjustment_Seq id,
+				requestorAdjustment.ROI_Requestor_Seq requestorId,
+            	invAdjustment.ROI_RequestCoreDeliveryCharges_Seq requestCoreDeliveryChargesId,
+				invAdjustment.Amount invoiceAppliedAmount,
+				invAdjustment.Amount baseAmount,
+				requestorAdjustment.UnappliedAmount totalUnappliedAmount,
+		    	requestorAdjustment.Reason paymentMode,
+		    	requestorAdjustment.AdjustmentDate paymentDate,
+				requestorAdjustment.Note description,
+				'Adjustment' transactionType,
+				requestorAdjustment.Created_Dt createdDt,
+				requestorAdjustment.Created_By_Seq createdBy,
+				requestorAdjustment.Modified_Dt modifiedDt,
+				requestorAdjustment.Modified_By_Seq modifiedBy,
+				requestorAdjustment.Record_Version recordVersion
+            FROM 
+                cabinet..ROI_RequestorAdjustment requestorAdjustment,
+                cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment invAdjustment
+            WHERE 
+            	invAdjustment.ROI_RequestorAdjustment_Seq = requestorAdjustment.ROI_RequestorAdjustment_Seq AND 
+             	invAdjustment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds)
+             	AND invAdjustment.IsDeleted = 0 AND invAdjustment.IsPrebillAdjustment = 1
+        ]]>
+    </sql-query>
+         
     <sql-query name="deleteRequestCoreDeliveryCharges">
         <![CDATA[
            DELETE 

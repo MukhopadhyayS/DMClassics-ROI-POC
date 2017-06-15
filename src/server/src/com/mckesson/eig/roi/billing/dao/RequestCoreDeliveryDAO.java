@@ -548,4 +548,12 @@ extends ROIDAO {
      void unmapPaymentsFromInvoiceFromDialog(long paymentId);
      
      void unmapAdjustmentsFromInvoiceFromDialog(long adjustmentId);
+     
+     /**
+      * This method will retrieve RequestCoreDeliveryChargesAdjustmentPayment Info for prebill records.
+      * @param long requestCoreDeliveryChargesId
+      * @return List<RequestCoreDeliveryChargesAdjustmentPayment>
+      */
+     List<RequestCoreDeliveryChargesAdjustmentPayment> retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment(long requestCoreDeliveryChargesId);
+     
 }

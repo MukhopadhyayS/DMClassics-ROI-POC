@@ -1151,11 +1151,14 @@ implements BillingCoreService {
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:outputProperties : " + outputProperties);
         }
-
+       
         try {
-
+            
             RequestCoreDeliveryDAO requestCoreDeliveryDao =
                                 (RequestCoreDeliveryDAO) getDAO(DAOName.REQUEST_CORE_DELIVERY_DAO);
+            //Add Corresponding Journal entries for the Invoice
+            JournalService journalService =
+                                        (JournalService) getService(ServiceName.JOURNEL_SERVICE);
             BillingCoreServiceValidator validator = new BillingCoreServiceValidator();
 
             if (!validator.validateOutputProperties(outputProperties)) {
@@ -1167,15 +1170,18 @@ implements BillingCoreService {
             if (outputProperties.isForRelease()) {
                 requestCoreDeliveryDao.updateReleaseOutputProperties(outputProperties);
             }
-
-            if(outputProperties.isForRelease())
-            {
-                //Add Corresponding Journal entries for the Invoice
-                JournalService journalService =
-                                            (JournalService) getService(ServiceName.JOURNEL_SERVICE);
+            List<RequestCoreDeliveryChargesAdjustmentPayment> invoicePayAdj = requestCoreDeliveryDao.retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment(outputProperties.getInvoiceId());
+            
+            if (outputProperties.isForRelease()) {
+                if (CollectionUtilities.hasContent(invoicePayAdj)) {
+                    for (RequestCoreDeliveryChargesAdjustmentPayment payAdj : invoicePayAdj) {
+                         if("Payment".equalsIgnoreCase(payAdj.getTransactionType())) {
+                            journalService.createRemovePrebillPaymentJE(payAdj.getId());
+                         }
+                    }
+                }
                 journalService.createSendInvoiceJE(outputProperties.getInvoiceId());
             }
-
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End: of updateInvoiceOutputProperties ");
@@ -1736,7 +1742,7 @@ implements BillingCoreService {
         RequestCoreDeliveryDAO rCDeliveryDAO =
                 (RequestCoreDeliveryDAO) getDAO(DAOName.REQUEST_CORE_DELIVERY_DAO);
         RequestorPrebillsList reqPrebillList = new RequestorPrebillsList();
-        //JournalService journalService = (JournalService) getService(ServiceName.JOURNEL_SERVICE);
+        JournalService journalService = (JournalService) getService(ServiceName.JOURNEL_SERVICE);
         if (totalPostPrebillPayments != 0.0 || totalPostPrebillAdjustments != 0.0) {
             reqPrebillList = requestorDAO.retrieveRequestorPrebills(requestCoreId);
         }
@@ -1763,10 +1769,9 @@ implements BillingCoreService {
                               paymentInfo.setRequestCoreDeliveryChargesId(reqPrebill.getId());
                               paymentInfo.setPaymentId(reqAdjPay.getId());
                               requestorDAO.deleteInvoiceToPayment(paymentInfo);
-                              requestorDAO.createRequestorPayment(paymentInfoList);
+                              long paymentId = requestorDAO.createRequestorPayment(paymentInfoList);
                               invoiceBalance += reqAdjPay.getAppliedAmount();
-                              /*journalService.createUnApplyPaymentFromInvoiceJE(reqAdjPay.getId());
-                              journalService.createAcceptPaymentJE(reqAdjPay.getId());*/
+                              journalService.createRemovePrebillPaymentJE(paymentId);
                           } else {
                               RequestorAdjustment adjustmentInfo = new RequestorAdjustment();
                               adjustmentInfo.setAmount(reqAdjPay.getAppliedAmount());

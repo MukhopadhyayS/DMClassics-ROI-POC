@@ -851,6 +851,61 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
         }
     }
+    
+    /**
+     * This method will retrieve RequestCoreDeliveryChargesAdjustmentPayment for prebill payment
+     * @param List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesId
+     * @return RequestCoreDeliveryChargesAdjustmentPayment requestCoreDeliveryChargesAdjustmentPayment
+     */
+    @Override
+    public List<RequestCoreDeliveryChargesAdjustmentPayment> retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment(long requestCoreDeliveryChargesId) {
+        final String logSM = "retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment(requestCoreDeliveryChargesId)";
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId);
+        }
+
+        try{
+            Session session = getSession();
+            String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment").getQueryString();;
+            SQLQuery query = session.createSQLQuery(queryString);
+
+            List<Long> ids = new ArrayList<Long>();
+            ids.add(requestCoreDeliveryChargesId);
+            query.setParameterList("requestCoreDeliveryChargesIds", ids);
+
+            query.addScalar("id", Hibernate.LONG);
+            query.addScalar("requestorId",Hibernate.LONG);
+            query.addScalar("requestCoreDeliveryChargesId",Hibernate.LONG);
+            query.addScalar("invoiceAppliedAmount", Hibernate.DOUBLE);
+            query.addScalar("baseAmount", Hibernate.DOUBLE);
+            query.addScalar("totalUnappliedAmount", Hibernate.DOUBLE);
+            query.addScalar("paymentMode", Hibernate.STRING);
+            query.addScalar("description", Hibernate.STRING);
+            query.addScalar("paymentDate", Hibernate.TIMESTAMP);
+            query.addScalar("transactionType", Hibernate.STRING);
+            query.addScalar("createdDt", Hibernate.TIMESTAMP);
+            query.addScalar("createdBy", Hibernate.LONG);
+            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
+            query.addScalar("modifiedBy", Hibernate.LONG);
+            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesAdjustmentPayment.class));
+            @SuppressWarnings("unchecked")
+            List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesAdjustmentPaymentList = query.list();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+
+            return requestCoreDeliveryChargesAdjustmentPaymentList;
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /*public void deleteRequestCoreDeliveryChargesAdjustmentPayment(long  requestCoreDeliveryChargesId) {
         final String logSM = "deleteRequestCoreChargesAdjustmentPayment(requestCoreDeliveryChargesId)";

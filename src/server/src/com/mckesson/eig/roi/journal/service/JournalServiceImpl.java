@@ -70,11 +70,23 @@ public class JournalServiceImpl extends BaseROIService implements JournalService
     }
     
     @Override
+    public boolean createAcceptPrebillPaymentJE(long paymentId) {
+        // TODO Auto-generated method stub
+        return createJournalEntries(TransactionEvent.ACCEPT_PREBILL_PAYMENT, paymentId);
+    }
+    
+    @Override
+    public boolean createRemovePrebillPaymentJE(long paymentId) {
+        // TODO Auto-generated method stub
+        return createJournalEntries(TransactionEvent.REMOVE_PREBILL_PAYMENT, paymentId);
+    }
+       
+    @Override
     public boolean createVoidPaymentJE(long paymentId) {
         // TODO Auto-generated method stub
         return createJournalEntries(TransactionEvent.VOID_PAYMENT, paymentId);
     }
-
+    
 //    @Override
 //    public boolean createRecordReturnedCheckJE(long paymentId) {
 //        // TODO Auto-generated method stub
