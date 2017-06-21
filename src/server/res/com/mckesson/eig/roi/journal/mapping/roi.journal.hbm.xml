@@ -371,7 +371,7 @@
             when (A.Name = 'Cash' OR
             A.name = 'Accounts Receivables') then 'Asset,"",' +  A.Name 
              when (A.Name = 'Sales Tax Payable' OR
-			A.name = 'Prebill Payment') then 'Liability,"",' +  A.Name
+			A.name = 'Pre Payment') then 'Liability,"",' +  A.Name
             end as name,
             A.Code code
                         FROM 
