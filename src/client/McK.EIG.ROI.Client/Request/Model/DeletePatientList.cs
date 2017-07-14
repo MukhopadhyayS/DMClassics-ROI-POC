@@ -61,18 +61,27 @@ namespace McK.EIG.ROI.Client.Request.Model
 
         public void Clear()
         {
-            DeletedPatients.Clear();
-            DeletedEncounters.Clear();
-            DeletedDocuments.Clear();
-            DeletedVersions.Clear();
-            DeletedPages.Clear();
-            DeletedPatientList.Clear();
-            deleteDARSupplementalPatients.Clear();
-            DeletesupplementalPatients.Clear();
-            DeleteSupplementalAttachments.Clear();
-            DeletesupplementalDocuments.Clear();
-            DeleteSupplementaryAttachments.Clear();
-            DeleteSupplementaryDocuments.Clear();
+            try
+            {
+                DeletedPatients.Clear();
+                DeletedEncounters.Clear();
+                DeletedDocuments.Clear();
+                DeletedVersions.Clear();
+                DeletedPages.Clear();
+                DeletedPatientList.Clear();
+                if(deleteDARSupplementalPatients!=null)
+                    deleteDARSupplementalPatients.Clear();
+
+                DeletesupplementalPatients.Clear();
+                DeleteSupplementalAttachments.Clear();
+                DeletesupplementalDocuments.Clear();
+                DeleteSupplementaryAttachments.Clear();
+                DeleteSupplementaryDocuments.Clear();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         #endregion

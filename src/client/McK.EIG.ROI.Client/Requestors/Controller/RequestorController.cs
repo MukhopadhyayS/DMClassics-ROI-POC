@@ -203,6 +203,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
             object[] requestParams = new object[] { server };
             ROIHelper.Invoke(requestorService, "updateRequestor", requestParams);
             client = MapModel((Requestor)requestParams[0]);
+            RequestorCache.RemoveKey(client.Id);
             return client;
 
         }
@@ -238,28 +239,39 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
         {
             object[] requestParams = new object[] { id };
             ROIHelper.Invoke(requestorService, "deleteRequestor", requestParams);
+            RequestorCache.RemoveKey(id);
         }
 
 
         public Collection<RequestInvoiceDetail> RetrieveRequestorInvoices(long requestorId)
         {
-            object[] requestParams = new object[] { requestorId };
-            object response = ROIHelper.Invoke(requestorService, "retrieveRequestorInvoices", requestParams);
-            Collection<RequestInvoiceDetail> reqInvoiceList = new Collection<RequestInvoiceDetail>();
-            reqInvoiceList = MapModel(response as RequestorInvoice[]);
-            return reqInvoiceList;
+            if (RequestorCache.IsKeyExist(requestorId))
+            {
+                return RequestorCache.GetRequsetorInvoDetails(requestorId);
+            }
+            else
+            {
+                object[] requestParams = new object[] { requestorId };
+                object response = ROIHelper.Invoke(requestorService, "retrieveRequestorInvoices", requestParams);
+                Collection<RequestInvoiceDetail> reqInvoiceList = new Collection<RequestInvoiceDetail>();
+                reqInvoiceList = MapModel(response as RequestorInvoice[]);
+                RequestorCache.AddData(requestorId, reqInvoiceList);
+                return reqInvoiceList;
+            }
         }
 
         public void CreateInvoicePayment(RequestorInvoiceList requestorInvoiceList)
-        {
+        {            
             object[] requestParams = new object[] { MapModel(requestorInvoiceList) };
             object response = ROIHelper.Invoke(requestorService, "createRequestorPayment", requestParams);
+            RequestorCache.RemoveKey(requestorInvoiceList.RequestorId);
         }
 
         public void UpdateInvoicePayment(RequestorInvoiceList requestorInvoiceList)
         {
             object[] requestParams = new object[] { MapModel(requestorInvoiceList) };
             object response = ROIHelper.Invoke(requestorService, "updateRequestorPayment", requestParams);
+            RequestorCache.RemoveKey(requestorInvoiceList.RequestorId);
         }
 
         public AdjustmentInfoDetail RetrieveAdjustmentInfo(long requestorId)

@@ -52,7 +52,7 @@ namespace McK.EIG.ROI.Client.Admin.Controller
             object[] requestParams = new object[] { serverBillingTier };
             ROIHelper.Invoke(billingAdminService, "createBillingTier", requestParams);
             BillingTierDetails clientBillingTierDetails = MapModel((BillingTier)requestParams[0]);
-
+            BillingCache.AddData(clientBillingTierDetails.Id, clientBillingTierDetails);
             return clientBillingTierDetails;
         }
 
@@ -74,6 +74,7 @@ namespace McK.EIG.ROI.Client.Admin.Controller
             object[] requestParams = new object[] { serverBillingTier };
             ROIHelper.Invoke(billingAdminService, "updateBillingTier", requestParams);
             billingTierDetails = MapModel((BillingTier)requestParams[0]);
+            BillingCache.AddData(billingTierDetails.Id, billingTierDetails);
 
             return billingTierDetails;
         }
@@ -86,6 +87,7 @@ namespace McK.EIG.ROI.Client.Admin.Controller
         {
             object[] requestParams = new object[] { billingTierId };
             ROIHelper.Invoke(billingAdminService, "deleteBillingTier", requestParams);
+            BillingCache.RemoveKey(billingTierId);
         }
 
         /// <summary>
@@ -111,11 +113,19 @@ namespace McK.EIG.ROI.Client.Admin.Controller
         /// <returns>Returns a BillingTier details </returns>
         public BillingTierDetails GetBillingTier(long billingTierId)
         {
-            object[] requestParams = new object[] { billingTierId };
-            object response = ROIHelper.Invoke(billingAdminService, "retrieveBillingTier", requestParams);
-            BillingTierDetails clientBillingTierDetails = MapModel((BillingTier)response);
+            if (BillingCache.IsKeyExist(billingTierId))
+            {
+                return BillingCache.GetPatDetails(billingTierId);
 
-            return clientBillingTierDetails;
+            }
+            else
+            {
+                object[] requestParams = new object[] { billingTierId };
+                object response = ROIHelper.Invoke(billingAdminService, "retrieveBillingTier", requestParams);
+                BillingTierDetails clientBillingTierDetails = MapModel((BillingTier)response);
+                BillingCache.AddData(billingTierId, clientBillingTierDetails);
+                return clientBillingTierDetails;
+            }
         }
 
         #endregion

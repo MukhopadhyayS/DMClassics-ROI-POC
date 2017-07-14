@@ -104,6 +104,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private bool hasRights;
         public static bool isOnlyNonHPFDocuments = false;
         public double balanceDuePrebill;
+        private RequestPatients requestPatients;
 
         #endregion
 
@@ -876,7 +877,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 request.DraftRelease = olddraftRelease;
                 bool isFirstPatient = true;
                 Application.DoEvents();
-                RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
+
+                if(requestPatients ==null)
+                    requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
+
                 foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                 {
                     if (!request.Patients.ContainsKey(requestPatientDetails.Key))
@@ -2307,7 +2311,10 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                 //TODO: Need to revisit the logic to update the latest values in Patient Information screen
                 Application.DoEvents();
-                RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
+
+                if (requestPatients == null)
+                    requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
+
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).PageStatus = requestPatients.PageStatus;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).AttachmentStatus = requestPatients.AttachmentStatus;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).NonHPFDocumentStatus = requestPatients.NonHpfDocumentStatus;
@@ -2724,7 +2731,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 request.Patients.Clear();
                 if (release.ReleasedPatients.Count == 0)
                 {
-                    RequestPatients requestPatients;
+                    //RequestPatients requestPatients;
 
                     RequestRSP rsp = (RequestRSP)Pane.ParentPane.ParentPane;
                     rsp.InfoEditor.Request = request;
@@ -2736,7 +2743,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     else
                     {
                         Application.DoEvents();
-                        requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
+                        if (requestPatients == null)
+                            requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                     }
                     foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                     {
@@ -2759,7 +2767,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             {
                 RequestDetails requestDetails = (RequestDetails)ROIViewUtility.DeepClone(request);
                 Application.DoEvents();
-                RequestPatients requestPatients = RequestController.Instance.RetrieveRequestPatients(requestDetails.Id);
+                if (requestPatients == null)
+                    requestPatients = RequestController.Instance.RetrieveRequestPatients(requestDetails.Id);
+
                 foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                 {
                     requestDetails.Patients.Add(requestPatientDetails.Key, requestPatientDetails);

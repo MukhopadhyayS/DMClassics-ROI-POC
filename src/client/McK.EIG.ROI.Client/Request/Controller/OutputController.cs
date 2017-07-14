@@ -122,11 +122,19 @@ namespace McK.EIG.ROI.Client.Request.Controller
         /// <returns></returns>
         public OutputPropertyDetails RetrieveDestinations(string outputMethod)
         {
-            object[] requestParams = new object[] { outputMethod };
-            object response = ROIHelper.Invoke(outputService, "getDestinations", requestParams);
-            map[] servicePropertyResponse = RetrieveServiceProperties();
-            OutputPropertyDetails outputPropertyDetails = MapModel((DestInfo[])response, servicePropertyResponse);
-            return outputPropertyDetails;
+            if (OutputPropertyDetailsCache.IsKeyExist(outputMethod))
+            {
+                return OutputPropertyDetailsCache.GetOutputPropertyDetails(outputMethod);
+            }
+            else
+            {
+                object[] requestParams = new object[] { outputMethod };
+                object response = ROIHelper.Invoke(outputService, "getDestinations", requestParams);
+                map[] servicePropertyResponse = RetrieveServiceProperties();
+                OutputPropertyDetails outputPropertyDetails = MapModel((DestInfo[])response, servicePropertyResponse);
+                OutputPropertyDetailsCache.AddData(outputMethod, outputPropertyDetails);
+                return outputPropertyDetails;
+            }
         }
 
         /// <summary>
