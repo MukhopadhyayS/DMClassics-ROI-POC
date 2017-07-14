@@ -228,7 +228,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
             RequestDetails requestDetails = (RequestDetails)ROIViewUtility.DeepClone(request);
 
-            BillingPaymentInfoUI billingPayment = new BillingPaymentInfoUI();
+            //BillingPaymentInfoUI billingPayment = new BillingPaymentInfoUI();
 
             Application.DoEvents();
             requestPatients = RequestController.Instance.RetrieveRequestPatients(requestDetails.Id);
@@ -265,15 +265,18 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             if (requestDetails.Releases != null && requestDetails.ReleaseCount > 0)
             {
                 //releaseDetails = BillingController.Instance.RetrieveReleaseInfo(requestDetails.Releases[0]);
-                releaseDetails = billingPayment.RevertInfo(requestDetails);
+
+                //Naved Commented - Shipping details can be obtained from request details
+                //releaseDetails = billingPayment.RevertInfo(requestDetails);
 
                 if (releaseDetails != null && releaseDetails.ShippingDetails != null)
-                {
+                {                    
                     dsrTreeUI.OutputMethod = releaseDetails.ShippingDetails.OutputMethod;
                 }
             }
-
-            requestorType = ROIAdminController.Instance.GetRequestorType(requestDetails.RequestorType);
+            
+            //Naved Commented - redundant
+            //requestorType = ROIAdminController.Instance.GetRequestorType(requestDetails.RequestorType);
 
             patientRecordsViewUI.AddAllButton.Enabled = false;
             patientRecordsViewUI.PatientRecordsTreeView.Model = null;
@@ -334,6 +337,16 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                         releaseDetails = details;
                     }
                 }
+
+
+                if (releaseDetails == null)
+                {
+                    releaseDetails = new ReleaseDetails();
+                }
+
+                RequestBillingInfo reqBillInfo = RequestController.Instance.RetrieveRequestBillingPaymentInfo(request.Id);
+                releaseDetails.ShippingDetails = reqBillInfo.ShippingInfo;                
+
                 bool isDisc = (releaseDetails.ShippingDetails.OutputMethod == OutputMethod.Disc);
 
                 SortedList<string, ReleasedPatientDetails> releasedPatients = new SortedList<string, ReleasedPatientDetails>();
@@ -990,7 +1003,8 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
                 if ((doUpdateDraftRelease && request.HasDraftRelease) || request.ReleaseCount > 0)
                 {
-                    UpdateReleaseDraft(doUpdateDraftRelease);
+                    //Naved Commented  - added
+                   releaseDetails = UpdateReleaseDraft(doUpdateDraftRelease);
                 }
 
                 isDirty = false;
@@ -1036,10 +1050,16 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
         private void saveBillButton_Click(object sender, EventArgs e)
         {
-            Save(false);
-            ReleaseDetails release =  UpdateReleaseDraft(false);
+            if(SaveButton.Enabled == true)
+                Save(false);
+
+            //ReleaseDetails release =  UpdateReleaseDraft(false);
+
+            if(releaseDetails == null)
+                releaseDetails = UpdateReleaseDraft(false);
+
             UnsubscribePatientSelection();
-            RequestEvents.OnBillingSelected(Pane, new ApplicationEventArgs(release, this));
+            RequestEvents.OnBillingSelected(Pane, new ApplicationEventArgs(releaseDetails, this));
         }
 
         public ReleaseDetails UpdateReleaseDraft(bool doUpdateDraftRelease)
@@ -1210,7 +1230,9 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                         {
                             ReleasedPatientDetails releasedPatient;
                             Application.DoEvents();
-                            requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
+
+                        //Naved Commented
+                            //requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
                             foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
                             {
 

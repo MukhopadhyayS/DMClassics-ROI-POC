@@ -344,9 +344,19 @@ namespace McK.EIG.ROI.Client.Request.Controller
         /// <returns></returns>
         public RequestPatients RetrieveRequestPatients(long requestId)
         {
-            object[] requestParams = new object[] { requestId };
-            object response = ROIHelper.Invoke(requestCoreService, "retrieveRequestPatient", requestParams);            
-            return MapModel(response as RequestPatientsList);
+            if (RequestPatientsCache.IsKeyExist(requestId))
+            {
+                return RequestPatientsCache.GetReqPatients(requestId);
+
+            }
+            else
+            {
+                object[] requestParams = new object[] { requestId };
+                object response = ROIHelper.Invoke(requestCoreService, "retrieveRequestPatient", requestParams);
+                RequestPatients reqPat =  MapModel(response as RequestPatientsList);
+                RequestPatientsCache.AddData(requestId, reqPat);
+                return reqPat;
+            }
         }
 
         /// <summary>
@@ -357,16 +367,42 @@ namespace McK.EIG.ROI.Client.Request.Controller
         /// <returns></returns>
         public RequestPatients SaveRequestPatients(UpdateRequestPatients requestPatients, long requestId)
         {
+            if (RequestPatientsCache.IsKeyExist(requestId))
+            {
+                RequestPatientsCache.RemoveKey(requestId);
+            }
+
             SaveRequestPatientList serverRequestPatients = MapModel(requestPatients);
             serverRequestPatients.requestId = requestId;
             object[] requestParams = new object[] { serverRequestPatients };
             object response = ROIHelper.Invoke(requestCoreService, "saveRequestPatient", requestParams);
-            return MapModel(response as RequestPatientsList);
+            RequestPatients reqPat = MapModel(response as RequestPatientsList);
+            RequestPatientsCache.AddData(requestId, reqPat);
+            return reqPat;
+
+        }
+
+        public void SaveRequestPatientsEx(UpdateRequestPatients requestPatients, long requestId)
+        {
+			if (RequestPatientsCache.IsKeyExist(requestId))
+            {
+                RequestPatientsCache.RemoveKey(requestId);
+            }
+
+            SaveRequestPatientList serverRequestPatients = MapModel(requestPatients);
+            serverRequestPatients.requestId = requestId;
+            object[] requestParams = new object[] { serverRequestPatients };
+            object response = ROIHelper.Invoke(requestCoreService, "saveRequestPatient", requestParams);            
         }
 
         //click of save n bill
         public void SaveRequestCoreCharges(RequestCoreChargeDetails requestCoreCharges)
         {
+            if (RequestBillingInfoCache.IsKeyExist(requestCoreCharges.RequestId))
+            {
+                RequestBillingInfoCache.RemoveKey(requestCoreCharges.RequestId);
+            }
+
             RequestCoreCharges requestCore = MapModel(requestCoreCharges);
             object[] requestParams1 = new object[] { requestCore };
             ROIHelper.Invoke(requestCoreService, "saveRequestCoreCharges", requestParams1);
@@ -375,19 +411,27 @@ namespace McK.EIG.ROI.Client.Request.Controller
         //on click of revert
         public RequestBillingInfo RetrieveRequestBillingPaymentInfo(long requestId)
         {
-            RequestBillingInfo reqbillinfo = new RequestBillingInfo();
-            object[] requestParams = new object[] { requestId };
-            object roiResponse = ROIHelper.Invoke(requestCoreService, "retrieveRequestCoreCharges", requestParams);
-
-            RequestCoreCharges reqCoreChrBillInfo = (RequestCoreCharges)roiResponse;
-            if (reqCoreChrBillInfo.createdDt == null)
+            if (RequestBillingInfoCache.IsKeyExist(requestId))
             {
-                return null;
+                return RequestBillingInfoCache.GetRequestBillingInfo(requestId);
             }
             else
-                reqbillinfo = MapModel(reqCoreChrBillInfo);
+            {
+                RequestBillingInfo reqbillinfo = new RequestBillingInfo();
+                object[] requestParams = new object[] { requestId };
+                object roiResponse = ROIHelper.Invoke(requestCoreService, "retrieveRequestCoreCharges", requestParams);
 
-            return reqbillinfo;
+                RequestCoreCharges reqCoreChrBillInfo = (RequestCoreCharges)roiResponse;
+                if (reqCoreChrBillInfo.createdDt == null)
+                {
+                    return null;
+                }
+                else
+                    reqbillinfo = MapModel(reqCoreChrBillInfo);
+
+                RequestBillingInfoCache.AddData(requestId,reqbillinfo);
+                return reqbillinfo;
+            }
         }
 
         public InvoiceChargeDetailsList RetrieveInvoicesAndAdjPay(long requestId)
@@ -436,8 +480,19 @@ namespace McK.EIG.ROI.Client.Request.Controller
 
         public bool HasSercuirtyRights()
         {
-            object response = ROIHelper.Invoke(requestCoreService, "hasSecurityRightsForRelease", new object[0]);
-            return (bool)response;
+            if (HasSecurityRights.IsSecurityRightsInvoked())
+            {
+                return HasSecurityRights.GetSecurityRights();
+            }
+            else
+            {
+                bool value = false;
+                object response = ROIHelper.Invoke(requestCoreService, "hasSecurityRightsForRelease", new object[0]);
+
+                value = (bool)response;
+                HasSecurityRights.UpdateSecurityRights(value);
+                return value;
+            }
         }
 
         #endregion

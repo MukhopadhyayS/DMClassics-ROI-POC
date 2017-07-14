@@ -160,6 +160,7 @@
   <ItemGroup>
     <Compile Include="Admin\Controller\BillingAdminController.cs" />
     <Compile Include="Admin\Controller\BillingAdminValidator.cs" />
+    <Compile Include="Admin\Controller\BillingCache.cs" />
     <Compile Include="Admin\Controller\BillingTemplateController.cs" />
     <Compile Include="Admin\Controller\BillingTemplateValidator.cs" />
     <Compile Include="Admin\Controller\BillingTierController.cs" />
@@ -965,6 +966,7 @@
     <Compile Include="Patient\Controller\NonHpfDocumentValidator.cs" />
     <Compile Include="Patient\Controller\NonHpfDocumentController.cs" />
     <Compile Include="Patient\Controller\PatientController.cs" />
+    <Compile Include="Patient\Controller\PatientDetailsCache.cs" />
     <Compile Include="Patient\Controller\PatientValidator.cs" />
     <Compile Include="Patient\Controller\RequestorMatchingController.cs" />
     <Compile Include="Patient\Model\AttachmentDetails.cs" />
@@ -1359,6 +1361,7 @@
     <Compile Include="Reports\View\TurnaroundTimeUI.Designer.cs">
       <DependentUpon>TurnaroundTimeUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Requestors\Controller\RequestorCache.cs" />
     <Compile Include="Requestors\Controller\RequestorController.cs" />
     <Compile Include="Requestors\Controller\RequestorValidator.cs" />
     <Compile Include="Requestors\Model\AdjustmentInfoDetail.cs" />
@@ -1527,6 +1530,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Request\Controller\RequestHistoryPageProducer.cs" />
+    <Compile Include="Request\Controller\RequestPatientsCache.cs" />
     <Compile Include="Request\Controller\RequestValidator.cs">
       <SubType>Code</SubType>
     </Compile>

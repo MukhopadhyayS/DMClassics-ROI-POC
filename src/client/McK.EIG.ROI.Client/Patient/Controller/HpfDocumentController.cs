@@ -51,10 +51,20 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <param name="patient"></param>
         /// <returns></returns>
         public PatientDetails RetrieveHpfDocuments(PatientDetails patient)
-        {  
-            object[] requestParams = new object[] { patient.MRN, patient.FacilityCode, ROIConstants.DateFormat, true };
-            object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecordForMrnFacility", PrepareHPFWParams(requestParams));
-            return MapModel((medicalRecord)response, patient);
+        {
+            if (PatientDetailsCache.IsKeyExist(patient.MRN + patient.facilityCode))
+            {
+                return PatientDetailsCache.GetPatDetails(patient.MRN + patient.facilityCode);
+            }
+            else
+            {
+                object[] requestParams = new object[] { patient.MRN, patient.FacilityCode, ROIConstants.DateFormat, true };
+                object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecordForMrnFacility", PrepareHPFWParams(requestParams));
+                                
+                PatientDetails patDetails = MapModel((medicalRecord)response, patient);
+                PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patDetails);
+                return patDetails;
+            }
         }
 
         /// <summary>
@@ -64,16 +74,34 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <returns></returns>
         public PatientDetails RetrieveHpfEncounters(PatientDetails patient)
         {
-            object[] requestParams = new object[] { patient.MRN, patient.FacilityCode, ROIConstants.DateFormat, false };
-            object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecord", PrepareHPFWParams(requestParams));
-            return MapModel((medicalRecord)response, patient);
+            if (PatientDetailsCache.IsKeyExist(patient.MRN + patient.facilityCode))
+            {
+                return PatientDetailsCache.GetPatDetails(patient.MRN + patient.facilityCode);
+            }
+            else
+            {
+                object[] requestParams = new object[] { patient.MRN, patient.FacilityCode, ROIConstants.DateFormat, false };
+                object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecord", PrepareHPFWParams(requestParams));
+                PatientDetails patDetails = MapModel((medicalRecord)response, patient);
+                PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patDetails);
+                return patDetails;
+            }
         }   
 
         public PatientDetails RetrieveEncounters(PatientDetails patient)
         {
-            object[] requestParams = new object[] { patient.MRN, patient.FacilityCode, ROIConstants.DateTimeFormat, false };
-            object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecordForMrnFacility", PrepareHPFWParams(requestParams));
-            return MapModel((medicalRecord)response, patient);
+            if (PatientDetailsCache.IsKeyExist(patient.MRN + patient.facilityCode))
+            {
+                return PatientDetailsCache.GetPatDetails(patient.MRN + patient.facilityCode);
+            }
+            else
+            {
+                object[] requestParams = new object[] { patient.MRN, patient.FacilityCode, ROIConstants.DateTimeFormat, false };
+                object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecordForMrnFacility", PrepareHPFWParams(requestParams));
+                PatientDetails patDetails = MapModel((medicalRecord)response, patient);
+                PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patDetails);
+                return patDetails;
+            }
         }
         /// <summary>
         /// Retrieves pages for a document.

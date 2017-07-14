@@ -184,11 +184,19 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <returns></returns>
         public PatientDetails RetrieveSuppmentalDocuments(PatientDetails nonHpfPatient)
         {
-            object[] requestParams = new object[] { nonHpfPatient.Id };
-            object response = ROIHelper.Invoke(supplementaryService, "getSupplementalDocuments", requestParams);
-            if (response == null) return nonHpfPatient;
-            MapModel((SupplementalDocumentResult)response, nonHpfPatient, true);
-            return nonHpfPatient;
+            if (PatientDetailsCache.IsKeyExist(nonHpfPatient.MRN + nonHpfPatient.facilityCode))
+            {
+                return PatientDetailsCache.GetPatDetails(nonHpfPatient.MRN + nonHpfPatient.facilityCode);
+            }
+            else
+            {
+                object[] requestParams = new object[] { nonHpfPatient.Id };
+                object response = ROIHelper.Invoke(supplementaryService, "getSupplementalDocuments", requestParams);
+                if (response == null) return nonHpfPatient;
+                MapModel((SupplementalDocumentResult)response, nonHpfPatient, true);
+                PatientDetailsCache.AddData(nonHpfPatient.MRN + nonHpfPatient.facilityCode, nonHpfPatient);
+                return nonHpfPatient;
+            }
         }
 
         /// <summary>
@@ -235,11 +243,19 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <returns></returns>
         public PatientDetails RetrieveSuppmentarityDocuments(PatientDetails hpfPatient)
         {
-            object[] requestParams = new object[] { hpfPatient.MRN, hpfPatient.FacilityCode };
-            object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityDocuments", requestParams);
-            if (response == null) return hpfPatient;
-            MapModel((SupplementarityDocumentResult)response, hpfPatient, true);
-            return hpfPatient;
+            if (PatientDetailsCache.IsKeyExist(hpfPatient.MRN + hpfPatient.facilityCode))
+            {
+                return PatientDetailsCache.GetPatDetails(hpfPatient.MRN + hpfPatient.facilityCode);
+            }
+            else
+            {
+                object[] requestParams = new object[] { hpfPatient.MRN, hpfPatient.FacilityCode };
+                object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityDocuments", requestParams);
+                if (response == null) return hpfPatient;
+                MapModel((SupplementarityDocumentResult)response, hpfPatient, true);
+                PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);                
+                return hpfPatient;
+            }
         }
 
         /// <summary>
@@ -286,11 +302,19 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <returns></returns>
         public PatientDetails RetrieveSuppmentalAttachments(PatientDetails nonHpfPatient)
         {
-            object[] requestParams = new object[] { nonHpfPatient.Id };
-            object response = ROIHelper.Invoke(supplementaryService, "getSupplementalAttachments", requestParams);
-            if (response == null) return nonHpfPatient;
-            MapModel((SupplementalAttachmentResult)response, nonHpfPatient, true);
-            return nonHpfPatient;
+            if (PatientDetailsCache.IsKeyExist(nonHpfPatient.MRN + nonHpfPatient.facilityCode))
+            {
+                return PatientDetailsCache.GetPatDetails(nonHpfPatient.MRN + nonHpfPatient.facilityCode);
+            }
+            else
+            {
+                object[] requestParams = new object[] { nonHpfPatient.Id };
+                object response = ROIHelper.Invoke(supplementaryService, "getSupplementalAttachments", requestParams);
+                if (response == null) return nonHpfPatient;
+                MapModel((SupplementalAttachmentResult)response, nonHpfPatient, true);
+                PatientDetailsCache.AddData(nonHpfPatient.MRN + nonHpfPatient.facilityCode, nonHpfPatient);
+                return nonHpfPatient;
+            }
         }
 
         /// <summary>
@@ -338,11 +362,20 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <returns></returns>
         public PatientDetails RetrieveSuppmentarityAttachments(PatientDetails hpfPatient)
         {
-            object[] requestParams = new object[] { hpfPatient.MRN, hpfPatient.FacilityCode };
-            object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityAttachments", requestParams);
-            if (response == null) return hpfPatient;
-            MapModel((SupplementarityAttachmentResult)response, hpfPatient, true);
-            return hpfPatient;
+
+            if (PatientDetailsCache.IsKeyExist(hpfPatient.MRN + hpfPatient.facilityCode))
+            {
+                return PatientDetailsCache.GetPatDetails(hpfPatient.MRN + hpfPatient.facilityCode);
+            }
+            else
+            {
+                object[] requestParams = new object[] { hpfPatient.MRN, hpfPatient.FacilityCode };
+                object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityAttachments", requestParams);
+                if (response == null) return hpfPatient;
+                MapModel((SupplementarityAttachmentResult)response, hpfPatient, true);
+                PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);
+                return hpfPatient;
+            }
         }
        
         /// <summary>
