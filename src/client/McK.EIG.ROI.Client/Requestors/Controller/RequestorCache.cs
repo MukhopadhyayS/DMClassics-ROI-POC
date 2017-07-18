@@ -37,7 +37,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
             if (requestorInvDetailsCache.ContainsKey(requestorId))
                 requestorInvDetailsCache.Remove(requestorId);
         }
-        public static Collection<RequestInvoiceDetail> GetRequsetorInvoDetails(long requestorId)
+        public static Collection<RequestInvoiceDetail> GetRequestorInvoDetails(long requestorId)
         {
             if (requestorInvDetailsCache.Count > 0)
                 return requestorInvDetailsCache[requestorId];

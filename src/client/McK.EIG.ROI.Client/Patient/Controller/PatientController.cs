@@ -174,6 +174,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             object[] requestParams = new object[] { supplementalDocument };
             object response = ROIHelper.Invoke(supplementaryService, "createSupplementalDocument", requestParams);
             long supplementalID = (long)response;
+            PatientDetailsCache.RemoveKey(nonHPFDocument.PatientMrn + nonHPFDocument.PatientFacility);
             return supplementalID;
         }
 
@@ -194,7 +195,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 object response = ROIHelper.Invoke(supplementaryService, "getSupplementalDocuments", requestParams);
                 if (response == null) return nonHpfPatient;
                 MapModel((SupplementalDocumentResult)response, nonHpfPatient, true);
-                PatientDetailsCache.AddData(nonHpfPatient.MRN + nonHpfPatient.facilityCode, nonHpfPatient);
+               // PatientDetailsCache.AddData(nonHpfPatient.MRN + nonHpfPatient.facilityCode, nonHpfPatient);
                 return nonHpfPatient;
             }
         }
@@ -209,7 +210,8 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             SupplementalDocument supplementalDocument = MapModel(nonHPFDocument);
 
             object[] requestParams = new object[] { supplementalDocument };
-            ROIHelper.Invoke(supplementaryService, "updateSupplementalDocument", requestParams);            
+            ROIHelper.Invoke(supplementaryService, "updateSupplementalDocument", requestParams);
+            PatientDetailsCache.RemoveKey(nonHPFDocument.PatientMrn + nonHPFDocument.PatientFacility);
         }
 
         /// <summary>
@@ -233,6 +235,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             object[] requestParams = new object[] { supplementalDocument };
             object response = ROIHelper.Invoke(supplementaryService, "createSupplementarityDocument", requestParams);
             long supplementarityID = (long)response;
+            PatientDetailsCache.RemoveKey(document.PatientMrn + document.PatientFacility);
             return supplementarityID;
         }
 
@@ -253,7 +256,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityDocuments", requestParams);
                 if (response == null) return hpfPatient;
                 MapModel((SupplementarityDocumentResult)response, hpfPatient, true);
-                PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);                
+                //PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);                
                 return hpfPatient;
             }
         }
@@ -267,7 +270,8 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         {
             SupplementarityDocument supplementalDocument = SupplementarityMapModel(document);
             object[] requestParams = new object[] { supplementalDocument };
-            ROIHelper.Invoke(supplementaryService, "updateSupplementarityDocument", requestParams);            
+            ROIHelper.Invoke(supplementaryService, "updateSupplementarityDocument", requestParams);
+            PatientDetailsCache.RemoveKey(document.PatientMrn + document.PatientFacility);
         }
 
         /// <summary>
@@ -291,6 +295,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             object[] requestParams = new object[] { supplementalAttachment };
             object response = ROIHelper.Invoke(supplementaryService, "createSupplementalAttachment", requestParams);
             attachment = MapModel(attachment, (SupplementalAttachmentResult)response);
+            PatientDetailsCache.RemoveKey(attachment.PatientMrn + attachment.PatientFacility);
 
             return attachment;
         }
@@ -328,6 +333,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             object[] requestParams = new object[] { supplementalAttachment };
             object response = ROIHelper.Invoke(supplementaryService, "updateSupplementalAttachment", requestParams);
             attachment = MapModel(attachment, (SupplementalAttachmentResult)response);
+            PatientDetailsCache.RemoveKey(attachment.PatientMrn + attachment.PatientFacility);
             return attachment;
         }
 
@@ -352,6 +358,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             object[] requestParams = new object[] { supplementalAttachment };
             object response = ROIHelper.Invoke(supplementaryService, "createSupplementarityAttachment", requestParams);
             attachment = MapModel(attachment, (SupplementarityAttachmentResult)response);
+            PatientDetailsCache.RemoveKey(attachment.PatientMrn + attachment.PatientFacility);
             return attachment;
         }
 
@@ -373,7 +380,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityAttachments", requestParams);
                 if (response == null) return hpfPatient;
                 MapModel((SupplementarityAttachmentResult)response, hpfPatient, true);
-                PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);
+               // PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);
                 return hpfPatient;
             }
         }
@@ -389,6 +396,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             object[] requestParams = new object[] { supplementalAttachment };
             object response = ROIHelper.Invoke(supplementaryService, "updateSupplementarityAttachment", requestParams);
             attachment = MapModel(attachment, (SupplementarityAttachmentResult)response);
+            PatientDetailsCache.RemoveKey(attachment.PatientMrn + attachment.PatientFacility);
             return attachment;
         }
 
