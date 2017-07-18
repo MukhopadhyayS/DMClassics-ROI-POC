@@ -21,6 +21,14 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             patientDetailsCache.Add(indexKey, patDetails);
         }
 
+        public static void RemoveKey(string indexKey)
+        {
+            if (patientDetailsCache.ContainsKey(indexKey))
+            {
+                patientDetailsCache.Remove(indexKey);
+            }
+        }
+
         public static bool IsKeyExist(string indexKey)
         {
             if (patientDetailsCache.Count > 0)

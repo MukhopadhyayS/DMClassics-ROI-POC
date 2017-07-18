@@ -247,7 +247,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
         {
             if (RequestorCache.IsKeyExist(requestorId))
             {
-                return RequestorCache.GetRequsetorInvoDetails(requestorId);
+                return RequestorCache.GetRequestorInvoDetails(requestorId);
             }
             else
             {
@@ -255,7 +255,10 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
                 object response = ROIHelper.Invoke(requestorService, "retrieveRequestorInvoices", requestParams);
                 Collection<RequestInvoiceDetail> reqInvoiceList = new Collection<RequestInvoiceDetail>();
                 reqInvoiceList = MapModel(response as RequestorInvoice[]);
-                RequestorCache.AddData(requestorId, reqInvoiceList);
+                if (reqInvoiceList.Count > 0)
+                {
+                    RequestorCache.AddData(requestorId, reqInvoiceList);
+                }
                 return reqInvoiceList;
             }
         }
@@ -287,6 +290,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
         {
             object[] requestParams = new object[] { MapModel(adjInfoDetail) };
             object response = ROIHelper.Invoke(requestorService, "saveAdjustmentInfo", requestParams);
+            
         }
 
         public AdjustmentInfoDetail RetrieveAdjustmentInfoByAdjustmentId(long adjustmentId, long requestorId)

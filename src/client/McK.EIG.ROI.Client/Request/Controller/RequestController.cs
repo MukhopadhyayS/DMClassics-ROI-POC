@@ -32,6 +32,7 @@ using McK.EIG.ROI.Client.Base.View;
 using McK.EIG.ROI.Client.Patient.Model;
 using McK.EIG.ROI.Client.Request.Model;
 using McK.EIG.ROI.Client.Requestors.Model;
+using McK.EIG.ROI.Client.Requestors.Controller;
 
 using McK.EIG.ROI.Client.Web_References.ROIRequestCoreWS;
 using McK.EIG.ROI.Client.Web_References.BillingCoreWS;
@@ -272,7 +273,8 @@ namespace McK.EIG.ROI.Client.Request.Controller
                 {
                     updateRequestPatients.RequestPatients.Add(patient);
                 }
-                requestPatients = SaveRequestPatients(updateRequestPatients, ((RequestCore.Request)requestParams[0]).id);
+                //Naved Commented - Ex version
+                SaveRequestPatientsEx(updateRequestPatients, ((RequestCore.Request)requestParams[0]).id);
             }
             requestDetails = MapModel((RequestCore.Request)requestParams[0], true, taxPerFacilityDetails);            
             foreach (RequestPatientDetails requestPatientDetails in requestPatients.RequestPatientList)
@@ -453,7 +455,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
             object[] requestParam = new object[] { Invoice };
             object roiResponse = ROIHelper.Invoke(billingCoreService, "createInvoiceOrPrebillAndPreview", requestParam);
             InvoiceAndDocumentDetails obj = new InvoiceAndDocumentDetails();
-            obj = MapModel((DocInfo)roiResponse);
+            obj = MapModel((DocInfo)roiResponse);            
             return obj;
         }
 

@@ -1480,6 +1480,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 }
                 try
                 {
+                    RequestorCache.RemoveKey(this.requestorId);
                     releaseAndPreviewInfo = BillingController.Instance.CreateReleaseAndPreview(releaseCore, isApplied, AppliedAmount);
 
                     releaseId = releaseAndPreviewInfo.releaseId;

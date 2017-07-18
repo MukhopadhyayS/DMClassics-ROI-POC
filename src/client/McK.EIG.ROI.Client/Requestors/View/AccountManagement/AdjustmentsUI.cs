@@ -929,7 +929,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                         }
                     }
                 }
-
+                RequestorCache.RemoveKey(requestorId);
                 RequestorController.Instance.SaveAdjustmentInfo(adjInfoSave);
             }
 

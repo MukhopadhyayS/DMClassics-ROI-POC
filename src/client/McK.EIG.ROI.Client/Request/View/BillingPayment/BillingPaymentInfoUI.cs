@@ -3885,7 +3885,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             pendingReleaseCostValueLabel.Text = ReleaseDetails.FormattedAmount(pendingReleaseCost);
 
             shippingInfoUI.UpdateShippingWeight(documentChargeUI.TotalPages);
-            UpdateBalanceDue();
+            UpdateBalance();
         }
         
         /// <summary>
@@ -3896,7 +3896,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             if (release == null) return;
             newChargeTaxValueLabel.Text = ReleaseDetails.FormattedAmount(salesTaxSummaryUI.TotalTaxAmount) + "   )";
             UpdatePendingReleaseCost();
-            UpdateBalanceDue();
+            //UpdateBalanceDue();
         }
 
         /// <summary>
@@ -3931,7 +3931,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             double adjustmentTotal = AdjustmentPaymentTotal;
             double balanceDue = BalanceDue;
             unAppliedAdjAndPayValueLabel.Text = ReleaseDetails.FormattedAmount(unAppliedAdjPayTotal);
-            Collection<RequestInvoiceDetail> reqInvoices = RequestorController.Instance.RetrieveRequestorInvoices(request.RequestorId);
+            Collection<RequestInvoiceDetail> reqInvoices = RequestController.Instance.RetrieveRequestInvoices(request.Id);
                 if (reqInvoices.Count < 1)
                 {
                     adjPaymentTotalValueLabel.Text = ReleaseDetails.FormattedAmount(adjustmentTotal);
@@ -3943,7 +3943,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     {
                         if ((reqInv.InvoiceType == "Prebill" || reqInv.InvoiceType == "Invoice") && (reqInv.RequestId == request.Id))
                         {
-
+                            totalRequestCost = reqInv.Charges;
                             balanceDue = totalRequestCost - reqInv.PayAdjTotal;
                             if(balanceDue < 0)
                             {
@@ -4455,8 +4455,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         InvoiceInfo.RequestTransaction.IsDebit = prebillInvoiceDetails.Release.RequestTransactions[0].IsDebit;
                         InvoiceInfo.RequestTransaction.Amount = prebillInvoiceDetails.Release.RequestTransactions[0].Amount;
                         InvoiceInfo.RequestTransaction.AdjustmentPaymentType = prebillInvoiceDetails.Release.RequestTransactions[0].AdjustmentPaymentType;                        
-                    }   
-                     
+                    }
+                    RequestorCache.RemoveKey(request.RequestorId);
                     if (letterTemplateType == LetterType.PreBill.ToString())
                     {   
                         invoiceAndDocumentDetails = RequestController.Instance.InvoiceOrPrebillPreview(InvoiceInfo);
