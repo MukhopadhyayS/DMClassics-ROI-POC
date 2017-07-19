@@ -1055,7 +1055,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
             //ReleaseDetails release =  UpdateReleaseDraft(false);
 
-            if(releaseDetails == null)
+            //if(releaseDetails == null)
                 releaseDetails = UpdateReleaseDraft(false);
 
             UnsubscribePatientSelection();
@@ -1243,7 +1243,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                     }
                 if (release.ReleasedPatients.Count > 0)
                 {
-                    List<DocumentChargeDetails> previousReleaseDocumentCharges = null;
+                    List<DocumentChargeDetails> previousReleaseDocumentCharges = null;                   
                     if (request.ReleaseCount > 0)
                     {
                         previousReleaseDocumentCharges = new List<DocumentChargeDetails>(GetPreviouReleaseDocumentCharges(request));
