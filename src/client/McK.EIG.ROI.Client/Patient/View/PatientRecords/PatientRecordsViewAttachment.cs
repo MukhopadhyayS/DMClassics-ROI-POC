@@ -207,6 +207,7 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords
                         try
                         {
                             PatientController.Instance.DeleteSupplementalAttachment(tmpAttachment.Id, ReqId);
+                            PatientDetailsCache.RemoveKey(tmpAttachment.PatientMrn + tmpAttachment.PatientFacility);
                         }
                         catch (Exception Ex)
                         {
@@ -219,6 +220,7 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords
                         try
                         {
                             PatientController.Instance.DeleteSupplementarityAttachment(tmpAttachment.Id, ReqId, patientSeq);
+                            PatientDetailsCache.RemoveKey(tmpAttachment.PatientMrn + tmpAttachment.PatientFacility);
                         }
                         catch (Exception Ex)
                         {

@@ -167,6 +167,7 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords
                     try
                     {
                         PatientController.Instance.DeleteSupplementalDocument(nonHpfDocument.Id, ReqId);
+                        PatientDetailsCache.RemoveKey(nonHpfDocument.PatientMrn + nonHpfDocument.PatientFacility);
                     }
                     catch (Exception Ex)
                     {
@@ -179,6 +180,7 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords
                     try
                     {
                         PatientController.Instance.DeleteSupplementarityDocument(nonHpfDocument.Id, ReqId, patientSeq);
+                        PatientDetailsCache.RemoveKey(nonHpfDocument.PatientMrn + nonHpfDocument.PatientFacility);
                     }
                     catch (Exception Ex)
                     {
