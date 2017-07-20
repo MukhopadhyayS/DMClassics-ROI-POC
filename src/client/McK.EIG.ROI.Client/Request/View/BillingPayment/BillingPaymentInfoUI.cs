@@ -2312,8 +2312,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                 //TODO: Need to revisit the logic to update the latest values in Patient Information screen
                 Application.DoEvents();
 
-                if (requestPatients == null)
-                    requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
+                RequestPatientsCache.RemoveKey(request.Id);
+                //if (requestPatients == null)
+                requestPatients = RequestController.Instance.RetrieveRequestPatients(request.Id);
 
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).PageStatus = requestPatients.PageStatus;
                 ((RequestPatientInfoUI)rsp.PatientInfoEditor.MCP.View).AttachmentStatus = requestPatients.AttachmentStatus;

@@ -1055,7 +1055,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
             //ReleaseDetails release =  UpdateReleaseDraft(false);
 
-            //if(releaseDetails == null)
+            if(releaseDetails == null)
                 releaseDetails = UpdateReleaseDraft(false);
 
             UnsubscribePatientSelection();
