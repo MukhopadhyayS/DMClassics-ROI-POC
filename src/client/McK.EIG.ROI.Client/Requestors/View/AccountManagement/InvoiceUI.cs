@@ -255,7 +255,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             {
                 form.Close();
             }
-            requestInvoiceDetails = ShowData(paymentId);
+            //requestInvoiceDetails = ShowData(paymentId);
             Collection<RequestorAdjustmentsPaymentsDetail> reqAdjPays = new Collection<RequestorAdjustmentsPaymentsDetail>();
             RequestInvoiceDetail selectedRequestInvoiceDetail = new RequestInvoiceDetail();
             foreach (RequestInvoiceDetail invoiceDetail in requestInvoiceDetails)
@@ -292,7 +292,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             ComparableCollection<RequestInvoiceDetail> requestInvoice = new ComparableCollection<RequestInvoiceDetail>();
             foreach (RequestInvoiceDetail req in reqInvoicesDetails)
             {
-                if ((req.InvoiceType.Equals("Open Invoice")) || (req.InvoiceType.Equals("Closed Invoice")))
+                if ((req.InvoiceType.Equals("Open Invoice")) || (req.InvoiceType.Equals("Closed Invoice")) ||(req.InvoiceType.Equals("Prebill")))
                 {
                     requestInvoice.Add(req);
                 }
