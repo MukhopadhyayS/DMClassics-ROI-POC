@@ -949,6 +949,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
         private void removePaymentButton_Click(object sender, EventArgs e)
         {
             RequestorController.Instance.DeleteRequestorPayment(paymentId, requestorDetails.Name);
+            RequestorCache.RemoveKey(requestorDetails.Id);
             ((Form)(this.Parent)).DialogResult = DialogResult.OK;
         }
 
