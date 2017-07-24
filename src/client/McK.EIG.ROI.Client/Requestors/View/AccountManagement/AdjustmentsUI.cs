@@ -1280,6 +1280,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             adjInfoSave.ReqAdjustmentDetails.RequestorName = requestorDetails.Name;
             adjInfoSave.ReqAdjustmentDetails.RequestorType = requestorDetails.TypeName;
             adjInfoSave.ReqAdjustmentDetails.AdjustmentType = ((AdjustmentType)EnumUtilities.EnumValueOf(typeComboBox.Text, typeof(AdjustmentType)));
+            RequestorCache.RemoveKey(requestorDetails.Id);
             RequestorController.Instance.SaveAdjustmentInfo(adjInfoSave);
             ((Form)(this.Parent)).DialogResult = DialogResult.OK;
         }
