@@ -255,7 +255,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
             {
                 form.Close();
             }
-            //requestInvoiceDetails = ShowData(paymentId);
+            requestInvoiceDetails = ShowData(paymentId);
             Collection<RequestorAdjustmentsPaymentsDetail> reqAdjPays = new Collection<RequestorAdjustmentsPaymentsDetail>();
             RequestInvoiceDetail selectedRequestInvoiceDetail = new RequestInvoiceDetail();
             foreach (RequestInvoiceDetail invoiceDetail in requestInvoiceDetails)
