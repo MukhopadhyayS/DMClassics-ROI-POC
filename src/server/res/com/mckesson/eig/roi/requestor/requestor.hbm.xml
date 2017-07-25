@@ -526,10 +526,10 @@
     	SELECT
                 ROI_RequestCoreDeliveryCharges_Seq id,
                 ROI_RequestCore_Seq requestId,
-                'Invoice '+CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
-                'Invoice' invoiceType,
+                rdc.Type + ' ' + CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
+                rdc.Type invoiceType,
                 Base_Charge charge,
-                Invoice_Balance_Due as balance,
+                CASE WHEN rdc.Type <> 'PreBill' then Invoice_Balance_Due else Balance_Due end as balance,
                 COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq and reqPay.IsDeleted = 0), 0) paymentAmount,
                 ISNULL((SELECT SUM(Amount) FROM ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment where ROI_RequestCoreDeliveryCharges_Seq =  rdc.ROI_RequestCoreDeliveryCharges_Seq and ROI_RequestorAdjustment_Seq = :adjustmentId and IsDeleted = '0'),'0.0') as appliedAmount,
                 0 as refundAmount,
