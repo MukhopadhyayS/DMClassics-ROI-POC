@@ -604,7 +604,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                         requestorInvoiceList.PaymentDate = DateDateTimePicker.Value;
                         requestorInvoiceList.PaymentMode = Convert.ToString(MethodCombobox.SelectedValue, System.Threading.Thread.CurrentThread.CurrentUICulture);
                         requestorInvoiceList.Description = NoteTextBox.Text.Trim();
-                        requestorInvoiceList.RequestorId = this.requestorId;
+                        requestorInvoiceList.RequestorId = this.requestorDetails.Id;
                         requestorInvoiceList.PaymentId = this.paymentId;
 
                         List<RequestorInvoiceDetails> requestorInvoices = new List<RequestorInvoiceDetails>();

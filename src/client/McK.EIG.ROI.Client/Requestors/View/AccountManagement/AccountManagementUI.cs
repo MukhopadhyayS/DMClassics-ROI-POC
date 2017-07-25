@@ -363,7 +363,12 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 {
                     totalRequestorInvoiceBalance += reqInv.Balance;
                 }
-             }
+                if ((reqInv.InvoiceType.Equals("Open Invoice") || reqInv.InvoiceType.Equals("Closed Invoice") || reqInv.InvoiceType.Equals("Prebill")))
+                {
+                    RequestBillingInfoCache.RemoveKey(reqInv.RequestId);
+                }
+
+            }
             grid.CellFormatting += new DataGridViewCellFormattingEventHandler(grid_CellFormatting);
             totalChargesValueLabel.Text = totalCharge.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
             totalAdjPayLabelValue.Text = totalAdjPay.ToString("C", System.Threading.Thread.CurrentThread.CurrentUICulture);
@@ -966,7 +971,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 ComparableCollection<RequestInvoiceDetail> requestInvoiceDetailList = new ComparableCollection<RequestInvoiceDetail>(reqInvoiceList);
                 PopulateData(requestInvoiceDetailList);
                 reqInvDetail = requestInvoiceDetailList;
-				//CR# 385093
+                RequestEvents.OnReleaseInfoUIChanged(null, null);
+                //CR# 385093
                 RetainGridSelection(index,scrollPosition, selectionItem);
             }
             catch (ROIException cause)
@@ -1035,6 +1041,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 ComparableCollection<RequestInvoiceDetail> requestInvoiceDetailList = new ComparableCollection<RequestInvoiceDetail>(reqInvoiceList);
                 PopulateData(requestInvoiceDetailList);
                 reqInvDetail = requestInvoiceDetailList;
+                RequestEvents.OnReleaseInfoUIChanged(null, null);
                 //CR# 385093
                 RetainGridSelection(index, scrollPosition, selectionItem);
             }
