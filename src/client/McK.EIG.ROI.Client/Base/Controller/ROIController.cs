@@ -88,7 +88,9 @@ namespace McK.EIG.ROI.Client.Base.Controller
             System.Array.Copy(vectorSrc, vectorDest, vectorSrc.Length);
 
             encryptor.SetInitializationVector(vectorDest);
-            encryptor.PassPhrase = ROIConstants.Encryption_Key;
+            //encryptor.PassPhrase = ROIConstants.Encryption_Key;
+            //US18631 - Veracode fix.
+            encryptor.setKey(ROIConstants.Encryption_Key);
         }
 
         #endregion
