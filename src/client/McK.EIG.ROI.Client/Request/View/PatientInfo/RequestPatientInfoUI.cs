@@ -1050,8 +1050,11 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
         private void saveBillButton_Click(object sender, EventArgs e)
         {
-            if(SaveButton.Enabled == true)
-                Save(false);
+            //Fix for the issue, After creation of first pre - bill, on adding more documents, the no of pages gets displayed wrong and feecharge doesn't get displayed.
+            if (SaveButton.Enabled == true)
+            { Save(true); }
+            else
+            { Save(false); }
 
             //ReleaseDetails release =  UpdateReleaseDraft(false);
 
