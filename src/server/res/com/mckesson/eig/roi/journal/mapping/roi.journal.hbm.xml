@@ -370,8 +370,9 @@
             when (A.Name = 'Bad Debt') then 'Expenses,"",' +  A.Name 
             when (A.Name = 'Cash' OR
             A.name = 'Accounts Receivables') then 'Asset,"",' +  A.Name 
-             when (A.Name = 'Sales Tax Payable' OR
-			A.name = 'Pre Payment') then 'Liability,"",' +  A.Name
+            when (A.Name = 'Sales Tax Payable' OR
+			A.name = 'Pre Payments' OR 
+			A.name = 'Unapplied Payments') then 'Liability,"",' +  A.Name
             end as name,
             A.Code code
                         FROM 
