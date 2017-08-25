@@ -30,6 +30,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
+import com.google.common.base.CharMatcher;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -49,6 +50,7 @@ import com.mckesson.eig.utility.log.Log;
 import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.BeanUtilities;
 import com.mckesson.eig.utility.util.CollectionUtilities;
+import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
  * @author OFS
@@ -622,7 +624,7 @@ public class RequestCorePatientDAOImpl
                     pStmt.setString(index++, document.getMrn());
                     pStmt.setString(index++, document.getFacility());
                     // pStmt.setString(index++, document.getDuid());
-                    pStmt.setString(index++, document.getName());
+                    pStmt.setString(index++, stripJunkCharacters(document.getName()));
                     pStmt.setString(index++, document.getSubtitle());
                     pStmt.setLong(index++, document.getDocId());
                     pStmt.setLong(index++, document.getDocTypeId());
@@ -675,6 +677,13 @@ public class RequestCorePatientDAOImpl
                     "Failed to update the request Documents :" + documents);
         }
 
+    }
+    
+    private String stripJunkCharacters(String documentName) {
+        if (!StringUtilities.isEmpty(documentName)) {
+            documentName = CharMatcher.anyOf("Â").removeFrom(documentName);
+        }
+        return documentName;
     }
 
     /**
