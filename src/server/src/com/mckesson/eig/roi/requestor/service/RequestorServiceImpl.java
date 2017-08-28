@@ -1296,10 +1296,12 @@ implements RequestorService {
                             paymentInfo.getRequestId(), date, null);
                 }
                 if (prebillPayment) {
+                    // Prebill Payment applied - Add Corresponding Journal entries for the invoice
                     journalService.createAcceptPrebillPaymentJE(paymentId);
-                } 
-                //Payment applied - Add Corresponding Journal entries for the invoice
-                journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
+                } else { 
+                    // Payment applied - Add Corresponding Journal entries for the invoice
+                    journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
+                }
             }
 
             requestorDAO.updateRequestorInvoice(invoicePaymentsList);
