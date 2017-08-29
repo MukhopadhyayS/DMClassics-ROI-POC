@@ -1537,6 +1537,7 @@ implements RequestorDAO {
             query.addScalar("requestCoreDeliveryChargesId", Hibernate.LONG);
             query.addScalar("paymentId", Hibernate.LONG);
             query.addScalar("totalAppliedAmount", Hibernate.DOUBLE);
+            query.addScalar("prebillPayment", Hibernate.BOOLEAN);
             query.setResultTransformer(Transformers.aliasToBean(RequestorPayment.class));
             List<RequestorPayment> invoiceToPaymentList = query.list();
 

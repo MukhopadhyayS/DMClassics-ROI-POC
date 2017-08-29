@@ -1626,7 +1626,12 @@ implements RequestorService {
                             requestorDAO.deleteInvoiceToPayment(invoiceToPayment);
                             for (Long removedMapId : removedMappedIds) {
                                 //Payment removed - Add Corresponding Journal entries for the invoice
-                                journalService.createUnApplyPaymentFromInvoiceJE(removedMapId);
+                                if (!dbInvoiceToPayment.isPrebillPayment()) {
+                                    journalService.createUnApplyPaymentFromInvoiceJE(removedMapId);
+                                }
+                                if (dbInvoiceToPayment.isPrebillPayment()) {
+                                    journalService.createDeletePrebillPaymentJE(dbPaymentId);
+                                }
                             }
                             doAudit = true;
                         }

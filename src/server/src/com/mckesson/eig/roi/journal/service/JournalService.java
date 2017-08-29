@@ -25,6 +25,7 @@ public interface JournalService {
     boolean createAcceptPaymentJE(long paymentId);
     boolean createAcceptPrebillPaymentJE(long paymentId);
     boolean createRemovePrebillPaymentJE(long paymentId);
+    boolean createDeletePrebillPaymentJE(long paymentId);
     boolean createVoidPaymentJE(long paymentId);
     //boolean createRecordReturnedCheckJE(long paymentId); - not implemented
     boolean createCreateAdjustmentJE(long adjustmentId);

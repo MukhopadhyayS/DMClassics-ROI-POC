@@ -1771,7 +1771,7 @@ implements BillingCoreService {
                               requestorDAO.deleteInvoiceToPayment(paymentInfo);
                               long paymentId = requestorDAO.createRequestorPayment(paymentInfoList);
                               invoiceBalance += reqAdjPay.getAppliedAmount();
-                              journalService.createRemovePrebillPaymentJE(paymentId);
+                              journalService.createDeletePrebillPaymentJE(paymentId);
                           } else {
                               RequestorAdjustment adjustmentInfo = new RequestorAdjustment();
                               adjustmentInfo.setAmount(reqAdjPay.getAppliedAmount());
