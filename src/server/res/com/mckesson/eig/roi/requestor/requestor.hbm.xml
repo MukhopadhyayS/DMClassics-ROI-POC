@@ -717,14 +717,15 @@
     
  	<sql-query name="retrieveInvoiceToPayment">
         <![CDATA[
-			SELECT paymentId,requestCoreDeliveryChargesId,SUM(appliedAmount) as totalAppliedAmount FROM (
+        	SELECT paymentId,requestCoreDeliveryChargesId,SUM(appliedAmount) as totalAppliedAmount, prebillPayment FROM (
 				SELECT 	ROI_RequestCoreDeliveryCharges_Seq as requestCoreDeliveryChargesId,
 					ROI_RequestorPayment_Seq as paymentId,
-					Amount as appliedAmount			   	
+					Amount as appliedAmount, 
+					IsPrebillPayment as prebillPayment
 	   			FROM cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment	invoiceToPay
 				WHERE ROI_RequestorPayment_Seq = (:paymentId)
 				AND IsDeleted = 0) invoiceToPayment
-				group by requestCoreDeliveryChargesId,paymentId
+				group by requestCoreDeliveryChargesId,paymentId,prebillPayment
         ]]>
     </sql-query>
     
