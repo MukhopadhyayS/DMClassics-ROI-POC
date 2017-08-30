@@ -63,7 +63,7 @@ public class JournalConstants {
         REMOVE_CUSTOMER_GOODWILL("Remove Customer Goodwill", -20, TransactionType.ADJUSTMENT),
         REMOVE_BAD_DEBT("Remove Bad Debt", -21, TransactionType.ADJUSTMENT),
         ACCEPT_PREBILL_PAYMENT("Accept Prebill Payment", -22, TransactionType.PAYMENT),
-        REMOVE_PREBILL_PAYMENT("Remove Prebill Payment", -23, TransactionType.PAYMENT),
+        REMOVE_PREBILL_PAYMENT("Remove Prebill Payment", -23, TransactionType.PAYMENT_TO_INVOICE),
         DELETE_PREBILL_PAYMENT("Delete Prebill Payment", -24, TransactionType.PAYMENT);
         
         
