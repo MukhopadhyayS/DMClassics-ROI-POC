@@ -779,6 +779,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 if ((result == DialogResult.Cancel) || (result == DialogResult.OK))
                 {
                     form.Close();
+                    RequestorCache.RemoveKey(requestorDetails.Id);
                 }
                 var selectionItem = new RequestInvoiceDetail();
                 if (grid.SelectedRows.Count != 0)
