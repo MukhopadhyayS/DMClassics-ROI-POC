@@ -230,6 +230,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                 requestorRefundDetail.Note = noteTextBox.Text.Trim();
                 requestorRefundDetail.RefundDate = Convert.ToDateTime(refundDateTimePicker.Value.ToString());
                 outputRequestorRefundDetail = requestorRefundDetail;
+                RequestorCache.RemoveKey(requestorDetails.Id);
                 ((Form)(this.Parent)).DialogResult = DialogResult.OK;
                 if (isSaveButtonClicked)
                 {
