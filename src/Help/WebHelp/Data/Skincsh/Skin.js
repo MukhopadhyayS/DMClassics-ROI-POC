@@ -1,0 +1,14 @@
+var xmlSkinData = "";
+xmlSkinData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
+xmlSkinData += '<CatapultSkin Version=\"1\" Title=\"McKesson Help\" Top=\"0px\" Left=\"0px\" Width=\"300px\" Height=\"900px\" Tabs=\"TOC,Index,Search,Favorites\" Bottom=\"0px\" Right=\"25px\" NavigationLinkTop=\"true\" Anchors=\"Right,Width,Height\" DefaultTab=\"TOC\" BrowserSetup=\"Resizable\" EnableAboutBox=\"false\" AutoSyncTOC=\"true\">';
+xmlSkinData += '    <!-- saved from url=(0016)http://localhost -->';
+xmlSkinData += '    <Toc LinesBetweenItems=\"true\" LinesFromRoot=\"false\" SingleClick=\"false\" PlusMinusSquares=\"false\" AlwaysShowSelection=\"false\" UseFolderIcons=\"false\" ImageListWidth=\"16\" BinaryStorage=\"false\" />';
+xmlSkinData += '    <Stylesheet Link=\"Stylesheet.xml\">';
+xmlSkinData += '    </Stylesheet>';
+xmlSkinData += '    <WebHelpOptions HideNavigationOnStartup=\"true\" NavigationPaneWidth=\"250\" AboutBox=\"About.png\" AboutBoxWidth=\"301\" AboutBoxHeight=\"78\">';
+xmlSkinData += '    </WebHelpOptions>';
+xmlSkinData += '    <Toolbar EnableCustomLayout=\"true\" Buttons=\"AddTopicToFavorites|ToggleNavigationPane|RemoveHighlight|Separator|Print|Back|Forward|Separator|QuickSearch\" />';
+xmlSkinData += '    <HtmlHelpOptions Buttons=\"Hide,Back,Forward,Print\" NavigationPaneWidth=\"400\" AdvancedSearch=\"true\" SaveUserWindowPosition=\"true\" />';
+xmlSkinData += '    <TopicToolbar EnableCustomLayout=\"true\" Buttons=\"\" />';
+xmlSkinData += '</CatapultSkin>';
+CMCXmlParser._FilePathToXmlStringMap.Add('Skin', xmlSkinData);
