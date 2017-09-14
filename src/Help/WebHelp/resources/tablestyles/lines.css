@@ -1,0 +1,521 @@
+/* MadCap Table Style: */
+
+/*<meta Version="7" />*/
+
+mcTableStyle
+{
+	name: Lines;
+	border-collapse: collapse;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #000000;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #000000;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	max-id: 4;
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+mcTableColumnStyle
+{
+	span: 1;
+	id: 4;
+	name: Column1;
+	separator-style: solid;
+	separator-width: 1px;
+	separator-color: #000000;
+	text-align: left;
+	vertical-align: top;
+}
+
+mcTableHeadStyle
+{
+	span: 1;
+	separator-style: double;
+	separator-width: 3px;
+	separator-color: #000000;
+	name: Header1;
+	id: 2;
+	text-align: left;
+	vertical-align: top;
+	cell-padding-left: 6px;
+	cell-padding-right: 6px;
+	cell-padding-top: 6px;
+	cell-padding-bottom: 6px;
+}
+
+mcTableBodyStyle
+{
+	span: 1;
+	separator-style: solid;
+	separator-width: 1px;
+	separator-color: #000000;
+	name: Body1;
+	id: 1;
+	cell-padding-left: 6px;
+	cell-padding-right: 6px;
+	cell-padding-top: 8px;
+	cell-padding-bottom: 8px;
+	page-break-inside: avoid;
+}
+
+
+/* Cell Styles: */
+ 
+.TableStyle-Lines
+{
+	border-collapse: collapse;
+	border-left-style: solid;
+	border-left-color: #000000;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-right-color: #000000;
+	border-right-width: 1px;
+	border-top-style: solid;
+	border-top-color: #000000;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #000000;
+	border-bottom-width: 1px;
+	margin-top: 0px;
+	margin-bottom: 8px;
+	border-spacing: 0px 0px;
+}
+
+.TableStyle-Lines .Column-Column1
+{
+	
+}
+
+.TableStyle-Lines .Head-Header1
+{
+	
+}
+
+.TableStyle-Lines .HeadI-Column1-Header1
+{
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.TableStyle-Lines .HeadI-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadE-Column1-Header1
+{
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-bottom-width: 3px;
+	border-bottom-color: #000000;
+	border-bottom-style: double;
+}
+
+.TableStyle-Lines .HeadE-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadF-Column1-Header1
+{
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-bottom-width: 3px;
+	border-bottom-color: #000000;
+	border-bottom-style: double;
+}
+
+.TableStyle-Lines .HeadF-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadH-Column1-Header1
+{
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.TableStyle-Lines .HeadH-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadD-Column1-Header1
+{
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-bottom-width: 3px;
+	border-bottom-color: #000000;
+	border-bottom-style: double;
+}
+
+.TableStyle-Lines .HeadD-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadC-Column1-Header1
+{
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.TableStyle-Lines .HeadC-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadB-Column1-Header1
+{
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.TableStyle-Lines .HeadB-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadA-Column1-Header1
+{
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.TableStyle-Lines .HeadA-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .HeadG-Column1-Header1
+{
+	text-align: left;
+	vertical-align: top;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.TableStyle-Lines .HeadG-Column1-Header1 p
+{
+	
+}
+
+.TableStyle-Lines .FootI-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .FootI-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootE-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-Lines .FootE-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootF-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .FootF-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootH-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-Lines .FootH-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootD-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .FootD-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootC-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .FootC-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootB-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-Lines .FootB-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootA-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .FootA-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .FootG-Column1-
+{
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .FootG-Column1- p
+{
+	
+}
+
+.TableStyle-Lines .Body-Body1
+{
+	page-break-inside: avoid;
+}
+
+.TableStyle-Lines .BodyI-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .BodyI-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyE-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	text-align: left;
+	vertical-align: top;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-Lines .BodyE-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyF-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .BodyF-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyH-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	vertical-align: top;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-Lines .BodyH-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyD-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .BodyD-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyC-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .BodyC-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyB-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	vertical-align: top;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-Lines .BodyB-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyA-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .BodyA-Column1-Body1 p
+{
+	
+}
+
+.TableStyle-Lines .BodyG-Column1-Body1
+{
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.TableStyle-Lines .BodyG-Column1-Body1 p
+{
+	
+}
+
+
