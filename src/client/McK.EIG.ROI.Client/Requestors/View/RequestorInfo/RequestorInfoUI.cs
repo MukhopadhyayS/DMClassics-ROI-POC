@@ -443,7 +443,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.RequestorInfo
             RequestorTypeDetails requestorTypeDetail = (RequestorTypeDetails)requestorTypeCombo.SelectedItem;
             if (Convert.ToInt64(requestorTypeCombo.SelectedValue, System.Threading.Thread.CurrentThread.CurrentUICulture) < 0)
             {
-                requestor.PatientEPN = (epnTextBox.Text.Trim().Length > 0 && UserData.Instance.EpnPrefix != null)
+                requestor.PatientEPN = (epnTextBox.Text.Trim().Length > 0 && UserData.Instance.EpnEnabled)
                                         ? UserData.Instance.EpnPrefix.Trim() + epnTextBox.Text.Trim()
                                         : epnTextBox.Text.Trim();
 

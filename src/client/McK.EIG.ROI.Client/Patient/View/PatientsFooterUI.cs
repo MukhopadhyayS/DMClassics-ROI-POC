@@ -158,6 +158,14 @@ namespace McK.EIG.ROI.Client.Patient.View
             try
             {
                 ROIViewUtility.MarkBusy(true);
+                if (UserData.Instance.EpnEnabled)
+                {
+                    foreach (PatientDetails pdetails in selectedPatients)
+                    {
+                        if(!(pdetails.EPN.Contains(UserData.Instance.EpnPrefix)))
+                            pdetails.EPN = UserData.Instance.EpnPrefix + pdetails.EPN;
+                    }
+                }
                 Collection<RequestorDetails> requestors = PatientController.Instance.RetrieveMatchingRequestors(selectedPatients);
                 ROIViewUtility.MarkBusy(false);
 
