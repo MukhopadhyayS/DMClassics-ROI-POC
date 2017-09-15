@@ -890,7 +890,9 @@ implements RequestorDAO {
 
         List<Long> invoiceIds = new ArrayList<Long>();
         for (RequestorInvoice reqInvoice : requestInvoices) {
-             invoiceIds.add(reqInvoice.getId());
+             if ("Invoice".equalsIgnoreCase(reqInvoice.getInvoiceType()) || "Prebill".equalsIgnoreCase(reqInvoice.getInvoiceType())) {
+                 invoiceIds.add(reqInvoice.getId());
+             }
         }
         List<RequestorAdjustmentsPayments> reqAdjPay = null;
 
