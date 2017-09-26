@@ -143,6 +143,9 @@
     <Reference Include="OCSecurity">
       <HintPath>..\McK.EIG.ROI.Client.App\OCSecurity.dll</HintPath>
     </Reference>
+    <Reference Include="seclib">
+      <HintPath>..\McK.EIG.ROI.Client.App\seclib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
