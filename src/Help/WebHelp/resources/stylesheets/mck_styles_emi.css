@@ -1,0 +1,40 @@
+/*<meta />*/
+
+/* Copyright � 2011 McKesson Corporation and/or one of its subsidiaries. */
+/* All Rights Reserved. */
+/* This version is for Paragon Release Notes */
+
+@import url('mck_styles.css');
+
+/* Enable the toolbar formatting options */
+
+b
+{
+	mc-disabled: false;
+}
+
+i
+{
+	mc-disabled: false;
+}
+
+sub
+{
+	mc-disabled: false;
+}
+
+sup
+{
+	mc-disabled: false;
+}
+
+u
+{
+	mc-disabled: false;
+}
+
+strike
+{
+	mc-disabled: false;
+}
+
