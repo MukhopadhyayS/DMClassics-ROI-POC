@@ -1298,6 +1298,10 @@ implements RequestorService {
                 if (prebillPayment) {
                     // Prebill Payment applied - Add Corresponding Journal entries for the invoice
                     journalService.createAcceptPrebillPaymentJE(paymentId);
+                    if (paymentInfoList.getUnAppliedAmount() > 0.0) {
+                        journalService.createDeletePrebillPaymentJE(paymentInfo.getPaymentId());
+                        journalService.createApplyPaymentToPrebillJE(paymentToInvoiceId);
+                    }
                 } else { 
                     // Payment applied - Add Corresponding Journal entries for the invoice
                     journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
@@ -1630,7 +1634,7 @@ implements RequestorService {
                                     journalService.createUnApplyPaymentFromInvoiceJE(removedMapId);
                                 }
                                 if (dbInvoiceToPayment.isPrebillPayment()) {
-                                    journalService.createDeletePrebillPaymentJE(dbPaymentId);
+                                    journalService.createUnApplyPaymentFromPrebillJE(removedMapId);
                                 }
                             }
                             doAudit = true;
@@ -1641,8 +1645,13 @@ implements RequestorService {
 
                             setDefaultDetails(invoiceToPayment, date, true);
                             paymentToInvoiceId = requestorDAO.createInvoiceToPayment(invoiceToPayment);
-                            //Payment applied - Add Corresponding Journal entries for the invoice
-                            journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
+                            if (!dbInvoiceToPayment.isPrebillPayment()) {
+                                //Payment applied - Add Corresponding Journal entries for the invoice
+                                journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
+                            } else {
+                                //Payment applied - Add Corresponding Journal entries for the prebill
+                                journalService.createApplyPaymentToPrebillJE(paymentToInvoiceId);
+                            }
                             doAudit = true;
                         }
 
@@ -1681,9 +1690,13 @@ implements RequestorService {
 
                     setDefaultDetails(invoiceToPayment, date, true);
                     paymentToInvoiceId = requestorDAO.createInvoiceToPayment(invoiceToPayment);
-                    //Payment applied - Add Corresponding Journal entries for the invoice
-                    journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
-
+                    if (!invoiceToPayment.isPrebillPayment()) {
+                        //Payment applied - Add Corresponding Journal entries for the invoice
+                        journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
+                    } else {
+                        //Payment applied - Add Corresponding Journal entries for the prebill
+                        journalService.createApplyPaymentToPrebillJE(paymentToInvoiceId);
+                    }
                     //Audits the Requestor Post Payment operation
                     doAudit(invoiceToPayment.constructApplyPaymentAuditComment(
                             paymentList.getPaymentMode(), paymentList.getRequestorId()),

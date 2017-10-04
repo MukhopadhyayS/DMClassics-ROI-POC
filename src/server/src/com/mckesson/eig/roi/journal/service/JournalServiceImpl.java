@@ -334,11 +334,23 @@ public class JournalServiceImpl extends BaseROIService implements JournalService
         // TODO Auto-generated method stub
         return createJournalEntries(TransactionEvent.APPLY_PAYMENT_TO_INVOICE, paymentToInvoiceId);
     }
+    
+    @Override
+    public boolean createApplyPaymentToPrebillJE(long paymentToInvoiceId) {
+        // TODO Auto-generated method stub
+        return createJournalEntries(TransactionEvent.APPLY_PAYMENT_TO_PREBILL, paymentToInvoiceId);
+    }
 
     @Override
     public boolean createUnApplyPaymentFromInvoiceJE(long paymentToInvoiceId) {
         // TODO Auto-generated method stub
         return createJournalEntries(TransactionEvent.UNAPPLY_PAYMENT_FROM_INVOICE, paymentToInvoiceId);
+    }
+    
+    @Override
+    public boolean createUnApplyPaymentFromPrebillJE(long paymentToInvoiceId) {
+        // TODO Auto-generated method stub
+        return createJournalEntries(TransactionEvent.UNAPPLY_PREBILL_PAYMENT, paymentToInvoiceId);
     }
 
     @Override
