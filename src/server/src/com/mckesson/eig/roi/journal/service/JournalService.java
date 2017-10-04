@@ -45,5 +45,7 @@ public interface JournalService {
     boolean createUnapplyBadDebtAdjustmentFromInvoiceJE(long adjustmentToInvoiceId);
     boolean createApplyGoodWillAdjustmentToInvoiceJE(long adjustmentToInvoiceId);
     boolean createUnapplyGoodWillAdjustmentFromInvoiceJE(long adjustmentToInvoiceId);
+    boolean createApplyPaymentToPrebillJE(long paymentToInvoiceId);
+    boolean createUnApplyPaymentFromPrebillJE(long paymentToInvoiceId);
 
 }
