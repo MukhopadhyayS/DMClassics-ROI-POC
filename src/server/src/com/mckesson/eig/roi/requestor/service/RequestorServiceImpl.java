@@ -1630,10 +1630,10 @@ implements RequestorService {
                             requestorDAO.deleteInvoiceToPayment(invoiceToPayment);
                             for (Long removedMapId : removedMappedIds) {
                                 //Payment removed - Add Corresponding Journal entries for the invoice
-                                if (!dbInvoiceToPayment.isPrebillPayment()) {
+                                if (!invoiceToPayment.isPrebillPayment()) {
                                     journalService.createUnApplyPaymentFromInvoiceJE(removedMapId);
                                 }
-                                if (dbInvoiceToPayment.isPrebillPayment()) {
+                                if (invoiceToPayment.isPrebillPayment()) {
                                     journalService.createUnApplyPaymentFromPrebillJE(removedMapId);
                                 }
                             }
@@ -1645,7 +1645,7 @@ implements RequestorService {
 
                             setDefaultDetails(invoiceToPayment, date, true);
                             paymentToInvoiceId = requestorDAO.createInvoiceToPayment(invoiceToPayment);
-                            if (!dbInvoiceToPayment.isPrebillPayment()) {
+                            if (!invoiceToPayment.isPrebillPayment()) {
                                 //Payment applied - Add Corresponding Journal entries for the invoice
                                 journalService.createApplyPaymentToInvoiceJE(paymentToInvoiceId);
                             } else {
