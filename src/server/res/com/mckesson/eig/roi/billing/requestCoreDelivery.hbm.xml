@@ -311,9 +311,6 @@
             	invpayment.ROI_RequestorPayment_Seq = requestorPayment.ROI_RequestorPayment_Seq AND 
              	invpayment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds)
              	AND invPayment.IsDeleted = 0 AND invpayment.IsPrebillPayment = 1
-             	AND NOT EXISTS (select 1 from cabinet.dbo.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment invpayment
-            WHERE invpayment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds) AND invPayment.IsDeleted = 1 
-            AND invpayment.IsPrebillPayment = 1)
 		UNION
 
            SELECT 
@@ -339,9 +336,6 @@
             	invAdjustment.ROI_RequestorAdjustment_Seq = requestorAdjustment.ROI_RequestorAdjustment_Seq AND 
              	invAdjustment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds)
              	AND invAdjustment.IsDeleted = 0 AND invAdjustment.IsPrebillAdjustment = 1
-             	AND NOT EXISTS (select 1 from cabinet.dbo.ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment invAdjustment
-            WHERE invAdjustment.ROI_RequestCoreDeliveryCharges_Seq in (:requestCoreDeliveryChargesIds) AND invAdjustment.IsDeleted = 1 
-            AND invAdjustment.IsPrebillAdjustment = 1)
         ]]>
     </sql-query>
          
