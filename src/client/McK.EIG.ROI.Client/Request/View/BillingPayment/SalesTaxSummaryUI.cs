@@ -351,7 +351,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             {
                 SalesTaxChargeDetails salesTaxChargeDetail = new SalesTaxChargeDetails();
                 salesTaxChargeDetail = (SalesTaxChargeDetails)row.DataBoundItem;
-                taxState.Add(salesTaxChargeDetail.Key, salesTaxChargeDetail.HasSalesTax);
+                if (!(taxState.ContainsKey(salesTaxChargeDetail.Key)))
+                    taxState.Add(salesTaxChargeDetail.Key, salesTaxChargeDetail.HasSalesTax);
             }
 
             salesTaxGrid.Invalidate();
