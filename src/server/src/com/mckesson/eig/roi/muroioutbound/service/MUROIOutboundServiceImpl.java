@@ -5,19 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mckesson.eig.roi.reports.service.ROIReportUtil;
-
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
-
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
-
+import com.mckesson.eig.roi.reports.service.ROIReportUtil;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 public class MUROIOutboundServiceImpl implements MUROIOutboundService {
-    private static final Log LOG = LogFactory
-            .getLogger(MUROIOutboundServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(MUROIOutboundServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

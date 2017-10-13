@@ -1,7 +1,6 @@
 package com.mckesson.eig.roi.ccd.service;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,8 +33,7 @@ import com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
@@ -43,8 +41,7 @@ public class CcdConversionServiceImpl extends BaseROIService
         implements
             CcdConversionService {
     private CCDCCRConversion _ccdccrConversion;
-    private static final Log LOG = LogFactory
-            .getLogger(CcdConversionServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(CcdConversionServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final BeanFactory BEAN_FACTORY = SpringUtilities

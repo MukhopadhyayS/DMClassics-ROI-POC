@@ -22,8 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -35,7 +34,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  */
 public class LetterData {
 
-    private static final Log LOG = LogFactory.getLogger(LetterData.class);
+    private static final OCLogger LOG = new OCLogger(LetterData.class);
 
     public static final String DATEFORMAT = "MM/dd/yyyy";
     public static final String DATEFORMAT1 = "EEEE, MMMMM dd, yyyy";

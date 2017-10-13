@@ -48,9 +48,8 @@ import com.mckesson.eig.roi.request.model.RequestEventCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoice;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 
@@ -64,7 +63,7 @@ public class RequestCoreDAOImpl
 extends ROIDAOImpl
 implements RequestCoreDAO {
 
-    private static final Log LOG = LogFactory.getLogger(RequestCoreDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestCoreDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static RequestCoreDAOHelper _helper = new RequestCoreDAOHelper();
     private static final SqlEncoderAdvanced ENCODER_ADVANCED = new SqlEncoderAdvanced();

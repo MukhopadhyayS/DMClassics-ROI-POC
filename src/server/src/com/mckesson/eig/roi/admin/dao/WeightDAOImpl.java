@@ -19,8 +19,7 @@ import java.util.List;
 
 import com.mckesson.eig.roi.admin.model.Weight;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
  * @author OFS
@@ -31,7 +30,7 @@ public class WeightDAOImpl
 extends ROIDAOImpl
 implements WeightDAO {
 
-    private static final Log LOG = LogFactory.getLogger(WeightDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(WeightDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

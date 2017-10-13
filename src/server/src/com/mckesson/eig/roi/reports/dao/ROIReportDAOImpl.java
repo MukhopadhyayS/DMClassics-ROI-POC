@@ -20,8 +20,7 @@ import java.util.List;
 
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
 *
@@ -33,7 +32,7 @@ public abstract class ROIReportDAOImpl
 extends ROIDAOImpl
 implements ROIReportDAO {
 
-    private static final Log LOG = LogFactory.getLogger(ROIReportDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROIReportDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     public static final String CSV_DELIM  = ",";

@@ -18,7 +18,6 @@ package com.mckesson.eig.roi.reports.dao;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,9 +31,8 @@ import org.apache.commons.collections.CollectionUtils;
 import com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl;
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 
 /**
@@ -46,8 +44,8 @@ public class PostedPaymentsSummaryReportDAOImpl
 extends ROIReportDAOImpl {
 
 
-    private static final Log LOG
-    = LogFactory.getLogger(PostedPaymentsSummaryReportDAOImpl.class);
+    private static final OCLogger LOG
+    = new OCLogger(PostedPaymentsSummaryReportDAOImpl.class);
 
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String KEY_FACILITIES = "facilities";

@@ -32,8 +32,7 @@ import com.mckesson.eig.roi.admin.model.SysParam;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAO;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -46,7 +45,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
 */
 public final class ROIReportUtil {
 
-    private static final Log LOG = LogFactory.getLogger(ROIReportUtil.class);
+    private static final OCLogger LOG = new OCLogger(ROIReportUtil.class);
 
     public static final String DATEFORMAT = "MM/dd/yyyy";
     public static final String DATETIMEFORMAT = "MM/dd/yyyy HH:mm:ss";
@@ -430,7 +429,7 @@ public final class ROIReportUtil {
             return convertToEndDate(dateFormat.format(cal.getTime()));
         } catch (IOException e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException();
         }
     }

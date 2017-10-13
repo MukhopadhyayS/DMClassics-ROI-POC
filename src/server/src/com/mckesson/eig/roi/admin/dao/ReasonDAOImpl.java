@@ -28,8 +28,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import com.mckesson.eig.roi.admin.model.Reason;
 import com.mckesson.eig.roi.admin.model.ReasonsList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -41,7 +40,7 @@ public class ReasonDAOImpl
 extends ROIDAOImpl
 implements ReasonDAO {
 
-    private static final Log LOG = LogFactory.getLogger(ReasonDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(ReasonDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final int ID = 0;
     private static final int NAME = 1;

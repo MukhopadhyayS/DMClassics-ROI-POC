@@ -18,10 +18,8 @@ package com.mckesson.eig.roi.billing.xdocreport.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.mckesson.eig.roi.billing.letter.model.LetterData;
 import com.mckesson.eig.roi.billing.letter.model.RequestItem;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
@@ -31,7 +29,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  */
 public class XDocRequestItem {
 
-    private static final Log LOG = LogFactory.getLogger(XDocRequestItem.class);
+    private static final OCLogger LOG = new OCLogger(XDocRequestItem.class);
 
     public static final String DATEFORMAT = "yyyy-MM-dd";
     public static final String DATEFORMAT1 = "EEEE, MMMMM dd, yyyy";

@@ -32,8 +32,7 @@ import com.mckesson.eig.roi.admin.model.BillingTiersList;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -45,7 +44,7 @@ public class BillingTierDAOImpl
 extends ROIDAOImpl
 implements BillingTierDAO {
 
-    private static final Log LOG = LogFactory.getLogger(BillingTierDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(BillingTierDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final int BILLING_TIER_ID = 0;

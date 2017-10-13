@@ -19,8 +19,7 @@ package com.mckesson.eig.roi.hpf.service;
 import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
@@ -41,7 +40,7 @@ implements Authenticator {
     /**
      * Initialize the logger.
      */
-    private static final Log LOG = LogFactory.getLogger(HPFAuthenticator.class);
+    private static final OCLogger LOG = new OCLogger(HPFAuthenticator.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

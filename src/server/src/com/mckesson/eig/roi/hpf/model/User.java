@@ -22,8 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.password.Password;
 import com.mckesson.eig.utility.password.PasswordMD5;
 import com.mckesson.eig.utility.password.PasswordPassThru;
@@ -38,7 +37,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  */
 public class User implements java.io.Serializable {
 
-    private static final Log LOG = LogFactory.getLogger(User.class);
+    private static final OCLogger LOG = new OCLogger(User.class);
 
     public static final String FREE_FORM_FACILITIES = "freeForm.facilities";
     public static final String USER_FACILITIES = "user.facilities";

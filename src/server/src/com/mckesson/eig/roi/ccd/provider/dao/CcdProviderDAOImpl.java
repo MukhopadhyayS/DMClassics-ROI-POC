@@ -13,14 +13,12 @@ import com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.ConversionUtilities;
 
 public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
-    private static final Log LOG = LogFactory
-	    .getLogger(CcdProviderDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(CcdProviderDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

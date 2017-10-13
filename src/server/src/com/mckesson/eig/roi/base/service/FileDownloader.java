@@ -41,8 +41,7 @@ import com.mckesson.eig.roi.supplementary.service.ROISupplementaryService;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
 import com.mckesson.eig.roi.utils.FileUtilities;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
  *
@@ -54,7 +53,7 @@ public class FileDownloader
 extends BaseROIService
 implements FileTransferHelper {
 
-    private static final Log LOG = LogFactory.getLogger(FileDownloader.class);
+    private static final OCLogger LOG = new OCLogger(FileDownloader.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String FILENAME_DATE_FORMAT = "yyyy.MM.dd.hh.mm.ss.SSS";

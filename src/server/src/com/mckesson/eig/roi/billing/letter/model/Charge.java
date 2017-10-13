@@ -22,8 +22,7 @@ import java.util.List;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 
@@ -34,7 +33,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  */
 public class Charge {
     
-    private static final Log LOG = LogFactory.getLogger(Charge.class);
+    private static final OCLogger LOG = new OCLogger(Charge.class);
     private static final NumberFormat CURRENCY_FORMAT_US = 
                                     NumberFormat.getCurrencyInstance(ROIConstants.INVOICE_LOCALE);
 
@@ -97,7 +96,7 @@ public class Charge {
         try {
             amount = Double.valueOf(_chargeTotal);
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
         }
         _charges = appendDollarSymbol(amount); 
         return _charges;

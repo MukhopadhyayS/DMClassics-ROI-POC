@@ -5,11 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
-
-
-
 import org.apache.commons.collections.CollectionUtils;
 
 import com.mckesson.eig.roi.admin.dao.LetterTemplateDAO;
@@ -69,8 +64,7 @@ import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetails;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetailsList;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -78,7 +72,7 @@ public class BillingCoreServiceImpl
 extends AbstractBillingService
 implements BillingCoreService {
 
-    private static final Log LOG = LogFactory.getLogger(BillingCoreServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(BillingCoreServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static BillingCoreServiceHelper _helper = new BillingCoreServiceHelper();
    
@@ -231,7 +225,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                         ROIClientErrorCodes.CREATE_REQUEST_CORE_DELIVERY_INVOICE_OPERATION_FAILED);
         }
@@ -391,7 +385,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                ROIClientErrorCodes.CANCEL_REQUEST_CORE_DELIVERY_OPERATION_FAILED);
         }
@@ -598,7 +592,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                         ROIClientErrorCodes.CREATE_REQUEST_CORE_DELIVERY_INVOICE_OPERATION_FAILED);
         }
@@ -738,7 +732,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                         ROIClientErrorCodes.CREATE_REQUEST_CORE_DELIVERY_INVOICE_OPERATION_FAILED);
         }
@@ -796,7 +790,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_CREATION_FAILED);
         }
     }
@@ -863,7 +857,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_CREATION_FAILED);
         }
     }
@@ -899,7 +893,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_CREATION_FAILED);
         }
 
@@ -938,7 +932,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                    ROIClientErrorCodes.RETRIEVE_INVOICE_HISTROY_OPERATION_FAILED);
         }
@@ -974,7 +968,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.VIEW_INVOICE_OPERATION_FAILED);
         }
     }
@@ -1041,7 +1035,7 @@ implements BillingCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.RETRIEVE_INVOICE_OPERATION_FAILED);
         }
     }
@@ -1104,7 +1098,7 @@ implements BillingCoreService {
 
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -1139,7 +1133,7 @@ implements BillingCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.RELEASE_OPERATION_FAILED);
         }
     }
@@ -1190,7 +1184,7 @@ implements BillingCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.VIEW_INVOICE_OPERATION_FAILED);
         }
     }
@@ -1230,7 +1224,7 @@ implements BillingCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.FAILED_TO_MARK_REQUEST_AS_DRAFT_RELEASE);
         }
     }
@@ -1487,7 +1481,7 @@ implements BillingCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.FAILED_TO_CREATE_AUTO_APPLY_TO_INVOICE);
         }
     }
@@ -1519,7 +1513,7 @@ implements BillingCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.FAILED_TO_UPDATE_INVOICE_BALANCE);
         }
     }

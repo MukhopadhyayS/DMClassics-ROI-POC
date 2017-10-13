@@ -70,8 +70,7 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.service.BaseROIService;
 import com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -88,7 +87,7 @@ public class ROIAdminServiceImpl
 extends BaseROIService
 implements ROIAdminService {
 
-    private static final Log LOG = LogFactory.getLogger(ROIAdminServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROIAdminServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     public static final String ENTERPRISE = "E_P_R_S";
 
@@ -132,10 +131,10 @@ implements ROIAdminService {
             return deliveryMethodId;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
     }
@@ -178,7 +177,7 @@ implements ROIAdminService {
             }
              return dao.retrieveAllDeliveryMethodNames();
             } catch (Throwable e) {
-                LOG.error(e);
+                LOG.error(e.getLocalizedMessage());
                 
                 throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
@@ -235,10 +234,10 @@ implements ROIAdminService {
             return newDM;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
     }
@@ -268,10 +267,10 @@ implements ROIAdminService {
             }
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
     }
@@ -318,7 +317,7 @@ implements ROIAdminService {
             return wt;
 
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.WEIGHT_METHOD_OPERATION_FAILED);
         }
     }
@@ -359,10 +358,10 @@ implements ROIAdminService {
             return updatedWt;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.WEIGHT_METHOD_OPERATION_FAILED);
         }
     }
@@ -413,10 +412,10 @@ implements ROIAdminService {
             return reasonId;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
@@ -444,7 +443,7 @@ implements ROIAdminService {
             return reasons;
 
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
@@ -520,10 +519,10 @@ implements ROIAdminService {
             }
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
@@ -564,10 +563,10 @@ implements ROIAdminService {
             return updatedReason;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
@@ -607,10 +606,10 @@ implements ROIAdminService {
             return rt;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
@@ -668,7 +667,7 @@ implements ROIAdminService {
             return rTypes;
 
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
@@ -716,10 +715,10 @@ implements ROIAdminService {
             return updatedRT;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
@@ -752,10 +751,10 @@ implements ROIAdminService {
                 LOG.debug(logSM + "<<End:");
             }
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
@@ -869,7 +868,7 @@ implements ROIAdminService {
             }
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
 
@@ -949,10 +948,10 @@ implements ROIAdminService {
             return id;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
@@ -1002,7 +1001,7 @@ implements ROIAdminService {
             return ltList;
 
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
@@ -1032,10 +1031,10 @@ implements ROIAdminService {
             }
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
@@ -1086,10 +1085,10 @@ implements ROIAdminService {
             return updated;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
@@ -1192,7 +1191,7 @@ implements ROIAdminService {
             return id;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
 
@@ -1224,7 +1223,7 @@ implements ROIAdminService {
             return note;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
 
@@ -1285,7 +1284,7 @@ implements ROIAdminService {
             }
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
 
@@ -1327,7 +1326,7 @@ implements ROIAdminService {
             return nte;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
 
@@ -1406,7 +1405,7 @@ implements ROIAdminService {
             return mask;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
 
@@ -1463,10 +1462,10 @@ implements ROIAdminService {
             }
             return new Designation(designation, docIds);
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable exe) {
-            LOG.error(exe);
+            LOG.error(exe.getLocalizedMessage());
             throw new ROIException(exe, ROIClientErrorCodes.DISCLOSURE_DOCUMENT_OPERATION_FAILED);
         }
     }
@@ -1499,10 +1498,10 @@ implements ROIAdminService {
            return letterTemplateDAO.hasLetterTemplate(letterType);
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable exe) {
-            LOG.error(exe);
+            LOG.error(exe.getLocalizedMessage());
             throw new ROIException(exe, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
@@ -1658,7 +1657,7 @@ implements ROIAdminService {
 
             dao.saveOutputServerProperties(outputServerProperties);
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
 
@@ -1752,10 +1751,10 @@ implements ROIAdminService {
 
             return location;
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.ATTACHMENT_OPERATION_FAILED);
         }  
     }
@@ -1794,10 +1793,10 @@ implements ROIAdminService {
                 LOG.debug(logSM + "<<End:");
             }
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.ATTACHMENT_OPERATION_FAILED);
         }       
     }
@@ -1825,7 +1824,7 @@ implements ROIAdminService {
             return invoiceDue;
 
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.INVOICE_DUE_DAYS_METHOD_OPERATION_FAILED);
         }
     }
@@ -1866,10 +1865,10 @@ implements ROIAdminService {
             return updatedInvoiceDue;
 
         } catch (ROIException e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.INVOICE_DUE_DAYS_METHOD_OPERATION_FAILED);
         }
     }
@@ -1919,7 +1918,7 @@ implements ROIAdminService {
             return muDocList;
 
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
           throw new ROIException(ROIClientErrorCodes.RETRIEVAL_MUDOCTYPES);
         }
     }  
@@ -1945,7 +1944,7 @@ implements ROIAdminService {
                 LOG.debug(logSM + "<<End:" );
             }
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.COUNTRY_CODE_CONFIG_UPDATE_OPERATION_FAILED);
         }
     }
@@ -1970,7 +1969,7 @@ implements ROIAdminService {
                 LOG.debug(logSM + "<<End:" );
             }
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.COUNTRY_CODE_CONFIG_RETRIEVE_OPERATION_FAILED);
         }
         
@@ -1998,7 +1997,7 @@ implements ROIAdminService {
                 LOG.debug(logSM + "<<End:" );
             }
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.UNABLE_TO_UPDATE_UNBILLABLE_REQUEST_FLAG);
         }
     }
@@ -2023,7 +2022,7 @@ implements ROIAdminService {
             }
             return checked;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.UNABLE_TO_RETRIEVE_UNBILLABLE_REQUEST_FLAG);
         }
     }

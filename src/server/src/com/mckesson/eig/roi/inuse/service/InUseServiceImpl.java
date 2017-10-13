@@ -30,9 +30,8 @@ import com.mckesson.eig.roi.inuse.base.api.InUseException;
 import com.mckesson.eig.roi.inuse.dao.InUseDAO;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
 import com.mckesson.eig.roi.inuse.model.InUseRecordList;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.exception.ApplicationException;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.wsfw.session.WsSession;
 
 /**
@@ -42,7 +41,7 @@ import com.mckesson.eig.wsfw.session.WsSession;
  */
 public class InUseServiceImpl implements InUseService {
 
-    private static final Log LOG = LogFactory.getLogger(InUseServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(InUseServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final int MILLIS_IN_MINUTE = 60000;
     private static final int DEFAULT_GRACE_PERIOD = 5;
@@ -487,7 +486,9 @@ public class InUseServiceImpl implements InUseService {
     private void cancelTimerForRecord(InUseRecord record) throws SchedulerException {
 
         if (DO_DEBUG) {
-            LOG.info("Cancel Timer Job:" + record != null ? record : "record argument was null");
+            if (null == record) {
+                LOG.info("Cancel Timer Job:record argument was null");
+            }
         }
         String name = Long.toString(record.getRecordSequence());
         _scheduler.unscheduleJob(name, QUARTZ_GROUP_NAME);
@@ -496,7 +497,9 @@ public class InUseServiceImpl implements InUseService {
     private void createTimerForRecord(InUseRecord record) throws SchedulerException {
 
         if (DO_DEBUG) {
-            LOG.info("Create Timer Job:" + record != null ? record : "record argument was null");
+            if (null == record) {
+                LOG.info("Create Timer Job:record argument was null");
+            }
         }
         String name = Long.toString(record.getRecordSequence());
         long fireTime = record.getModifiedDate().getTime()
@@ -512,7 +515,9 @@ public class InUseServiceImpl implements InUseService {
     private void updateTimerForRecord(InUseRecord record) throws SchedulerException {
 
         if (DO_DEBUG) {
-            LOG.info("Update Timer Job:" + record != null ? record : "record argument was null");
+            if (null == record) {
+                LOG.info("Update Timer Job:record argument was null");
+            }
         }
 
         String name = Long.toString(record.getRecordSequence());

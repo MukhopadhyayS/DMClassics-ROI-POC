@@ -21,12 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.collections.ExtendedProperties;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -40,7 +38,7 @@ public final class ROIConstants {
 
     private ROIConstants() { }
 
-    private static final Log LOG =  LogFactory.getLogger(ROIConstants.class);
+    private static final OCLogger LOG =  new OCLogger(ROIConstants.class);
 
     private static ExtendedProperties _props;
 

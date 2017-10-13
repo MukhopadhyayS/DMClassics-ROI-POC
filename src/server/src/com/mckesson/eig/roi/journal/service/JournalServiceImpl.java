@@ -30,13 +30,12 @@ import com.mckesson.eig.roi.journal.model.JournalDetail;
 import com.mckesson.eig.roi.journal.model.JournalEntry;
 import com.mckesson.eig.roi.journal.model.JournalTemplate;
 import com.mckesson.eig.roi.journal.model.JournalTransaction;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class JournalServiceImpl extends BaseROIService implements JournalService {
-    private static final Log LOG = LogFactory.getLogger(JournalServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(JournalServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private boolean createJournalEntries(TransactionEvent type,
@@ -187,10 +186,10 @@ public class JournalServiceImpl extends BaseROIService implements JournalService
             }
             return b;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.FAILED_TO_INSERT_JOURNAL_ENTRIES);
         }
@@ -209,10 +208,10 @@ public class JournalServiceImpl extends BaseROIService implements JournalService
             }
             return result;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.FAILED_TO_INSERT_JOURNAL_ENTRIES);
         }
@@ -238,10 +237,10 @@ public class JournalServiceImpl extends BaseROIService implements JournalService
             map.put(sqlName, transactions);
             return transactions;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.FAILED_TO_INSERT_JOURNAL_ENTRIES);
         }
@@ -286,10 +285,10 @@ public class JournalServiceImpl extends BaseROIService implements JournalService
             }
             return b;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.FAILED_TO_INSERT_JOURNAL_ENTRIES);
         }

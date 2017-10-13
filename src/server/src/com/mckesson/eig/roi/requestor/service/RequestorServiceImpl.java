@@ -76,8 +76,7 @@ import com.mckesson.eig.roi.requestor.model.RequestorSearchResult;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetailsList;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -94,7 +93,7 @@ implements RequestorService {
     /**
      * Object represents the Log4JWrapper object.
      */
-    private static final Log LOG = LogFactory.getLogger(RequestorServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestorServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String FILENAME_DATE_FORMAT = "yyyy.MM.dd.hh.mm.ss.SSS";
@@ -541,7 +540,7 @@ implements RequestorService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.GENERATE_LETTER_OPERATION_FAILED);
         }
@@ -1163,7 +1162,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                  ROIClientErrorCodes.UNABLE_TO_SAVE_ADJUSTMENT,
                                  e.getMessage());
@@ -1204,7 +1203,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                  ROIClientErrorCodes.CREATE_REQUESTOR_PAYMENT,
                                  e.getMessage());
@@ -1317,7 +1316,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                 ROIClientErrorCodes.CREATE_REQUESTOR_PAYMENT,
                                 e.getMessage());
@@ -1362,7 +1361,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                  ROIClientErrorCodes.UPDATE_REQUESTOR_PAYMENT,
                                  e.getMessage());
@@ -1402,7 +1401,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                  ROIClientErrorCodes.RETRIEVE_UNAPPLIED_ADJUSTMENT, e.getMessage());
         }
@@ -1441,7 +1440,7 @@ implements RequestorService {
 
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.RETRIEVE_REQUESTOR_OPERATION_FAILED);
         }
     }
@@ -1482,7 +1481,7 @@ implements RequestorService {
 
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(
                                 ROIClientErrorCodes.GENERATE_REQUESTOR_STATEMENT_OPERATION_FAILED);
         }
@@ -1536,7 +1535,7 @@ implements RequestorService {
 
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.CREATE_REQUESTOR_STATEMENT_FAILED);
         }
 
@@ -1570,7 +1569,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                    ROIClientErrorCodes.RETRIEVE_REQUESTOR_HISTORY_OPERATION_FAILED);
         }
@@ -1721,7 +1720,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                                  ROIClientErrorCodes.UPDATE_REQUESTOR_PAYMENT,
                                  e.getMessage());
@@ -1781,7 +1780,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.VIEW_REQUESTOR_HISTORY_OPERATION_FAILED);
         }
         }
@@ -1860,7 +1859,7 @@ implements RequestorService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                       ROIClientErrorCodes.CREATE_REQUESTOR_REFUND_OPERTARION_FAILED,
                       e.getMessage());
@@ -1890,7 +1889,7 @@ implements RequestorService {
     }catch (ROIException e) {
         throw e;
     } catch (Throwable e) {
-        LOG.error(e);
+        LOG.error(e.getLocalizedMessage());
         throw new ROIException(e, ROIClientErrorCodes.RETRIEVE_UNAPPLIED_AMOUNT_DETAILS);
     }
     }
@@ -1949,7 +1948,7 @@ implements RequestorService {
         } catch(ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.VIEW_REFUND_OPERATION_FAILED);
         }
     }
@@ -2006,7 +2005,7 @@ implements RequestorService {
         } catch(ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.DELETE_REQUESTOR_PAYMENT_OPERATION_FAILED);
         }
 
@@ -2084,7 +2083,7 @@ implements RequestorService {
                     ROIConstants.DEFAULT_FACILITY, null, null);
 
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.DELETE_REQUESTOR_ADJUSTMENT_OPERATION_FAILED);
         }

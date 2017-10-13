@@ -42,9 +42,8 @@ import com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocuments;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
 import com.mckesson.eig.roi.utils.FileUtilities;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.ConversionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -52,8 +51,7 @@ public class ROISupplementaryServiceImpl
 extends BaseROIService
 implements ROISupplementaryService {
 
-    private static final Log LOG = LogFactory
-            .getLogger(ROISupplementaryServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROISupplementaryServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String ENCOUNTER_SEARCH = "encounter";
     private static final String FACILITY_SEARCH = "facility";
@@ -90,10 +88,10 @@ implements ROISupplementaryService {
             }
             return id;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -163,10 +161,10 @@ implements ROISupplementaryService {
 
             return id;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -221,10 +219,10 @@ implements ROISupplementaryService {
             attachments.add(0, attachment);
             return new ROISupplementalAttachments(attachments);
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -261,10 +259,10 @@ implements ROISupplementaryService {
 
             return id;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -314,10 +312,10 @@ implements ROISupplementaryService {
             attachments.add(0, attachment);
             return new ROISupplementarityAttachments(attachments);
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -345,10 +343,10 @@ implements ROISupplementaryService {
             }
             return patient;
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -378,10 +376,10 @@ implements ROISupplementaryService {
             return new ROISupplementalDocuments(documents);
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -410,10 +408,10 @@ implements ROISupplementaryService {
             return new ROISupplementalAttachments(attachments);
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -443,10 +441,10 @@ implements ROISupplementaryService {
             return new ROISupplementarityDocuments(documents);
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -477,10 +475,10 @@ implements ROISupplementaryService {
             return new ROISupplementarityAttachments(attachments);
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -523,7 +521,7 @@ implements ROISupplementaryService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -578,7 +576,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -635,7 +633,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -681,7 +679,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -730,7 +728,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -768,10 +766,10 @@ implements ROISupplementaryService {
             setDefaultValues(dao, p, false);
             dao.updateSupplementalPatient(p);
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -811,10 +809,10 @@ implements ROISupplementaryService {
             setDefaultValues(dao, p, false);
             dao.updateSupplementalDocument(p);
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -861,10 +859,10 @@ implements ROISupplementaryService {
             return new ROISupplementalAttachments(attachments);
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -904,10 +902,10 @@ implements ROISupplementaryService {
             setDefaultValues(dao, p, false);
             dao.updateSupplementarityDocument(p);
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -956,10 +954,10 @@ implements ROISupplementaryService {
             return new ROISupplementarityAttachments(attachments);
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -1024,10 +1022,10 @@ implements ROISupplementaryService {
             return new ROISupplementalPatients(patients);
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -1051,10 +1049,10 @@ implements ROISupplementaryService {
             ROISupplementaryDAO dao = (ROISupplementaryDAO) getDAO(DAOName.ROI_SUPPLEMENTARY_DAO);
             return dao.checkDuplicates(lastName, firstName, supplementalId);
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -1087,7 +1085,7 @@ implements ROISupplementaryService {
             String tempPath = DirectoryUtil.getCacheDirectory();
             copyToDestination(volume, tempPath, attachment);
         } catch (Exception e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -1138,7 +1136,7 @@ implements ROISupplementaryService {
                     + attachment.getUuid());
             FileUtilities.delete(destFileName);
         } catch (Exception e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -1452,10 +1450,10 @@ implements ROISupplementaryService {
             return attachment;
 
         } catch (ROIException e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw e;
         } catch (Throwable e) {
-            LOG.warn(e);
+            LOG.warn(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }

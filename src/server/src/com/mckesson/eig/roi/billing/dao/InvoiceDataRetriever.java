@@ -41,8 +41,7 @@ import com.mckesson.eig.roi.billing.model.RequestCoreDeliveryChargesFee;
 import com.mckesson.eig.roi.billing.model.RequestCoreDeliveryChargesShipping;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 
@@ -54,7 +53,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
 public class InvoiceDataRetriever
 extends BaseLetterDataRetriever {
 
-    private static final Log LOG = LogFactory.getLogger(InvoiceDataRetriever.class);
+    private static final OCLogger LOG = new OCLogger(InvoiceDataRetriever.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private boolean _prebill;
     protected static final String BILL_DATE_FORMAT = "MM/dd/yyyy";

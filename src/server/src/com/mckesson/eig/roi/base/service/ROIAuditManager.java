@@ -20,8 +20,7 @@ import java.util.Date;
 
 import com.mckesson.eig.audit.dao.AuditDaoService;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 
@@ -34,7 +33,7 @@ import com.mckesson.eig.utility.util.SpringUtilities;
  */
 public class ROIAuditManager {
 
-    private static final Log LOG = LogFactory.getLogger(ROIAuditManager.class);
+    private static final OCLogger LOG = new OCLogger(ROIAuditManager.class);
 
 
 

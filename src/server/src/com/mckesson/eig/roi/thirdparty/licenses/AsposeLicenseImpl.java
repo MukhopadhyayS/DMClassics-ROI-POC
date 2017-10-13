@@ -12,12 +12,11 @@
  */
 package com.mckesson.eig.roi.thirdparty.licenses;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 public class AsposeLicenseImpl implements ThirdPartyLicenses {
 
-    private static final Log LOGGER = LogFactory.getLogger(AsposeLicenseImpl.class);
+    private static final OCLogger LOGGER = new OCLogger(AsposeLicenseImpl.class);
 
     public AsposeLicenseImpl() {
         super();

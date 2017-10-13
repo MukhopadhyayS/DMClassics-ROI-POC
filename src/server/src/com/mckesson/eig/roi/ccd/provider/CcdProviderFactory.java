@@ -40,16 +40,14 @@ import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.request.dao.RequestCoreChargesDAO;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
 import com.mckesson.eig.roi.utils.FileUtilities;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.ConversionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 public class CcdProviderFactory {
-    private static final Log LOG = LogFactory
-            .getLogger(CcdProviderFactory.class);
+    private static final OCLogger LOG = new OCLogger(CcdProviderFactory.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private List<CcdProvider> _availableProviders = null;
     private HashMap<CcdSourceModel, CcdProvider> _sources = null;

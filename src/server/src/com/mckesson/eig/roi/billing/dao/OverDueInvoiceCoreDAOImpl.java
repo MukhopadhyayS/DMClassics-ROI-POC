@@ -34,8 +34,7 @@ import com.mckesson.eig.roi.billing.model.RequestorLetter;
 import com.mckesson.eig.roi.billing.model.RequestorLetterInvoice;
 import com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceCriteria;
 import com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceResult;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -49,7 +48,7 @@ extends ROIDAOImpl
 implements OverDueInvoiceCoreDAO {
 
 
-    private static final Log LOG = LogFactory.getLogger(OverDueInvoiceCoreDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(OverDueInvoiceCoreDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

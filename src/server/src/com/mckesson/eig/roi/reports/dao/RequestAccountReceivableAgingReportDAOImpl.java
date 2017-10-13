@@ -23,8 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -36,8 +35,8 @@ public class RequestAccountReceivableAgingReportDAOImpl
 extends ROIReportDAOImpl {
 
 
-    private static final Log LOG
-    = LogFactory.getLogger(RequestAccountReceivableAgingReportDAOImpl.class);
+    private static final OCLogger LOG
+    = new OCLogger(RequestAccountReceivableAgingReportDAOImpl.class);
 
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String KEY_REQUESTOR_TYPES = "requestorTypes";

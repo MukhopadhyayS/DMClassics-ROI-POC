@@ -16,8 +16,7 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.hpf.service;
 
 import com.mckesson.eig.roi.base.service.BaseROIService;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
  * @author Ganeshram
@@ -30,7 +29,7 @@ extends BaseROIService {
    /**
      * Initialize the logger.
      */
-    private static final Log LOG = LogFactory.getLogger(HPFSecurityAuthenticationService.class);
+    private static final OCLogger LOG = new OCLogger(HPFSecurityAuthenticationService.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     public HPFSecurityAuthenticationService() { }

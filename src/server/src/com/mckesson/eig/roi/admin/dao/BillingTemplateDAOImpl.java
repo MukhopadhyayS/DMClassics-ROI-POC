@@ -33,8 +33,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import com.mckesson.eig.roi.admin.model.BillingTemplate;
 import com.mckesson.eig.roi.admin.model.BillingTemplatesList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -46,7 +45,7 @@ public class BillingTemplateDAOImpl
 extends ROIDAOImpl
 implements BillingTemplateDAO {
 
-    private static final Log LOG = LogFactory.getLogger(BillingTemplateDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(BillingTemplateDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

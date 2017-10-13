@@ -32,9 +32,8 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.request.model.RequestCoreSearchCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.StringValidation;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 /**
  * @author OFS
@@ -45,7 +44,7 @@ import com.mckesson.eig.utility.log.LogFactory;
 public class RequestCoreDAOHelper
 extends ROIDAOImpl {
 
-    private static final Log LOG = LogFactory.getLogger(RequestCoreDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestCoreDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
 

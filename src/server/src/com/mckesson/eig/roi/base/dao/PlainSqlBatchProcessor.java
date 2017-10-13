@@ -23,8 +23,7 @@ import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
  * @author Shah Mohamed.N
@@ -35,7 +34,7 @@ public abstract class PlainSqlBatchProcessor {
 
     private PreparedStatement _pStmt;
     private long _currentBatchSize;
-    private static final Log LOG = LogFactory.getLogger(PlainSqlBatchProcessor.class);
+    private static final OCLogger LOG = new OCLogger(PlainSqlBatchProcessor.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
     public void createPreparedStatement(Session session, final String sqlQuery) {

@@ -46,8 +46,7 @@ import com.mckesson.eig.roi.request.model.RequestCoreChargesFee;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesShipping;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -58,7 +57,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
 public class BillingCoreServiceHelper
 extends BaseROIService {
 
-    private static final Log LOG = LogFactory.getLogger(BillingCoreServiceHelper.class);
+    private static final OCLogger LOG = new OCLogger(BillingCoreServiceHelper.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

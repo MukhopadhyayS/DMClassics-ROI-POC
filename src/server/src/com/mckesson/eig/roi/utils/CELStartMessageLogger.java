@@ -7,7 +7,7 @@ import com.mckesson.eig.utility.log.LogFactory;
 
 public class CELStartMessageLogger {
 
-	private static final Log LOG = LogFactory.getLogger(CELStartMessageLogger.class);
+	private static final OCLogger LOG = new OCLogger(CELStartMessageLogger.class);
 
 	public void init() {
 
@@ -19,7 +19,7 @@ public class CELStartMessageLogger {
 					try {
 						Thread.sleep(10000);
 					} catch (InterruptedException e) {
-						LOG.debug(e);
+						LOG.debug(e.getLocalizedMessage());
 					}
 				} while (!logMessage());
 			}

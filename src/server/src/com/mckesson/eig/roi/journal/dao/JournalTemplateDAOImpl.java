@@ -27,12 +27,11 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.journal.model.FinancialLineItemType;
 import com.mckesson.eig.roi.journal.model.JournalTemplate;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 public class JournalTemplateDAOImpl extends ROIDAOImpl implements JournalTemplateDAO {
     
-    private static final Log LOG = LogFactory.getLogger(JournalTemplateDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(JournalTemplateDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
     private static final String JOURNAL_TEMPLATE = "select_all_from_Journal_Detail_Template";

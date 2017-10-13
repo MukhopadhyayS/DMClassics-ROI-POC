@@ -29,11 +29,9 @@ import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
 import com.mckesson.eig.roi.admin.model.DocTypeRelation;
 import com.mckesson.eig.roi.admin.model.MUDocTypeDto;
 import com.mckesson.eig.roi.admin.model.MUDocTypeModel;
-
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -43,7 +41,7 @@ import com.mckesson.eig.utility.log.LogFactory;
  */
 public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
-    private static final Log LOG = LogFactory.getLogger(DocumentTypeDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(DocumentTypeDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String MU = "mu";
 

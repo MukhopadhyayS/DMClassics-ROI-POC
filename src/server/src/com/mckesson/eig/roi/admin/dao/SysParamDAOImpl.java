@@ -18,8 +18,7 @@ import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
@@ -28,7 +27,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  */
 public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
 
-    private static final Log LOG = LogFactory.getLogger(AttachmentDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(AttachmentDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
     private static final String KEY_REQUEST_PASWORD = "roi.request.password%";

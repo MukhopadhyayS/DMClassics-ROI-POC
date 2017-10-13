@@ -3,9 +3,9 @@ package com.mckesson.eig.roi.supplementary.dao;
 import java.io.File;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Set;
 
 import org.hibernate.Hibernate;
@@ -22,7 +22,6 @@ import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.base.model.SearchCondition;
 import com.mckesson.eig.roi.base.model.SearchCondition.OPERATION;
 import com.mckesson.eig.roi.base.model.SearchCriteria;
-import com.mckesson.eig.roi.request.model.RequestCore;
 import com.mckesson.eig.roi.request.model.RequestSupplementalAttachment;
 import com.mckesson.eig.roi.request.model.RequestSupplementalDocument;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment;
@@ -30,14 +29,12 @@ import com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplementaryDAO {
 
-    private static final Log LOG = LogFactory
-            .getLogger(ROISupplementaryDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROISupplementaryDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String ENCOUNTER_SEARCH = "encounter";
     private static final String FREEFORM_FACILITY_SEARCH = "freeformfacility";

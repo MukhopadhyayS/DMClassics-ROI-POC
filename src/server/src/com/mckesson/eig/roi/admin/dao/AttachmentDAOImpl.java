@@ -20,8 +20,7 @@ import java.util.List;
 import com.mckesson.eig.roi.admin.model.AttachmentLocation;
 import com.mckesson.eig.roi.admin.model.SysParam;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -31,7 +30,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  */
 public class AttachmentDAOImpl extends ROIDAOImpl implements AttachmentDAO {
 
-    private static final Log LOG = LogFactory.getLogger(AttachmentDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(AttachmentDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private SysParam retrieveSysParamForAttachmentLocation() {

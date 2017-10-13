@@ -22,8 +22,7 @@ import java.util.List;
 import com.mckesson.eig.roi.admin.model.PaymentMethod;
 import com.mckesson.eig.roi.admin.model.PaymentMethodList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -35,7 +34,7 @@ public class PaymentMethodDAOImpl
 extends ROIDAOImpl
 implements PaymentMethodDAO {
 
-    private static final Log LOG = LogFactory.getLogger(PaymentMethodDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(PaymentMethodDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final int PAYMENTMETHODID        = 0;

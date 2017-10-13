@@ -26,8 +26,7 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.service.ROIAuditManager;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.reports.dao.ROIReportDAO;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -42,7 +41,7 @@ public class ROIReportServiceImpl
 extends ReportServiceImpl {
 
 
-    private static final Log LOG = LogFactory.getLogger(ROIReportServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROIReportServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String AUDIT_KEY          = "AuditManager";

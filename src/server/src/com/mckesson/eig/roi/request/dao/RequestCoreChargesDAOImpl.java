@@ -36,8 +36,7 @@ import com.mckesson.eig.roi.request.model.RequestCoreChargesBilling;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesDocument;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesFee;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesShipping;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
  * @author Keane
@@ -47,7 +46,7 @@ public class RequestCoreChargesDAOImpl
 extends ROIDAOImpl
 implements RequestCoreChargesDAO {
 
-    private static final Log LOG = LogFactory.getLogger(RequestCoreChargesDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestCoreChargesDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

@@ -22,8 +22,7 @@ import com.mckesson.eig.SigninServiceLocator;
 import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
 import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
 import com.mckesson.eig.wsfw.session.WsSession;
@@ -34,7 +33,7 @@ implements AuthenticationStrategy {
     /**
      * Initialize the logger.
      */
-    private static final Log LOG = LogFactory.getLogger(HPFAuthenticationServiceLoader.class);
+    private static final OCLogger LOG = new OCLogger(HPFAuthenticationServiceLoader.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private String _url;
     private static final String AUTHENTICATED_USER = "authenticated_roi_user";

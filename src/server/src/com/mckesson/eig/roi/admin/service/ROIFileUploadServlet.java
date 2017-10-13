@@ -27,8 +27,7 @@ import com.mckesson.eig.roi.admin.dao.FileTransferHelper;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 
@@ -42,7 +41,7 @@ import com.mckesson.eig.utility.util.SpringUtilities;
 public class ROIFileUploadServlet
 extends BaseFileUploader {
 
-    private static final Log LOG = LogFactory.getLogger(ROIFileUploadServlet.class);
+    private static final OCLogger LOG = new OCLogger(ROIFileUploadServlet.class);
     private static final String FILE_NAME = "FILE_NAME";
 
     @Override
