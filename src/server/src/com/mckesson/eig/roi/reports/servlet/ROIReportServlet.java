@@ -23,8 +23,7 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 
 import com.mckesson.eig.roi.reports.service.ROIReportServiceImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -39,7 +38,7 @@ extends com.mckesson.eig.reports.servlet.ReportServlet {
     /**
      * Object represents the Log4JWrapper object.
      */
-    private static final Log LOG = LogFactory.getLogger(ROIReportServlet.class);
+    private static final OCLogger LOG = new OCLogger(ROIReportServlet.class);
 
     /**
      * Parameter key for transaction id which will be obtained from the client.

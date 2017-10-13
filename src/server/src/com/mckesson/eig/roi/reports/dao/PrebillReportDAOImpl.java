@@ -12,9 +12,8 @@ import java.util.Map;
 
 import com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 
 /**
@@ -24,8 +23,7 @@ import com.mckesson.eig.utility.log.LogFactory;
  */
 public class PrebillReportDAOImpl extends ROIReportDAOImpl {
     
-    private static final Log LOG = LogFactory
-            .getLogger(PrebillReportDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(PrebillReportDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
     

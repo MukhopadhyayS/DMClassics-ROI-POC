@@ -46,8 +46,7 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -59,7 +58,7 @@ public class LetterTemplateDAOImpl
 extends ROIDAOImpl
 implements LetterTemplateDAO, FileTransferHelper {
 
-    private static final Log LOG = LogFactory.getLogger(LetterTemplateDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(LetterTemplateDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String DOC_ID = "DOC_ID";

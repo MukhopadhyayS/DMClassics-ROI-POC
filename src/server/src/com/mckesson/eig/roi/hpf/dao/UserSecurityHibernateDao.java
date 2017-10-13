@@ -30,9 +30,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.hpf.model.UserFacility;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 /**
  * @author OFS
@@ -41,8 +40,7 @@ import com.mckesson.eig.utility.log.LogFactory;
  */
 public class UserSecurityHibernateDao extends HibernateDaoSupport {
 
-    private static final Log LOG = LogFactory
-            .getLogger(UserSecurityHibernateDao.class);
+    private static final OCLogger LOG = new OCLogger(UserSecurityHibernateDao.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static Object[] _params;
     private static final SqlEncoderAdvanced ENCODER_ADVANCED = new SqlEncoderAdvanced();

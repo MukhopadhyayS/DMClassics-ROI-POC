@@ -21,8 +21,7 @@ import java.util.List;
 import org.springframework.beans.factory.BeanFactory;
 
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.wsfw.session.WsSession;
@@ -34,7 +33,7 @@ import com.mckesson.eig.wsfw.session.WsSession;
  */
 public class WebServiceSecurityManager {
 
-    private static final Log LOG = LogFactory.getLogger(WebServiceSecurityManager.class);
+    private static final OCLogger LOG = new OCLogger(WebServiceSecurityManager.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String WEB_SERVICE_AUTHORIZATION_TABLE = "WebServiceAuthorizationTable";

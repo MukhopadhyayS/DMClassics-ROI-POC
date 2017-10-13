@@ -11,16 +11,14 @@ import com.mckesson.eig.roi.base.service.BaseROIService;
 import com.mckesson.eig.roi.configuredays.model.ConfigureDaysDto;
 import com.mckesson.eig.roi.configuredays.model.ConfigureDaysDtoList;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class ConfigureDaysServiceImpl extends BaseROIService
         implements
             ConfigureDaysService {
 
-    private static final Log LOG = LogFactory
-            .getLogger(ConfigureDaysServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ConfigureDaysServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
 

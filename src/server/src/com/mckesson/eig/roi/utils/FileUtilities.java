@@ -9,12 +9,10 @@ import org.apache.commons.io.FileUtils;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 public final class FileUtilities {
 
-    private static final Log LOG = LogFactory.getLogger(FileUtilities.class.getName());
+    private static final OCLogger LOG = new OCLogger(FileUtilities.class);
 
     private FileUtilities() { }
 

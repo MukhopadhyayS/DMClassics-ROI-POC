@@ -22,9 +22,8 @@ import java.util.Vector;
 
 import org.apache.commons.collections.ExtendedProperties;
 
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.io.FileLoader;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.wsfw.model.authorization.AuthorizationException;
 
 /**
@@ -34,7 +33,7 @@ import com.mckesson.eig.wsfw.model.authorization.AuthorizationException;
  */
 public class WebServiceAuthorizationTable {
 
-    private static final Log LOG = LogFactory.getLogger(WebServiceAuthorizationTable.class);
+    private static final OCLogger LOG = new OCLogger(WebServiceAuthorizationTable.class);
 
     private ExtendedProperties _map;
 

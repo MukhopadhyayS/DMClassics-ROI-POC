@@ -23,14 +23,12 @@ import java.sql.Clob;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
@@ -45,12 +43,10 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.model.AddressType;
 import com.mckesson.eig.roi.base.model.ContactType;
 import com.mckesson.eig.roi.base.model.EmailPhoneType;
-import com.mckesson.eig.roi.billing.model.RequestCoreDeliveryCharges;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.request.model.FreeFormFacility;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -64,7 +60,7 @@ public class ROIDAOImpl
 extends HibernateDaoSupport
 implements ROIDAO {
 
-    private static final Log LOG = LogFactory.getLogger(ROIDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROIDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static long _diff;

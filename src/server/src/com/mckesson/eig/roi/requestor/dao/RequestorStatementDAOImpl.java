@@ -33,8 +33,7 @@ import com.mckesson.eig.roi.requestor.model.RequestorAging;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria.DateRange;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
 import com.mckesson.eig.roi.requestor.model.RequestorTransaction;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -46,7 +45,7 @@ public class RequestorStatementDAOImpl
 extends ROIDAOImpl
 implements RequestorStatementDAO {
 
-    private static final Log LOG = LogFactory.getLogger(RequestorStatementDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestorStatementDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

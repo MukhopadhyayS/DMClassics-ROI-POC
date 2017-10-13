@@ -23,8 +23,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.mckesson.eig.roi.inuse.base.dao.BaseInUseDAOImpl;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -36,7 +35,7 @@ public class InUseDAOImpl
 extends BaseInUseDAOImpl
 implements InUseDAO {
 
-    private static final Log LOG = LogFactory.getLogger(InUseDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(InUseDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

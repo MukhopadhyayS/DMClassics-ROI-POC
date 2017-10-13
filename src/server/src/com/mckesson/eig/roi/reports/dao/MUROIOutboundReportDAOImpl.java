@@ -11,9 +11,8 @@ import java.util.Map;
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
 import com.mckesson.eig.roi.muroioutbound.service.MUROIOutboundServiceImpl;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
@@ -23,8 +22,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  */
 public class MUROIOutboundReportDAOImpl extends ROIReportDAOImpl {
 
-    private static final Log LOG = LogFactory
-            .getLogger(MUROIOutboundReportDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(MUROIOutboundReportDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String DETAILS = "Details";

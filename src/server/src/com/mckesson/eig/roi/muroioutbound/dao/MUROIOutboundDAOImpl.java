@@ -9,15 +9,13 @@ import com.mckesson.eig.roi.hpf.model.Facility;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 public class MUROIOutboundDAOImpl extends ROIDAOImpl
         implements
             MUROIOutboundDAO {
 
-    private static final Log LOG = LogFactory
-            .getLogger(MUROIOutboundDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(MUROIOutboundDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     /**
      * Method to insert ROIOutbound Details

@@ -20,8 +20,7 @@ import org.springframework.beans.factory.BeanFactory;
 import com.mckesson.eig.common.filetransfer.controller.BaseContentRetriever;
 import com.mckesson.eig.common.filetransfer.services.BaseFileTransferData;
 import com.mckesson.eig.roi.admin.dao.FileTransferHelper;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 /**
  * This class extents BaseContentRetriever and contains methods to retrieve the file from database
@@ -34,7 +33,7 @@ import com.mckesson.eig.utility.util.SpringUtilities;
 public class ROIContentRetriever
 extends BaseContentRetriever {
 
-    private static final Log LOG = LogFactory.getLogger(ROIContentRetriever.class);
+    private static final OCLogger LOG = new OCLogger(ROIContentRetriever.class);
 
     @Override
     public boolean isValidUser(String user, String password, String ticket) {

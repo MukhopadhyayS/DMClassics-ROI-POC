@@ -17,8 +17,7 @@ package com.mckesson.eig.roi.admin.dao;
 
 import com.mckesson.eig.roi.admin.model.InvoiceDueDays;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
  * @author OFS
@@ -29,7 +28,7 @@ public class InvoiceDueDaysDAOImpl
 extends ROIDAOImpl
 implements InvoiceDueDaysDAO {
 
-    private static final Log LOG = LogFactory.getLogger(InvoiceDueDaysDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(InvoiceDueDaysDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

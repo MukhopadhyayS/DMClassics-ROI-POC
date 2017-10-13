@@ -26,8 +26,7 @@ import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -38,7 +37,7 @@ public class ROIAttachmentDAOImpl
 extends ROIDAOImpl 
 implements ROIAttachmentDAO {
 
-    private static final Log LOG = LogFactory.getLogger(ROIAdminServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROIAdminServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
     @SuppressWarnings("unchecked")

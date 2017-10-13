@@ -11,15 +11,14 @@ import org.hibernate.transform.Transformers;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryItem;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryPatient;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 public class ReleaseHistoryDAOImpl
 extends ROIDAOImpl
 implements ReleaseHistoryDAO {
 
     /** The Constant LOG. */
-    private static final Log LOG = LogFactory.getLogger(ReleaseHistoryDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(ReleaseHistoryDAOImpl.class);
     /** The Constant DO_DEBUG. */
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 

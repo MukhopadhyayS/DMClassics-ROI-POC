@@ -35,9 +35,8 @@ import com.mckesson.eig.roi.output.model.TaskAttributes;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.OutputQueueWebserviceInterface;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.OutputWebserviceInterface;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.ROIOutputWebServiceInterface;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.webservice.proxy.BaseRestService;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.ObjectUtilities;
 
@@ -56,7 +55,7 @@ implements ROIOutputService {
     /**
      * Object represents the Log4JWrapper object.
      */
-    private static final Log LOG = LogFactory.getLogger(ROIOutputServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROIOutputServiceImpl.class);
 
     /**
      * This method is used to submit the output Request

@@ -43,8 +43,7 @@ import com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceResult;
 import com.mckesson.eig.roi.requestor.dao.RequestorStatementDAO;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -56,7 +55,7 @@ public class OverDueInvoiceCoreServiceImpl
 extends AbstractBillingService
 implements OverDueInvoiceCoreService {
 
-    private static final Log LOG = LogFactory.getLogger(OverDueInvoiceCoreServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(OverDueInvoiceCoreServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String FILENAME_DATE_FORMAT = "yyyy.MM.dd.hh.mm.ss.SSS";
 
@@ -118,7 +117,7 @@ implements OverDueInvoiceCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.SEARCH_PASTDUE_INVOICE_OPERATION_FAILED);
         }
     }

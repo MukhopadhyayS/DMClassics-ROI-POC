@@ -30,8 +30,7 @@ import com.mckesson.eig.roi.admin.model.RelatedFeeType;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -43,7 +42,7 @@ public class FeeTypeDAOImpl
 extends ROIDAOImpl
 implements FeeTypeDAO {
 
-    private static final Log LOG = LogFactory.getLogger(FeeTypeDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(FeeTypeDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final int FEETYPEID        = 0;

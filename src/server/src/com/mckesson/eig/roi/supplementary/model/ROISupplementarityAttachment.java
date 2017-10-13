@@ -6,11 +6,10 @@ import java.io.IOException;
 import com.mckesson.eig.roi.admin.dao.LetterTemplateDAOImpl;
 import com.mckesson.eig.roi.admin.service.ROIAttachmentService.FailedReasonCode;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 public class ROISupplementarityAttachment extends ROIAttachmentCommon {
-    private static final Log LOG = LogFactory.getLogger(LetterTemplateDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(LetterTemplateDAOImpl.class);
     
     private String _facility;
     private String _mrn;

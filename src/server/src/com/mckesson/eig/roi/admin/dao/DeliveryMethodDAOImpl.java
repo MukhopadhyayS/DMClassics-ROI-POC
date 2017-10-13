@@ -22,8 +22,7 @@ import java.util.List;
 import com.mckesson.eig.roi.admin.model.DeliveryMethod;
 import com.mckesson.eig.roi.admin.model.DeliveryMethodList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -35,7 +34,7 @@ public class DeliveryMethodDAOImpl
 extends ROIDAOImpl
 implements DeliveryMethodDAO {
 
-    private static final Log LOG = LogFactory.getLogger(DeliveryMethodDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(DeliveryMethodDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final int DELIVERYMETHODID        = 0;

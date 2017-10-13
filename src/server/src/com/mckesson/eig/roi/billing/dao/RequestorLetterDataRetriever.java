@@ -32,8 +32,7 @@ import com.mckesson.eig.roi.billing.letter.model.RequestorTransaction;
 import com.mckesson.eig.roi.billing.model.RequestorLetter;
 import com.mckesson.eig.roi.requestor.dao.RequestorStatementDAO;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -45,7 +44,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
 public class RequestorLetterDataRetriever
 extends BaseLetterDataRetriever {
 
-    private static final Log LOG = LogFactory.getLogger(RequestorLetterDataRetriever.class);
+    private static final OCLogger LOG = new OCLogger(RequestorLetterDataRetriever.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

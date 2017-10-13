@@ -13,7 +13,7 @@ import com.mckesson.eig.utility.log.LogFactory;
 
 public class CELStopMessageLogger implements ShutdownHook {
 
-	private static final Log LOG = LogFactory.getLogger(CELStopMessageLogger.class);
+	private static final OCLogger LOG = new OCLogger(CELStopMessageLogger.class);
 	
 	@Override
 	public void shutdown() {

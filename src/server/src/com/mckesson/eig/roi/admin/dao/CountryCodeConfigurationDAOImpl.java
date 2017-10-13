@@ -16,14 +16,13 @@ import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.request.dao.RequestCoreChargesDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 public class CountryCodeConfigurationDAOImpl 
 extends ROIDAOImpl 
 implements CountryCodeConfigurationDAO {
     
-    private static final Log LOG = LogFactory.getLogger(RequestCoreChargesDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestCoreChargesDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
     /**

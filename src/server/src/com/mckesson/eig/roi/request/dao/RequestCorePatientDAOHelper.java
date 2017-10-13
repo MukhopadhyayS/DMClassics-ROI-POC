@@ -40,8 +40,7 @@ import com.mckesson.eig.roi.request.model.RequestPage;
 import com.mckesson.eig.roi.request.model.RequestSupplementalAttachment;
 import com.mckesson.eig.roi.request.model.RequestSupplementalDocument;
 import com.mckesson.eig.roi.request.model.RequestVersion;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.BeanUtilities;
 
 /**
@@ -54,8 +53,7 @@ import com.mckesson.eig.utility.util.BeanUtilities;
 public class RequestCorePatientDAOHelper
         extends ROIDAOImpl {
 
-    private static final Log LOG = LogFactory
-            .getLogger(RequestCoreDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestCoreDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

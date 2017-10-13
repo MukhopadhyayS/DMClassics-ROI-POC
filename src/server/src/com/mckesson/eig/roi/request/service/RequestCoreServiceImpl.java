@@ -76,11 +76,10 @@ import com.mckesson.eig.roi.request.model.RequestPatientsList;
 import com.mckesson.eig.roi.request.model.SaveRequestPatientsList;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.PassPhrase;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.encryption.AESEncryptor;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -93,7 +92,7 @@ public class RequestCoreServiceImpl
 extends BaseROIService
 implements RequestCoreService {
 
-    private static final Log LOG = LogFactory.getLogger(RequestCoreServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestCoreServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String ROI_MU_OUTBOUND_SERVICE =
@@ -163,7 +162,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.SEARCH_REQUEST_OPERATION_FAILED);
         }
     }
@@ -215,7 +214,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -264,7 +263,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -309,7 +308,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
@@ -407,7 +406,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -453,7 +452,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -570,7 +569,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -623,7 +622,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_BILLING_PAYMENT_OPERATION_FAILED);
         }
     }
@@ -681,7 +680,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.REQUEST_CORE_CHARGES_OPERATION_FAILED);
         }
@@ -911,7 +910,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.VIEW_INVOICE_OPERATION_FAILED);
         }
 
@@ -952,7 +951,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e,
                     ROIClientErrorCodes.VIEW_INVOICE_OPERATION_FAILED);
         }
@@ -986,7 +985,7 @@ implements RequestCoreService {
 
             return new Comments(eventHistory);
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.SEARCH_REQUEST_OPERATION_FAILED);
         }
     }
@@ -1020,7 +1019,7 @@ implements RequestCoreService {
 
         } catch (Throwable e) {
 
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.SEARCH_REQUEST_OPERATION_FAILED);
         }
     }
@@ -1074,7 +1073,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(ROIClientErrorCodes.GET_REQUEST_COUNT_OPERATION_FAILED);
         }
     }
@@ -1113,7 +1112,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(
                         ROIClientErrorCodes.RETRIEVE_DOCUMENT_CHARGES_BY_BILLING_TIER_FAILED);
         }
@@ -1195,7 +1194,7 @@ implements RequestCoreService {
        } catch (ROIException e) {
            throw e;
        } catch (Throwable e) {
-           LOG.error(e);
+           LOG.error(e.getLocalizedMessage());
            throw new ROIException(ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
        }
    }

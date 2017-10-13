@@ -35,18 +35,17 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.PlainSqlBatchProcessor;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.base.model.BaseModel;
+import com.mckesson.eig.roi.journal.model.JournalConstants.TransactionEvent;
+import com.mckesson.eig.roi.journal.model.JournalConstants.TransactionType;
 import com.mckesson.eig.roi.journal.model.JournalDetail;
 import com.mckesson.eig.roi.journal.model.JournalEntry;
 import com.mckesson.eig.roi.journal.model.JournalTransaction;
-import com.mckesson.eig.roi.journal.model.JournalConstants.TransactionEvent;
-import com.mckesson.eig.roi.journal.model.JournalConstants.TransactionType;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class JournalDAOImpl extends ROIDAOImpl implements JournalDAO {
 
-    private static final Log LOG = LogFactory.getLogger(JournalDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(JournalDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     @Override

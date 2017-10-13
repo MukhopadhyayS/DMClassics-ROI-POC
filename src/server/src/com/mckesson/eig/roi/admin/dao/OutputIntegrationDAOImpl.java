@@ -29,8 +29,7 @@ import com.mckesson.eig.roi.admin.model.ROIParameter;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.wsfw.session.WsSession;
 
 /**
@@ -42,7 +41,7 @@ public class OutputIntegrationDAOImpl
 extends ROIDAOImpl
 implements OutputIntegrationDAO {
 
-    private static final Log LOG = LogFactory.getLogger(OutputIntegrationDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(OutputIntegrationDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String AUTHENTICATED_USER = "authenticated_roi_user";

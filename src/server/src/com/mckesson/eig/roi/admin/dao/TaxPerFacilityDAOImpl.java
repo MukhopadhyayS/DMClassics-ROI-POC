@@ -27,8 +27,7 @@ import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -40,7 +39,7 @@ public class TaxPerFacilityDAOImpl
 extends ROIDAOImpl
 implements TaxPerFacilityDAO {
 
-    private static final Log LOG = LogFactory.getLogger(TaxPerFacilityDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(TaxPerFacilityDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     @Override

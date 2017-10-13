@@ -33,8 +33,7 @@ import com.mckesson.eig.roi.base.dao.ROIDAO;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.request.dao.RequestCoreDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.session.WsSession;
@@ -47,7 +46,7 @@ import com.mckesson.eig.wsfw.session.WsSession;
  */
 public class BaseROIService {
 
-    private static final Log LOG = LogFactory.getLogger(RequestCoreDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(RequestCoreDAOImpl.class);
     private static final String AUTHENTICATED_USER = "authenticated_roi_user";
     private static final String AUDIT_KEY          = "AuditManager";
     private static final NumberFormat CURRENCY_FORMAT_US = NumberFormat

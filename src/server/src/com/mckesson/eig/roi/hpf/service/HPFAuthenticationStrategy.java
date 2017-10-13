@@ -16,6 +16,7 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.hpf.service;
 
 import javax.sql.DataSource;
+
 import org.springframework.beans.factory.BeanFactory;
 
 import com.mckesson.dm.security.util.OCSecurityFacilitator;
@@ -24,8 +25,7 @@ import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
 import com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
@@ -49,7 +49,7 @@ implements AuthenticationStrategy {
     /**
      * Initialize the logger.
      */
-    private static final Log LOG = LogFactory.getLogger(HPFAuthenticationStrategy.class);
+    private static final OCLogger LOG = new OCLogger(HPFAuthenticationStrategy.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     public HPFAuthenticationStrategy() {

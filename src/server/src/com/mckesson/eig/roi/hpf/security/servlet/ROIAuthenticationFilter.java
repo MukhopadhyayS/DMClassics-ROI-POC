@@ -24,18 +24,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.owasp.esapi.ESAPI;
 
 import com.mckesson.eig.iws.security.Ticket;
-import com.mckesson.eig.utility.log.Log;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.log.LogContext;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.wsfw.security.service.Authenticator;
 import com.mckesson.eig.wsfw.security.servlet.AuthenticationFilter;
 import com.mckesson.eig.wsfw.session.WsSession;
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.Encoder;
 
 /**
  * <code>HPFAuthenticationFilter</code> validates the user by checking
@@ -49,7 +46,7 @@ import org.owasp.esapi.Encoder;
 public class ROIAuthenticationFilter
 extends AuthenticationFilter {
 
-    private static final Log LOG = LogFactory.getLogger(ROIAuthenticationFilter.class);
+    private static final OCLogger LOG = new OCLogger(ROIAuthenticationFilter.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String EIG_WS_SESSION = "eig.wsSession";
 

@@ -28,8 +28,7 @@ import com.mckesson.eig.roi.supplementary.model.AttachmentDeleteStatusList;
 import com.mckesson.eig.roi.supplementary.model.AttachmentInfoList;
 import com.mckesson.eig.roi.supplementary.model.AttachmentSequenceList;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 /**
  * This class implements all ROI Attachment services
@@ -41,7 +40,7 @@ extends BaseROIService
 implements ROIAttachmentService {
     
 
-    private static final Log LOG = LogFactory.getLogger(ROIAdminServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ROIAdminServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     
     @Override

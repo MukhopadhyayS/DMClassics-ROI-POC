@@ -12,14 +12,12 @@ import java.util.Map;
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.eig.roi.request.service.RequestCoreServiceImpl;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 public class ProductivityReportDAOImpl extends ROIReportDAOImpl {
 
-    private static final Log LOG = LogFactory
-            .getLogger(ProductivityReportDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(ProductivityReportDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final String KEY_FACILITIES = "facilityNames";

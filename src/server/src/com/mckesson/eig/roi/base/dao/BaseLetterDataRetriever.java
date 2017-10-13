@@ -27,8 +27,7 @@ import com.mckesson.eig.roi.request.dao.RequestCoreChargesDAO;
 import com.mckesson.eig.roi.request.dao.RequestCoreDAO;
 import com.mckesson.eig.roi.request.dao.RequestCorePatientDAO;
 import com.mckesson.eig.roi.requestor.dao.RequestorStatementDAO;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -40,7 +39,7 @@ public abstract class BaseLetterDataRetriever
 extends ROIDAOImpl
 implements LetterDataRetriever {
 
-    private static final Log LOG = LogFactory.getLogger(BaseLetterDataRetriever.class);
+    private static final OCLogger LOG = new OCLogger(BaseLetterDataRetriever.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     public static final String DATE_FORMAT = "MM/dd/yyyy";
 

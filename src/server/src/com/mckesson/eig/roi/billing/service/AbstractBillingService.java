@@ -54,7 +54,7 @@ import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
 import com.mckesson.eig.roi.requestor.model.RequestorTransaction;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
-import com.mckesson.eig.utility.log.Log;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
@@ -68,7 +68,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  */
 public class AbstractBillingService extends BaseROIService {
 
-    private static final Log LOG = LogFactory.getLogger(AbstractBillingService.class);
+    private static final OCLogger LOG = new OCLogger(AbstractBillingService.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     protected static final long ONE_DAY = 1000 * 60 * 60 * 24 * 1;
     protected static final String BILL_DATE_FORMAT = "MM/dd/yyyy";
@@ -318,7 +318,7 @@ public class AbstractBillingService extends BaseROIService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e);
+            LOG.error(e.getLocalizedMessage());
             throw new ROIException(e, ROIClientErrorCodes.LETTER_CREATION_FAILED);
         }
     }

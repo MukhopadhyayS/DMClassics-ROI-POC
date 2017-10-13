@@ -16,16 +16,15 @@ import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAOImpl;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.eig.roi.request.dao.RequestCoreChargesDAO;
+import com.mckesson.eig.roi.utils.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class MUUpdateROIOutboundServiceCoreImpl 
 extends BaseROIService
 implements MUUpdateROIOutboundServiceCore {
 
-    private static final Log LOG = LogFactory.getLogger(MUUpdateROIOutboundServiceCoreImpl.class);
+    private static final OCLogger LOG = new OCLogger(MUUpdateROIOutboundServiceCoreImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

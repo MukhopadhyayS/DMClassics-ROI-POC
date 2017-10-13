@@ -16,16 +16,15 @@ import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureExcep
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class BillableAndUnBillableRequestReportDAOImpl
 extends ROIReportDAOImpl {
 
-    private static final Log LOG
-    = LogFactory.getLogger(BillableAndUnBillableRequestReportDAOImpl.class);
+    private static final OCLogger LOG
+    = new OCLogger(BillableAndUnBillableRequestReportDAOImpl.class);
 
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String KEY_FACILITIES = "facilities";

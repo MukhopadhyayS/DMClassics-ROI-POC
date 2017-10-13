@@ -21,8 +21,7 @@ import java.util.List;
 import com.mckesson.eig.roi.admin.model.AdminLoV;
 import com.mckesson.eig.roi.admin.model.Note;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 
 /**
@@ -34,7 +33,7 @@ public class AdminLoVDAOImpl
 extends ROIDAOImpl
 implements AdminLoVDAO {
 
-    private static final Log LOG = LogFactory.getLogger(AdminLoVDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(AdminLoVDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**

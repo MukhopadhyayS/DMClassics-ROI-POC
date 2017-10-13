@@ -8,8 +8,7 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.area.AreaTreeHandler;
 import org.apache.fop.fo.flow.Character;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.roi.utils.OCLogger;
 
 public class PdfEventHandler extends AreaTreeHandler {
     private static final String HTML_P = "<p>";
@@ -20,7 +19,7 @@ public class PdfEventHandler extends AreaTreeHandler {
     private static final String HTML_BR_1 = "<br />";
     private static final String HTML_SPAN_CLOSE = "</span>";
     
-    private static final Log LOG = LogFactory.getLogger(PdfEventHandler.class);
+    private static final OCLogger LOG = new OCLogger(PdfEventHandler.class);
     
 
     public PdfEventHandler(FOUserAgent foUserAgent, OutputStream stream)
@@ -30,7 +29,7 @@ public class PdfEventHandler extends AreaTreeHandler {
     }
 
     public void character(Character c) {
-	LOG.debug(c);
+	LOG.debug(c.toString());
     }
 
     public void characters(char[] data, int start, int length) {
