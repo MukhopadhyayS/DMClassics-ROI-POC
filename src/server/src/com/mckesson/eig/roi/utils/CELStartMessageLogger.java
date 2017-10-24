@@ -4,7 +4,7 @@
 package com.mckesson.eig.roi.utils;
 import com.mckesson.eig.utility.log.Log;
 import com.mckesson.eig.utility.log.LogFactory;
-
+import com.mckesson.dm.core.common.logging.OCLogger;
 public class CELStartMessageLogger {
 
 	private static final OCLogger LOG = new OCLogger(CELStartMessageLogger.class);
