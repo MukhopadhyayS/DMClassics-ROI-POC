@@ -17,7 +17,7 @@ package com.mckesson.eig.roi.admin.dao;
 
 import com.mckesson.eig.roi.admin.model.InvoiceDueDays;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
  * @author OFS

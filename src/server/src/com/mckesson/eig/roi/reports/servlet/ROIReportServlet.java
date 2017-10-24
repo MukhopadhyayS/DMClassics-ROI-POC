@@ -23,7 +23,7 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 
 import com.mckesson.eig.roi.reports.service.ROIReportServiceImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.mckesson.eig.roi.billing.letter.model.RequestItem;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**

@@ -41,7 +41,7 @@ import com.mckesson.eig.roi.billing.model.RequestCoreDeliveryChargesFee;
 import com.mckesson.eig.roi.billing.model.RequestCoreDeliveryChargesShipping;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 

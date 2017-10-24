@@ -30,7 +30,7 @@ import com.mckesson.eig.roi.inuse.base.api.InUseException;
 import com.mckesson.eig.roi.inuse.dao.InUseDAO;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
 import com.mckesson.eig.roi.inuse.model.InUseRecordList;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.exception.ApplicationException;
 import com.mckesson.eig.wsfw.session.WsSession;
 

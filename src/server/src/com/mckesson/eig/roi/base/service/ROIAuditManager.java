@@ -20,7 +20,7 @@ import java.util.Date;
 
 import com.mckesson.eig.audit.dao.AuditDaoService;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 

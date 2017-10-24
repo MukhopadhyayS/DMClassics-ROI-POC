@@ -46,7 +46,7 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

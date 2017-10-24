@@ -30,7 +30,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.hpf.model.UserFacility;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
 
 /**

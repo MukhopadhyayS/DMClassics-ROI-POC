@@ -88,6 +88,7 @@
 			<include name="hpf.stub.config.jar" />
 			<include name="hpf-signIn-stub.jar" />
 			<include name="OCInternalComm-17.6.0.jar" />
+			<include name="OCUtilities-17.6.0.jar" />
 		</fileset>
 	</path>
 

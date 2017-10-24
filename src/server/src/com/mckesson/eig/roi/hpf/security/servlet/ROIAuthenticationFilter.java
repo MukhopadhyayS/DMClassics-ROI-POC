@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.owasp.esapi.ESAPI;
 
 import com.mckesson.eig.iws.security.Ticket;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.wsfw.security.service.Authenticator;

@@ -27,7 +27,7 @@ import com.mckesson.eig.roi.request.dao.RequestCoreChargesDAO;
 import com.mckesson.eig.roi.request.dao.RequestCoreDAO;
 import com.mckesson.eig.roi.request.dao.RequestCorePatientDAO;
 import com.mckesson.eig.roi.requestor.dao.RequestorStatementDAO;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

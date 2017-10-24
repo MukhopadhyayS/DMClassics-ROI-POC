@@ -23,7 +23,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.mckesson.eig.roi.inuse.base.dao.BaseInUseDAOImpl;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

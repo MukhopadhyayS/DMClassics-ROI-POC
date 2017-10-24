@@ -76,7 +76,7 @@ import com.mckesson.eig.roi.request.model.RequestPatientsList;
 import com.mckesson.eig.roi.request.model.SaveRequestPatientsList;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.PassPhrase;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.encryption.AESEncryptor;

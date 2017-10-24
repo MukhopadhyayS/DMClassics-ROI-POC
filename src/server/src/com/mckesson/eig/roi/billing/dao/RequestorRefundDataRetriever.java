@@ -30,7 +30,7 @@ import com.mckesson.eig.roi.billing.letter.model.RequestorInfo;
 import com.mckesson.eig.roi.requestor.dao.RequestorStatementDAO;
 import com.mckesson.eig.roi.requestor.model.RefundLetter;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 

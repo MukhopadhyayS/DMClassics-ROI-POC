@@ -12,7 +12,7 @@ import java.util.Map;
 
 import com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 
 

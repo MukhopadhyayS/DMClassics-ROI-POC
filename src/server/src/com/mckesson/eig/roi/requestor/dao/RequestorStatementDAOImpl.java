@@ -33,7 +33,7 @@ import com.mckesson.eig.roi.requestor.model.RequestorAging;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria.DateRange;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
 import com.mckesson.eig.roi.requestor.model.RequestorTransaction;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**

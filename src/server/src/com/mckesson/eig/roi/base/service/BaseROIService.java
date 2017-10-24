@@ -33,7 +33,7 @@ import com.mckesson.eig.roi.base.dao.ROIDAO;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.request.dao.RequestCoreDAOImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.session.WsSession;

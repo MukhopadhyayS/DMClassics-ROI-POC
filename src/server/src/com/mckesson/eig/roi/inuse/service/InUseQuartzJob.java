@@ -22,7 +22,7 @@ import org.quartz.JobExecutionException;
 
 import com.mckesson.eig.roi.inuse.dao.InUseDAO;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
  * @author OFS

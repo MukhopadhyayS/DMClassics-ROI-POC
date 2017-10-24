@@ -9,7 +9,7 @@ import com.mckesson.eig.roi.hpf.model.Facility;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class MUROIOutboundDAOImpl extends ROIDAOImpl
         implements

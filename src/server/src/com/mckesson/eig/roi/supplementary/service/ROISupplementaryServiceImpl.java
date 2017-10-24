@@ -42,7 +42,7 @@ import com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocuments;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
 import com.mckesson.eig.roi.utils.FileUtilities;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.util.ConversionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;

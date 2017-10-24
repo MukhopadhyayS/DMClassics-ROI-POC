@@ -16,7 +16,7 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.hpf.service;
 
 import com.mckesson.eig.roi.base.service.BaseROIService;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
  * @author Ganeshram

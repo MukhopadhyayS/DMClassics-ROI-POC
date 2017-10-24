@@ -21,7 +21,7 @@ import java.util.List;
 import com.mckesson.eig.roi.admin.model.AdminLoV;
 import com.mckesson.eig.roi.admin.model.Note;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

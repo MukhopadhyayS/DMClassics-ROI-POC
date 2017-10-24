@@ -30,7 +30,7 @@ import com.mckesson.eig.roi.journal.model.JournalDetail;
 import com.mckesson.eig.roi.journal.model.JournalEntry;
 import com.mckesson.eig.roi.journal.model.JournalTemplate;
 import com.mckesson.eig.roi.journal.model.JournalTransaction;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 

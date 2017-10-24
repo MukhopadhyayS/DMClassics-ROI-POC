@@ -35,7 +35,7 @@ import com.mckesson.eig.roi.output.model.TaskAttributes;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.OutputQueueWebserviceInterface;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.OutputWebserviceInterface;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.ROIOutputWebServiceInterface;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.webservice.proxy.BaseRestService;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.ObjectUtilities;

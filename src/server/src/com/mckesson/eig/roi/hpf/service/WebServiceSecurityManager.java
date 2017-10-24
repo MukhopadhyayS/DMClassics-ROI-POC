@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.beans.factory.BeanFactory;
 
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.wsfw.session.WsSession;

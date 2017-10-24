@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.ExtendedProperties;
 
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

@@ -26,7 +26,7 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.service.ROIAuditManager;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.reports.dao.ROIReportDAO;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 

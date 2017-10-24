@@ -11,7 +11,7 @@ import com.mckesson.eig.roi.base.service.BaseROIService;
 import com.mckesson.eig.roi.configuredays.model.ConfigureDaysDto;
 import com.mckesson.eig.roi.configuredays.model.ConfigureDaysDtoList;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class ConfigureDaysServiceImpl extends BaseROIService

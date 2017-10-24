@@ -43,7 +43,7 @@ import com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceResult;
 import com.mckesson.eig.roi.requestor.dao.RequestorStatementDAO;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**

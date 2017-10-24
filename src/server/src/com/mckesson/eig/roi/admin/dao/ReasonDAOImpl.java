@@ -28,7 +28,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import com.mckesson.eig.roi.admin.model.Reason;
 import com.mckesson.eig.roi.admin.model.ReasonsList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

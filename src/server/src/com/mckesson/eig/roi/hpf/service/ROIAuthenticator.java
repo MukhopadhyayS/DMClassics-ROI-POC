@@ -17,7 +17,7 @@ package com.mckesson.eig.roi.hpf.service;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;

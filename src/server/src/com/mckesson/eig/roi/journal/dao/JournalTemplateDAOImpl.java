@@ -27,7 +27,7 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.journal.model.FinancialLineItemType;
 import com.mckesson.eig.roi.journal.model.JournalTemplate;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class JournalTemplateDAOImpl extends ROIDAOImpl implements JournalTemplateDAO {
     

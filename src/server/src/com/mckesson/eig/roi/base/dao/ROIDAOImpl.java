@@ -46,7 +46,7 @@ import com.mckesson.eig.roi.base.model.EmailPhoneType;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.request.model.FreeFormFacility;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
