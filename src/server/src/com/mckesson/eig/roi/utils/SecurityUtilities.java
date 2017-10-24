@@ -1,7 +1,7 @@
 package com.mckesson.eig.roi.utils;
 
 import org.owasp.esapi.ESAPI;
-
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 public class SecurityUtilities {
