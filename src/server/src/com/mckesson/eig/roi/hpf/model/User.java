@@ -22,7 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.password.Password;
 import com.mckesson.eig.utility.password.PasswordMD5;
 import com.mckesson.eig.utility.password.PasswordPassThru;

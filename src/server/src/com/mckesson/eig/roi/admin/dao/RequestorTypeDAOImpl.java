@@ -31,7 +31,7 @@ import com.mckesson.eig.roi.admin.model.RelatedBillingTier;
 import com.mckesson.eig.roi.admin.model.RequestorType;
 import com.mckesson.eig.roi.admin.model.RequestorTypesList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

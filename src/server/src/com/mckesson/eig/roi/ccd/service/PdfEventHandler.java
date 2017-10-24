@@ -8,7 +8,7 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.area.AreaTreeHandler;
 import org.apache.fop.fo.flow.Character;
 
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class PdfEventHandler extends AreaTreeHandler {
     private static final String HTML_P = "<p>";

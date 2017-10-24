@@ -40,7 +40,7 @@ import com.mckesson.eig.roi.journal.model.JournalConstants.TransactionType;
 import com.mckesson.eig.roi.journal.model.JournalDetail;
 import com.mckesson.eig.roi.journal.model.JournalEntry;
 import com.mckesson.eig.roi.journal.model.JournalTransaction;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class JournalDAOImpl extends ROIDAOImpl implements JournalDAO {

@@ -12,7 +12,7 @@ import java.util.Map;
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.eig.roi.request.service.RequestCoreServiceImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 
 public class ProductivityReportDAOImpl extends ROIReportDAOImpl {

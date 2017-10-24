@@ -40,7 +40,7 @@ import com.mckesson.eig.roi.request.model.RequestPage;
 import com.mckesson.eig.roi.request.model.RequestSupplementalAttachment;
 import com.mckesson.eig.roi.request.model.RequestSupplementalDocument;
 import com.mckesson.eig.roi.request.model.RequestVersion;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.BeanUtilities;
 
 /**

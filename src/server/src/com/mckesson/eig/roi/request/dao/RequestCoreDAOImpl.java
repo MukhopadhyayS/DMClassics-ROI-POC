@@ -48,7 +48,7 @@ import com.mckesson.eig.roi.request.model.RequestEventCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoice;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 

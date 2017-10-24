@@ -20,7 +20,7 @@ import org.springframework.beans.factory.BeanFactory;
 import com.mckesson.eig.common.filetransfer.controller.BaseContentRetriever;
 import com.mckesson.eig.common.filetransfer.services.BaseFileTransferData;
 import com.mckesson.eig.roi.admin.dao.FileTransferHelper;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 /**
  * This class extents BaseContentRetriever and contains methods to retrieve the file from database

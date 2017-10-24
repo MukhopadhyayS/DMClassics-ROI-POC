@@ -23,7 +23,7 @@ import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
  * @author Shah Mohamed.N

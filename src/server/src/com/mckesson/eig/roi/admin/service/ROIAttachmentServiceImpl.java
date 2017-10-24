@@ -28,7 +28,7 @@ import com.mckesson.eig.roi.supplementary.model.AttachmentDeleteStatusList;
 import com.mckesson.eig.roi.supplementary.model.AttachmentInfoList;
 import com.mckesson.eig.roi.supplementary.model.AttachmentSequenceList;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
  * This class implements all ROI Attachment services

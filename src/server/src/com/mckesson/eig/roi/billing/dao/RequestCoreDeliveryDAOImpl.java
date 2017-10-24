@@ -44,7 +44,7 @@ import com.mckesson.eig.roi.billing.model.RequestCoreDeliveryInvoicePatients;
 import com.mckesson.eig.roi.billing.model.SalesTaxReason;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.request.model.RequestPatient;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 

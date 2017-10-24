@@ -22,7 +22,7 @@ import com.mckesson.eig.SigninServiceLocator;
 import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
 import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
 import com.mckesson.eig.wsfw.session.WsSession;

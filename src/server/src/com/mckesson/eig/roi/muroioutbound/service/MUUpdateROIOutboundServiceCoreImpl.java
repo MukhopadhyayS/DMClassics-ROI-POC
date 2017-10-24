@@ -16,7 +16,7 @@ import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAOImpl;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.eig.roi.request.dao.RequestCoreChargesDAO;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 

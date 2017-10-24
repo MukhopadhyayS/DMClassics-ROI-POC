@@ -29,7 +29,7 @@ import com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplementaryDAO {

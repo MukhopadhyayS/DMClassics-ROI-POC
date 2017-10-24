@@ -11,7 +11,7 @@ import org.hibernate.transform.Transformers;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryItem;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryPatient;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class ReleaseHistoryDAOImpl
 extends ROIDAOImpl

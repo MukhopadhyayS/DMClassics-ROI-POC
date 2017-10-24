@@ -6,7 +6,7 @@ import java.io.IOException;
 import com.mckesson.eig.roi.admin.dao.LetterTemplateDAOImpl;
 import com.mckesson.eig.roi.admin.service.ROIAttachmentService.FailedReasonCode;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class ROISupplementarityAttachment extends ROIAttachmentCommon {
     private static final OCLogger LOG = new OCLogger(LetterTemplateDAOImpl.class);

@@ -33,7 +33,7 @@ import com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.util.SpringUtilities;
 

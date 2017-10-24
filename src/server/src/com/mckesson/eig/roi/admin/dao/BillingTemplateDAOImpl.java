@@ -33,7 +33,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import com.mckesson.eig.roi.admin.model.BillingTemplate;
 import com.mckesson.eig.roi.admin.model.BillingTemplatesList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

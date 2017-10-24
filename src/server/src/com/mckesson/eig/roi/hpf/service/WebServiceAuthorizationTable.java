@@ -22,7 +22,7 @@ import java.util.Vector;
 
 import org.apache.commons.collections.ExtendedProperties;
 
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.io.FileLoader;
 import com.mckesson.eig.wsfw.model.authorization.AuthorizationException;
 

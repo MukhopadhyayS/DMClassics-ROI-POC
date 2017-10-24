@@ -12,7 +12,7 @@
  */
 package com.mckesson.eig.roi.thirdparty.licenses;
 
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class AsposeLicenseImpl implements ThirdPartyLicenses {
 

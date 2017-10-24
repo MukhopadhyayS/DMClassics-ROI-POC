@@ -69,7 +69,7 @@ import com.mckesson.eig.roi.requestor.model.RequestorRefund;
 import com.mckesson.eig.roi.requestor.model.RequestorSearchCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetails;
 import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetailsList;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 

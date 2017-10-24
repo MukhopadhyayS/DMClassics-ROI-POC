@@ -22,7 +22,7 @@ import java.util.List;
 import com.mckesson.eig.roi.admin.model.PaymentMethod;
 import com.mckesson.eig.roi.admin.model.PaymentMethodList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**

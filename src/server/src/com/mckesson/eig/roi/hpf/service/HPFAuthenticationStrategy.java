@@ -25,7 +25,7 @@ import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
 import com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.eig.roi.utils.OCLogger;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
