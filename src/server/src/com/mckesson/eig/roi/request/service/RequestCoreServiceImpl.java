@@ -162,7 +162,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(ROIClientErrorCodes.SEARCH_REQUEST_OPERATION_FAILED);
         }
     }
@@ -214,7 +214,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -263,7 +263,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -308,7 +308,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e,
                     ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
@@ -406,7 +406,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -452,7 +452,7 @@ implements RequestCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -569,7 +569,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
         }
     }
@@ -622,7 +622,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.REQUEST_BILLING_PAYMENT_OPERATION_FAILED);
         }
     }
@@ -680,7 +680,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Exception e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e,
                     ROIClientErrorCodes.REQUEST_CORE_CHARGES_OPERATION_FAILED);
         }
@@ -910,7 +910,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.VIEW_INVOICE_OPERATION_FAILED);
         }
 
@@ -951,7 +951,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e,
                     ROIClientErrorCodes.VIEW_INVOICE_OPERATION_FAILED);
         }
@@ -985,7 +985,7 @@ implements RequestCoreService {
 
             return new Comments(eventHistory);
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(ROIClientErrorCodes.SEARCH_REQUEST_OPERATION_FAILED);
         }
     }
@@ -1019,7 +1019,7 @@ implements RequestCoreService {
 
         } catch (Throwable e) {
 
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(ROIClientErrorCodes.SEARCH_REQUEST_OPERATION_FAILED);
         }
     }
@@ -1073,7 +1073,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(ROIClientErrorCodes.GET_REQUEST_COUNT_OPERATION_FAILED);
         }
     }
@@ -1112,7 +1112,7 @@ implements RequestCoreService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(
                         ROIClientErrorCodes.RETRIEVE_DOCUMENT_CHARGES_BY_BILLING_TIER_FAILED);
         }
@@ -1194,7 +1194,7 @@ implements RequestCoreService {
        } catch (ROIException e) {
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error(e);
            throw new ROIException(ROIClientErrorCodes.REQUEST_OPERATION_FAILED);
        }
    }

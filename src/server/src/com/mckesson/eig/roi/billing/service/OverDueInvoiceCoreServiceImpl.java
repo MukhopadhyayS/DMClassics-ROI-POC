@@ -117,7 +117,7 @@ implements OverDueInvoiceCoreService {
             throw e;
         } catch (Throwable e) {
 
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException(e, ROIClientErrorCodes.SEARCH_PASTDUE_INVOICE_OPERATION_FAILED);
         }
     }
