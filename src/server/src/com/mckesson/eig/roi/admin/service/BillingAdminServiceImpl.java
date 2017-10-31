@@ -108,10 +108,10 @@ implements BillingAdminService {
             }
             return mediaTypeId;
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in createMediaType",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in createMediaType",e);
             throw new ROIException(e, ROIClientErrorCodes.MEDIA_TYPE_OPERATION_FAILED);
         }
     }
@@ -144,10 +144,10 @@ implements BillingAdminService {
                 LOG.debug(logSM + "<<End:");
             }
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in deleteMediaType",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteMediaType",e);
             throw new ROIException(e, ROIClientErrorCodes.MEDIA_TYPE_OPERATION_FAILED);
         }
     }
@@ -189,7 +189,7 @@ implements BillingAdminService {
 
             return dao.retrieveAllMediaTypeNames();
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in retrieveAllMediaTypes",e);
             throw new ROIException(e, ROIClientErrorCodes.MEDIA_TYPE_OPERATION_FAILED);
         }
     }
@@ -229,10 +229,10 @@ implements BillingAdminService {
             }
             return uMT;
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in updateMediaType",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in updateMediaType",e);
             throw new ROIException(e, ROIClientErrorCodes.MEDIA_TYPE_OPERATION_FAILED);
         }
     }
@@ -288,10 +288,10 @@ implements BillingAdminService {
             }
             return feeTypeId;
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in createFeeType",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in createFeeType",e);
             throw new ROIException(e, ROIClientErrorCodes.FEE_TYPE_PROCESS_FAILED);
         }
     }
@@ -327,10 +327,10 @@ implements BillingAdminService {
                 LOG.debug(logSM + "<<End :");
             }
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in deleteFeeType",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteFeeType",e);
             throw new ROIException(e, ROIClientErrorCodes.FEE_TYPE_PROCESS_FAILED);
         }
 
@@ -373,7 +373,7 @@ implements BillingAdminService {
 
             return dao.retrieveAllFeeTypeNames();
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in retrieveAllFeeTypes",e);
             throw new ROIException(e, ROIClientErrorCodes.FEE_TYPE_PROCESS_FAILED);
         }
     }
@@ -412,10 +412,10 @@ implements BillingAdminService {
             }
             return updatedFeeType;
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in updateFeeType",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in updateFeeType",e);
             throw new ROIException(e, ROIClientErrorCodes.FEE_TYPE_PROCESS_FAILED);
         }
 
@@ -475,10 +475,10 @@ implements BillingAdminService {
            }
            return paymentMethodId;
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in createPaymentMethod",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in createPaymentMethod",e);
            throw new ROIException(e, ROIClientErrorCodes.PAYMENT_METHOD_OPERATION_FAILED);
        }
    }
@@ -524,7 +524,7 @@ implements BillingAdminService {
 
            return dao.retrieveAllPaymentMethodNames();
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in retrieveAllPaymentMethods",e);
            throw new ROIException(e, ROIClientErrorCodes.PAYMENT_METHOD_OPERATION_FAILED);
        }
    }
@@ -552,10 +552,10 @@ implements BillingAdminService {
                LOG.debug(logSM + "<<End:");
            }
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in deletePaymentMethod",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in deletePaymentMethod",e);
            throw new ROIException(e, ROIClientErrorCodes.PAYMENT_METHOD_OPERATION_FAILED);
        }
    }
@@ -595,10 +595,10 @@ implements BillingAdminService {
            }
            return updatedPM;
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in updatePaymentMethod",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in updatePaymentMethod",e);
            throw new ROIException(e, ROIClientErrorCodes.PAYMENT_METHOD_OPERATION_FAILED);
        }
    }
@@ -657,10 +657,10 @@ implements BillingAdminService {
            }
            return billingTemplateId;
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in createBillingTemplate",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in createBillingTemplate",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TEMPLATE_PROCESS_FAILED);
        }
    }
@@ -713,7 +713,7 @@ implements BillingAdminService {
            }
            return bTList;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in retrieveAllBillingTemplates",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TEMPLATE_PROCESS_FAILED);
        }
    }
@@ -745,10 +745,10 @@ implements BillingAdminService {
                LOG.debug(logSM + "<<End : Billing Template Id " + billingTemplateId);
            }
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in deleteBillingTemplate",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in deleteBillingTemplate",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TEMPLATE_PROCESS_FAILED);
        }
    }
@@ -792,10 +792,10 @@ implements BillingAdminService {
            }
            return updatedBillingTemplate;
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in updateBillingTemplate",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in updateBillingTemplate",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TEMPLATE_PROCESS_FAILED);
        }
    }
@@ -869,10 +869,10 @@ implements BillingAdminService {
            }
            return bt;
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in createBillingTier",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in createBillingTier",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TIER_OPERATION_FAILED);
        }
    }
@@ -925,7 +925,7 @@ implements BillingAdminService {
            }
            return results;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in retrieveAllBillingTiers",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TIER_OPERATION_FAILED);
        }
    }
@@ -979,10 +979,10 @@ implements BillingAdminService {
 
          return updatedBTier;
      } catch (ROIException e) {
-         LOG.error(e.getLocalizedMessage());
+         LOG.error("ROIException occured in updateBillingTier",e);
          throw e;
      } catch (Throwable e) {
-         LOG.error(e.getLocalizedMessage());
+         LOG.error("Exception occured in updateBillingTier",e);
          throw new ROIException(e, ROIClientErrorCodes.BILLING_TIER_OPERATION_FAILED);
      }
    }
@@ -1015,10 +1015,10 @@ implements BillingAdminService {
                LOG.debug(logSM + "<<End:");
            }
        } catch (ROIException e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("ROIException occured in deleteBillingTier",e);
            throw e;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in deleteBillingTier",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TIER_OPERATION_FAILED);
        }
    }
@@ -1081,7 +1081,7 @@ implements BillingAdminService {
            }
            return btList;
        } catch (Throwable e) {
-           LOG.error(e.getLocalizedMessage());
+           LOG.error("Exception occured in retrieveBillingTiersByMediaTypeName",e);
            throw new ROIException(e, ROIClientErrorCodes.BILLING_TIER_OPERATION_FAILED);
        }
    }
@@ -1117,7 +1117,7 @@ implements BillingAdminService {
             return dao.retrieveAllTaxPerFacilities();
 
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in retrieveAllTaxPerFacilities",e);
             throw new ROIException(e, ROIClientErrorCodes.SALESTAX_OPERATION_FAILED);
         }
     }
@@ -1172,10 +1172,10 @@ implements BillingAdminService {
             return new TaxPerFacilityList(taxPerFacilityForUser);
 
         } catch (ROIException roie) {
-            LOG.error(roie.getLocalizedMessage());
+            LOG.error("ROIException occured in retrieveAllTaxPerFacilitiesByUser",roie);
             throw roie;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in retrieveAllTaxPerFacilitiesByUser",e);
             throw new ROIException(e, ROIClientErrorCodes.SALESTAX_OPERATION_FAILED);
         }
     }
@@ -1220,10 +1220,10 @@ implements BillingAdminService {
             }
             return mediaTypeId;
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in createTaxPerFacility",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in createTaxPerFacility",e);
             throw new ROIException(e, ROIClientErrorCodes.SALESTAX_OPERATION_FAILED);
         }
     }
@@ -1268,10 +1268,10 @@ implements BillingAdminService {
             }
             return updatedSTF;
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in updateTaxPerFacility",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in updateTaxPerFacility",e);
             throw new ROIException(e, ROIClientErrorCodes.SALESTAX_OPERATION_FAILED);
         }
     }
@@ -1301,10 +1301,10 @@ implements BillingAdminService {
                 LOG.debug(logSM + "<<End:");
             }
         } catch (ROIException e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("ROIException occured in deleteTaxPerFacility",e);
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteTaxPerFacility",e);
             throw new ROIException(e, ROIClientErrorCodes.SALESTAX_OPERATION_FAILED);
         }
     }
