@@ -521,7 +521,7 @@ implements ROISupplementaryService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteSupplementalPatient",e);
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -576,7 +576,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteSupplementalDocument",e);
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -633,7 +633,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteSupplementalAttachment",e);
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -679,7 +679,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteSupplementarityDocument",e);
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }
@@ -728,7 +728,7 @@ implements ROISupplementaryService {
             else
                 throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteSupplementarityAttachment",e);
             throw new ROIException(e,
                     ROIClientErrorCodes.ROI_SUPPLEMENTAL_OPERATION_FAILED);
         }

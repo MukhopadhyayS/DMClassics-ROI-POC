@@ -96,7 +96,7 @@ public class Charge {
         try {
             amount = Double.valueOf(_chargeTotal);
         } catch (Exception e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in getCharges",e);
         }
         _charges = appendDollarSymbol(amount); 
         return _charges;

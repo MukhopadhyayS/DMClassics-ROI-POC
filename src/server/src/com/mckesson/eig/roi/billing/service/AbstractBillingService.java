@@ -318,7 +318,7 @@ public class AbstractBillingService extends BaseROIService {
         } catch (ROIException e) {
             throw e;
         } catch (Throwable e) {
-            LOG.error(e.getLocalizedMessage());
+            LOG.error("Exception occured in deleteLatestRequestEvent",e);
             throw new ROIException(e, ROIClientErrorCodes.LETTER_CREATION_FAILED);
         }
     }
