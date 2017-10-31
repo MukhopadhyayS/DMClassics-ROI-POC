@@ -429,7 +429,7 @@ public final class ROIReportUtil {
             return convertToEndDate(dateFormat.format(cal.getTime()));
         } catch (IOException e) {
 
-            LOG.error(e.getLocalizedMessage());
+            LOG.error(e);
             throw new ROIException();
         }
     }
