@@ -4445,6 +4445,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     InvoiceInfo.ResendDate = DateTime.Now;
                     InvoiceInfo.Type = "DOCX";
                     InvoiceInfo.LetterType = letterTemplateType;
+                    InvoiceInfo.WillInvoiceShipped = true;
 
                     if (prebillInvoiceDetails.Release.RequestTransactions.Count > 0)
                     {                        
