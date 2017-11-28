@@ -25,6 +25,8 @@ public final class Constants {
 	public static final String DB_SERVER_PROPERTY = "database.server";
 	public static final String DB_USERNAME_PROPERTY = "database.username";
 	public static final String DB_PASSWORD_PROPERTY = "database.password";
+	public static final String DB_PORT_PROPERTY = "database.port";
+	public static final String DB_DEFAULT_PORT_PROPERTY = "1433";
 	public static final String DB_USERNAME = "sa";
 
 	public static final String STATUS_COMPLETED = "Completed";

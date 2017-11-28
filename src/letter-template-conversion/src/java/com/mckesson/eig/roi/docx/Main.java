@@ -83,10 +83,20 @@ public class Main {
 		String dbServer = ConsoleUtil.readLine("Enter Database server name: ");
 		String dbUsername = ConsoleUtil.readPassword("Enter database user : ");
 		String dbPassword = ConsoleUtil.readPassword("Enter password for "+ dbUsername + " user: ");
+		String port = ConsoleUtil.readLine("Enter database port number (default 1433): ");
 		Configuration.getProperties().setProperty(Constants.DB_SERVER_PROPERTY, dbServer);
 		Configuration.getProperties().setProperty(Constants.DB_USERNAME_PROPERTY, dbUsername);
 		Configuration.getProperties().setProperty(Constants.DB_PASSWORD_PROPERTY, dbPassword);
 		
+		if(port == null || port.trim().equals("")) {
+			port = Constants.DB_DEFAULT_PORT_PROPERTY;
+		}
+		try {
+			Integer.valueOf(port);
+		} catch(Exception e) {
+			port = Constants.DB_DEFAULT_PORT_PROPERTY;
+		}
+		Configuration.getProperties().setProperty(Constants.DB_PORT_PROPERTY,port);
 		try {
 			logger.info("Initializing database connection");
 			HibernateUtil.initialize();

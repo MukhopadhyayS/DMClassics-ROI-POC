@@ -35,8 +35,9 @@ public class HibernateUtil {
 		String serverName = Configuration.getProperties().getProperty(Constants.DB_SERVER_PROPERTY);
 		String username = Configuration.getProperties().getProperty(Constants.DB_USERNAME_PROPERTY);
 		String password = Configuration.getProperties().getProperty(Constants.DB_PASSWORD_PROPERTY);
+		String port = Configuration.getProperties().getProperty(Constants.DB_PORT_PROPERTY);
 		org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration().configure();
-		configuration.setProperty(Environment.URL, "jdbc:jtds:sqlserver://" + serverName + ":1433;DatabaseName=cabinet");
+		configuration.setProperty(Environment.URL, "jdbc:jtds:sqlserver://" + serverName + ":" + port + ";DatabaseName=cabinet");
 		configuration.setProperty(Environment.USER, username);
 		configuration.setProperty(Environment.PASS, password);
 
