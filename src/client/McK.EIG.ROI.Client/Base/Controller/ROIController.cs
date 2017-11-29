@@ -992,7 +992,38 @@ namespace McK.EIG.ROI.Client.Base.Controller
             server.facility = client.Facility;
 
             return server;
-        }    
+        }
+
+
+        /// <summary>
+        /// Encrypts plaintext using RSA key and returns a base64 encoded string
+        /// </summary>
+        /// <param name="plainText">Plain text to encrypt</param>
+         /// <returns>Base64 encoded string</returns>
+        public static string EncryptOcSecurity(String plainText)
+        {
+            String encryptedRtnStr = null;
+            IntPtr secureStrPtr= IntPtr.Zero;
+
+            try
+            {
+                //Create a secureString for plainText string
+                System.Security.SecureString secureStr = new System.Security.SecureString();
+                foreach (char passCh in plainText)
+                    secureStr.AppendChar(passCh);
+
+                System.Security.SecureString encryptedString = OCSecurityWrapper.encryptData(secureStr);
+                secureStrPtr = System.Runtime.InteropServices.Marshal.SecureStringToBSTR(encryptedString);
+                encryptedRtnStr = System.Runtime.InteropServices.Marshal.PtrToStringAuto(secureStrPtr);
+
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.FreeBSTR(secureStrPtr);
+            }
+
+            return encryptedRtnStr;
+        }
 
         #endregion
 
