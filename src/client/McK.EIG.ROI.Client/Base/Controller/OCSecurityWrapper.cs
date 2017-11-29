@@ -71,5 +71,25 @@ namespace McK.EIG.ROI.Client.Base.Controller
                 throw new Exception(ex.Message);
             }
         }
+
+        public static System.Security.SecureString encryptData(System.Security.SecureString dataToEncrypt)
+        {
+            System.Security.SecureString returnStr = null;
+            try
+            {
+                returnStr = objOCSecurityFacilitator.encryptData(dataToEncrypt);
+
+            }
+            catch (Exception ex)
+            {
+                if (String.Compare(ex.Message, " Invalid security credentials.") != 0)
+                {
+                    throw ex;
+                }
+            }
+           
+            return returnStr;            
+        }
+
     }
 }
