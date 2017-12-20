@@ -1,16 +1,16 @@
 #Build Information
 #Thu, 14 Dec 2017 23:16:07 -0500
 #Wed Aug 22 22:56:47 EDT 2012
-assembly.number=3282
-assembly.servicePack=0
-project.name=ROI-17.6
+assembly.number=5000
+assembly.servicePack=1
+project.name=ROI-17.6.1
 assembly.minor=6
 build.minor=6
 Company=McKesson Corporation
 assembly.major=17
 build.major=17
-build.servicePack=0
-build.number=3282
+build.servicePack=1
+build.number=5000
 build.date=2017-12-14T23\:16\:07.124Z
 Product=
 Copyright=Copyright (c)2017 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
