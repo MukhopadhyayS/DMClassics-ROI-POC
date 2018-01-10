@@ -57,6 +57,7 @@
 						<antcall target="update-build-scripts-from-starteam" />
 					</then>
 				</if>
+				<antcall target="update-dependent-jars" />
 			</then>
 		</if>
 	</target>
@@ -396,4 +397,43 @@
         </trycatch>
     </target>
 
+	<target name="update-dependent-jars">
+		<copy todir="${svn.local.branch.path}/server/lib" preservelastmodified="true">
+			<fileset file="${OC_INTERNAL_COMM}"/>
+		</copy>
+		<copy todir="${svn.local.branch.path}/server/lib" preservelastmodified="true">
+			<fileset file="${OC_SHARED_UTILITY}"/>
+		</copy>	
+		<copy todir="${svn.local.branch.path}/client/McK.EIG.ROI.Client.App" preservelastmodified="true">
+			<fileset file="${OC_SHARED_SECURITY_DLL}"/>
+		</copy>	
+		<copy todir="${svn.local.branch.path}/client/McK.EIG.ROI.Client.App/debug" preservelastmodified="true">
+			<fileset file="${OC_SHARED_SECURITY_DLL}"/>
+		</copy>			
+		<if>
+			<equals arg1="${checkout.source}" arg2="svn" />
+				<then>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/server/lib/OCUtilities-${roi.minor.version}.jar" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCUtilities-${roi.minor.version}.jar" />
+					</antcall>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/server/lib/OCInternalComm-${roi.minor.version}.jar" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCInternalComm-${roi.minor.version}.jar" />
+					</antcall>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/OCSecurity.dll" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCSecurity.dll" />
+					</antcall>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/debug/OCSecurity.dll" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCSecurity.dll" />
+					</antcall>
+				</then>
+		</if>
+	</target>
 </project>
