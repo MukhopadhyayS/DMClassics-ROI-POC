@@ -4,11 +4,15 @@
     <configurations defaultconfmapping="compile->default">
         <conf name="compile" description="Required to compile application"/>
         <conf name="jars" description="Additional run-time dependencies" extends="compile"/>
+		<conf name="dll" description="Additional run-time dependencies" extends="compile"/>
     </configurations>
 
     <dependencies>
 		<dependency org="com.mckesson.dm.core.common.util.security" name="OCUtilities" rev="17.6.1" transitive="false" conf="jars->default"/>
-		<dependency org="com.mckesson.dm.security.util" name="OCInternalComm" rev="17.6.1" transitive="false" conf="jars->default"/>
+		<dependency org="com.mckesson.dm.security.util" name="OCInternalComm" rev="17.6.1" transitive="false"  conf="jars->default"/>
+		<dependency org="com.mckesson.dm.security.util" name="OCSecurity" rev="17.6.1" transitive="false" conf="dll->default">
+			<artifact name="OCSecurity" type="dll" conf="dll"/>
+		</dependency>
 	</dependencies>
 
 </ivy-module>

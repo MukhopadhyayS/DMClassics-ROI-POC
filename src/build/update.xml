@@ -19,6 +19,11 @@
 	<property file="build/props/base.properties" />
 	<property name="build.dir" location="build"/>
 	<property name="ivy.lib.dir" value="server/lib"/>
+	<property name="ivy.prototype.dir" value="prototype/src/repository"/>
+	<property name="ivy.roiclient.dir" value="client/McK.EIG.ROI.Client.App"/>
+	<property name="ivy.roiclient.debug.dir" value="client/McK.EIG.ROI.Client.App/bin/Debug"/>
+	
+	
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
@@ -445,18 +450,22 @@
         </trycatch>
     </target>
 
-	<target name="download-jars-from-nexus">
-	     <echo message="**************** copying dependency artifacts to server  lib location ********************************" />
+	<target name="download-files-from-nexus">
+		 <echo message="**************** No SVN Version attcahed to jar and dll IVY Cache need to be clear every time ********************************" />
+		<ivy:cleancache />
+	     <echo message="**************** copying artifacts to server  lib location ********************************" />
 		<ivy:retrieve pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]" conf="jars"/>
+		<echo message="**************** copying OCInternalComm jar to prototype location ********************************" />
+		<ivy:retrieve pattern="${ivy.prototype.dir}/OCInternalComm-[revision].jar" conf="jars"/>
+		<echo message="**************** copying OCSecurity dll  to ROI Clinet application location ********************************" />
+		<ivy:retrieve pattern="${ivy.roiclient.dir}/OCSecurity.dll" conf="dll"/>
+		<echo message="**************** copying OCSecurity dll  to ROI Clinet application debug folder ********************************" />
+		<ivy:retrieve pattern="${ivy.roiclient.debug.dir}/OCSecurity.dll" conf="dll"/>
+		
 	</target>
 
-	<target name="update-dependent-jars" depends="download-jars-from-nexus">
-		<copy todir="${svn.local.branch.path}/client/McK.EIG.ROI.Client.App" preservelastmodified="true" verbose="true">
-			<fileset file="${OC_SHARED_SECURITY_DLL}"/>
-		</copy>	
-		<copy todir="${svn.local.branch.path}/client/McK.EIG.ROI.Client.App/bin/debug" preservelastmodified="true" verbose="true">
-			<fileset file="${OC_SHARED_SECURITY_DLL}"/>
-		</copy>			
+	<target name="update-dependent-jars" depends="download-files-from-nexus">
+				
 		<if>
 			<equals arg1="${checkout.source}" arg2="svn" />
 				<then>
