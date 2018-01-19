@@ -1,0 +1,8 @@
+<ivysettings>
+    <settings defaultResolver="central-proxy"/>
+
+    <resolvers>
+        <ibiblio name="central-proxy" m2compatible="true" root="http://emidevenv1001.eigqclab.mckesson.com:8085/nexus/content/groups/public"/>
+        <ibiblio name="release-repo"  m2compatible="true" root="http://emidevenv1001.eigqclab.mckesson.com:8085/nexus/content/repositories/releases"/>
+    </resolvers>
+</ivysettings>

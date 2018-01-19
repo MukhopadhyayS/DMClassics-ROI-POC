@@ -13,10 +13,12 @@
     Information Solutions.
 -->
 
-<project default="update-build-scripts" basedir="../">
+<project default="update-build-scripts" basedir="../" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property file="build/props/${build.config.file.name}" />
 	<property file="build/props/base.properties" />
+	<property name="build.dir" location="build"/>
+	<property name="ivy.lib.dir" value="server/lib"/>
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
@@ -27,6 +29,7 @@
 
 	<taskdef name="svn" className="org.tigris.subversion.svnant.SvnTask" classpathref="svnant.classpath"/>
 	<import file="svn.xml" />
+
 		
     <!-- **********************************************************************
              *  Target : update-build-scripts
@@ -442,13 +445,12 @@
         </trycatch>
     </target>
 
-	<target name="update-dependent-jars">
-		<copy todir="${svn.local.branch.path}/server/lib" preservelastmodified="true" verbose="true">
-			<fileset file="${OC_INTERNAL_COMM}"/>
-		</copy>
-		<copy todir="${svn.local.branch.path}/server/lib" preservelastmodified="true" verbose="true">
-			<fileset file="${OC_SHARED_UTILITY}"/>
-		</copy>	
+	<target name="download-jars-from-nexus">
+	     <echo message="**************** copying dependency artifacts to server  lib location ********************************" />
+		<ivy:retrieve pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]" conf="jars"/>
+	</target>
+
+	<target name="update-dependent-jars" depends="download-jars-from-nexus">
 		<copy todir="${svn.local.branch.path}/client/McK.EIG.ROI.Client.App" preservelastmodified="true" verbose="true">
 			<fileset file="${OC_SHARED_SECURITY_DLL}"/>
 		</copy>	
@@ -458,7 +460,7 @@
 		<if>
 			<equals arg1="${checkout.source}" arg2="svn" />
 				<then>
-					<antcall target="checkin-file-svn">
+				<antcall target="checkin-file-svn">
 						<param name="checkin.file.path" value="${source.local.root.path}/server/lib/OCUtilities-${roi.minor.version}.jar" />
 						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
 						<param name="svn.file.name" value="OCUtilities-${roi.minor.version}.jar" />
