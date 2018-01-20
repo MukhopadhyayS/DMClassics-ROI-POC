@@ -450,7 +450,7 @@
         </trycatch>
     </target>
 
-	<target name="download-files-from-nexus">
+	<target name="download-files-from-nexus" depends="delete-files">
 		 <echo message="**************** No SVN Version attcahed to jar and dll IVY Cache need to be clear every time ********************************" />
 		<ivy:cleancache />
 	     <echo message="**************** copying artifacts to server  lib location ********************************" />
@@ -462,6 +462,29 @@
 		<echo message="**************** copying OCSecurity dll  to ROI Clinet application debug folder ********************************" />
 		<ivy:retrieve pattern="${ivy.roiclient.debug.dir}/OCSecurity.dll" conf="dll"/>
 		
+	</target>
+	<target name="delete-files" >
+	<echo message="**************** Delete artifacts OCInternalComm,OCsecurity  ********************************" />
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/server/lib" defaultexcludes="no">
+				<include name="OC*-*.jar" />
+			</fileset>
+	</delete>
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/prototype/src/repository" defaultexcludes="no">
+				<include name="OCInternalComm-*.jar" />
+			</fileset>
+	</delete>
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/client/McK.EIG.ROI.Client.App" defaultexcludes="no">
+				<include name="OCSecurity.dll" />
+			</fileset>
+	</delete>
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/client/McK.EIG.ROI.Client.App/bin/debug" defaultexcludes="no">
+				<include name="OCSecurity.dll" />
+			</fileset>
+	</delete>
 	</target>
 
 	<target name="update-dependent-jars" depends="download-files-from-nexus">
