@@ -22,7 +22,7 @@
 	<property name="ivy.prototype.dir" value="prototype/src/repository"/>
 	<property name="ivy.roiclient.dir" value="client/McK.EIG.ROI.Client.App"/>
 	<property name="ivy.roiclient.debug.dir" value="client/McK.EIG.ROI.Client.App/bin/Debug"/>
-	
+	<property name="ivy.roi.version" value="${roi.minor.version}"/>
 	
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
@@ -456,15 +456,16 @@
 	     <echo message="**************** copying artifacts to server  lib location ********************************" />
 		<ivy:retrieve pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]" conf="jars"/>
 		<echo message="**************** copying OCInternalComm jar to prototype location ********************************" />
-		<ivy:retrieve pattern="${ivy.prototype.dir}/OCInternalComm-[revision].jar" conf="jars"/>
+		<ivy:retrieve pattern="${ivy.prototype.dir}/OCInternalComm-[revision].[ext]" conf="jars"/>
 		<echo message="**************** copying OCSecurity dll  to ROI Clinet application location ********************************" />
 		<ivy:retrieve pattern="${ivy.roiclient.dir}/OCSecurity.dll" conf="dll"/>
 		<echo message="**************** copying OCSecurity dll  to ROI Clinet application debug folder ********************************" />
 		<ivy:retrieve pattern="${ivy.roiclient.debug.dir}/OCSecurity.dll" conf="dll"/>
 		
 	</target>
+
 	<target name="delete-files" >
-	<echo message="**************** Delete artifacts OCInternalComm,OCsecurity  ********************************" />
+	<echo message="**************** Delete all files to copy new files latest files from Nexaus repository ********************************" />
 	<delete failonerror="false" includeEmptyDirs="true">
 		<fileset dir="${source.local.root.path}/server/lib" defaultexcludes="no">
 				<include name="OC*-*.jar" />
