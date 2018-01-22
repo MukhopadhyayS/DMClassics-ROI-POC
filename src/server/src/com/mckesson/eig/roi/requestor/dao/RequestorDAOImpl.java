@@ -188,11 +188,10 @@ implements RequestorDAO {
     /** The Constant RECENT_REQUEST_IDS. */
 
     private static final StringBuffer RECENT_REQUEST_IDS = new StringBuffer()
-        .append(" req1.ROI_Requestor_Seq IN (SELECT distinct ROI_Requestor.ROI_Requestor_Seq " +
+        .append(" req1.ROI_Requestor_Seq IN (SELECT distinct ROI_Requestor_Seq " +
                 "FROM ROI_RequestCoreRequestor ")
-        .append("as r, ROI_Requestor as ROI_Requestor WHERE ROI_Requestor.ROI_Requestor_Seq " +
-                "= r.ROI_Requestor_Seq ")
-        .append("and r.Created_Dt >= :RequestorDate)");
+        .append("as r WHERE ")
+        .append("r.Created_Dt >= :RequestorDate)");
 
 
     /** The Constant REQUESTORID. */
