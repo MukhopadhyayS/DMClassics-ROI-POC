@@ -1,7 +1,7 @@
 #Build Information
-#Sat, 24 Feb 2018 19:33:25 -0500
+#Sat, 24 Feb 2018 22:06:18 -0500
 #Wed Aug 22 22:56:47 EDT 2012
-assembly.number=1105
+assembly.number=1106
 assembly.servicePack=1
 project.name=ROI-17.6.1
 assembly.minor=6
@@ -10,8 +10,8 @@ Company=McKesson Corporation
 assembly.major=17
 build.major=17
 build.servicePack=1
-build.number=1105
-build.date=2018-02-24T19\:33\:25.009Z
+build.number=1106
+build.date=2018-02-24T22\:06\:18.908Z
 Product=
 Copyright=Copyright (c)2017 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 build.revision=1
