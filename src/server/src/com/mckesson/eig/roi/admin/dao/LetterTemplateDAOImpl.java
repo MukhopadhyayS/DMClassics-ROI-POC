@@ -33,8 +33,9 @@ import org.apache.axis.utils.ByteArrayOutputStream;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.hibernate.Session;
-import org.owasp.esapi.ESAPI;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
+import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
 import com.mckesson.eig.common.filetransfer.services.BaseFileTransferData;
 import com.mckesson.eig.roi.admin.model.LetterTemplate;
 import com.mckesson.eig.roi.admin.model.LetterTemplateDocument;
@@ -46,7 +47,6 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
-import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**
@@ -308,8 +308,8 @@ implements LetterTemplateDAO, FileTransferHelper {
         HttpServletResponse res = serverData.getResponse();
 
         if (hasExp) {
-            res.setStatus(Integer.parseInt(ESAPI.encoder().decodeForHTML(ESAPI.encoder().encodeForHTML(String.valueOf(HttpServletResponse.SC_BAD_REQUEST)))));
-            res.setHeader(ESAPI.encoder().decodeForHTML(ESAPI.encoder().encodeForHTML(RETURN_MESSAGE)), ESAPI.encoder().decodeForHTML(ESAPI.encoder().encodeForHTML(expMsg)));
+            res.setStatus(Integer.parseInt(EncoderUtilities.decodeForHTML(EncoderUtilities.encodeForHTML(String.valueOf(HttpServletResponse.SC_BAD_REQUEST)))));
+            res.setHeader(EncoderUtilities.decodeForHTML(EncoderUtilities.encodeForHTML(RETURN_MESSAGE)), EncoderUtilities.decodeForHTML(EncoderUtilities.encodeForHTML(expMsg)));
         }
 
         res.setHeader(CHECKIN_ID_KEY, documentId + ROIConstants.FIELD_DELIMITER + result);
@@ -411,8 +411,8 @@ implements LetterTemplateDAO, FileTransferHelper {
         } catch (Throwable e) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.setContentType(ESAPI.encoder().decodeForHTML(ESAPI.encoder().encodeForHTML(contentType)));
-            response.setHeader(RETURN_MESSAGE, ESAPI.encoder().decodeForHTML(ESAPI.encoder().encodeForHTML(e.getMessage().toString())));
+            response.setContentType(EncoderUtilities.decodeForHTML(EncoderUtilities.encodeForHTML(contentType)));
+            response.setHeader(RETURN_MESSAGE, EncoderUtilities.decodeForHTML(EncoderUtilities.encodeForHTML(e.getMessage().toString())));
             response.setHeader(SESSION_ID, serverData.getRequest().getSession().getId());
             LOG.error("Retrieval of document failed : ", e);
         } finally {

@@ -1408,7 +1408,7 @@ implements BillingCoreService {
             RequestorUnappliedAmountDetailsList unAppliedAmounts =
                                         requestorDAO.retrieveUnappliedAmountDetails(requestId);
             //US16834 changes to Include requests in the pre-bill status on the payments popup.
-            if (CollectionUtils.isEmpty(unAppliedAmounts.getRequestorUnappliedAmountDetails())) {
+            if (CollectionUtilities.isEmpty(unAppliedAmounts.getRequestorUnappliedAmountDetails())) {
                 
                 LOG.debug("No Unapplied Amount OR Invoice Balance is Zero");
                 return;
@@ -1574,7 +1574,7 @@ implements BillingCoreService {
         RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
         JournalService journalService = (JournalService) getService(ServiceName.JOURNEL_SERVICE);
         
-        if (CollectionUtils.isEmpty(reqAdjList)) {
+        if (CollectionUtilities.isEmpty(reqAdjList)) {
             return amountToApply;
         }
         
@@ -1663,7 +1663,7 @@ implements BillingCoreService {
         RequestorDAO requestorDAO = (RequestorDAO) getDAO(DAOName.REQUESTOR_DAO);
         JournalService journalService = (JournalService) getService(ServiceName.JOURNEL_SERVICE);
         
-        if (CollectionUtils.isEmpty(reqPayList)) {
+        if (CollectionUtilities.isEmpty(reqPayList)) {
             return amountToApply;
         }
         
