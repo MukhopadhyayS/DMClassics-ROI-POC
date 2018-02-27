@@ -7,10 +7,10 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.owasp.esapi.ESAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
 import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
 import com.mckesson.eig.roi.webservice.util.rest.security.SecurityConstants;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -124,7 +124,7 @@ public final class HeaderUtils {
      */
     public static String encodeMessage(Object message){
         String replace = message.toString().replace( '\n', '_' ).replace( '\r', '_' );
-        replace = ESAPI.encoder().encodeForHTML(replace);
+        replace = EncoderUtilities.encodeForHTML(replace);
         return replace;
     }
     

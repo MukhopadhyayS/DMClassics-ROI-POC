@@ -2,19 +2,18 @@ package com.mckesson.eig.roi.utils;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.owasp.esapi.ESAPI;
 
+import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 public final class SqlEncoderAdvanced {
-private MSSQLCodecAdvanced _codec = new MSSQLCodecAdvanced();
     
     public String encodeForSql(String queryString) {
         if (queryString == null) {
             return null;
         }
         
-        return ESAPI.encoder().encodeForSQL(_codec, queryString);
+        return EncoderUtilities.encodeForSQL(queryString);
     }
     
     public String[] encodeForSql(String[] queryString) {
@@ -23,7 +22,7 @@ private MSSQLCodecAdvanced _codec = new MSSQLCodecAdvanced();
         }
         
         for (int i = 0; i < queryString.length; i++) {
-        	 queryString[i] = ESAPI.encoder().encodeForSQL(_codec,  queryString[i]); 
+        	 queryString[i] = EncoderUtilities.encodeForSQL(queryString[i]); 
                 }
         
         return queryString;

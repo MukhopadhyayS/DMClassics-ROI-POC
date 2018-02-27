@@ -24,10 +24,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.owasp.esapi.ESAPI;
-
-import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.dm.core.common.logging.OCLogger;
+import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
+import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.wsfw.security.service.Authenticator;
@@ -109,7 +108,7 @@ extends AuthenticationFilter {
 
             LOG.error("Authentication Failed for User:" +
                                 WsSession.getSessionData(Authenticator.KEY_USERNAME));
-            httpRes.sendError(HttpServletResponse.SC_BAD_REQUEST, ESAPI.encoder().encodeForHTML(e.getMessage()));
+            httpRes.sendError(HttpServletResponse.SC_BAD_REQUEST, EncoderUtilities.encodeForHTML(e.getMessage()));
         }
     }
 

@@ -1,7 +1,7 @@
 package com.mckesson.eig.roi.utils;
 
-import org.owasp.esapi.ESAPI;
 import com.mckesson.dm.core.common.logging.OCLogger;
+import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 public class SecurityUtilities {
@@ -57,7 +57,7 @@ public class SecurityUtilities {
 	 */
 	public static String encodeForHTML(String str){
 		String sanitizedString;
-		sanitizedString = ESAPI.encoder().encodeForHTML(str);
+		sanitizedString = EncoderUtilities.encodeForHTML(str);
 		return sanitizedString;
 	}
     
