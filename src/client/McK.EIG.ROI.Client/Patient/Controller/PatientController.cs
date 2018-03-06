@@ -256,7 +256,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityDocuments", requestParams);
                 if (response == null) return hpfPatient;
                 MapModel((SupplementarityDocumentResult)response, hpfPatient, true);
-                PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);                
+                //PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);                
                 return hpfPatient;
             }
         }
@@ -380,7 +380,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 object response = ROIHelper.Invoke(supplementaryService, "getSupplementarityAttachments", requestParams);
                 if (response == null) return hpfPatient;
                 MapModel((SupplementarityAttachmentResult)response, hpfPatient, true);
-                PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);
+               // PatientDetailsCache.AddData(hpfPatient.MRN + hpfPatient.facilityCode, hpfPatient);
                 return hpfPatient;
             }
         }

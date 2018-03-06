@@ -1975,6 +1975,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                     //shahm
                     patient = PatientController.Instance.RetrieveSuppmentarityDocuments(patient);
                     patient = PatientController.Instance.RetrieveSuppmentarityAttachments(patient);
+                    PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patient);
                 }
                 else
                 {   

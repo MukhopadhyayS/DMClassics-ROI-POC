@@ -149,7 +149,8 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords
 
                     //if (ROIViewUtility.IsAllowed(ROISecurityRights.RecordViews))
                     //{
-                        PatientController.Instance.RetrieveHpfDocuments(patient);
+                       patient =  PatientController.Instance.RetrieveHpfDocuments(patient);
+                       PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patient);
                     //}
 
 //                    PatientController.Instance.RetrieveSupplementalDocuments(patient);
