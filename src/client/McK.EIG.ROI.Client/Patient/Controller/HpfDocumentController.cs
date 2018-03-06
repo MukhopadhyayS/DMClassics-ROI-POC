@@ -62,7 +62,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecordForMrnFacility", PrepareHPFWParams(requestParams));
                                 
                 PatientDetails patDetails = MapModel((medicalRecord)response, patient);
-                PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patDetails);
+                //PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patDetails);
                 return patDetails;
             }
         }
