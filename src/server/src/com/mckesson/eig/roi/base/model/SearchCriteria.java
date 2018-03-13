@@ -47,7 +47,7 @@ public class SearchCriteria implements Serializable {
         
         if (SearchCondition.OPERATION.In.toString().equalsIgnoreCase(condition.getOperation())) {
             
-             String key = putParameters(parameters, formatParam(condition.getValue()), condition.getKey());
+             String key = putParameters(parameters, condition.getValue(), condition.getKey());
              clause.append(" (");
              clause.append(":");
              clause.append(key);
