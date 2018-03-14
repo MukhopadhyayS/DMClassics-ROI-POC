@@ -27,8 +27,8 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:https://svn.mckesson.com:18080/svn/DM-Classics/trunk/ROI/src</connection>
-		<url>https://svn.mckesson.com:18080/svn/DM-Classics/trunk/ROI/src</url>
+		<connection>scm:svn:http://ocsvn114.eigqclab.mckesson.com/svn/DM-Classics/trunk/ROI/src</connection>
+		<url>http://ocsvn114.eigqclab.mckesson.com/svn/DM-Classics/trunk/ROI/src</url>
 	</scm>
 	
 	<build>
