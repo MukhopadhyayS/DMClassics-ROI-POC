@@ -83,7 +83,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 object[] requestParams = new object[] { patient.MRN, patient.FacilityCode, ROIConstants.DateFormat, false };
                 object response = HPFWHelper.Invoke(medicalRecordService, "getMedicalRecord", PrepareHPFWParams(requestParams));
                 PatientDetails patDetails = MapModel((medicalRecord)response, patient);
-                PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patDetails);
+                //PatientDetailsCache.AddData(patient.MRN + patient.facilityCode, patDetails);
                 return patDetails;
             }
         }   
