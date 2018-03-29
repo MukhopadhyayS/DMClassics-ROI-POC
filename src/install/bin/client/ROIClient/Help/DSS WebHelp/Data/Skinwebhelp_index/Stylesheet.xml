@@ -6,9 +6,9 @@
             <Classes>
                 <StyleClass Name="Logo">
                     <Properties>
-                        <Property Name="LogoAlternateText">Copyright ©  2014 McKesson Corporation and/or one of its subsidiaries. All rights reserved. Produced in Cork, Ireland.</Property>
-                        <Property Name="AboutBoxAlternateText">Copyright ©  2014 McKesson Corporation and/or one of its subsidiaries. All rights reserved. Produced in Cork, Ireland.</Property>
-                        <Property Name="Icon">url('mck_logo_rev.png')</Property>
+                        <Property Name="LogoAlternateText">Allscripts</Property>
+                        <Property Name="AboutBoxAlternateText">Allscripts</Property>
+                        <Property Name="Icon">url('allscripts_logo_help.png')</Property>
                         <Property Name="ControlType">Logo</Property>
                     </Properties>
                 </StyleClass>
@@ -31,8 +31,8 @@
                         <Property Name="Icon">url('QuickSearch.gif')</Property>
                         <Property Name="PressedIcon">url('QuickSearch_selected.gif')</Property>
                         <Property Name="HoverIcon">url('QuickSearch_over.gif')</Property>
-                        <Property Name="Tooltip">Search this topic</Property>
-                        <Property Name="SearchBoxTooltip">Search this topic</Property>
+                        <Property Name="Tooltip">Search only this topic</Property>
+                        <Property Name="SearchBoxTooltip">Search only this topic</Property>
                         <Property Name="ControlType">QuickSearch</Property>
                     </Properties>
                 </StyleClass>
@@ -247,8 +247,8 @@
                         <Property Name="Label">Contents</Property>
                         <Property Name="Icon">url('TocIcon.gif')</Property>
                         <Property Name="Color">#ffffff</Property>
-                        <Property Name="BackgroundGradient">solid #0168ad White</Property>
-                        <Property Name="BackgroundGradientHover">solid #4397d3 White</Property>
+                        <Property Name="BackgroundGradient">solid #007d8a White</Property>
+                        <Property Name="BackgroundGradientHover">solid #007d8a White</Property>
                         <Property Name="ItemHeight">28px</Property>
                         <Property Name="BorderLeft">solid 0px #000000</Property>
                         <Property Name="BorderBottom">solid 1px #000000</Property>
@@ -259,8 +259,8 @@
                         <Property Name="Label">Search</Property>
                         <Property Name="Icon">url('SearchIcon.gif')</Property>
                         <Property Name="Color">#ffffff</Property>
-                        <Property Name="BackgroundGradient">solid #0168ad White</Property>
-                        <Property Name="BackgroundGradientHover">solid #4397d3 White</Property>
+                        <Property Name="BackgroundGradient">solid #007d8a White</Property>
+                        <Property Name="BackgroundGradientHover">solid #007d8a White</Property>
                         <Property Name="ItemHeight">28px</Property>
                         <Property Name="BorderLeft">solid 0px #000000</Property>
                         <Property Name="BorderBottom">solid 1px #000000</Property>
@@ -269,7 +269,7 @@
                 <StyleClass Name="IconTray">
                     <Properties>
                         <Property Name="ItemHeight">28px</Property>
-                        <Property Name="BackgroundGradient">solid #0168ad White</Property>
+                        <Property Name="BackgroundGradient">solid #007d8a White</Property>
                         <Property Name="BorderLeft">solid 0px #000000</Property>
                         <Property Name="BorderBottom">solid 1px #000000</Property>
                         <Property Name="Icon">none</Property>
@@ -282,8 +282,8 @@
                         <Property Name="Label">Glossary</Property>
                         <Property Name="Icon">url('GlossaryIcon.gif')</Property>
                         <Property Name="Color">#ffffff</Property>
-                        <Property Name="BackgroundGradient">solid #0168ad White</Property>
-                        <Property Name="BackgroundGradientHover">solid #4397d3 White</Property>
+                        <Property Name="BackgroundGradient">solid #007d8a White</Property>
+                        <Property Name="BackgroundGradientHover">solid #007d8a White</Property>
                         <Property Name="ItemHeight">28px</Property>
                         <Property Name="BorderLeft">solid 0px #000000</Property>
                         <Property Name="BorderBottom">solid 1px #000000</Property>
@@ -306,8 +306,8 @@
                         <Property Name="Label">Index</Property>
                         <Property Name="Icon">url('IndexIcon.gif')</Property>
                         <Property Name="Color">#ffffff</Property>
-                        <Property Name="BackgroundGradient">solid #0168ad White</Property>
-                        <Property Name="BackgroundGradientHover">solid #4397d3 White</Property>
+                        <Property Name="BackgroundGradient">solid #007d8a White</Property>
+                        <Property Name="BackgroundGradientHover">solid #007d8a White</Property>
                         <Property Name="ItemHeight">28px</Property>
                         <Property Name="BorderLeft">solid 0px #000000</Property>
                         <Property Name="BorderBottom">solid 1px #000000</Property>
@@ -349,7 +349,7 @@
                 </StyleClass>
                 <StyleClass Name="Toolbar">
                     <Properties>
-                        <Property Name="BackgroundGradient">vertical #4397d3 #4397d3</Property>
+                        <Property Name="BackgroundGradient">vertical #ffffff #ffffff</Property>
                         <Property Name="Scrolling">no</Property>
                         <Property Name="Height">33px</Property>
                     </Properties>
@@ -379,7 +379,7 @@
         </Style>
         <Style Name="TocEntry">
             <Properties>
-                <Property Name="Color">#0168ad</Property>
+                <Property Name="Color">#007d8a</Property>
                 <Property Name="TopicIcon">url('topic.png')</Property>
                 <Property Name="BookIcon">url('book.png')</Property>
                 <Property Name="BookOpenIcon">url('book_open.png')</Property>
@@ -819,7 +819,7 @@
         <Resource Name="NextTopic.gif" Width="23" Height="22" />
         <Resource Name="NextTopic_over.gif" Width="23" Height="22" />
         <Resource Name="NextTopic_selected.gif" Width="23" Height="22" />
-        <Resource Name="mck_logo_rev.png" Width="123" Height="25" />
+        <Resource Name="allscripts_logo_help.png" Width="132" Height="33" />
         <Resource Name="TocIcon.gif" Width="16" Height="16" />
         <Resource Name="IndexIcon.gif" Width="16" Height="16" />
         <Resource Name="SearchIcon.gif" Width="16" Height="16" />

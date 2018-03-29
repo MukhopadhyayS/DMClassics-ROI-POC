@@ -1,6 +1,6 @@
 var xmlSkinData = "";
 xmlSkinData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlSkinData += '<CatapultSkin Version=\"1\" Title=\"McKesson Help\" Top=\"100px\" Left=\"400px\" Width=\"900px\" Height=\"700px\" Tabs=\"TOC,Index,Search,Favorites\" Bottom=\"246px\" Right=\"620px\" UseBrowserDefaultSize=\"true\" BrowserSetup=\"Resizable\" NavigationLinkTop=\"true\" DefaultTab=\"TOC\" EnableAboutBox=\"false\" AutoSyncTOC=\"true\" DisplayNotificationOptions=\"false\">';
+xmlSkinData += '<CatapultSkin Version=\"1\" Title=\"Allscripts Help\" Top=\"100px\" Left=\"400px\" Width=\"900px\" Height=\"700px\" Tabs=\"TOC,Index,Search,Favorites\" Bottom=\"246px\" Right=\"620px\" UseBrowserDefaultSize=\"true\" BrowserSetup=\"Resizable\" NavigationLinkTop=\"true\" DefaultTab=\"TOC\" EnableAboutBox=\"false\" AutoSyncTOC=\"true\" DisplayNotificationOptions=\"false\">';
 xmlSkinData += '    <!-- saved from url=(0016)http://localhost -->';
 xmlSkinData += '    <Toc LinesBetweenItems=\"true\" LinesFromRoot=\"false\" SingleClick=\"true\" PlusMinusSquares=\"false\" AlwaysShowSelection=\"false\" UseFolderIcons=\"false\" ImageListWidth=\"16\" BinaryStorage=\"false\" />';
 xmlSkinData += '    <Stylesheet Link=\"Stylesheet.xml\">';

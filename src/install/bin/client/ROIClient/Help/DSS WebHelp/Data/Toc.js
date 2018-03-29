@@ -1,10 +1,12 @@
 var xmlTocData = "";
 xmlTocData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlTocData += '<CatapultToc Version=\"1\" DescendantCount=\"31\">';
+xmlTocData += '<CatapultToc Version=\"1\" DescendantCount=\"32\">';
 xmlTocData += '    <!-- saved from url=(0016)http://localhost -->';
-xmlTocData += '    <TocEntry Title=\"Title\" Link=\"/front_matter/title_page-eisdm.htm\" ComputedResetPageLayout=\"true\" ComputedFirstTopic=\"true\" DescendantCount=\"0\" />';
-xmlTocData += '    <TocEntry Title=\"Copyright\" Link=\"/front_matter/copyright_page-eisdm.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />';
-xmlTocData += '    <TocEntry Title=\"About This Document\" Link=\"/about_this_document/about_this_document.htm\" BreakType=\"chapter\" PageType=\"continue\" AutoEndOnLeftPage=\"disabled\" StartSection=\"false\" PageLayout=\"/Content/Resources/PageLayouts/Normal.flpgl\" PageNumberReset=\"continue\" ComputedResetPageLayout=\"true\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />';
+xmlTocData += '    <TocEntry Title=\"Title\" Link=\"/front_matter/title_page-allscripts.htm\" ComputedResetPageLayout=\"true\" ComputedFirstTopic=\"true\" DescendantCount=\"0\" />';
+xmlTocData += '    <TocEntry Title=\"Copyright\" Link=\"/front_matter/copyright_page-allscripts.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />';
+xmlTocData += '    <TocEntry Title=\"About This Document\" Link=\"/about_this_document/about_this_document.htm\" BreakType=\"chapter\" PageType=\"continue\" AutoEndOnLeftPage=\"disabled\" StartSection=\"false\" PageLayout=\"/Content/Resources/PageLayouts/Normal.flpgl\" PageNumberReset=\"continue\" ComputedResetPageLayout=\"true\" ComputedFirstTopic=\"false\" DescendantCount=\"1\">';
+xmlTocData += '        <TocEntry Title=\"Customer Support\" Link=\"/front_matter/customer_support.htm\" xmlns:MadCap=\"http://www.madcapsoftware.com/Schemas/MadCap.xsd\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />';
+xmlTocData += '    </TocEntry>';
 xmlTocData += '    <TocEntry Title=\"Getting Started\" Link=\"/getting_started/getting_started-dss.htm\" BreakType=\"chapter\" PageType=\"continue\" AutoEndOnLeftPage=\"disabled\" StartSection=\"false\" PageLayout=\"/Content/Resources/PageLayouts/Normal.flpgl\" PageNumberReset=\"continue\" ChapterNumber=\"1\" SectionNumberReset=\"continue\" VolumeNumberReset=\"same\" ChapterNumberReset=\"continue\" ComputedResetPageLayout=\"true\" ComputedFirstTopic=\"false\" DescendantCount=\"14\">';
 xmlTocData += '        <TocEntry Title=\"OneContent Patient Folder components\" Link=\"/getting_started/components.htm\" BreakType=\"pageLayout\" PageType=\"continue\" AutoEndOnLeftPage=\"disabled\" StartSection=\"false\" PageLayout=\"/Content/Resources/PageLayouts/Normal.flpgl\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />';
 xmlTocData += '        <TocEntry Title=\"Viewer window\" Link=\"/getting_started/viewer_window.htm#_Toc400617821\" BreakType=\"pageLayout\" PageType=\"continue\" AutoEndOnLeftPage=\"disabled\" StartSection=\"false\" PageLayout=\"/Content/Resources/PageLayouts/Normal.flpgl\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />';
