@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Requests" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="WebHelp" lang="en-us" xml:lang="en-us" MadCap:PathToHelpSystem="../" MadCap:HelpSystemFileName="help.xml" MadCap:SearchType="Stem">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>About PDF documents</title>
+        <link href="../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../resources/stylesheets/allscripts_styles.css" rel="stylesheet" />
+        <script src="../SkinSupport/jquery.min.js">
+        </script>
+        <script src="../SkinSupport/MadCapAll.js">
+        </script>
+        <script src="../SkinSupport/MadCapTopicAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="requests_-_toc.htm">Requests</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">About PDF documents</span>
+            </div>
+        </div>
+        <h2 class="Heading2"><a name="requests_about_pdf_documents_htm"></a><a name="_Toc400107042"></a>About PDF documents</h2>
+        <p>PDF output is useful when you need to ship large volumes of patient documents to a requestor. The system generates one PDF file for all OneContent Patient Folder documents, one for all non-OneContent Patient Folder documents, and one for all attachments that are selected for output to PDF. The PDF files can be transferred to a CD or other media for shipment, bypassing costly paper output.</p>
+        <div class="MCDropDown_0">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2919150100_0" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Passwords for PDF documents</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2919150100_0" style="display: none;">
+                <p>Two types of passwords may exist for PDF documents to provide security against unauthorized access: </p>
+                <ul class="ul_1">
+                    <li class="li_1" value="1">A <span class="Drop-downhotspot" style="font-weight: bold;">queue</span><span class="Drop-downhotspot"><b> password</b>,</span> which is optional. Released documents are password protected only if a queue password exists.</li>
+                </ul>
+                <p class="NormalIndent1">Administrators specify whether to require a queue password while configuring a "Save as file" queue and can optionally specify a default password. Even if a password isn't required, you can still create a queue password when you generate the release documents. A queue password exists either by default or because you apply one as you generate the PDF documents for release. </p>
+                <ul class="ul_1">
+                    <li class="li_1" value="1">A <span class="Drop-downhotspot" style="font-weight: bold;">request </span><span class="Drop-downhotspot"><b>password</b>,</span> which is always automatically generated only once and applies to all documents for a specific request.</li>
+                </ul>
+                <p class="NormalIndent1">The request password applies to the original release of documents for a request as well as for subsequent releases for that request (for example, if you add documents to the request, resend documents, or re-release documents). It is effective only when a queue password exists. &#160;</p>
+                <p>Requestors can use either the queue or request password to open password-protected documents. The queue password gives the user administrator rights to the PDF; the request password gives the user limited rights to the PDF. &#160;Follow procedures established by your site to convey the password(s) to the requestor in a secure manner. </p>
+                <p>Passwords are displayed in clear text on these windows only when both passwords exist:</p>
+                <ul class="ul_1">
+                    <li class="li_1" value="1">Requests &gt; Invoice History </li>
+                    <li class="li_1" value="2">Requests &gt; Release History </li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown_0">
+            <div class="MCDropDownHead_0"><a class="MCDropDownHotSpot_0" href="javascript:void(0);" id="MCDropDownHotSpot_2919150100_1" onclick="FMCDropDown( this ); return false;"><img style="border: none;margin-right: 5px;" src="../SkinSupport/DropDownClosed.gif" MadCap:altsrc="../SkinSupport/DropDownOpen.gif" onload="if ( typeof( FMCPreloadImage ) == 'function' ) { FMCPreloadImage( '../SkinSupport/DropDownOpen.gif' ); }" alt="Closed" MadCap:alt2="Open" class="MCDropDownIcon" />Additional details</a>
+            </div>
+            <div class="MCDropDownBody_0" id="MCDropDownBody_2919150100_1" style="display: none;">
+                <p class="Drop-downhotspot">How are the PDF files named?</p>
+                <p class="Dropdowntext">The system automatically names the supplementary and patient document PDF files. </p>
+                <ul class="ul_2">
+                    <li class="Dropdowntext_1" value="1">The <span class="span_3">supplementary filename</span> format is: &#160;&lt;request-ID&gt;-Supplementary-v&lt;rel-sequence-num&gt;.pdf. </li>
+                    <li class="Dropdowntext_1" value="2">The <span class="span_3">patient document filename</span> format is:</li>
+                </ul>
+                <p class="NormalIndent1">&lt;request-ID&gt;-&lt;facility&gt;-&lt;MRN&gt;-&lt;patient-name&gt;-v&lt;rel-sequence-num&gt;.pdf</p>
+                <p class="NormalIndent1">where:</p>
+                <table class="table_2">
+                    <col style="width: 90pt;" />
+                    <col style="width: 24pt;" />
+                    <col style="width: 209pt;" />
+                    <tr>
+                        <td class="td_5">
+                            <p class="p_9">request-ID</p>
+                        </td>
+                        <td class="td_5">
+                            <p>=</p>
+                        </td>
+                        <td class="td_5">
+                            <p>An ID generated by the ROI system.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_5">
+                            <p class="p_9">&lt;facility&gt;-&lt;MRN&gt;</p>
+                        </td>
+                        <td class="td_5">
+                            <p>=</p>
+                        </td>
+                        <td class="td_5">
+                            <p>The facility code and MRN associated with the patient.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_5">
+                            <p class="p_9">patient-name</p>
+                        </td>
+                        <td class="td_5">
+                            <p>=</p>
+                        </td>
+                        <td class="td_5">
+                            <p>LastName-FirstName format.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_5">
+                            <p class="p_9">rel-sequence-num</p>
+                        </td>
+                        <td class="td_5">
+                            <p>=</p>
+                        </td>
+                        <td class="td_5">
+                            <p>A release sequence number assigned by the system, such as 1, 2, 3, and so on; the sequence number is incremented by 1 each time this request has a release.</p>
+                            <p><span class="span_3">Note:</span> Very rarely, a patient document PDF file may exceed the permitted maximum file size, causing the system to break the single PDF file into parts. To identify each part, the system precedes the release sequence number with a part number (001, 002, and so on). For example:</p>
+                            <p class="NormalIndent1">10011-A-123456-Smith-John-001-v1.pdf<br />10011-A-123456-Smith-John-002-v1.pdf</p>
+                            <p>When combined in the indicated sequence, the "parts" form a single document.</p>
+                            <p>More examples of file names used for release documents are shown below:</p>
+                            <p class="NormalIndent1">10011-Supplementary-v1.pdf<br />10011-A-123456-Smith-John-v1.pdf<br />10011-B-654321-Smith-John-v1.pdf</p>
+                        </td>
+                    </tr>
+                </table>
+                <p class="Drop-downhotspot">Where do the PDF files reside?</p>
+                <div class="div_1">
+                    <p class="Dropdowntext">You cannot choose the save location for the PDF files. The system automatically creates the files in a shared directory path configured by your ROI system administrator. The path includes your OneContent Patient Folder user name as the name of the directory where your output files will reside. </p>
+                    <p class="Dropdowntext">Path format is: &#160;\\&lt;server-name&gt;\&lt;shared-dir$&gt;\&lt;your-username-dir&gt;\</p>
+                    <p class="Dropdowntext">Normally, ROI users do not need to access PDF files once they are created. The files exist only for downstream use by staff personnel who are responsible for shipping the files on physical media.</p>
+                </div>
+                <div class="div_1">
+                    <p class="Dropdowntext">You cannot choose the save location for the PDF files. The system automatically creates the files in a shared directory path configured by your ROI system administrator. The path includes your OneContent Patient Folder user name as the name of the directory where your output files will reside. </p>
+                    <p class="Dropdowntext">Path format is: &#160;\\&lt;server-name&gt;\&lt;shared-dir$&gt;\&lt;your-username-dir&gt;\</p>
+                    <p class="Dropdowntext">Normally, ROI users do not need to access PDF files once they are created. The files exist only for downstream use by staff personnel who are responsible for shipping the files on physical media.</p>
+                </div>
+                <p class="Drop-downhotspot">What does the PDF output include?</p>
+                <p class="Dropdowntext">For PDF output, each release may consist of multiple PDF files. The release includes one PDF file for each unique request ID-facility-MRN combination that exists on the request and for which documents are being released. If you generate letters and/or invoices for the release, the release also includes a supplementary PDF file that contains the letters and invoice you generated. Requestors can associate supplementary PDF files with the patient PDF files by virtue of the request ID in the file names. </p>
+                <p class="Drop-downhotspot">Attachments are a special case</p>
+                <div class="div_1">
+                    <p class="Dropdowntext">You can print and fax PDF attachments and can save XML attachments as PDF files. Each attachment is generated as a single PDF file that contains the source encrypted XML file and the human-readable PDF file as embedded files. Each container has a unique file name formatted as: </p>
+                    <p class="Dropdowntext">&lt;Request ID&gt;-&lt;Attachment Type&gt;-&lt;Facility ID&gt;-&lt;MRN&gt;-&lt;Patient Name&gt;-&lt;Unique attachment number&gt;.&lt;extension&gt;</p>
+                    <p class="Dropdowntext">For example: 12345-CCR-CCDA-654321-SMITH MARTHA L.-1.pdf</p>
+                </div>
+            </div>
+        </div>
+        <p class="Subhead1" style="font-style: italic;">What do you want to do?</p>
+        <p><a href="dialog_box_descriptions/save_as_file_dialog_box.htm#requests_dialog_box_descriptions_3274" class="SecondaryLink">View the Save as File dialog box description</a>
+        </p>
+        <p>&#160;</p>
+        <p class="HelpFooter"><span class="PrimaryProductName">OneContent</span> <span class="PrimaryReleaseNumber">Release 17.6.1</span> - <span class="PrimaryPublicationDate">April 2018</span><br />Proprietary to Allscripts - Not to be duplicated or disclosed to unauthorized persons.</p>
+        <script type="text/javascript" src="../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>
