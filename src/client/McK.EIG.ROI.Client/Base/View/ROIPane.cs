@@ -232,8 +232,9 @@ namespace McK.EIG.ROI.Client.Base.View
 
         public void deleteTemporaryFiles() 
         {
-            string csvTempPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), System.Configuration.ConfigurationSettings.AppSettings["CacheFolder"]);
-            string previewPDFFilePath = Path.GetTempPath() + BillingController.DirectoryPath;                
+            string tempPath = Path.Combine(Environment.CurrentDirectory, "temp");
+            string csvTempPath = Path.Combine(tempPath, System.Configuration.ConfigurationSettings.AppSettings["CacheFolder"]);
+            string previewPDFFilePath = tempPath + BillingController.DirectoryPath;                
             try
             {
                 log.Info("Deleting cached report CSV files");
