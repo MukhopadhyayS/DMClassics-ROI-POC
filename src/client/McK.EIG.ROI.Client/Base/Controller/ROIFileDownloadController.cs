@@ -66,7 +66,8 @@ namespace McK.EIG.ROI.Client.Base.Controller
             FileStream fileStream = null;
             try
             {
-                if (Validator.Validate(filePath, ROIConstants.FilepathValidation))
+                /// Can't double check the filepath here because sometimes the path will be what the user selected from the local computer vs the temp folder of the applications
+               if (Validator.Validate(filePath, ROIConstants.FilepathValidation) )
                 {
                     string directoryName = Path.GetDirectoryName(filePath);
                     if (Directory.Exists(directoryName))
@@ -74,8 +75,11 @@ namespace McK.EIG.ROI.Client.Base.Controller
                         try {
                             System.GC.Collect();
                             System.GC.WaitForPendingFinalizers();
-                            File.Delete(filePath); }
-                        catch (Exception ex) { }
+                            File.Delete(filePath);
+                        }
+                        catch (Exception ex) {
+
+                        }
                     }
                 }
 

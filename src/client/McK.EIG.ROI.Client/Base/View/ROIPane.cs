@@ -257,7 +257,7 @@ namespace McK.EIG.ROI.Client.Base.View
                 {
                     try
                     {
-                        if (Validator.Validate(filePath, ROIConstants.FilepathValidation))
+                        if (Validator.Validate(filePath, ROIConstants.FilepathValidation)  && filePath.StartsWith(Environment.CurrentDirectory))
                         {
                             File.Delete(filePath);
                         }
