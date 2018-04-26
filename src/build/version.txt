@@ -1,7 +1,7 @@
 #Build Information
-#Thu, 26 Apr 2018 05:31:11 -0400
+#Thu, 26 Apr 2018 06:39:10 -0400
 #Wed Aug 22 22:56:47 EDT 2012
-assembly.number=2003
+assembly.number=2004
 assembly.servicePack=2
 project.name=ROI-17.6.2
 assembly.minor=6
@@ -10,8 +10,8 @@ Company=AllScripts HealthCare
 assembly.major=17
 build.major=17
 build.servicePack=2
-build.number=2003
-build.date=2018-04-26T05\:31\:11.088Z
+build.number=2004
+build.date=2018-04-26T06\:39\:10.038Z
 Product=
 Copyright=Copyright (c)2018 AllScripts HealthCare and/or one of its subsidiaries. All Rights Reserved.
 build.revision=2
