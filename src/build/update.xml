@@ -458,9 +458,9 @@
 		<echo message="**************** copying OCInternalComm jar to prototype location ********************************" />
 		<ivy:retrieve pattern="${ivy.prototype.dir}/OCInternalComm-[revision].[ext]" conf="jars"/>
 		<echo message="**************** copying OCSecurity dll  to ROI Clinet application location ********************************" />
-		<ivy:retrieve pattern="${ivy.roiclient.dir}/OCSecurity-17.6.1.dll" conf="dll"/>
+		<ivy:retrieve pattern="${ivy.roiclient.dir}/OCSecurity-17.6.2.dll" conf="dll"/>
 		<echo message="**************** copying OCSecurity dll  to ROI Clinet application debug folder ********************************" />
-		<ivy:retrieve pattern="${ivy.roiclient.debug.dir}/OCSecurity-17.6.1.dll" conf="dll"/>		
+		<ivy:retrieve pattern="${ivy.roiclient.debug.dir}/OCSecurity-17.6.2.dll" conf="dll"/>		
 	</target>
 
 	<target name="delete-files" >
@@ -477,12 +477,12 @@
 	</delete>
 	<delete failonerror="false" includeEmptyDirs="true">
 		<fileset dir="${source.local.root.path}/client/McK.EIG.ROI.Client.App" defaultexcludes="no">
-				<include name="OCSecurity-17.6.1.dll" />
+				<include name="OCSecurity-17.6.2.dll" />
 			</fileset>
 	</delete>
 	<delete failonerror="false" includeEmptyDirs="true">
 		<fileset dir="${source.local.root.path}/client/McK.EIG.ROI.Client.App/bin/debug" defaultexcludes="no">
-				<include name="OCSecurity-17.6.1.dll" />
+				<include name="OCSecurity-17.6.2.dll" />
 			</fileset>
 	</delete>
 	</target>
