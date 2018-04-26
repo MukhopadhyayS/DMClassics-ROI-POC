@@ -238,8 +238,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
             {
                 serverParameter.Add(ROIConstants.BlockSize, blockSize);
             }
-
-            string filePath = Path.GetTempPath() + DirectoryPath;
+            string filePath = Path.Combine(Path.Combine(Environment.CurrentDirectory, "temp") , DirectoryPath);
 
             if (!Directory.Exists(filePath))
             {

@@ -126,7 +126,7 @@ namespace McK.EIG.ROI.Client.Base.View
                 AttachmentController attachmentController = new AttachmentController();
                 filePath = attachmentController.DownloadAttachment(attachmentID, attachmentExt, ProgressHandler);
 
-                if (!String.IsNullOrEmpty(filePath) && Validator.Validate(filePath, ROIConstants.FilepathValidation))
+                if (!String.IsNullOrEmpty(filePath) && Validator.Validate(filePath, ROIConstants.FilepathValidation) && filePath.StartsWith(Environment.CurrentDirectory))
                 {
                     log.Info("Attachment content fetched from server, displaying attachment");
                     using (StreamReader sr = new StreamReader(filePath))
@@ -195,7 +195,7 @@ namespace McK.EIG.ROI.Client.Base.View
             finally
             {
                 // delete the temp file
-                if (!String.IsNullOrEmpty(filePath) && Validator.Validate(filePath, ROIConstants.FilepathValidation))
+                if (!String.IsNullOrEmpty(filePath) && Validator.Validate(filePath, ROIConstants.FilepathValidation) && filePath.StartsWith(Environment.CurrentDirectory))
                 {
                     try
                     {
