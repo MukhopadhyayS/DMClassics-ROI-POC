@@ -435,7 +435,7 @@ namespace McK.EIG.ROI.Client.Reports.View
         /// <param name="exportType"></param>
         private void Export(string exportPath, ExportFormat exportFormat)
         {
-            if (Validator.Validate(exportPath, ROIConstants.FilepathValidation))
+            if (Validator.Validate(exportPath, ROIConstants.FilepathValidation) && reportDetails.FilePath.StartsWith(Environment.CurrentDirectory))
             {
                 ExportOptions exportOptions = ((ReportDocument)crystalReportViewer.ReportSource).ExportOptions;
                 if (exportOptions != null)
