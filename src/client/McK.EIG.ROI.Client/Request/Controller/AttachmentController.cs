@@ -94,7 +94,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
                 string addExt = attachmentExt.StartsWith(".") ? attachmentExt : "." + attachmentExt;
                 TempPath = Path.Combine(Environment.CurrentDirectory, "temp");
                 log.Info("Downloading attachment to temporary location: " + TempPath);
-
+                Directory.CreateDirectory(TempPath);
                 String filePath = TempPath + "\\" + attachmentId + addExt;
 
                 // make sure you can write to the file path
