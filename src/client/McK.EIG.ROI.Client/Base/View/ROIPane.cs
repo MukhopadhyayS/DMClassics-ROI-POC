@@ -230,15 +230,27 @@ namespace McK.EIG.ROI.Client.Base.View
             }
         }
 
+        public bool isValidPath(String path)
+        {
+            String canonicalPath = Path.GetFullPath(path);
+           // String canonicalPath = new Uri(path).LocalPath;
+          if (canonicalPath.StartsWith(Path.Combine(Environment.CurrentDirectory, "temp")))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void deleteTemporaryFiles() 
         {
             string tempPath = Path.Combine(Environment.CurrentDirectory, "temp");
             string csvTempPath = Path.Combine(tempPath, System.Configuration.ConfigurationSettings.AppSettings["CacheFolder"]);
-            string previewPDFFilePath = tempPath + BillingController.DirectoryPath;                
+            string previewPDFFilePath = tempPath + BillingController.DirectoryPath;    
             try
             {
                 log.Info("Deleting cached report CSV files");
-                if (Directory.Exists(csvTempPath))
+                if (isValidPath(csvTempPath) && Directory.Exists(csvTempPath))
                 {
                     Directory.Delete(csvTempPath, true);
                 }
@@ -257,7 +269,7 @@ namespace McK.EIG.ROI.Client.Base.View
                 {
                     try
                     {
-                        if (Validator.Validate(filePath, ROIConstants.FilepathValidation)  && filePath.StartsWith(Environment.CurrentDirectory))
+                        if (isValidPath(filePath) && Validator.Validate(filePath, ROIConstants.FilepathValidation))
                         {
                             File.Delete(filePath);
                         }
