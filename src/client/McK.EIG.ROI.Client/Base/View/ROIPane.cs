@@ -232,9 +232,9 @@ namespace McK.EIG.ROI.Client.Base.View
 
         public bool isValidPath(String path)
         {
-            String canonicalPath = Path.GetFullPath(path);
-           // String canonicalPath = new Uri(path).LocalPath;
-          if (canonicalPath.StartsWith(Path.Combine(Environment.CurrentDirectory, "temp")))
+            //String canonicalPath = Path.GetFullPath(path);
+            String canonicalPath = new Uri(path).LocalPath;
+            if (canonicalPath.StartsWith(Path.Combine(Environment.CurrentDirectory, "temp")))
             {
                 return true;
             }
@@ -249,18 +249,22 @@ namespace McK.EIG.ROI.Client.Base.View
             string previewPDFFilePath = tempPath + BillingController.DirectoryPath;    
             try
             {
-                log.Info("Deleting cached report CSV files");
+                log.Info("Attempting to delete cached report CSV files folder");
                 if (isValidPath(csvTempPath) && Directory.Exists(csvTempPath))
                 {
                     Directory.Delete(csvTempPath, true);
                 }
+                else
+                {
+                    log.Error("Unable to delete cached report CSV files folder " + csvTempPath);
+                }
             }
             catch (Exception ex)
             {
-                log.Error("Unable to delete cached report CSV file " + csvTempPath + " Error : " + ex.Message);
+                log.Error("Unable to delete cached report CSV files folder " + csvTempPath + " Error : " + ex.Message);
             }
 
-            log.Info("Deleting cached temp files");
+            log.Info("Attempting to delete cached temp files");
 
             if (Directory.Exists(previewPDFFilePath))
             {
