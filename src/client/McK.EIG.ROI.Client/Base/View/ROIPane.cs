@@ -234,7 +234,7 @@ namespace McK.EIG.ROI.Client.Base.View
         {
             //String canonicalPath = Path.GetFullPath(path);
             String canonicalPath = new Uri(path).LocalPath;
-            if (canonicalPath.StartsWith(Path.Combine(Environment.CurrentDirectory, "temp")))
+            if (canonicalPath.StartsWith(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp")))
             {
                 return true;
             }
@@ -244,7 +244,7 @@ namespace McK.EIG.ROI.Client.Base.View
 
         public void deleteTemporaryFiles() 
         {
-            string tempPath = Path.Combine(Environment.CurrentDirectory, "temp");
+            string tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
             string csvTempPath = Path.Combine(tempPath, System.Configuration.ConfigurationSettings.AppSettings["CacheFolder"]);
             string previewPDFFilePath = tempPath + BillingController.DirectoryPath;    
             try
