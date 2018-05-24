@@ -162,8 +162,16 @@ namespace McK.EIG.ROI.Client.Patient.View
                 {
                     foreach (PatientDetails pdetails in selectedPatients)
                     {
-                        if(!(pdetails.EPN.Contains(UserData.Instance.EpnPrefix)))
-                            pdetails.EPN = UserData.Instance.EpnPrefix + pdetails.EPN;
+                        if ((pdetails.EPN == String.Empty) || (UserData.Instance.EpnPrefix == String.Empty))
+                        {
+                            pdetails.EPN = pdetails.EPN;
+                        }
+                        else
+                        {                          
+                            if (!(pdetails.EPN.Contains(UserData.Instance.EpnPrefix)))
+                                pdetails.EPN = UserData.Instance.EpnPrefix + pdetails.EPN;
+                        }
+                        
                     }
                 }
                 Collection<RequestorDetails> requestors = PatientController.Instance.RetrieveMatchingRequestors(selectedPatients);
