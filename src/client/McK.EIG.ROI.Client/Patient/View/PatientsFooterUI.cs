@@ -162,7 +162,7 @@ namespace McK.EIG.ROI.Client.Patient.View
                 {
                     foreach (PatientDetails pdetails in selectedPatients)
                     {
-                        if ((pdetails.EPN == String.Empty) || (UserData.Instance.EpnPrefix == String.Empty))
+                        if ((pdetails.EPN == null) || (UserData.Instance.EpnPrefix == String.Empty))
                         {
                             pdetails.EPN = pdetails.EPN;
                         }
