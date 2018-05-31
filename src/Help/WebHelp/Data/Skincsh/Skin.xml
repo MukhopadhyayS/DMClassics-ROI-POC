@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CatapultSkin Version="1" Title="Online Help" Top="0px" Left="0px" Width="300px" Height="900px" Tabs="TOC,Search" Bottom="0px" Right="25px" NavigationLinkTop="true" Anchors="Right,Width,Height" DefaultTab="TOC" BrowserSetup="Resizable" EnableAboutBox="false" AutoSyncTOC="true">
+    <!-- saved from url=(0016)http://localhost -->
+    <Toc LinesBetweenItems="true" LinesFromRoot="false" SingleClick="false" PlusMinusSquares="false" AlwaysShowSelection="false" UseFolderIcons="false" ImageListWidth="16" BinaryStorage="false" />
+    <Stylesheet Link="Stylesheet.xml">
+    </Stylesheet>
+    <WebHelpOptions HideNavigationOnStartup="true" NavigationPaneWidth="250" AboutBox="About.png" AboutBoxWidth="301" AboutBoxHeight="78">
+    </WebHelpOptions>
+    <Toolbar EnableCustomLayout="true" Buttons="AddTopicToFavorites|ToggleNavigationPane|RemoveHighlight|Separator|Print|Back|Forward|Separator|QuickSearch" />
+    <HtmlHelpOptions Buttons="Hide,Back,Forward,Print" NavigationPaneWidth="400" AdvancedSearch="true" SaveUserWindowPosition="true" />
+    <TopicToolbar EnableCustomLayout="true" Buttons="" />
+</CatapultSkin>
