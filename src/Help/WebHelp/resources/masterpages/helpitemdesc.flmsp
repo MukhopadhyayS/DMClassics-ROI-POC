@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
-    <head>
-    </head>
-    <body class="ItemDescription">
-        <MadCap:bodyProxy />
-        <p class="HelpFooter">OneContent <MadCap:variable name="Primary.ReleaseNumber" /> - <MadCap:variable name="Primary.PublicationDate" /><br />This page contains Hyland proprietary information and is not to be duplicated or disclosed to unauthorized persons.</p>
-    </body>
-</html>
