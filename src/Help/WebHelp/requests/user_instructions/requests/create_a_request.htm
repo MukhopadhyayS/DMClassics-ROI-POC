@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Requests|User instructions|Requests" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="WebHelp" lang="en-us" xml:lang="en-us" MadCap:PathToHelpSystem="../../../" MadCap:HelpSystemFileName="help.xml" MadCap:SearchType="Stem">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Create a request</title>
+        <link href="../../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../../resources/stylesheets/localformat.css" rel="stylesheet" />
+        <script src="../../../SkinSupport/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapAll.js" type="text/javascript">
+        </script>
+        <script src="../../../SkinSupport/MadCapTopicAll.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../../requests_-_toc.htm">Requests</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../user_instructions_-_toc.htm">User instructions</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="find_a_request.htm#_Toc400107048">Requests</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Create a request</span>
+            </div>
+        </div>
+        <h4 class="Heading4">Create a request</h4>
+        <p>You can create a request by either scanning a paper document (recommended) or by using the Create Request function.</p>
+        <p class="Subhead1">To create a request by scanning a letter or a form</p>
+        <p>This is the recommended method. </p>
+        <p class="Subhead1">Prerequisites</p>
+        <p>This method assumes that:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">You are an experienced OneContent user who knows how to use the DCS/QCI Workstation module.</li>
+            <li class="li_1" value="2">You have received or generated a paper document (such as a letter or a form) that defines the request.</li>
+            <li class="li_1" value="3">Your site has configured one OneContent document type per facility code set to use with valid authorization requests and one for invalid authorization requests.</li>
+            <li class="li_1" value="4">Your site has configured a day folder to associate with authorization requests for non-OneContent patients.</li>
+        </ul>
+        <p>This method associates the authorization with at least one patient encounter if the patient is found in the system database. If the patient is not found, the authorization is indexed to a day folder. Whether the authorization is for an OneContent patient or a non-OneContent patient, the result is the same. The system automatically creates a skeleton ROI request. </p>
+        <ol start="1" class="ol_1">
+            <li class="li_1" value="1">Using the DCS/QCI Workstation module, scan the paper document. </li>
+            <li class="li_1" value="2">Associate the scanned document with the document type used by your site to support scanned authorizations (either valid or invalid).</li>
+            <li class="li_1" value="3">Index the document to either a patient encounter (for an OneContent patient) or a day folder (for a non-OneContent patient). </li>
+        </ol>
+        <ol start="4" class="ol_1">
+            <li class="li_1" value="4">Release the document to the OneContent system. </li>
+        </ol>
+        <table class="AutoNumber_p_BulletListIndent" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+            <col style="width: 29.84px;" />
+            <col style="width: 22px;" />
+            <col style="width: auto;" />
+            <tr>
+                <td valign="top" />
+                <td class="AutoNumber_p_Step1" valign="top"><span> - </span>
+                </td>
+                <td class="AutoNumber_p_Step1" MadCap:autonum=" - " valign="top">If no indexing errors occur and the document is successfully released, the system creates an ROI request, assigns a unique request ID, and sets the request status to "Auth-Received" or "Auth-Received Denied." You can then access the request from the ROI Module for further processing. (See <a href="find_a_request.htm"><span class="SecondaryLink">Find a request</span></a> and select the "Auth-Received" or "Auth-Received Denied" request status as the search criteria.)</td>
+            </tr>
+        </table>
+        <table class="AutoNumber_p_BulletListIndent" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+            <col style="width: 29.84px;" />
+            <col style="width: 22px;" />
+            <col style="width: auto;" />
+            <tr>
+                <td valign="top" />
+                <td class="AutoNumber_p_Step1" valign="top"><span> - </span>
+                </td>
+                <td class="AutoNumber_p_Step1" MadCap:autonum=" - " valign="top">If indexes fail system validation, the system does not create an ROI request, and you must use the Index Correction Utility to make index corrections.</td>
+            </tr>
+        </table>
+        <table class="AutoNumber_p_BulletListIndent" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+            <col style="width: 29.84px;" />
+            <col style="width: 22px;" />
+            <col style="width: auto;" />
+            <tr>
+                <td valign="top" />
+                <td class="AutoNumber_p_Step1" valign="top"><span> - </span>
+                </td>
+                <td class="AutoNumber_p_Step1" MadCap:autonum=" - " valign="top">If indexes pass system validation but are wrong, you must use the ROI Module to delete the request, and then use the DCS/QCI Workstation module to re-scan the authorization document and associate it with the correct patient encounter or day folder.</td>
+            </tr>
+        </table>
+        <p class="Subhead1">To create a request using the Create Request function</p>
+        <p>This function allows you to manually create a request within the ROI module. This method may be appropriate when, for example, records are requested by an established, frequent requestor for whom an authorization document is waived. You can create a request from several points in the module, including the Patients tab, the Requestors tab, and the Requests tab. &#160;</p>
+        <p>For instructions, see:</p>
+        <p><a href="create_a_request/create_a_request_with_patient_requesting.htm" class="SecondaryLink">Create a request from the Patients tab</a>
+        </p>
+        <p><a href="create_a_request/create_a_request_from_the_requestors_tab.htm" class="SecondaryLink">Create a request from the Requestors tab</a>
+        </p>
+        <p><a href="create_a_request/create_a_request_from_the_requests_tab.htm" class="SecondaryLink">Create a request from the Requests tab</a>
+        </p>
+        <p class="Subhead1">Related topics</p>
+        <p><a href="add_a_patient_to_a_request.htm" class="SecondaryLink">Add a patient to a request</a>
+        </p>
+        <p><a href="../documents/add_documents_to_a_request.htm" class="SecondaryLink">Add documents to a request</a>
+        </p>
+        <p><a href="../../form_descriptions/release_and_invoice_form.htm" class="SecondaryLink">Release the documents and generate an invoice</a>
+        </p>
+        <h5 class="Heading5">Create a request from the Patients tab</h5>
+        <p>See instructions below for the type of request you want to create.</p>
+        <p>The system allows you to:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><a href="create_a_request/create_a_request_with_patient_requesting.htm" class="SecondaryLink">Create a request for a patient who is requesting his or her own records</a>
+            </li>
+            <li class="li_1" value="2"><a href="create_a_request/create_a_request_for_a_non-patient_requestor.htm" class="SecondaryLink">Create a request for a non-patient requestor</a> </li>
+        </ul>
+        <p class="Subhead1">Related topics</p>
+        <p><a href="../documents/release_documents.htm" class="SecondaryLink">Release the documents and generate an invoice</a>
+        </p>
+        <p class="HelpFooter"><span class="PrimaryProductName">OneContent</span>™ <span class="PrimaryReleaseNumber">Release 17.6.2</span> - <span class="PrimaryPublicationDate">August 2018</span><br />This page contains Hyland Software, Inc. proprietary information and is not to be duplicated or disclosed to unauthorized persons.</p>
+        <script type="text/javascript" src="../../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>
