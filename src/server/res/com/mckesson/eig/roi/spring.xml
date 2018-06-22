@@ -18,14 +18,14 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:mpfroi.properties</value>
+				<value>classpath:ocroi.properties</value>
 			</list>
 		</property>
 	</bean>
 	
 	<bean id="roiProperties"
 		class="org.apache.commons.configuration.PropertiesConfiguration">
-		<constructor-arg type="java.net.URL" value="classpath:mpfroi.properties" />
+		<constructor-arg type="java.net.URL" value="classpath:ocroi.properties" />
 		<property name="reloadingStrategy">
 			<bean class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy" />
 		</property>
@@ -188,7 +188,7 @@
 	<bean id="log_initializer"
 		class="com.mckesson.eig.utility.log.log4j.Log4JInitializer">
 		<property name="byProperties">
-			<value>mpfroi.properties</value>
+			<value>ocroi.properties</value>
 		</property>
 	</bean>
 
