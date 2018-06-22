@@ -405,7 +405,7 @@ implements RequestorDAO {
             String key = putParameters(String.valueOf(crit.getType()), "Type");
             whereClause.append(" req1.ROI_RequestorType_seq = ").append(":").append(key);
             hasCriteria = true;
-        } else {
+        } /*else {
             
             if (hasCriteria) {
                 whereClause.append(" AND ");
@@ -420,7 +420,7 @@ implements RequestorDAO {
             String key = putParameters(String.valueOf(crit.getPatientRequestorTypeId()), "PatientRequestorTypeId");
             whereClause.append("= ").append(":").append(key);
             hasCriteria = true;
-        }
+        }*/
         
         if (!crit.isAllStatus()) {
 
