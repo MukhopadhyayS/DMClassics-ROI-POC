@@ -23,7 +23,7 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:mpfroi.properties</value>
+				<value>classpath:ocroi.properties</value>
 			</list>
 		</property>
 	</bean>

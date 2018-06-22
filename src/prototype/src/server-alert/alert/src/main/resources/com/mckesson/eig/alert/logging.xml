@@ -34,7 +34,7 @@
 
 
     <appender name="eigDatabaseAppender" class="com.mckesson.eig.utility.log.log4j.appender.DatabaseLoggingAppender">
-       <param name="connectionPropertiesFile" value="mpfroi.properties"/>
+       <param name="connectionPropertiesFile" value="ocroi.properties"/>
        <param name="Threshold" value="ERROR"/>
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern"
@@ -45,7 +45,7 @@
 
     <appender name="EMAIL"  class="com.mckesson.eig.utility.log.log4j.appender.EmailLoggingAppender">
         <param name="BufferSize" value="512"/>
-         <param name="connectionPropertiesFile" value="mpfroi.properties"/>
+         <param name="connectionPropertiesFile" value="ocroi.properties"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%m" />
         </layout>
