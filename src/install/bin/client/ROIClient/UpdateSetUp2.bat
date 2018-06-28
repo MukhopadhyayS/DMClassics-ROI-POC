@@ -4,7 +4,7 @@ set clientVersion=17.0.1.118
 set clientAppFolder=Application Files/McK.EIG.ROI.Client.App_17_0_0_118
 
 rem Read configuration file
-call mpf-roi.config.bat
+call oc-roi.config.bat
 
 echo ROI : %ROI_PROTOCOL%://%ROI_IP%:%ROI_PORT%
 echo PORTAL : %PORTAL_PROTOCOL%://%PORTAL_IP%:%PORTAL_PORT%
