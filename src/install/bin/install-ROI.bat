@@ -50,8 +50,8 @@ if NOT EXIST %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\ocroi.properties got
    echo Found previous ROI install. Copying over ROI configuration files. This may take a few minutes...
    copy /Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\ocroi.properties MPFServer\mpfconfig\ocroi.properties.bak
 
-   findstr /c:"WINDSS" %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\mpf-roi.config.bat
-   if %errorlevel% neq 1 copy /Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\mpf-roi.config.bat MPFServer\webapps\ROOT\mpf-roi.config.bat.bak
+   findstr /c:"WINDSS" %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat
+   if %errorlevel% neq 1 copy /Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat MPFServer\webapps\ROOT\oc-roi.config.bat.bak
    
    rmdir /s /q %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient
    rmdir /s /q %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\roi
@@ -60,14 +60,14 @@ if NOT EXIST %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\ocroi.properties got
 :unpackroi
 echo Unzipping new code to %ONE_CONTENT_INSTALL_PATH%.  This may take a few minutes...
 %ONE_CONTENT_INSTALL_PATH%\jdk\64\bin\jar xf "%ZIP_FILE_PATH%"
-echo You MUST edit the %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\mpf-roi.config.bat file AND execute %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\updatesetup.bat
+echo You MUST edit the %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat file AND execute %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\updatesetup.bat
 goto end
 
 :unpackroiandupdateclient
 echo Unzipping new code to %ONE_CONTENT_INSTALL_PATH%.  This may take a few minutes...
 %ONE_CONTENT_INSTALL_PATH%\jdk\64\bin\jar xf "%ZIP_FILE_PATH%"
 move /Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\ocroi.properties.bak MPFServer\mpfconfig\ocroi.properties
-if exist %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\mpf-roi.config.bat.bak move/Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\mpf-roi.config.bat.bak MPFServer\webapps\ROOT\ROIClient\mpf-roi.config.bat
+if exist %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\oc-roi.config.bat.bak move/Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\oc-roi.config.bat.bak MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat
 goto checkrunupdatesetup
 
 :checkrunupdatesetup
