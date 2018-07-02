@@ -213,7 +213,7 @@
 		
 		<copy todir="${basedir}/bin/MPFServer/mpfconfig" preservelastmodified="true" includeEmptyDirs="false">
             <fileset dir="${dir.src}/server/res">
-				<include name="**/mpf*.properties"/>
+				<include name="**/oc*.properties"/>
 			</fileset>
         </copy>
         <!--echo message="**** Unzipping Audit config files to install area ****" />
