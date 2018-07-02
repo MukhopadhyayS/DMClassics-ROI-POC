@@ -46,8 +46,10 @@ set INSTALL_DRIVE=%ONE_CONTENT_INSTALL_PATH:~0,2%
 cd %ONE_CONTENT_INSTALL_PATH%
 echo Install Path: %ONE_CONTENT_INSTALL_PATH%
 echo ZIP File Path: %ZIP_FILE_PATH%
+if EXIST %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\mpfroi.properties ren %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\mpfroi.properties ocroi.properties
 if NOT EXIST %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\ocroi.properties goto unpackroi
    echo Found previous ROI install. Copying over ROI configuration files. This may take a few minutes...
+if EXIST %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\mpf-roi.config.bat ren %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\mpf-roi.config.bat oc-roi.config.bat
    copy /Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\ocroi.properties MPFServer\mpfconfig\ocroi.properties.bak
 
    findstr /c:"WINDSS" %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat
