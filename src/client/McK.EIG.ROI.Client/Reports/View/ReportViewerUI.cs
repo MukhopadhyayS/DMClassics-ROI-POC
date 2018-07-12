@@ -210,25 +210,8 @@ namespace McK.EIG.ROI.Client.Reports.View
                 ReportHelper.HideReportTabs(crystalReportViewer, false);
                 ShowReportHeader(string.Empty);
                 ApplyMasking();
-                //if (reportDetails.ReportType == ReportType.TurnaroundTimes)
-                //{
-                //    if (reportDocument.Rows.Count == 0)
-                //    {
-                //        EnableControls(false);
-                //    }
-                //    else
-                //    {
-                //        //string[] recordCountList = (filterComboBox.SelectedIndex == 0)
-                //        //                            ? reportDocument.Rows.DataView[0].Row[9].ToString().Split(' ')
-                //        //                            : reportDocument.Rows.DataView[0].Row[10].ToString().Split(' ');
-                //        //int recordCount = Convert.ToInt32(recordCountList[0], System.Threading.Thread.CurrentThread.CurrentUICulture);
-                //        //EnableControls(recordCount > 0);
-                //    }
-                //}
-                //else
-                //{
-                    EnableControls(reportDocument.Rows.Count > 0);
-                //}
+                if (reportDetails.ReportType == ReportType.AccountingDisclosure)  EnableControls(true);                
+                else EnableControls(reportDocument.Rows.Count > 0);
                 HeaderUI headerUI = new HeaderUI();
                 PatientHeaderUI patientHeaderUI = new PatientHeaderUI();
                 headerUI.HeaderExtension = patientHeaderUI;
