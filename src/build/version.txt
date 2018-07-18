@@ -1,7 +1,7 @@
 #Build Information
-#Mon, 16 Jul 2018 04:01:20 -0400
+#Wed, 18 Jul 2018 14:00:07 -0400
 #Wed Aug 22 22:56:47 EDT 2012
-assembly.number=2046
+assembly.number=2047
 assembly.servicePack=2
 project.name=ROI-17.6.2
 assembly.minor=6
@@ -10,8 +10,8 @@ Company=Hyland Software
 assembly.major=17
 build.major=17
 build.servicePack=2
-build.number=2046
-build.date=2018-07-16T04\:01\:20.943Z
+build.number=2047
+build.date=2018-07-18T14\:00\:07.205Z
 Product=
 Copyright=Copyright (c)2018 Hyland Software and/or one of its subsidiaries. All Rights Reserved.
 build.revision=2
