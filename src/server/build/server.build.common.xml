@@ -111,7 +111,7 @@
 		<copy todir="${dir.bin}" preservelastmodified="true" includeEmptyDirs="false">
             <fileset dir="${dir.resources}" defaultexcludes="yes">
                 <include name="**/*"/>
-                <exclude name="mpf*.properties"/>
+                <exclude name="oc*.properties"/>
             </fileset>
         </copy>
 	</target>
