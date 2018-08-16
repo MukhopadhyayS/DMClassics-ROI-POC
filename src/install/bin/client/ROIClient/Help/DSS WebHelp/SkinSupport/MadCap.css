@@ -345,6 +345,19 @@ td.AutoNumber_p_Step1
 	line-height: normal;
 }
 
+table.AutoNumber_p_DashList
+{
+	text-align: left;
+	letter-spacing: 0em;
+	text-decoration: none;
+	text-decoration-blink: false;
+	page-break-inside: avoid;
+	margin-left: 0.54in;
+	margin-right: 0in;
+	margin-top: 0px;
+	margin-bottom: 7pt;
+}
+
 div.MCDropDown_0
 {
 	margin: 0px;
@@ -447,19 +460,6 @@ a.MCXref_0:focus
 a.MCXref_0:hover
 {
 	
-}
-
-table.AutoNumber_p_BulletListIndent
-{
-	text-align: left;
-	letter-spacing: 0em;
-	text-decoration: none;
-	text-decoration-blink: false;
-	page-break-inside: avoid;
-	margin-left: 0.54in;
-	margin-right: 0in;
-	margin-top: 0px;
-	margin-bottom: 7pt;
 }
 
 table.AutoNumber_p_BulletList
