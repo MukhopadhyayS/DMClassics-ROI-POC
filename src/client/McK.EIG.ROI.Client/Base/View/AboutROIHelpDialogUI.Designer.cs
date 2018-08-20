@@ -34,9 +34,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.versionValueLabel = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.Button();
             this.supportInfoButton = new System.Windows.Forms.Button();
-            this.tradeMarkHeaderLabel = new System.Windows.Forms.Label();
             this.copyrightHeaderLabel = new System.Windows.Forms.Label();
-            this.tradeMarkInfoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // headerLabel
@@ -76,7 +74,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // closeButton
             // 
             this.closeButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeButton.Location = new System.Drawing.Point(463, 542);
+            this.closeButton.Location = new System.Drawing.Point(461, 373);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(87, 27);
             this.closeButton.TabIndex = 4;
@@ -86,21 +84,12 @@ namespace McK.EIG.ROI.Client.Base.View
             // supportInfoButton
             // 
             this.supportInfoButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.supportInfoButton.Location = new System.Drawing.Point(311, 542);
+            this.supportInfoButton.Location = new System.Drawing.Point(310, 373);
             this.supportInfoButton.Name = "supportInfoButton";
             this.supportInfoButton.Size = new System.Drawing.Size(145, 27);
             this.supportInfoButton.TabIndex = 5;
             this.supportInfoButton.UseVisualStyleBackColor = true;
             this.supportInfoButton.Click += new System.EventHandler(this.supportInfoButton_Click);
-            // 
-            // tradeMarkHeaderLabel
-            // 
-            this.tradeMarkHeaderLabel.AutoSize = true;
-            this.tradeMarkHeaderLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tradeMarkHeaderLabel.Location = new System.Drawing.Point(12, 353);
-            this.tradeMarkHeaderLabel.Name = "tradeMarkHeaderLabel";
-            this.tradeMarkHeaderLabel.Size = new System.Drawing.Size(0, 15);
-            this.tradeMarkHeaderLabel.TabIndex = 6;
             // 
             // copyrightHeaderLabel
             // 
@@ -111,22 +100,12 @@ namespace McK.EIG.ROI.Client.Base.View
             this.copyrightHeaderLabel.Size = new System.Drawing.Size(0, 15);
             this.copyrightHeaderLabel.TabIndex = 7;
             // 
-            // tradeMarkInfoLabel
-            // 
-            this.tradeMarkInfoLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tradeMarkInfoLabel.Location = new System.Drawing.Point(13, 383);
-            this.tradeMarkInfoLabel.Name = "tradeMarkInfoLabel";
-            this.tradeMarkInfoLabel.Size = new System.Drawing.Size(527, 148);
-            this.tradeMarkInfoLabel.TabIndex = 8;
-            // 
             // AboutROIHelpDialogUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.tradeMarkInfoLabel);
             this.Controls.Add(this.copyrightHeaderLabel);
-            this.Controls.Add(this.tradeMarkHeaderLabel);
             this.Controls.Add(this.supportInfoButton);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.versionValueLabel);
@@ -135,7 +114,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.Controls.Add(this.headerLabel);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "AboutROIHelpDialogUI";
-            this.Size = new System.Drawing.Size(565, 583);
+            this.Size = new System.Drawing.Size(565, 419);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,8 +130,6 @@ namespace McK.EIG.ROI.Client.Base.View
         private System.Windows.Forms.Label versionValueLabel;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button supportInfoButton;
-        private System.Windows.Forms.Label tradeMarkHeaderLabel;
         private System.Windows.Forms.Label copyrightHeaderLabel;
-        private System.Windows.Forms.Label tradeMarkInfoLabel;
     }
 }
