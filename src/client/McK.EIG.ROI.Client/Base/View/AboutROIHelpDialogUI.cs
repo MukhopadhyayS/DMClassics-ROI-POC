@@ -57,9 +57,7 @@ namespace McK.EIG.ROI.Client.Base.View
             SetLabel(rm, headerLabel);
             SetLabel(rm, versionLabel);
             SetLabel(rm, copyrightHeaderLabel);
-            SetLabel(rm, copyRightInfoLabel);
-            SetLabel(rm, tradeMarkHeaderLabel);
-            SetLabel(rm, tradeMarkInfoLabel);
+            SetLabel(rm, copyRightInfoLabel);            
             SetLabel(rm, supportInfoButton);
             SetLabel(rm, closeButton);
         }
