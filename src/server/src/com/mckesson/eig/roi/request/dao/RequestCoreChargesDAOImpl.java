@@ -18,6 +18,7 @@ package com.mckesson.eig.roi.request.dao;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -28,6 +29,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -36,7 +38,6 @@ import com.mckesson.eig.roi.request.model.RequestCoreChargesBilling;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesDocument;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesFee;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesShipping;
-import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
  * @author Keane
@@ -344,7 +345,7 @@ implements RequestCoreChargesDAO {
                                                             new RequestCoreChargesBilling();
 
                 requestBillingCharges.setRequestCoreChargesFee(
-                                            new HashSet<RequestCoreChargesFee>(feeCharges));
+                                            new LinkedHashSet<RequestCoreChargesFee>(feeCharges));
                 requestBillingCharges.setRequestCoreChargesDocument(
                                           new HashSet<RequestCoreChargesDocument>(documentCharges));
                 requestCoreCharges.setRequestCoreChargesBilling(requestBillingCharges);
