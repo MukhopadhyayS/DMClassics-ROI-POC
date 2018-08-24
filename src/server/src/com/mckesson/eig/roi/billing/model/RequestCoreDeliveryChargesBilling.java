@@ -1,10 +1,11 @@
 package com.mckesson.eig.roi.billing.model;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 
 public class RequestCoreDeliveryChargesBilling {
-    private Set<RequestCoreDeliveryChargesFee> _requestCoreDeliveryChargesFee;
+    private Set<RequestCoreDeliveryChargesFee> _requestCoreDeliveryChargesFee = new LinkedHashSet<RequestCoreDeliveryChargesFee>();
     private Set<RequestCoreDeliveryChargesDocument> _requestCoreDeliveryChargesDocument;
     
     public Set<RequestCoreDeliveryChargesFee> getRequestCoreDeliveryChargesFee() {

@@ -19,9 +19,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.service.BaseROIService;
 import com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO;
@@ -46,7 +48,6 @@ import com.mckesson.eig.roi.request.model.RequestCoreChargesFee;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesShipping;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -292,7 +293,7 @@ extends BaseROIService {
 
          RequestCoreChargesFee rCChargesFee = null;
          Set<RequestCoreDeliveryChargesFee> rCDeliveryChargesFeeSet =
-                                             new HashSet<RequestCoreDeliveryChargesFee>();
+                                             new LinkedHashSet<RequestCoreDeliveryChargesFee>();
 
          Set<RequestCoreChargesFee> requestCoreChargesFee =
                                          requestCoreChargesBilling.getRequestCoreChargesFee();

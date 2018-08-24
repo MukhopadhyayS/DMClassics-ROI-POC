@@ -10,7 +10,7 @@ public class RequestCoreChargesBilling {
     public Set<RequestCoreChargesFee> getRequestCoreChargesFee() {
         return _requestCoreChargesFee;
     }
-    public void setRequestCoreChargesFee(LinkedHashSet<RequestCoreChargesFee> requestCoreChargesFee) {
+    public void setRequestCoreChargesFee(Set<RequestCoreChargesFee> requestCoreChargesFee) {
         _requestCoreChargesFee = requestCoreChargesFee;
     }
     public Set<RequestCoreChargesDocument> getRequestCoreChargesDocument() {
