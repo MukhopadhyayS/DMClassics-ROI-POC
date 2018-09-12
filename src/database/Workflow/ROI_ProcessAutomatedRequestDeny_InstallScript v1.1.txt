@@ -1,0 +1,95 @@
+/************************************************************************************************************************
+* Install Script	: wfe_ROI_V13.5 Install Script
+* Creation Date		: 11/11/2007
+* Copyright		: COPYRIGHT MCKESSON 2009
+*			: ALL RIGHTS RESERVED
+*
+* 			: The copyright to the computer program(s) herein
+* 			: is the property of McKesson. The program(s)
+* 			: may be used and/or copied only with the written
+* 			: permission of McKesson or in accordance with
+* 			: the terms and conditions stipulated in the     
+* 			: agreement/contract under which the program(s)
+* 			: have been supplied.	
+*				
+* Written by		: Don Gatten
+*									
+* Purpose		: This Script will install the Workflow Thread for ROI
+*			: in the development area of workflow.  All SQL Fragments, Stored procedures
+*			: and objects will be created and linked.  After running this script,
+*  			: Review the workflow thread.  If it installed correctly, promote the
+*			: Developmnet to Production in Workflow.
+*			: After promoting the workflow, the ROI Document type 
+*			: will need to be pointed to the "Document Trigger ROI" Multi link.
+*
+* Database		: CABINET
+*
+*******************************************************************************************************************/
+
+
+Use cabinet
+go
+--Create Multi links for HPF application process
+
+Declare @queue varchar(50)
+
+--System:  Multi Links
+
+Select @Queue = 'SYSTEM: Document Trigger ROI Deny'
+If not exists (Select 1 from wq_temp_definition where queue = @queue)
+	Begin
+	Insert into wq_temp_definition (queue, type, result,from_date, to_date, CYCLE,  QUANTITY, FOLLOWUP, FU_TYPE, SCHEDULE, HOWFAST, RETAIN, SELECTABLE, 	EVALUATED,action_id, del_follow,doctype_id,chk_discharge,ASSIGNMENT_COUNT, mdp_ind,ActivityInstanceId, AgentID, DomainInstanceID, UserInstanceID)
+	select @queue, 6,0, '1900-01-01', '1900-01-01',0,0,0,0,0,0,0,1, '1900-01-01', 99,0,0,0,0,0, (select nextid + 1 from wfe_nextvalue where name = 	'ACTIVITY'), 0,99,0
+		
+	Update wfe_nextvalue set nextid = (select max(activityinstanceid) from wq_temp_definition) where name = 'ACTIVITY'
+	End
+
+--System: Decision Objects
+
+
+Select @Queue = 'SYSTEM: ROI Automated Process Deny'
+If not exists (Select 1 from wq_temp_definition where queue = @queue)
+	Begin
+	Insert into wq_temp_definition (queue, type, result,from_date, to_date, CYCLE,  QUANTITY, FOLLOWUP, FU_TYPE, SCHEDULE, HOWFAST, RETAIN, SELECTABLE, 	EVALUATED,action_id, del_follow,doctype_id,chk_discharge,ASSIGNMENT_COUNT, mdp_ind,ActivityInstanceId, AgentID, DomainInstanceID, UserInstanceID)
+	select @queue,11,0, '1900-01-01', '1900-01-01',0,0,0,0,0,0,0,1, '1900-01-01', 99,0,0,0,0,0, (select nextid + 1 from wfe_nextvalue where name = 	'ACTIVITY'), 0,99,0
+		
+	Update wfe_nextvalue set nextid = (select max(activityinstanceid) from wq_temp_definition) where name = 'ACTIVITY'
+	End
+
+
+--System: Group Work Queues
+
+
+Select @Queue = 'SYSTEM: ROI Automated Process Deny Dead End'
+If not exists (Select 1 from wq_temp_definition where queue = @queue)
+	Begin
+	Insert into wq_temp_definition (queue, type, result,from_date, to_date, CYCLE,  QUANTITY, FOLLOWUP, FU_TYPE, SCHEDULE, HOWFAST, RETAIN, SELECTABLE, 	EVALUATED,action_id, del_follow,doctype_id,chk_discharge,ASSIGNMENT_COUNT, mdp_ind,ActivityInstanceId, AgentID, DomainInstanceID, UserInstanceID)
+	select @queue,18,1, '1900-01-01', '1900-01-01',0,0,0,0,0,0,1,1, '1900-01-01', 99,0,0,0,0,0, (select nextid + 1 from wfe_nextvalue where name = 	'ACTIVITY'), 0,99,0
+		
+	Update wfe_nextvalue set nextid = (select max(activityinstanceid) from wq_temp_definition) where name = 'ACTIVITY'
+	End
+
+
+
+--Create the sql fragments for the decision objects
+
+
+If not exists (Select 1 from sql_fragments where DESCRIPTION = 'SP ROIAutomatedProcessDeny')
+	Insert into SQL_fragments values('SP ROIAutomatedProcessDeny', 'Cabinet', 98, '', 'WFE_ROI_ProcessAutomatedRequestDeny',1)
+
+
+
+--Create the linkage for the work thread
+
+
+GO
+declare @queue varchar(50), @Test varchar(30), @resulting varchar(50)
+
+Select @queue = 'SYSTEM: Document Trigger ROI Deny', @test = '', @resulting = 'SYSTEM: ROI Automated Process Deny'
+If not exists (Select 1 from wq_temp_linkage where queue = @queue and test = @test and Resulting = @resulting)
+	Insert into wq_temp_linkage values (@queue, @test, @resulting, getdate(),getdate(), 0)
+
+Select @queue = 'SYSTEM: ROI Automated Process Deny', @test = 'SP ROIAutomatedProcess', @resulting = 'SYSTEM: ROI Automated Process Deny Dead End'
+
+If not exists (Select 1 from wq_temp_linkage where queue = @queue and test = @test and Resulting = @resulting)
+	Insert into wq_temp_linkage values (@queue, @test, @resulting, getdate(),getdate(), 0)
