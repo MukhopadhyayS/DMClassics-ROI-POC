@@ -36,8 +36,8 @@
     <property name="projBaseDir" value="${project::get-base-directory()}"/>
 
     <!-- Includes ProjectsInclude.xml file to perform test case related tasks -->
-    <include file ="${dir.client}\build\client.build.common.xml"/>
-
+    <!--<include buildfile ="${dir.client}\build\client.build.common.xml"/>-->
+	<include file ="${basedir}\client\build\client.build.common.xml"/>
     <!-- list of C# projects -->
 	<property name="CS_ProjectList" value="
 		../McK.EIG.ROI.Client.App"/>
