@@ -26,10 +26,10 @@
     <property name ="dir.src" value="${project::get-base-directory()}\..\.."/>
 
     <!-- This xml file contains list of properties to access -->
-    <include buildfile ="${dir.src}\build\props\base.properties.xml"/>
+    <include file ="${dir.src}\build\props\base.properties.xml"/>
 
     <!-- Includes the client.build.common.xml to compile each project -->
-    <include buildfile ="${dir.src}\client\build\client.build.compile.xml"/>
+    <include file ="${dir.src}\client\build\client.build.compile.xml"/>
 
 	<!-- If the property set to true run the test cases for test project, if not testcase wont't be performed -->
     <property name="run.client.test.cases" value="${run.client.test.cases}" />
