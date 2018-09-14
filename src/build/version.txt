@@ -1,7 +1,7 @@
 #Build Information
-#Fri, 14 Sep 2018 07:09:48 -0400
+#Fri, 14 Sep 2018 07:31:44 -0400
 #Wed Aug 22 22:56:47 EDT 2012
-assembly.number=12
+assembly.number=13
 assembly.servicePack=0
 project.name=ROI-18.0
 assembly.minor=0
@@ -10,8 +10,8 @@ Company=Hyland Software,Inc.
 assembly.major=18
 build.major=18
 build.servicePack=0
-build.number=12
-build.date=2018-09-14T07\:09\:48.061Z
+build.number=13
+build.date=2018-09-14T07\:31\:44.973Z
 Product=
 Copyright=Copyright (c)2018 Hyland Software ,Inc.and/or one of its subsidiaries. All Rights Reserved.
 build.revision=0
