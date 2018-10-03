@@ -140,7 +140,7 @@
                         ${dir.3rdParty.dll}/CrystalDecisions.Windows.Forms.dll,
 			            ${dir.3rdParty.dll}/Microsoft.VisualBasic.Compatibility.dll,
 						${dir.3rdParty.dll}/Interop.SHDocVw.dll,
-						${dir.client}/McK.EIG.ROI.Client.App/OCSecurity-17.6.2.dll"/>
+						${dir.client}/McK.EIG.ROI.Client.App/OCSecurity-18.0.dll"/>
 
 		<call target="Compile"/>
 	</target>
