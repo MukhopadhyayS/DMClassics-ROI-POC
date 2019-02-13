@@ -61,7 +61,7 @@ if EXIST %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\mpf-roi.con
 
 :unpackroi
 echo Unzipping new code to %ONE_CONTENT_INSTALL_PATH%.  This may take a few minutes...
-%ONE_CONTENT_INSTALL_PATH%\jdk\64\bin\jar xf "%ZIP_FILE_PATH%"
+%JAVA_HOME%\bin\jar xf "%ZIP_FILE_PATH%"
 echo You MUST edit the %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat file AND execute %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\updatesetup.bat
 goto end
 
