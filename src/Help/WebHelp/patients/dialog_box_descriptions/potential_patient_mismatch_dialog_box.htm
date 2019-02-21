@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Patients|Dialog box descriptions" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="WebHelp" lang="en-us" xml:lang="en-us" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="help.xml" MadCap:SearchType="Stem">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Potential Patient Mismatch dialog box</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../resources/tablestyles/widelines.css" rel="stylesheet" />
+        <link href="../../resources/stylesheets/localformat.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../patients_-_toc.htm">Patients</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="dialog_box_descriptions_-_toc.htm">Dialog box descriptions</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Potential Patient Mismatch dialog box</span>
+            </div>
+        </div>
+        <h3 class="Heading3">Potential Patient Mismatch dialog box</h3>
+        <p>The Potential Patient Mismatch dialog box displays when:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">You create a new request with the patient as the requestor and some of the selected patients do not match the requestor.</li>
+            <li class="li_1" value="2">You have added patients to a request in which the requestor is a patient and the other patient records do not match the requestor.</li>
+        </ul>
+        <p>The dialog box lists patients you selected on the calling form, highlights any potential mismatch(es), and allows you to select no patient, one patient, or multiple patient records to continue.</p>
+        <p class="Subhead1">To open the form</p>
+        <ol start="1" class="ol_1">
+            <li class="li_1" value="1">Select <span class="span_3" style="font-weight: bold;">Patients</span><b> &gt; </b><span class="span_3" style="font-weight: bold;">Find Patient</span> and perform a search.</li>
+            <li class="li_1" value="2">From the search results grid, select more than one patient. </li>
+            <li class="li_1" value="3">Click <span class="span_3" style="font-weight: bold;">Patient Requesting</span>.</li>
+        </ol>
+        <p class="Note" MadCap:autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>This dialog box is also launched from the Requests function at the <a href="../../requests/dialog_box_descriptions/add_patient_dialog_box.htm">Add Patient dialog box</a> when the selected patient(s) do not match the requestor.</p>
+        <p class="Subhead1">Item descriptions</p>
+        <p class="ItemName">Patients grid</p>
+        <p>Displays an entry for each patient name you selected on the calling form and allows you to select one or more patient records to include on the request.</p>
+        <p>Initially sorted by Patient Name in alphanumeric ascending order. Can be sorted by any column. By default, the first row is auto-selected.</p>
+        <p>Information includes:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">Patient Name</span>
+                <br />The name of the patient selected in the calling form. Sort is on the first characters displayed, regardless of which name (first or last) occurs first.</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">DOB</span>
+                <br />The date of birth of the patient. <br />Initial sort is date ascending. Format is mm/dd/yyyy.</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">SSN</span>
+                <br />The patient's Social Security Number.<br />Initial sort is numeric ascending.</li>
+            <li class="li_1" value="4"><span class="span_3" style="font-weight: bold;">Facility</span> <br />The facility where patient care occurred.<br />Initial sort is alphanumeric ascending.</li>
+            <li class="li_1" value="5"><span class="span_3" style="font-weight: bold;">MRN</span> <br />The patient's medical record number.<br />Initial sort is alphanumeric ascending.</li>
+            <li class="li_1" value="6"><span class="span_3" style="font-weight: bold;">EPN</span> (displays only for EPN systems)<br />The patient's enterprise person number.<br />Initial sort is alphanumeric ascending.<br />Displays only if the dialog box was launched by the <span class="span_3">Add Patient </span>function when maintaining requests.</li>
+        </ul>
+        <p class="ItemName">Continue with Selected Patient(s)</p>
+        <p>Creates a new request that includes records for all the patients you select in the Patients grid and associates the request with the currently selected patient requestor.</p>
+        <p>Enabled only when at least one patient is selected.</p>
+        <p>Behavior depends on the trigger that launched the dialog box.</p>
+        <table class="TableStyle-WideLines" style="mc-table-style: url('../../resources/tablestyles/widelines.css');" cellspacing="0">
+            <col style="width: 105pt;" class="Column-Column1" />
+            <col style="width: 135pt;" class="Column-Column1" />
+            <col style="width: 156pt;" class="Column-Column1" />
+            <tr class="Body-Body1">
+                <td class="BodyE-Column1-Body1">
+                    <p class="TableHeader">If </p>
+                </td>
+                <td class="BodyE-Column1-Body1">
+                    <p class="TableHeader">And</p>
+                </td>
+                <td class="BodyD-Column1-Body1">
+                    <p class="TableHeader">Then</p>
+                </td>
+            </tr>
+            <tr class="Body-Body1">
+                <td class="BodyE-Column1-Body1">
+                    <p>Launched by the <span class="span_3">Patient Requesting</span> button on any of the Patients forms</p>
+                </td>
+                <td class="BodyE-Column1-Body1">
+                    <p>(not applicable)</p>
+                </td>
+                <td class="BodyD-Column1-Body1">
+                    <p>The button launches appropriate dialogs to continue (depends on whether matching requestors are found)</p>
+                </td>
+            </tr>
+            <tr class="Body-Body1">
+                <td class="BodyE-Column1-Body1">
+                    <p>Launched from the <a href="../../requests/dialog_box_descriptions/add_patient_dialog_box.htm" class="SecondaryLink">Add Patient dialog box</a></p>
+                </td>
+                <td class="BodyE-Column1-Body1">
+                    <p>An EPN patient is selected</p>
+                </td>
+                <td class="BodyD-Column1-Body1">
+                    <p>The button displays the request and adds the selected patient to the request</p>
+                </td>
+            </tr>
+            <tr class="Body-Body1">
+                <td class="BodyE-Column1-Body1">
+                    <p>Launched from the <a href="../../requests/dialog_box_descriptions/add_patient_dialog_box.htm">Add Patient dialog box</a></p>
+                </td>
+                <td class="BodyE-Column1-Body1">
+                    <p>A non-EPN patient is selected AND</p>
+                    <p>The <span class="span_3">Add Patient</span> and <span class="span_3">Close</span> buttons were previously selected</p>
+                </td>
+                <td class="BodyD-Column1-Body1">
+                    <p>The button displays the request and adds the selected patient(s) to the request</p>
+                </td>
+            </tr>
+            <tr class="Body-Body1">
+                <td class="BodyE-Column1-Body1">
+                    <p>Launched from the <a href="../../requests/dialog_box_descriptions/add_patient_dialog_box.htm">Add Patient dialog box</a></p>
+                </td>
+                <td class="BodyE-Column1-Body1">
+                    <p>A non-EPN patient is selected AND</p>
+                    <p>The <span class="span_3">Add Patient</span> and <span class="span_3">Continue</span> buttons were previously selected</p>
+                </td>
+                <td class="BodyD-Column1-Body1">
+                    <p>The button adds the selected patients to the request and returns to the Add Patient dialog box</p>
+                </td>
+            </tr>
+        </table>
+        <p class="ItemName">Cancel</p>
+        <p>Stops the process of creating a new request, closes the dialog box, and returns you to the calling form.</p>
+        <p class="HelpFooter"><span class="PrimaryProductName">OneContent</span>™ <span class="PrimaryReleaseNumber">Release 18.0</span> - <span class="PrimaryPublicationDate">March 2019</span><br />This page contains Hyland Software, Inc. proprietary information and is not to be duplicated or disclosed to unauthorized persons.</p>
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>
