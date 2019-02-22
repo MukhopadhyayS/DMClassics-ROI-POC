@@ -2,7 +2,7 @@
 
 if /I /?==%~1 goto usage
 
-set RELEASE=17_1_0_481
+set RELEASE=18_0_0_48
 echo Installing ROI %RELEASE% into OneContent
 
 rem find the zip file
@@ -61,13 +61,13 @@ if EXIST %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\mpf-roi.con
 
 :unpackroi
 echo Unzipping new code to %ONE_CONTENT_INSTALL_PATH%.  This may take a few minutes...
-%JAVA_HOME%\bin\jar xf "%ZIP_FILE_PATH%"
+"%JAVA_HOME%\bin\jar" xf "%ZIP_FILE_PATH%"
 echo You MUST edit the %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat file AND execute %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\ROIClient\updatesetup.bat
 goto end
 
 :unpackroiandupdateclient
 echo Unzipping new code to %ONE_CONTENT_INSTALL_PATH%.  This may take a few minutes...
-%JAVA_HOME%\bin\jar xf "%ZIP_FILE_PATH%"
+"%JAVA_HOME%\bin\jar" xf "%ZIP_FILE_PATH%"
 move /Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\mpfconfig\ocroi.properties.bak MPFServer\mpfconfig\ocroi.properties
 if exist %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\oc-roi.config.bat.bak move/Y %ONE_CONTENT_INSTALL_PATH%\MPFServer\webapps\ROOT\oc-roi.config.bat.bak MPFServer\webapps\ROOT\ROIClient\oc-roi.config.bat
 goto checkrunupdatesetup
