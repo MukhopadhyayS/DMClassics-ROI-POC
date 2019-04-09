@@ -806,6 +806,12 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientRecords
         /// <param name="e"></param>
         private void viewSelectedButton_Click(object sender, EventArgs e)
         {
+            if(winDssViewer!=null)
+            {
+                winDssViewer.CloseViewer();
+                winDssViewer = null;
+            }
+
             if (winDssViewer == null)
             {
                 try

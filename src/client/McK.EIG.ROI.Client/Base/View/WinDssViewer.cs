@@ -87,6 +87,12 @@ namespace McK.EIG.ROI.Client.Base.View
 
         #region Methods
 
+        public void CloseViewer()
+        {
+            wapi.CloseAllViewers();
+            wapi = null;
+        }
+
         public void AuthReq(bool val)
         {
             authReq = val;
@@ -118,7 +124,10 @@ namespace McK.EIG.ROI.Client.Base.View
 
             string firstPageHeaderText = string.Empty;
             string secondPageHeaderText = string.Empty;
-
+            if (documentContainer != null)
+            {
+                CloseViewer();
+            }
             if (pageIndex < 0) pageIndex = 0;
 
             if (pageIndex > pages.Count - 1) pageIndex = pages.Count - 1;
@@ -292,6 +301,11 @@ namespace McK.EIG.ROI.Client.Base.View
             {
                 DSSConfigurationHandler.GetConfiguration(typeof(LocalConfiguration));
 
+                if (wapi == null)
+                {
+                    wapi = new WinDSSApi("", "");
+                }
+
                 if (OCSecurityWrapper.IsDLLInitialized())
                 {
                     OCSecurityWrapper.GetSecureToken();
@@ -321,6 +335,14 @@ namespace McK.EIG.ROI.Client.Base.View
             }
             else
             {
+                
+                if (OCSecurityWrapper.IsDLLInitialized())
+                {
+                    OCSecurityWrapper.GetSecureToken();
+                }
+
+                wapi.HPFUser = UserData.Instance.JsessionID;
+                wapi.HPFPassword = "ROI_CLIENT" + "CApp" + UserData.Instance.RSAToken;
                 documentContainer.DisplayDocument(firstPage, secondPage);
             }
         }
