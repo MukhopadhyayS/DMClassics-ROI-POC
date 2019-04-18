@@ -663,6 +663,10 @@ implements BillingCoreService {
                                              ROIConstants.REQUESTORLETTER,
                                              letterData,
                                              dao.getDate());
+            // Checkmarx: ROI - Java - Heap_Inspection - Clear the queue password value post processing 
+            if (null != letterData) {
+                letterData.setQueuePassword(null);
+            }
 
             listOfDocInfos.add(new DocInfo(0,
                                            fileName,

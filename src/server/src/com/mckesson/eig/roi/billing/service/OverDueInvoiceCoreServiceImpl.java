@@ -279,6 +279,12 @@ implements OverDueInvoiceCoreService {
             Object templateData = dataRetriever.constructTemplateDataModel(invoice);
 
             String invFileName = generatePreview(fileNames, invoiceTemplate, templateData);
+            
+            LetterData letterData = (LetterData) templateData;
+            // Checkmarx: ROI - Java - Heap_Inspection - Clear the queue password value post processing 
+            if (null != letterData) {
+                letterData.setQueuePassword(null);
+            }
             //create the preview for the overdue invoice
             docInfos.add(new OverDueDocInfo(invoice.getId(),
                                             invFileName,
@@ -316,7 +322,10 @@ implements OverDueInvoiceCoreService {
                                          ROIConstants.REQUESTORLETTER,
                                          letterData,
                                          dao.getDate());
-
+        // Checkmarx: ROI - Java - Heap_Inspection - Clear the queue password value post processing 
+        if (null != letterData) {
+            letterData.setQueuePassword(null);
+        }
         docInfos.add(new OverDueDocInfo(0, fileName, ROIConstants.REQUESTOR_LETTER_FILE, null));
         fileNames.add(getCacheFileName(fileName));
 

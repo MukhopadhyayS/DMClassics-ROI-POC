@@ -718,7 +718,10 @@ public class AbstractBillingService extends BaseROIService {
                                          ROIConstants.REQUESTORLETTER,
                                          letterData,
                                          dao.getDate());
-
+        // Checkmarx: ROI - Java - Heap_Inspection - Clear the queue password value post processing 
+        if (null != letterData) {
+            letterData.setQueuePassword(null);
+        }
         DocInfo  docInfo = new DocInfo(0, fileName, ROIConstants.REQUESTOR_LETTER_FILE);
         return docInfo;
     }

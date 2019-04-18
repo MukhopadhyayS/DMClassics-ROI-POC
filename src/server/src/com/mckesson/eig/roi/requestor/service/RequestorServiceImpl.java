@@ -1929,7 +1929,10 @@ implements RequestorService {
                                                  ROIConstants.REQUESTORREFUND,
                                                  letterData,
                                                  dao.getDate());
-
+                // Checkmarx: ROI - Java - Heap_Inspection - Clear the queue password value post processing 
+                if (null != letterData) {
+                    letterData.setQueuePassword(null);
+                }
                 docInfos.add(new DocInfo(0, fileName, ROIConstants.REQUESTOR_REFUND_FILE));
             }
 

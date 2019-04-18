@@ -56,7 +56,7 @@ public class LetterData {
     private String _templateFileId = StringUtilities.EMPTYSTRING;
     private String _salesTaxPercentage = StringUtilities.EMPTYSTRING;
     private String _outputMethod = StringUtilities.EMPTYSTRING;
-    private String _queuePassword = StringUtilities.EMPTYSTRING;
+    private String _queuePassword = null;
     private boolean _hasNotes;
 
     //Invoice DueDate
