@@ -96,6 +96,8 @@ extends AuthenticationFilter {
                 }
             }
             String transactionID = req.getParameter(Authenticator.KEY_TRANSACTION_ID);
+            // Checkmarx: ROI - Java - Trust_Boundary_Violation - Sanitize the inputs with HTML encoding
+            transactionID = EncoderUtilities.encodeForHTML(transactionID);
             if ((transactionID != null) && (transactionID.trim().length() > 0)) {
                 LogContext.put("transactionid", new TransactionId(transactionID));
             }
