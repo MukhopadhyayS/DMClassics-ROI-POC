@@ -43,6 +43,7 @@ extends BaseFileUploader {
 
     private static final OCLogger LOG = new OCLogger(ROIFileUploadServlet.class);
     private static final String FILE_NAME = "FILE_NAME";
+    private static final int MiB = 1024 * 1024;
 
     @Override
     public void putRemoteFile(BaseFileTransferData data) throws IOException {
@@ -60,6 +61,12 @@ extends BaseFileUploader {
 
                 sendFailReturn(data,
                                ROIClientErrorCodes.LETTER_TEMPLATE_INVALID_FILE_FORMAT.toString());
+            }
+            // Checkmarx - ROI - Java - Unchecked_Input_for_Loop_Condition
+            int available = data.getRequest().getContentLength();
+            if (available > MiB) {
+                sendFailReturn(data,
+                        ROIClientErrorCodes.LETTER_TEMPLATE_DOCUMENT_LENGTH_EXCEEDS_LIMIT.toString());
             }
 
             if (!data.getBooleanRequestProperty(BaseFileTransferData.PARAMETER_CHUNKENABLED)) {
@@ -96,7 +103,7 @@ extends BaseFileUploader {
                                                    + cacheFile));
                 available = in.available();
             }
-
+            
             FileTransferHelper fHelper = getFileTransferHelper(data);
             if (available > 0) {
                 fHelper.completeUpload(data, in, available, null);
