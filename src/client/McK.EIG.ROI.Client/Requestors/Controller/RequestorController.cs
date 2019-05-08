@@ -414,10 +414,10 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
                 reqHistoryDetail.InvoiceBalance = reqHistory.invoiceBalance;
                 reqHistoryDetail.InvoiceDueDate = reqHistory.invoiceDueDate;
                 reqHistoryDetail.PrebillStatus = reqHistory.prebillStatus;
-                reqHistoryDetail.QueuePassword = reqHistory.queuePassword;
+                reqHistoryDetail.QueueSecretWord = reqHistory.queuePassword;
                 if (!string.IsNullOrEmpty(reqHistory.queuePassword))
                 {
-                    reqHistoryDetail.RequestPassword = reqHistory.requestPassword;
+                    reqHistoryDetail.RequestSecretWord = reqHistory.requestPassword;
                 }
                 reqHistoryDetail.Status = reqHistory.status;
                 reqHistoryDetail.Template = reqHistory.template;
@@ -1135,7 +1135,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
             requestorStatementCriteria.templateFileId = requestorStatementDetail.TemplateFileId;
             requestorStatementCriteria.templateName = requestorStatementDetail.TemplateName;
             requestorStatementCriteria.outputMethod = requestorStatementDetail.OutputMethod;
-            requestorStatementCriteria.queuePassword = requestorStatementDetail.QueuePassword;
+            requestorStatementCriteria.queuePassword = requestorStatementDetail.QueueSecretWord;
             if (requestorStatementDetail.DateRange != McK.EIG.ROI.Client.Requestors.Model.DateRange.None)
             {
                 requestorStatementCriteria.dateRange = (McK.EIG.ROI.Client.Web_References.ROIRequestorWS.DateRange)Enum.Parse(typeof(McK.EIG.ROI.Client.Web_References.ROIRequestorWS.DateRange), requestorStatementDetail.DateRange.ToString());
@@ -1185,7 +1185,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
                 requestorRefund.templateId = requestorRefundDetail.TemplateId;
                 requestorRefund.templateName = requestorRefundDetail.TemplateName;
                 requestorRefund.outputMethod = requestorRefundDetail.OutputMethod;
-                requestorRefund.queuePassword = requestorRefundDetail.QueuePassword;
+                requestorRefund.queuePassword = requestorRefundDetail.QueueSecureWord;
             
                 if (requestorRefundDetail.RequestorStatementDetail != null)
                 {
@@ -1194,7 +1194,7 @@ namespace McK.EIG.ROI.Client.Requestors.Controller
                     requestorRefund.statementCriteria.templateFileId = requestorRefundDetail.RequestorStatementDetail.TemplateFileId;
                     requestorRefund.statementCriteria.templateName = requestorRefundDetail.RequestorStatementDetail.TemplateName;
                     requestorRefund.statementCriteria.outputMethod = requestorRefundDetail.RequestorStatementDetail.OutputMethod;
-                    requestorRefund.statementCriteria.queuePassword = requestorRefundDetail.RequestorStatementDetail.QueuePassword;
+                    requestorRefund.statementCriteria.queuePassword = requestorRefundDetail.RequestorStatementDetail.QueueSecretWord;
                     if (requestorRefundDetail.RequestorStatementDetail.DateRange != McK.EIG.ROI.Client.Requestors.Model.DateRange.None)
                     {
                         requestorRefund.statementCriteria.dateRange = (McK.EIG.ROI.Client.Web_References.ROIRequestorWS.DateRange)Enum.Parse(typeof(McK.EIG.ROI.Client.Web_References.ROIRequestorWS.DateRange), requestorRefundDetail.RequestorStatementDetail.DateRange.ToString());

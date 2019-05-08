@@ -880,7 +880,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                     if (string.Compare(outputRequestDetails.OutputDestinationDetails.Type, DestinationType.File.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                     {
                         requestorStatementDetail.OutputMethod = OutputMethod.SaveAsFile.ToString();
-                        requestorStatementDetail.QueuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                        requestorStatementDetail.QueueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                         destinationType = DestinationType.File;
                     }
 
@@ -899,7 +899,7 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                     if (string.Compare(outputRequestDetails.OutputDestinationDetails.Type, DestinationType.Email.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                     {
                         requestorStatementDetail.OutputMethod = OutputMethod.Email.ToString();
-                        requestorStatementDetail.QueuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                        requestorStatementDetail.QueueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                         destinationType = DestinationType.Email;
                     }
 

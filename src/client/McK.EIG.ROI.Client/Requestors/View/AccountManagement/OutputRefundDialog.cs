@@ -785,11 +785,11 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountManagement
                         destinationType = DestinationType.Email;
                     }
                     requestorRefundDetail.OutputMethod = outputRequestDetails.OutputDestinationDetails.Type;
-                    requestorRefundDetail.QueuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                    requestorRefundDetail.QueueSecureWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                     if (outputStatementCheckBox.Checked)
                     {
                         requestorRefundDetail.RequestorStatementDetail.OutputMethod = outputRequestDetails.OutputDestinationDetails.Type;
-                        requestorRefundDetail.RequestorStatementDetail.QueuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                        requestorRefundDetail.RequestorStatementDetail.QueueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                     }
                     DocInfoList docInfoList = RequestorController.Instance.CreateRequestorRefund(requestorRefundDetail, true);
                     foreach (DocInfo info in docInfoList.docInfos)
