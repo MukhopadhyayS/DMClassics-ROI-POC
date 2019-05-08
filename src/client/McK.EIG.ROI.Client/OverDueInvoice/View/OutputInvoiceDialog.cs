@@ -842,9 +842,9 @@ namespace McK.EIG.ROI.Client.OverDueInvoice.View
                     outputViewDetails = outputPropertyDetails.OutputViewDetails;
 
                     // Update queue password only if the output destination type is file.
-                    if (!string.IsNullOrEmpty(outputRequestDetails.OutputDestinationDetails.Password))
+                    if (!string.IsNullOrEmpty(outputRequestDetails.OutputDestinationDetails.SecuredSecretWord))
                     {
-                        previewOverDueInvoices.PropertiesMap.Add(ROIConstants.QueuePassword, outputRequestDetails.OutputDestinationDetails.Password);
+                        previewOverDueInvoices.PropertiesMap.Add(ROIConstants.QueueSecretWord, outputRequestDetails.OutputDestinationDetails.SecuredSecretWord);
                     }
                     if (string.Compare(OutputPropertyDetails.OutputDestinationDetails[0].Type, DestinationType.File.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                     {
