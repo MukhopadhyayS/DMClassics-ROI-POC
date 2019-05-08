@@ -121,7 +121,7 @@ namespace McK.EIG.ROI.Client.Request.Model
             set { outputMethod = value; }
         }
 
-        public string QueuePassword
+        public string QueueSecretWord
         {
             get { return queueSecure; }
             set { queueSecure = value; }

@@ -77,7 +77,7 @@ namespace McK.EIG.ROI.Client.Request.Model
             set { media = value; }
         }
 
-        public string Password
+        public string SecuredSecretWord
         {
             get { return Secure; }
             set { Secure = value; }

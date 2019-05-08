@@ -92,7 +92,7 @@ namespace McK.EIG.ROI.Client.Request.View.ReleaseHistory
             {
                 ROIViewUtility.MarkBusy(true);
                
-                ((ReleaseHistoryMCP)MCP).PrePopulate(requestDetails.Id, requestDetails.RequestPassword);
+                ((ReleaseHistoryMCP)MCP).PrePopulate(requestDetails.Id, requestDetails.RequestSecretWord);
             }
             catch (ROIException cause)
             {

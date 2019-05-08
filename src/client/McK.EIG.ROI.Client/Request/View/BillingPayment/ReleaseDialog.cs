@@ -1260,7 +1260,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                      }
                      InvoiceInfo.OutputMethod = releaseDetails.ShippingDetails.OutputMethod.ToString();
                      InvoiceInfo.OverwriteDueDate = preBillInvoiceDetails.OverwriteInvoiceDue;
-                     InvoiceInfo.QueuePassword = preBillInvoiceDetails.QueuePassword;
+                     InvoiceInfo.QueueSecretWord = preBillInvoiceDetails.QueueSecretWord;
                      InvoiceInfo.RequestCoreId = releaseDetails.RequestId;
                      InvoiceInfo.RequestStatus = preBillInvoiceDetails.RequestStatus;
 
@@ -1577,7 +1577,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         if (string.Compare(OutputPropertyDetails.OutputDestinationDetails[0].Type, DestinationType.File.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                         {
                             outputMethod = OutputMethod.SaveAsFile.ToString();
-                            queueSecure = OutputPropertyDetails.OutputDestinationDetails[0].Password;
+                            queueSecure = OutputPropertyDetails.OutputDestinationDetails[0].SecuredSecretWord;
                         }
 
                         if (string.Compare(OutputPropertyDetails.OutputDestinationDetails[0].Type, DestinationType.Print.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
@@ -1588,7 +1588,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         if (string.Compare(OutputPropertyDetails.OutputDestinationDetails[0].Type, DestinationType.Email.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                         {
                             outputMethod = OutputMethod.Email.ToString();
-                            queueSecure = OutputPropertyDetails.OutputDestinationDetails[0].Password;
+                            queueSecure = OutputPropertyDetails.OutputDestinationDetails[0].SecuredSecretWord;
                         }
 
                         if (string.Compare(OutputPropertyDetails.OutputDestinationDetails[0].Type, DestinationType.Fax.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
@@ -1599,7 +1599,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         if (destinationType == DestinationType.Disc)
                         {
                             outputMethod = OutputMethod.Disc.ToString();
-                            queueSecure = OutputPropertyDetailsForDisc.OutputDestinationDetails[0].Password;
+                            queueSecure = OutputPropertyDetailsForDisc.OutputDestinationDetails[0].SecuredSecretWord;
                         }
                         
                         this.invoiceNotes = invoiceNotes;
@@ -1643,7 +1643,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                             requestorStatementDetail.DateRange = (McK.EIG.ROI.Client.Requestors.Model.DateRange)Enum.Parse(typeof(McK.EIG.ROI.Client.Requestors.Model.DateRange), releaseCore.statementCriteria.dateRange.ToString(), true);
                             requestorStatementDetail.Notes = releaseCore.statementCriteria.notes;
                             requestorStatementDetail.OutputMethod = outputMethod;
-                            requestorStatementDetail.QueuePassword = queueSecure;
+                            requestorStatementDetail.QueueSecretWord = queueSecure;
                             requestorStatementDetail.PastInvIds = releaseCore.statementCriteria.pastInvIds;
                             requestorStatementDetail.RequestorId = releaseCore.statementCriteria.requestorId;
                             requestorStatementDetail.TemplateFileId = releaseCore.statementCriteria.templateFileId;
@@ -1686,7 +1686,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             if (string.Compare(OutputPropertyDetails.OutputDestinationDetails[0].Type, DestinationType.Email.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
             {
                 preBillInvoiceDetails.OutputMethod = OutputMethod.Email.ToString();
-                preBillInvoiceDetails.QueuePassword = OutputPropertyDetails.OutputDestinationDetails[0].Password;
+                preBillInvoiceDetails.QueueSecretWord = OutputPropertyDetails.OutputDestinationDetails[0].SecuredSecretWord;
             }
 
             string outputName;

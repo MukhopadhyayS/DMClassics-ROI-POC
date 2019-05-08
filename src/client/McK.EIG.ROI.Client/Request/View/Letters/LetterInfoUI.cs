@@ -399,7 +399,7 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
             long letterId;
             bool forInvoice = false;
             bool forLetter;
-            string queuePassword = string.Empty;
+            string queueSecretWord = string.Empty;
             string outputMethod = string.Empty;
 
             ROIViewer viewer = new ROIViewer(Pane, letterTemplateType, GetType().Name);
@@ -459,7 +459,7 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
                     forLetter = true;
                     if (string.Compare(outputRequestDetails.OutputDestinationDetails.Type, DestinationType.File.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                     {
-                        queuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                        queueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                         outputMethod = OutputMethod.SaveAsFile.ToString();
                     }
 
@@ -475,12 +475,12 @@ namespace McK.EIG.ROI.Client.Request.View.Letters
 
                     if (string.Compare(outputRequestDetails.OutputDestinationDetails.Type, DestinationType.Email.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                     {
-                        queuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                        queueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                         outputMethod = OutputMethod.Email.ToString();
                     }
 
                     Application.DoEvents();
-                    BillingController.Instance.updateInvoiceOutputProperties(0, letterId, 0, false, true, false, queuePassword, outputMethod); 
+                    BillingController.Instance.updateInvoiceOutputProperties(0, letterId, 0, false, true, false, queueSecretWord, outputMethod); 
                     
                     outputRequestDetails.RequestParts.Add(BuildROIRequestPartDetails(documentInfo));
                     Application.DoEvents();

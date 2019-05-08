@@ -224,7 +224,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
             Hashtable serverParameter = new Hashtable();
 
             serverParameter.Add(ROIConstants.User, UserData.Instance.UserInstanceId);
-            serverParameter.Add(ROIConstants.Password, UserData.Instance.Password);
+            serverParameter.Add(ROIConstants.SecretWord, UserData.Instance.SecretWord);
 
             serverParameter.Add("FILE_NAME", fileName);
             serverParameter.Add("OWNER_TYPE", ownerType);
@@ -383,10 +383,10 @@ namespace McK.EIG.ROI.Client.Request.Controller
                     {
                         releasedItem.PatientName = item.patientName.TrimEnd();
                     }
-                    releasedItem.QueuePassword = item.queuePassword;
+                    releasedItem.QueueSecretWord = item.queuePassword;
                     if (!string.IsNullOrEmpty(item.queuePassword))
                     {
-                        releasedItem.RequestPassword = item.requestPassword;
+                        releasedItem.RequestSecretWord = item.requestPassword;
                     }
                     address = string.Empty;
 

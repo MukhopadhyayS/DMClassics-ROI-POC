@@ -109,12 +109,12 @@ namespace McK.EIG.ROI.Client.Request.Controller
                 if (UserData.Instance.IsLdapEnabled)
                 {
                     serverParameter.Add(ROIConstants.UserName, UserData.Instance.Domain + "\\" + UserData.Instance.DomainUserName + "~" + UserData.Instance.UserId);
-                    serverParameter.Add(ROIConstants.Password, UserData.Instance.DomainPassword);
+                    serverParameter.Add(ROIConstants.SecretWord, UserData.Instance.DomainSecretWord);
                 }
                 else
                 {
                     serverParameter.Add(ROIConstants.UserName, UserData.Instance.UserId);
-                    serverParameter.Add(ROIConstants.Password, UserData.Instance.Password);
+                    serverParameter.Add(ROIConstants.SecretWord, UserData.Instance.SecretWord);
                 }
 
                 serverParameter.Add("CHUNKENABLED", "true");

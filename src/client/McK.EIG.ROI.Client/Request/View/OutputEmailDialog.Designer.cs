@@ -36,7 +36,7 @@ namespace McK.EIG.ROI.Client.Request.View
             this.emailSubjectLabel = new System.Windows.Forms.Label();
             this.emailToTextBox = new System.Windows.Forms.TextBox();
             this.emailToLabel = new System.Windows.Forms.Label();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.secretWordTextBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.typeTextLabel = new System.Windows.Forms.Label();
             this.statusTextLabel = new System.Windows.Forms.Label();
@@ -72,7 +72,7 @@ namespace McK.EIG.ROI.Client.Request.View
             this.EmailGroupBox.Controls.Add(this.emailSubjectLabel);
             this.EmailGroupBox.Controls.Add(this.emailToTextBox);
             this.EmailGroupBox.Controls.Add(this.emailToLabel);
-            this.EmailGroupBox.Controls.Add(this.passwordTextBox);
+            this.EmailGroupBox.Controls.Add(this.secretWordTextBox);
             this.EmailGroupBox.Controls.Add(this.passwordLabel);
             this.EmailGroupBox.Controls.Add(this.typeTextLabel);
             this.EmailGroupBox.Controls.Add(this.statusTextLabel);
@@ -137,13 +137,13 @@ namespace McK.EIG.ROI.Client.Request.View
             this.emailToLabel.Size = new System.Drawing.Size(0, 15);
             this.emailToLabel.TabIndex = 13;
             // 
-            // passwordTextBox
+            // secretWordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(86, 47);
-            this.passwordTextBox.MaxLength = 256;
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(268, 21);
-            this.passwordTextBox.TabIndex = 3;
+            this.secretWordTextBox.Location = new System.Drawing.Point(86, 47);
+            this.secretWordTextBox.MaxLength = 256;
+            this.secretWordTextBox.Name = "secretWordTextBox";
+            this.secretWordTextBox.Size = new System.Drawing.Size(268, 21);
+            this.secretWordTextBox.TabIndex = 3;
             // 
             // passwordLabel
             // 
@@ -333,7 +333,7 @@ namespace McK.EIG.ROI.Client.Request.View
 
         private System.Windows.Forms.GroupBox EmailGroupBox;
         private System.Windows.Forms.Label emailToLabel;
-        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox secretWordTextBox;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label typeTextLabel;
         private System.Windows.Forms.Label statusTextLabel;

@@ -1505,7 +1505,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
             server.requestReason = client.RequestReason;
             //server.requestType = client.RequestReasonAttribute;
             server.statusChangedDt = client.StatusChanged;
-            server.requestPassword = client.RequestPassword;
+            server.requestPassword = client.RequestSecretWord;
             server.requestorDetail = PrepareRequestor(client);
             server.requestorDetail.requestorId = client.Requestor.Id;
             server.status = Convert.ToString(client.Status, System.Threading.Thread.CurrentThread.CurrentUICulture);
@@ -1587,7 +1587,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
                 if (server.defaultFacilityCode == taxPerFacilityDetails[x].FacilityCode)
                     client.DefaultFacility.TaxPercentage = taxPerFacilityDetails[x].TaxPercentage;
             }
-            client.RequestPassword = server.requestPassword;            
+            client.RequestSecretWord = server.requestPassword;            
             client.RequestReason = server.requestReason;
             client.RequestReasonAttribute = server.requestReasonAttribute;
             client.StatusChanged = server.statusChangedDt;
@@ -2317,7 +2317,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
             server.notes = client.Notes;
             server.outputMethod = client.OutputMethod;
             server.type = client.Type;
-            server.queuePassword = client.QueuePassword;
+            server.queuePassword = client.QueueSecretWord;
             server.requestCoreId = client.RequestCoreId;
             server.requestStatus = client.RequestStatus;
             server.overwriteDueDate = client.OverwriteDueDate;

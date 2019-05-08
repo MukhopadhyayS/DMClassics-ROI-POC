@@ -1175,7 +1175,7 @@ namespace McK.EIG.ROI.Client.Request.Model
         /// <summary>
         /// This property is used to get or sets the request level password for PDF queue.
         /// </summary>
-        public string RequestPassword
+        public string RequestSecretWord
         {
             get { return requestSecure; }
             set { requestSecure = value; }

@@ -32,7 +32,7 @@ namespace McK.EIG.ROI.Client.Request.View
             this.PDFGroupBox = new System.Windows.Forms.GroupBox();
             this.mediaComboBox = new System.Windows.Forms.ComboBox();
             this.mediaLabel = new System.Windows.Forms.Label();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.secretWordTextBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.typeTextLabel = new System.Windows.Forms.Label();
             this.statusTextLabel = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@ namespace McK.EIG.ROI.Client.Request.View
             // 
             this.PDFGroupBox.Controls.Add(this.mediaComboBox);
             this.PDFGroupBox.Controls.Add(this.mediaLabel);
-            this.PDFGroupBox.Controls.Add(this.passwordTextBox);
+            this.PDFGroupBox.Controls.Add(this.secretWordTextBox);
             this.PDFGroupBox.Controls.Add(this.passwordLabel);
             this.PDFGroupBox.Controls.Add(this.typeTextLabel);
             this.PDFGroupBox.Controls.Add(this.statusTextLabel);
@@ -95,13 +95,13 @@ namespace McK.EIG.ROI.Client.Request.View
             this.mediaLabel.Size = new System.Drawing.Size(0, 15);
             this.mediaLabel.TabIndex = 13;
             // 
-            // passwordTextBox
+            // secretWordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(86, 47);
-            this.passwordTextBox.MaxLength = 50;
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(268, 21);
-            this.passwordTextBox.TabIndex = 2;
+            this.secretWordTextBox.Location = new System.Drawing.Point(86, 47);
+            this.secretWordTextBox.MaxLength = 50;
+            this.secretWordTextBox.Name = "secretWordTextBox";
+            this.secretWordTextBox.Size = new System.Drawing.Size(268, 21);
+            this.secretWordTextBox.TabIndex = 2;
             // 
             // passwordLabel
             // 
@@ -292,7 +292,7 @@ namespace McK.EIG.ROI.Client.Request.View
         private System.Windows.Forms.GroupBox PDFGroupBox;
         private System.Windows.Forms.ComboBox mediaComboBox;
         private System.Windows.Forms.Label mediaLabel;
-        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox secretWordTextBox;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label typeTextLabel;
         private System.Windows.Forms.Label statusTextLabel;

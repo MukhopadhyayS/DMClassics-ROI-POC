@@ -114,7 +114,7 @@ namespace McK.EIG.ROI.Client.Request.View
             rm = Context.CultureManager.GetCulture(CultureType.ToolTip.ToString());
 
             SetTooltip(rm, toolTip, mediaComboBox);
-            SetTooltip(rm, toolTip, passwordTextBox);
+            SetTooltip(rm, toolTip, secretWordTextBox);
             SetTooltip(rm, toolTip, okButton);
             SetTooltip(rm, toolTip, cancelButton);
 
@@ -202,7 +202,7 @@ namespace McK.EIG.ROI.Client.Request.View
         {
             outputDestinationDetails = (OutputDestinationDetails)fileComboBox.SelectedValue;
 
-            passwordTextBox.Text        = ROIController.DecryptAES(outputDestinationDetails.Password);
+            secretWordTextBox.Text        = ROIController.DecryptAES(outputDestinationDetails.SecuredSecretWord);
             statusTextLabel.Text        = outputDestinationDetails.Status;
             typeTextLabel.Text          = outputDestinationDetails.Type;           
             watermarkTextBox.Text       = outputPropertyDetails.OutputViewDetails.Watermark;
@@ -269,11 +269,11 @@ namespace McK.EIG.ROI.Client.Request.View
                        
             if (outputDestinationDetails.PasswordRequired)
             {
-                if (string.IsNullOrEmpty(passwordTextBox.Text))
+                if (string.IsNullOrEmpty(secretWordTextBox.Text))
                 {
                     ResourceManager rm = Context.CultureManager.GetCulture(CultureType.Message.ToString());
                     this.ParentForm.DialogResult = DialogResult.None;
-                    errorProvider.SetError(passwordTextBox, rm.GetString(ROIErrorCodes.FilePasswordEmpty));
+                    errorProvider.SetError(secretWordTextBox, rm.GetString(ROIErrorCodes.FilePasswordEmpty));
                     hasErrors = true;
                 }
             }
@@ -303,7 +303,7 @@ namespace McK.EIG.ROI.Client.Request.View
                 case "Other": outputDestinationDetails.Media = EnumUtilities.GetDescription(OutputMediaType.Other); break;
 
             }
-            outputDestinationDetails.Password = ROIController.EncryptAES(passwordTextBox.Text);
+            outputDestinationDetails.SecuredSecretWord = ROIController.EncryptAES(secretWordTextBox.Text);
             outputDestinationDetails.IsEncryptedPassword = true;
             outputPropertyDetails.OutputDestinationDetails.Clear();
             outputPropertyDetails.OutputDestinationDetails.Add(outputDestinationDetails);
