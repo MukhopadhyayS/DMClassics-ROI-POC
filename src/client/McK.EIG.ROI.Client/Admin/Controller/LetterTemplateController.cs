@@ -158,12 +158,12 @@ namespace McK.EIG.ROI.Client.Admin.Controller
             {
                 serveletPath += PrepareParams("&", ROIConstants.UserName, HttpUtility.UrlEncode(UserData.Instance.Domain) + "\\" + HttpUtility.UrlEncode(UserData.Instance.DomainUserName)
                                                                           + "~" + HttpUtility.UrlEncode(UserData.Instance.UserId));
-                serveletPath += PrepareParams("&", ROIConstants.Password, HttpUtility.UrlEncode(UserData.Instance.DomainPassword));
+                serveletPath += PrepareParams("&", ROIConstants.SecretWord, HttpUtility.UrlEncode(UserData.Instance.DomainSecretWord));
             }
             else
             {
                 serveletPath += PrepareParams("&", ROIConstants.UserName, HttpUtility.UrlEncode(UserData.Instance.UserId));
-                serveletPath += PrepareParams("&", ROIConstants.Password, HttpUtility.UrlEncode(UserData.Instance.Password));
+                serveletPath += PrepareParams("&", ROIConstants.SecretWord, HttpUtility.UrlEncode(UserData.Instance.SecretWord));
             }
             serveletPath += PrepareParams("&", ROIConstants.AppId, ROIConstants.ROIDomainSource);
             return serveletPath;            
@@ -190,7 +190,7 @@ namespace McK.EIG.ROI.Client.Admin.Controller
         {
             Hashtable serverParameter = new Hashtable(3);
             serverParameter.Add(ROIConstants.User, UserData.Instance.UserInstanceId);
-            serverParameter.Add(ROIConstants.Password, UserData.Instance.Password);
+            serverParameter.Add(ROIConstants.SecretWord, UserData.Instance.SecretWord);
             
             string ischunkEnabled = ConfigurationManager.AppSettings["ChunkEnabled"];
             string blockSize = ConfigurationManager.AppSettings["BlockSize"];
