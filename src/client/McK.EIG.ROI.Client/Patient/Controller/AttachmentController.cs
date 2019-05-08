@@ -323,12 +323,12 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             {
                 serveletPath += PrepareParams("&", ROIConstants.UserName, HttpUtility.UrlEncode(UserData.Instance.Domain) + "\\" + HttpUtility.UrlEncode(UserData.Instance.DomainUserName)
                                                                           + "~" + HttpUtility.UrlEncode(UserData.Instance.UserId));
-                serveletPath += PrepareParams("&", ROIConstants.Password, HttpUtility.UrlEncode(UserData.Instance.DomainPassword));
+                serveletPath += PrepareParams("&", ROIConstants.SecretWord, HttpUtility.UrlEncode(UserData.Instance.DomainSecretWord));
             }
             else
             {
                 serveletPath += PrepareParams("&", ROIConstants.UserName, HttpUtility.UrlEncode(UserData.Instance.UserId));
-                serveletPath += PrepareParams("&", ROIConstants.Password, HttpUtility.UrlEncode(UserData.Instance.Password));
+                serveletPath += PrepareParams("&", ROIConstants.SecretWord, HttpUtility.UrlEncode(UserData.Instance.SecretWord));
             }
             serveletPath += PrepareParams("&", ROIConstants.AppId, ROIConstants.ROIDomainSource);
             return serveletPath;
