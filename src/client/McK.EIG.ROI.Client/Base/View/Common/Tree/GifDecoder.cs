@@ -263,7 +263,7 @@ namespace McK.EIG.ROI.Client.Base.View.Common.Tree
 			}
 
 			// copy each source line to the appropriate place in the destination
-			int pass = 1;
+			int position = 1;
 			int inc = 8;
 			int iline = 0;
 			for (int i = 0; i < ih; i++) 
@@ -273,8 +273,8 @@ namespace McK.EIG.ROI.Client.Base.View.Common.Tree
 				{
 					if (iline >= ih) 
 					{
-						pass++;
-						switch (pass) 
+                        position++;
+						switch (position) 
 						{
 							case 2 :
 								iline = 4;

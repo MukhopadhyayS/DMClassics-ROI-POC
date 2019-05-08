@@ -105,14 +105,14 @@ namespace McK.EIG.ROI.Client.Base.View
             {
                 securityInfo = "?" + ROIConstants.Domain + "=" + HttpUtility.UrlEncode(UserData.Instance.Domain) + "&";
                 securityInfo += ROIConstants.DomainUserName + "=" + HttpUtility.UrlEncode(UserData.Instance.DomainUserName) + "&";
-                securityInfo += ROIConstants.UserPassword + "=" + HttpUtility.UrlEncode(UserData.Instance.DomainPassword) + "&";
+                securityInfo += ROIConstants.UserSecretWord + "=" + HttpUtility.UrlEncode(UserData.Instance.DomainSecretWord) + "&";
                 securityInfo += ROIConstants.HpfUserName + "=" + HttpUtility.UrlEncode(UserData.Instance.UserId) + "&";
                 securityInfo += ROIConstants.AppId + "=" + ROIConstants.ROI + "&";
             }
             else
             {
                 securityInfo = "?" + ROIConstants.UserName + "=" + HttpUtility.UrlEncode(UserData.Instance.UserId) + "&";
-                securityInfo += ROIConstants.UserPassword + "=" + HttpUtility.UrlEncode(UserData.Instance.Password) + "&";
+                securityInfo += ROIConstants.UserSecretWord + "=" + HttpUtility.UrlEncode(UserData.Instance.SecretWord) + "&";
                 securityInfo += ROIConstants.AppId + "=" + ROIConstants.ROI + "&";
             }
             // Authentication ticket hardcoded value will be removed after getting from HPF

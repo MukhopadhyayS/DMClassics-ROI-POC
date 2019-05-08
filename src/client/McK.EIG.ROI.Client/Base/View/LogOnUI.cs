@@ -87,11 +87,11 @@ namespace McK.EIG.ROI.Client.Base.View
         {
             textChanged += new EventHandler(Process_TextChanged);
             userIdTextBox.TextChanged += textChanged;
-            passwordTextBox.TextChanged += textChanged;
+            secretWordTextBox.TextChanged += textChanged;
             domainComboBox.SelectedIndexChanged += textChanged;
 
             userIdTextBox.KeyDown += new KeyEventHandler(userIdTextBox_KeyDown);
-            passwordTextBox.KeyDown += new KeyEventHandler(passwordTextBox_KeyDown);
+            secretWordTextBox.KeyDown += new KeyEventHandler(passwordTextBox_KeyDown);
             logonButton.Click += new EventHandler(logonButton_Click);
             changePasswordButton.Click += new EventHandler(changePasswordButton_Click);
         }
@@ -152,7 +152,7 @@ namespace McK.EIG.ROI.Client.Base.View
             }
             if (e.KeyValue == 13 && userIdTextBox.Text.Length > 0 && !userIdTextBox.Text.Contains(" "))
             {
-                passwordTextBox.Focus();
+                secretWordTextBox.Focus();
             }
             e.Handled = false;
         }
@@ -171,7 +171,7 @@ namespace McK.EIG.ROI.Client.Base.View
             //To prevent the Undo operation.
             if ((e.KeyData == (Keys.Z | Keys.Control)) || (e.KeyData == (Keys.Back | Keys.Alt)))
             {
-                passwordTextBox.ClearUndo();
+                secretWordTextBox.ClearUndo();
             }
             e.Handled = false;
         }
@@ -188,12 +188,12 @@ namespace McK.EIG.ROI.Client.Base.View
             UserData.Instance.LDAPUserId = userIdTextBox.Text;
             if (UserData.Instance.IsLdapEnabled)
             {
-                UserData.Instance.DomainPassword = passwordTextBox.Text;
+                UserData.Instance.DomainSecretWord = secretWordTextBox.Text;
                 UserData.Instance.Domain = domainComboBox.SelectedItem.ToString();
             }
             else
             {
-                UserData.Instance.Password = ROIController.EncryptPassword(passwordTextBox.Text);
+                UserData.Instance.SecretWord = ROIController.EncryptPassword(secretWordTextBox.Text);
             }
 
             return UserData.Instance;
@@ -208,7 +208,7 @@ namespace McK.EIG.ROI.Client.Base.View
         private void Process_TextChanged(object sender, EventArgs e)
         {
             if ((string.IsNullOrEmpty(userIdTextBox.Text.Trim()) ||
-                string.IsNullOrEmpty(passwordTextBox.Text.Trim())) ||
+                string.IsNullOrEmpty(secretWordTextBox.Text.Trim())) ||
                 (UserData.Instance.IsLdapEnabled ? string.IsNullOrEmpty(domainComboBox.SelectedItem.ToString()) : false))
             {
                 EnableButtons(false);
@@ -301,7 +301,7 @@ namespace McK.EIG.ROI.Client.Base.View
             switch (error.ErrorCode)
             {
                 case ROIErrorCodes.UserIdEmpty: return userIdTextBox;
-                case ROIErrorCodes.PasswordEmpty: return passwordTextBox;
+                case ROIErrorCodes.SecretWordEmpty: return secretWordTextBox;
                 case ROIErrorCodes.InvalidDomain: return domainComboBox;
             }
             return null;
@@ -315,7 +315,7 @@ namespace McK.EIG.ROI.Client.Base.View
             }
             else
             {
-                passwordTextBox.SelectAll();
+                secretWordTextBox.SelectAll();
             }
         }
 

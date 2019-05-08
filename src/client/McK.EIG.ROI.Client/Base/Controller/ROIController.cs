@@ -67,7 +67,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
         private InUseServiceWse inUseService;
         private ConfigurationServiceWse configurationService;
         private SigninServiceWse signinService;
-        private PasswordServiceWse passwordService;
+        private PasswordServiceWse secretWordService;
         private LogoutServiceWse logoutService;
         private SecurityLogoffServiceWse roiLogoutService;        
         private admin.ROIAdminServiceWse roiAdminService;
@@ -115,26 +115,26 @@ namespace McK.EIG.ROI.Client.Base.Controller
             UserData userData = UserData.Instance;
 
             string userName = userData.UserId;
-            string userPassword = userData.Password;
+            string userSecretWord = userData.SecretWord;
 
             if (!userData.ConfigurationData.PasswordEnabled)
             {
-                userPassword = "";
+                userSecretWord = "";
             }
             if (userData.IsLdapEnabled)
             {
                 userName = userData.Domain + "\\" + userData.DomainUserName + "~" + userData.UserId;
-                userPassword = userData.DomainPassword;
+                userSecretWord = userData.DomainSecretWord;
             }
 
             newParams[0] = userName;
-            newParams[1] = userPassword;
+            newParams[1] = userSecretWord;
             Uri timeServerUrl = new Uri(McK.EIG.ROI.Client.Base.Controller.INIFile.getURLWithINIValues("PORTAL", ConfigurationManager.AppSettings["ContentServiceUrl"]));
             string serverDateTime = HttpTimerRetriever.GetGmtString(HttpTimerRetriever.GetTimeserverUrl(timeServerUrl));
             newParams[2] = serverDateTime;
             if (userData.ConfigurationData.PasswordEnabled || userData.IsLdapEnabled)
             {
-                newParams[3] = Encrypt(new string[] { userName, userPassword, serverDateTime, userData.ConfigurationData.PrivateKeyToken });
+                newParams[3] = Encrypt(new string[] { userName, userSecretWord, serverDateTime, userData.ConfigurationData.PrivateKeyToken });
             }
             else
             {
@@ -205,7 +205,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
         public UserData LogOnLdap()
         {
             loginId = UserData.Instance.UserId;
-            object[] requestParams = new object[] { UserData.Instance.UserId, UserData.Instance.DomainPassword, UserData.Instance.Domain };
+            object[] requestParams = new object[] { UserData.Instance.UserId, UserData.Instance.DomainSecretWord, UserData.Instance.Domain };
             BaseROIValidator roiValidator = new BaseROIValidator();
 
             if (!roiValidator.ValidateLogOnFields(UserData.Instance))
@@ -224,7 +224,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
                 if (userData.IsLdapEnabled)
                 {
                     userData.DomainUserName = UserData.Instance.UserId;
-                    userData.DomainPassword = UserData.Instance.DomainPassword;
+                    userData.DomainSecretWord = UserData.Instance.DomainSecretWord;
                 }
 
                 if (response == null)
@@ -253,7 +253,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
         {
             //loginId = UserData.Instance.UserId;
             UserData.Instance.HpfMappedUserId = hpfUserName;
-            object[] requestParams = new object[] { UserData.Instance.Domain + "\\" + loginId + "~" + hpfUserName, UserData.Instance.DomainPassword, hpfUserName };
+            object[] requestParams = new object[] { UserData.Instance.Domain + "\\" + loginId + "~" + hpfUserName, UserData.Instance.DomainSecretWord, hpfUserName };
             BaseROIValidator roiValidator = new BaseROIValidator();
 
             if (!roiValidator.ValidateLogOnFields(UserData.Instance))
@@ -284,7 +284,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
         public UserData UserSelfMapping(string hpfUserName)
         {
             UserData.Instance.HpfMappedUserId = hpfUserName;
-            object[] requestParams = new object[] { UserData.Instance.Domain + "\\" + loginId + "~" + hpfUserName, hpfUserName, UserData.Instance.HpfPassword };
+            object[] requestParams = new object[] { UserData.Instance.Domain + "\\" + loginId + "~" + hpfUserName, hpfUserName, UserData.Instance.HpfSecretWord };
 
 
             if (OCSecurityWrapper.IsDLLInitialized())
@@ -319,7 +319,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
         }
         public UserData UserSelfMapping()
         {
-            object[] requestParams = new object[] { UserData.Instance.Domain +"\\" + loginId , UserData.Instance.HpfUserId, UserData.Instance.HpfPassword };
+            object[] requestParams = new object[] { UserData.Instance.Domain +"\\" + loginId , UserData.Instance.HpfUserId, UserData.Instance.HpfSecretWord };
 
             if (signinService == null)
             {
@@ -370,16 +370,16 @@ namespace McK.EIG.ROI.Client.Base.Controller
             GetConfiguration();
 
             object[] requestParams = new object[] { userData.UserId,
-                                                    userData.Password,
-                                                    userData.NewPassword,
+                                                    userData.SecretWord,
+                                                    userData.NewSecretWord,
                                                     "",
                                                     "" };
 
-            if (passwordService == null)
+            if (secretWordService == null)
             {
-                passwordService = new PasswordServiceWse();
+                secretWordService = new PasswordServiceWse();
             }
-            object response = HPFWHelper.Invoke(passwordService, "changePassword", requestParams);
+            object response = HPFWHelper.Invoke(secretWordService, "changePassword", requestParams);
             return Convert.ToString(response, System.Threading.Thread.CurrentThread.CurrentUICulture);
         }
        
@@ -392,17 +392,17 @@ namespace McK.EIG.ROI.Client.Base.Controller
         public void GetConfiguration()
         {
             string userName = UserData.Instance.UserId;
-            string userPassword = UserData.Instance.Password; 
+            string userSecretWord = UserData.Instance.SecretWord; 
 
             // US7773 - GetConfiguration - added security to webservice
             if (userData.IsLdapEnabled)
             {
                 userName = UserData.Instance.Domain + "\\" + loginId + "~" + UserData.Instance.HpfUserId;
-                userPassword = userData.DomainPassword;
+                userSecretWord = userData.DomainSecretWord;
             }
             
             
-            object[] requestParams = new object[] { userName, userPassword }; //UserData.Instance.Password};            
+            object[] requestParams = new object[] { userName, userSecretWord }; //UserData.Instance.Password};            
             if (configurationService == null)
             {
                 configurationService = new ConfigurationServiceWse();
@@ -721,7 +721,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
             if (userData.IsLdapEnabled)
             {
                 userData.UserId = user.loginId.Trim();
-                userData.Password = user.password;
+                userData.SecretWord = user.password;
                 userData.HpfUserId = user.loginId.Trim();
             }
 
@@ -1009,8 +1009,8 @@ namespace McK.EIG.ROI.Client.Base.Controller
             {
                 //Create a secureString for plainText string
                 System.Security.SecureString secureStr = new System.Security.SecureString();
-                foreach (char passCh in plainText)
-                    secureStr.AppendChar(passCh);
+                foreach (char secretWord in plainText)
+                    secureStr.AppendChar(secretWord);
 
                 System.Security.SecureString encryptedString = OCSecurityWrapper.encryptData(secureStr);
                 secureStrPtr = System.Runtime.InteropServices.Marshal.SecureStringToBSTR(encryptedString);
@@ -1042,7 +1042,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
                 inUseService.Dispose();
                 signinService.Dispose();
                 configurationService.Dispose();
-                passwordService.Dispose();
+                secretWordService.Dispose();
                 logoutService.Dispose();
                 roiLogoutService.Dispose();
                 roiAdminService.Dispose();

@@ -29,13 +29,13 @@ namespace McK.EIG.ROI.Client.Base.Controller
                      if (UserData.Instance.HpfMappedUserId == null)
                          UserData.Instance.HpfMappedUserId = "";
 
-                     ADUserCredentials objADUser = new ADUserCredentials(UserData.Instance.LDAPUserId, UserData.Instance.DomainPassword,
+                     ADUserCredentials objADUser = new ADUserCredentials(UserData.Instance.LDAPUserId, UserData.Instance.DomainSecretWord,
                          UserData.Instance.Domain, UserData.Instance.HpfMappedUserId, null);
                      securityCredentials = objOCSecurityFacilitator.getSecureToken(objADUser);  
                  }
                  else
                  {
-                     OCAndOBOUserCredentials objUser = new OCAndOBOUserCredentials(UserData.Instance.UserId, UserData.Instance.UserId, UserData.Instance.Password, null);
+                     OCAndOBOUserCredentials objUser = new OCAndOBOUserCredentials(UserData.Instance.UserId, UserData.Instance.UserId, UserData.Instance.SecretWord, null);
                      securityCredentials = objOCSecurityFacilitator.getSecureToken(objUser);
                  }
                  UserData.Instance.RSAToken = "st:" + securityCredentials.getSecureToken();

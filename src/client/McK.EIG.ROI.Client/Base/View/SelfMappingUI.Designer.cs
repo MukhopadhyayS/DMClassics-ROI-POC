@@ -36,7 +36,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.secretWordTextBox = new System.Windows.Forms.TextBox();
             this.userNameLabel = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.img1 = new System.Windows.Forms.PictureBox();
@@ -114,15 +114,15 @@ namespace McK.EIG.ROI.Client.Base.View
             this.passwordLabel.Size = new System.Drawing.Size(0, 15);
             this.passwordLabel.TabIndex = 55;
             // 
-            // passwordTextBox
+            // secretWordTextBox
             // 
-            this.passwordTextBox.Font = new System.Drawing.Font("Arial", 9F);
-            this.passwordTextBox.Location = new System.Drawing.Point(220, 129);
-            this.passwordTextBox.MaxLength = 32;
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.PasswordChar = '*';
-            this.passwordTextBox.Size = new System.Drawing.Size(220, 21);
-            this.passwordTextBox.TabIndex = 2;
+            this.secretWordTextBox.Font = new System.Drawing.Font("Arial", 9F);
+            this.secretWordTextBox.Location = new System.Drawing.Point(220, 129);
+            this.secretWordTextBox.MaxLength = 32;
+            this.secretWordTextBox.Name = "secretWordTextBox";
+            this.secretWordTextBox.PasswordChar = '*';
+            this.secretWordTextBox.Size = new System.Drawing.Size(220, 21);
+            this.secretWordTextBox.TabIndex = 2;
             // 
             // userNameLabel
             // 
@@ -168,7 +168,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.userNameTextBox);
             this.Controls.Add(this.passwordLabel);
-            this.Controls.Add(this.passwordTextBox);
+            this.Controls.Add(this.secretWordTextBox);
             this.Controls.Add(this.userNameLabel);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.topPanel);
@@ -193,7 +193,7 @@ namespace McK.EIG.ROI.Client.Base.View
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TextBox userNameTextBox;
         private System.Windows.Forms.Label passwordLabel;
-        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox secretWordTextBox;
         private System.Windows.Forms.Label userNameLabel;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.PictureBox img1;

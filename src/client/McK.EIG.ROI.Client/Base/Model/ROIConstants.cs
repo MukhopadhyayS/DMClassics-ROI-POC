@@ -147,7 +147,7 @@ namespace McK.EIG.ROI.Client.Base.Model
         public const string OwnerType       = "OWNER_TYPE";
         public const string User            = "USER";
         public const string UserId          = "USER_ID";
-        public const string Password        = "PASSWORD";
+        public const string SecretWord      = "PASSWORD";
         public const string ChunkEnabled    = "CHUNKENABLED";
         public const string Timestamp       = "TIMESTAMP";
         public const string BlockSize       = "BLOCKSIZE";
@@ -227,7 +227,7 @@ namespace McK.EIG.ROI.Client.Base.Model
         public const string DomainUserName = "DOMAINUSERNAME";
         public const string HpfUserName    = "HPFUSERNAME";
         public const string UserName       = "USERNAME";
-        public const string UserPassword   = "PASSWORD";
+        public const string UserSecretWord = "PASSWORD";
         public const string AppId          = "AppId";
         public const string AuthTicket     = "AuthTicket=";
 
@@ -246,7 +246,7 @@ namespace McK.EIG.ROI.Client.Base.Model
         
 
         public const string OutputMethod = "output-method";
-        public const string QueuePassword = "queue-password";
+        public const string QueueSecretWord = "queue-password";
         
         //Reports
         public const string ReportLSPTitle      = ReportsModuleName + ".title";
@@ -385,7 +385,7 @@ namespace McK.EIG.ROI.Client.Base.Model
         public const string SsnEpnValidation   = "^[a-zA-Z0-9-]+$";
         public const string SsnValidation      = "^\\d{1,3}-\\d{1,2}-\\d{1,4}$";
         public const string UserIdValidation   = "^[a-zA-Z0-9`~@#%^&*()-_=+{}\\|;:\\[\\]'\",.<>/?]+$";
-        public const string PasswordValidation = "^[a-zA-Z0-9!()-.?\\[\\]_`~]+$";
+        public const string SecretWordValidation = "^[a-zA-Z0-9!()-.?\\[\\]_`~]+$";
         public const string CityValidation     = "^[ a-zA-Z0-9.]+$";
         //Expression accept all character expect comma.
         public const string FacilityValidation  = "^[ a-zA-Z0-9~`@#$%^&*()_+=}{\\[\\]|:;\"'?/>.<!\\-\\\\]+$";
