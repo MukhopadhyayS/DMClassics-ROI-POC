@@ -70,12 +70,12 @@ namespace McK.EIG.ROI.Client.Reports.Controller
             if (UserData.Instance.IsLdapEnabled)
             {
                 parameters.Add(ROIConstants.User, UserData.Instance.Domain + "\\" + UserData.Instance.DomainUserName + "~" + UserData.Instance.UserId);
-                parameters.Add(ROIConstants.Password, UserData.Instance.DomainPassword);
+                parameters.Add(ROIConstants.SecretWord, UserData.Instance.DomainSecretWord);
             }
             else
             {
                 parameters.Add(ROIConstants.User, UserName);
-                parameters.Add(ROIConstants.Password, Password);
+                parameters.Add(ROIConstants.SecretWord, Password);
             }
          
             parameters.Add(ROIConstants.Ticket, Ticket);
@@ -108,7 +108,7 @@ namespace McK.EIG.ROI.Client.Reports.Controller
         /// </summary>
         protected override string Password
         {
-            get { return UserData.Instance.Password; }
+            get { return UserData.Instance.SecretWord; }
         }
 
         /// <summary>
