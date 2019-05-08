@@ -409,7 +409,7 @@ namespace McK.EIG.ROI.Client.Request.Model
         /// <summary>
         /// Holds details of the queue password
         /// </summary>
-        public string QueuePassword
+        public string QueueSecretWord
         {
             get { return queueSecure; }
             set { queueSecure = value; }
@@ -418,7 +418,7 @@ namespace McK.EIG.ROI.Client.Request.Model
         /// <summary>
         /// Holds details of the request password
         /// </summary>
-        public string RequestPassword
+        public string RequestSecretWord
         {
             get { return requestSecure; }
             set { requestSecure = value; }

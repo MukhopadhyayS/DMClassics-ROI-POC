@@ -111,7 +111,7 @@ namespace McK.EIG.ROI.Client.Request.View
             rm = Context.CultureManager.GetCulture(CultureType.ToolTip.ToString());
 
             SetTooltip(rm, toolTip, emailToTextBox);
-            SetTooltip(rm, toolTip, passwordTextBox);
+            SetTooltip(rm, toolTip, secretWordTextBox);
             SetTooltip(rm, toolTip, okButton);
             SetTooltip(rm, toolTip, cancelButton);
 
@@ -184,7 +184,7 @@ namespace McK.EIG.ROI.Client.Request.View
             
             outputDestinationDetails = (OutputDestinationDetails)emailComboBox.SelectedValue;
 
-            passwordTextBox.Text        = outputDestinationDetails.Password;
+            secretWordTextBox.Text        = outputDestinationDetails.SecuredSecretWord;
             statusTextLabel.Text        = outputDestinationDetails.Status;
             typeTextLabel.Text          = outputDestinationDetails.Type;
 
@@ -311,7 +311,7 @@ namespace McK.EIG.ROI.Client.Request.View
             outputPropertyDetails.OutputViewDetails.Watermark        = watermarkTextBox.Text;
 
             outputDestinationDetails.EmailAddr = emailToTextBox.Text;
-            outputDestinationDetails.Password = ROIController.EncryptAES(passwordTextBox.Text);
+            outputDestinationDetails.SecuredSecretWord = ROIController.EncryptAES(secretWordTextBox.Text);
             outputDestinationDetails.IsEncryptedPassword = true;
 
 
@@ -385,10 +385,10 @@ namespace McK.EIG.ROI.Client.Request.View
 
             if (outputDestinationDetails.PasswordRequired)
             {
-                if (string.IsNullOrEmpty(passwordTextBox.Text))
+                if (string.IsNullOrEmpty(secretWordTextBox.Text))
                 {
                     hasErrors = true;
-                    errorProvider.SetError(passwordTextBox, rm.GetString(ROIErrorCodes.FilePasswordEmpty));
+                    errorProvider.SetError(secretWordTextBox, rm.GetString(ROIErrorCodes.FilePasswordEmpty));
                 }
             }
             if (! string.IsNullOrEmpty(emailToTextBox.Text.Trim()))

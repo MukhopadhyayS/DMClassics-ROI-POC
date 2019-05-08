@@ -410,7 +410,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
                         releaseDetails.ShippingDetails.OutputMethod == OutputMethod.Fax) && requestDetails.RetrieveNonPrintableCount() > 0)                        
                     {
                         OutputRequestDetails outputNonPrintableRequest = new OutputRequestDetails(request.Id, releaseDetails.Id,
-                                                                         request.RequestPassword, request.ReceiptDate);
+                                                                         request.RequestSecretWord, request.ReceiptDate);
 
                         result = DialogResult.OK;
                         viewer = new ROIViewer(Pane, string.Empty, DialogName);
@@ -472,7 +472,7 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
                     OutputRequestDetails outputRequestDetails = new OutputRequestDetails(request.Id,
                                                                                          releaseDetails.Id,
-                                                                                         request.RequestPassword,
+                                                                                         request.RequestSecretWord,
                                                                                          request.ReceiptDate);
 
                     outputRequestDetails.OutputDestinationDetails = outputPropDetails.OutputDestinationDetails[0];

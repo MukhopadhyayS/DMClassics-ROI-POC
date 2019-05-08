@@ -697,10 +697,10 @@ namespace McK.EIG.ROI.Client.Request.View.RequestInfo
                 }
                 if (requestDetails.Id == 0)
                 {
-                    string requestPassword = RequestController.Instance.RetrieveGeneratedPassword();
-                    if (!string.IsNullOrEmpty(requestPassword))
+                    string requestSecretWord = RequestController.Instance.RetrieveGeneratedPassword();
+                    if (!string.IsNullOrEmpty(requestSecretWord))
                     {
-                        requestDetails.RequestPassword = requestPassword;
+                        requestDetails.RequestSecretWord = requestSecretWord;
                     }
 
                     requestDetails = RequestController.Instance.CreateRequest(requestDetails);

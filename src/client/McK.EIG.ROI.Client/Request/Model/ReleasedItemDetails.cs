@@ -181,7 +181,7 @@ namespace McK.EIG.ROI.Client.Request.Model
         /// <summary>
         /// Gets or sets the request password
         /// </summary>
-        public string RequestPassword
+        public string RequestSecretWord
         {
             get { return requestSecure; }
             set { requestSecure = value; }
@@ -190,19 +190,19 @@ namespace McK.EIG.ROI.Client.Request.Model
         /// <summary>
         /// Gets or sets the queue password
         /// </summary>
-        public string QueuePassword
+        public string QueueSecretWord
         {
             get { return queueSecure; }
             set { queueSecure = value; }
         }
 
-        public string PlainQueuePassword
+        public string PlainQueueSecretWord
         {
             get { return ROIController.DecryptAES(queueSecure); }
             set { queueSecure = ROIController.EncryptAES(value); }
         }
 
-        public string PlainRequestPassword
+        public string PlainRequestSecretWord
         {
             get { return ROIController.DecryptAES(requestSecure); }
             set { requestSecure = ROIController.EncryptAES(value); }

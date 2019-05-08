@@ -24,6 +24,7 @@ using System.Resources;
 using System.Text;
 using System.Globalization;
 using System.Windows.Forms;
+using System.Security;
 
 using McK.EIG.Common.Audit.Model;
 using McK.EIG.Common.FileTransfer.Controller.Upload;
@@ -1093,7 +1094,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     if ((shippingInfoUI.IsPrint || shippingInfoUI.IsFax) && request.RetrieveNonPrintableCount() > 0)
                     {
                         OutputRequestDetails outputNonPrintableRequest = new OutputRequestDetails(request.Id, release.Id,
-                                                                         request.RequestPassword, request.ReceiptDate);
+                                                                         request.RequestSecretWord, request.ReceiptDate);
 
                         result = DialogResult.OK;
                         ROIViewer viewer = new ROIViewer(Pane, string.Empty, GetType().Name);
@@ -1112,12 +1113,12 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                             OutputViewDetails nonPrintableOutputViewDetails = outputPropertyDetails.OutputViewDetails;
 
                             //Queue and Request passwords will be updated after MarkAsRelease method call
-                            if (!string.IsNullOrEmpty(outputNonPrintableRequest.OutputDestinationDetails.Password))
+                            if (!string.IsNullOrEmpty(outputNonPrintableRequest.OutputDestinationDetails.SecuredSecretWord))
                             {
-                                release.QueuePassword = outputNonPrintableRequest.OutputDestinationDetails.Password;
+                                release.QueueSecretWord = outputNonPrintableRequest.OutputDestinationDetails.SecuredSecretWord;
                             }
                             // Always file dialog
-                            release.RequestPassword = request.RequestPassword;
+                            release.RequestSecretWord = request.RequestSecretWord;
 
                             foreach (RequestPartDetails reqPartDetail in nonPrintableAttachmentReqParts)
                             {
@@ -1373,8 +1374,8 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                             Application.DoEvents();
                             RequestController.Instance.CreateComment(details);
 
-						if (release.RequestPassword == null)
-							release.RequestPassword = "";
+						if (release.RequestSecretWord == null)
+							release.RequestSecretWord = "";
                         RequestDetails req = request;
 
 
@@ -1455,20 +1456,20 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
         private OutputRequestDetails BuildRequestPart(bool isDisc, bool isPrint)
         {
             OutputRequestDetails outputRequestDetails = new OutputRequestDetails(request.Id, releaseDialog.ReleaseAndPreviewDetails.releaseId,
-                                                                request.RequestPassword, request.ReceiptDate);
+                                                                request.RequestSecretWord, request.ReceiptDate);
 
                     outputRequestDetails.OutputDestinationDetails = releaseDialog.OutputPropertyDetails.OutputDestinationDetails[0];
                     if (isDisc) outputRequestDetails.OutputDestinationDetails = releaseDialog.OutputPropertyDetailsForDisc.OutputDestinationDetails[0];
                     outputViewDetails = releaseDialog.OutputPropertyDetails.OutputViewDetails;
 
                     //Queue and Request passwords will be updated after MarkAsRelease method call
-                    if (!string.IsNullOrEmpty(outputRequestDetails.OutputDestinationDetails.Password))
+                    if (!string.IsNullOrEmpty(outputRequestDetails.OutputDestinationDetails.SecuredSecretWord))
                     {
-                        release.QueuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                        release.QueueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                     }
                     if (destinationType == DestinationType.File)
                     {
-                        release.RequestPassword = request.RequestPassword;
+                        release.RequestSecretWord = request.RequestSecretWord;
                     }
 
                     RequestPartDetails requestPartDetails = null;
@@ -4331,7 +4332,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
             long letterId = 0;
             bool forInvoice;
             bool forLetter = false;
-            string queuePassword = string.Empty;
+            string queueSecretWord = string.Empty;
             string outputMethodName = string.Empty;
 
             ResourceManager rm = Context.CultureManager.GetCulture(CultureType.UIText.ToString());
@@ -4437,7 +4438,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                     }
                     InvoiceInfo.OutputMethod = release.ShippingDetails.OutputMethod.ToString();
                     InvoiceInfo.OverwriteDueDate = prebillInvoiceDetails.OverwriteInvoiceDue;
-                    InvoiceInfo.QueuePassword = prebillInvoiceDetails.QueuePassword;//prebillInvoiceDetails.Release.QueuePassword;
+                    InvoiceInfo.QueueSecretWord = prebillInvoiceDetails.QueueSecretWord;//prebillInvoiceDetails.Release.QueuePassword;
                     InvoiceInfo.RequestCoreId = release.RequestId;
                     InvoiceInfo.RequestStatus = prebillInvoiceDetails.RequestStatus;//request.Status.ToString ();
                     InvoiceInfo.RequestDate = DateTime.Now;
@@ -4500,20 +4501,20 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         }
                         OutputRequestDetails outputRequestDetails = new OutputRequestDetails(request.Id,
                                                                        Convert.ToInt64(DateTime.Now.ToString("ddMMyyyyhhmmssms", System.Threading.Thread.CurrentThread.CurrentUICulture), System.Threading.Thread.CurrentThread.CurrentUICulture),
-                                                                       request.RequestPassword, request.ReceiptDate);
+                                                                       request.RequestSecretWord, request.ReceiptDate);
                         outputRequestDetails.OutputDestinationDetails = outputPropertyDetails.OutputDestinationDetails[0];
                         outputRequestDetails.RequestParts.Add(BuildROIRequestPartDetails(documentInfo));
                       
                         prebillInvoiceDetails.Id = documentInfo.Id;
                         invoiceId = documentInfo.Id;
                         forInvoice = true;
-                        prebillInvoiceDetails.QueuePassword = String.Empty;
+                        prebillInvoiceDetails.QueueSecretWord = String.Empty;
 
                         string outputMethod = outputRequestDetails.OutputDestinationDetails.Type;
                         if (string.Compare(outputRequestDetails.OutputDestinationDetails.Type, DestinationType.File.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                         {
-                            prebillInvoiceDetails.QueuePassword = outputRequestDetails.OutputDestinationDetails.Password;
-                            queuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                            prebillInvoiceDetails.QueueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
+                            queueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                             outputMethod = OutputMethod.SaveAsFile.ToString();
                             outputMethodName = OutputMethod.SaveAsFile.ToString();
                         }
@@ -4530,7 +4531,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
 
                         if (string.Compare(outputRequestDetails.OutputDestinationDetails.Type, DestinationType.Email.ToString(), true, System.Threading.Thread.CurrentThread.CurrentUICulture) == 0)
                         {
-                            prebillInvoiceDetails.QueuePassword = outputRequestDetails.OutputDestinationDetails.Password;
+                            prebillInvoiceDetails.QueueSecretWord = outputRequestDetails.OutputDestinationDetails.SecuredSecretWord;
                             outputMethodName = OutputMethod.Email.ToString();
                         }
 
@@ -4539,7 +4540,7 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         if (letterTemplateType == LetterType.PreBill.ToString())
                         {
                             Application.DoEvents();
-                            BillingController.Instance.updateInvoiceOutputProperties(invoiceId, 0, 0, true, false, false, queuePassword, outputMethodName);                                                                                    
+                            BillingController.Instance.updateInvoiceOutputProperties(invoiceId, 0, 0, true, false, false, queueSecretWord, outputMethodName);                                                                                    
                         }
                         if (releaseDialog != null )
                         {

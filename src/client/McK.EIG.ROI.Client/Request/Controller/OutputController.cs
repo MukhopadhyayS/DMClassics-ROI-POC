@@ -178,12 +178,12 @@ namespace McK.EIG.ROI.Client.Request.Controller
                             }
                         case "defaultPassword":
                             {
-                                outputDestinationDetails.Password = Convert.ToString(mapModel.value,System.Threading.Thread.CurrentThread.CurrentUICulture);
+                                outputDestinationDetails.SecuredSecretWord = Convert.ToString(mapModel.value,System.Threading.Thread.CurrentThread.CurrentUICulture);
                                 break;
                             }
                         case "fileDefaultPassword":
                             {
-                                outputDestinationDetails.Password = Convert.ToString(mapModel.value, System.Threading.Thread.CurrentThread.CurrentUICulture);
+                                outputDestinationDetails.SecuredSecretWord = Convert.ToString(mapModel.value, System.Threading.Thread.CurrentThread.CurrentUICulture);
                                 break;
                             }
                         case "mediaType":
@@ -340,7 +340,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
         {
             long requestId = clientOutputRequest.RequestId;
             long releaseId = clientOutputRequest.ReleaseId;
-            string requestPassword = clientOutputRequest.RequestPassword;
+            string requestSecretWord = clientOutputRequest.RequestSecretWord;
             string requestDateNoFormat = clientOutputRequest.RequestDateTextNoFormat;
             string requestDateFormatted = clientOutputRequest.RequestDateTextFormatted;
 
@@ -424,11 +424,11 @@ namespace McK.EIG.ROI.Client.Request.Controller
                                 labelMapModelList.Add(CreateMapModel(PropertyDetails.PatientTypeSecure, propertyDetails.PatientType));
                             }
                             OutputDestinationDetails destinationDetails = clientOutputRequest.OutputDestinationDetails;
-                            mapModelLists.Add(CreateMapModel(PropertyDetails.DiscQueueValueSecure, ROIController.EncryptOcSecurity(ROIController.DecryptAES(destinationDetails.Password))));
+                            mapModelLists.Add(CreateMapModel(PropertyDetails.DiscQueueValueSecure, ROIController.EncryptOcSecurity(ROIController.DecryptAES(destinationDetails.SecuredSecretWord))));
                             mapModelLists.Add(CreateMapModel(PropertyDetails.IsEncryptedValueSecure, (null == destinationDetails.IsEncryptedPassword) ? "false" : destinationDetails.IsEncryptedPassword.ToString()));
                             mapModelLists.Add(CreateMapModel(PropertyDetails.ReleaseNumForDiscSecure, releaseId.ToString()));
                             mapModelLists.Add(CreateMapModel(PropertyDetails.ReleaseIDForDiscSecure, propertyDetails.RequestID.ToString()));
-                            mapModelLists.Add(CreateMapModel(PropertyDetails.RequestSecureForDisc, ROIController.EncryptOcSecurity(ROIController.DecryptAES(requestPassword))));
+                            mapModelLists.Add(CreateMapModel(PropertyDetails.RequestSecureForDisc, ROIController.EncryptOcSecurity(ROIController.DecryptAES(requestSecretWord))));
                             mapModelLists.Add(CreateMapModel(PropertyDetails.DiscMediaSecure, destinationDetails.DiscType));
                             mapModelLists.Add(CreateMapModel(PropertyDetails.RequestDateForDiscSecure, requestCreatedForDisc));
                             if (!("None").Equals(destinationDetails.TemplateName))
@@ -585,13 +585,13 @@ namespace McK.EIG.ROI.Client.Request.Controller
                 mapModelLists.Add(CreateMapModel(ReleaseNumberKey, releaseId.ToString(System.Threading.Thread.CurrentThread.CurrentUICulture)));
                 mapModelLists.Add(CreateMapModel(RequestDateKey, requestDateNoFormat));
                 mapModelLists.Add(CreateMapModel(PropertyDetails.IsEncryptedValueSecure, (null == clientOutputRequest.OutputDestinationDetails.IsEncryptedPassword) ? "false" : clientOutputRequest.OutputDestinationDetails.IsEncryptedPassword.ToString()));
-                if (!string.IsNullOrEmpty(clientOutputRequest.OutputDestinationDetails.Password.Trim()))
+                if (!string.IsNullOrEmpty(clientOutputRequest.OutputDestinationDetails.SecuredSecretWord.Trim()))
                 {
-                    mapModelLists.Add(CreateMapModel(SecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(clientOutputRequest.OutputDestinationDetails.Password))));
+                    mapModelLists.Add(CreateMapModel(SecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(clientOutputRequest.OutputDestinationDetails.SecuredSecretWord))));
                 }
-                if (!string.IsNullOrEmpty(requestPassword))
+                if (!string.IsNullOrEmpty(requestSecretWord))
                 {
-                    mapModelLists.Add(CreateMapModel(RequestSecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(requestPassword))));
+                    mapModelLists.Add(CreateMapModel(RequestSecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(requestSecretWord))));
                 }
                 if(isOverDueWatermark) // To verify the call initiated by overdue invoices
                 {
@@ -633,14 +633,14 @@ namespace McK.EIG.ROI.Client.Request.Controller
                 mapModelLists.Add(CreateMapModel(RequestIdKey, requestId.ToString(System.Threading.Thread.CurrentThread.CurrentUICulture)));
                 mapModelLists.Add(CreateMapModel(ReleaseNumberKey, releaseId.ToString(System.Threading.Thread.CurrentThread.CurrentUICulture)));
                 mapModelLists.Add(CreateMapModel(RequestDateKey, requestDateNoFormat));
-                if (!string.IsNullOrEmpty(clientOutputRequest.OutputDestinationDetails.Password.Trim()))
+                if (!string.IsNullOrEmpty(clientOutputRequest.OutputDestinationDetails.SecuredSecretWord.Trim()))
                 {
-                    mapModelLists.Add(CreateMapModel(SecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(clientOutputRequest.OutputDestinationDetails.Password))));
+                    mapModelLists.Add(CreateMapModel(SecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(clientOutputRequest.OutputDestinationDetails.SecuredSecretWord))));
                     mapModelLists.Add(CreateMapModel(PropertyDetails.IsEncryptedValueSecure, (null == clientOutputRequest.OutputDestinationDetails.IsEncryptedPassword) ? "false" : clientOutputRequest.OutputDestinationDetails.IsEncryptedPassword.ToString()));
                 }
-                if (!string.IsNullOrEmpty(requestPassword))
+                if (!string.IsNullOrEmpty(requestSecretWord))
                 {
-                    mapModelLists.Add(CreateMapModel(RequestSecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(requestPassword))));
+                    mapModelLists.Add(CreateMapModel(RequestSecureKey, ROIController.EncryptOcSecurity(ROIController.DecryptAES(requestSecretWord))));
                 }
             }
 

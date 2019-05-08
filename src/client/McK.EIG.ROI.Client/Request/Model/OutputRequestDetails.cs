@@ -114,7 +114,7 @@ namespace McK.EIG.ROI.Client.Request.Model
             get { return releaseId; }
         }
 
-        public string RequestPassword
+        public string RequestSecretWord
         {
             get { return requestSecure; }
         }

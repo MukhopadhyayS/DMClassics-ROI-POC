@@ -126,7 +126,7 @@ namespace McK.EIG.ROI.Client.Request.View
 
             SetTooltip(rm, toolTip, discNameComboBox);
             SetTooltip(rm, toolTip, discTypeComboBox);
-            SetTooltip(rm, toolTip, passwordTextBox);
+            SetTooltip(rm, toolTip, secretWordTextBox);
             SetTooltip(rm, toolTip, templateComboBox);
             SetTooltip(rm, toolTip, createFreeFormNoteButton);
             SetTooltip(rm, toolTip, okButton);
@@ -376,7 +376,7 @@ namespace McK.EIG.ROI.Client.Request.View
                 }
             }
 
-            passwordTextBox.Text = ROIController.DecryptAES(outputDestinationDetailsForDisc.Password);
+            secretWordTextBox.Text = ROIController.DecryptAES(outputDestinationDetailsForDisc.SecuredSecretWord);
             templateComboBox.Text = string.IsNullOrEmpty(outputDestinationDetailsForDisc.TemplateName)? "None" : outputDestinationDetailsForDisc.TemplateName;
             discTypeComboBox.Text = outputDestinationDetailsForDisc.Media;
             errorProvider.Clear();
@@ -484,11 +484,11 @@ namespace McK.EIG.ROI.Client.Request.View
             this.ParentForm.DialogResult = DialogResult.OK;
             if (outputDestinationDetailsForDisc.PasswordRequired)
             {
-                if (string.IsNullOrEmpty(passwordTextBox.Text.Trim()))
+                if (string.IsNullOrEmpty(secretWordTextBox.Text.Trim()))
                 {
                     ResourceManager rm = Context.CultureManager.GetCulture(CultureType.Message.ToString());
                     this.ParentForm.DialogResult = DialogResult.None;
-                    errorProvider.SetError(passwordTextBox, rm.GetString(ROIErrorCodes.FilePasswordEmpty));
+                    errorProvider.SetError(secretWordTextBox, rm.GetString(ROIErrorCodes.FilePasswordEmpty));
                     hasErrors = true;
                     return;
                 }
@@ -527,7 +527,7 @@ namespace McK.EIG.ROI.Client.Request.View
             outputPropertyDetails.OutputDestinationDetails.Add(outputDestinationDetails);
 
             outputPropertyDetailsForDisc.OutputDestinationDetails.Clear();
-            outputDestinationDetailsForDisc.Password = !string.IsNullOrEmpty(passwordTextBox.Text) ? ROIController.EncryptAES(passwordTextBox.Text.Trim()) : string.Empty;
+            outputDestinationDetailsForDisc.SecuredSecretWord = !string.IsNullOrEmpty(secretWordTextBox.Text) ? ROIController.EncryptAES(secretWordTextBox.Text.Trim()) : string.Empty;
             outputDestinationDetailsForDisc.IsEncryptedPassword = true;
             outputDestinationDetailsForDisc.DiscType = !string.IsNullOrEmpty(discTypeComboBox.Text) ? discTypeComboBox.Text.Trim() : string.Empty;
             outputDestinationDetailsForDisc.TemplateName = !string.IsNullOrEmpty(templateComboBox.Text) ? templateComboBox.Text.Trim() : string.Empty;

@@ -58,7 +58,7 @@
             this.createNotesLabel = new System.Windows.Forms.Label();
             this.templateComboBox = new System.Windows.Forms.ComboBox();
             this.templateLabel = new System.Windows.Forms.Label();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.secretWordTextBox = new System.Windows.Forms.TextBox();
             this.discTypeComboBox = new System.Windows.Forms.ComboBox();
             this.discNameComboBox = new System.Windows.Forms.ComboBox();
             this.passwordLabel = new System.Windows.Forms.Label();
@@ -228,7 +228,7 @@
             // 
             this.discGroupBox.Controls.Add(this.headerGroupBox);
             this.discGroupBox.Controls.Add(this.discLabelGroupBox);
-            this.discGroupBox.Controls.Add(this.passwordTextBox);
+            this.discGroupBox.Controls.Add(this.secretWordTextBox);
             this.discGroupBox.Controls.Add(this.discTypeComboBox);
             this.discGroupBox.Controls.Add(this.discNameComboBox);
             this.discGroupBox.Controls.Add(this.passwordLabel);
@@ -370,13 +370,13 @@
             this.templateLabel.Size = new System.Drawing.Size(0, 15);
             this.templateLabel.TabIndex = 0;
             // 
-            // passwordTextBox
+            // secretWordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(96, 75);
-            this.passwordTextBox.MaxLength = 50;
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(207, 21);
-            this.passwordTextBox.TabIndex = 3;
+            this.secretWordTextBox.Location = new System.Drawing.Point(96, 75);
+            this.secretWordTextBox.MaxLength = 50;
+            this.secretWordTextBox.Name = "secretWordTextBox";
+            this.secretWordTextBox.Size = new System.Drawing.Size(207, 21);
+            this.secretWordTextBox.TabIndex = 3;
             // 
             // discTypeComboBox
             // 
@@ -468,7 +468,7 @@
 
         private System.Windows.Forms.GroupBox discGroupBox;
         private System.Windows.Forms.GroupBox discLabelGroupBox;
-        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox secretWordTextBox;
         private System.Windows.Forms.ComboBox discTypeComboBox;
         private System.Windows.Forms.ComboBox discNameComboBox;
         private System.Windows.Forms.Label passwordLabel;
