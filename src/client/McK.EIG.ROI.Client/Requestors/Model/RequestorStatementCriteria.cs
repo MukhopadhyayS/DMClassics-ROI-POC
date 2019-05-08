@@ -75,7 +75,7 @@ namespace McK.EIG.ROI.Client.Requestors.Model
         /// <summary>
         /// Holds the Queue Password
         /// </summary>
-        public string QueuePassword
+        public string QueueSecretWord
         {
             get { return queueSecure; }
             set { queueSecure = value; }

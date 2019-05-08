@@ -72,17 +72,17 @@ namespace McK.EIG.ROI.Client.Requestors.Model
             get { return template; }
             set { template = value; }
         }
-        public string RequestPassword
+        public string RequestSecretWord
         {
             get{return requestSecure;}
             set{requestSecure=value;}
         }
-        public string QueuePassword
+        public string QueueSecretWord
         {
             get{ return queueSecure;}
             set{queueSecure=value;}
         }
-        public string PlainQueuePassword
+        public string PlainQueueSecretWord
         {
             get { return ROIController.DecryptAES(queueSecure); }
             set { queueSecure = ROIController.EncryptAES(value); }
