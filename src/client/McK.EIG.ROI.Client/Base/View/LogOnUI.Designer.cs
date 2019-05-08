@@ -31,7 +31,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.changePasswordButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.logonButton = new System.Windows.Forms.Button();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.secretWordTextBox = new System.Windows.Forms.TextBox();
             this.userIdTextBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.userIdLabel = new System.Windows.Forms.Label();
@@ -87,14 +87,14 @@ namespace McK.EIG.ROI.Client.Base.View
             this.logonButton.TabIndex = 3;
             this.logonButton.UseVisualStyleBackColor = true;
             // 
-            // passwordTextBox
+            // secretWordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(130, 68);
-            this.passwordTextBox.MaxLength = 32;
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.PasswordChar = '*';
-            this.passwordTextBox.Size = new System.Drawing.Size(210, 21);
-            this.passwordTextBox.TabIndex = 2;
+            this.secretWordTextBox.Location = new System.Drawing.Point(130, 68);
+            this.secretWordTextBox.MaxLength = 32;
+            this.secretWordTextBox.Name = "secretWordTextBox";
+            this.secretWordTextBox.PasswordChar = '*';
+            this.secretWordTextBox.Size = new System.Drawing.Size(210, 21);
+            this.secretWordTextBox.TabIndex = 2;
             // 
             // userIdTextBox
             // 
@@ -172,7 +172,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.panel3.Controls.Add(this.domainComboBox);
             this.panel3.Controls.Add(this.userIdLabel);
             this.panel3.Controls.Add(this.domainLabel);
-            this.panel3.Controls.Add(this.passwordTextBox);
+            this.panel3.Controls.Add(this.secretWordTextBox);
             this.panel3.Controls.Add(this.pictureBox1);
             this.panel3.Controls.Add(this.passwordLabel);
             this.panel3.Controls.Add(this.pictureBox3);
@@ -294,7 +294,7 @@ namespace McK.EIG.ROI.Client.Base.View
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button logonButton;
-        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox secretWordTextBox;
         private System.Windows.Forms.TextBox userIdTextBox;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label userIdLabel;

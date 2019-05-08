@@ -377,13 +377,13 @@ namespace McK.EIG.ROI.Client.Base.Model
         /// <summary>
         /// Password
         /// </summary>
-        public string Password
+        public string SecretWord
         {
             get { return secure.ToString(); }
             set { secure = new StringBuilder(value); }
         }
 
-        public string DomainPassword
+        public string DomainSecretWord
         {
             get { return domainSecure.ToString(); }
             set { domainSecure = new StringBuilder(value); }
@@ -396,7 +396,7 @@ namespace McK.EIG.ROI.Client.Base.Model
         /// <summary>
         /// New Password.
         /// </summary>
-        public string NewPassword
+        public string NewSecretWord
         {
             get { return newSecure.ToString(); }
             set { newSecure = new StringBuilder(value); }
@@ -814,7 +814,7 @@ namespace McK.EIG.ROI.Client.Base.Model
         /// <summary>
         /// HPF Password for self-mapping
         /// </summary>
-        public string HpfPassword
+        public string HpfSecretWord
         {
             get { return hpfSecure; }
             set { hpfSecure = value; }
@@ -965,7 +965,7 @@ namespace McK.EIG.ROI.Client.Base.Model
             get
             {
                 //current key
-                string key = this.UserId + ":" + this.Password;
+                string key = this.UserId + ":" + this.SecretWord;
 
                 string strUserName     = this.UserId;
                 string strUserSecure = "dummy"; 
@@ -973,7 +973,7 @@ namespace McK.EIG.ROI.Client.Base.Model
                 if (this.isLdapEnabled)
                 {
                     strUserName     = this.Domain + "\\" + this.DomainUserName + "~" + this.HpfUserId;
-                    strUserSecure = this.DomainPassword;
+                    strUserSecure = this.DomainSecretWord;
                 }
 
                 if (this.tokenInUse == null)

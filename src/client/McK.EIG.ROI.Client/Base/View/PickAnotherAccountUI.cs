@@ -84,7 +84,7 @@ namespace McK.EIG.ROI.Client.Base.View
         private void GetData()
         {
             UserData.Instance.HpfUserId = userNameTextBox.Text;
-            UserData.Instance.HpfPassword = passwordTextBox.Text;
+            UserData.Instance.HpfSecretWord = secretWordTextBox.Text;
         }
 
         /// <summary>
@@ -95,10 +95,10 @@ namespace McK.EIG.ROI.Client.Base.View
             textChanged += new EventHandler(Process_TextChanged);
 
             userNameTextBox.TextChanged += textChanged;
-            passwordTextBox.TextChanged += textChanged;
+            secretWordTextBox.TextChanged += textChanged;
 
             userNameTextBox.KeyDown += new KeyEventHandler(userNameTextBox_KeyDown);
-            passwordTextBox.KeyDown += new KeyEventHandler(passwordTextBox_KeyDown);
+            secretWordTextBox.KeyDown += new KeyEventHandler(passwordTextBox_KeyDown);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace McK.EIG.ROI.Client.Base.View
         /// //Process
         private void Process_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(userNameTextBox.Text.Trim()) || string.IsNullOrEmpty(passwordTextBox.Text.Trim()))
+            if (string.IsNullOrEmpty(userNameTextBox.Text.Trim()) || string.IsNullOrEmpty(secretWordTextBox.Text.Trim()))
             {
                 EnableButtons(false);
             }
@@ -146,7 +146,7 @@ namespace McK.EIG.ROI.Client.Base.View
             }
             if (e.KeyValue == 13 && userNameTextBox.Text.Length > 0 && !userNameTextBox.Text.Contains(" "))
             {
-                passwordTextBox.Focus();
+                secretWordTextBox.Focus();
             }
             e.Handled = false;
         }
@@ -165,7 +165,7 @@ namespace McK.EIG.ROI.Client.Base.View
             //To prevent the Undo operation.
             if ((e.KeyData == (Keys.Z | Keys.Control)) || (e.KeyData == (Keys.Back | Keys.Alt)))
             {
-                passwordTextBox.ClearUndo();
+                secretWordTextBox.ClearUndo();
             }
             e.Handled = false;
         }
@@ -185,7 +185,7 @@ namespace McK.EIG.ROI.Client.Base.View
             switch (error.ErrorCode)
             {
                 case ROIErrorCodes.UserIdEmpty: return userNameTextBox;
-                case ROIErrorCodes.PasswordEmpty: return passwordTextBox;
+                case ROIErrorCodes.SecretWordEmpty: return secretWordTextBox;
             }
             return null;
         }

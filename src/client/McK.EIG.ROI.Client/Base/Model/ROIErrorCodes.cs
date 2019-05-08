@@ -334,10 +334,10 @@ namespace McK.EIG.ROI.Client.Base.Model
 
         // Login module
         public const string UserIdEmpty     = "ROI.10.0.21";
-        public const string PasswordEmpty   = "ROI.10.0.22";
+        public const string SecretWordEmpty = "ROI.10.0.22";
         public const string InvalidUserId   = "ROI.10.0.23";
-        public const string InvalidPassword = "ROI.10.0.24";
-        public const string InvalidDomain   = "ROI.10.0.30";
+        public const string InvalidSecretWord = "ROI.10.0.24";
+        public const string InvalidDomain     = "ROI.10.0.30";
 
         // Output module
         public const string FilePasswordEmpty = "ROI.10.0.26";

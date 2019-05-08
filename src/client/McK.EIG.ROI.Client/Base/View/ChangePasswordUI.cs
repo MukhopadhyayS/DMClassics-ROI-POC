@@ -170,8 +170,8 @@ namespace McK.EIG.ROI.Client.Base.View
                 {
                     ROIViewUtility.MarkBusy(true);
                     ROIController roiController = ROIController.Instance;
-                    string encryptedPassword = ROIController.EncryptPassword(newPasswordTextBox.Text);
-                    UserData.Instance.NewPassword = encryptedPassword;
+                    string encryptedSecretWord = ROIController.EncryptPassword(newPasswordTextBox.Text);
+                    UserData.Instance.NewSecretWord = encryptedSecretWord;
                     if (UserData.Instance.ConfigurationData == null)
                     {
                         UserData.Instance.ConfigurationData = ConfigurationData.Instance;
@@ -185,7 +185,7 @@ namespace McK.EIG.ROI.Client.Base.View
                         string messageText = rm.GetString("changepasswordsuccess.message");
                         ShowDialog(titleText, messageText);
                         this.ParentForm.DialogResult = DialogResult.OK;
-                        UserData.Instance.Password = encryptedPassword;
+                        UserData.Instance.SecretWord = encryptedSecretWord;
                     }
                 }
             }
@@ -225,7 +225,7 @@ namespace McK.EIG.ROI.Client.Base.View
             {
                 if (!Validator.Validate(currentPasswordTextBox.Text, ROIConstants.AllCharacters))
                 {
-                    errorProvider.SetError(currentPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidPassword));
+                    errorProvider.SetError(currentPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidSecretWord));
                     flag = false;
                 }
             }
@@ -233,7 +233,7 @@ namespace McK.EIG.ROI.Client.Base.View
             {
                 if (!Validator.Validate(newPasswordTextBox.Text, ROIConstants.AllCharacters))
                 {
-                    errorProvider.SetError(newPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidPassword));
+                    errorProvider.SetError(newPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidSecretWord));
                     flag = false;
                 }
             }
@@ -241,7 +241,7 @@ namespace McK.EIG.ROI.Client.Base.View
             {
                 if (!Validator.Validate(confirmPasswordTextBox.Text, ROIConstants.AllCharacters))
                 {
-                    errorProvider.SetError(confirmPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidPassword));
+                    errorProvider.SetError(confirmPasswordTextBox, rm.GetString(ROIErrorCodes.InvalidSecretWord));
                     flag = false;
                 }
             }
@@ -250,7 +250,7 @@ namespace McK.EIG.ROI.Client.Base.View
             {
                 string titleText = rm.GetString("changepasswordfailed.title");
                 
-                if(!ROIController.EncryptPassword(currentPasswordTextBox.Text).Equals(UserData.Instance.Password))
+                if(!ROIController.EncryptPassword(currentPasswordTextBox.Text).Equals(UserData.Instance.SecretWord))
                 {
                     string messageText = rm.GetString("CurrentPasswordDoNotMatch");                    
                     this.ParentForm.DialogResult = DialogResult.None;

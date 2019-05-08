@@ -74,9 +74,9 @@ namespace McK.EIG.ROI.Client.Base.Controller
             }
             if (userData.IsLdapEnabled)
             {
-                if (string.IsNullOrEmpty(userData.DomainPassword))
+                if (string.IsNullOrEmpty(userData.DomainSecretWord))
                 {
-                    AddError(ROIErrorCodes.PasswordEmpty);
+                    AddError(ROIErrorCodes.SecretWordEmpty);
                 }
                 if (string.IsNullOrEmpty(userData.Domain))
                 {
@@ -85,9 +85,9 @@ namespace McK.EIG.ROI.Client.Base.Controller
             }
             else
             {
-                if (string.IsNullOrEmpty(userData.Password))
+                if (string.IsNullOrEmpty(userData.SecretWord))
                 {
-                    AddError(ROIErrorCodes.PasswordEmpty);
+                    AddError(ROIErrorCodes.SecretWordEmpty);
                 }
             }
             if (userData.UserId == ROIConstants.UserMappingRequired && userData.IsSelfMappingEnabled)
@@ -96,9 +96,9 @@ namespace McK.EIG.ROI.Client.Base.Controller
                 {
                     AddError(ROIErrorCodes.UserIdEmpty);
                 }
-                if(string.IsNullOrEmpty(userData.HpfPassword))
+                if(string.IsNullOrEmpty(userData.HpfSecretWord))
                 {
-                    AddError(ROIErrorCodes.PasswordEmpty);
+                    AddError(ROIErrorCodes.SecretWordEmpty);
                 }
             }
             return NoErrors;
