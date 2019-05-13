@@ -13,9 +13,9 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>McK.EIG.ROI.Client.App.snk</AssemblyOriginatorKeyFile>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <SignManifests>true</SignManifests>
-    <ManifestCertificateThumbprint>060CFAF3737A71E1A8BF7FD20B76FC50CE208FAB</ManifestCertificateThumbprint>
-    <ManifestKeyFile>McK.EIG.ROI.Client.App_1_TemporaryKey.pfx</ManifestKeyFile>
+    <SignManifests>false</SignManifests>
+    <ManifestCertificateThumbprint>0A897D3929B15D892F4B23DF3A0BA72A71BC0108</ManifestCertificateThumbprint>
+    <ManifestKeyFile>McK.EIG.ROI.Client.App_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -466,7 +466,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ROIAppManager.cs" />
-    <None Include="McK.EIG.ROI.Client.App_1_TemporaryKey.pfx" />
     <None Include="McK.EIG.ROI.Client.App_TemporaryKey.pfx" />
     <Content Include="Reports\MUReleaseTurnaroundTimeReport_0.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
