@@ -1617,7 +1617,7 @@ letter template or deselect adding a letter to the release in order to continue 
     <value>Select to print the job.</value>
     <comment>Output Dialog</comment>
   </data>
-  <data name="passwordTextBox.OutputFileDialog" xml:space="preserve">
+  <data name="secretWordTextBox.OutputFileDialog" xml:space="preserve">
     <value>The entered password, if entered, will be used to encrypt the PDF file.  This password should be given to the requestor, so that he/she can open it when the file is received.</value>
     <comment>Output Dialog</comment>
   </data>
