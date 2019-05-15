@@ -721,7 +721,7 @@ namespace McK.EIG.ROI.Client.Base.Controller
             if (userData.IsLdapEnabled)
             {
                 userData.UserId = user.loginId.Trim();
-                userData.SecretWord = user.password;
+                userData.SecretWord = user.secretWord;
                 userData.HpfUserId = user.loginId.Trim();
             }
 
