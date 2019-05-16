@@ -37,7 +37,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>http://127.0.0.1:8080/ROIClient/</InstallUrl>
     <SupportUrl>http://www.mckesson.com</SupportUrl>
-    <ProductName>ROI Client 18.0</ProductName>
+    <ProductName>ROI Client 18.1</ProductName>
     <PublisherName>ROI</PublisherName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
     <WebPage>index.htm</WebPage>
