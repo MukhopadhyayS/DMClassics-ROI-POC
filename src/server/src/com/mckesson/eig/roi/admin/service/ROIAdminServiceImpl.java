@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.Security;
 import com.mckesson.eig.User;
 import com.mckesson.eig.roi.admin.dao.AdminLoVDAO;
@@ -47,6 +48,7 @@ import com.mckesson.eig.roi.admin.model.Designation;
 import com.mckesson.eig.roi.admin.model.DocTypeAudit;
 import com.mckesson.eig.roi.admin.model.DocTypeAuditList;
 import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
+import com.mckesson.eig.roi.admin.model.Gender;
 import com.mckesson.eig.roi.admin.model.InvoiceDueDays;
 import com.mckesson.eig.roi.admin.model.LetterTemplate;
 import com.mckesson.eig.roi.admin.model.LetterTemplateList;
@@ -70,7 +72,6 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.service.BaseROIService;
 import com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -2026,4 +2027,34 @@ implements ROIAdminService {
             throw new ROIException(ROIClientErrorCodes.UNABLE_TO_RETRIEVE_UNBILLABLE_REQUEST_FLAG);
         }
     }
+    
+    /**
+     * This method is to retrieve all the gender details
+     * 
+     * @param
+     * @return List<String>
+     */
+    public List<Gender> retrieveAllGenders() {
+
+        final String logSM = "retrieveAllGenders";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:");
+        }
+
+        try {
+
+            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            List<Gender> genderList = dao.retrieveAllGenders();
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End:" + genderList.size());
+            }
+
+            return genderList;
+
+        } catch (Throwable e) {
+            LOG.error("Exception occured in retrieveAllGenders",e);
+          throw new ROIException(ROIClientErrorCodes.RETRIEVAL_GENDER_DETAILS);
+        }
+    }  
 }

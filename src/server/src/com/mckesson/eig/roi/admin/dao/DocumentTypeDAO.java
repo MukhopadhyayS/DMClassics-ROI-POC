@@ -19,6 +19,7 @@ package com.mckesson.eig.roi.admin.dao;
 import java.util.List;
 
 import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
+import com.mckesson.eig.roi.admin.model.Gender;
 import com.mckesson.eig.roi.base.dao.ROIDAO;
 import com.mckesson.eig.roi.hpf.model.User;
 
@@ -64,4 +65,12 @@ extends ROIDAO {
      * @return  List<String>
      */
     List<String> retrieveMUDocTypes();
+    
+    /**
+     * This method is to retrieve all the gender details
+     * 
+     * @param
+     * @return List<Gender>
+     */
+    List<Gender> retrieveAllGenders();
 }

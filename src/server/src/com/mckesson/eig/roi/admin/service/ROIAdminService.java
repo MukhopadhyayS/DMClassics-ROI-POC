@@ -26,6 +26,7 @@ import com.mckesson.eig.roi.admin.model.DeliveryMethodList;
 import com.mckesson.eig.roi.admin.model.Designation;
 import com.mckesson.eig.roi.admin.model.DocTypeAuditList;
 import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
+import com.mckesson.eig.roi.admin.model.Gender;
 import com.mckesson.eig.roi.admin.model.InvoiceDueDays;
 import com.mckesson.eig.roi.admin.model.LetterTemplate;
 import com.mckesson.eig.roi.admin.model.LetterTemplateList;
@@ -396,5 +397,13 @@ public interface ROIAdminService {
      * 
      */
     boolean retrieveUnbillableRequestFlag(); 
+    
+    /**
+     * This method is to retrieve all the gender details
+     * 
+     * @param
+     * @return List<Gender>
+     */
+    List<Gender> retrieveAllGenders();
     
 }

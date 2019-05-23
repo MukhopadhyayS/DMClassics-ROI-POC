@@ -90,6 +90,9 @@
 	<!-- CountryCode -->
 	<mapping resource="com/mckesson/eig/roi/admin/countrycode.hbm.xml" />
 	
+	<!-- SOGI -->
+	<mapping resource="com/mckesson/eig/roi/admin/sogi.hbm.xml" />
+	
 	<!-- Report Mapping -->
 	<mapping resource="com/mckesson/eig/roi/report/mapping/report.hbm.xml" />
 	    

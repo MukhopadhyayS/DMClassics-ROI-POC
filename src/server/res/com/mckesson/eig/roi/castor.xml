@@ -24,6 +24,7 @@
     <include href="/com/mckesson/eig/roi/admin/castor/attachment.location.castor.xml" />
     <include href="/com/mckesson/eig/roi/admin/castor/invoice.due.days.castor.xml" />
     <include href="/com/mckesson/eig/roi/admin/castor/countrycode.castor.xml" />
+    <include href="/com/mckesson/eig/roi/admin/castor/sogi.castor.xml" />
 
     <!--  Requestor -->
     <include href="/com/mckesson/eig/roi/requestor/castor/requestor.type.castor.xml" />
