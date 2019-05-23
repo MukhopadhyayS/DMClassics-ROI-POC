@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	
+	<class name="com.mckesson.eig.roi.admin.model.Gender">
+		<map-to xml="gender" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="code" type="string">
+			<bind-xml name="eig:code" node="element" />
+		</field>
+
+		<field name="description" type="string">
+			<bind-xml name="eig:description" node="element" />
+		</field>
+				
+	</class>
+	
+	<class name="com.mckesson.eig.roi.admin.model.GenderList">
+		<map-to xml="genders" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="gendersList"
+			type="com.mckesson.eig.roi.admin.model.Gender"
+			collection="arraylist">
+			<bind-xml name="eig:gender" node="element" />
+		</field>
+
+	</class>
+	
+</mapping>
