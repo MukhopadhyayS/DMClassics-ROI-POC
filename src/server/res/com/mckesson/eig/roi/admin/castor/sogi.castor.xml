@@ -19,7 +19,7 @@
 		<map-to xml="genders" ns-prefix="eig"
 			ns-uri="urn:eig.mckesson.com" />
 
-		<field name="gendersList"
+		<field name="genders"
 			type="com.mckesson.eig.roi.admin.model.Gender"
 			collection="arraylist">
 			<bind-xml name="eig:gender" node="element" />
