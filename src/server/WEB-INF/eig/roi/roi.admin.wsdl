@@ -269,6 +269,20 @@
             <xsd:element  name="docTypeAudit" type="eig:DocTypeAudit" minOccurs="0" maxOccurs="unbounded" nillable="true" /> 
       </xsd:sequence>
     </xsd:complexType>
+    
+    <!--Gender Complex Data Types-->      
+    <xsd:complexType name="Gender" >
+	      <xsd:sequence>
+	        <xsd:element name="code" type="xsd:string"></xsd:element>
+	        <xsd:element name="description" type="xsd:string"></xsd:element>
+	     </xsd:sequence>
+     </xsd:complexType>
+     
+     <xsd:complexType name="GenderList">
+    <xsd:sequence>
+            <xsd:element  name="gender" type="eig:Gender" minOccurs="0" maxOccurs="unbounded" nillable="true" /> 
+      </xsd:sequence>
+    </xsd:complexType>
 
 	 <!--Delivery Method elements-->
       <xsd:element name="createDeliveryMethod">
@@ -1017,6 +1031,21 @@
 	       </xsd:sequence>
 	   </xsd:complexType>
 	 </xsd:element>
+	 
+	 <xsd:element name="retrieveAllGenders">
+     <xsd:complexType>
+         <xsd:sequence>            
+         </xsd:sequence>
+     </xsd:complexType>
+   </xsd:element>
+
+   <xsd:element name="retrieveAllGendersResponse">
+     <xsd:complexType>
+         <xsd:sequence>
+         	<xsd:element name="genders" type="eig:GenderList" />
+         </xsd:sequence>
+     </xsd:complexType>
+   </xsd:element> 
    
       <!-- For getUser service -->
       <xsd:complexType name="user">
@@ -1517,6 +1546,13 @@
     	<wsdl:part name="parameters" element="eig:retrieveUnbillableRequestFlagResponse"></wsdl:part>
     </wsdl:message>
 
+	<wsdl:message name="retrieveAllGendersRequest">
+  		<wsdl:part name="parameters" element="eig:retrieveAllGenders" />
+  	</wsdl:message>
+  	<wsdl:message name="retrieveAllGendersResponse">
+  		<wsdl:part name="parameters" element="eig:retrieveAllGendersResponse" />
+  	</wsdl:message> 
+  	
   <wsdl:portType name="ROIAdminPortType">
 	<!--Delivery Method Operations-->
 
@@ -1782,6 +1818,11 @@
 	   <wsdl:input message="eig:retrieveUnbillableRequestFlagRequest"></wsdl:input>
 	   <wsdl:output message="eig:retrieveUnbillableRequestFlagResponse"></wsdl:output>
 	</wsdl:operation>
+	
+	<wsdl:operation name="retrieveAllGenders">
+	   	<wsdl:input  message="eig:retrieveAllGendersRequest" />
+	   	<wsdl:output message="eig:retrieveAllGendersResponse" />
+    </wsdl:operation>
 
   </wsdl:portType>
 
@@ -2393,6 +2434,18 @@
 	      <soap:body use="literal"/>
 	  </wsdl:output>
 	</wsdl:operation>
+	
+	<wsdl:operation name="retrieveAllGenders">
+    <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllGenders" />
+    <wsdl:input>
+      <soap:header message="eig:header" part="transIdHeader" use="literal" />
+      <soap:header message="eig:header" part="wssHeader" use="literal" />
+      <soap:body use="literal" />
+    </wsdl:input>
+    <wsdl:output>
+      <soap:body use="literal" />
+    </wsdl:output>
+  </wsdl:operation>
 
   </wsdl:binding>
 

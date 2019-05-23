@@ -27,6 +27,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import com.mckesson.eig.roi.admin.model.Designation;
 import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
 import com.mckesson.eig.roi.admin.model.DocTypeRelation;
+import com.mckesson.eig.roi.admin.model.Gender;
 import com.mckesson.eig.roi.admin.model.MUDocTypeDto;
 import com.mckesson.eig.roi.admin.model.MUDocTypeModel;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -413,6 +414,30 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
                     + muDocTypes.size());
         }
         return muDocTypes;
+
+    }
+    
+    /**
+     * This method is to retrieve all the gender details
+     * 
+     * @param
+     * @return List<Gender>
+     */
+    @SuppressWarnings("unchecked")
+    public List<Gender> retrieveAllGenders() {
+        final String logSM = "retrieveAllGenders";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:");
+        }
+
+        List<Gender> genderDetails = getHibernateTemplate().findByNamedQuery(
+                "retrieveAllGenders");
+
+        if (DO_DEBUG) {
+            LOG.debug(logSM + "<<End:Size of the retrieved gender details : "
+                    + genderDetails.size());
+        }
+        return genderDetails;
 
     }
 

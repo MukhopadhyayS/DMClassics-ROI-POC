@@ -401,6 +401,9 @@ public enum ROIClientErrorCodes {
 
     //MU UPDATE ROI OUTBOUND
     MU_UPDATEROIOUTBOUND("ROI.9.0.6"),
+    
+    //For SOGI
+    RETRIEVAL_GENDER_DETAILS("ROI.9.0.7"),
 
 
     //Past Due Invoice Generation
