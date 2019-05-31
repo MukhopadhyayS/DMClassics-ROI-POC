@@ -1,13 +1,7 @@
 package com.mckesson.eig.roi.admin.model;
 
-import java.io.Serializable;
-
-public class Gender implements Serializable {
+public class Gender {
     
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
     private String _code;
     private String _description;
     
