@@ -1076,12 +1076,6 @@
             deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
             encodingStyle=""/>
 
-        <typeMapping qname="eig:GenderList"
-            type="java:com.mckesson.eig.roi.admin.model.GenderList"
-            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
-            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
-            encodingStyle=""/>
-
    </service>
 
     <service name="RequestorService" style="wrapped" use="literal" provider="Handler">

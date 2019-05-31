@@ -278,12 +278,6 @@
 	     </xsd:sequence>
      </xsd:complexType>
      
-     <xsd:complexType name="GenderList">
-    <xsd:sequence>
-            <xsd:element  name="gender" type="eig:Gender" minOccurs="0" maxOccurs="unbounded" nillable="true" /> 
-      </xsd:sequence>
-    </xsd:complexType>
-
 	 <!--Delivery Method elements-->
       <xsd:element name="createDeliveryMethod">
         <xsd:complexType>
@@ -1042,7 +1036,7 @@
    <xsd:element name="retrieveAllGendersResponse">
      <xsd:complexType>
          <xsd:sequence>
-         	<xsd:element name="genders" type="eig:GenderList" />
+         	<xsd:element name="gender" type="eig:Gender" minOccurs="0" maxOccurs="unbounded"></xsd:element>
          </xsd:sequence>
      </xsd:complexType>
    </xsd:element> 
