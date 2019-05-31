@@ -514,9 +514,17 @@ namespace McK.EIG.ROI.Client.Base.Model
         public const string notApplicable = "n/a";
 
         //File path
-        public const string FilepathValidation = @"^(([a-zA-Z]\:)|(\\))(\\{1}|((\\{1})[^\\]([^/:*?<>""|]*))+)$";
+        //checkmarx path traversal changes
+       public const string FilepathValidation = @"^(([a-zA-Z]\:)|(\\))(\\{1}|((\\{1})[^\\]([^/:""|]*))+)$";
+        //public const string FilepathValidation = @"^(([a-zA-Z]\:)|(\\))(\\{1}|((\\{1})[^\\]([^/:*?<>""|]*))+)$";
 
         public const string Encryption_Key = "OUTPUT_AES_KEY";
         public const string Encryption_IV = "OUTPUT_AES_KEY";
-    }
+
+        //checkmarx Command string injection changes
+        public const string WinDSSSectionName = "ROI";
+        public const string WinDSSDBKey = "WINDSS_DATABASE";
+        public const string WinDSSUserKey = "WINDSS_USER";
+        public const string WinDSSPwdKey = "WINDSS_PSWD";
+            }
 }
