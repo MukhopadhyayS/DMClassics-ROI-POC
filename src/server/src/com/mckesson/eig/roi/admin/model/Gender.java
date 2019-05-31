@@ -1,6 +1,8 @@
 package com.mckesson.eig.roi.admin.model;
 
-public class Gender {
+import java.io.Serializable;
+
+public class Gender implements Serializable {
     
     private String _code;
     private String _description;

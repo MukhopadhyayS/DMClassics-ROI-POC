@@ -354,7 +354,7 @@ extends ROIDAO {
      */
     void deleteInvoiceToPayment(RequestorPayment paymentInfo);
 
-	/**
+    /**
      * retrieves the count of number of adjustment and payment for a given requestor
      * @param adjustmentId
      * @return count of number of adjustment & payment
