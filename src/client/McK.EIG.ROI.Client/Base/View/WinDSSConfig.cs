@@ -4,7 +4,8 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
-
+//checkmarx Command string injection changes
+using McK.EIG.ROI.Client.Base.Model;
 namespace McK.EIG.ROI.Client.Base.View
 {
     public partial class WinDSSConfig
@@ -88,8 +89,11 @@ namespace McK.EIG.ROI.Client.Base.View
                 else
                     reg.StartInfo.FileName = "WinDSSReg_32.bat";
 
-                reg.StartInfo.Arguments = McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue("ROI", "WINDSS_DATABASE") + " " +
-                    McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue("ROI", "WINDSS_USER") + " " + McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue("ROI", "WINDSS_PSWD");
+                //reg.StartInfo.Arguments = McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue("ROI", "WINDSS_DATABASE") + " " +
+                //    McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue("ROI", "WINDSS_USER") + " " + McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue("ROI", "WINDSS_PSWD");
+                //checkmarx Command string injection changes
+                reg.StartInfo.Arguments = McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue(ROIConstants.WinDSSSectionName, ROIConstants.WinDSSDBKey) + " " +
+                   McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue(ROIConstants.WinDSSSectionName, ROIConstants.WinDSSUserKey) + " " + McK.EIG.ROI.Client.Base.Controller.INIFile.ReadValue(ROIConstants.WinDSSSectionName, ROIConstants.WinDSSPwdKey);
                 reg.StartInfo.UseShellExecute = true;
                 reg.StartInfo.CreateNoWindow = true;
                 reg.StartInfo.Verb = "runas";
