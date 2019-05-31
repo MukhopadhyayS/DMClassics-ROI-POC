@@ -2061,7 +2061,7 @@ implements ROIAdminService {
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + genderList.size());
             }
-            genders.setGenders(genderList);
+            genders.setGenderDetails(genderList);
             
         } catch (Throwable e) {
             LOG.error("Exception occured in retrieveAllGenders",e);
