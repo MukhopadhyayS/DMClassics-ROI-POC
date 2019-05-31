@@ -49,6 +49,7 @@ import com.mckesson.eig.roi.admin.model.DocTypeAudit;
 import com.mckesson.eig.roi.admin.model.DocTypeAuditList;
 import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
 import com.mckesson.eig.roi.admin.model.Gender;
+import com.mckesson.eig.roi.admin.model.GenderList;
 import com.mckesson.eig.roi.admin.model.InvoiceDueDays;
 import com.mckesson.eig.roi.admin.model.LetterTemplate;
 import com.mckesson.eig.roi.admin.model.LetterTemplateList;
@@ -2032,29 +2033,40 @@ implements ROIAdminService {
      * This method is to retrieve all the gender details
      * 
      * @param
-     * @return List<String>
+     * @return GenderList
      */
-    public List<Gender> retrieveAllGenders() {
+    public GenderList retrieveAllGenders() {
 
         final String logSM = "retrieveAllGenders";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
         }
-
+        List<Gender> genderList = new ArrayList<Gender>();
+        GenderList genders = new GenderList();
         try {
 
-            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
-            List<Gender> genderList = dao.retrieveAllGenders();
+            //DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            //List<Gender> genderList = dao.retrieveAllGenders();
+            Gender gender = new Gender();
+            gender.setCode("M");
+            gender.setDescription("Male");
+            
+            Gender gender1 = new Gender();
+            gender1.setCode("F");
+            gender1.setDescription("Female");
+            
+            genderList.add(gender);
+            genderList.add(gender1);
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + genderList.size());
             }
-
-            return genderList;
-
+            genders.setGenders(genderList);
+            
         } catch (Throwable e) {
             LOG.error("Exception occured in retrieveAllGenders",e);
           throw new ROIException(ROIClientErrorCodes.RETRIEVAL_GENDER_DETAILS);
         }
+        return genders;
     }  
 }

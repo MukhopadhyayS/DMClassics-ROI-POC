@@ -276,7 +276,13 @@
 	        <xsd:element name="code" type="xsd:string"></xsd:element>
 	        <xsd:element name="description" type="xsd:string"></xsd:element>
 	     </xsd:sequence>
-     </xsd:complexType>
+    </xsd:complexType>
+     
+    <xsd:complexType name="GenderList">
+	    <xsd:sequence>
+	            <xsd:element  name="genderDetails" type="eig:Gender" minOccurs="0" maxOccurs="unbounded" nillable="true" /> 
+	    </xsd:sequence>
+    </xsd:complexType>
      
 	 <!--Delivery Method elements-->
       <xsd:element name="createDeliveryMethod">
@@ -1036,11 +1042,11 @@
    <xsd:element name="retrieveAllGendersResponse">
      <xsd:complexType>
          <xsd:sequence>
-         	<xsd:element name="gender" type="eig:Gender" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+         	<xsd:element name="genders" type="eig:GenderList" />
          </xsd:sequence>
      </xsd:complexType>
    </xsd:element> 
-   
+    
       <!-- For getUser service -->
       <xsd:complexType name="user">
 			<xsd:sequence>

@@ -2,7 +2,7 @@
 <mapping xmlns:eig="urn:eig.mckesson.com">
 	
 	<class name="com.mckesson.eig.roi.admin.model.Gender">
-		<map-to xml="gender" ns-prefix="eig"
+		<map-to xml="genderDetails" ns-prefix="eig"
 			ns-uri="urn:eig.mckesson.com" />
 
 		<field name="code" type="string">
@@ -14,5 +14,18 @@
 		</field>
 				
 	</class>
+	
+	<class name="com.mckesson.eig.roi.admin.model.GenderList">
+		<map-to xml="genders" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="genderDetails"
+			type="com.mckesson.eig.roi.admin.model.Gender"
+			collection="arraylist">
+			<bind-xml name="eig:gender" node="element" />
+		</field>
+
+	</class>
+	
 	
 </mapping>

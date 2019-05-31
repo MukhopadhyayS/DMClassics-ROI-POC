@@ -905,9 +905,9 @@
 		</operation>
 		
 		<operation name="retrieveAllGenders"
-        			qname="eig:retrieveAllGenders"
-        			returnQName="xsd:gender"
-        			returnType="xsd:Gender">        	
+        		   qname="eig:retrieveAllGenders"
+        		   returnQName="eig:genders"
+                   returnType="eig:GenderList">       	
         </operation> 
 
         <typeMapping qname="eig:DeliveryMethod"
@@ -1072,6 +1072,12 @@
 		
 		<typeMapping qname="eig:Gender"
             type="java:com.mckesson.eig.roi.admin.model.Gender"
+            serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
+            deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
+            encodingStyle=""/>
+            
+        <typeMapping qname="eig:GenderList"
+            type="java:com.mckesson.eig.roi.admin.model.GenderList"
             serializer="com.mckesson.eig.wsfw.axis.CastorSerializerFactory"
             deserializer="com.mckesson.eig.wsfw.axis.CastorDeserializerFactory"
             encodingStyle=""/>
