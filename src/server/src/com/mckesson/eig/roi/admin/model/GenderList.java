@@ -5,23 +5,25 @@ import java.util.List;
 
 public class GenderList implements Serializable {
     
-    private List<Gender> _genders;
+    private List<Gender> _genderDetails;
     
     public GenderList() { 
         
     }
 
     public GenderList(List<Gender> list) { 
-        setGenders(list); 
+        setGenderDetails(list); 
     }
 
-    public List<Gender> getGenders() {
-        return _genders;
+    public List<Gender> getGenderDetails() {
+        return _genderDetails;
     }
 
-    public void setGenders(List<Gender> genders) {
-        _genders = genders;
-    } 
+    public void setGenderDetails(List<Gender> genderDetails) {
+        _genderDetails = genderDetails;
+    }
+
+    
     
     
 

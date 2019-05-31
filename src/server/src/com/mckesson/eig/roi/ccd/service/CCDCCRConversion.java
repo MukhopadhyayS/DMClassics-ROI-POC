@@ -12,6 +12,8 @@ import java.io.UnsupportedEncodingException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Result;
@@ -26,6 +28,7 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.dom4j.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
@@ -105,6 +108,12 @@ public class CCDCCRConversion {
 	}
 
 	public Object unmarshal(JAXBContext jc, InputStream is) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", true);
+	    // use the factory to create a documentbuilder
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = (Document) builder.parse(is);
 		SAXParserFactory spf = getSAXParserFactory();
 		Source xmlSource = new SAXSource(spf.newSAXParser().getXMLReader(), new InputSource(is));
 		Unmarshaller um = jc.createUnmarshaller();
