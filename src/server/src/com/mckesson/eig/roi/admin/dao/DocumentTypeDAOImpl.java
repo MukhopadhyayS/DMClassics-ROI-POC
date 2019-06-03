@@ -20,8 +20,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.SQLQuery;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.mckesson.eig.roi.admin.model.Designation;
@@ -429,10 +432,13 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
         }
-
-        List<Gender> genderDetails = getHibernateTemplate().findByNamedQuery(
-                "retrieveAllGenders");
-
+        Session session = getSession();
+        String queryString = session.getNamedQuery("retrieveAllGenders").getQueryString();;
+        SQLQuery query = session.createSQLQuery(queryString);
+        query.addScalar("code", Hibernate.STRING);
+        query.addScalar("description", Hibernate.STRING);
+        query.setResultTransformer(Transformers.aliasToBean(Gender.class));
+        List<Gender> genderDetails = query.list();
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:Size of the retrieved gender details : "
                     + genderDetails.size());
