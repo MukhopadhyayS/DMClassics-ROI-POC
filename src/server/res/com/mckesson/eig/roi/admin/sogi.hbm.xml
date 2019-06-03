@@ -7,9 +7,9 @@
 
 	<sql-query name="retrieveAllGenders">
 		<![CDATA[
-		     SELECT Sex_Code code,
-		     Sex_Description description
-		     FROM cabinet.dbo.Gender
+		     SELECT GenderCode code,
+		     GenderDescription description
+		     FROM his.dbo.PatientGenderLOV
 		]]>
 	</sql-query>  
 

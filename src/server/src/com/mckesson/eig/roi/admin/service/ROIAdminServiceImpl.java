@@ -2041,25 +2041,15 @@ implements ROIAdminService {
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
         }
-        List<Gender> genderList = new ArrayList<Gender>();
         GenderList genders = new GenderList();
         try {
-
-            //DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
-            //List<Gender> genderList = dao.retrieveAllGenders();
-            Gender gender = new Gender();
-            gender.setCode("M");
-            gender.setDescription("Male");
-            
-            Gender gender1 = new Gender();
-            gender1.setCode("F");
-            gender1.setDescription("Female");
-            
-            genderList.add(gender);
-            genderList.add(gender1);
-
+            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            List<Gender> genderList = dao.retrieveAllGenders();
+           
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:" + genderList.size());
+                if (CollectionUtilities.hasContent(genderList)) {
+                    LOG.debug(logSM + "<<End:" + genderList.size());
+                }
             }
             genders.setGenderDetails(genderList);
             
