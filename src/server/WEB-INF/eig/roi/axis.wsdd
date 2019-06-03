@@ -906,7 +906,7 @@
 		
 		<operation name="retrieveAllGenders"
         		   qname="eig:retrieveAllGenders"
-        		   returnQName="eig:genders"
+        		   returnQName="eig:genderList"
                    returnType="eig:GenderList">       	
         </operation> 
 
