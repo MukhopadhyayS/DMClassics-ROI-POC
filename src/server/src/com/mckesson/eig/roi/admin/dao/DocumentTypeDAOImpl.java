@@ -35,6 +35,7 @@ import com.mckesson.eig.roi.admin.model.MUDocTypeDto;
 import com.mckesson.eig.roi.admin.model.MUDocTypeModel;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
+import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.dm.core.common.logging.OCLogger;
 
 
@@ -440,8 +441,10 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
         query.setResultTransformer(Transformers.aliasToBean(Gender.class));
         List<Gender> genderDetails = query.list();
         if (DO_DEBUG) {
-            LOG.debug(logSM + "<<End:Size of the retrieved gender details : "
-                    + genderDetails.size());
+            if (CollectionUtilities.hasContent(genderDetails)) {
+                LOG.debug(logSM + "<<End:Size of the retrieved gender details : "
+                        + genderDetails.size());
+            }
         }
         return genderDetails;
 
