@@ -204,15 +204,19 @@ namespace McK.EIG.ROI.Client.Reports.View
                 {
                     patientDOBLabel.Text = string.Empty;
                 }
-                if (patientDetails.Gender != Gender.None)
-                {
-                    patientGenderLabel.Text = ROIViewUtility.BuildAsterisk(patientDetails.Gender.ToString(),
-                                                                        patientDetails.IsVip, patientDetails.PatientLocked, isPatientVip, isPatientLocked);
-                }
-                else
-                {
-                    patientGenderLabel.Text = string.Empty;
-                }
+                //SOGI OC-111171
+                //if (patientDetails.Gender != Gender.None)
+                //{
+                //    patientGenderLabel.Text = ROIViewUtility.BuildAsterisk(patientDetails.Gender.ToString(),
+                //                                                        patientDetails.IsVip, patientDetails.PatientLocked, isPatientVip, isPatientLocked);
+                //}
+                //else
+                //{
+                //    patientGenderLabel.Text = string.Empty;
+                //}
+                patientGenderLabel.Text = ROIViewUtility.BuildAsterisk(patientDetails.GenderDesc,
+                                                                       patientDetails.IsVip, patientDetails.PatientLocked, isPatientVip, isPatientLocked);
+                                
                 patientSSNLabel.Text      = ROIViewUtility.ApplyMask(patientDetails.SSN);
                 //CR337443
                 patientEPNLabel.Visible   = UserData.Instance.EpnEnabled;

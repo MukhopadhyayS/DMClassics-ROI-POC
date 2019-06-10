@@ -206,6 +206,17 @@
           <xsd:element minOccurs="0" maxOccurs="unbounded" name="docTypeAudit" nillable="true" type="eig:DocTypeAudit" />
         </xsd:sequence>
       </xsd:complexType>
+      <xsd:complexType name="Gender">
+        <xsd:sequence>
+          <xsd:element name="code" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GenderList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="genderDetails" nillable="true" type="eig:Gender" />
+        </xsd:sequence>
+      </xsd:complexType>
       <xsd:element name="createDeliveryMethod">
         <xsd:complexType>
           <xsd:sequence>
@@ -822,6 +833,18 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+      <xsd:element name="retrieveAllGenders">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllGendersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="genderList" type="eig:GenderList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
       <xsd:complexType name="user">
         <xsd:sequence>
           <xsd:element minOccurs="0" maxOccurs="1" name="fullName" type="xsd:string" />
@@ -1189,6 +1212,12 @@
   <wsdl:message name="retrieveUnbillableRequestFlagResponse">
     <wsdl:part name="parameters" element="eig:retrieveUnbillableRequestFlagResponse" />
   </wsdl:message>
+  <wsdl:message name="retrieveAllGendersRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllGenders" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllGendersResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllGendersResponse" />
+  </wsdl:message>
   <wsdl:portType name="ROIAdminPortType">
     <wsdl:operation name="createDeliveryMethod">
       <wsdl:input message="eig:createDeliveryMethod" />
@@ -1385,6 +1414,10 @@
     <wsdl:operation name="retrieveUnbillableRequestFlag">
       <wsdl:input message="eig:retrieveUnbillableRequestFlagRequest" />
       <wsdl:output message="eig:retrieveUnbillableRequestFlagResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllGenders">
+      <wsdl:input message="eig:retrieveAllGendersRequest" />
+      <wsdl:output message="eig:retrieveAllGendersResponse" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ROIAdminSoapBinding" type="eig:ROIAdminPortType">
@@ -1928,6 +1961,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="retrieveAllGenders">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllGenders" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ROIAdminService">
     <wsdl:documentation>
@@ -1935,7 +1979,7 @@
       This service implements all ROI Admin Service Calls
       </wsdl:documentation>
     <wsdl:port name="roiAdminPort" binding="eig:ROIAdminSoapBinding">
-      <soap:address location="http://192.168.6.115:8080/roi/services/ROIAdminService" />
+      <soap:address location="http://emiqc2192:18080/roi/services/ROIAdminService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

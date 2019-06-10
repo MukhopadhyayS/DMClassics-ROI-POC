@@ -19,23 +19,31 @@ using System.ComponentModel;
 using System.Text;
 
 using McK.EIG.ROI.Client.Base.Model;
+using McK.EIG.ROI.Client.Base.Controller;
 
 namespace McK.EIG.ROI.Client.Base.Model
 {
-    public enum Gender
-    {
-        [Description("Select Gender")]
-        None = 0,
+    //SOGI OC-111171
+    //Gender Details will be returned from the server
+    //public enum Gender
+    //{
+    //    [Description("Select Gender")]
+    //    None = 0,
 
-        [Description("Female")]
-        Female = 1,
+    //    [Description("Female")]
+    //    Female = 1,
 
-        [Description("Male")]
-        Male = 2,
+    //    [Description("Male")]
+    //    Male = 2,
 
-        [Description("Unknown")]
-        Unknown = 3
-    }
+    //    [Description("Unknown")]
+    //    Unknown = 3,
+
+    //     [Description("Others")]
+    //    Others = 4
+    //}
+
+
 
     [Serializable]
     public class AddressDetails : ROIModel
@@ -83,7 +91,8 @@ namespace McK.EIG.ROI.Client.Base.Model
         #endregion
 
         #region Methods
-
+        
+        
         /// <summary>
         /// This method will normalize all fields.
         /// </summary>

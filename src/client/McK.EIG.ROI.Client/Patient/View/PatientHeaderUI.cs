@@ -76,7 +76,9 @@ namespace McK.EIG.ROI.Client.Patient.View
         {            
             //IsEPNEnabled = UserData.Instance.EpnEnabled;
             nameText.Text = patientInfo.FullName;
-            genderText.Text = patientInfo.Gender.ToString();
+            //genderText.Text = patientInfo.Gender.ToString();
+            //SOGI OC-111171
+            genderText.Text = patientInfo.GenderDesc;
             if (patientInfo.DOB.HasValue)
             {
                 dobText.Text = patientInfo.DOB.Value.ToString(ROIConstants.DateFormat, System.Threading.Thread.CurrentThread.CurrentUICulture);
@@ -105,7 +107,9 @@ namespace McK.EIG.ROI.Client.Patient.View
         private void SetTooltip(PatientDetails patientInfo)
         {
             toolTip.SetToolTip(nameText, patientInfo.Name);
-            toolTip.SetToolTip(genderText, patientInfo.Gender.ToString());
+            //toolTip.SetToolTip(genderText, patientInfo.Gender.ToString());
+            //SOGI OC-111171
+            toolTip.SetToolTip(genderText, patientInfo.GenderDesc);
             toolTip.SetToolTip(facilityText, patientInfo.FacilityCode);
             toolTip.SetToolTip(ssnText, ROIViewUtility.ApplyMask(patientInfo.SSN));
             toolTip.SetToolTip(mrnText, patientInfo.MRN);

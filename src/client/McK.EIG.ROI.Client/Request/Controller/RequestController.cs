@@ -66,6 +66,8 @@ namespace McK.EIG.ROI.Client.Request.Controller
         private Dictionary<long, bool> attachmentStatus;
 
         private MedicalRecordServiceWse medicalRecordService;
+        //SOGI OC-111171
+        private List<GenderDetails> GenderListDetails;
 
         #endregion
 
@@ -1090,6 +1092,7 @@ namespace McK.EIG.ROI.Client.Request.Controller
         public RequestPatients MapModel(RequestPatientsList serverRequestPatients)
         {
             List<RequestPatientDetails> requestPatients = new List<RequestPatientDetails>();
+
             pageStatus = new Dictionary<long, bool>();
             nonHPFDocumentStatus = new Dictionary<long, bool>();
             attachmentStatus = new Dictionary<long, bool>();
@@ -1099,6 +1102,9 @@ namespace McK.EIG.ROI.Client.Request.Controller
             clientRequestPatients.PageStatus = pageStatus;
             clientRequestPatients.NonHpfDocumentStatus = nonHPFDocumentStatus;
             clientRequestPatients.AttachmentStatus = attachmentStatus;
+            //SOGI OC-111171
+            GenderListDetails = new System.Collections.Generic.List<GenderDetails>();
+            GenderListDetails = ROIController.Instance.RetrieveGenderList();
             ArrayList selfPayEncounters = new ArrayList();
             if (serverRequestPatients.requestPatients != null)
             {
@@ -1145,14 +1151,19 @@ namespace McK.EIG.ROI.Client.Request.Controller
                             client.FacilityType = FacilityType.Hpf;
                             client.FacilityCode = server.facility;
                         }
-                        if (!string.IsNullOrEmpty(server.gender))
+                        //if (!string.IsNullOrEmpty(server.gender))
+                        //{
+                        //    //switch (server.gender.ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture))
+                        //    //{
+                        //    //    case "M": client.Gender = EnumUtilities.GetDescription(Gender.Male); break;
+                        //    //    case "F": client.Gender = EnumUtilities.GetDescription(Gender.Female); break;
+                        //    //    case "U": client.Gender = EnumUtilities.GetDescription(Gender.Unknown); break;
+                        //    //}                        
+                        //}
+                        //SOGI OC-111171
+                        if (!String.IsNullOrEmpty(server.gender))
                         {
-                            switch (server.gender.ToUpper(System.Threading.Thread.CurrentThread.CurrentUICulture))
-                            {
-                                case "M": client.Gender = EnumUtilities.GetDescription(Gender.Male); break;
-                                case "F": client.Gender = EnumUtilities.GetDescription(Gender.Female); break;
-                                case "U": client.Gender = EnumUtilities.GetDescription(Gender.Unknown); break;
-                            }
+                            client.Gender = FetchGenderCodeOrDesc(server.gender, GenderListDetails);
                         }
                         client.SSN = server.ssn;
                         client.EPN = server.epn;

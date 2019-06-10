@@ -557,6 +557,7 @@
     <Compile Include="Base\Model\ConfigurationData.cs" />
     <Compile Include="Base\Model\CountryCodeDetails.cs" />
     <Compile Include="Base\Model\FacilityDetails.cs" />
+    <Compile Include="Base\Model\GenderDetails.cs" />
     <Compile Include="Base\Model\InUseRecordDetails.cs" />
     <Compile Include="Base\Model\ROICertificatePolicy.cs" />
     <Compile Include="Base\Model\ROISecurityRights.cs" />
