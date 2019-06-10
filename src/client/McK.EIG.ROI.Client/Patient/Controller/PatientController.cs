@@ -66,6 +66,9 @@ namespace McK.EIG.ROI.Client.Patient.Controller
 
         private ROISupplementaryServiceWse supplementaryService;
 
+        //SOGI OC-111171
+        private static List<GenderDetails> GenderListDetails;
+
         #endregion
 
         #region Constructor
@@ -505,6 +508,9 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <returns>Client FindPatientResult</returns>
         public static void MapModel(patientList hpfSearchResult, FindPatientResult searchResult)
         {
+            //SOGI OC-111171
+            GenderListDetails = new System.Collections.Generic.List<GenderDetails>();
+            GenderListDetails = ROIController.Instance.RetrieveGenderList();
             if (UserData.Instance.EpnEnabled)
             {
                 if (hpfSearchResult.enterprisePatients == null) return;
@@ -513,18 +519,18 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 {
                     if (enterprisePatient.facilityPatients != null)
                     {
-                        MapModel(enterprisePatient.facilityPatients, searchResult);
+                        MapModel(enterprisePatient.facilityPatients, searchResult, GenderListDetails);
                     }
                 }
             }
             else
             {
                 if (hpfSearchResult.facilityPatients == null) return;
-                MapModel(hpfSearchResult.facilityPatients, searchResult);
+                MapModel(hpfSearchResult.facilityPatients, searchResult, GenderListDetails);
             }            
         }
 
-        public static void MapModel(facilityPatient[] searchResult, FindPatientResult appendTo)
+        public static void MapModel(facilityPatient[] searchResult, FindPatientResult appendTo, List<GenderDetails> GenderListDetails)
         {
             PatientDetails patientDetails;
 
@@ -556,14 +562,17 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 patientDetails.PatientLocked   = hpfPatient.patientLocked;
                 patientDetails.EncounterLocked = hpfPatient.encounterLocked;
                 patientDetails.IsHpf             = true;
-
-                switch (hpfPatient.gender)
+                //SOGI OC-111171
+                if (!String.IsNullOrEmpty (hpfPatient.gender))
                 {
-                    case "M": patientDetails.Gender = Gender.Male; break;
-                    case "F": patientDetails.Gender = Gender.Female; break;
-                    case "U": patientDetails.Gender = Gender.Unknown; break;
+                    patientDetails.GenderDesc = FetchGenderCodeOrDesc(hpfPatient.gender, GenderListDetails);
                 }
-
+                //switch (hpfPatient.gender)
+                //{
+                //    case "M": patientDetails.Gender = Gender.Male; break;
+                //    case "F": patientDetails.Gender = Gender.Female; break;
+                //    case "U": patientDetails.Gender = Gender.Unknown; break;
+                //}
                 appendTo.PatientSearchResult.Add(patientDetails);
             }
         }
@@ -576,6 +585,8 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         public static PatientDetails MapModel(facilityPatientDetail server)
         {
             PatientDetails client = new PatientDetails();
+            GenderListDetails = new System.Collections.Generic.List<GenderDetails>();
+            GenderListDetails = ROIController.Instance.RetrieveGenderList();
             //CR# 375064 - In ROI, for RM destructed patient request, 
             //throws exception while user navigate into "Request-Patient Information" screen.
             if (!string.IsNullOrEmpty(server.fullName))
@@ -601,11 +612,17 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             client.PatientLocked   = server.patientLocked;
             client.EncounterLocked = server.encounterLocked;
             client.IsHpf             = true;
-            switch (server.gender)
+            //switch (server.gender)
+            //{
+            //    case "M": client.Gender = Gender.Male; break;
+            //    case "F": client.Gender = Gender.Female; break;
+            //    case "U": client.Gender = Gender.Unknown; break;
+            //}
+
+            //SOGI OC-111171
+            if (!String.IsNullOrEmpty(server.gender))
             {
-                case "M": client.Gender = Gender.Male; break;
-                case "F": client.Gender = Gender.Female; break;
-                case "U": client.Gender = Gender.Unknown; break;
+                client.GenderDesc = FetchGenderCodeOrDesc(server.gender, GenderListDetails);
             }
 
             return client;
@@ -750,9 +767,12 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             PatientsSearchResult searchResult = (PatientsSearchResult)roiSearchResponse;
             if (searchResult.patients == null) return;
             PatientDetails patient;
+            //SOGI OC-111171
+            GenderListDetails = new System.Collections.Generic.List<GenderDetails>();
+            GenderListDetails = ROIController.Instance.RetrieveGenderList();
             foreach (SupplementalPatient supplemental in searchResult.patients)
             {
-                patient = MapModel(supplemental, null);
+                patient = MapModel(supplemental, null, GenderListDetails);
                 //CR#365143 - Skip the unauthorized patient
                 if (!string.IsNullOrEmpty(patient.FacilityCode) &&
                     !UserData.Instance.Facilities.Contains(FacilityDetails.GetFacility(patient.FacilityCode, patient.FacilityType)))
@@ -772,7 +792,7 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         /// <param name="supplemental"></param>
         /// <param name="patient"></param>
         /// <returns></returns>
-        private static PatientDetails MapModel(SupplementalPatient supplemental, PatientDetails patient)
+        private static PatientDetails MapModel(SupplementalPatient supplemental, PatientDetails patient, List<GenderDetails> genderListDetails)
         {
             if (!(patient != null && patient.IsHpf))
             {
@@ -793,12 +813,18 @@ namespace McK.EIG.ROI.Client.Patient.Controller
                 patient.FullName = supplemental.lastName + ", " + supplemental.firstName;
                 patient.LastName = supplemental.lastName;
                 patient.FirstName = supplemental.firstName;
-                switch (supplemental.gender)
+                //SOGI OC-111171
+                if (!String.IsNullOrEmpty(supplemental.gender))
                 {
-                    case "M": patient.Gender = Gender.Male; break;
-                    case "F": patient.Gender = Gender.Female; break;
-                    case "U": patient.Gender = Gender.Unknown; break;
+                    patient.GenderDesc = FetchGenderCodeOrDesc(supplemental.gender, genderListDetails);
                 }
+                //switch (supplemental.gender)
+                //{
+                //    case "M": patient.Gender = Gender.Male; break;
+                //    case "F": patient.Gender = Gender.Female; break;
+                //    case "U": patient.Gender = Gender.Unknown; break;
+                //}
+                // supplemental.gender = patient.GenderValue;
                 patient.MRN = supplemental.mrn;
                 patient.SSN = supplemental.ssn;
                 patient.EPN = supplemental.epn;
@@ -848,13 +874,16 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             patient.homephone = patientDetail.homePhone;
             patient.workphone = patientDetail.workPhone;
             patient.vip = patientDetail.isVip;
-            switch (patientDetail.gender)
-            {
-                case Gender.None: patient.gender = "N"; break;
-                case Gender.Female: patient.gender = "F"; break;
-                case Gender.Male: patient.gender = "M"; break;
-                case Gender.Unknown: patient.gender = "U"; break;
-            }
+            //switch (patientDetail. gender)
+            //{
+            //    case Gender.None: patient.gender = "N"; break;
+            //    case Gender.Female: patient.gender = "F"; break;
+            //    case Gender.Male: patient.gender = "M"; break;
+            //    case Gender.Unknown: patient.gender = "U"; break;
+            //}
+
+            //SOGI OC-111171
+            patient.gender = patientDetail.GenderCode;
             patient.ssn = patientDetail.ssn;
             patient.epn = patientDetail.epn;
 			patient.mrn = patientDetail.MRN;
@@ -891,6 +920,8 @@ namespace McK.EIG.ROI.Client.Patient.Controller
         private PatientDetails MapModel(SupplementalPatient supplementalPatient)
         {
             PatientDetails patient = new PatientDetails();
+            GenderListDetails = new System.Collections.Generic.List<GenderDetails>();
+            GenderListDetails = ROIController.Instance.RetrieveGenderList();
             patient.IsHpf = false;
             patient.Id = supplementalPatient.id;
             patient.IsVip = supplementalPatient.vip;
@@ -898,13 +929,19 @@ namespace McK.EIG.ROI.Client.Patient.Controller
             patient.FullName = supplementalPatient.lastName + ", " + supplementalPatient.firstName;
             patient.LastName = supplementalPatient.lastName;
             patient.FirstName = supplementalPatient.firstName;
-            switch (supplementalPatient.gender)
+            //switch (supplementalPatient.gender)
+            //{
+            //    case "N": patient.Gender = Gender.None; break;
+            //    case "F": patient.Gender = Gender.Female; break;
+            //    case "M": patient.Gender = Gender.Male; break;
+            //    case "U": patient.Gender = Gender.Unknown; break;
+            //}
+            //SOGI OC-111171
+            if (!String.IsNullOrEmpty(supplementalPatient.gender))
             {
-                case "N": patient.Gender = Gender.None; break;
-                case "F": patient.Gender = Gender.Female; break;
-                case "M": patient.Gender = Gender.Male; break;
-                case "U": patient.Gender = Gender.Unknown; break;
+                patient.GenderDesc = FetchGenderCodeOrDesc(supplementalPatient.gender, GenderListDetails);
             }
+            
             patient.MRN = supplementalPatient.mrn;
             patient.EPN = supplementalPatient.epn;
             patient.SSN = supplementalPatient.ssn;

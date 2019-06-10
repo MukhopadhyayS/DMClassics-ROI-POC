@@ -132,6 +132,8 @@ namespace McK.EIG.ROI.Client.Web_References.ROIAdminWS {
         
         private System.Threading.SendOrPostCallback retrieveUnbillableRequestFlagOperationCompleted;
         
+        private System.Threading.SendOrPostCallback retrieveAllGendersOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -334,6 +336,9 @@ namespace McK.EIG.ROI.Client.Web_References.ROIAdminWS {
         
         /// <remarks/>
         public event retrieveUnbillableRequestFlagCompletedEventHandler retrieveUnbillableRequestFlagCompleted;
+        
+        /// <remarks/>
+        public event retrieveAllGendersCompletedEventHandler retrieveAllGendersCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("transactionId")]
@@ -1860,6 +1865,37 @@ namespace McK.EIG.ROI.Client.Web_References.ROIAdminWS {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("transactionId")]
+        [System.Web.Services.Protocols.SoapHeaderAttribute("Security")]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:eig.mckesson.com/retrieveAllGenders", RequestNamespace="urn:eig.mckesson.com", ResponseNamespace="urn:eig.mckesson.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlArrayAttribute("genderList")]
+        [return: System.Xml.Serialization.XmlArrayItemAttribute("genderDetails")]
+        public Gender[] retrieveAllGenders() {
+            object[] results = this.Invoke("retrieveAllGenders", new object[0]);
+            return ((Gender[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void retrieveAllGendersAsync() {
+            this.retrieveAllGendersAsync(null);
+        }
+        
+        /// <remarks/>
+        public void retrieveAllGendersAsync(object userState) {
+            if ((this.retrieveAllGendersOperationCompleted == null)) {
+                this.retrieveAllGendersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnretrieveAllGendersOperationCompleted);
+            }
+            this.InvokeAsync("retrieveAllGenders", new object[0], this.retrieveAllGendersOperationCompleted, userState);
+        }
+        
+        private void OnretrieveAllGendersOperationCompleted(object arg) {
+            if ((this.retrieveAllGendersCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.retrieveAllGendersCompleted(this, new retrieveAllGendersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -1940,7 +1976,40 @@ namespace McK.EIG.ROI.Client.Web_References.ROIAdminWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1087.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:eig.mckesson.com")]
+    public partial class Gender {
+        
+        private string codeField;
+        
+        private string descriptionField;
+        
+        /// <remarks/>
+        public string code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -4332,6 +4401,32 @@ namespace McK.EIG.ROI.Client.Web_References.ROIAdminWS {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2053.0")]
+    public delegate void retrieveAllGendersCompletedEventHandler(object sender, retrieveAllGendersCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2053.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class retrieveAllGendersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal retrieveAllGendersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Gender[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Gender[])(this.results[0]));
             }
         }
     }

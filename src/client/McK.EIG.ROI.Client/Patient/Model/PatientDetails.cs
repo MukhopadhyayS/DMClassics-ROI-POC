@@ -130,8 +130,11 @@ namespace McK.EIG.ROI.Client.Patient.Model
         public bool isVip;
 
         //holds the gender 
-        public Gender gender;
-
+        //public Gender gender;
+        //SOGI OC-111171
+        private string genderDesc;
+        //private GenderDetails genderValue;
+        private string genderCode;
         //holds the SSN
         public string ssn;
 
@@ -399,11 +402,23 @@ namespace McK.EIG.ROI.Client.Patient.Model
         /// <summary>
         /// This property is used to get or set the request patient gender.
         /// </summary>
-        public Gender Gender
+        //public Gender Gender
+        //{
+        //    get { return gender; }
+        //    set { gender = value; }
+        //} 
+        //SOGI OC-111171
+        public string GenderDesc
         {
-            get { return gender; }
-            set { gender = value; }
+            get { return genderDesc; }
+            set { genderDesc = value; }
         }
+        public string GenderCode
+        {
+            get { return genderCode; }
+            set { genderCode = value; }
+        }
+
 
         /// <summary>
         /// This property is used to get or sets the patient ssn

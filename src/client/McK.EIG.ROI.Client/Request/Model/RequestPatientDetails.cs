@@ -158,7 +158,9 @@ namespace McK.EIG.ROI.Client.Request.Model
         { 
             Id       = recordPatient.Id;
             FullName = recordPatient.FullName;
-            gender   = (recordPatient.Gender != McK.EIG.ROI.Client.Base.Model.Gender.None) ? EnumUtilities.GetDescription(recordPatient.Gender):string.Empty;
+            //SOGI OC-111171
+            // gender   = (recordPatient.Gender != McK.EIG.ROI.Client.Base.Model.Gender.None) ? EnumUtilities.GetDescription(recordPatient.Gender):string.Empty;
+            gender = recordPatient.GenderDesc;
             mrn      = recordPatient.MRN;
             epn      = recordPatient.EPN;
             ssn      = recordPatient.SSN;

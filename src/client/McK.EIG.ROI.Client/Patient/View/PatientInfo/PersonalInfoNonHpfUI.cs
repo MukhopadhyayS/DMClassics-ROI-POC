@@ -28,7 +28,8 @@ using McK.EIG.ROI.Client.Base.View.Common;
 
 using McK.EIG.ROI.Client.Patient.Controller;
 using McK.EIG.ROI.Client.Patient.Model;
-
+using McK.EIG.ROI.Client.Base.Controller;
+using System.Collections.Generic;
 
 namespace McK.EIG.ROI.Client.Patient.View.PatientInfo
 {
@@ -43,8 +44,8 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientInfo
         private EventHandler activeHandler;
         private EventHandler inActiveHandler;        
 
-        private bool isDirty;        
-        
+        private bool isDirty;
+        private System.Collections.Generic.List<GenderDetails> GenderDetails;
         #endregion
 
         #region Constructor
@@ -80,7 +81,20 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientInfo
             patientInfo.LastName = lastPatientNameTextBox.Text;
             patientInfo.FullName = patientInfo.LastName + ", " + patientInfo.FirstName;
 
-            patientInfo.Gender = (Gender)genderComboBox.SelectedValue;
+            //patientInfo.Gender = (Gender)genderComboBox.SelectedValue;
+            //SOGI OC-111171
+            patientInfo.GenderDesc = genderComboBox.Text;
+            int i = 0;
+            foreach (GenderDetails genderList in GenderDetails)
+            {
+                if (genderComboBox.Text == GenderDetails[i].GenderDesc)
+                {
+                    patientInfo.GenderCode = GenderDetails[i].GenderCode;
+                   
+                    break;
+                }
+                i++;
+            }
 
             if (dobTextBox.Text.Trim() != SelectOption.Trim())
             {
@@ -104,6 +118,8 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientInfo
             patientInfo.FacilityCode = (facilityComboBox.SelectedIndex == 0) ? null : ((FacilityDetails)(facilityComboBox.SelectedItem)).Code;
             patientInfo.FacilityType = (facilityComboBox.SelectedIndex == 0) ? FacilityType.NonHpf : ((FacilityDetails)(facilityComboBox.SelectedItem)).Type;
             patientInfo.MRN = mrnTextBox.Text;
+            //patientInfo.GenderValue = genderComboBox.Text;
+
             return patientInfo;
         }
 
@@ -300,7 +316,10 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientInfo
                 vipCheckBox.Checked = patientDetail.IsVip;
                 firstPatientNameTextBox.Text = patientDetail.FirstName;
                 lastPatientNameTextBox.Text = patientDetail.LastName;
-                genderComboBox.SelectedValue = patientDetail.Gender;
+                //genderComboBox.SelectedValue = patientDetail.Gender;
+                //SOGI OC-111171
+                //genderComboBox.SelectedValue = patientDetail.GenderDesc;
+                genderComboBox.SelectedItem = patientDetail.GenderDesc;
                 if (patientDetail.DOB.HasValue)
                 {
                     dobTextBox.Text = patientDetail.DOB.Value.ToString(ROIConstants.DateFormat, CultureInfo.InvariantCulture);
@@ -383,8 +402,10 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientInfo
         public void PrePopulate()
         {
             DisableEvents();
-            IList gender = EnumUtilities.ToList(typeof(Gender));
-            PopulateGender(gender);
+            //SOGI OC-111171
+            //IList gender = EnumUtilities.ToList(typeof(Gender));
+            //PopulateGender(gender);
+            PopulateGender();
             PopulateFacilities();
             SetDOBNullValue();
             EnableEvents();
@@ -405,15 +426,27 @@ namespace McK.EIG.ROI.Client.Patient.View.PatientInfo
 
             facilityComboBox.SelectedIndex = 0;
         }
-
-        private void PopulateGender(IList gender)
+        //SOGI OC-111171
+        private void PopulateGender()
         {
-            genderComboBox.DataSource = gender;
-            genderComboBox.DisplayMember = "value";
-            genderComboBox.ValueMember = "key";
-            genderComboBox.SelectedIndex = 0;
-            genderComboBox.Refresh();
+            GenderDetails = new System.Collections.Generic.List<GenderDetails>();
+            GenderDetails = ROIController.Instance.RetrieveGenderList();
+            int i = 0;
+
+            foreach (GenderDetails genderList in GenderDetails)
+            {
+                genderComboBox.Items.Add(GenderDetails[i].GenderDesc);
+                ++i;
+            }
         }
+        //private void PopulateGender(IList gender)
+        //{
+        //    genderComboBox.DataSource = gender;
+        //    genderComboBox.DisplayMember = "value";
+        //    genderComboBox.ValueMember = "key";
+        //    genderComboBox.SelectedIndex = 0;
+        //    genderComboBox.Refresh();
+        //}
 
         public void ShowNonUniqueIcon(bool showIcon)
         {

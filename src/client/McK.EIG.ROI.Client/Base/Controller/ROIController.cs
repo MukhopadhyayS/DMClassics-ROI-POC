@@ -75,14 +75,19 @@ namespace McK.EIG.ROI.Client.Base.Controller
         private RequestCoreServiceWse requestCoreService;
         private const int ValidUser = 0;
         private const int INIT_VECTOR_LENGTH = 16;
+        private static List<GenderDetails> GenderListDetails;
+//        private static List<GenderDetails> newGenderList;
+//        public List<GenderDetails> GenderCodeInformation;
 
         private static string loginId;
 
         static AESUtility encryptor;
+       
         static ROIController()
         {
             encryptor = new AESUtility();
-
+            //Checkmarx changes for Use of Hardcoded CryptographicKey
+            ROIConstants objEncryptionKey = new ROIConstants();
             byte[] vectorSrc = Encoding.UTF8.GetBytes(ROIConstants.Encryption_IV);
             byte[] vectorDest = new byte[INIT_VECTOR_LENGTH];
             System.Array.Copy(vectorSrc, vectorDest, vectorSrc.Length);
@@ -90,7 +95,8 @@ namespace McK.EIG.ROI.Client.Base.Controller
             encryptor.SetInitializationVector(vectorDest);
             //encryptor.PassPhrase = ROIConstants.Encryption_Key;
             //US18631 - Veracode fix.
-            encryptor.setKey(ROIConstants.Encryption_Key);
+            encryptor.setKey(ROIConstants.Encryption_Key);  
+            
         }
 
         #endregion
@@ -424,6 +430,9 @@ namespace McK.EIG.ROI.Client.Base.Controller
             object response = ROIHelper.Invoke(roiAdminService, "retrieveROIAppData", requestParams);
             MapModel((admin.ROIAppData)response);        
         }
+
+       
+       
                
         public static void SendAlert(LogEvent logEvent)
         {
@@ -600,6 +609,23 @@ namespace McK.EIG.ROI.Client.Base.Controller
             
             return CountryDetails;
         }
+
+        //SOGI OC-111171
+        //Retrive All Gender       
+        public List<GenderDetails> RetrieveGenderList()
+        {
+            object[] requestParams = new object[] { };
+            object response = ROIHelper.Invoke(roiAdminService, "retrieveAllGenders", requestParams);
+            List<GenderDetails> GenderDetails = new List<GenderDetails>();
+            //List<GenderDetails> GenderDetails = new List<GenderDetails>();
+            //GenderDetails.Add("Selected Gender");
+            //GenderDetails.Add("Female");
+            if (response == null) return GenderDetails;
+
+            GenderDetails = MapModel((McK.EIG.ROI.Client.Web_References.ROIAdminWS.Gender[])response);
+            return GenderDetails;
+        }
+
         public void UpdateCountryCode(CountryCodeDetails defaultCountryDetails)
         {
             McK.EIG.ROI.Client.Web_References.ROIAdminWS.Country updateCountrycode = new McK.EIG.ROI.Client.Web_References.ROIAdminWS.Country();
@@ -609,11 +635,27 @@ namespace McK.EIG.ROI.Client.Base.Controller
             updateCountrycode.countrySeq = defaultCountryDetails.CountrySeq;
             object[] updateParams = new object[] { updateCountrycode };
             object response = ROIHelper.Invoke(roiAdminService, "updateCountryCode", updateParams);
-        }   
+        }
 
         #endregion
 
         #region Model Mapping
+
+        public static List<GenderDetails> MapModel(McK.EIG.ROI.Client.Web_References.ROIAdminWS.Gender[] server)
+        {
+            List<GenderDetails> client = new List<GenderDetails>();
+
+            GenderDetails genderDetails;
+            foreach (McK.EIG.ROI.Client.Web_References.ROIAdminWS.Gender gender in server)
+            {
+                genderDetails = new GenderDetails();
+                genderDetails.GenderCode = gender.code;
+                genderDetails.GenderDesc = gender.description;
+                client.Add(genderDetails);
+            }
+        
+            return client;
+        }
 
         public static List<CountryCodeDetails> MapModel(McK.EIG.ROI.Client.Web_References.ROIAdminWS.Country[] server)
         {
@@ -1023,6 +1065,53 @@ namespace McK.EIG.ROI.Client.Base.Controller
             }
 
             return encryptedRtnStr;
+        }
+
+        //SOGI OC-111171
+        /// <summary>
+        /// Fetches the relate Gender Code if Gender Description is passed as input. 
+        /// This is to save the Gender Code in DB field
+        /// Fetches the related Gender Description if Gender Code is passed as input.
+        /// This is to display the Gender Description to the User.
+        /// </summary>
+        /// <param name="currentGenderValue">Gender Code or Description to fecth its related Description or Code</param>
+        /// <param name="genderListDetails">List of Gender details</param>
+        /// <returns>Gender Code or Description based on the input</returns>
+        public static string FetchGenderCodeOrDesc (string currentGenderValue, List<GenderDetails> genderListDetails)
+        {
+            int i = 0;
+            string genderCodeOrDesc = "";
+            int genderLength = currentGenderValue.Length;
+                                    
+            if (genderLength > 1)
+            {
+                foreach (GenderDetails currentGenderDetails in genderListDetails)
+                {
+                    if (currentGenderValue == genderListDetails[i].GenderDesc)
+                    {
+                        genderCodeOrDesc = genderListDetails[i].GenderCode;
+                        break;
+                    }
+                    i++;
+                }
+            }
+            else
+            {
+                foreach (GenderDetails currentGenderDetails in genderListDetails)
+                {
+                    if (currentGenderValue == genderListDetails[i].GenderCode)
+                    {
+                        genderCodeOrDesc = genderListDetails[i].GenderDesc;
+                        break;
+                    }
+                    i++;
+                }
+            }
+            if (String.IsNullOrEmpty (genderCodeOrDesc))
+            {
+                genderCodeOrDesc = null;
+            }
+            return genderCodeOrDesc;
         }
 
         #endregion

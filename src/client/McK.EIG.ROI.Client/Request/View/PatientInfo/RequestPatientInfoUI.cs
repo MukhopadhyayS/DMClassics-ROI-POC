@@ -1752,9 +1752,11 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
             //CR#381298
             requestPatient.FirstName = patient.FirstName;
             requestPatient.LastName = patient.LastName;
-            requestPatient.Gender = (patient.Gender != McK.EIG.ROI.Client.Base.Model.Gender.None)
-                                ? EnumUtilities.GetDescription(patient.Gender)
-                                : string.Empty;
+            //SOGI OC-111171
+            //requestPatient.Gender = (patient.Gender != McK.EIG.ROI.Client.Base.Model.Gender.None)
+            //                    ? EnumUtilities.GetDescription(patient.Gender)
+            //                    : string.Empty;
+            requestPatient.Gender = patient.GenderDesc;
             requestPatient.MRN = patient.MRN;
             requestPatient.EPN = patient.EPN;
             requestPatient.SSN = patient.SSN;
