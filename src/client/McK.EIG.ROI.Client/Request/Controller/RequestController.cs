@@ -67,8 +67,8 @@ namespace McK.EIG.ROI.Client.Request.Controller
 
         private MedicalRecordServiceWse medicalRecordService;
         //SOGI OC-111171
-        private List<GenderDetails> GenderListDetails;
-
+        private static List<GenderDetails> GenderListDetails;
+        
         #endregion
 
         #region Constructor
@@ -743,12 +743,20 @@ namespace McK.EIG.ROI.Client.Request.Controller
         {
             RequestPatient serverRequestPatient = new RequestPatient();
             serverRequestPatient.name = clientRequestPatient.FullName;
-            switch (clientRequestPatient.Gender)
+            //SOGI OC-111171
+            GenderListDetails = new System.Collections.Generic.List<GenderDetails>();
+            GenderListDetails = ROIController.Instance.RetrieveGenderList();
+            if (!String.IsNullOrEmpty(clientRequestPatient.Gender))
             {
-                case "Male": serverRequestPatient.gender = "M"; break;
-                case "Female": serverRequestPatient.gender = "F"; break;
-                case "Unknown": serverRequestPatient.gender = "U"; break;
-            }            
+                serverRequestPatient.gender = FetchGenderCodeOrDesc(clientRequestPatient.Gender, GenderListDetails);
+            }
+            //switch (clientRequestPatient.Gender)
+            //{
+            //    case "Male": serverRequestPatient.gender = "M"; break;
+            //    case "Female": serverRequestPatient.gender = "F"; break;
+            //    case "Unknown": serverRequestPatient.gender = "U"; break;
+
+            //}            
             serverRequestPatient.epn = clientRequestPatient.EPN;
             serverRequestPatient.mrn = clientRequestPatient.MRN;
             serverRequestPatient.lastName = clientRequestPatient.LastName;
