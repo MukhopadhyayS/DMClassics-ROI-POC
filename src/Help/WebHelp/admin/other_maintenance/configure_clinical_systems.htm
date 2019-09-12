@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:tocPath="Administration|Other Maintenance|User instructions" MadCap:InPreviewMode="false" MadCap:PreloadImages="false" MadCap:RuntimeFileType="Topic" MadCap:TargetType="WebHelp" lang="en-us" xml:lang="en-us" MadCap:PathToHelpSystem="../../" MadCap:HelpSystemFileName="help.xml" MadCap:SearchType="Stem">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure clinical systems</title>
+        <link href="../../SkinSupport/Slideshow.css" rel="stylesheet" />
+        <link href="../../SkinSupport/MadCap.css" rel="stylesheet" />
+        <link href="../../resources/stylesheets/localformat.css" rel="stylesheet" />
+        <script src="../../SkinSupport/jquery.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapGlobal.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapSlideshow.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapMerging.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapAliasFile.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapUtilities.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapBody.js" type="text/javascript">
+        </script>
+        <script src="../../SkinSupport/MadCapHighlighter.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0"><a class="MCBreadcrumbsLink" href="../admin_-_toc.htm">Administration</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="about_other_maintenance.htm">Other Maintenance</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="user_instructions_-_toc.htm">User instructions</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configure clinical systems</span>
+            </div>
+        </div>
+        <h3 class="Heading3"><a name="admin_other_maint_user_instruc_c_6316"></a><a name="_Toc393968003"></a>Configure clinical systems</h3>
+        <p>This task enables administrators to add and maintain a <span class="Drop-downhotspot">clinical system profile</span> for each OneContent facility that provides documents to the ROI Module. </p>
+        <p class="Dropdowntext">A <span class="span_3">profile</span> represents the clinical system that is used by a facility. Each facility defined in the OneContent application can be mapped to only one clinical system profile at a time. The association enables ROI Module users to "pull" Clinical Summaries on demand from the facility's clinical system when, for example, the information is needed for an ROI request. </p>
+        <p>You will need the following information for the clinical system profile you want to configure.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_4">If the facility uses a Paragon system</span>. &#160;You need to know the name of the database, the name of the database server machine, and the login credentials for a valid database user.</li>
+            <li class="li_1" value="2"><span class="span_4">If the facility uses a Horizon Clinicals system</span>. &#160;You need to know the name of the clinical system's database server machine, the login credentials for a valid database user, the type of database (that is, the name of the clinical system's database), and a Staff ID (that is, the ID that the facility's system uses to recognize the OneContent system).</li>
+        </ul>
+        <ol start="1" class="ol_1">
+            <li class="li_1" value="1">Select <span class="span_4" style="font-weight: bold;">Administration &gt; Other Maintenance &gt; Clinical Systems</span>.</li>
+        </ol>
+        <ol start="2" class="ol_1">
+            <li class="li_1" value="2">Follow instructions for the task you want to perform.</li>
+        </ol>
+        <p class="Subhead1">To add a clinical system profile</p>
+        <ol start="1" class="ol_1">
+            <li class="li_1" value="1">In the main content pane, click <span class="span_4"><b>Create New</b>.</span></li>
+            <li class="li_1" value="2">In the detail pane at <span class="span_4" style="font-weight: bold;">System Provider</span>, select the clinical system type.</li>
+            <li class="li_1" value="3">Enter required data. See <a href="configure_clinical_systems_form.htm#admin_other_maint_form_descrip_c_2255"><span class="Hyperlink">Configure Clinical Systems form</span></a> for field descriptions.</li>
+            <li class="li_1" value="4">Click <span class="span_4" style="font-weight: bold;">Test</span> to validate your entries. If the test is unsuccessful, you must determine why and correct the cause.</li>
+            <li class="li_1" value="5">Click <span class="span_4" style="font-weight: bold;">Save </span>to save the configuration.</li>
+        </ol>
+        <p class="Note" MadCap:autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>To map the profile to its facility, log on to the application as an administrator user. Select the <span class="span_4">Administration &gt; Facility</span> function and go to the Clinical System tab. At the <span class="span_4">Clinical System</span> box, select the facility's clinical system profile and click <span class="span_4">Apply</span>.</p>
+        <p class="Subhead1">To edit a clinical system profile</p>
+        <ol start="1" class="ol_1">
+            <li class="li_1" value="1">In the main content pane, select the profile you want to modify.</li>
+            <li class="li_1" value="2">In the detail pane, edit information as needed. See <a href="configure_clinical_systems_form.htm#admin_other_maint_form_descrip_c_2255"><span class="Hyperlink">Configure Clinical Systems form</span></a> for field descriptions.</li>
+        </ol>
+        <p class="CautionIndent1" MadCap:autonum="&lt;b&gt;&lt;span style=&quot;color: #d38e00;&quot; class=&quot;mcFormatColor&quot;&gt;CAUTION: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #d38e00;" class="mcFormatColor">CAUTION: </span></b></span></span>Changing information for any of the source clinical system attributes (like the database server name or database login credentials) may disrupt communication with that clinical system. Click <span class="span_4">Cancel </span>to discard unsaved entries if you do not want to apply your edits. </p>
+        <ol start="3" class="ol_1">
+            <li class="li_1" value="3">Click <span class="span_4" style="font-weight: bold;">Test </span>to ensure that your entries are valid and that the ROI Module can connect to the system. If the test is unsuccessful, you must determine why and correct the cause.</li>
+            <li class="li_1" value="4">Click <span class="span_4" style="font-weight: bold;">Save</span> to apply your entries. </li>
+        </ol>
+        <p class="Subhead1">To delete a clinical system profile</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>While it isn't required, a Best Practice is to dissociate the clinical system profile from its facility before you delete it. Break the association on the Clinical System tab in the application. </p>
+        <ol start="1" class="ol_1">
+            <li class="li_1" value="1">In the main content pane, select the profile you want to delete.</li>
+            <li class="li_1" value="2">Click <span class="span_4"><b>Delete</b>.</span></li>
+            <li class="li_1" value="3">Confirm the action when prompted.</li>
+        </ol>
+        <p class="HelpFooter"><span class="PrimaryProductName">OneContent</span>™ <span class="PrimaryReleaseNumber">Foundation EP1</span> - <span class="PrimaryPublicationDate">October 2019</span><br />This page contains Hyland Software, Inc. proprietary information and is not to be duplicated or disclosed to unauthorized persons.</p>
+        <script type="text/javascript" src="../../SkinSupport/MadCapBodyEnd.js">
+        </script>
+    </body>
+</html>
