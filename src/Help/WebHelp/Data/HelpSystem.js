@@ -1,6 +1,0 @@
-var xmlHelpSystemData = "";
-xmlHelpSystemData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlHelpSystemData += '<WebHelpSystem DefaultUrl=\"front_matter/title_page-hyland.htm\" Toc=\"Data/Toc.xml\" Index=\"Data/Index.xml\" Concepts=\"Data/Concepts.xml\" Glossary=\"glossary.htm\" SearchDatabase=\"Data/Search.xml\" Alias=\"Data/Alias.xml\" Synonyms=\"Data/Synonyms.xml\" PathToScriptsFolder=\"Resources/Scripts/\" Skin=\"Data/Skinwebhelp/Skin.xml\" Multilingual=\"false\" Skins=\"csh,ms_html_help,webhelp-EMIDM,webhelp,webhelp_Index\" BuildTime=\"9/12/2019 9:56:54 AM\" BuildVersion=\"15.0.7081.30245\" TargetType=\"WebHelp\" SkinTemplateFolder=\"Skin/\" InPreviewMode=\"false\" MoveOutputContentToRoot=\"true\" ReplaceReservedCharacters=\"true\" MakeFileLowerCase=\"true\" UseCustomTopicFileExtension=\"false\" PreventExternalUrls=\"false\" EnableResponsiveOutput=\"false\" IncludeGlossarySearchResults=\"true\" ResultsPerPage=\"20\" xml:lang=\"en-us\" LanguageName=\"English\" SearchEngine=\"MadCapSearch\" IncludeCSHRuntime=\"false\" DebugMode=\"false\" ShowMadCapBacklink=\"false\">';
-xmlHelpSystemData += '    <!-- saved from url=(0016)http://localhost -->';
-xmlHelpSystemData += '</WebHelpSystem>';
-CMCXmlParser._FilePathToXmlStringMap.Add('HelpSystem', xmlHelpSystemData);
