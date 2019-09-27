@@ -87,8 +87,8 @@
 		<fileset dir="${dir.lib}">
 			<include name="hpf.stub.config.jar" />
 			<include name="hpf-signIn-stub.jar" />
-			<include name="OCInternalComm-18.0.jar" />
-			<include name="OCUtilities-18.0.jar" />
+			<include name="OCInternalComm-18.1.jar" />
+			<include name="OCUtilities-18.1.jar" />
 		</fileset>
 	</path>
 
