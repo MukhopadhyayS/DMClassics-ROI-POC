@@ -35,6 +35,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.closeButton = new System.Windows.Forms.Button();
             this.supportInfoButton = new System.Windows.Forms.Button();
             this.copyrightHeaderLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // headerLabel
@@ -50,7 +51,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             this.versionLabel.AutoSize = true;
             this.versionLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.versionLabel.Location = new System.Drawing.Point(16, 61);
+            this.versionLabel.Location = new System.Drawing.Point(16, 67);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(0, 15);
             this.versionLabel.TabIndex = 1;
@@ -58,7 +59,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // copyRightInfoLabel
             // 
             this.copyRightInfoLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.copyRightInfoLabel.Location = new System.Drawing.Point(16, 118);
+            this.copyRightInfoLabel.Location = new System.Drawing.Point(16, 124);
             this.copyRightInfoLabel.Name = "copyRightInfoLabel";
             this.copyRightInfoLabel.Size = new System.Drawing.Size(512, 228);
             this.copyRightInfoLabel.TabIndex = 2;
@@ -66,7 +67,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // versionValueLabel
             // 
             this.versionValueLabel.AutoSize = true;
-            this.versionValueLabel.Location = new System.Drawing.Point(75, 61);
+            this.versionValueLabel.Location = new System.Drawing.Point(75, 67);
             this.versionValueLabel.Name = "versionValueLabel";
             this.versionValueLabel.Size = new System.Drawing.Size(0, 15);
             this.versionValueLabel.TabIndex = 3;
@@ -100,11 +101,22 @@ namespace McK.EIG.ROI.Client.Base.View
             this.copyrightHeaderLabel.Size = new System.Drawing.Size(0, 15);
             this.copyrightHeaderLabel.TabIndex = 7;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(10, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(222, 15);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Release      OneContent Fondation EP1";
+            // 
             // AboutROIHelpDialogUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.copyrightHeaderLabel);
             this.Controls.Add(this.supportInfoButton);
             this.Controls.Add(this.closeButton);
@@ -131,5 +143,6 @@ namespace McK.EIG.ROI.Client.Base.View
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button supportInfoButton;
         private System.Windows.Forms.Label copyrightHeaderLabel;
+        private System.Windows.Forms.Label label1;
     }
 }
