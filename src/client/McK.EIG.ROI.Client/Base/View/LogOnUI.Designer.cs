@@ -89,6 +89,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // secretWordTextBox
             // 
+            this.secretWordTextBox.AccessibleName = "secretWordTextBox";
             this.secretWordTextBox.Location = new System.Drawing.Point(130, 68);
             this.secretWordTextBox.MaxLength = 32;
             this.secretWordTextBox.Name = "secretWordTextBox";
@@ -98,6 +99,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // userIdTextBox
             // 
+            this.userIdTextBox.AccessibleName = "userIdTextBox";
             this.userIdTextBox.Location = new System.Drawing.Point(130, 35);
             this.userIdTextBox.MaxLength = 32;
             this.userIdTextBox.Name = "userIdTextBox";
