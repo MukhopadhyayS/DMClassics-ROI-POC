@@ -107,9 +107,9 @@ namespace McK.EIG.ROI.Client.Base.View
             this.label1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(10, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(222, 15);
+            this.label1.Size = new System.Drawing.Size(292, 15);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Release      OneContent Fondation EP1";
+            this.label1.Text = "OneContent Release of Information Foundation EP1";
             // 
             // AboutROIHelpDialogUI
             // 
