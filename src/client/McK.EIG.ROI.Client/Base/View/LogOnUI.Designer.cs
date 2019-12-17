@@ -31,7 +31,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.changePasswordButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.logonButton = new System.Windows.Forms.Button();
-            this.secretWordTextBox = new System.Windows.Forms.TextBox();
+            this.PasswordTextBox = new System.Windows.Forms.TextBox();
             this.userIdTextBox = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.userIdLabel = new System.Windows.Forms.Label();
@@ -87,15 +87,14 @@ namespace McK.EIG.ROI.Client.Base.View
             this.logonButton.TabIndex = 3;
             this.logonButton.UseVisualStyleBackColor = true;
             // 
-            // secretWordTextBox
+            // PasswordTextBox
             // 
-            this.secretWordTextBox.AccessibleName = "secretWordTextBox";
-            this.secretWordTextBox.Location = new System.Drawing.Point(130, 68);
-            this.secretWordTextBox.MaxLength = 32;
-            this.secretWordTextBox.Name = "secretWordTextBox";
-            this.secretWordTextBox.PasswordChar = '*';
-            this.secretWordTextBox.Size = new System.Drawing.Size(210, 21);
-            this.secretWordTextBox.TabIndex = 2;
+            this.PasswordTextBox.AccessibleName = "PasswordTextBox";
+            this.PasswordTextBox.Location = new System.Drawing.Point(130, 68);
+            this.PasswordTextBox.MaxLength = 32;
+            this.PasswordTextBox.Name = "PasswordTextBox";
+            this.PasswordTextBox.Size = new System.Drawing.Size(210, 21);
+            this.PasswordTextBox.TabIndex = 2;
             // 
             // userIdTextBox
             // 
@@ -108,6 +107,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // passwordLabel
             // 
+            this.passwordLabel.AccessibleName = "passwordLabel";
             this.passwordLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordLabel.Location = new System.Drawing.Point(29, 71);
             this.passwordLabel.Name = "passwordLabel";
@@ -117,6 +117,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // userIdLabel
             // 
+            this.userIdLabel.AccessibleName = "userIdLabel";
             this.userIdLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userIdLabel.Location = new System.Drawing.Point(29, 40);
             this.userIdLabel.Name = "userIdLabel";
@@ -174,7 +175,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.panel3.Controls.Add(this.domainComboBox);
             this.panel3.Controls.Add(this.userIdLabel);
             this.panel3.Controls.Add(this.domainLabel);
-            this.panel3.Controls.Add(this.secretWordTextBox);
+            this.panel3.Controls.Add(this.PasswordTextBox);
             this.panel3.Controls.Add(this.pictureBox1);
             this.panel3.Controls.Add(this.passwordLabel);
             this.panel3.Controls.Add(this.pictureBox3);
@@ -188,6 +189,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // domainComboBox
             // 
+            this.domainComboBox.AccessibleName = "domainComboBox";
             this.domainComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.domainComboBox.FormattingEnabled = true;
             this.domainComboBox.Location = new System.Drawing.Point(130, 103);
@@ -197,6 +199,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // domainLabel
             // 
+            this.domainLabel.AccessibleName = "domainLabel";
             this.domainLabel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.domainLabel.Location = new System.Drawing.Point(29, 105);
             this.domainLabel.Name = "domainLabel";
@@ -206,6 +209,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // pictureBox1
             // 
+            this.pictureBox1.AccessibleName = "pictureBox1";
             this.pictureBox1.BackgroundImage = global::McK.EIG.ROI.Client.Resources.images.required;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.Location = new System.Drawing.Point(6, 103);
@@ -216,6 +220,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // pictureBox3
             // 
+            this.pictureBox3.AccessibleName = "pictureBox3";
             this.pictureBox3.BackgroundImage = global::McK.EIG.ROI.Client.Resources.images.required;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox3.Location = new System.Drawing.Point(6, 74);
@@ -226,6 +231,7 @@ namespace McK.EIG.ROI.Client.Base.View
             // 
             // pictureBox2
             // 
+            this.pictureBox2.AccessibleName = "pictureBox2";
             this.pictureBox2.BackgroundImage = global::McK.EIG.ROI.Client.Resources.images.required;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox2.Location = new System.Drawing.Point(6, 44);
@@ -296,7 +302,7 @@ namespace McK.EIG.ROI.Client.Base.View
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button logonButton;
-        private System.Windows.Forms.TextBox secretWordTextBox;
+        private System.Windows.Forms.TextBox PasswordTextBox;
         private System.Windows.Forms.TextBox userIdTextBox;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label userIdLabel;
