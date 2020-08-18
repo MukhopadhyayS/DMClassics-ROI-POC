@@ -2085,4 +2085,12 @@ letter template or deselect adding a letter to the release in order to continue 
     <value>Select to view and update properties for the selected printer to output the selected job..fr</value>
     <comment>OutputDiscDialog</comment>
   </data>
+  <data name="secretWordTextBox.OutputDiscDialog" xml:space="preserve">
+    <value>The entered password, if entered, will be used to encrypt the disc file.  This password should be given to the requestor, so that he/she can open it when the file is received..</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="secretWordTextBox.OutputEmailDialog" xml:space="preserve">
+    <value>The entered password, if entered, will be used to encrypt the PDF file.  This password should be given to the requestor, so that he/she can open it when the file is received.</value>
+    <comment>Output Dialog</comment>
+  </data>
 </root>
