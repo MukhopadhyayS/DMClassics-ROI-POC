@@ -335,10 +335,12 @@ namespace McK.EIG.ROI.Client.Request.View.PatientInfo
 
         private void name_DrawText(object sender, DrawEventArgs e)
         {
+            RequestStatus status = releaseTreeModel.Request.Status;
+
             BaseRequestItem recordNode = e.Node.Tag as BaseRequestItem;
             if (recordNode != null)
             {
-                if (recordNode.IsReleased && !unReleasedRadioButton.Checked)
+                if (recordNode.IsReleased && !unReleasedRadioButton.Checked && ((int)status == 3))
                 {
                     e.TextColor = Color.Green;
                     removeAllButton.Enabled = (!releasedRadioButton.Checked &&
