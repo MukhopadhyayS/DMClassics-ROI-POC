@@ -140,8 +140,8 @@
     <Reference Include="O2S.Components.PDFView4NET">
       <HintPath>..\3rdparty\lib\O2S.Components.PDFView4NET.dll</HintPath>
     </Reference>
-    <Reference Include="OCSecurity-18.2">
-      <HintPath>bin\Debug\OCSecurity-18.2.dll</HintPath>
+       <Reference Include="OCSecurity-18.2">
+      <HintPath>..\McK.EIG.ROI.Client.App\OCSecurity-18.2.dll</HintPath>
     </Reference>
     <Reference Include="seclib">
       <HintPath>..\McK.EIG.ROI.Client.App\seclib.dll</HintPath>
