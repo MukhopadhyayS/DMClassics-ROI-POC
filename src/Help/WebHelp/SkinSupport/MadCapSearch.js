@@ -6,7 +6,7 @@
  * http://www.madcapsoftware.com/
  * Unlicensed use is strictly prohibited
  *
- * v15.0.7081.30245
+ * v16.1.7573.27261
  */
 
 function Search_WindowOnload()
@@ -374,6 +374,7 @@ function Search_LoadStyles()
 
     gNoTopicsFoundLabel = CMCFlareStylesheet.LookupValue("Control", "Messages", "NoTopicsFound", gNoTopicsFoundLabel);
     gInvalidTokenLabel = CMCFlareStylesheet.LookupValue("Control", "Messages", "InvalidToken", gInvalidTokenLabel);
+    gMalformedSearchString = CMCFlareStylesheet.LookupValue("Control", "Messages", "MalformedSearchString", gMalformedSearchString);
 }
 
 function ApplySearchFilter(OnCompleteFunc)
@@ -741,7 +742,7 @@ function DoSearch(searchString, OnCompleteFunc)
     catch ( err ) {
 
         if (err == gInvalidTokenLabel)
-            alert("Ensure that the search string is properly formatted.");
+            alert(gMalformedSearchString);
         else
             alert(err);
         
@@ -951,7 +952,7 @@ function GenerateResultsTable(searchResultSet, isWebHelpPlus, OnCompleteFunc)
                 {
                     if (!firstStem)
                     {
-                        gHighlight += "%7C%7C";
+                        gHighlight += "||";
                     }
                     else
                     {
@@ -964,7 +965,7 @@ function GenerateResultsTable(searchResultSet, isWebHelpPlus, OnCompleteFunc)
                     {
                         if (!firstPhrase)
                         {
-                            gHighlight += "%7C";
+                            gHighlight += "|";
                         }
                         else
                         {
@@ -2186,7 +2187,8 @@ var gCommunityResultsLabel      = "Community Results";
 var gShowAllCommunityResultsLabel = "Show all community results";
 var gUnfilteredLabel			= "(unfiltered)";
 var gNoTopicsFoundLabel			= "No topics found";
-var gInvalidTokenLabel			= "Invalid token.";
+var gInvalidTokenLabel          = "Invalid token.";
+var gMalformedSearchString      = "Ensure that the search string is properly formatted."
 var gDownloadedSynonymXmlDocRootNode = null;
 
 gOnloadFuncs.push( Search_WindowOnload );
