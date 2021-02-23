@@ -6,7 +6,7 @@
 * http://www.madcapsoftware.com/
  * Unlicensed use is strictly prohibited
 *
- * v15.0.7081.30245
+ * v16.1.7573.27261
 */
 
 /*
@@ -469,9 +469,9 @@ String helpers
 
     DEBUG.Log.AddLine = function (message)
     {
-        if (parent != window)
+        if (parent != window && MadCap.Utilities.MessageBus.GetIsCrossFrame())
         {
-            MadCap.Utilities.CrossFrame.PostMessageRequest(parent, "DEBUG-AddLine", [message], null);
+            MadCap.Utilities.MessageBus.PostMessageRequest(parent, "DEBUG-AddLine", [message], null);
             return;
         }
 

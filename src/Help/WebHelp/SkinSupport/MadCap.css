@@ -352,12 +352,12 @@ a.MCDropDownHotSpot_0:visited
 	text-decoration: none;
 }
 
-a.MCDropDownHotSpot_0:focus
+a.MCDropDownHotSpot_0:hover
 {
 	
 }
 
-a.MCDropDownHotSpot_0:hover
+a.MCDropDownHotSpot_0:focus
 {
 	
 }
@@ -389,7 +389,6 @@ table.AutoNumber_p_BulletList
 	text-align: left;
 	letter-spacing: 0em;
 	text-decoration: none;
-	text-decoration-blink: false;
 	page-break-inside: avoid;
 	margin-left: 0.29in;
 	margin-right: 0in;
@@ -492,7 +491,6 @@ table.AutoNumber_p_BulletListIndent
 	text-align: left;
 	letter-spacing: 0em;
 	text-decoration: none;
-	text-decoration-blink: false;
 	page-break-inside: avoid;
 	margin-left: 0.54in;
 	margin-right: 0in;
@@ -505,7 +503,6 @@ table.AutoNumber_p_Step1
 	text-align: left;
 	letter-spacing: 0em;
 	text-decoration: none;
-	text-decoration-blink: false;
 	page-break-inside: avoid;
 	margin-left: .29in;
 	margin-right: 0in;
@@ -518,7 +515,6 @@ table.AutoNumber_p_DashListIndent
 	text-align: left;
 	letter-spacing: 0em;
 	text-decoration: none;
-	text-decoration-blink: false;
 	page-break-inside: avoid;
 	margin-left: 0.79in;
 	margin-right: 0in;
@@ -531,7 +527,6 @@ table.AutoNumber_p_AlphaStep1
 	text-align: left;
 	letter-spacing: 0em;
 	text-decoration: none;
-	text-decoration-blink: false;
 	page-break-inside: avoid;
 	margin-left: .54in;
 	margin-right: 0in;
