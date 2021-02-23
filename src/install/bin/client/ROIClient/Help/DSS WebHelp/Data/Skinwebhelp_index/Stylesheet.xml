@@ -434,6 +434,7 @@
         </Style>
         <Style Name="Formats">
             <Properties>
+                <Property Name="CodeSnippetCopyButtonText">Copy</Property>
                 <Property Name="CrossReferenceFormat">{paratext}</Property>
                 <Property Name="CrossReferencePrintFormat">"{paratext}" {pageref}</Property>
                 <Property Name="CrossReferenceBelow">below</Property>

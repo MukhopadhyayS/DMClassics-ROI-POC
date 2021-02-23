@@ -352,6 +352,7 @@ xmlStylesheetData += '            </Classes>';
 xmlStylesheetData += '        </Style>';
 xmlStylesheetData += '        <Style Name=\"Formats\">';
 xmlStylesheetData += '            <Properties>';
+xmlStylesheetData += '                <Property Name=\"CodeSnippetCopyButtonText\">Copy</Property>';
 xmlStylesheetData += '                <Property Name=\"CrossReferenceFormat\">{paratext}</Property>';
 xmlStylesheetData += '                <Property Name=\"CrossReferencePrintFormat\">\"{paratext}\" {pageref}</Property>';
 xmlStylesheetData += '                <Property Name=\"CrossReferenceBelow\">below</Property>';
