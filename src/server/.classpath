@@ -124,10 +124,7 @@
 	<classpathentry kind="lib" path="lib/hpf.stub.config.jar"/>
 	<classpathentry kind="lib" path="lib/roi-hpf-auth.jar"/>
 	<classpathentry kind="lib" path="plug-in/ClinicalCcdPrivoder/lib/ojdbc5.jar"/>
-	<classpathentry kind="lib" path="E:/Workspace/Classics/Trunk/ROI/lib/hpf.stub.config.jar"/>
-	<classpathentry kind="lib" path="E:/Workspace/Classics/Trunk/ROI/lib/hpf-signIn-stub.jar"/>
-	<classpathentry kind="lib" path="E:/Workspace/Classics/Trunk/ROI/lib/OCInternalComm-18.0.jar"/>
-	<classpathentry kind="lib" path="E:/Workspace/Classics/Trunk/ROI/lib/OCUtilities-18.0.jar"/>
-	<classpathentry kind="lib" path="E:/Workspace/Classics/Trunk/ROI/lib/roi-hpf-auth.jar"/>
+	<classpathentry kind="lib" path="lib/OCInternalComm-18.2.jar"/>
+	<classpathentry kind="lib" path="lib/OCUtilities-18.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
