@@ -1184,7 +1184,7 @@ function ResultTROnmouseout()
 
 function ResultTROnclick()
 {
-	parent.parent.frames["body"].location.href = FMCGetMCAttribute( this, "MadCap:href" ) + gHighlight;
+	parent.parent.frames["body"].location.href = FMCGetMCAttribute( this, "MadCap:href" ) + encodeURI(gHighlight);
 }
 
 function Search_ItemOnkeyup( e )
