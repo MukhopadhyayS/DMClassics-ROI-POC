@@ -28,7 +28,7 @@ public final class SecureString {
     }
 
     /**
-     * Ewrurns secured string
+     * Rwturns secured string
      *
      * @return GuardedString
      */
@@ -43,5 +43,27 @@ public final class SecureString {
             this.secretText = new GuardedString(new char[]{});
         }
         this.secretText.makeReadOnly();
+    }
+
+    /**
+     * Disposes secured encrypted string
+     */
+    public void dispose() {
+        secretText.dispose();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SecureString that = (SecureString) o;
+
+        return secretText.equals(that.secretText);
+    }
+
+    @Override
+    public int hashCode() {
+        return secretText.hashCode();
     }
 }
