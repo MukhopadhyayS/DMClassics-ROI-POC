@@ -28,7 +28,7 @@ public final class SecureString {
     }
 
     /**
-     * Rwturns secured string
+     * Returns secured string
      *
      * @return GuardedString
      */
@@ -50,20 +50,5 @@ public final class SecureString {
      */
     public void dispose() {
         secretText.dispose();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SecureString that = (SecureString) o;
-
-        return secretText.equals(that.secretText);
-    }
-
-    @Override
-    public int hashCode() {
-        return secretText.hashCode();
     }
 }
