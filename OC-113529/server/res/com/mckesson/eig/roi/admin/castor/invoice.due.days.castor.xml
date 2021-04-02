@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<!-- InvoiceDueDays -->
+	<class name="com.mckesson.eig.roi.admin.model.InvoiceDueDays">
+		<map-to xml="InvoiceDue" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="id" type="long">
+			<bind-xml name="eig:id" node="element" />
+		</field>
+
+		<field name="recordVersion" type="int">
+			<bind-xml name="eig:recordVersion" node="element" />
+		</field>
+
+		<field name="invoiceDueDays" type="int">
+			<bind-xml name="eig:invoiceDueDays" node="element" />
+		</field>
+
+		<field name="customDate" type="boolean">
+			<bind-xml name="eig:customDate" node="element" />
+		</field>
+
+	</class>
+</mapping>

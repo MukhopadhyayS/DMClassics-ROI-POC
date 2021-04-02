@@ -1,0 +1,2176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cancelButton.DeliveryMethodODP" xml:space="preserve">
+    <value>Cancel delivery method changes.</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="cancelButton.FeeTypeODP" xml:space="preserve">
+    <value>Cancel fee type changes.</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="cancelButton.MediaTypeODP" xml:space="preserve">
+    <value>Cancel media type changes.</value>
+    <comment>Media type</comment>
+  </data>
+  <data name="createButton.DeliveryMethodListUI" xml:space="preserve">
+    <value>Create a new delivery method.</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="cancelButton.PaymentMethodODP" xml:space="preserve">
+    <value>Cancel payment method changes.</value>
+    <comment>Payment Method</comment>
+  </data>
+  <data name="createButton.FeeTypeListUI" xml:space="preserve">
+    <value>Create a new fee type.</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="createButton.MediaTypeListUI" xml:space="preserve">
+    <value>Create a new media type.</value>
+    <comment>Media type</comment>
+  </data>
+  <data name="deleteButton.DeliveryMethodListUI" xml:space="preserve">
+    <value>Delete the selected delivery method.</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="deleteButton.PaymentMethodListUI" xml:space="preserve">
+    <value>Delete the selected payment method.</value>
+    <comment>Payment Method</comment>
+  </data>
+  <data name="deleteButton.FeeTypeListUI" xml:space="preserve">
+    <value>Delete the selected fee type.</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="deleteButton.MediaTypeListUI" xml:space="preserve">
+    <value>Delete the selected media type.</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="createButton.PaymentMethodListUI" xml:space="preserve">
+    <value>Create a new payment method.</value>
+    <comment>Payment Method</comment>
+  </data>
+  <data name="saveButton.DeliveryMethodODP" xml:space="preserve">
+    <value>Save delivery method changes.</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="saveButton.FeeTypeODP" xml:space="preserve">
+    <value>Save fee type changes.</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="saveButton.MediaTypeODP" xml:space="preserve">
+    <value>Save media type changes.</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="saveButton.PaymentMethodODP" xml:space="preserve">
+    <value>Save payment method changes.</value>
+    <comment>Payment Method</comment>
+  </data>
+  <data name="cancelButton.PageWeightListUI" xml:space="preserve">
+    <value>Cancel page weight changes.</value>
+    <comment>pageweight</comment>
+  </data>
+  <data name="saveButton.InvoiceDueListUI" xml:space="preserve">
+    <value>Save Invoice due date changes.</value>
+    <comment>pageweight</comment>
+  </data>
+  <data name="cancelButton.InvoiceDueListUI" xml:space="preserve">
+    <value>Cancel Invoice due date changes.</value>
+    <comment>pageweight</comment>
+  </data>
+  <data name="saveButton.PageWeightListUI" xml:space="preserve">
+    <value>Save page weight changes.</value>
+    <comment>pageweight</comment>
+  </data>
+  <data name="cancelButton.BillingTemplateODP" xml:space="preserve">
+    <value>Cancel billing template changes.</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="createButton.BillingTemplateListUI" xml:space="preserve">
+    <value>Create a new billing template.</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="deleteButton.BillingTemplateListUI" xml:space="preserve">
+    <value>Delete the selected billing template.</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="saveButton.BillingTemplateODP" xml:space="preserve">
+    <value>Save billing template changes.</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="cancelButton.AdjustmentReasonsODP" xml:space="preserve">
+    <value>Cancel adjustment reason changes.</value>
+    <comment>Adjustment Reason</comment>
+  </data>
+  <data name="createButton.AdjustmentReasonsListUI" xml:space="preserve">
+    <value>Create a new adjustment reason.</value>
+    <comment>Adjustment Reason</comment>
+  </data>
+  <data name="deleteButton.AdjustmentReasonsListUI" xml:space="preserve">
+    <value>Delete the selected adjustment reason.</value>
+    <comment>Adjustment Reason</comment>
+  </data>
+  <data name="saveButton.AdjustmentReasonsODP" xml:space="preserve">
+    <value>Save adjustment reason changes.</value>
+    <comment>Adjustment Reason</comment>
+  </data>
+  <data name="cancelButton.StatusReasonsODP" xml:space="preserve">
+    <value>Cancel request status reason changes.</value>
+    <comment>Request Status Reason</comment>
+  </data>
+  <data name="createButton.StatusReasonsListUI" xml:space="preserve">
+    <value>Create a new request status reason.</value>
+    <comment>Request Status Reason</comment>
+  </data>
+  <data name="deleteButton.StatusReasonsListUI" xml:space="preserve">
+    <value>Delete the selected request status reason.</value>
+    <comment>Request Status Reason</comment>
+  </data>
+  <data name="saveButton.StatusReasonsODP" xml:space="preserve">
+    <value>Save request status reason changes.</value>
+    <comment>Request Status Reason</comment>
+  </data>
+  <data name="cancelButton.RequestReasonsODP" xml:space="preserve">
+    <value>Cancel request reason changes.</value>
+    <comment>RequestReason</comment>
+  </data>
+  <data name="createButton.RequestReasonsListUI" xml:space="preserve">
+    <value>Create a new request reason.</value>
+    <comment>RequestReason</comment>
+  </data>
+  <data name="deleteButton.RequestReasonsListUI" xml:space="preserve">
+    <value>Delete the selected request reason.</value>
+    <comment>RequestReason</comment>
+  </data>
+  <data name="saveButton.RequestReasonsODP" xml:space="preserve">
+    <value>Save request reason changes.</value>
+    <comment>RequestReason</comment>
+  </data>
+  <data name="cancelButton.RequestorTypeODP" xml:space="preserve">
+    <value>Cancel requestor type changes.</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="createButton.RequestorTypeListUI" xml:space="preserve">
+    <value>Create a new requestor type.</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="deleteButton.RequestorTypeListUI" xml:space="preserve">
+    <value>Delete the selected requestor type.</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="saveButton.RequestorTypeODP" xml:space="preserve">
+    <value>Save requestor type changes.</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="cancelButton.DisclosureDocTypesListUI" xml:space="preserve">
+    <value>Cancel changes to disclosure document designations.</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="saveButton.DisclosureDocTypesListUI" xml:space="preserve">
+    <value>Save changes to disclosure document designations.</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="cancelButton.ROIDialog" xml:space="preserve">
+    <value>Do not proceed to the newly selected code set.</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="okButton.ROIDialog" xml:space="preserve">
+    <value>Save changes and proceed to the newly selected code set.</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="browseButton.LetterTemplateODP" xml:space="preserve">
+    <value>Browse to find a file to provide for the selected letter template. </value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="cancelButton.LetterTemplateODP" xml:space="preserve">
+    <value>Cancel letter template changes.</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="createButton.LetterTemplateListUI" xml:space="preserve">
+    <value>Create a new letter template.</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="deleteButton.LetterTemplateListUI" xml:space="preserve">
+    <value>Delete the selected letter template.</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="downloadButton" xml:space="preserve">
+    <value>Download the selected letter template.</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="downloadButton.LetterTemplateListUI" xml:space="preserve">
+    <value>Download the selected letter template.</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.05" xml:space="preserve">
+    <value>LetterTemplate description exceeds maximum length</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="saveButton.LetterTemplateODP" xml:space="preserve">
+    <value>Save letter template changes.</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="dontDelete" xml:space="preserve">
+    <value>Do not {0}</value>
+    <comment>Common</comment>
+  </data>
+  <data name="addNewTierButton.PageRateTierGroupUI" xml:space="preserve">
+    <value>Add a new rate tier to specify additional rates per page range.</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="baseChargetextBox.BillingTierTabUI" xml:space="preserve">
+    <value>A base charge rate must be entered. The flat rate charge must be 0 or greater. Valid characters for this field include positive numbers, a decimal point, and precision of 2 decimal places. Ex: 9.98</value>
+    <comment>Billing tier</comment>
+  </data>
+  <data name="cancelButton.BillingTierODP" xml:space="preserve">
+    <value>Cancel billing tier changes.</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="createButton.BillingTierListUI" xml:space="preserve">
+    <value>Create a new billing tier.</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="deleteButton.BillingTierListUI" xml:space="preserve">
+    <value>Delete the selected billing tier.</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="deleteImg.PageRateTierUI" xml:space="preserve">
+    <value>Delete this page rate tier</value>
+    <comment>Billing tier</comment>
+  </data>
+  <data name="fromPageTextBox.PageRateTierUI" xml:space="preserve">
+    <value>Page number entered must be 1 more than the value entered in the "through page" in the preceding page rate tier</value>
+    <comment>Billing tier</comment>
+  </data>
+  <data name="otherChargeTextBox.PageRateTierGroupUI" xml:space="preserve">
+    <value>Valid characters for this field include positive numbers, a decimal point, and precision of 2 decimal places. Ex: 9.98</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="pricePerPageTextBox.PageRateTierUI" xml:space="preserve">
+    <value>Valid characters for this field include positive numbers, a decimal point, and precision of 2 decimal places. Ex: 9.98</value>
+    <comment>Billing tier</comment>
+  </data>
+  <data name="saveButton.BillingTierODP" xml:space="preserve">
+    <value>Save billing tier changes.</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="toPageTextBox.PageRateTierUI" xml:space="preserve">
+    <value>Field accepts only positive whole numbers and a maximum value of 9999</value>
+    <comment>Billing tier</comment>
+  </data>
+  <data name="cancel.NavigateOut" xml:space="preserve">
+    <value>Cancel and return to screen.</value>
+    <comment>Navigate Out</comment>
+  </data>
+  <data name="dontSave.NavigateOut" xml:space="preserve">
+    <value>Discard changes and continue.</value>
+    <comment>Navigate Out</comment>
+  </data>
+  <data name="createRequestButton" xml:space="preserve">
+    <value>Create a new request for the patient selected.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="dobTextBox" xml:space="preserve">
+    <value>Enter a date of birth for the patient to find.  Must be combined with another search field.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="encounterTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the encounter number or account number for the patient to find.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="epnTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the enterprise number for the patient to find.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="facilityComboBox" xml:space="preserve">
+    <value>Select a facility in which to find the patient. To find in any facility choose All Facilities. Must be combined with another search field.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="findPatientButton" xml:space="preserve">
+    <value>Find patient based on the search criteria you have entered.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="firstNameTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of a patient first name to find. You must enter a minimum combination of 3 characters between last and first name to perform the search.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="lastNameTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of a patient last name to find. You must enter a minimum combination of 3 characters between last and first name to perform the search.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="moreInfoImage" xml:space="preserve">
+    <value>Searching by this field alone is not permitted.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="mrnTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the medical record number for the patient to find.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="newPatientButton" xml:space="preserve">
+    <value>Create a new Non-MPF patient.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="patientRequestButton" xml:space="preserve">
+    <value>Create a new request for the patient selected as the requestor.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="resetButton" xml:space="preserve">
+    <value>Clear all find patient criteria and start over.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="ssnTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the social security number for the patient to find.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="patientViewEditButton" xml:space="preserve">
+    <value>View or edit the selected patient.</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="NonUniquePatientDialog.CancelButton" xml:space="preserve">
+    <value>Do not save the patient.</value>
+    <comment>Non Unique Patient Dialog</comment>
+  </data>
+  <data name="NonUniquePatientDialog.OkButton" xml:space="preserve">
+    <value>Save the patient.</value>
+    <comment>Non Unique Patient Dialog</comment>
+  </data>
+  <data name="DeletePatientDialog.CancelButton" xml:space="preserve">
+    <value>Do not delete this patient.</value>
+    <comment>Delete Patient Dialog</comment>
+  </data>
+  <data name="DeletePatientDialog.OkButton" xml:space="preserve">
+    <value>Delete this Non-MPF patient record.</value>
+    <comment>Delete Patient Dialog</comment>
+  </data>
+  <data name="allRequestorsRadioButton.FindRequestorSearchUI" xml:space="preserve">
+    <value>Select Recent Requestors to find only requestors who have recently made a request.Select All Requestors to search requestors without regard to when the requestor was last used on a request.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="createRequestButton.FindRequestorListUI" xml:space="preserve">
+    <value>Begin creating a new request with the requestor you have selected above.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="dobTextBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter a date of birth for the patient to find.Must be combined with another search field.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="dobMoreInfo.FindRequestorSearchUI" xml:space="preserve">
+    <value>Searching by this field alone is not permitted.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="findRequestorButton.FindRequestorSearchUI" xml:space="preserve">
+    <value>Find requestor based on the search criteria you have entered. </value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="newRequestorButton.FindRequestorSearchUI" xml:space="preserve">
+    <value>Create a new requestor.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="patientEpnTextBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter all or the beginning characters of the enterprise number for the patient to find.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="patientSsnTextBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter all or the beginning characters of the social security number for the patient to find.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="recentRequestorsRadioButton.FindRequestorSearchUI" xml:space="preserve">
+    <value>Select Recent Requestors to find only requestors who have recently made a request.Select All Requestors to search requestors without regard to when the requestor was last used on a request.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="requestorNameTextBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter all or the beginning characters of a requestor name to find.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="requestorTypeComboBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Select the type of requestor to find from a list.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="resetButton.FindRequestorSearchUI" xml:space="preserve">
+    <value>Clear all find requestor criteria and start over.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="viewEditButton" xml:space="preserve">
+    <value>View or edit the requestor you have selected above.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="address1TextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter line one of the patient's main address.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="address2TextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter line two of the patient's main address.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="address3TextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter line three of the patient's main address.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="cityTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the city of the patient's main address.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="deletePatientButton.PatientInfoMCP" xml:space="preserve">
+    <value>Delete this Non-MPF patient record from ROI. This can only be completed if the patient has not been included on a request.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="dobTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's date of birth.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="epnTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's EPN.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="facilityComboBox.PatientInfoMCP" xml:space="preserve">
+    <value>Select or enter the facility for the patient</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="genderComboBox.PatientInfoMCP" xml:space="preserve">
+    <value>Select the patient's gender.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="homePhoneTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's home phone number.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="mrnTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's medical record number.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="nameTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's name in the format: &lt;last name&gt;, &lt;first name&gt;</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="revertButton.PatientInfoMCP" xml:space="preserve">
+    <value>Discard any changes since last save and revert fields to the last saved state.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="saveButton.PatientInfoMCP" xml:space="preserve">
+    <value>Save changes to this patient.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ssnTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's social security number</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="stateTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Select the state of the patient's main address.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="vipCheckBox.PatientInfoMCP" xml:space="preserve">
+    <value>Check this box to mark a Non-MPF patient as VIP.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="workPhoneTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's work phone number.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="zipTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the zip code of the patient's main address.</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="disclosureCheckBox" xml:space="preserve">
+    <value>Filter records to show disclosure documents only.</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="documentRadioButton" xml:space="preserve">
+    <value>Sort the MPF documents in the patient record view by Document Name (which will display the documents alphabetically by encounter.)</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="editDocumentButton" xml:space="preserve">
+    <value>Edit the selected Non-MPF document.</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="encounterRadioButton" xml:space="preserve">
+    <value>Sort the MPF documents in the patient record view by Encounter (which will display the documents in chart order) or by Document Name (which will display the documents alphabetically by encounter.)</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="newDocumentButton" xml:space="preserve">
+    <value>Create a new Non-MPF document for this patient.</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="recordViewComboBox" xml:space="preserve">
+    <value>Filter the documents by record view. This filter does not apply to global and Non-MPF documents.</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="setUpdateButton" xml:space="preserve">
+    <value>Set or change a filter to only display information related to a set of selected encounters. (Not available for Non-MPF patients or Non-MPF records.)</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="showVersionCheckBox" xml:space="preserve">
+    <value>Show document versions in the patient record view.</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="viewAllButton" xml:space="preserve">
+    <value>Display all documents except Attachments and Non-MPF documents in the system document viewer.</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="viewSelectedButton" xml:space="preserve">
+    <value>Open document(s) in the system document viewer.</value>
+    <comment>Non hpf Patient</comment>
+  </data>
+  <data name="cancelButton.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Cancel any edit(s) to this Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="deleteButton.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Delete this Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="saveButton.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Save updates to this Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="editDocumentButton.PatientRecordsView" xml:space="preserve">
+    <value>Edit the selected Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="newDocumentButton.PatientRecordsView" xml:space="preserve">
+    <value>Create a new Non-MPF document for this patient.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="viewAllButton.PatientRecordsView" xml:space="preserve">
+    <value>Display all documents except Attachments and Non-MPF documents in the system document viewer.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="viewSelectedButton.PatientRecordsView" xml:space="preserve">
+    <value>Open document(s) in the system document viewer.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="address1TextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter line one of the requestor's {0}.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="address2TextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter line two of the requestor's {0}.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="address3TextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter line three of the requestor's {0}.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="cellPhoneTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the cell phone of the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="cityTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the city of the requestor's {0}.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="contactEmailTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the email of the contact person for the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="contactNameTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the name of the contact person for the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="contactPhoneTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the phone number of the contact person for the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="deleteRequestorButton.RequestorInfoMCP" xml:space="preserve">
+    <value>Delete this requestor. Only requestors that do not appear on a request can be deleted.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="DeleteRequestorDialog.CancelButton" xml:space="preserve">
+    <value>Do not delete this requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="DeleteRequestorDialog.OkButton" xml:space="preserve">
+    <value>Delete this requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="dobTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the patient requestor's date of birth</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="emailTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the requestor's email address.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="epnTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the patient requestor's EPN</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="faxTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the requestor's fax number.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="homePhoneTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the home phone of the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="letterRequiredCheckBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Check to note that a certification letter is required for this requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="nameTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the requestor's name.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="NonUniqueRequestorDialog.CancelButton" xml:space="preserve">
+    <value>Do not save the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="NonUniqueRequestorDialog.OkButton" xml:space="preserve">
+    <value>Save the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="paymentRequiredCheckBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Check to note that pre-payment is required for this requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="requestorTypeCombo.RequestorInfoMCP" xml:space="preserve">
+    <value>Select the type of requestor from a list. This value cannot be changed after the requestor is saved for the first time.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="revertButton.RequestorInfoMCP" xml:space="preserve">
+    <value>Discard any changes since last save and revert fields to the last saved state.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="saveButton.RequestorInfoMCP" xml:space="preserve">
+    <value>Save changes to this requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ssnTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the patient requestor's social security number.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="stateTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the state of the requestor's {0}.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="workPhoneTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the work phone of the requestor.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="zipTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter the zip code of the requestor's {0}.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="revertButton.PatientRecordFooterActions" xml:space="preserve">
+    <value>Discard any changes since last save and revert fields to the last saved state.</value>
+    <comment>Non Hpf Doc</comment>
+  </data>
+  <data name="saveButton.PatientRecordFooterActions" xml:space="preserve">
+    <value>Save changes to this patient record.</value>
+    <comment>Non Hpf Doc</comment>
+  </data>
+  <data name="DeleteNonHpfDocumentDialog.CancelButton" xml:space="preserve">
+    <value>Do not delete this Non-MPF document.</value>
+    <comment>Non hpf Document</comment>
+  </data>
+  <data name="DeleteNonHpfDocumentDialog.OkButton" xml:space="preserve">
+    <value>Delete this Non-MPF document.</value>
+    <comment>Non hpf Document</comment>
+  </data>
+  <data name="cancelButton.EncounterFilterDialog" xml:space="preserve">
+    <value>Close this dialog and do not change the filter.</value>
+    <comment>Encounter Filter Dialog</comment>
+  </data>
+  <data name="filterOffEncounterButton.EncounterFilterDialog" xml:space="preserve">
+    <value>Turn off filtering by encounter.</value>
+    <comment>Encounter Filter Dialog</comment>
+  </data>
+  <data name="filterOnEncounterButton.EncounterFilterDialog" xml:space="preserve">
+    <value>Turn on encounter filter for the encounters checked in the grid.</value>
+    <comment>Encounter Filter Dialog</comment>
+  </data>
+  <data name="closeButton.DeficiencyDialog" xml:space="preserve">
+    <value>Close this dialog and return to viewing patient records.</value>
+    <comment>Deficiency Dialog</comment>
+  </data>
+  <data name="DeleteRequestDialog.CancelButton" xml:space="preserve">
+    <value>Don’t delete the request.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="DeleteRequestDialog.OkButton" xml:space="preserve">
+    <value>Proceed and delete the request.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="cancelButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to cancel the creation of this request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="cellPhoneTextBox.RequestInfoMCP" xml:space="preserve">
+    <value>Enter the requestor's cell phone number for this request. If you change the cell phone number here it will only apply to the request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="changeRequestorButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to change the requestor of this request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="contactNameTextBox.RequestInfoMCP" xml:space="preserve">
+    <value>Enter the Requestor’s contact name for this request. If you change the contact name here it will only apply to the request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="contactPhoneTextBox.RequestInfoMCP" xml:space="preserve">
+    <value>Enter the Requestor’s contact phone for this request. If you change the contact phone here it will only apply to the request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="continueButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to proceed to complete creating this request. </value>
+    <comment>Request</comment>
+  </data>
+  <data name="deleteRequestButton.RequestInfoMCP" xml:space="preserve">
+    <value>Delete this request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="faxTextBox.RequestInfoMCP" xml:space="preserve">
+    <value>Enter the requestor fax number for this request. If you change the fax number here it will only apply to the request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="homePhoneTextBox.RequestInfoMCP" xml:space="preserve">
+    <value>Enter the requestor's home phone number for this request. If you change the home phone number here it will only apply to the request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="revertButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to revert to the last saved state for fields on this page.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="saveButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to save any changes made to this request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="selectReqButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to choose a requestor for this request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="updateReqStatusButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to update the status and/or reason(s) for this request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="viewEditRequestorButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to view or edit the requestor's profile information.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="workPhoneTextBox.RequestInfoMCP" xml:space="preserve">
+    <value>Enter the requestor's work phone number for this request. If you change the work phone number here it will only apply to the request.</value>
+    <comment>Request</comment>
+  </data>
+  <data name="cancelButton.RequestCommentInfoUI" xml:space="preserve">
+    <value>Select to cancel the newly entered comment. It will not be saved to the comment history.</value>
+    <comment>Request comment</comment>
+  </data>
+  <data name="commentSaveButton.RequestCommentInfoUI" xml:space="preserve">
+    <value>Select to save the newly entered comment to add to the comment history.</value>
+    <comment>Request comment</comment>
+  </data>
+  <data name="cancelButton.SelectRequestorUI" xml:space="preserve">
+    <value>Select to cancel selection of a requestor and return to the request information screen.</value>
+    <comment>Select Requestor Dialog</comment>
+  </data>
+  <data name="selectRequestorButton.SelectRequestorUI" xml:space="preserve">
+    <value>Select to add the selected requestor as the requestor for the request.</value>
+    <comment>Select Requestor Dialog</comment>
+  </data>
+  <data name="addFreeFormReasonButton.ChangeRequestStatusUI" xml:space="preserve">
+    <value>Select to add a freeform reason for the selected status.</value>
+    <comment>Change Request Status Dialog</comment>
+  </data>
+  <data name="cancelButton.ChangeRequestStatusUI" xml:space="preserve">
+    <value>Select to cancel any changes to the request status and return to the request information screen.</value>
+    <comment>Change Request Status Dialog</comment>
+  </data>
+  <data name="deleteFreeformReasonImg.FreeformReasonUI" xml:space="preserve">
+    <value>Delete this freeform reason.</value>
+    <comment>FreeformReasonUI</comment>
+  </data>
+  <data name="saveButton.ChangeRequestStatusUI" xml:space="preserve">
+    <value>Select to save an updates to the request status and return to the request information screen.</value>
+    <comment>Change Request Status Dialog</comment>
+  </data>
+  <data name="cancelButton.SaveNewPatientRequestorUI" xml:space="preserve">
+    <value>Select to cancel the creation of this new patient requestor, cease the creation of the new request, and return to the Patients tab.</value>
+    <comment>Save New Patient Requestor Dialog</comment>
+  </data>
+  <data name="saveNewRequestorButton.SaveNewPatientRequestorUI" xml:space="preserve">
+    <value>Select to save this new patient requestor and add this requestor to the request.</value>
+    <comment>Save New Patient Requestor Dialog</comment>
+  </data>
+  <data name="cancelButton.PatientMatchingUI" xml:space="preserve">
+    <value>Cancel and return to the select requestor dialog.</value>
+    <comment>Requestor.PatientMatching</comment>
+  </data>
+  <data name="continueWithNoPatientButton.PatientMatchingUI" xml:space="preserve">
+    <value>Select to continue working on the request with no patient(s) added.</value>
+    <comment>Requestor.PatientMatching</comment>
+  </data>
+  <data name="continueWithSelectedPatientsButton.PatientMatchingUI" xml:space="preserve">
+    <value>Select to add the selected patient(s) to the request and continue working on the request.</value>
+    <comment>Requestor.PatientMatching</comment>
+  </data>
+  <data name="cancelButton.MatchingRequestorUI" xml:space="preserve">
+    <value>Cancel the process of creating a new request with the selected patient and return to the patients tab.</value>
+    <comment>Matching Requestor Dialog</comment>
+  </data>
+  <data name="cancelButton.NoMatchingRequestorUI" xml:space="preserve">
+    <value>Cancel the process of creating a new request with the selected patient and return to the patients tab.</value>
+    <comment>No matching requestor found</comment>
+  </data>
+  <data name="cancelButton.MismatchPatientUI" xml:space="preserve">
+    <value>Cancel and return to patient selection.</value>
+    <comment>Potential Patient Mismatch Dialog</comment>
+  </data>
+  <data name="continueSelectedPatientsButton.MismatchPatientUI" xml:space="preserve">
+    <value>Continue creating the request with the selected patient(s).</value>
+    <comment>Potential Patient Mismatch Dialog</comment>
+  </data>
+  <data name="newRequestorButton.MatchingRequestorUI" xml:space="preserve">
+    <value>Create a new requestor with the selected patient.</value>
+    <comment>Matching Requestor Dialog</comment>
+  </data>
+  <data name="selectPatientAsRequestorButton.NoMatchingRequestorUI" xml:space="preserve">
+    <value>Create a new requestor with the selected patient. Upon selection a new request will be created with the selected patient as the requestor.</value>
+    <comment>No matching requestor found</comment>
+  </data>
+  <data name="selectRequestorButton.MatchingRequestorUI" xml:space="preserve">
+    <value>Create a new request with the selected patient requestor.</value>
+    <comment>Matching Requestor Dialog</comment>
+  </data>
+  <data name="findRequestButton" xml:space="preserve">
+    <value>Find request based on the search criteria you have entered.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="newRequestButton" xml:space="preserve">
+    <value>Create a new request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="openViewRequestButton" xml:space="preserve">
+    <value>Open the selected request to view and/or edit. </value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="resetRequestButton" xml:space="preserve">
+    <value>Clear all find request criteria and start over.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="dobTextBox.RequestSearchUI" xml:space="preserve">
+    <value>Select a date of birth for the patient to find on a request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="facilityComboBox.ReqeustSearchUI" xml:space="preserve">
+    <value>Select a facility in which to find a request. To find in any facility choose All Facilities. Must be combined with another search field.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="patientEncounterTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the encounter number or account number for the patient to find on a request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="patientEpnTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the enterprise number for the patient to find on a request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="patientFirstNameTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of a patient first name to find on a request. If you search by patient name, you must enter a minimum combination of 3 characters between the last and first name to perform the search.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="patientLastNameTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of a patient last name to find on a request. If you search by patient name, you must enter a minimum combination of 3 characters between the last and first name to perform the search.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="patientMrnTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the medical record number for the patient to find on a request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="patientSsnTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of the social security number for the patient to find on a request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="receiptDateComboBox" xml:space="preserve">
+    <value>Select a preset date range for the receipt date of a request or select Custom Range to enter a date range of your choosing. The option All will return every request in the system regardless of date meeting the other search criteria.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="requestorNameTextBox" xml:space="preserve">
+    <value>Enter all or the beginning characters of a requestor name to find on a request. At least 2 characters must be entered. This field may also be used to filter the requests displayed by requestor.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="requestStatusComboBox" xml:space="preserve">
+    <value>Select the status of the request to find. This field may also be used to filter the requests displayed by status. To see all statuses choose All Statuses.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="requestTypeComboBox" xml:space="preserve">
+    <value>Select the type of requestor to find for a request. This field may also be used to filter the requests displayed by requestor type.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="invoiceNumberTextBox" xml:space="preserve">
+    <value>Enter exact invoice number to find a request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="requestIdTextBox" xml:space="preserve">
+    <value>Enter exact request ID to find a request.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="requestorTypeComboBox" xml:space="preserve">
+    <value>Select the type of requestor to find for a request. This field may also be used to filter the requests displayed by requestor type.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="addPatientCloseButton.AddPatientUI" xml:space="preserve">
+    <value>Add the selected patient to the request and close this dialog to return to the patient information screen.</value>
+    <comment>AddPatientUI</comment>
+  </data>
+  <data name="addPatientContinueButton.AddPatientUI" xml:space="preserve">
+    <value>Add the selected patient to the request and continue adding patients to the request.</value>
+    <comment>AddPatientUI</comment>
+  </data>
+  <data name="cancelButton.AddPatientUI" xml:space="preserve">
+    <value>Select to cancel adding a patient to the request and return to the patient information screen.</value>
+    <comment>AddPatientUI</comment>
+  </data>
+  <data name="addAnotherPatientButton.RequestPatientListUI" xml:space="preserve">
+    <value>Add another patient to this request.</value>
+    <comment>Request - Patient Information - PatientListUI</comment>
+  </data>
+  <data name="addPatientButton.RequestPatientListUI" xml:space="preserve">
+    <value>Select to add a patient to this new request.</value>
+    <comment>Request - Patient Information - PatientListUI</comment>
+  </data>
+  <data name="closeButton.ViewEditPatientUI" xml:space="preserve">
+    <value>Close this dialog and return to the patient information screen.</value>
+    <comment>ViewEditPatientUI</comment>
+  </data>
+  <data name="closeButton.ViewEditRequestorUI" xml:space="preserve">
+    <value>Close this dialog and return to the request information screen.</value>
+    <comment>ViewEditRequestorUI</comment>
+  </data>
+  <data name="removePatientButton.RequestPatientListUI" xml:space="preserve">
+    <value>Remove the selected patient from this request. If you have released records for the selected patient they cannot be removed. </value>
+    <comment>Request - Patient Information - PatientListUI</comment>
+  </data>
+  <data name="revertButton.ViewEditPatientUI" xml:space="preserve">
+    <value>Discard any changes and revert to the last saved state.</value>
+    <comment>ViewEditPatientUI</comment>
+  </data>
+  <data name="revertButton.ViewEditRequestorUI" xml:space="preserve">
+    <value>Discard any changes and revert to the last saved state.</value>
+    <comment>ViewEditRequestorUI</comment>
+  </data>
+  <data name="saveButton.ViewEditPatientUI" xml:space="preserve">
+    <value>Save changes to the patient's information.</value>
+    <comment>ViewEditPatientUI</comment>
+  </data>
+  <data name="saveButton.ViewEditRequestorUI" xml:space="preserve">
+    <value>Save changes to the requestor's information.</value>
+    <comment>ViewEditRequestorUI</comment>
+  </data>
+  <data name="viewEditPatientButton.RequestPatientListUI" xml:space="preserve">
+    <value>Select to view or edit the selected patient's profile.</value>
+    <comment>Request - Patient Information - PatientListUI</comment>
+  </data>
+  <data name="NoDocumentsReleasedDialog.OkButton" xml:space="preserve">
+    <value>Don't set status as complete and return to the Update Status Dialog.</value>
+    <comment>Change Request Status - No Documents Released Dialog</comment>
+  </data>
+  <data name="PartiallyReleasedDialog.CancelButton" xml:space="preserve">
+    <value>Don't set status as complete and return to the Update Status Dialog.</value>
+    <comment>Change Request Status - Partially Released Dialog</comment>
+  </data>
+  <data name="PartiallyReleasedDialog.OkButton" xml:space="preserve">
+    <value>Set status as complete.</value>
+    <comment>Change Request Status - Partially Released Dialog</comment>
+  </data>
+  <data name="PatientWithoutReleaseDialog.CancelButton" xml:space="preserve">
+    <value>Don't set status as complete and return to the Update Status Dialog.</value>
+    <comment>Change Request Status - Patient Without Release Dialog</comment>
+  </data>
+  <data name="PatientWithoutReleaseDialog.OkButton" xml:space="preserve">
+    <value>Set status as complete.</value>
+    <comment>Change Request Status - Patient Without Release Dialog</comment>
+  </data>
+  <data name="cancelButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Select to cancel the creation of this request.</value>
+    <comment>Request Patient Info</comment>
+  </data>
+  <data name="newSaveButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Select to save this new request.</value>
+    <comment>Request Patient Info</comment>
+  </data>
+  <data name="revertButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Select to revert to the last saved state for fields on this page.</value>
+    <comment>Request Patient Info</comment>
+  </data>
+  <data name="saveButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Select to save any changes made to this request.</value>
+    <comment>Request Patient Info</comment>
+  </data>
+  <data name="removeAllButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Remove all items from the Document(s) selected for Release. Previously released documents cannot be removed.</value>
+    <comment>Request Patient Info/DSRTreeUI</comment>
+  </data>
+  <data name="removeButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Remove the selected items from the Document(s) selected for Release. Previously released documents cannot be removed.</value>
+    <comment>Request Patient Info/DSRTreeUI</comment>
+  </data>
+  <data name="DiscardChangesDialog.CancelButton" xml:space="preserve">
+    <value>Do not proceed and remain on the page.</value>
+    <comment>Discard Changes Dialog</comment>
+  </data>
+  <data name="DiscardChangesDialog.OkButton" xml:space="preserve">
+    <value>Proceed and no changes will be saved. </value>
+    <comment>Discard Changes Dialog</comment>
+  </data>
+  <data name="addAllButton" xml:space="preserve">
+    <value>Add all documents for the selected patient to the Document(s) selected for Release section</value>
+    <comment>Patient Records</comment>
+  </data>
+  <data name="addButton" xml:space="preserve">
+    <value>Add the selected item for the selected patient to the Document(s) selected for Release section</value>
+    <comment>Patient Records</comment>
+  </data>
+  <data name="systemimage" xml:space="preserve">
+    <value>This data is provided by the system and cannot be deleted.</value>
+    <comment>Grid imagecolumn</comment>
+  </data>
+  <data name="userimage" xml:space="preserve">
+    <value>This data can be deleted.</value>
+    <comment>Grid imagecolumn</comment>
+  </data>
+  <data name="save.NavigateOut" xml:space="preserve">
+    <value>Save changes and continue.</value>
+    <comment>Navigate Out</comment>
+  </data>
+  <data name="cancelButton.ConfigureNotesODP" xml:space="preserve">
+    <value />
+    <comment>ConfigureNotesListUI</comment>
+  </data>
+  <data name="deleteButton.ConfigureNotesListUI" xml:space="preserve">
+    <value>Delete a selected configure notes</value>
+    <comment>ConfigureNotesListUI</comment>
+  </data>
+  <data name="createButton.ConfigureNotesListUI" xml:space="preserve">
+    <value>Create new configure notes</value>
+    <comment>ConfigureNotesListUI</comment>
+  </data>
+  <data name="saveButton.ConfigureNotesODP" xml:space="preserve">
+    <value />
+    <comment>ConfigureNotesListUI</comment>
+  </data>
+  <data name="revertButton.RequestorInfoMCP.CreateNew" xml:space="preserve">
+    <value>Cancel the creation of the new requestor and return to the Find Requestor tab.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="rangeCombo.PresetDateRange" xml:space="preserve">
+    <value>Select a preset date range for the receipt date of a request or select Custom Range to enter a date range of your choosing. The option All will return every request in the system regardless of date meeting the other search criteria.</value>
+    <comment>Preset Date Range</comment>
+  </data>
+  <data name="viewEditRequestButton.FindRequestODP" xml:space="preserve">
+    <value>Open the selected request to view and/or edit.</value>
+    <comment>Request - Find Request</comment>
+  </data>
+  <data name="viewEditRequestButton.RequestHistoryMCP" xml:space="preserve">
+    <value>Open the selected request in the Requests tab.</value>
+    <comment>Request History - Patient &amp; Requestor</comment>
+  </data>
+  <data name="revertButton.PatientInfoMCP.CreateNew" xml:space="preserve">
+    <value>Cancel the creation of a Non-MPF Patient.</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="NonDeletedPatientDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Non Deleted Patient Dialog</comment>
+  </data>
+  <data name="NonDeletedRequestorDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Non Deleted Requestor Dialog</comment>
+  </data>
+  <data name="sortByLabel" xml:space="preserve">
+    <value>Sort the MPF documents in the patient record view by Encounter (which will display the documents in chart order) or by Document Name (which will display the documents alphabetically by encounter.)</value>
+    <comment>Sort By - Patient Records</comment>
+  </data>
+  <data name="invoiceButton.BillingPaymentInfoMCP" xml:space="preserve">
+    <value>Select to create an invoice.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="preBillButton.BillingPaymentInfoMCP" xml:space="preserve">
+    <value>Select to create a pre-bill.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="releaseButton.BillingPaymentInfoMCP" xml:space="preserve">
+    <value>Select to release the selected documents. An output method must be selected before you will be able to release.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="revertButton.BillingPaymentInfoMCP" xml:space="preserve">
+    <value>Select to revert to the last saved state for fields on this page.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="saveButton.BillingPaymentInfoMCP" xml:space="preserve">
+    <value>Select to save any changes made to billing, shipping, fee charges or adjustments and payments for this request.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="addAdjustmentButton.AdjustmentPaymentInfoUI" xml:space="preserve">
+    <value>Click to add the adjustment to this request.</value>
+    <comment>Billing - AdjustmentPaymentInfoUI</comment>
+  </data>
+  <data name="addPaymentButton.AdjustmentPaymentInfoUI" xml:space="preserve">
+    <value>Click to add the payment to this request.</value>
+    <comment>Billing - AdjustmentPaymentInfoUI</comment>
+  </data>
+  <data name="adjustmentAmountTextBox.AdjustmentPaymentInfoUI" xml:space="preserve">
+    <value>Enter the amount of the adjustment.</value>
+    <comment>Billing - AdjustmentPaymentInfoUI</comment>
+  </data>
+  <data name="createCustomeFeeButton.FeeChargeUI" xml:space="preserve">
+    <value>Select to add a custom fee for this request.</value>
+    <comment>Billing - FeeCharge</comment>
+  </data>
+  <data name="deleteImg.CustomFeeUI" xml:space="preserve">
+    <value>Delete this custom fee.</value>
+    <comment>Billing - FeeCharge</comment>
+  </data>
+  <data name="paymentAmountTextBox.AdjustmentPaymentInfoUI" xml:space="preserve">
+    <value>Enter the amount of the payment.</value>
+    <comment>Billing - AdjustmentPaymentInfoUI</comment>
+  </data>
+  <data name="paymentNoteTextBox.AdjustmentPaymentInfoUI" xml:space="preserve">
+    <value>Enter information about the payment such as check number or credit card number.</value>
+    <comment>Billing - AdjustmentPaymentInfoUI</comment>
+  </data>
+  <data name="reasonComboBox.AdjustmentPaymentInfoUI" xml:space="preserve">
+    <value>Select or enter a reason for the adjustment. All adjustments must have a reason.</value>
+    <comment>Billing - AdjustmentPaymentInfoUI</comment>
+  </data>
+  <data name="address1TextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping address for this request. If you change the address here it will only apply to the request.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="address2TextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping address for this request. If you change the address here it will only apply to the request.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="address3TextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping address for this request. If you change the address here it will only apply to the request.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="cityTextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping city for this request. If you change the city here it will only apply to the request.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="resetAddressButton.ShippingInfoUI" xml:space="preserve">
+    <value>Select to reset the shipping address from the current custom address to the requestor’s main or alternate address.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="shippingChargesTextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping charges for the release.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="stateTextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping state for this request. If you change the state here it will only apply to the request.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="trackingNumberTextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping tracking number obtained from the shipping provider.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="zipTextBox.ShippingInfoUI" xml:space="preserve">
+    <value>Enter the shipping zip for this request. If you change the zip here it will only apply to the request.</value>
+    <comment>Billing - ShippingInfoUI</comment>
+  </data>
+  <data name="closeButton.ChargeHistoryDialogUI" xml:space="preserve">
+    <value>Select to close and return to the Release &amp; Invoice screen.</value>
+    <comment>Billing - ChargeHistoryUI</comment>
+  </data>
+  <data name="deleteFreeformImg.FreeformUI" xml:space="preserve">
+    <value>Select to delete this freeform note.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="cancelButton.InvoiceUI" xml:space="preserve">
+    <value>Select to cancel the creation of the invoice and return to the Release &amp; Invoice screen.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="cancelButton.PreBillUI" xml:space="preserve">
+    <value>Select to cancel the creation of the pre-bill and return to the Release &amp; Invoice screen.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="continueButton.InvoiceUI" xml:space="preserve">
+    <value>Select to create and view a preview of the invoice.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="continueButton.PreBillUI" xml:space="preserve">
+    <value>Select to create and view a preview of the pre-bill.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="createFreeformButton.InvoiceUI" xml:space="preserve">
+    <value>Select to add a freeform note for this invoice.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="createFreeformButton.PreBillUI" xml:space="preserve">
+    <value>Select to add a freeform note for this pre-bill.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="clearAllButton.ReportPane" xml:space="preserve">
+    <value>Click to unselect all values in the listbox.</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="selectAllButton.ReportPane" xml:space="preserve">
+    <value>Click to select all values in the listbox.</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="resetButton.ReportPane" xml:space="preserve">
+    <value>Click to reset the filter criteria to their default values.</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="runReportButton.ReportPane" xml:space="preserve">
+    <value>Click to run the report with the selected reports criteria.</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="DeleteBillingTierDialog.CancelButton" xml:space="preserve">
+    <value>Don’t delete the billing tier.</value>
+    <comment>Billing - Delete Billing Tier Dialog</comment>
+  </data>
+  <data name="DeleteBillingTierDialog.OkButton" xml:space="preserve">
+    <value>Proceed and delete the billing tier.</value>
+    <comment>Billing - Delete Billing Tier Dialog</comment>
+  </data>
+  <data name="DeleteCustomFeeDialog.CancelButton" xml:space="preserve">
+    <value>Don’t delete the custom fee.</value>
+    <comment>Billing - Delete Custom Fee Dialog</comment>
+  </data>
+  <data name="DeleteCustomFeeDialog.OkButton" xml:space="preserve">
+    <value>Proceed and delete the custom fee.</value>
+    <comment>Billing - Delete Custom Fee Dialog</comment>
+  </data>
+  <data name="Invoice.cancelButton" xml:space="preserve">
+    <value>Select to cancel the creation of the invoice and return to the {0} screen</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="Invoice.faxButton" xml:space="preserve">
+    <value>Select to fax this invoice.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="Invoice.printButton" xml:space="preserve">
+    <value>Select to print this invoice.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="Invoice.saveAsFileButton" xml:space="preserve">
+    <value>Select to save this invoice as a file.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="PreBill.cancelButton" xml:space="preserve">
+    <value>Select to cancel the creation of the Pre-Bill and return to the {0} screen.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="OverdueInvoice.cancelButton" xml:space="preserve">
+    <value>Select to cancel the creation of the Overdue Invoice and return to the {0} screen.</value>
+    <comment>Overdue Invoice</comment>
+  </data>
+  <data name="PreBill.faxButton" xml:space="preserve">
+    <value>Select to fax this pre-bill.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="PreBill.printButton" xml:space="preserve">
+    <value>Select to print this pre-bill.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="PreBill.saveAsFileButton" xml:space="preserve">
+    <value>Select to save this pre-bill as a file.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="createRequestButton.RequestorFooterUI" xml:space="preserve">
+    <value>Create a new request with this requestor.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="requestLockedImg" xml:space="preserve">
+    <value>{0} is currently accessing this request.</value>
+    <comment>Request - In Use</comment>
+  </data>
+  <data name="OverrideRequestInfoDialog.CancelButtonToolTip" xml:space="preserve">
+    <value>Do not update the request with any of the changes.</value>
+    <comment>Request Info</comment>
+  </data>
+  <data name="OverrideRequestInfoDialog.OkButtonToolTip" xml:space="preserve">
+    <value>Update the request information with the changes.</value>
+    <comment>Request Info</comment>
+  </data>
+  <data name="cancelButton.LetterInfoActionUI" xml:space="preserve">
+    <value>Select to cancel the creation of the selected letter and revert all fields to their default settings.</value>
+    <comment>LetterInfoActionUI</comment>
+  </data>
+  <data name="cancelButton.ReleaseDialog" xml:space="preserve">
+    <value>Select to cancel the creation of the release of documents and return to the Release &amp; Invoice screen.</value>
+    <comment>Release Dialog</comment>
+  </data>
+  <data name="continueButton.ReleaseDialog" xml:space="preserve">
+    <value>Select to continue with the release of documents.</value>
+    <comment>Release Dialog</comment>
+  </data>
+  <data name="createFreeformButton.LetterInfoUI" xml:space="preserve">
+    <value>Select to create a freeform note for the selected letter.</value>
+    <comment>LetterInfoUI</comment>
+  </data>
+  <data name="createFreeformButton.ReleaseDialog" xml:space="preserve">
+    <value>Select to create a freeform note for the cover letter.</value>
+    <comment>Release Dialog</comment>
+  </data>
+  <data name="createLetterButton.LetterInfoActionUI" xml:space="preserve">
+    <value>Select to create a letter for the request.</value>
+    <comment>LetterInfoActionUI</comment>
+  </data>
+  <data name="invoiceCreateFreeformButton.ReleaseDialog" xml:space="preserve">
+    <value>Select to create a freeform note for the invoice.</value>
+    <comment>Release Dialog</comment>
+  </data>
+  <data name="closeButton.MonitorOutputJobsUI" xml:space="preserve">
+    <value>Select to close this dialog.</value>
+    <comment>Monitor Output Jobs Dialog</comment>
+  </data>
+  <data name="closeButton.ConfigureOutputSettingsUI" xml:space="preserve">
+    <value>Select to close this dialog.</value>
+    <comment>Configure Output Settings Dialog</comment>
+  </data>
+  <data name="commentTextBox.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Enter a comment for this new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="dosTextBox.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Set the date of service for this new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="departmentComboBox.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Select a department that is responsible for this new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="docTypeComboBox.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Select a document type for this new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="encounterTextBox.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Enter an Encounter or Account Number for this new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="facilityComboBox.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Select a facility as the source for this new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="cancelButton.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Cancel creating new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc Dialog</comment>
+  </data>
+  <data name="saveButton.Create.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Save this new ROI Non-MPF document.</value>
+    <comment>Non hpf Doc Dialog</comment>
+  </data>
+  <data name="PreviouslyReleasedDialog.OkButton" xml:space="preserve">
+    <value>Select to remove the unreleased documents.</value>
+    <comment>Previously Released Dialog</comment>
+  </data>
+  <data name="CustomShippingAddressDialog.CancelButton" xml:space="preserve">
+    <value>
+Do not save and return back to shipping.</value>
+    <comment>Custom Shipping Adress Dialog</comment>
+  </data>
+  <data name="CustomShippingAddressDialog.OkButton" xml:space="preserve">
+    <value>Updates address only for this requests instance. Requestor profile will not be updated.</value>
+    <comment>Custom Shipping Adress Dialog</comment>
+  </data>
+  <data name="commentTextBox.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Enter a comment for this ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="dosTextBox.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Set the date of service for this ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="departmentComboBox.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Select a department that is responsible for this ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="docTypeComboBox.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Select a document type for this ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="encounterTextBox.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Enter an Encounter or Account Number for this ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="facilityComboBox.Edit.NonHpfDocumentDialog" xml:space="preserve">
+    <value>Select a facility as the source for this ROI Non-MPF document.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="ViewSelectedErrorDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>View Selected Error Dialog</comment>
+  </data>
+  <data name="viewButton.InvoiceHistorySubListUI" xml:space="preserve">
+    <value>Select to view the invoice.</value>
+    <comment>Request - Invoice HIstory</comment>
+  </data>
+  <data name="closeButton.EncounterDetailDialogUI" xml:space="preserve">
+    <value>Select to close this dialog.</value>
+    <comment>Encounter details dialog ui
+</comment>
+  </data>
+  <data name="encounterDetailsButton" xml:space="preserve">
+    <value>Display all encounters details.</value>
+    <comment>PatientRecordsViewUI</comment>
+  </data>
+  <data name="DeleteRateTierDialog.CancelButton" xml:space="preserve">
+    <value>Don't delete the rate tier.</value>
+    <comment>Billing Tier-Delete Page Rate Tier</comment>
+  </data>
+  <data name="DeleteRateTierDialog.OkButton" xml:space="preserve">
+    <value>Proceed and delete the rate tier.</value>
+    <comment>Billing Tier-Delete Page Rate Tier</comment>
+  </data>
+  <data name="RequestCommentInfoUI.CancelButton" xml:space="preserve">
+    <value>Cancel Comment changes.</value>
+    <comment>Comment</comment>
+  </data>
+  <data name="RequestCommentInfoUI.OkButton" xml:space="preserve">
+    <value>Save Comment changes.</value>
+    <comment>Comment</comment>
+  </data>
+  <data name="CoverLetter.cancelButton" xml:space="preserve">
+    <value>Select to cancel the creation of the letter and return to the {0} screen.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="CoverLetter.faxButton" xml:space="preserve">
+    <value>Select to fax this letter.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="CoverLetter.printButton" xml:space="preserve">
+    <value>Select to print this letter.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="CoverLetter.saveAsFileButton" xml:space="preserve">
+    <value>Select to save this letter as a file.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="release.cancelButton" xml:space="preserve">
+    <value>Select to cancel the creation of the letter(s) only and return to the Release screen. Upon return to the Release screen you may select a new 
+
+letter template or deselect adding a letter to the release in order to continue with the release.</value>
+    <comment>ROIViewer</comment>
+  </data>
+  <data name="RequestHistoryUI.createRequestButton" xml:space="preserve">
+    <value>Create a new request with this patient.</value>
+    <comment>Patient Request History</comment>
+  </data>
+  <data name="viewAuthRequestButton.RequestInfoMCP" xml:space="preserve">
+    <value>Select to view the associated authorization request</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="viewAuthRequestButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Select to view the associated authorization request</value>
+    <comment>Request Patient Information</comment>
+  </data>
+  <data name="requestPatientLockedImage" xml:space="preserve">
+    <value>Patient and/or Encounter is/are locked.</value>
+    <comment>Find Request List</comment>
+  </data>
+  <data name="requestPatientVipImage" xml:space="preserve">
+    <value>The patient of this request is VIP.</value>
+    <comment>Find Request List</comment>
+  </data>
+  <data name="saveBillButton.RequestPatientInfoMCP" xml:space="preserve">
+    <value>Select to save changes on this screen and proceed to Billing Information to bill and release the records.</value>
+    <comment>Request Patient Info</comment>
+  </data>
+  <data name="chargeHistoryButton.BillingPaymentInfoMCP" xml:space="preserve">
+    <value>Select to view the previous charge history for this request.</value>
+    <comment>Billing - BillingPaymentInfoUI</comment>
+  </data>
+  <data name="requestReasonComboBox" xml:space="preserve">
+    <value>Please select equates to NO filter on this field.</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="cancelButton.OutputFaxDialog" xml:space="preserve">
+    <value>Select to cancel the fax job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="cancelButton.OutputFileDialog" xml:space="preserve">
+    <value>Select to cancel the job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="cancelButton.OutputPrintDialog" xml:space="preserve">
+    <value>Select to cancel the print job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="mediaComboBox.OutputFileDialog" xml:space="preserve">
+    <value>Select the media type in which the PDF will be saved (for example burned to a CD). The selected media type will determine how large the PDF file should be and will create multiple PDF files if needed.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="okButton.OutputFaxDialog" xml:space="preserve">
+    <value>Select to fax the job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="okButton.OutputFileDialog" xml:space="preserve">
+    <value>Select to save this job as a file.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="okButton.OutputPrintDialog" xml:space="preserve">
+    <value>Select to print the job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="secretWordTextBox.OutputFileDialog" xml:space="preserve">
+    <value>The entered password, if entered, will be used to encrypt the PDF file.  This password should be given to the requestor, so that he/she can open it when the file is received.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="propertiesButton.OutputPrintDialog" xml:space="preserve">
+    <value>Select to view and update properties for the selected printer to output the selected job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="ReportPane.patientViewEditButton" xml:space="preserve">
+    <value>Click to add the selected patient for AOD report.</value>
+    <comment>Reports - AOD - Find patient dialog</comment>
+  </data>
+  <data name="statusCheckBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Check to note that the requestor has an Inactive status.</value>
+    <comment>Check to note that the requestor has an Inactive status.</comment>
+  </data>
+  <data name="statusCombo.FindRequestorSearchUI" xml:space="preserve">
+    <value>Select the filter to be applied to the recent requestors search</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="CustomShippingAddressDialog.IgnoreButton" xml:space="preserve">
+    <value>Updates address for request and also updates requestor profile.</value>
+    <comment>Custom Shipping Adress Dialog</comment>
+  </data>
+  <data name="RecordViewDialog.OkButton" xml:space="preserve">
+    <value>Select to close this dialog</value>
+    <comment>Record View</comment>
+  </data>
+  <data name="collapseButton" xml:space="preserve">
+    <value>Select to collapse the documents in document tree.</value>
+    <comment>Patient Records</comment>
+  </data>
+  <data name="expandButton" xml:space="preserve">
+    <value>Select to expand the documents in document tree.</value>
+    <comment>Patient Records</comment>
+  </data>
+  <data name="patientFacilityComboBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter Facility of the patient.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="patientMrnTextBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter MRN of the patient.</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="facilityComboBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter Facility of the patient.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="mrnTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter MRN of the patient.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="LockedPermissionDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>User doesn't have locked permission</comment>
+  </data>
+  <data name="VipLockedPermissionDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>User doesn't have vip / locked permission</comment>
+  </data>
+  <data name="InactiveRequestorDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Inactive Requestor</comment>
+  </data>
+  <data name="rereleaseButton.BillingPaymentInfoMCP" xml:space="preserve">
+    <value>Select to re-release the selected documents.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="PatientRecordInUseDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Patient Record in use</comment>
+  </data>
+  <data name="RequestorRecordInUseDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Requestor Record in use</comment>
+  </data>
+  <data name="cancelButton.OutputPropertiesDialog" xml:space="preserve">
+    <value>Select to cancel any changes and return to the print dialog. </value>
+    <comment>OutputPropertiesDialog</comment>
+  </data>
+  <data name="okButton.OutputPropertiesDialog" xml:space="preserve">
+    <value>Select to save settings and return to the print dialog.</value>
+    <comment>OutputPropertiesDialog</comment>
+  </data>
+  <data name="CancelDeniedRequestDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Canceled/Denied RequestDialog</comment>
+  </data>
+  <data name="customRangeCombo.CustomDateRange" xml:space="preserve">
+    <value>Select a preset date range for the completed date of a request or select Custom Range to enter a date range of your choosing. The option All will return every request in the system regardless of date meeting the other search criteria.</value>
+    <comment>Completed Date Range</comment>
+  </data>
+  <data name="firstPatientNameTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient’s first name in the format: &lt;first name&gt;</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="lastPatientNameTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient’s last name in the format: &lt;last name&gt;</value>
+    <comment>PatientInformation</comment>
+  </data>
+  <data name="reqFirstNameTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter Requestor's First name</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="reqLastNameTextBox.RequestorInfoMCP" xml:space="preserve">
+    <value>Enter Requestor's Last name</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="requestorFirstNameTextBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter all or the beginning characters of a requestor's first name to find.</value>
+    <comment>Find Requestor</comment>
+  </data>
+  <data name="requestorLastNameTextBox.FindRequestorSearchUI" xml:space="preserve">
+    <value>Enter all or the beginning characters of a requestor's last name to find.</value>
+    <comment>Find Requestor</comment>
+  </data>
+  <data name="cancelButton.CreatePatientRequestorUI" xml:space="preserve">
+    <value>Cancel the process of creating a new patient requestor with the selected patient and return to the calling screen.</value>
+    <comment>Create New Patient Requestor - CR 316509</comment>
+  </data>
+  <data name="NoPatientMatchingDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Patient Matching cannot be performed  - CR 316509</comment>
+  </data>
+  <data name="selectPatientAsRequestorButton.CreatePatientRequestorUI" xml:space="preserve">
+    <value>Create a new requestor with the selected patient. Upon click a new request will be created with the selected patient as the requestor.</value>
+    <comment>Create New Patient Requestor - CR 316509</comment>
+  </data>
+  <data name="NoSelfMappingUI.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>NoSelfMappingUI</comment>
+  </data>
+  <data name="ExitSelfMappingUI.NoButton" xml:space="preserve">
+    <value>Cancel and return to previous screen.</value>
+    <comment>ExitSelfMappingUI</comment>
+  </data>
+  <data name="ExitSelfMappingUI.YesButton" xml:space="preserve">
+    <value>Exit the application.</value>
+    <comment>ExitSelfMappingUI</comment>
+  </data>
+  <data name="newAttachmentButton" xml:space="preserve">
+    <value>Create a new Attachment for this patient.</value>
+    <comment>Patient Records</comment>
+  </data>
+  <data name="cancelButton.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Cancel any edit(s) to this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="deleteButton.AttachmentDialog" xml:space="preserve">
+    <value>Delete this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="saveButton.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Save updates to this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="editAttachmentButton.PatientRecordsView" xml:space="preserve">
+    <value>Edit the selected Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="newAttachmentButton.PatientRecordsView" xml:space="preserve">
+    <value>Create a new Attachment for this patient.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="DeleteAttachmentDialog.CancelButton" xml:space="preserve">
+    <value>Do not delete this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="DeleteAttachmentDialog.OkButton" xml:space="preserve">
+    <value>Delete this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="editAttachmentButton" xml:space="preserve">
+    <value>Edit the selected Attachment.</value>
+    <comment>Patient Records</comment>
+  </data>
+  <data name="cancelButton.Create.AttachmentDialog" xml:space="preserve">
+    <value>Cancel creating new Attachment.</value>
+    <comment>Attachment Dialog</comment>
+  </data>
+  <data name="commentTextBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Enter a comment for this new Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="commentTextBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Enter a comment for this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="mrnTextBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Enter the mrn for this new Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="mrnTextBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Enter the mrn for this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="docTypeComboBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Select an Attachment type for this new Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="docTypeComboBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Select an Attachment type for this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="dosTextBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Set the date of service for this new Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="dosTextBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Set the date of service for this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="encounterTextBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Enter an Encounter or Account Number for this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="encounterTextBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Enter an Encounter or Account Number for this Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="AttachmentErrorDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Attachment Error Dialog</comment>
+  </data>
+  <data name="saveButton.Create.AttachmentDialog" xml:space="preserve">
+    <value>Save this new Attachment.</value>
+    <comment>Attachment Dialog</comment>
+  </data>
+  <data name="fileAttachmentTextBox" xml:space="preserve">
+    <value>Enter filename for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileAttachmentTextBox.Create.FileAttachment" xml:space="preserve">
+    <value>Enter filename for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileAttachmentTextBox.Edit.FileAttachment" xml:space="preserve">
+    <value>Enter a filename for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileExtTextBox" xml:space="preserve">
+    <value>Enter extension type for this file Atachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileExtTextBox.Create.FileAttachment" xml:space="preserve">
+    <value>Enter extension type for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileExtTextBox.Edit.FileAttachment" xml:space="preserve">
+    <value>Enter extension type for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileMimeTypeTextBox" xml:space="preserve">
+    <value>Enter mime type for this file Atachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileMimeTypeTextBox.Create.FileAttachment" xml:space="preserve">
+    <value>Enter mime type for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileMimeTypeTextBox.Edit.FileAttachment" xml:space="preserve">
+    <value>Enter mime type for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="filePageCountTextBox" xml:space="preserve">
+    <value>Enter page count for this file Atachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="filePageCountTextBox.Create.FileAttachment" xml:space="preserve">
+    <value>Enter page count for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="filePageCountTextBox.Edit.FileAttachment" xml:space="preserve">
+    <value>Enter page count for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="hrAttachmentTextBox" xml:space="preserve">
+    <value>Enter human readable filename for this CCR/CCD Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="rawAttachmentTextBox" xml:space="preserve">
+    <value>Enter raw(xml) filename for this CCR/CCD Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="submittedByTextBox" xml:space="preserve">
+    <value>Enter the name of the person who submitted file for this CCR/CCD Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="facilityComboBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Select a facility as the source for this ROI Attachment.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="facilityComboBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Select a facility as the source for this ROI Attachment.</value>
+    <comment>Non hpf Doc</comment>
+  </data>
+  <data name="fileMimeTypeTextBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Enter mime type for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="fileMimeTypeTextBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Enter mime type for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="filePageCountTextBox.Create.AttachmentDialog" xml:space="preserve">
+    <value>Enter page count for this file Atachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="filePageCountTextBox.Edit.AttachmentDialog" xml:space="preserve">
+    <value>Enter page count for this file Attachment.</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="AttachmentSelectedErrorDialog.OkButton" xml:space="preserve">
+    <value>Close this dialog.</value>
+    <comment>Attachment Selected Error Dialog</comment>
+  </data>
+  <data name="queuePassword" xml:space="preserve">
+    <value>This password allows access to all documents in the queue from which this document originated.  It reflects the time of the release and may differ from the current queue password.</value>
+    <comment>Release History</comment>
+  </data>
+  <data name="queuePassword.columnHeader" xml:space="preserve">
+    <value>The passwords in this column allow access to all documents in the queue from which each document originated.   They reflect the time of the release and may differ from current queue passwords.</value>
+    <comment>Release History</comment>
+  </data>
+  <data name="requestPassword" xml:space="preserve">
+    <value>This password allows access to all documents in the request.</value>
+    <comment>Release History</comment>
+  </data>
+  <data name="requestPassword.columnHeader" xml:space="preserve">
+    <value>The passwords in this column allow access to all documents in this request</value>
+    <comment>Release History</comment>
+  </data>
+  <data name="emailTextBox.PatientInfoMCP" xml:space="preserve">
+    <value>Enter the patient's email address.</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="cancelButton.SalesTaxPerFacilityODP" xml:space="preserve">
+    <value>Cancel tax rate changes.</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="cancelButton.OutputEmailDialog" xml:space="preserve">
+    <value>Select to cancel the email job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="createButton.SalesTaxPerFacilityListUI" xml:space="preserve">
+    <value>Create a new tax rate.</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="emailToTextBox.OutputEmailDialog" xml:space="preserve">
+    <value>Enter the email recipent's email address.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="deleteButton.SalesTaxPerFacilityListUI" xml:space="preserve">
+    <value>Delete the selected facility.</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="saveButton.SalesTaxPerFacilityODP" xml:space="preserve">
+    <value>Save tax rate changes.</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="okButton.OutputEmailDialog" xml:space="preserve">
+    <value>Select to email this job.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="passwordTextBox.OutputEmailDialog" xml:space="preserve">
+    <value>The entered password, if entered, will be used to encrypt the PDF file.  This password should be given to the requestor, so that he/she can open it when the file is received.</value>
+    <comment>Output Dialog</comment>
+  </data>
+  <data name="CoverLetter.emailButton" xml:space="preserve">
+    <value>Select to email this letter.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="Invoice.emailButton" xml:space="preserve">
+    <value>Select to email this invoice.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="PreBill.emailButton" xml:space="preserve">
+    <value>Select to email this pre-bill.</value>
+    <comment>Billing &amp; Payment</comment>
+  </data>
+  <data name="unauthorizedFacilityRequest" xml:space="preserve">
+    <value>You do not have access to view requests associated with one or more facilities.</value>
+    <comment>Find Request List</comment>
+  </data>
+  <data name="savepropertiesButton" xml:space="preserve">
+    <value>Save connection properties</value>
+    <comment>External Sources</comment>
+  </data>
+  <data name="testpropertiesButton" xml:space="preserve">
+    <value>Test Configuration</value>
+    <comment>External Sources</comment>
+  </data>
+  <data name="undopropertiesButton" xml:space="preserve">
+    <value>Undo connection properties changes</value>
+    <comment>External Sources</comment>
+  </data>
+  <data name="saveConfigButton" xml:space="preserve">
+    <value>Save Turnaround Time days configuration changes</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="cancelConfigButton" xml:space="preserve">
+    <value>Cancel Turnaround Time days configuration changes</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="TurnaroundTimeDaysCancelDialog.okButton" xml:space="preserve">
+    <value>Cancel the configuration changes</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="TurnaroundTimeDaysCancelDialog.cancelButton" xml:space="preserve">
+    <value>Do not cancel the changes</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="ClinicalSystemDeleteDialog.okButton" xml:space="preserve">
+    <value>Delete the clinical source connection</value>
+    <comment>Clinical Systems</comment>
+  </data>
+  <data name="ClinicalSystemDeleteDialog.cancelButton" xml:space="preserve">
+    <value>Do not delete the clinical source connection</value>
+    <comment>Clinical Systems</comment>
+  </data>
+  <data name="DisclosureDocTypesCancelDialog.okButton" xml:space="preserve">
+    <value>Cancel the configuration changes</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="DisclosureDocTypesCancelDialog.cancelButton" xml:space="preserve">
+    <value>Do not cancel the changes</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="addAnotherButton.AdjustmentsUI" xml:space="preserve">
+    <value>Add Another Fee Type to Adjustment.</value>
+    <comment>Account Management- AdjustmentUI</comment>
+  </data>
+  <data name="applyButton.AdjustmentsUI" xml:space="preserve">
+    <value>Apply the Unapplied amount to Invoices.</value>
+    <comment>Account Management- AdjustmentUI</comment>
+  </data>
+  <data name="cancelButton.AdjustmentsUI" xml:space="preserve">
+    <value>Cancel the Adjustment changes.</value>
+    <comment>Account Management- AdjustmentUI</comment>
+  </data>
+  <data name="dateTimePicker1.AdjustmentsUI" xml:space="preserve">
+    <value>Select the date.</value>
+    <comment>Account Management- AdjustmentUI</comment>
+  </data>
+  <data name="feeComboBox.FeeUI" xml:space="preserve">
+    <value>Select the Fee Type for Adjustment.</value>
+    <comment>Account Management- FeeUI</comment>
+  </data>
+  <data name="reasonComboBox.AdjustmentsUI" xml:space="preserve">
+    <value>Select the Reason for Adding Adjustment.</value>
+    <comment>Account Management- AdjustmentUI</comment>
+  </data>
+  <data name="saveButton.AdjustmentsUI" xml:space="preserve">
+    <value>Save the Adjustment changes.</value>
+    <comment>Account Management- AdjustmentUI</comment>
+  </data>
+  <data name="taxableCheckBox.FeeUI" xml:space="preserve">
+    <value>Check to make the Amount as taxable.</value>
+    <comment>Account Management- FeeUI</comment>
+  </data>
+  <data name="textBox1.AdjustmentsUI" xml:space="preserve">
+    <value>Enter related Note, if any.</value>
+    <comment>Account Management- AdjustmentUI</comment>
+  </data>
+  <data name="textBoxAmt.FeeUI" xml:space="preserve">
+    <value>Enter the Adjustment Amount.</value>
+    <comment>Account Management- FeeUI</comment>
+  </data>
+  <data name="unauthorizedFacilityPermission" xml:space="preserve">
+    <value>Restricted facility permissions</value>
+    <comment>Account Management</comment>
+  </data>
+  <data name="buttonViewInvoice.AccountHistoryUI" xml:space="preserve">
+    <value>View the Selected Invoice.</value>
+    <comment>Account HistoryUI</comment>
+  </data>
+  <data name="buttonViewPrebill.AccountHistoryUI" xml:space="preserve">
+    <value>View the Selected Pre-Bill.</value>
+    <comment>Account HistoryUI</comment>
+  </data>
+  <data name="buttonViewStatements.AccountHistoryUI" xml:space="preserve">
+    <value>View the Selected Statement.</value>
+    <comment>Account HistoryUI</comment>
+  </data>
+  <data name="VoidInvoice.CancelButton" xml:space="preserve">
+    <value>Don't void the invoice</value>
+    <comment>Requestor - Void Invoice</comment>
+  </data>
+  <data name="VoidInvoice.OkButton" xml:space="preserve">
+    <value>Void the invoice</value>
+    <comment>Requestor - Void Invoice</comment>
+  </data>
+  <data name="Cancelbutton.UnappliedAdjustmentUI" xml:space="preserve">
+    <value>Cancel and go back to Previous screen</value>
+    <comment>Billing-UnappliedAdjustmentUI</comment>
+  </data>
+  <data name="SaveandContinuebutton.UnappliedAdjustmentUI" xml:space="preserve">
+    <value>Save and Proceed with the Release</value>
+    <comment>Billing-UnappliedAdjustmentUI</comment>
+  </data>
+  <data name="Self Pay Ok Tool Tip" xml:space="preserve">
+    <value>Proceed to release the document</value>
+    <comment>Self Pay Encounter</comment>
+  </data>
+  <data name="Self Pay Cancel Tool Tip" xml:space="preserve">
+    <value>Select to cancel the creation of the release of documents and return to the Release &amp; Invoice screen</value>
+    <comment>Self Pay Encounter</comment>
+  </data>
+  <data name="cancelButton.DiscUI" xml:space="preserve">
+    <value>Select to cancel any changes and return to the Output Disc dialog. </value>
+    <comment>OutputPropertiesDialog</comment>
+  </data>
+  <data name="okButton.DiscUI" xml:space="preserve">
+    <value>Select to save settings and return to the Output Disc dialog.</value>
+    <comment>OutputPropertiesDialog</comment>
+  </data>
+  <data name="discNameComboBox.OutputDiscDialog" xml:space="preserve">
+    <value>Select the disc queue name.</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="discTypeComboBox.OutputDiscDialog" xml:space="preserve">
+    <value>Select the Disc type as CD/DVD in which the released information will be burned.</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="passwordTextBox.OutputDiscDialog" xml:space="preserve">
+    <value>The entered password, if entered, will be used to encrypt the disc file.  This password should be given to the requestor, so that he/she can open it when the file is received..</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="templateComboBox.OutputDiscDialog" xml:space="preserve">
+    <value>Select the desired label template for the disc</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="createFreeFormNoteButton.OutputDiscDialog" xml:space="preserve">
+    <value>Select to add a freeform note for this disc</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="okButton.OutputDiscDialog" xml:space="preserve">
+    <value>Select to disc this job</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="cancelButton.OutputDiscDialog" xml:space="preserve">
+    <value>Select to cancel the disc job.</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="propertiesButton.OutputDiscDialog" xml:space="preserve">
+    <value>Select to view and update properties for the selected printer to output the selected job.</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="secretWordTextBox.OutputDiscDialog" xml:space="preserve">
+    <value>The entered password, if entered, will be used to encrypt the disc file.  This password should be given to the requestor, so that he/she can open it when the file is received..</value>
+    <comment>OutputDiscDialog</comment>
+  </data>
+  <data name="secretWordTextBox.OutputEmailDialog" xml:space="preserve">
+    <value>The entered password, if entered, will be used to encrypt the PDF file.  This password should be given to the requestor, so that he/she can open it when the file is received.</value>
+    <comment>Output Dialog</comment>
+  </data>
+</root>

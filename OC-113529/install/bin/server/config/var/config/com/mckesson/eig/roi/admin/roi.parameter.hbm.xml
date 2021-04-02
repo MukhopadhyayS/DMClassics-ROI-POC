@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mckesson.eig.roi.admin.model.ROIParameter"
+           table="ROI_Parameter"
+           dynamic-update="true"
+           optimistic-lock="version">
+
+        <id name="id" >
+            <column name="ROI_Parameter_Seq" sql-type="int"/>
+            <generator class="identity"/>
+        </id>
+
+        <version name="recordVersion" column="Record_Version" type="integer" />
+
+        <property name="createdBy" >
+            <column name="Created_By_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+        <property name="modifiedBy" >
+            <column name="Modified_By_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+        <property name="createdDt" >
+            <column name="Created_Dt" sql-type="smalldatetime" not-null="true"/>
+        </property>
+
+        <property name="modifiedDt" >
+            <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+        </property>
+
+        <property name="parentItem" >
+            <column name="ParentItem_Seq" sql-type="int"/>
+        </property>
+
+        <property name="childItem" >
+            <column name="ChildItem_Seq" sql-type="int"/>
+        </property>
+
+        <property name="itemName" >
+            <column name="ItemName" sql-type="varchar(256)"/>
+        </property>
+
+        <property name="itemValue" >
+            <column name="ItemValue" sql-type="varchar(256)"  not-null="true"/>
+        </property>
+
+        <property name="itemDescription" >
+            <column name="ItemDescription" sql-type="varchar(256)"/>
+        </property>
+    </class>
+
+    <query name="getROIParameterByName">
+      <![CDATA[
+        select p from com.mckesson.eig.roi.admin.model.ROIParameter p
+        where p.itemName = ?
+      ]]>
+    </query>
+</hibernate-mapping>

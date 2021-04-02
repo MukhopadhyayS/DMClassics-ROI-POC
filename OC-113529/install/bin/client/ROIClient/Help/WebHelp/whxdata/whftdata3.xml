@@ -1,0 +1,92 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<ftstdata>
+<topic name="Output" url="overdue_invoices/form_descriptions/find_overdue_invoices_form_items/output.htm" />
+<topic name="View Highlighted" url="overdue_invoices/form_descriptions/find_overdue_invoices_form_items/view_highlighted.htm" />
+<topic name="Output Statements and/or Invoices form" url="overdue_invoices/form_descriptions/output_statements_and_or_invoices_form.htm" />
+<topic name="Cancel" url="overdue_invoices/form_descriptions/output_statements_invoices_form_items/cancel.htm" />
+<topic name="Preview Before Output" url="overdue_invoices/form_descriptions/output_statements_invoices_form_items/preview_before_output.htm" />
+<topic name="Print" url="overdue_invoices/form_descriptions/output_statements_invoices_form_items/print.htm" />
+<topic name="Save" url="overdue_invoices/form_descriptions/output_statements_invoices_form_items/save.htm" />
+<topic name="Statements group box" url="overdue_invoices/form_descriptions/output_statements_invoices_form_items/statements_group_box.htm" />
+<topic name="Find an overdue invoice" url="overdue_invoices/user_instructions/find_an_overdue_invoice.htm" />
+<topic name="Output statements and/or invoices" url="overdue_invoices/user_instructions/output_statements_and_or_invoices.htm" />
+<topic name="About attachments" url="patients/about_attachments.htm" />
+<topic name="About patient records" url="patients/about_patient_records.htm" />
+<topic name="Attachment Location box" url="patients/dbox_desc/create_edit_attachment_dbox/attachment_loc_box_edit.htm" />
+<topic name="Attachment Location box" url="patients/dbox_desc/create_edit_attachment_dbox/attachment_loc_box_new.htm" />
+<topic name="Cancel button" url="patients/dbox_desc/create_edit_attachment_dbox/cancel_button.htm" />
+<topic name="Comment box" url="patients/dbox_desc/create_edit_attachment_dbox/comment_box.htm" />
+<topic name="Date of Service box" url="patients/dbox_desc/create_edit_attachment_dbox/date_of_service_box.htm" />
+<topic name="Date Uploaded box" url="patients/dbox_desc/create_edit_attachment_dbox/date_uploaded_box.htm" />
+<topic name="Delete button" url="patients/dbox_desc/create_edit_attachment_dbox/delete_button.htm" />
+<topic name="Document Source box" url="patients/dbox_desc/create_edit_attachment_dbox/document_source_box.htm" />
+<topic name="Enc/Acct box" url="patients/dbox_desc/create_edit_attachment_dbox/enc_acct_box.htm" />
+<topic name="Facility box" url="patients/dbox_desc/create_edit_attachment_dbox/facility_box.htm" />
+<topic name="File Name box" url="patients/dbox_desc/create_edit_attachment_dbox/file_name_box.htm" />
+<topic name="Local File option" url="patients/dbox_desc/create_edit_attachment_dbox/local_file_option.htm" />
+<topic name="Page Count box" url="patients/dbox_desc/create_edit_attachment_dbox/page_count_box.htm" />
+<topic name="Query Clinical System option" url="patients/dbox_desc/create_edit_attachment_dbox/query_clinical_system_option.htm" />
+<topic name="Save button" url="patients/dbox_desc/create_edit_attachment_dbox/save_button_create_attachment.htm" />
+<topic name="Save button" url="patients/dbox_desc/create_edit_attachment_dbox/save_button_edit_attachment.htm" />
+<topic name="Title box" url="patients/dbox_desc/create_edit_attachment_dbox/title_box.htm" />
+<topic name="Create New Attachment dialog box" url="patients/dbox_desc/create_new_attachment_dialog_box.htm" />
+<topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-mpf_document_dialog_box.htm" />
+<topic name="Cancel button" url="patients/dbox_desc/create_new_patient_requestor/cancel_button.htm" />
+<topic name="Patients grid" url="patients/dbox_desc/create_new_patient_requestor/patients_grid.htm" />
+<topic name="Select Patient as Requestor button" url="patients/dbox_desc/create_new_patient_requestor/select_patient_as_requestor_button.htm" />
+<topic name="Create New Patient Requestor dialog box" url="patients/dbox_desc/create_new_patient_requestor_dialog_box.htm" />
+<topic name="Cancel button" url="patients/dbox_desc/create_new_req_with_pat_requesting_dbox/cancel_button.htm" />
+<topic name="New Requestor button" url="patients/dbox_desc/create_new_req_with_pat_requesting_dbox/new_requestor_button.htm" />
+<topic name="Patients grid" url="patients/dbox_desc/create_new_req_with_pat_requesting_dbox/patients_grid.htm" />
+<topic name="Requestors grid" url="patients/dbox_desc/create_new_req_with_pat_requesting_dbox/requestors_grid.htm" />
+<topic name="Select Patient as Requestor button" url="patients/dbox_desc/create_new_req_with_pat_requesting_dbox/select_patient_as_requestor_button.htm" />
+<topic name="Select Requestor button" url="patients/dbox_desc/create_new_req_with_pat_requesting_dbox/select_requestor_button.htm" />
+<topic name="Create New Request with Patient Requesting dialog box" url="patients/dbox_desc/create_new_request_with_patient_requesting_dialog_box.htm" />
+<topic name="Cancel button" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/cancel_button.htm" />
+<topic name="Comment box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/comment_box.htm" />
+<topic name="Date of Service box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/date_of_service_box.htm" />
+<topic name="Delete button" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/delete_button.htm" />
+<topic name="Department box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/department_box.htm" />
+<topic name="Document Type box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/document_type_box.htm" />
+<topic name="Enc/Acct box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/enc_acct_box.htm" />
+<topic name="Facility box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/facility_box.htm" />
+<topic name="Page Count box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/page_count_box.htm" />
+<topic name="Save button" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/save_button.htm" />
+<topic name="Subtitle box" url="patients/dbox_desc/create_or_edit_a_non-mpf_document/subtitle_box.htm" />
+<topic name="Edit Attachment dialog box" url="patients/dbox_desc/edit_attachment_dialog_box.htm" />
+<topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-mpf_document_dialog_box.htm" />
+<topic name="Close button" url="patients/dbox_desc/encounter_details_dialog_box/close_button.htm" />
+<topic name="Encounters grid" url="patients/dbox_desc/encounter_details_dialog_box/encounters_grid.htm" />
+<topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+<topic name="Find Patient dialog box" url="patients/dbox_desc/find_patient_dialog_box.htm" />
+<topic name="Date of Birth" url="patients/dbox_desc/find_patient_items/date_of_birth.htm" />
+<topic name="Enc/Acct" url="patients/dbox_desc/find_patient_items/enc_acct.htm" />
+<topic name="Facility" url="patients/dbox_desc/find_patient_items/facility.htm" />
+<topic name="Find Patient" url="patients/dbox_desc/find_patient_items/find_patient.htm" />
+<topic name="First Name" url="patients/dbox_desc/find_patient_items/first_name.htm" />
+<topic name="Last Name" url="patients/dbox_desc/find_patient_items/last_name.htm" />
+<topic name="MRN" url="patients/dbox_desc/find_patient_items/mrn.htm" />
+<topic name="OK" url="patients/dbox_desc/find_patient_items/ok.htm" />
+<topic name="Patient Information grid" url="patients/dbox_desc/find_patient_items/patient_information_grid.htm" />
+<topic name="Reset" url="patients/dbox_desc/find_patient_items/reset.htm" />
+<topic name="SSN" url="patients/dbox_desc/find_patient_items/ssn.htm" />
+<topic name="Close button" url="patients/dbox_desc/list_of_deficiencies_dialog_box/close_button.htm" />
+<topic name="Deficiencies grid" url="patients/dbox_desc/list_of_deficiencies_dialog_box/deficiencies_grid.htm" />
+<topic name="Display buttons" url="patients/dbox_desc/list_of_deficiencies_dialog_box/display_buttons.htm" />
+<topic name="List of Deficiencies dialog box" url="patients/dbox_desc/list_of_deficiencies_dialog_box.htm" />
+<topic name="Cancel button" url="patients/dbox_desc/potential_patient_mismatch_dialog_box/cancel_button.htm" />
+<topic name="Continue with Selected Patient(s) button" url="patients/dbox_desc/potential_patient_mismatch_dialog_box/continue_with_selected_patient(s)_button.htm" />
+<topic name="Patients grid" url="patients/dbox_desc/potential_patient_mismatch_dialog_box/patients_grid.htm" />
+<topic name="Potential Patient Mismatch dialog box" url="patients/dbox_desc/potential_patient_mismatch_dialog_box.htm" />
+<topic name="Save New Requestor button" url="patients/dbox_desc/save_new_patient_requestor_dbox_items/save_new_requestor_button.htm" />
+<topic name="Save New Patient Requestor dialog box" url="patients/dbox_desc/save_new_patient_requestor_dialog_box.htm" />
+<topic name="Cancel button" url="patients/dbox_desc/set_encounter_filter_dialog_box/cancel_button.htm" />
+<topic name="Encounters grid" url="patients/dbox_desc/set_encounter_filter_dialog_box/encounters_grid.htm" />
+<topic name="Filter By Encounters button" url="patients/dbox_desc/set_encounter_filter_dialog_box/filter_by_encounters_button.htm" />
+<topic name="Turn Off Filter button" url="patients/dbox_desc/set_encounter_filter_dialog_box/turn_off_filter_button.htm" />
+<topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+<topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+<topic name="Contact Information box" url="patients/form_descriptions/find_patient_form_items/contact_information_box.htm" />
+
+</ftstdata>  

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<wsdl:definitions targetNamespace="urn:eig.mckesson.com"
+    name="ConfigureDaysService" xmlns:eig="urn:eig.mckesson.com"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+	<!-- xml schema definitions used in ConfigureDaysService -->
+    <wsdl:types>
+	    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:eig.mckesson.com">
+			<xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+				schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+
+			<xsd:element name="transactionId" type="xsd:long" />
+
+        <xsd:complexType name="ConfigureDaysDto" >
+        <xsd:sequence>
+            <xsd:element name="dayName" type="xsd:string"></xsd:element>
+            <xsd:element name="dayStatus" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <xsd:complexType name="ConfigureDaysDtoList">
+      
+        <xsd:sequence>
+            <xsd:element name="configureDaysList" type="eig:ConfigureDaysDto"
+                         minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>     
+
+
+
+            <xsd:element name="updateDaysStatus">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    <xsd:element name="configureDaysStatusReqElement" type="eig:ConfigureDaysDtoList"></xsd:element>
+                   </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="updateDaysStatusResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    <xsd:element name="configureDaysStatusResElement" type="xsd:boolean"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="retrieveWeekendDays">
+                <xsd:complexType>
+                    <xsd:sequence>
+                     </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="retrieveWeekendDaysResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    <xsd:element name="retrieveWeekendDaysResElement" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            
+            <xsd:element name="retrieveConfigureDaysStatus">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="retrieveConfigureDaysStatusResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                    <xsd:element name="configureDaysStatusReqElement" type="eig:ConfigureDaysDtoList"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+  
+    </xsd:schema>
+  </wsdl:types>
+  
+  
+  
+  <!-- message exchange definitions -->
+    <wsdl:message name="header">
+        <wsdl:part name="wssHeader" element="wsse:Security" />
+        <wsdl:part name="transIdHeader" element="eig:transactionId" />
+    </wsdl:message>
+    
+    
+    <wsdl:message name="updateDaysStatusRequest">
+       <wsdl:part name="parameters" element="eig:updateDaysStatus" />
+    </wsdl:message>
+
+    <wsdl:message name="updateDaysStatusResponse">
+       <wsdl:part name="parameters" element="eig:updateDaysStatusResponse" />
+    </wsdl:message>
+    
+    
+    <wsdl:message name="retrieveWeekendDaysRequest">
+       <wsdl:part name="parameters" element="eig:retrieveWeekendDays" />
+    </wsdl:message>
+
+    <wsdl:message name="retrieveWeekendDaysResponse">
+       <wsdl:part name="parameters" element="eig:retrieveWeekendDaysResponse" />
+    </wsdl:message>
+    
+    <wsdl:message name="retrieveConfigureDaysStatusRequest">
+       <wsdl:part name="parameters" element="eig:retrieveConfigureDaysStatus" />
+    </wsdl:message>
+
+    <wsdl:message name="retrieveConfigureDaysStatusResponse">
+       <wsdl:part name="parameters" element="eig:retrieveConfigureDaysStatusResponse" />
+    </wsdl:message>
+  
+  
+  <!-- portType defines abstract definition of operation -->
+    <wsdl:portType name="ConfigureDaysPortType">
+		
+        <wsdl:operation name="updateDaysStatus">
+            <wsdl:input message="eig:updateDaysStatusRequest" />
+            <wsdl:output message="eig:updateDaysStatusResponse" />
+        </wsdl:operation>
+        
+        
+        
+        <wsdl:operation name="retrieveWeekendDays">
+            <wsdl:input message="eig:retrieveWeekendDaysRequest" />
+            <wsdl:output message="eig:retrieveWeekendDaysResponse" />
+        </wsdl:operation>
+        
+        
+         <wsdl:operation name="retrieveConfigureDaysStatus">
+            <wsdl:input message="eig:retrieveConfigureDaysStatusRequest" />
+            <wsdl:output message="eig:retrieveConfigureDaysStatusResponse" />
+        </wsdl:operation>
+        
+    </wsdl:portType>
+        
+        
+        <!-- defines transport type as http and defines concrete operation definitions -->
+    <wsdl:binding name="ConfigureDaysServiceSoapBinding" type="eig:ConfigureDaysPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<!-- Concrete definition of createContent wsdl operation with soap header, sopa body, and soap operation. -->
+	<wsdl:operation name="updateDaysStatus">
+            <soap:operation soapAction="urn:eig.mckesson.com/updateDaysStatus" />
+            <wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveWeekendDays">
+            <soap:operation soapAction="urn:eig.mckesson.com/retrieveWeekendDays" />
+            <wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveConfigureDaysStatus">
+            <soap:operation soapAction="urn:eig.mckesson.com/retrieveConfigureDaysStatus" />
+            <wsdl:input>
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="wssHeader" use="literal" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+    </wsdl:operation>
+    </wsdl:binding>
+    <!-- Concrete service definition -->
+	<wsdl:service name="ConfigureDaysService">
+		<wsdl:port binding="eig:ConfigureDaysServiceSoapBinding" name="configureDaysService">
+			<soap:address	location="http://127.0.0.1/roi/services/ConfigureDaysService" />
+		</wsdl:port>
+	</wsdl:service>
+    </wsdl:definitions>

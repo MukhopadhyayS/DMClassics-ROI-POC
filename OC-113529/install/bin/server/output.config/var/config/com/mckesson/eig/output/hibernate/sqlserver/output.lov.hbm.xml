@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mckesson.eig.output.model.OutputLoV"
+           table="Output_ListOfValue"
+           dynamic-update="true" optimistic-lock="version">
+
+		<id name="id">
+			<column name="Output_ListOfValue_seq" sql-type="int"/>
+			<generator class="identity"/>
+		</id>
+
+		<version name="recordVersion" column="oslov_Record_Version" type="int" />
+
+        <property name="name">
+            <column name="oslov_Name" sql-type="char(50)" not-null="true"></column>
+        </property>
+
+        <property name="data">
+            <column name="oslov_data" sql-type="xml" not-null="true" />
+        </property>
+
+        <property name="parentId">
+            <column name="oslov_parent_seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="childId">
+            <column name="oslov_child_seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="createdBy">
+            <column name="oslov_Created_By_Seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="createdDate">
+            <column name="oslov_Created_Dt" sql-type="smalldatetime" not-null="true" />
+        </property>
+
+        <property name="modifiedDate">
+            <column name="oslov_Modified_Dt" sql-type="smalldatetime" not-null="true" />
+        </property>
+
+        <property name="modifiedBy">
+            <column name="oslov_Modified_By_Seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="organization">
+            <column name="oslov_Organization_Seq" sql-type="int" />
+        </property>
+	</class>
+
+    <query name="retrieveOutputConfiguration"><![CDATA[
+        select lov from com.mckesson.eig.output.model.OutputLoV lov
+        where lov.name = 'OutputConfiguration' and lov.parentId = 0
+    ]]></query>
+
+    <query name="retrieveLoV"><![CDATA[
+        select lov from com.mckesson.eig.output.model.OutputLoV lov
+        where lov.name = ? and lov.parentId = ?
+    ]]></query>
+
+	<query name="retrieveAllFileInfoForDestination"><![CDATA[
+        select lov from com.mckesson.eig.output.model.OutputLoV lov
+        where lov.name like ? || '%' and lov.parentId = ?
+        and lov.createdDate <= ?
+    ]]></query>
+    
+	<query name="retrieveEndpoints"><![CDATA[
+		select lov from com.mckesson.eig.output.model.OutputLoV lov
+		where lov.parentId = ?
+	]]></query>
+
+	<query name="retrieveEndpoint"><![CDATA[
+		select lov from com.mckesson.eig.output.model.OutputLoV lov
+		where lov.id = ?
+	]]></query>
+
+	<query name="retrieveEndpointType"><![CDATA[
+		select lov from com.mckesson.eig.output.model.OutputLoV lov
+		where lov.name = ? and lov.parentId = 0
+	]]></query>
+
+
+    <query name="getEndpointIds"><![CDATA[
+        select lov.id from com.mckesson.eig.output.model.OutputLoV lov where lov.name= ? and
+        lov.parentId = (select lov2.id from com.mckesson.eig.output.model.OutputLoV lov2 where lov2.name = ? and
+        lov2.parentId=0)
+    ]]></query>
+
+    <query name="getEndpointIdsByType"><![CDATA[
+        select lov.id from com.mckesson.eig.output.model.OutputLoV lov where 
+        lov.parentId = (select lov2.id from com.mckesson.eig.output.model.OutputLoV lov2 where lov2.name = ? and
+        lov2.parentId=0)
+    ]]></query>
+
+    <query name="getEndpointsLovByType"><![CDATA[
+        select lov from com.mckesson.eig.output.model.OutputLoV lov where
+        lov.parentId = (select lov2.id from com.mckesson.eig.output.model.OutputLoV lov2 where lov2.name = ? and
+        lov2.parentId = 0)
+    ]]></query>
+
+   <sql-query name="getDBDate">
+	<![CDATA[
+		SELECT CONVERT(varchar(19), getdate())
+	]]>
+   </sql-query>
+
+</hibernate-mapping>

@@ -1,0 +1,65 @@
+<!--
+    Copyright (C) 2007 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project default="get-from-cvs" basedir="../">
+
+	<property file="build/props/${build.config.file.name}" />
+    <property file="build/props/base.properties" />
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	
+    <!-- **********************************************************************
+             *  Target : get-from-cvs
+             *  target to pull source from cvs
+             ********************************************************************** -->
+	<target name="get-from-cvs" >
+		<if>
+ 		    <equals arg1="${label.name}" arg2="" trim="true" />
+    		<then>   	
+                <cvs cvsRoot=":${cvs.connection.type}:${cvs.username}:${cvs.password}@${cvs.host}:${cvs.repository.path}"
+                    dest="${checkout.dest.path}"
+                    command="checkout -d ${alias.name} ${cvs.path}"
+                />
+    		</then>
+    		<else>
+                <cvs cvsRoot=":${cvs.connection.type}:${cvs.username}:${cvs.password}@${cvs.host}:${cvs.repository.path}"
+                    dest="${checkout.dest.path}"
+                    command="checkout -r ${label.name} -d ${alias.name} ${cvs.path}"
+                />
+    		</else>	
+		</if>	
+	</target>
+	
+    <!-- **********************************************************************
+             *  Target : checkin-cvs
+             *  target to check-in into cvs
+             ********************************************************************** -->
+	<target name="checkin-cvs" >
+		<cvs cvsRoot=":${cvs.connection.type}:${cvs.username}:${cvs.password}@${cvs.host}:${cvs.repository.path}"
+			command="commit -m &quot;${cvs.checkin.comment}&quot; ${checkin.file.path}"
+		/>
+	</target>
+	
+    <!-- **********************************************************************
+             *  Target : tag-cvs
+             *  target to tag the source code
+             ********************************************************************** -->
+	<target name="tag-cvs" >
+		<cvs cvsRoot=":${cvs.connection.type}:${cvs.username}:${cvs.password}@${cvs.host}:${cvs.repository.path}"
+			command="rtag ${label.name} ${cvs.branch.path}"
+		/>
+	</target>
+
+</project>

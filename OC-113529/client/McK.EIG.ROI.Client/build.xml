@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Copyright (C) 2008 McKesson Corporation and/or one of its
+	subsidiaries. All Rights Reserved.
+
+	Use of this material is governed by a license agreement.
+	This material contains confidential, proprietary and trade
+	secret information of McKesson Information Solutions and is
+	protected under United States and international copyright and
+	other intellectual property laws. Use, disclosure,
+	reproduction, modification, distribution, or storage in a
+	retrieval system in any form or by any means is prohibited
+	without the prior express written permission of McKesson
+	Information Solutions.
+-->
+
+<!-- -->
+<project name ="McK.EIG.ROI.Client" default ="" basedir=".">
+
+    <!-- This property holds the project name of client project -->
+    <property name="projectName" value="${project::get-name()}"/>
+
+    <!-- This property holds the name of project output file -->
+    <property name="outfile" value="${projectName}.dll"/>
+
+    <!-- This property holds the name of test project output file -->
+    <property name="nunit.test" value="${projectName}.Test.dll"/>
+
+     <!-- This property holds the path of current project base directory -->
+    <property name="projBaseDir" value="${project::get-base-directory()}"/>
+
+    <!-- Includes ProjectsInclude.xml file to perform test case related tasks -->
+    <include buildfile ="${dir.client}\build\client.build.common.xml"/>
+
+    <property name="test.config" value="${dir.client}\McK.EIG.ROI.Client.Test\app.config"/>
+
+	<!-- Filter for Coverage -->
+	<property name="filters" value="+[*]* -[McK.EIG.ROI.Client]*.Test -[McK.EIG.ROI.Client]*.View.* -[McK.EIG.ROI.Client]McK.EIG.ROI.Client.CultureResources.* -[McK.EIG.ROI.Client]McK.EIG.ROI.Client.Properties.* -[McK.EIG.ROI.Client]McK.EIG.ROI.Client.Resources* -[McK.EIG.ROI.Client]McK.EIG.ROI.Client.Web_References.* -[McK.EIG.ROI.Client]McK.EIG.ROI.Client.WebReferences.*"/>
+	
+    <!-- list of C# projects   -->
+	<property name="CS_ProjectList" value="
+                                        ../McK.EIG.ROI.Client,
+                                        ../McK.EIG.ROI.Client.Test"/>
+
+    <!-- The helper targets as used as functions for common tasks during
+		the execution of the larger main tasks -->
+
+	<target name="prebuild">
+
+		<delete file="${dir.client.bin}/${outDir}/${outfile}" failonerror="false"/>
+
+        <!-- culture specific resource file has to be included -->
+        <copy file="${dir.3rdParty.dll}/en-us/McK.EIG.Common.Utility.resources.dll" todir="bin/${outDir}" failonerror="false"/>
+        <copy file="${dir.3rdParty.dll}/fr-fr/McK.EIG.Common.Utility.resources.dll" todir="bin/${outDir}" failonerror="false"/>
+
+        <!-- 3rdparty dlls  has to be included -->
+		<copy todir="bin/${outDir}">
+		    <fileset basedir="${dir.3rdParty.dll}">
+                <include name="*.dll"/>
+                <exclude name="nunit.framework.dll"/>
+                <exclude name="McK.EIG.Common.DevTools.AutoIncrement.Core.dll"/>
+                <exclude name="McK.EIG.Common.Utility.Test.dll"/>
+                <exclude name="McK.EIG.Common.Audit.dll"/>
+    	   </fileset>
+        </copy>
+    </target>
+
+    <target name="postbuild">
+        <copy file="${dir.client.bin}/${outDir}/McK.EIG.ROI.Client.dll" todir="bin/${outDir}" overwrite="true" failonerror="false"/>
+    </target>
+
+    <!-- RunDebugTests runs the nunit tests for the debug build -->
+    <target name="preRunDebug">
+        <property name="outfile" value="${projectName}.dll"/>
+        <call target="preRunTests"/>
+    </target>
+
+    <target name="postRunDebug"/>
+
+    <target name="preRunRelease">
+        <call target="preRunTests"/>
+    </target>
+
+    <target name="postRunRelease"/>
+
+    <target name="preRunTests">
+
+        <copy file="${dir.client.bin}/${outDir}/McK.EIG.ROI.Client.dll" todir="bin/${outDir}" overwrite="true" failonerror="false"/>
+
+        <property name="test.assembly" value="${dir.client.bin}\${outDir}\test\${nunit.test}"/>
+        <copy file="${test.assembly}" todir="${project::get-base-directory()}/bin/${outDir}" overwrite="true" if="${file::exists(test.assembly)}" />
+
+        <property name = "test.log.config" value ="${projBaseDir}\McK.EIG.ROI.Client.Test.Log.xml"/>
+        <copy file="${test.log.config}" todir="bin\${outDir}" if="${file::exists(test.log.config)}" overwrite="true"/>
+
+        <copy file="${test.config}" tofile="bin\${outDir}\${nunit.test}.config" if="${file::exists(test.config)}" overwrite="true"/>
+        <copy file="${test.config}" tofile="${dir.client.bin}\${outDir}\test\${nunit.test}.config" if="${file::exists(test.config)}" overwrite="true"/>
+    </target>
+
+    <!-- Calls the client target-->
+    <target
+		name="Targets"
+		description="Rebuild targets">
+		<call target="McK.EIG.ROI.Client"/>
+	</target>
+
+   <!-- Gets the dependency project reference and compilation process will be called-->
+	<target
+		name="McK.EIG.ROI.Client"
+		depends="">
+        <property name="outfile" value="${projectName}.dll"/>
+        <property name="projBaseDir" value="${project::get-base-directory()}"/>
+        <property name="Target" value="library"/>
+		<property name="namespace" value="${projectName}"/>
+		<property name="EmbededResources" value="${projBaseDir}\Resources\HelpConfig.xml"/>
+		<property name="isExe" value="false"/>
+         <!-- This property holds the path of dependency 3rd party  compoenent dlls and reference dlls for client project-->
+		<property name="csIncludes"
+                  value="${dir.3rdParty.dll}/McK.EIG.Common.Utility.dll,
+						${dir.3rdParty.dll}/McK.EIG.Common.Audit.dll,
+                        ${dir.3rdParty.dll}/Microsoft.Web.Services3.dll,
+                        ${dir.3rdParty.dll}/log4net.dll,
+	                    ${dir.3rdParty.dll}/O2S.Components.PDFView4NET.dll,	                    
+                        ${dir.3rdParty.dll}/Apache.NMS.dll,
+                        ${dir.3rdParty.dll}/Apache.NMS.ActiveMQ.dll,
+						${dir.3rdParty.dll}/Ionic.Zlib.dll,
+			            ${dir.3rdParty.dll}/McK.EIG.Common.FileTransfer.dll,
+			            ${dir.3rdParty.dll}/EIG_Logging.dll,
+			            ${dir.3rdParty.dll}/interop.EPRSCryptography.dll,
+			            ${dir.3rdParty.dll}/McKesson.Capture.Common.dll,
+			            ${dir.3rdParty.dll}/McKesson.Capture.Model.dll,
+			            ${dir.3rdParty.dll}/McKesson.EIG.WebService.dll,
+			            ${dir.3rdParty.dll}/McKesson.EIG.WinDSS.dll,
+						${dir.3rdParty.dll}/McK.EIG.Common.Viewer.dll,
+						${dir.3rdParty.dll}/McK.EIG.Common.Reports.dll,
+						${dir.3rdParty.dll}/CrystalDecisions.Windows.Forms.dll,
+			            ${dir.3rdParty.dll}/CrystalDecisions.CrystalReports.Engine.dll,
+                        ${dir.3rdParty.dll}/CrystalDecisions.ReportSource.dll,
+                        ${dir.3rdParty.dll}/CrystalDecisions.Shared.dll,
+                        ${dir.3rdParty.dll}/CrystalDecisions.Windows.Forms.dll,
+			            ${dir.3rdParty.dll}/Microsoft.VisualBasic.Compatibility.dll,
+						${dir.3rdParty.dll}/Interop.SHDocVw.dll,
+						${dir.client}/McK.EIG.ROI.Client.App/OCSecurity-18.2.dll"/>
+
+		<call target="Compile"/>
+	</target>
+
+	<target name="TestTargets">
+        <call target="McK.EIG.ROI.Client.Test"/>
+	</target>
+
+    <!-- Set the property values before compile this test project-->
+	<target
+		name="McK.EIG.ROI.Client.Test">
+        <property name="outfile" value="${projectName}.Test.dll"/>
+        <property name ="baseDir" value ="${project::get-base-directory()}\.."/>
+		<property name="projBaseDir" value="${baseDir}\${projectName}.Test"/>
+        <property name="test.config" value="${projBaseDir}\App.config"/>
+        <property name="namespace" value="${projectName}.Test"/>
+		<property name="Target" value="library"/>
+		<property name="isExe" value="false"/>
+
+		<property name="EmbededResources" value="${projBaseDir}\Resources\Test.pdf"/>
+        <!-- This property holds the path of dependency 3rd party  compoenent dlls and reference dlls for client test project-->
+		<property name="csIncludes"
+                  value="${dir.client.bin}/${outDir}/McK.EIG.ROI.Client.dll,
+                         ${dir.3rdParty.dll}/McK.EIG.Common.Utility.dll,
+			             ${dir.3rdParty.dll}/McK.EIG.Common.Audit.dll,
+                         ${dir.3rdParty.dll}/Microsoft.Web.Services3.dll,
+			             ${dir.3rdParty.dll}/McK.EIG.Common.FileTransfer.dll,
+			             ${dir.3rdParty.dll}/McK.EIG.Common.Reports.dll"/>
+
+        <if test ="${not IsVersionInfoUpdated}">
+            <property name ="assembly.info.dir" value ="${projBaseDir}"/>
+            <call target="UpdateVersions" if="${increment.version}"/>
+            <property name = "IsVersionInfoUpdated" value ="true"/>
+        </if>
+		<call target="CompileTests"/>
+	</target>
+
+</project>

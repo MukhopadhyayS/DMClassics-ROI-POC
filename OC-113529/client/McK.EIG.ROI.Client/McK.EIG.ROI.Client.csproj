@@ -1,0 +1,3738 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7F54758-24A4-4803-93BE-ADD1AFB6C928}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>McK.EIG.ROI.Client</RootNamespace>
+    <AssemblyName>McK.EIG.ROI.Client</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>McK.EIG.ROI.Client.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>http://localhost/McK.EIG.ROI.Client/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Apache.NMS, Version=1.5.0.2194, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\Apache.NMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Apache.NMS.ActiveMQ, Version=1.5.1.2341, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\Apache.NMS.ActiveMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\3rdparty\lib\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\3rdparty\lib\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\3rdparty\lib\CrystalDecisions.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="EIG_Logging, Version=17.0.0.0, Culture=neutral, PublicKeyToken=e368fc5aef1aed55, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\EIG_Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="interop.EPRSCryptography, Version=11.0.2.2245, Culture=neutral, PublicKeyToken=6f657fc6d774bc99">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\interop.EPRSCryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SHDocVw">
+      <HintPath>..\3rdparty\lib\Interop.SHDocVw.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.Audit, Version=17.0.0.140, Culture=neutral, PublicKeyToken=ee69d9bc131b57c3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.Audit.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.FileTransfer, Version=17.0.0.140, Culture=neutral, PublicKeyToken=cd58ba60f5eb126c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.FileTransfer.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.Reports, Version=17.0.0.140, Culture=neutral, PublicKeyToken=dcb0101b63bfdbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.Reports.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.Utility">
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="McK.EIG.Common.Viewer, Version=17.0.0.140, Culture=neutral, PublicKeyToken=cc8bf2fe72aad1d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McK.EIG.Common.Viewer.dll</HintPath>
+    </Reference>
+    <Reference Include="McKesson.Capture.Common, Version=11.0.2.2245, Culture=neutral, PublicKeyToken=b05a614bb1ab68cd">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McKesson.Capture.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="McKesson.Capture.Model, Version=11.0.2.2245, Culture=neutral, PublicKeyToken=529fd63095b2881d">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McKesson.Capture.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="McKesson.Capture.Utility">
+      <HintPath>..\3rdparty\lib\McKesson.Capture.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="McKesson.EIG.WebService, Version=11.0.2.2245, Culture=neutral, PublicKeyToken=0ed5928449e1f108">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McKesson.EIG.WebService.dll</HintPath>
+    </Reference>
+    <Reference Include="McKesson.EIG.WinDSS, Version=11.0.2.2245, Culture=neutral, PublicKeyToken=b1f329b522e39b05, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\McKesson.EIG.WinDSS.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\Microsoft.Web.Services3.dll</HintPath>
+    </Reference>
+    <Reference Include="O2S.Components.PDFView4NET">
+      <HintPath>..\3rdparty\lib\O2S.Components.PDFView4NET.dll</HintPath>
+    </Reference>
+       <Reference Include="OCSecurity-18.2">
+      <HintPath>..\McK.EIG.ROI.Client.App\OCSecurity-18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="seclib">
+      <HintPath>..\McK.EIG.ROI.Client.App\seclib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Controller\BillingAdminController.cs" />
+    <Compile Include="Admin\Controller\BillingAdminValidator.cs" />
+    <Compile Include="Admin\Controller\BillingCache.cs" />
+    <Compile Include="Admin\Controller\BillingTemplateController.cs" />
+    <Compile Include="Admin\Controller\BillingTemplateValidator.cs" />
+    <Compile Include="Admin\Controller\BillingTierController.cs" />
+    <Compile Include="Admin\Controller\BillingTierValidator.cs" />
+    <Compile Include="Admin\Controller\ConfigureAttachmentController.cs" />
+    <Compile Include="Admin\Controller\ConfigureExternalSourcesController.cs" />
+    <Compile Include="Admin\Controller\ConfigureExternalSourcesValidator.cs" />
+    <Compile Include="Admin\Controller\ConfigureTurnaroundTimeDaysController.cs" />
+    <Compile Include="Admin\Controller\ConfigureTurnaroundTimeDaysValidator.cs" />
+    <Compile Include="Admin\Controller\ConfigureUnbillableRequestController.cs" />
+    <Compile Include="Admin\Controller\DeliveryMethodController.cs" />
+    <Compile Include="Admin\Controller\DeliveryMethodValidator.cs" />
+    <Compile Include="Admin\Controller\DisclosureDocTypesController.cs" />
+    <Compile Include="Admin\Controller\DisclosureDocTypesValidator.cs" />
+    <Compile Include="Admin\Controller\FeeTypeValidator.cs" />
+    <Compile Include="Admin\Controller\InvoiceDueController.cs" />
+    <Compile Include="Admin\Controller\InvoiceDueValidator.cs" />
+    <Compile Include="Admin\Controller\LetterTemplateController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Controller\LetterTemplateValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\Controller\MediaTypeValidator.cs" />
+    <Compile Include="Admin\Controller\FeeTypeController.cs" />
+    <Compile Include="Admin\Controller\MediaTypeController.cs" />
+    <Compile Include="Admin\Controller\NotesController.cs" />
+    <Compile Include="Admin\Controller\NotesValidator.cs" />
+    <Compile Include="Admin\Controller\PageWeightController.cs" />
+    <Compile Include="Admin\Controller\PageWeightValidator.cs" />
+    <Compile Include="Admin\Controller\PaymentMethodController.cs" />
+    <Compile Include="Admin\Controller\PaymentMethodValidator.cs" />
+    <Compile Include="Admin\Controller\ReasonsController.cs" />
+    <Compile Include="Admin\Controller\ReasonsValidator.cs" />
+    <Compile Include="Admin\Controller\RequestorTypeController.cs" />
+    <Compile Include="Admin\Controller\RequestorTypeValidator.cs" />
+    <Compile Include="Admin\Controller\ROIAdminController.cs" />
+    <Compile Include="Admin\Controller\SalesTaxPerFacilityController.cs" />
+    <Compile Include="Admin\Controller\SalesTaxPerFacilityValidator.cs" />
+    <Compile Include="Admin\Controller\SSNMaskController.cs" />
+    <Compile Include="Admin\Model\AssociatedBillingTemplates.cs" />
+    <Compile Include="Admin\Model\AttachmentLocation.cs" />
+    <Compile Include="Admin\Model\BillingPaymentInfo.cs" />
+    <Compile Include="Admin\Model\BillingTemplateDetails.cs" />
+    <Compile Include="Admin\Model\AssociatedFeeTypes.cs" />
+    <Compile Include="Admin\Model\BillingTierDetails.cs" />
+    <Compile Include="Admin\Model\CodeSetDetails.cs" />
+    <Compile Include="Admin\Model\ConfigureUnbillableRequestDetails.cs" />
+    <Compile Include="Admin\Model\ConnectionProperties.cs" />
+    <Compile Include="Admin\Model\DeliveryMethodComparer.cs" />
+    <Compile Include="Admin\Model\DocTypeAuditDetails.cs" />
+    <Compile Include="Admin\Model\ExternalSources.cs" />
+    <Compile Include="Admin\Model\InvoiceDueDetails.cs" />
+    <Compile Include="Admin\Model\LetterTemplateComparer.cs" />
+    <Compile Include="Admin\Model\DocumentType.cs" />
+    <Compile Include="Admin\Model\ImageIdComparer.cs" />
+    <Compile Include="Admin\Model\DeliveryMethodDetails.cs" />
+    <Compile Include="Admin\Model\DocumentTypesDetails.cs" />
+    <Compile Include="Admin\Model\FeeTypeDetails.cs" />
+    <Compile Include="Admin\Model\LetterTemplateDetails.cs" />
+    <Compile Include="Admin\Model\MediaTypeDetails.cs" />
+    <Compile Include="Admin\Model\NotesDetails.cs" />
+    <Compile Include="Admin\Model\PageLevelTierDetails.cs" />
+    <Compile Include="Admin\Model\PageWeightDetails.cs" />
+    <Compile Include="Admin\Model\PaymentMethodDetails.cs" />
+    <Compile Include="Admin\Model\ReasonDetails.cs" />
+    <Compile Include="Admin\Model\RecordViewDetails.cs" />
+    <Compile Include="Admin\Model\RequestorTypeDetails.cs" />
+    <Compile Include="Admin\Model\SSNMaskDetails.cs" />
+    <Compile Include="Admin\Model\TaxPerFacilityComparer.cs" />
+    <Compile Include="Admin\Model\TaxPerFacilityDetails.cs" />
+    <Compile Include="Admin\Model\TurnaroundTimeDays.cs" />
+    <Compile Include="Admin\View\AdminBaseObjectDetailsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\AdminBaseObjectDetailsUI.designer.cs">
+      <DependentUpon>AdminBaseObjectDetailsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\AdminDataGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Admin\View\AdminDataGrid.Designer.cs">
+      <DependentUpon>AdminDataGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\AdminEditor.cs" />
+    <Compile Include="Admin\View\AdminMCP.cs" />
+    <Compile Include="Admin\View\Billing\BillingTemplate\BillingTemplateEditor.cs" />
+    <Compile Include="Admin\View\Billing\BillingTemplate\BillingTemplateListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTemplate\BillingTemplateListUI.Designer.cs">
+      <DependentUpon>BillingTemplateListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTemplate\BillingTemplateMCP.cs" />
+    <Compile Include="Admin\View\Billing\BillingTemplate\BillingTemplateODP.cs" />
+    <Compile Include="Admin\View\Billing\BillingTemplate\BillingTemplateTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTemplate\BillingTemplateTabUI.Designer.cs">
+      <DependentUpon>BillingTemplateTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\BillingTierEditor.cs" />
+    <Compile Include="Admin\View\Billing\BillingTiers\BillingTierListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\BillingTierListUI.Designer.cs">
+      <DependentUpon>BillingTierListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\BillingTierMCP.cs" />
+    <Compile Include="Admin\View\Billing\BillingTiers\BillingTierODP.cs" />
+    <Compile Include="Admin\View\Billing\BillingTiers\BillingTierTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\BillingTierTabUI.Designer.cs">
+      <DependentUpon>BillingTierTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\PageRateTierGroupUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\PageRateTierGroupUI.Designer.cs">
+      <DependentUpon>PageRateTierGroupUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\PageRateTierUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\BillingTiers\PageRateTierUI.Designer.cs">
+      <DependentUpon>PageRateTierUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodEditor.cs" />
+    <Compile Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodListUI.Designer.cs">
+      <DependentUpon>DeliveryMethodListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodMCP.cs" />
+    <Compile Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodODP.cs" />
+    <Compile Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodTabUI.Designer.cs">
+      <DependentUpon>DeliveryMethodTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\FeeTypes\FeeTypeEditor.cs" />
+    <Compile Include="Admin\View\Billing\FeeTypes\FeeTypeListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\FeeTypes\FeeTypeListUI.Designer.cs">
+      <DependentUpon>FeeTypeListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\FeeTypes\FeeTypeMCP.cs" />
+    <Compile Include="Admin\View\Billing\FeeTypes\FeeTypeODP.cs" />
+    <Compile Include="Admin\View\Billing\FeeTypes\FeeTypeTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\FeeTypes\FeeTypeTabUI.designer.cs">
+      <DependentUpon>FeeTypeTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\AdminBaseODP.cs" />
+    <Compile Include="Admin\View\Billing\InvoiceDue\InvoiceDueEditor.cs" />
+    <Compile Include="Admin\View\Billing\InvoiceDue\InvoiceDueListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\InvoiceDue\InvoiceDueListUI.Designer.cs">
+      <DependentUpon>InvoiceDueListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\InvoiceDue\InvoiceDueMCP.cs" />
+    <Compile Include="Admin\View\Billing\MediaType\MediaTypeListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\MediaType\MediaTypeListUI.Designer.cs">
+      <DependentUpon>MediaTypeListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\MediaType\MediaTypeMCP.cs" />
+    <Compile Include="Admin\View\Billing\MediaType\MediaTypeODP.cs" />
+    <Compile Include="Admin\View\AdminBaseListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\AdminBaseListUI.Designer.cs">
+      <DependentUpon>AdminBaseListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\PageWeight\PageWeightEditor.cs" />
+    <Compile Include="Admin\View\Billing\PageWeight\PageWeightListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\PageWeight\PageWeightListUI.Designer.cs">
+      <DependentUpon>PageWeightListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\PageWeight\PageWeightMCP.cs" />
+    <Compile Include="Admin\View\Billing\PaymentMethods\PaymentMethodListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\PaymentMethods\PaymentMethodListUI.Designer.cs">
+      <DependentUpon>PaymentMethodListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\PaymentMethods\PaymentMethodMCP.cs" />
+    <Compile Include="Admin\View\Billing\PaymentMethods\PaymentMethodODP.cs" />
+    <Compile Include="Admin\View\Billing\PaymentMethods\PaymentMethodEditor.cs" />
+    <Compile Include="Admin\View\Billing\PaymentMethods\PaymentMethodTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\PaymentMethods\PaymentMethodTabUI.Designer.cs">
+      <DependentUpon>PaymentMethodTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\RequestorType\RequestorTypeEditor.cs" />
+    <Compile Include="Admin\View\Billing\RequestorType\RequestorTypeListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\RequestorType\RequestorTypeListUI.Designer.cs">
+      <DependentUpon>RequestorTypeListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\RequestorType\RequestorTypeMCP.cs" />
+    <Compile Include="Admin\View\Billing\RequestorType\RequestorTypeODP.cs" />
+    <Compile Include="Admin\View\Billing\RequestorType\RequestorTypeTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\RequestorType\RequestorTypeTabUI.Designer.cs">
+      <DependentUpon>RequestorTypeTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityEditor.cs" />
+    <Compile Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityListUI.Designer.cs">
+      <DependentUpon>SalesTaxPerFacilityListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityMCP.cs" />
+    <Compile Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityODP.cs" />
+    <Compile Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityTabUI.Designer.cs">
+      <DependentUpon>SalesTaxPerFacilityTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\ConfigurationPane.cs" />
+    <Compile Include="Admin\View\Configuration\Attachments\AttachmentEditor.cs" />
+    <Compile Include="Admin\View\Configuration\Attachments\AttachmentListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Configuration\Attachments\AttachmentListUI.Designer.cs">
+      <DependentUpon>AttachmentListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Configuration\Attachments\AttachmentMCP.cs" />
+    <Compile Include="Admin\View\IAdminBaseTabUI.cs" />
+    <Compile Include="Admin\View\Other\ConfigureCountry\ConfigureCountryEditor.cs" />
+    <Compile Include="Admin\View\Other\ConfigureCountry\ConfigureCountryMCP.cs" />
+    <Compile Include="Admin\View\Other\ConfigureCountry\ConfigureCountryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureCountry\ConfigureCountryUI.Designer.cs">
+      <DependentUpon>ConfigureCountryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesEditor.cs" />
+    <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesListUI.Designer.cs">
+      <DependentUpon>ConfigureNotesListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesMCP.cs" />
+    <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesODP.cs" />
+    <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureNotes\ConfigureNotesTabUI.Designer.cs">
+      <DependentUpon>ConfigureNotesTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequestEditor.cs" />
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequestMCP.cs" />
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequest.Designer.cs">
+      <DependentUpon>ConfigureUnbillableRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\DisclosureDocTypes\DisclosureDocTypesEditor.cs" />
+    <Compile Include="Admin\View\Other\DisclosureDocTypes\DisclosureDocTypesListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\DisclosureDocTypes\DisclosureDocTypesListUI.Designer.cs">
+      <DependentUpon>DisclosureDocTypesListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\DisclosureDocTypes\DisclosureDocTypesMCP.cs" />
+    <Compile Include="Admin\View\Other\ExternalSources\ExternalSourcesEditor.cs" />
+    <Compile Include="Admin\View\Other\ExternalSources\ExternalSourcesListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\ExternalSources\ExternalSourcesListUI.designer.cs">
+      <DependentUpon>ExternalSourcesListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\ExternalSources\ExternalSourcesMCP.cs" />
+    <Compile Include="Admin\View\Other\ExternalSources\ExternalSourcesODP.cs" />
+    <Compile Include="Admin\View\Other\ExternalSources\ExternalSourcesTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\ExternalSources\ExternalSourcesTabUI.designer.cs">
+      <DependentUpon>ExternalSourcesTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\LetterTemplate\LetterTemplateEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\LetterTemplate\LetterTemplateListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\LetterTemplate\LetterTemplateListUI.Designer.cs">
+      <DependentUpon>LetterTemplateListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\LetterTemplate\LetterTemplateMCP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\LetterTemplate\LetterTemplateODP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\LetterTemplate\LetterTemplateTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\LetterTemplate\LetterTemplateTabUI.Designer.cs">
+      <DependentUpon>LetterTemplateTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\SSNMask\SSNMaskEditor.cs" />
+    <Compile Include="Admin\View\Other\SSNMask\SSNMaskMCP.cs" />
+    <Compile Include="Admin\View\Other\SSNMask\SSNMaskUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\SSNMask\SSNMaskUI.Designer.cs">
+      <DependentUpon>SSNMaskUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\TurnaroundTimeDays\TurnaroundTimeDaysEditor.cs" />
+    <Compile Include="Admin\View\Other\TurnaroundTimeDays\TurnaroundTimeDaysListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Other\TurnaroundTimeDays\TurnaroundTimeDaysListUI.designer.cs">
+      <DependentUpon>TurnaroundTimeDaysListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Other\TurnaroundTimeDays\TurnaroundTimeDaysMCP.cs" />
+    <Compile Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsEditor.cs" />
+    <Compile Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsListUI.Designer.cs">
+      <DependentUpon>AdjustmentReasonsListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsMCP.cs" />
+    <Compile Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsODP.cs" />
+    <Compile Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsTabUI.Designer.cs">
+      <DependentUpon>AdjustmentReasonsTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\RequestReasons\RequestReasonsListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\RequestReasons\RequestReasonsListUI.designer.cs">
+      <DependentUpon>RequestReasonsListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\RequestReasons\RequestReasonsMCP.cs" />
+    <Compile Include="Admin\View\Reasons\RequestReasons\RequestReasonsODP.cs" />
+    <Compile Include="Admin\View\Reasons\RequestReasons\RequestReasonsEditor.cs" />
+    <Compile Include="Admin\View\Reasons\RequestReasons\RequestReasonsTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\RequestReasons\RequestReasonsTabUI.designer.cs">
+      <DependentUpon>RequestReasonsTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\StatusReasons\StatusReasonsEditor.cs" />
+    <Compile Include="Admin\View\Reasons\StatusReasons\StatusReasonsListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\StatusReasons\StatusReasonsListUI.Designer.cs">
+      <DependentUpon>StatusReasonsListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\StatusReasons\StatusReasonsMCP.cs" />
+    <Compile Include="Admin\View\Reasons\StatusReasons\StatusReasonsODP.cs" />
+    <Compile Include="Admin\View\Reasons\StatusReasons\StatusReasonsTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Reasons\StatusReasons\StatusReasonsTabUI.designer.cs">
+      <DependentUpon>StatusReasonsTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\Controller\CustomWebServicesClientProtocol.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\Controller\HttpTimerRetriever.cs" />
+    <Compile Include="Base\Controller\INIFile.cs" />
+    <Compile Include="Base\Controller\OCSecurityWrapper.cs" />
+    <Compile Include="Base\Controller\ROIFileDownloadController.cs" />
+    <Compile Include="Base\Controller\ROIWebServiceBase.cs" />
+    <Compile Include="Base\Model\AddressDetails.cs" />
+    <Compile Include="Base\Model\ConfigurationData.cs" />
+    <Compile Include="Base\Model\CountryCodeDetails.cs" />
+    <Compile Include="Base\Model\FacilityDetails.cs" />
+    <Compile Include="Base\Model\GenderDetails.cs" />
+    <Compile Include="Base\Model\InUseRecordDetails.cs" />
+    <Compile Include="Base\Model\ROICertificatePolicy.cs" />
+    <Compile Include="Base\Model\ROISecurityRights.cs" />
+    <Compile Include="Base\View\AboutROIHelpDialogUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\AboutROIHelpDialogUI.Designer.cs">
+      <DependentUpon>AboutROIHelpDialogUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\AttachmentViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\AmountTextBoxClass.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\AmountTextBoxClass.designer.cs">
+      <DependentUpon>AmountTextBoxClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\CustomTextBoxImageColumn.cs" />
+    <Compile Include="Base\View\Common\CustomTextBoxColumn.cs" />
+    <Compile Include="Base\View\Common\EIGDGVColumnHeader.cs" />
+    <Compile Include="Base\View\Common\MaskedEditDateControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\NumericTextBoxColumn.cs" />
+    <Compile Include="Base\View\Common\NumericTextBoxClass.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\NumericTextBoxClass.Designer.cs">
+      <DependentUpon>NumericTextBoxClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\RangeBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\ConfigureOutputSettingsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\ConfigureOutputSettingsUI.Designer.cs">
+      <DependentUpon>ConfigureOutputSettingsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\CustomDateRange.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\CustomDateRange.Designer.cs">
+      <DependentUpon>CustomDateRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\GotoPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\View\GotoPage.Designer.cs">
+      <DependentUpon>GotoPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\NativeMethods.cs" />
+    <Compile Include="Base\View\PickAccountUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\PickAccountUI.Designer.cs">
+      <DependentUpon>PickAccountUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\PickAnotherAccountUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\PickAnotherAccountUI.Designer.cs">
+      <DependentUpon>PickAnotherAccountUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\PresetDateRange.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\PresetDateRange.Designer.cs">
+      <DependentUpon>PresetDateRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\MonitorOutputJobsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\MonitorOutputJobsUI.Designer.cs">
+      <DependentUpon>MonitorOutputJobsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\SelfMappingUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\SelfMappingUI.Designer.cs">
+      <DependentUpon>SelfMappingUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\StringLogicalComparer.cs" />
+    <Compile Include="Base\Model\UserSecurities.cs" />
+    <Compile Include="Base\Model\EnumUtilities.cs" />
+    <Compile Include="Base\Model\ROIModel.cs" />
+    <Compile Include="Base\View\ChangePasswordUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\ChangePasswordUI.Designer.cs">
+      <DependentUpon>ChangePasswordUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\BaseEventArgs.cs" />
+    <Compile Include="Base\View\Common\IFunctionCollection.cs" />
+    <Compile Include="Base\View\Common\GenericComparer.cs" />
+    <Compile Include="Base\View\Common\LoadingCircle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\LoadingCircle.Designer.cs">
+      <DependentUpon>LoadingCircle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\LoadingCircleToolStripMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\NullableDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\ROILabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\ROILabel.Designer.cs">
+      <DependentUpon>ROILabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\ROIPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\ROIPanel.Designer.cs">
+      <DependentUpon>ROIPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\PropertyComparer.cs" />
+    <Compile Include="Base\View\Common\Tree\AutoRowHeightLayout.cs" />
+    <Compile Include="Base\View\Common\Tree\BitmapHelper.cs" />
+    <Compile Include="Base\View\Common\Tree\ColumnCollection.cs" />
+    <Compile Include="Base\View\Common\Tree\DrawContext.cs" />
+    <Compile Include="Base\View\Common\Tree\DropPosition.cs" />
+    <Compile Include="Base\View\Common\Tree\EditorContext.cs" />
+    <Compile Include="Base\View\Common\Tree\Enums.cs" />
+    <Compile Include="Base\View\Common\Tree\FixedRowHeightLayout.cs" />
+    <Compile Include="Base\View\Common\Tree\GifDecoder.cs" />
+    <Compile Include="Base\View\Common\Tree\IncrementalSearch.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\ClickColumnState.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\ColumnState.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\InputState.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\InputWithControl.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\InputWithShift.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\NormalInputState.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\ReorderColumnState.cs" />
+    <Compile Include="Base\View\Common\Tree\Input\ResizeColumnState.cs" />
+    <Compile Include="Base\View\Common\Tree\IRowLayout.cs" />
+    <Compile Include="Base\View\Common\Tree\IToolTipProvider.cs" />
+    <Compile Include="Base\View\Common\Tree\ITreeModel.cs" />
+    <Compile Include="Base\View\Common\Tree\Node.cs" />
+    <Compile Include="Base\View\Common\Tree\NodeControlInfo.cs" />
+    <Compile Include="Base\View\Common\Tree\NodeControls\BaseTextControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\BindableControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\DrawEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\NodeControls\EditableControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\ExpandingIcon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\InteractiveControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeControlsCollection.cs" />
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeControlValueEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeDecimalTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeIcon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeIntegerTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodePlusMinus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeStateIcon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NodeControls\NodeTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\PerformanceAnalyzer.cs" />
+    <Compile Include="Base\View\Common\Tree\ResourceHelper.cs" />
+    <Compile Include="Base\View\Common\Tree\SortedTreeModel.cs" />
+    <Compile Include="Base\View\Common\Tree\StringCollectionEditor.cs" />
+    <Compile Include="Base\View\Common\Tree\TextHelper.cs" />
+    <Compile Include="Base\View\Common\Tree\Threading\AbortThreadPool.cs" />
+    <Compile Include="Base\View\Common\Tree\Threading\WorkItem.cs" />
+    <Compile Include="Base\View\Common\Tree\Threading\WorkItemStatus.cs" />
+    <Compile Include="Base\View\Common\Tree\TimeCounter.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\TreeColumnCollection.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeColumnEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeListAdapter.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeModel.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeModelBase.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeModelEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeNodeAdv.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeNodeAdvMouseEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\TreePath.cs" />
+    <Compile Include="Base\View\Common\Tree\TreePathEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeViewAdv.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\TreeViewAdv.designer.cs">
+      <DependentUpon>TreeViewAdv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\TreeViewAdv.Draw.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\TreeViewAdv.Input.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\TreeViewAdv.Properties.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\Tree\TreeViewAdvCancelEventArgs.cs" />
+    <Compile Include="Base\View\Common\Tree\TreeViewAdvEventArgs.cs" />
+    <Compile Include="Base\View\IFooterProvider.cs" />
+    <Compile Include="Base\View\ReportUtility.cs" />
+    <Compile Include="Base\View\ROIImages.cs" />
+    <Compile Include="Base\View\ROIModulePane.cs" />
+    <Compile Include="Base\View\ROIDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\View\ROIDialog.Designer.cs">
+      <DependentUpon>ROIDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\ROILeftSidePane.cs" />
+    <Compile Include="Base\View\ROIProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\ROIProgressBar.Designer.cs">
+      <DependentUpon>ROIProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\ComparableCollection.cs" />
+    <Compile Include="Base\View\ROIReportEditor.cs" />
+    <Compile Include="Base\View\UpperComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\UpperComponent.Designer.cs">
+      <DependentUpon>UpperComponent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\DefaultModulePane.cs" />
+    <Compile Include="Admin\Controller\ROIAdminValidator.cs" />
+    <Compile Include="Base\Controller\BaseROIValidator.cs" />
+    <Compile Include="Base\Controller\HelperFactory.cs" />
+    <Compile Include="Base\Controller\HPFWHelper.cs" />
+    <Compile Include="Base\Controller\HPFWWebServiceBase.cs" />
+    <Compile Include="Base\Controller\ROIController.cs" />
+    <Compile Include="Base\Controller\ROIHelper.cs" />
+    <Compile Include="Base\Controller\IWsHelper.cs" />
+    <Compile Include="Base\Model\ExceptionData.cs" />
+    <Compile Include="Base\Model\ROIErrorCodes.cs" />
+    <Compile Include="Base\Model\ROIException.cs" />
+    <Compile Include="Base\View\ROINavigationLink.cs" />
+    <Compile Include="Base\Model\LogEvent.cs" />
+    <Compile Include="Base\Model\UserData.cs" />
+    <Compile Include="Base\View\Common\CollapsibleBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\CollapsiblePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\CollapsibleGroupBoxEX.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\CollapsibleGroupBoxEX.Designer.cs">
+      <DependentUpon>CollapsibleGroupBoxEX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\EIGDataGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\GradientLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\GradientLabel.Designer.cs">
+      <DependentUpon>GradientLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\Common\NavigationLinks.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\Common\PanelState.cs" />
+    <Compile Include="Base\View\Common\ROISplitContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\View\NavigationPane.cs" />
+    <Compile Include="Base\View\ROIBaseContainerPane.cs" />
+    <Compile Include="Base\View\ROIBasePane.cs" />
+    <Compile Include="Base\View\DialogUI .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\View\DialogUI .Designer.cs">
+      <DependentUpon>DialogUI .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\ROIBaseUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\HeaderUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\HeaderUI.Designer.cs">
+      <DependentUpon>HeaderUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\Billing\MediaType\MediaTypeTabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\View\Billing\MediaType\MediaTypeTabUI.designer.cs">
+      <DependentUpon>MediaTypeTabUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\View\BillingMaintenancePane.cs" />
+    <Compile Include="Admin\View\Billing\MediaType\MediaTypeEditor.cs" />
+    <Compile Include="Admin\View\OtherMaintenancePane.cs" />
+    <Compile Include="Admin\View\ReasonsMaintenance.cs" />
+    <Compile Include="Base\Model\ROIConstants.cs" />
+    <Compile Include="Base\View\ROIEditor.cs" />
+    <Compile Include="Admin\View\AdminEvents.cs" />
+    <Compile Include="Base\View\HeaderPane.cs" />
+    <Compile Include="Admin\View\AdminLSP.cs" />
+    <Compile Include="Admin\View\AdminModulePane.cs" />
+    <Compile Include="Admin\View\AdminRSP.cs" />
+    <Compile Include="Base\View\ROIEvents.cs" />
+    <Compile Include="Base\View\CultureType.cs" />
+    <Compile Include="Base\View\MenuPane.cs" />
+    <Compile Include="Base\View\ModuleSelectorPane.cs" />
+    <Compile Include="Base\View\ROIPane.cs">
+    </Compile>
+    <Compile Include="Base\View\ROIRightSidePane.cs" />
+    <Compile Include="Base\View\ROIViewUtility.cs" />
+    <Compile Include="Base\View\LowerComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\LowerComponent.Designer.cs">
+      <DependentUpon>LowerComponent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\Model\Validator.cs" />
+    <Compile Include="Base\View\WarningDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\View\WarningDialog.Designer.cs">
+      <DependentUpon>WarningDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\WinDSSConfig.cs" />
+    <Compile Include="Base\View\WinDssViewer.cs" />
+    <Compile Include="Base\View\XmlViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\View\XmlViewerForm.Designer.cs">
+      <DependentUpon>XmlViewerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OverDueInvoice\Controller\OverDueInvoiceController.cs" />
+    <Compile Include="OverDueInvoice\Controller\OverDueInvoiceValidator.cs" />
+    <Compile Include="OverDueInvoice\Model\OverDueInvoiceSearchResult.cs" />
+    <Compile Include="OverDueInvoice\Model\OverDueInvoiceSearchCriteria.cs" />
+    <Compile Include="OverDueInvoice\Model\OverDueInvoiceDetails.cs" />
+    <Compile Include="OverDueInvoice\Model\PreviewOverDueInvoices.cs" />
+    <Compile Include="OverDueInvoice\Model\RequestorInvoices.cs" />
+    <Compile Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceEditor.cs" />
+    <Compile Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceListUI.Designer.cs">
+      <DependentUpon>FindOverDueInvoiceListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceMCP.cs" />
+    <Compile Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceODP.cs" />
+    <Compile Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceSearchUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceSearchUI.Designer.cs">
+      <DependentUpon>FindOverDueInvoiceSearchUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\OutputInvoiceDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\OutputInvoiceDialog.Designer.cs">
+      <DependentUpon>OutputInvoiceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\OverDueInvoiceListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\OverDueInvoiceListUI.Designer.cs">
+      <DependentUpon>OverDueInvoiceListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OverDueInvoice\View\OverDueInvoiceEvents.cs" />
+    <Compile Include="OverDueInvoice\View\OverDueInvoiceLSP.cs" />
+    <Compile Include="OverDueInvoice\View\OverDueInvoiceModulePane.cs" />
+    <Compile Include="OverDueInvoice\View\OverDueInvoiceNavigationPane.cs" />
+    <Compile Include="OverDueInvoice\View\OverDueInvoiceRSP.cs" />
+    <Compile Include="Patient\Controller\AttachmentController.cs" />
+    <Compile Include="Patient\Controller\AttachmentValidator.cs" />
+    <Compile Include="Patient\Controller\DeficiencyController.cs" />
+    <Compile Include="Patient\Controller\HpfDocumentController.cs" />
+    <Compile Include="Patient\Controller\NonHpfDocumentValidator.cs" />
+    <Compile Include="Patient\Controller\NonHpfDocumentController.cs" />
+    <Compile Include="Patient\Controller\PatientController.cs" />
+    <Compile Include="Patient\Controller\PatientDetailsCache.cs" />
+    <Compile Include="Patient\Controller\PatientValidator.cs" />
+    <Compile Include="Patient\Controller\RequestorMatchingController.cs" />
+    <Compile Include="Patient\Model\AttachmentDetails.cs" />
+    <Compile Include="Patient\Model\AttachmentEncounterDetails.cs" />
+    <Compile Include="Patient\Model\AttachmentFileDetails.cs" />
+    <Compile Include="Patient\Model\BaseRecordItem.cs" />
+    <Compile Include="Patient\Model\CcrCcdDetails.cs" />
+    <Compile Include="Patient\Model\DocumentSubTitle.cs" />
+    <Compile Include="Patient\Model\DeficiencyDetails.cs" />
+    <Compile Include="Patient\Model\DocumentDetails.cs" />
+    <Compile Include="Patient\Model\EncounterDetails.cs" />
+    <Compile Include="Patient\Model\ExternalSourceAttachment.cs" />
+    <Compile Include="Patient\Model\MismatchComparer.cs" />
+    <Compile Include="Patient\Model\NonHpfDocumentDetails.cs" />
+    <Compile Include="Patient\Model\FindPatientCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Patient\Model\FindPatientResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Patient\Model\NonHpfEncounterDetails.cs" />
+    <Compile Include="Patient\Model\PageDetails.cs" />
+    <Compile Include="Patient\Model\PatientAttachment.cs" />
+    <Compile Include="Patient\Model\PatientDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Patient\Model\PatientGlobalDocument.cs" />
+    <Compile Include="Patient\Model\PatientNonHpfDocument.cs" />
+    <Compile Include="Patient\Model\RetrieveCCdDetails.cs" />
+    <Compile Include="Patient\Model\VersionDetails.cs" />
+    <Compile Include="Patient\View\EncounterDetailDialogUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\EncounterDetailDialogUI.Designer.cs">
+      <DependentUpon>EncounterDetailDialogUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\EncounterFilterDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\EncounterFilterDialog.Designer.cs">
+      <DependentUpon>EncounterFilterDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\FindPatient\FindPatientActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\FindPatient\FindPatientActionUI.Designer.cs">
+      <DependentUpon>FindPatientActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\FindPatient\FindPatientEditor.cs" />
+    <Compile Include="Patient\View\FindPatient\FindPatientMCP.cs" />
+    <Compile Include="Patient\View\FindPatient\FindPatientODP.cs" />
+    <Compile Include="Patient\View\FindPatient\PatientListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\FindPatient\PatientListUI.Designer.cs">
+      <DependentUpon>PatientListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\FindPatient\PatientSearchUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\FindPatient\PatientSearchUI.Designer.cs">
+      <DependentUpon>PatientSearchUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\IPatientPageContent.cs" />
+    <Compile Include="Patient\View\MatchingRequestorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\MatchingRequestorUI.Designer.cs">
+      <DependentUpon>MatchingRequestorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\NoMatchingRequestorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\NoMatchingRequestorUI.Designer.cs">
+      <DependentUpon>NoMatchingRequestorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientEvents.cs" />
+    <Compile Include="Patient\View\PatientInfo\IPersonalInfoUI.cs" />
+    <Compile Include="Patient\View\PatientInfo\PatientInfoActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientInfo\PatientInfoActionUI.Designer.cs">
+      <DependentUpon>PatientInfoActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientInfo\PatientInfoEditor.cs" />
+    <Compile Include="Patient\View\PatientInfo\PatientInfoMCP.cs" />
+    <Compile Include="Patient\View\PatientInfo\PatientInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientInfo\PatientInfoUI.Designer.cs">
+      <DependentUpon>PatientInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientInfo\PersonalInfoHpfUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientInfo\PersonalInfoHpfUI.Designer.cs">
+      <DependentUpon>PersonalInfoHpfUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientInfo\PersonalInfoNonHpfUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientInfo\PersonalInfoNonHpfUI.Designer.cs">
+      <DependentUpon>PersonalInfoNonHpfUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientLSP.cs" />
+    <Compile Include="Patient\View\PatientModulePane.cs" />
+    <Compile Include="Patient\View\PatientNavigationPane.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\AttachmentDetailUI.cs" />
+    <Compile Include="Patient\View\PatientRecords\AttachmentDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\AttachmentDialog.designer.cs">
+      <DependentUpon>AttachmentDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\AttachmentHelper.cs" />
+    <Compile Include="Patient\View\PatientRecords\Attachments\CcrCcd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\Attachments\CcrCcd.Designer.cs">
+      <DependentUpon>CcrCcd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\Attachments\ExternalSourceAttachment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\Attachments\ExternalSourceAttachment.Designer.cs">
+      <DependentUpon>ExternalSourceAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\Attachments\FileAttachment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\Attachments\FileAttachment.Designer.cs">
+      <DependentUpon>FileAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\DeficiencyDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\DeficiencyDialog.Designer.cs">
+      <DependentUpon>DeficiencyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\NonHpfDocumentDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\NonHpfDocumentDialog.Designer.cs">
+      <DependentUpon>NonHpfDocumentDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientHeaderUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientHeaderUI.Designer.cs">
+      <DependentUpon>PatientHeaderUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsEditor.cs" />
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsMCP.cs" />
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsMCPView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsMCPView.Designer.cs">
+      <DependentUpon>PatientRecordsMCPView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsViewAttachment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsViewNonHpf.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsViewUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\PatientRecordsViewUI.Designer.cs">
+      <DependentUpon>PatientRecordsViewUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\PatientRecords\PatientRecordViewTreeModel.cs" />
+    <Compile Include="Patient\View\PatientRSP.cs" />
+    <Compile Include="Patient\View\PatientsFooterUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\PatientsFooterUI.Designer.cs">
+      <DependentUpon>PatientsFooterUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\MismatchPatientUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\MismatchPatientUI.Designer.cs">
+      <DependentUpon>MismatchPatientUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\RequestHistory\RequestHistoryEditor.cs" />
+    <Compile Include="Patient\View\RequestHistory\RequestHistoryMCP.cs" />
+    <Compile Include="Patient\View\RequestHistory\RequestHistoryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\RequestHistory\RequestHistoryUI.Designer.cs">
+      <DependentUpon>RequestHistoryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Patient\View\RequestHistory\PatientRequestListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Patient\View\RequestHistory\PatientRequestListUI.Designer.cs">
+      <DependentUpon>PatientRequestListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Controller\ReportController.cs" />
+    <Compile Include="Reports\Controller\ReportValidator.cs" />
+    <Compile Include="Reports\Model\ReportDetails.cs" />
+    <Compile Include="Reports\View\AccountingDisclosureSorter.cs" />
+    <Compile Include="Reports\View\AccountingOfDisclosureUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\AccountingOfDisclosureUI.Designer.cs">
+      <DependentUpon>AccountingOfDisclosureUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\AccountReceivableAgingUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\AccountReceivableAgingUI.Designer.cs">
+      <DependentUpon>AccountReceivableAgingUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\BillableAndUnBillableReportUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\BillableAndUnBillableReportUI.Designer.cs">
+      <DependentUpon>BillableAndUnBillableReportUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\OutstandingInvoiceBalanceUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\OutstandingInvoiceBalanceUI.Designer.cs">
+      <DependentUpon>OutstandingInvoiceBalanceUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportPrintPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportPrintPreview.Designer.cs">
+      <DependentUpon>ReportPrintPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ROIBillingUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ROIBillingUI.Designer.cs">
+      <DependentUpon>ROIBillingUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\DocumentsReleasedByMRNSorter.cs" />
+    <Compile Include="Reports\View\ExportDialogUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ExportDialogUI.Designer.cs">
+      <DependentUpon>ExportDialogUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\MUReleaseTurnaroundTimeSorter.cs" />
+    <Compile Include="Reports\View\MUReleaseTurnaroundTimeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\MUReleaseTurnaroundTimeUI.Designer.cs">
+      <DependentUpon>MUReleaseTurnaroundTimeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\PostedPaymentReportUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\PostedPaymentReportUI.Designer.cs">
+      <DependentUpon>PostedPaymentReportUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\PreBillReportSorter.cs" />
+    <Compile Include="Reports\View\PreBillReportUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\PreBillReportUI.Designer.cs">
+      <DependentUpon>PreBillReportUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ProductivityUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ProductivityUI.Designer.cs">
+      <DependentUpon>ProductivityUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportInputFieldUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportInputFieldUI.Designer.cs">
+      <DependentUpon>ReportInputFieldUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\PendingAgingSummarySorter.cs" />
+    <Compile Include="Reports\View\PostedPaymentSummarySorter.cs" />
+    <Compile Include="Reports\View\RequestLoggedStatusSorter.cs" />
+    <Compile Include="Reports\View\RequestDetailsSorter.cs" />
+    <Compile Include="Reports\View\ProcessRequestSummarySorter.cs" />
+    <Compile Include="Reports\View\OutstandingInvoiceBalanceSorter.cs" />
+    <Compile Include="Reports\View\RequestStatusSummarySorter.cs" />
+    <Compile Include="Reports\View\DocumentsReleasedByMrnUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\DocumentsReleasedByMrnUI.Designer.cs">
+      <DependentUpon>DocumentsReleasedByMrnUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\FindPatientDialogUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\FindPatientDialogUI.Designer.cs">
+      <DependentUpon>FindPatientDialogUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\IReportCriteria.cs" />
+    <Compile Include="Reports\View\IReportSorter.cs" />
+    <Compile Include="Reports\View\PendingAgingSummaryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\PendingAgingSummaryUI.Designer.cs">
+      <DependentUpon>PendingAgingSummaryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ProcessedRequestSummaryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ProcessedRequestSummaryUI.Designer.cs">
+      <DependentUpon>ProcessedRequestSummaryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportBaseCriteriaUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportBaseCriteriaUI.Designer.cs">
+      <DependentUpon>ReportBaseCriteriaUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportCheckedListBoxUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportCheckedListBoxUI.Designer.cs">
+      <DependentUpon>ReportCheckedListBoxUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportDateRangeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportDateRangeUI.Designer.cs">
+      <DependentUpon>ReportDateRangeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportEditor.cs" />
+    <Compile Include="Reports\View\ReportEvents.cs" />
+    <Compile Include="Reports\View\ReportFooterUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportFooterUI.Designer.cs">
+      <DependentUpon>ReportFooterUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportHelper.cs" />
+    <Compile Include="Reports\View\ReportLSP.cs" />
+    <Compile Include="Reports\View\ReportMCP.cs" />
+    <Compile Include="Reports\View\ReportModulePane.cs" />
+    <Compile Include="Reports\View\ReportPane.cs" />
+    <Compile Include="Reports\View\ReportRSP.cs" />
+    <Compile Include="Reports\View\ReportUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportUI.Designer.cs">
+      <DependentUpon>ReportUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\ReportViewerUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\ReportViewerUI.Designer.cs">
+      <DependentUpon>ReportViewerUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\RequestDetailsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\RequestDetailsUI.Designer.cs">
+      <DependentUpon>RequestDetailsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\RequestLoggedStatusUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\RequestLoggedStatusUI.Designer.cs">
+      <DependentUpon>RequestLoggedStatusUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\RequestStatusSummaryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\RequestStatusSummaryUI.Designer.cs">
+      <DependentUpon>RequestStatusSummaryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\SalesTaxReportUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\SalesTaxReportUI.Designer.cs">
+      <DependentUpon>SalesTaxReportUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\View\TurnaroundSorter.cs" />
+    <Compile Include="Reports\View\TurnaroundTimeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\View\TurnaroundTimeUI.Designer.cs">
+      <DependentUpon>TurnaroundTimeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\Controller\RequestorCache.cs" />
+    <Compile Include="Requestors\Controller\RequestorController.cs" />
+    <Compile Include="Requestors\Controller\RequestorValidator.cs" />
+    <Compile Include="Requestors\Model\AdjustmentInfoDetail.cs" />
+    <Compile Include="Requestors\Model\FindRequestorCriteria.cs" />
+    <Compile Include="Requestors\Model\FindRequestorResult.cs" />
+    <Compile Include="Requestors\Model\RequestInvoiceDetail.cs" />
+    <Compile Include="Requestors\Model\RequestorAdjustmentDetails.cs" />
+    <Compile Include="Requestors\Model\RequestorAdjustmentsFeeDetails.cs" />
+    <Compile Include="Requestors\Model\RequestorAdjustmentsPaymentsDetail.cs" />
+    <Compile Include="Requestors\Model\RequestorDetails.cs" />
+    <Compile Include="Requestors\Model\RequestorHistoryDetail.cs" />
+    <Compile Include="Requestors\Model\RequestorInvoice.cs" />
+    <Compile Include="Requestors\Model\RequestorInvoiceList.cs" />
+    <Compile Include="Requestors\Model\RequestorInvoicesListDetail.cs" />
+    <Compile Include="Requestors\Model\RequestorRefundDetail.cs" />
+    <Compile Include="Requestors\Model\RequestorStatementCriteria.cs" />
+    <Compile Include="Requestors\Model\RequestorUnappliedAmountDetail.cs" />
+    <Compile Include="Requestors\View\AccountHistory\AccountHistoryEditor.cs" />
+    <Compile Include="Requestors\View\AccountHistory\AccountHistoryMCP.cs" />
+    <Compile Include="Requestors\View\AccountHistory\AccountHistoryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountHistory\AccountHistoryUI.designer.cs">
+      <DependentUpon>AccountHistoryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\AccountManagementEditor.cs" />
+    <Compile Include="Requestors\View\AccountManagement\AccountManagementFooterUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\AccountManagementFooterUI.Designer.cs">
+      <DependentUpon>AccountManagementFooterUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\AccountManagementMCP.cs" />
+    <Compile Include="Requestors\View\AccountManagement\AccountManagementUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\AccountManagementUI.Designer.cs">
+      <DependentUpon>AccountManagementUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\AdjustmentsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\AdjustmentsUI.Designer.cs">
+      <DependentUpon>AdjustmentsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\InvoiceUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\InvoiceUI.Designer.cs">
+      <DependentUpon>InvoiceUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\OutputRefundDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\OutputRefundDialog.Designer.cs">
+      <DependentUpon>OutputRefundDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\PaymentUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\PaymentUI.designer.cs">
+      <DependentUpon>PaymentUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\RefundUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\RefundUI.Designer.cs">
+      <DependentUpon>RefundUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\StatementDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\AccountManagement\StatementDialog.Designer.cs">
+      <DependentUpon>StatementDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\CreatePatientRequestorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\CreatePatientRequestorUI.Designer.cs">
+      <DependentUpon>CreatePatientRequestorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorActionUI.Designer.cs">
+      <DependentUpon>FindRequestorActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorEditor.cs" />
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorListUI.designer.cs">
+      <DependentUpon>FindRequestorListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorMCP.cs" />
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorODP.cs" />
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorSearchUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\FindRequestor\FindRequestorSearchUI.designer.cs">
+      <DependentUpon>FindRequestorSearchUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\IRequestorPageContext.cs" />
+    <Compile Include="Requestors\View\PatientMatchingUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\PatientMatchingUI.Designer.cs">
+      <DependentUpon>PatientMatchingUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestHistory\RequestorRequestListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\RequestHistory\RequestorRequestListUI.Designer.cs">
+      <DependentUpon>RequestorRequestListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestHistory\RequestHistoryEditor.cs" />
+    <Compile Include="Requestors\View\RequestHistory\RequestHistoryMCP.cs" />
+    <Compile Include="Requestors\View\RequestHistory\RequestHistoryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\RequestHistory\RequestHistoryUI.Designer.cs">
+      <DependentUpon>RequestHistoryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorEvents.cs" />
+    <Compile Include="Requestors\View\RequestorFooterUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorFooterUI.Designer.cs">
+      <DependentUpon>RequestorFooterUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorHeaderUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorHeaderUI.Designer.cs">
+      <DependentUpon>RequestorHeaderUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorInfo\RequestorAddressGroupUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorInfo\RequestorAddressGroupUI.Designer.cs">
+      <DependentUpon>RequestorAddressGroupUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorInfo\RequestorInfoActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorInfo\RequestorInfoActionUI.Designer.cs">
+      <DependentUpon>RequestorInfoActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorInfo\RequestorInfoEditor.cs" />
+    <Compile Include="Requestors\View\RequestorInfo\RequestorInfoMCP.cs" />
+    <Compile Include="Requestors\View\RequestorInfo\RequestorInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorInfo\RequestorInfoUI.Designer.cs">
+      <DependentUpon>RequestorInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Requestors\View\RequestorLSP.cs" />
+    <Compile Include="Requestors\View\RequestorModulePane.cs" />
+    <Compile Include="Requestors\View\RequestorNavigationPane.cs" />
+    <Compile Include="Requestors\View\RequestorRSP.cs" />
+    <Compile Include="Request\Controller\AttachmentController.cs" />
+    <Compile Include="Request\Controller\BillingController.cs" />
+    <Compile Include="Request\Controller\BillingValidator.cs" />
+    <Compile Include="Request\Controller\OutputController.cs" />
+    <Compile Include="Request\Controller\RequestController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Request\Controller\RequestHistoryPageProducer.cs" />
+    <Compile Include="Request\Controller\RequestPatientsCache.cs" />
+    <Compile Include="Request\Controller\RequestValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Request\Model\BaseRequestItem.cs" />
+    <Compile Include="Request\Model\BillingCharge.cs" />
+    <Compile Include="Request\Model\ChargeHistoryDetails.cs" />
+    <Compile Include="Request\Model\DeletePatientList.cs" />
+    <Compile Include="Request\Model\InvoiceOrPrebillPreviewInfo.cs" />
+    <Compile Include="Request\Model\RequestBillingInfo.cs" />
+    <Compile Include="Request\Model\RequestCoreCharges.cs" />
+    <Compile Include="Request\Model\RequestCoreChargesInvoiceDetail.cs" />
+    <Compile Include="Request\Model\RequestCoreDeliveryInvoicePatientsList.cs" />
+    <Compile Include="Request\Model\RequestPatientList.cs" />
+    <Compile Include="Request\Model\CommentDetails.cs" />
+    <Compile Include="Request\Model\InvoiceAndDocumentDetails.cs" />
+    <Compile Include="Request\Model\InvoiceChargeDetails.cs" />
+    <Compile Include="Request\Model\InvoiceChargeDetailsList.cs" />
+    <Compile Include="Request\Model\InvoiceDetails.cs" />
+    <Compile Include="Request\Model\PastInvoiceDetails.cs" />
+    <Compile Include="Request\Model\RequestAttachment.cs" />
+    <Compile Include="Request\Model\RequestAttachmentDetails.cs" />
+    <Compile Include="Request\Model\RequestAttachmentEncounterDetails.cs" />
+    <Compile Include="Request\Model\RequestDocumentSubtitle.cs" />
+    <Compile Include="Request\Model\RequestNonHpfEncounterDetails.cs" />
+    <Compile Include="Request\Model\DocumentChargeDetails.cs" />
+    <Compile Include="Request\Model\DocumentInfo.cs" />
+    <Compile Include="Request\Model\DocumentInfoList.cs" />
+    <Compile Include="Request\Model\FeeChargeDetails.cs" />
+    <Compile Include="Request\Model\FindRequestCriteria.cs" />
+    <Compile Include="Request\Model\FindRequestResult.cs" />
+    <Compile Include="Request\Model\InvoiceHistoryDetails.cs" />
+    <Compile Include="Request\Model\OutputDestinationDetails.cs" />
+    <Compile Include="Request\Model\OutputPropertyDetails.cs" />
+    <Compile Include="Request\Model\OutputRequestDetails.cs" />
+    <Compile Include="Request\Model\OutputViewDetails.cs" />
+    <Compile Include="Request\Model\PaginationDetails.cs" />
+    <Compile Include="Request\Model\PropertyDefinition.cs" />
+    <Compile Include="Request\Model\PropertyDetails.cs" />
+    <Compile Include="Request\Model\ReleaseDetails.cs" />
+    <Compile Include="Request\Model\ReleaseHistoryDetails.cs" />
+    <Compile Include="Request\Model\ReleasedItemDetails.cs" />
+    <Compile Include="Request\Model\ReleasedPatientDetails.cs" />
+    <Compile Include="Request\Model\RequestDetails.cs" />
+    <Compile Include="Request\Model\RequestDocumentDetails.cs" />
+    <Compile Include="Request\Model\RequestEncounterDetails.cs" />
+    <Compile Include="Request\Model\RequestEventHistoryDetails.cs" />
+    <Compile Include="Request\Model\RequestGlobalDocument.cs" />
+    <Compile Include="Request\Model\RequestNonHpfDocument.cs" />
+    <Compile Include="Request\Model\RequestNonHpfDocumentDetails.cs" />
+    <Compile Include="Request\Model\RequestPageDetails.cs" />
+    <Compile Include="Request\Model\RequestPartDetails.cs" />
+    <Compile Include="Request\Model\RequestPatientDetails.cs" />
+    <Compile Include="Request\Model\PrebillInvoiceDetails.cs" />
+    <Compile Include="Request\Model\RequestPatients.cs" />
+    <Compile Include="Request\Model\RequestTransaction.cs" />
+    <Compile Include="Request\Model\RequestVersionDetails.cs" />
+    <Compile Include="Request\Model\ROIPage.cs" />
+    <Compile Include="Request\Model\SalesTaxChargeDetails.cs" />
+    <Compile Include="Request\Model\SalesTaxReasons.cs" />
+    <Compile Include="Request\Model\ShippingInfo.cs" />
+    <Compile Include="Request\View\BillingPayment\AdjustmentPaymentInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\AdjustmentPaymentInfoUI.designer.cs">
+      <DependentUpon>AdjustmentPaymentInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\BillingPaymentActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\BillingPaymentActionUI.Designer.cs">
+      <DependentUpon>BillingPaymentActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\BillingPaymentInfoEditor.cs" />
+    <Compile Include="Request\View\BillingPayment\BillingPaymentInfoMCP.cs" />
+    <Compile Include="Request\View\BillingPayment\BillingPaymentInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\BillingPaymentInfoUI.Designer.cs">
+      <DependentUpon>BillingPaymentInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ChargeHistoryDialogUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ChargeHistoryDialogUI.Designer.cs">
+      <DependentUpon>ChargeHistoryDialogUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ChargeHistoryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ChargeHistoryUI.Designer.cs">
+      <DependentUpon>ChargeHistoryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\SalesTaxSummaryUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\SalesTaxSummaryUI.designer.cs">
+      <DependentUpon>SalesTaxSummaryUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\CustomFeeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\CustomFeeUI.designer.cs">
+      <DependentUpon>CustomFeeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\DocumentChargeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\DocumentChargeUI.designer.cs">
+      <DependentUpon>DocumentChargeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\FeeChargeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\FeeChargeUI.designer.cs">
+      <DependentUpon>FeeChargeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\FeeTypeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\FeeTypeUI.designer.cs">
+      <DependentUpon>FeeTypeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\InvoiceUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\InvoiceUI.Designer.cs">
+      <DependentUpon>InvoiceUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\PrebillInvoiceBaseUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\PrebillInvoiceBaseUI.Designer.cs">
+      <DependentUpon>PrebillInvoiceBaseUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\PrebillUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\PrebillUI.Designer.cs">
+      <DependentUpon>PrebillUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\PropertyDialogUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\PropertyDialogUI.Designer.cs">
+      <DependentUpon>PropertyDialogUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ReleaseDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ReleaseDialog.Designer.cs">
+      <DependentUpon>ReleaseDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ROIViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ROIViewer.Designer.cs">
+      <DependentUpon>ROIViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ShippingInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\ShippingInfoUI.designer.cs">
+      <DependentUpon>ShippingInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\UnappliedAdjustmentUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\UnappliedAdjustmentUI.Designer.cs">
+      <DependentUpon>UnappliedAdjustmentUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\Comments\RequestCommentEditor.cs" />
+    <Compile Include="Request\View\Comments\RequestCommentInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\Comments\RequestCommentInfoUI.Designer.cs">
+      <DependentUpon>RequestCommentInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\Comments\RequestCommentListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\Comments\RequestCommentListUI.Designer.cs">
+      <DependentUpon>RequestCommentListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\Comments\RequestCommentMCP.cs" />
+    <Compile Include="Request\View\Comments\RequestCommentODP.cs" />
+    <Compile Include="Request\View\Dialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\Dialog.Designer.cs">
+      <DependentUpon>Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\EventHistory\EventHistoryEditor.cs" />
+    <Compile Include="Request\View\EventHistory\EventHistoryListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\EventHistory\EventHistoryListUI.Designer.cs">
+      <DependentUpon>EventHistoryListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\EventHistory\EventHistoryMCP.cs" />
+    <Compile Include="Request\View\FindRequest\FindRequestEditor.cs" />
+    <Compile Include="Request\View\FindRequest\FindRequestMCP.cs" />
+    <Compile Include="Request\View\FindRequest\FindRequestODP.cs" />
+    <Compile Include="Request\View\FindRequest\FindRequestListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\FindRequest\FindRequestListUI.Designer.cs">
+      <DependentUpon>FindRequestListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\FindRequest\RequestListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\FindRequest\RequestListUI.Designer.cs">
+      <DependentUpon>RequestListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\FindRequest\RequestSearchUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\FindRequest\RequestSearchUI.Designer.cs">
+      <DependentUpon>RequestSearchUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\FreeformUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\BillingPayment\FreeformUI.Designer.cs">
+      <DependentUpon>FreeformUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\Letters\LetterInfoActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\Letters\LetterInfoActionUI.Designer.cs">
+      <DependentUpon>LetterInfoActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\Letters\LetterInfoEditor.cs" />
+    <Compile Include="Request\View\Letters\LetterInfoMCP.cs" />
+    <Compile Include="Request\View\Letters\LetterInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\Letters\LetterInfoUI.Designer.cs">
+      <DependentUpon>LetterInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\OutputDiscDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\OutputDiscDialog.Designer.cs">
+      <DependentUpon>OutputDiscDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\OutputEmailDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\OutputEmailDialog.Designer.cs">
+      <DependentUpon>OutputEmailDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\OutputFaxDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\OutputFaxDialog.Designer.cs">
+      <DependentUpon>OutputFaxDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\OutputFileDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\OutputFileDialog.Designer.cs">
+      <DependentUpon>OutputFileDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\OutputPrintDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\OutputPrintDialog.Designer.cs">
+      <DependentUpon>OutputPrintDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\OutputPropertiesDialog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\OutputPropertiesDialog.Designer.cs">
+      <DependentUpon>OutputPropertiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\AddPatientUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\AddPatientUI.designer.cs">
+      <DependentUpon>AddPatientUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\ModifyBillingTierUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\ModifyBillingTierUI.designer.cs">
+      <DependentUpon>ModifyBillingTierUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\PatientInfoActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\PatientInfoActionUI.Designer.cs">
+      <DependentUpon>PatientInfoActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\ReleaseTreeModel.cs" />
+    <Compile Include="Request\View\PatientInfo\ReleaseTreeUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\ReleaseTreeUI.Designer.cs">
+      <DependentUpon>ReleaseTreeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\RequestPatientInfoEditor.cs" />
+    <Compile Include="Request\View\PatientInfo\RequestPatientInfoMCP.cs" />
+    <Compile Include="Request\View\PatientInfo\RequestPatientInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\RequestPatientInfoUI.Designer.cs">
+      <DependentUpon>RequestPatientInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\ReleaseHistory\ReleaseHistoryEditor.cs" />
+    <Compile Include="Request\View\ReleaseHistory\ReleaseHistoryListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\ReleaseHistory\ReleaseHistoryListUI.Designer.cs">
+      <DependentUpon>ReleaseHistoryListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\ReleaseHistory\ReleaseHistoryMCP.cs" />
+    <Compile Include="Request\View\RequestPatientListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestPatientListUI.Designer.cs">
+      <DependentUpon>RequestPatientListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\ViewEditPatientUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\PatientInfo\ViewEditPatientUI.designer.cs">
+      <DependentUpon>ViewEditPatientUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestEvents.cs" />
+    <Compile Include="Request\View\RequestHistoryPageConsumer.cs" />
+    <Compile Include="Request\View\RequestInfo\ChangeRequestStatusUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\ChangeRequestStatusUI.designer.cs">
+      <DependentUpon>ChangeRequestStatusUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\CreateRequestInfo.cs" />
+    <Compile Include="Request\View\RequestInfo\SaveNewPatientRequestorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\SaveNewPatientRequestorUI.designer.cs">
+      <DependentUpon>SaveNewPatientRequestorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\FreeformReasonUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\FreeformReasonUI.designer.cs">
+      <DependentUpon>FreeformReasonUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\RequestInfoActionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\RequestInfoActionUI.Designer.cs">
+      <DependentUpon>RequestInfoActionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\RequestInfoEditor.cs" />
+    <Compile Include="Request\View\RequestInfo\RequestInfoMCP.cs" />
+    <Compile Include="Request\View\RequestInfo\RequestInfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\RequestInfoUI.Designer.cs">
+      <DependentUpon>RequestInfoUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\SelectRequestorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\SelectRequestorUI.designer.cs">
+      <DependentUpon>SelectRequestorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\ViewEditRequestorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestInfo\ViewEditRequestorUI.designer.cs">
+      <DependentUpon>ViewEditRequestorUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestLSP.cs" />
+    <Compile Include="Request\View\RequestModulePane.cs" />
+    <Compile Include="Request\View\RequestNavigationPane.cs" />
+    <Compile Include="Request\View\RequestNonPatientHeaderUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestNonPatientHeaderUI.Designer.cs">
+      <DependentUpon>RequestNonPatientHeaderUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestPatientHeaderUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestPatientHeaderUI.Designer.cs">
+      <DependentUpon>RequestPatientHeaderUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\RequestRSP.cs" />
+    <Compile Include="Request\View\RequestsListUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Request\View\RequestsListUI.Designer.cs">
+      <DependentUpon>RequestsListUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Request\View\SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Request\View\SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>images.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\LogOnUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Base\View\LogOnUI.Designer.cs">
+      <DependentUpon>LogOnUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\View\LogOnPane.cs" />
+    <Compile Include="Web References\WebReferences.ConfigureDaysWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.AlertServiceWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.AuthenticationWS\Reference.cs" />
+    <Compile Include="Web References\Web_References.BillingAdminWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.BillingCoreWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.BillingWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.CcdConversionServiceWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.ConfigurationWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.DeficiencyWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.DocumentWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.HPFPatientWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.InUseWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.LogoutWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.MedicalRecordWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.OutputServiceWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.OverDueInvoiceCoreWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.OverDueInvoiceWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.PasswordWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.ROIAdminWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.ROIRequestCoreWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.ROIRequestorWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.ROIRequestWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.ROISupplementalWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.ROISupplementaryWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.SecurityLogoffWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Web_References.SigninWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Admin\View\Other\ConfigureCountry\ConfigureCountryUI.resx">
+      <DependentUpon>ConfigureCountryUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\ConfigureUnbillableRequest\ConfigureUnbillableRequest.resx">
+      <DependentUpon>ConfigureUnbillableRequest.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\ExternalSources\ExternalSourcesListUI.resx">
+      <DependentUpon>ExternalSourcesListUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\ExternalSources\ExternalSourcesTabUI.resx">
+      <DependentUpon>ExternalSourcesTabUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\TurnaroundTimeDays\TurnaroundTimeDaysListUI.resx">
+      <DependentUpon>TurnaroundTimeDaysListUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\GotoPage.resx">
+      <DependentUpon>GotoPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\HeaderUI.resx">
+      <DependentUpon>HeaderUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\XmlViewerForm.resx">
+      <DependentUpon>XmlViewerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\Attachments\ExternalSourceAttachment.resx">
+      <DependentUpon>ExternalSourceAttachment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\MUReleaseTurnaroundTimeUI.resx">
+      <DependentUpon>MUReleaseTurnaroundTimeUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\OutstandingInvoiceBalanceUI.resx">
+      <DependentUpon>OutstandingInvoiceBalanceUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\PostedPaymentReportUI.resx">
+      <DependentUpon>PostedPaymentReportUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportPrintPreview.resx">
+      <DependentUpon>ReportPrintPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountHistory\AccountHistoryUI.resx">
+      <DependentUpon>AccountHistoryUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\PreBillReportUI.resx">
+      <DependentUpon>PreBillReportUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\AccountManagementFooterUI.resx">
+      <DependentUpon>AccountManagementFooterUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\AccountManagementUI.resx">
+      <DependentUpon>AccountManagementUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\AdjustmentsUI.resx">
+      <DependentUpon>AdjustmentsUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\InvoiceUI.resx">
+      <DependentUpon>InvoiceUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\OutputRefundDialog.resx">
+      <DependentUpon>OutputRefundDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\PaymentUI.resx">
+      <DependentUpon>PaymentUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\RefundUI.resx">
+      <DependentUpon>RefundUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\AccountManagement\StatementDialog.resx">
+      <DependentUpon>StatementDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\UnappliedAdjustmentUI.resx">
+      <DependentUpon>UnappliedAdjustmentUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\OutputDiscDialog.resx">
+      <DependentUpon>OutputDiscDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\OutputEmailDialog.resx">
+      <DependentUpon>OutputEmailDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Cultures\roi.messages.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Cultures\roi.messages.fr-FR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Cultures\roi.tooltip.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Cultures\roi.tooltip.fr-FR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Cultures\roi.uitext.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Cultures\roi.uitext.fr-FR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="McK.EIG.ROI.Client.snk" />
+    <None Include="Web References\Web_References.AlertServiceWS\AlertService.wsdl" />
+    <None Include="Web References\Web_References.AlertServiceWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.AlertServiceWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.AlertServiceWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.AlertServiceWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.AlertServiceWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\ChargeHistory.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\DocInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\Invoice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\InvoiceDetails.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\PastInvoice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\ReleaseHistoryList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Base\View\Common\CollapsibleGroupBoxEX.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CollapsibleGroupBoxEX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\Common\NavigationLinks.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NavigationLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\DialogUI .resx">
+      <DependentUpon>DialogUI .cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/ROISupplementalService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ROISupplementalWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/ROISupplementalService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROISupplementalWS_ROISupplementalService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/securitylogoff%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.SecurityLogoffWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/securitylogoff%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_SecurityLogoffWS_SecurityLogoffService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/iservices/configuration%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ConfigurationWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/iservices/configuration%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ConfigurationWS_ConfigurationService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/iservices/signin%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.SigninWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/iservices/signin%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_SigninWS_SigninService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/iservices/password%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.PasswordWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/iservices/password%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_PasswordWS_PasswordService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/iservices/deficiency%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.DeficiencyWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/iservices/deficiency%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_DeficiencyWS_DeficiencyService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/iservices/document%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.DocumentWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/iservices/document%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_DocumentWS_DocumentInfoService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/iservices/medicalRecord%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.MedicalRecordWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/iservices/medicalRecord%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_MedicalRecordWS_MedicalRecordService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/services/logout%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.LogoutWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/services/logout%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_LogoutWS_LogoutService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8081/portal/eig/iservices/patient%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.HPFPatientWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8081/portal/eig/iservices/patient%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_HPFPatientWS_PatientService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/ccdConvert%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.CcdConversionServiceWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/ccdConvert%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_CcdConversionServiceWS_CcdConversionService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/OverdueInvoiceCoreService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.OverDueInvoiceCoreWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/OverdueInvoiceCoreService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_OverDueInvoiceCoreWS_OverdueInvoiceCoreService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/BillingCoreService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.BillingCoreWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/BillingCoreService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_BillingCoreWS_BillingCoreService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/RequestorService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ROIRequestorWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/RequestorService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROIRequestorWS_RequestorService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/RequestCoreService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ROIRequestCoreWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/RequestCoreService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROIRequestCoreWS_RequestCoreService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/RequestorService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ROIRequestorWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/RequestorService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROIRequestorWS_RequestorService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eigdev188:8080/roi/services/BillingAdminService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.BillingAdminWS\</RelPath>
+      <UpdateFromURL>http://eigdev188:8080/roi/services/BillingAdminService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_BillingAdminWS_BillingAdminService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eigdev188:8080/roi/services/BillingService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.BillingWS\</RelPath>
+      <UpdateFromURL>http://eigdev188:8080/roi/services/BillingService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_BillingWS_BillingService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eigdev188:8080/roi/services/OverdueInvoiceService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.OverDueInvoiceWS\</RelPath>
+      <UpdateFromURL>http://eigdev188:8080/roi/services/OverdueInvoiceService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_OverDueInvoiceWS_OverdueInvoiceService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eigdev188:8080/roi/services/RequestService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ROIRequestWS\</RelPath>
+      <UpdateFromURL>http://eigdev188:8080/roi/services/RequestService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROIRequestWS_RequestService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eigdev188:8080/roi/services/ROIAdminService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ROIAdminWS\</RelPath>
+      <UpdateFromURL>http://eigdev188:8080/roi/services/ROIAdminService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROIAdminWS_ROIAdminService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eigdev628:8080/roi/services/CcdConversionService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WebReferences.ConfigureDaysWS\</RelPath>
+      <UpdateFromURL>http://eigdev628:8080/roi/services/CcdConversionService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_WebReferences_ConfigureDaysWS_CcdConversionService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/BillingCoreService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.BillingCoreWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/BillingCoreService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_BillingCoreWS_BillingCoreService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://EMIDevEnv1068:8080/roi/services/SupplementaryService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.ROISupplementaryWS\</RelPath>
+      <UpdateFromURL>http://EMIDevEnv1068:8080/roi/services/SupplementaryService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_ROISupplementaryWS_SupplementaryService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/InUseService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.InUseWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/InUseService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_InUseWS_InUseService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/roi/services/ROIOutputService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.OutputServiceWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/roi/services/ROIOutputService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_OutputServiceWS_ROIOutputService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://127.0.0.1:8080/alert/services/AlertService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Web_References.AlertServiceWS\</RelPath>
+      <UpdateFromURL>http://127.0.0.1:8080/alert/services/AlertService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>McK_EIG_ROI_Client_Web_References_AlertServiceWS_AlertService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Admin\View\AdminBaseListUI.resx">
+      <DependentUpon>AdminBaseListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\AdminBaseObjectDetailsUI.resx">
+      <DependentUpon>AdminBaseObjectDetailsUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\BillingTemplate\BillingTemplateTabUI.resx">
+      <DependentUpon>BillingTemplateTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\BillingTiers\BillingTierTabUI.resx">
+      <DependentUpon>BillingTierTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\BillingTiers\PageRateTierGroupUI.resx">
+      <DependentUpon>PageRateTierGroupUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\BillingTiers\PageRateTierUI.resx">
+      <DependentUpon>PageRateTierUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\DeliveryMethod\DeliveryMethodTabUI.resx">
+      <DependentUpon>DeliveryMethodTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\FeeTypes\FeeTypeListUI.resx">
+      <DependentUpon>FeeTypeListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\FeeTypes\FeeTypeTabUI.resx">
+      <DependentUpon>FeeTypeTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\InvoiceDue\InvoiceDueListUI.resx">
+      <DependentUpon>InvoiceDueListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\MediaType\MediaTypeListUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MediaTypeListUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\MediaType\MediaTypeTabUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MediaTypeTabUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\PageWeight\PageWeightListUI.resx">
+      <DependentUpon>PageWeightListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\PaymentMethods\PaymentMethodTabUI.resx">
+      <DependentUpon>PaymentMethodTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\RequestorType\RequestorTypeListUI.resx">
+      <DependentUpon>RequestorTypeListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\RequestorType\RequestorTypeTabUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RequestorTypeTabUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Billing\SalesTaxPerFacility\SalesTaxPerFacilityTabUI.resx">
+      <DependentUpon>SalesTaxPerFacilityTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Configuration\Attachments\AttachmentListUI.resx">
+      <DependentUpon>AttachmentListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\ConfigureNotes\ConfigureNotesTabUI.resx">
+      <DependentUpon>ConfigureNotesTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\DisclosureDocTypes\DisclosureDocTypesListUI.resx">
+      <DependentUpon>DisclosureDocTypesListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\LetterTemplate\LetterTemplateTabUI.resx">
+      <DependentUpon>LetterTemplateTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Other\SSNMask\SSNMaskUI.resx">
+      <DependentUpon>SSNMaskUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Reasons\AdjustmentReasons\AdjustmentReasonsTabUI.resx">
+      <DependentUpon>AdjustmentReasonsTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Reasons\RequestReasons\RequestReasonsTabUI.resx">
+      <DependentUpon>RequestReasonsTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Reasons\StatusReasons\StatusReasonsListUI.resx">
+      <DependentUpon>StatusReasonsListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\View\Reasons\StatusReasons\StatusReasonsTabUI.resx">
+      <DependentUpon>StatusReasonsTabUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\AboutROIHelpDialogUI.resx">
+      <DependentUpon>AboutROIHelpDialogUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\ChangePasswordUI.resx">
+      <DependentUpon>ChangePasswordUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\Common\AmountTextBoxClass.resx">
+      <DependentUpon>AmountTextBoxClass.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\Common\GradientLabel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GradientLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\Common\NumericTextBoxClass.resx">
+      <DependentUpon>NumericTextBoxClass.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\Common\RangeBar.resx">
+      <DependentUpon>RangeBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\Common\ROILabel.resx">
+      <DependentUpon>ROILabel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\Common\ROIPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ROIPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\ConfigureOutputSettingsUI.resx">
+      <DependentUpon>ConfigureOutputSettingsUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\CustomDateRange.resx">
+      <DependentUpon>CustomDateRange.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\PickAccountUI.resx">
+      <DependentUpon>PickAccountUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\PickAnotherAccountUI.resx">
+      <DependentUpon>PickAnotherAccountUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\PresetDateRange.resx">
+      <DependentUpon>PresetDateRange.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\MonitorOutputJobsUI.resx">
+      <DependentUpon>MonitorOutputJobsUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\ROIDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ROIDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\ROIProgressBar.resx">
+      <DependentUpon>ROIProgressBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\SelfMappingUI.resx">
+      <DependentUpon>SelfMappingUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\UpperComponent.resx">
+      <DependentUpon>UpperComponent.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\ROIBaseUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ROIBaseUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\LowerComponent.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LowerComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\WarningDialog.resx">
+      <DependentUpon>WarningDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OverDueInvoice\View\OutputInvoiceDialog.resx">
+      <DependentUpon>OutputInvoiceDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OverDueInvoice\View\OverDueInvoiceListUI.resx">
+      <DependentUpon>OverDueInvoiceListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OverDueInvoice\View\FindOverDueInvoice\FindOverDueInvoiceSearchUI.resx">
+      <DependentUpon>FindOverDueInvoiceSearchUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\EncounterDetailDialogUI.resx">
+      <DependentUpon>EncounterDetailDialogUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\EncounterFilterDialog.resx">
+      <DependentUpon>EncounterFilterDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\FindPatient\FindPatientActionUI.resx">
+      <DependentUpon>FindPatientActionUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\FindPatient\PatientListUI.resx">
+      <DependentUpon>PatientListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\FindPatient\PatientSearchUI.resx">
+      <DependentUpon>PatientSearchUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\MatchingRequestorUI.resx">
+      <DependentUpon>MatchingRequestorUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\NoMatchingRequestorUI.resx">
+      <DependentUpon>NoMatchingRequestorUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientInfo\PatientInfoActionUI.resx">
+      <DependentUpon>PatientInfoActionUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientInfo\PatientInfoUI.resx">
+      <DependentUpon>PatientInfoUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientInfo\PersonalInfoHpfUI.resx">
+      <DependentUpon>PersonalInfoHpfUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientInfo\PersonalInfoNonHpfUI.resx">
+      <DependentUpon>PersonalInfoNonHpfUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\AttachmentDialog.resx">
+      <DependentUpon>AttachmentDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\Attachments\CcrCcd.resx">
+      <DependentUpon>CcrCcd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\Attachments\FileAttachment.resx">
+      <DependentUpon>FileAttachment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\DeficiencyDialog.resx">
+      <DependentUpon>DeficiencyDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\NonHpfDocumentDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NonHpfDocumentDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientHeaderUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PatientHeaderUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\PatientRecordsMCPView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PatientRecordsMCPView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientRecords\PatientRecordsViewUI.resx">
+      <DependentUpon>PatientRecordsViewUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\PatientsFooterUI.resx">
+      <DependentUpon>PatientsFooterUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\MismatchPatientUI.resx">
+      <DependentUpon>MismatchPatientUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Patient\View\RequestHistory\RequestHistoryUI.resx">
+      <DependentUpon>RequestHistoryUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\AccountingOfDisclosureUI.resx">
+      <DependentUpon>AccountingOfDisclosureUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ExportDialogUI.resx">
+      <DependentUpon>ExportDialogUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\FindPatientDialogUI.resx">
+      <DependentUpon>FindPatientDialogUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportInputFieldUI.resx">
+      <DependentUpon>ReportInputFieldUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\PendingAgingSummaryUI.resx">
+      <DependentUpon>PendingAgingSummaryUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportBaseCriteriaUI.resx">
+      <DependentUpon>ReportBaseCriteriaUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportCheckedListBoxUI.resx">
+      <DependentUpon>ReportCheckedListBoxUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportDateRangeUI.resx">
+      <DependentUpon>ReportDateRangeUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportFooterUI.resx">
+      <DependentUpon>ReportFooterUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportUI.resx">
+      <DependentUpon>ReportUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\ReportViewerUI.resx">
+      <DependentUpon>ReportViewerUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\View\RequestLoggedStatusUI.resx">
+      <DependentUpon>RequestLoggedStatusUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\CreatePatientRequestorUI.resx">
+      <DependentUpon>CreatePatientRequestorUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\FindRequestor\FindRequestorActionUI.resx">
+      <DependentUpon>FindRequestorActionUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\FindRequestor\FindRequestorListUI.resx">
+      <DependentUpon>FindRequestorListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\FindRequestor\FindRequestorSearchUI.resx">
+      <DependentUpon>FindRequestorSearchUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\PatientMatchingUI.resx">
+      <DependentUpon>PatientMatchingUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\RequestHistory\RequestHistoryUI.resx">
+      <DependentUpon>RequestHistoryUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\RequestorFooterUI.resx">
+      <DependentUpon>RequestorFooterUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\RequestorHeaderUI.resx">
+      <DependentUpon>RequestorHeaderUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\RequestorInfo\RequestorAddressGroupUI.resx">
+      <DependentUpon>RequestorAddressGroupUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\RequestorInfo\RequestorInfoActionUI.resx">
+      <DependentUpon>RequestorInfoActionUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Requestors\View\RequestorInfo\RequestorInfoUI.resx">
+      <DependentUpon>RequestorInfoUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\AdjustmentPaymentInfoUI.resx">
+      <DependentUpon>AdjustmentPaymentInfoUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\BillingPaymentActionUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BillingPaymentActionUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\BillingPaymentInfoUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BillingPaymentInfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\ChargeHistoryDialogUI.resx">
+      <DependentUpon>ChargeHistoryDialogUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\ChargeHistoryUI.resx">
+      <DependentUpon>ChargeHistoryUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\SalesTaxSummaryUI.resx">
+      <DependentUpon>SalesTaxSummaryUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\CustomFeeUI.resx">
+      <DependentUpon>CustomFeeUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\DocumentChargeUI.resx">
+      <DependentUpon>DocumentChargeUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\FeeChargeUI.resx">
+      <DependentUpon>FeeChargeUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\FeeTypeUI.resx">
+      <DependentUpon>FeeTypeUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\PrebillInvoiceBaseUI.resx">
+      <DependentUpon>PrebillInvoiceBaseUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\PropertyDialogUI.resx">
+      <DependentUpon>PropertyDialogUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\ReleaseDialog.resx">
+      <DependentUpon>ReleaseDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\ROIViewer.resx">
+      <DependentUpon>ROIViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\ShippingInfoUI.resx">
+      <DependentUpon>ShippingInfoUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\Comments\RequestCommentInfoUI.resx">
+      <DependentUpon>RequestCommentInfoUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\Comments\RequestCommentListUI.resx">
+      <DependentUpon>RequestCommentListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\Dialog.resx">
+      <DependentUpon>Dialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\EventHistory\EventHistoryListUI.resx">
+      <DependentUpon>EventHistoryListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\FindRequest\RequestListUI.resx">
+      <DependentUpon>RequestListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\FindRequest\RequestSearchUI.resx">
+      <DependentUpon>RequestSearchUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\BillingPayment\FreeformUI.resx">
+      <DependentUpon>FreeformUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\Letters\LetterInfoActionUI.resx">
+      <DependentUpon>LetterInfoActionUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\Letters\LetterInfoUI.resx">
+      <DependentUpon>LetterInfoUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\OutputFaxDialog.resx">
+      <DependentUpon>OutputFaxDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\OutputFileDialog.resx">
+      <DependentUpon>OutputFileDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\OutputPrintDialog.resx">
+      <DependentUpon>OutputPrintDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\OutputPropertiesDialog.resx">
+      <DependentUpon>OutputPropertiesDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\PatientInfo\AddPatientUI.resx">
+      <DependentUpon>AddPatientUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\PatientInfo\ModifyBillingTierUI.resx">
+      <DependentUpon>ModifyBillingTierUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\PatientInfo\PatientInfoActionUI.resx">
+      <DependentUpon>PatientInfoActionUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\PatientInfo\ReleaseTreeUI.resx">
+      <DependentUpon>ReleaseTreeUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\PatientInfo\RequestPatientInfoUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RequestPatientInfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\ReleaseHistory\ReleaseHistoryListUI.resx">
+      <DependentUpon>ReleaseHistoryListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestPatientListUI.resx">
+      <DependentUpon>RequestPatientListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\PatientInfo\ViewEditPatientUI.resx">
+      <DependentUpon>ViewEditPatientUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestInfo\ChangeRequestStatusUI.resx">
+      <DependentUpon>ChangeRequestStatusUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestInfo\SaveNewPatientRequestorUI.resx">
+      <DependentUpon>SaveNewPatientRequestorUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestInfo\FreeformReasonUI.resx">
+      <DependentUpon>FreeformReasonUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestInfo\RequestInfoActionUI.resx">
+      <DependentUpon>RequestInfoActionUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestInfo\RequestInfoUI.resx">
+      <DependentUpon>RequestInfoUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestInfo\SelectRequestorUI.resx">
+      <DependentUpon>SelectRequestorUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestInfo\ViewEditRequestorUI.resx">
+      <DependentUpon>ViewEditRequestorUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestNonPatientHeaderUI.resx">
+      <DependentUpon>RequestNonPatientHeaderUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestPatientHeaderUI.resx">
+      <DependentUpon>RequestPatientHeaderUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Request\View\RequestsListUI.resx">
+      <DependentUpon>RequestsListUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HelpConfig.xml" />
+    <EmbeddedResource Include="Resources\images.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\View\LogOnUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LogOnUI.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\loading_icon" />
+    <None Include="Web References\WebReferences.ConfigureDaysWS\ccdConvertResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReferences.ConfigureDaysWS\CcdDocument.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReferences.ConfigureDaysWS\CcdSourceDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebReferences.ConfigureDaysWS\ConversionService.wsdl" />
+    <None Include="Web References\WebReferences.ConfigureDaysWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\WebReferences.ConfigureDaysWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\WebReferences.ConfigureDaysWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WebReferences.ConfigureDaysWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\WebReferences.ConfigureDaysWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\BillingAdmin.wsdl" />
+    <None Include="Web References\Web_References.BillingAdminWS\BillingTemplate.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\BillingTier.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\FeeType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\MediaType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\PaymentMethod.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\TaxPerFacility.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingAdminWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\BillingCoreService.wsdl" />
+    <None Include="Web References\Web_References.BillingCoreWS\ChargeHistory.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\DocInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\Invoice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\InvoiceDetails.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\PastInvoice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\ReleaseAndPreviewInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingCoreWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\BillingService.wsdl" />
+    <None Include="Web References\Web_References.BillingWS\DocInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\Invoice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\InvoiceChargeList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\InvoiceDetails.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\InvoiceInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\Item.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\PastInvoice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\Release.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.BillingWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.DeficiencyWS\deficiency.wsdl" />
+    <None Include="Web References\Web_References.DeficiencyWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DVSplit.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Web_References.AuthenticationWS\authenticateUserResultType.datasource" />
+    <None Include="Web References\Web_References.AuthenticationWS\Authentication.wsdl" />
+    <None Include="Web References\Web_References.AuthenticationWS\CVS\Entries" />
+    <None Include="Web References\Web_References.AuthenticationWS\CVS\Repository" />
+    <None Include="Web References\Web_References.AuthenticationWS\CVS\Root" />
+    <None Include="Web References\Web_References.AuthenticationWS\preLoginInfoType.datasource" />
+    <None Include="Web References\Web_References.AuthenticationWS\Reference.map" />
+    <None Include="Web References\Web_References.CcdConversionServiceWS\ccdConvertResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.CcdConversionServiceWS\ConversionService.wsdl" />
+    <None Include="Web References\Web_References.CcdConversionServiceWS\oasis-200401-wss-wssecurity-secext-1.xsd" />
+    <None Include="Web References\Web_References.CcdConversionServiceWS\oasis-200401-wss-wssecurity-utility-1.xsd" />
+    <None Include="Web References\Web_References.CcdConversionServiceWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.CcdConversionServiceWS\xml.xsd" />
+    <None Include="Web References\Web_References.CcdConversionServiceWS\xmldsig-core-schema.xsd" />
+    <None Include="Web References\Web_References.ConfigurationWS\codeSet.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ConfigurationWS\configuration.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ConfigurationWS\configuration.wsdl" />
+    <None Include="Web References\Web_References.ConfigurationWS\department.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ConfigurationWS\documentTypes.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ConfigurationWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.DeficiencyWS\deficienciesType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.DeficiencyWS\encounter.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.DocumentWS\chartType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.DocumentWS\document.wsdl" />
+    <None Include="Web References\Web_References.DocumentWS\documentInfoType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.DocumentWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.HPFPatientWS\facilityPatient.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.HPFPatientWS\facilityPatientDetail.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.HPFPatientWS\patient.wsdl" />
+    <None Include="Web References\Web_References.HPFPatientWS\patientList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.HPFPatientWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.InUseWS\InUseService.wsdl" />
+    <None Include="Web References\Web_References.InUseWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.InUseWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.InUseWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.InUseWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.InUseWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.LogoutWS\logout.wsdl" />
+    <None Include="Web References\Web_References.LogoutWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.MedicalRecordWS\customFields.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.MedicalRecordWS\document.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.MedicalRecordWS\documentList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.MedicalRecordWS\medicalRecord.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.MedicalRecordWS\medicalRecord.wsdl" />
+    <None Include="Web References\Web_References.MedicalRecordWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.OutputServiceWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OutputServiceWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OutputServiceWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.OutputServiceWS\ROIOutputService.wsdl" />
+    <None Include="Web References\Web_References.OutputServiceWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OutputServiceWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\OverDueDocInfoList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\OverdueInvoiceCoreService.wsdl" />
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\SearchPastDueInvoiceResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceCoreWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceWS\OverDueDocInfoList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceWS\OverdueInvoiceService.wsdl" />
+    <None Include="Web References\Web_References.OverDueInvoiceWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceWS\SearchPastDueInvoiceResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.OverDueInvoiceWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.PasswordWS\password.wsdl" />
+    <None Include="Web References\Web_References.PasswordWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\attLocation.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\Country.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\DeliveryMethod.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\Designation.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\InvoiceDue.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\LetterTemplate.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\Note.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\OutputServerProperties.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\Reason.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\RequestorType.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\RequestStatusMap.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\ROIAdminService.wsdl" />
+    <None Include="Web References\Web_References.ROIAdminWS\ROIAppData.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\SSNMask.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\user.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\Weight.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIAdminWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\Comments2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\Request.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\RequestCoreChargesBillingInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\RequestCoreChargesInvoice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\RequestCoreSearchResultList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\RequestCoreService.wsdl" />
+    <None Include="Web References\Web_References.ROIRequestCoreWS\RequestEvent2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\RequestEvents2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\RequestPatientsList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestCoreWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestorWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestorWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestorWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestorWS\RequestorService.wsdl" />
+    <None Include="Web References\Web_References.ROIRequestorWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestorWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\Comments.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\Request.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\RequestEvent.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\RequestEvents.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\RequestService.wsdl" />
+    <None Include="Web References\Web_References.ROIRequestWS\SearchRequestResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROIRequestWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementalWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementalWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementalWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementalWS\ROISupplemental.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementalWS\ROISupplementalService.wsdl" />
+    <None Include="Web References\Web_References.ROISupplementalWS\SupplementalSearchResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementalWS\xml.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementalWS\xmldsig-core-schema.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\PatientsSearchResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\ROISupplementaryService.wsdl" />
+    <None Include="Web References\Web_References.ROISupplementaryWS\SupplementalAttachmentResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\SupplementalDocumentResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\SupplementalPatient.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\SupplementarityAttachmentResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\SupplementarityDocumentResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.ROISupplementaryWS\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Web_References.SecurityLogoffWS\oasis-200401-wss-wssecurity-secext-1.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.SecurityLogoffWS\oasis-200401-wss-wssecurity-utility-1.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.SecurityLogoffWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.SecurityLogoffWS\securitylogoff.wsdl" />
+    <None Include="Web References\Web_References.SecurityLogoffWS\xml.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.SecurityLogoffWS\xmldsig-core-schema.xsd">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="Web References\Web_References.SigninWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Web_References.SigninWS\signin.wsdl" />
+    <None Include="Web References\Web_References.SigninWS\user.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Web_References.SigninWS\userList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark-white.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
