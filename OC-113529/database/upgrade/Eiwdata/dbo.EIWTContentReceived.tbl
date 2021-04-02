@@ -1,0 +1,134 @@
+/**************************************************************************************************
+* Script Name: 
+* Script Type: TBL (For purpose of CREATE, DROP, ALTER, GRANT to table, index or constraint.)
+*
+* Function		: Create new table EIWTContentReceived to record document inbounded from external system  
+*			 
+* Database		: EIWDATA
+*
+* Tables		: EIWTContentReceived
+*			
+*			
+*									
+* Called By(procedrues,apps): HPFW, BatchCompiler, COldAgent, TransAgent, BDI
+*									
+*								
+*
+* 
+* Revision History:
+*	Name			Date		Changes/Version&Build/ClearQuest#
+*	---------		-------		----------------------------
+* 	NTT Data		10/16/2012 	Create table
+*	NTT Data		01/02/2013	Add iws user permission
+*	NTT Data		03/15/2013	Add new column DestinationPath
+*	MD Meersma		04/04/2013	New index EIWTContentReceived_Batch_Label_LatestComponent_NUNC_IX
+*	MD Meersma		08/22/2013	New Index for OutputFileName Column
+\*************************************************************************************************/
+
+USE [eiwdata]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND type in (N'U'))
+CREATE TABLE [dbo].[EIWTContentReceived](
+	[EIWTContentReceivedID] [bigint] IDENTITY(1,1) NOT NULL,
+	[CapturePoint] [varchar](50) NOT NULL,
+	[CapturePointDesc] [varchar](256) NOT NULL,
+	[InputTransactionID] [varchar](1024) NULL,
+	[SendingAppName] [varchar](30) NULL,
+	[CPProcessedDateTime] [datetime] NOT NULL,
+	[CPFacility] [varchar](20) NULL,
+	[CPMRN] [varchar](20) NULL,
+	[CPEncounter] [varchar](20) NULL,
+	[CPDoctype] [varchar](50) NULL,
+	[Batch_ID] [int] NULL,
+	[Batch_Label] [varchar](50) NULL,
+	[DUID] [varchar](64) NULL,
+	[SendAppDocID] [varchar](30) NULL,
+	[SendAppDocStatus] [varchar](2) NULL,
+	[LatestComponent] [varchar](50) NULL,
+	[ComponentStatus] [varchar](9) NULL,
+	[outputfilename] [varchar](256) NULL,
+	[DestinationPath] [varchar](1024) NULL			
+	
+CONSTRAINT [EIWTContentReceived_PK] PRIMARY KEY CLUSTERED 
+(
+	[EIWTContentReceivedID] ASC
+)
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_CapturePoint_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_CapturePoint_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[CapturePoint] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_SendingAppName_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_SendingAppName_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[SendingAppName] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_ComponentStatus_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_ComponentStatus_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[ComponentStatus] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_CPProcessedDateTime_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_CPProcessedDateTime_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[CPProcessedDateTime] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_CPMRN_CPFacility_CPEncounter_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_CPMRN_CPFacility_CPEncounter_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[CPMRN] ASC,
+	[CPFacility] ASC,
+	[CPEncounter] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_CPEncounter_CPFacility_CPMRN_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_CPEncounter_CPFacility_CPMRN_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[CPEncounter] ASC,
+	[CPFacility] ASC,
+	[CPMRN] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_Batch_Label_LatestComponent_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_Batch_Label_LatestComponent_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[Batch_Label] ASC,
+	[LatestComponent] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[EIWTContentReceived]') AND name = N'EIWTContentReceived_outputfilename_NUNC_IX')
+CREATE NONCLUSTERED INDEX [EIWTContentReceived_outputfilename_NUNC_IX] ON [dbo].[EIWTContentReceived] 
+(
+	[outputfilename] ASC
+)
+GO
+
+
+GRANT DELETE ON [dbo].[EIWTContentReceived] TO [EIW_AdminGroup] AS [dbo]
+GO
+GRANT INSERT ON [dbo].[EIWTContentReceived] TO [EIW_AdminGroup] AS [dbo]
+GO
+GRANT REFERENCES ON [dbo].[EIWTContentReceived] TO [EIW_AdminGroup] AS [dbo]
+GO
+GRANT SELECT ON [dbo].[EIWTContentReceived] TO [EIW_AdminGroup] AS [dbo]
+GO
+GRANT UPDATE ON [dbo].[EIWTContentReceived] TO [EIW_AdminGroup] AS [dbo]
+GO
+
+GRANT SELECT ON [dbo].[EIWTContentReceived] TO [iws] AS [dbo]
+GO

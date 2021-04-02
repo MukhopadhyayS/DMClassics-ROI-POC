@@ -1,0 +1,1605 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <sql-query name="insertPatient">
+        <![CDATA[
+  		INSERT INTO cabinet..ROI_PATIENTS (
+							MRN,
+							Facility,
+							NAME,
+							NAME_LAST,
+							NAME_FIRST,
+							SSN,
+							SEX,
+							EPN,
+							dob,
+							VIP,
+							LOCKOUT)
+						VALUES(
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+   		]]>
+    </sql-query>
+
+    <sql-query name="insertRequestCoreToPatient">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoretoROI_Patients (
+				ROI_RequestCore_Seq,
+				ROI_Patients_Seq,
+				Created_Dt,
+				Created_By_Seq,
+				Modified_Dt,
+				Modified_By_Seq )
+			VALUES (?,
+					(SELECT MAX(patient.ROI_Patients_Seq) FROM cabinet..ROI_Patients patient
+						WHERE patient.MRN = ?
+						AND patient.Facility = ?),
+						?,
+						?,
+						?,
+						?);
+   		]]>
+    </sql-query>
+
+	<sql-query name="insertRequestCoreToSupplementalPatient">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoretoROI_SupplementalPatientsCore (
+				ROI_RequestCore_Seq,
+				ROI_SupplementalPatientsCore_Seq,
+				Created_Dt,
+				Created_By_Seq,
+				Modified_Dt,
+				Modified_By_Seq )
+			VALUES (?,
+					(SELECT MAX(patient.ROI_SupplementalPatientsCore_Seq) FROM cabinet..ROI_SupplementalPatientsCore patient
+						WHERE patient.ROI_SupplementalPatients_Seq = ?),
+						?,
+						?,
+						?,
+						?);
+   		]]>
+    </sql-query>
+
+  	<sql-query name="insertEncounter">
+        <![CDATA[
+			  INSERT INTO  cabinet..ROI_ENCOUNTERS (
+								ROI_Patients_Seq,
+								MRN,
+								ENCOUNTER,
+								FACILITY,
+								ADMITTED,
+								DISCHARGED,
+								LOCKOUT,
+								SERVICE,
+								VIP,
+								HAS_DEFICIENCY,
+								PT_TYPE)
+							VALUES (
+								(SELECT MAX(pat.ROI_Patients_Seq)
+									FROM cabinet..ROI_Patients pat,
+										 cabinet..ROI_RequestCoretoROI_Patients core
+									WHERE pat.MRN = ?
+										AND pat.FACILITY = ?
+										AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
+										AND core.ROI_RequestCore_Seq = ?),
+
+								 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+   		]]>
+    </sql-query>
+
+  	<sql-query name="insertEncounterWithPatientSeq">
+        <![CDATA[
+			  INSERT INTO  cabinet..ROI_ENCOUNTERS (
+								ROI_Patients_Seq,
+								MRN,
+								ENCOUNTER,
+								FACILITY,
+								ADMITTED,
+								DISCHARGED,
+								LOCKOUT,
+								SERVICE,
+								VIP,
+								HAS_DEFICIENCY,
+								PT_TYPE)
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+   		]]>
+    </sql-query>
+
+
+    <sql-query name="insertDocument">
+        <![CDATA[
+			  INSERT INTO cabinet..ROI_DOCUMENTS (
+									ROI_Encounters_Seq,
+									ROI_Patients_Seq,
+									ENCOUNTER,
+									MRN,
+									FACILITY,
+									DOC_NAME,
+									SUBTITLE,
+									DOC_ID,
+									DOCTYPE_ID,
+									CHART_ORDER,
+									DATETIME)
+									VALUES
+								   (    (SELECT MAX(enc.ROI_Encounters_Seq)
+								   				FROM  cabinet..ROI_ENCOUNTERS enc,
+													cabinet..ROI_RequestCoretoROI_Patients core
+												WHERE enc.FACILITY = ?
+													AND enc.ENCOUNTER = ?
+													AND enc.ROI_Patients_Seq = core.ROI_Patients_Seq
+													AND core.ROI_RequestCore_Seq = ?),
+										(SELECT MAX(pat.ROI_Patients_Seq)
+												FROM cabinet..ROI_Patients pat,
+													 cabinet..ROI_RequestCoretoROI_Patients core
+												WHERE pat.MRN = ?
+													AND pat.FACILITY = ?
+													AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
+													AND core.ROI_RequestCore_Seq = ?),
+
+										?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+   		]]>
+
+    </sql-query>
+
+    <sql-query name="insertDocumentWithEncounterSeq">
+        <![CDATA[
+			  INSERT INTO cabinet..ROI_DOCUMENTS (
+									ROI_Encounters_Seq,
+									ROI_Patients_Seq,
+									ENCOUNTER,
+									MRN,
+									FACILITY,
+									DOC_NAME,
+									SUBTITLE,
+									DOC_ID,
+									DOCTYPE_ID,
+									CHART_ORDER,
+									DATETIME)
+							VALUES
+								   ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+   		]]>
+
+    </sql-query>
+    
+    <sql-query name="insertGlobalDocument">
+        <![CDATA[
+			  INSERT INTO cabinet..ROI_DOCUMENTS (
+							ROI_Patients_Seq,
+							ENCOUNTER,
+							MRN,
+							FACILITY,
+							DOC_NAME,
+							SUBTITLE,
+							DOC_ID,
+							DOCTYPE_ID,
+							CHART_ORDER,
+							DATETIME)
+						VALUES (    
+								(SELECT MAX(pat.ROI_Patients_Seq)
+									FROM cabinet..ROI_Patients pat,
+										 cabinet..ROI_RequestCoretoROI_Patients core
+									WHERE pat.MRN = ?
+										AND pat.FACILITY = ?
+										AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
+										AND core.ROI_RequestCore_Seq = ?),
+
+								?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+   		]]>
+
+    </sql-query>
+
+    <sql-query name="insertGlobalDocumentWithPatientSeq">
+        <![CDATA[
+			  INSERT INTO cabinet..ROI_DOCUMENTS (
+									ROI_Patients_Seq,
+									ENCOUNTER,
+									MRN,
+									FACILITY,
+									DOC_NAME,
+									SUBTITLE,
+									DOC_ID,
+									DOCTYPE_ID,
+									CHART_ORDER,
+									DATETIME)
+							VALUES
+								   ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+   		]]>
+
+    </sql-query>
+
+
+     <sql-query name="insertVersion">
+        <![CDATA[
+				  INSERT INTO cabinet..ROI_VERSIONS (
+								ROI_Documents_Seq,
+								VersionNumber,
+								Doc_Id)
+							VALUES
+								(
+									(SELECT MAX(doc.ROI_Documents_Seq) FROM cabinet..ROI_DOCUMENTS doc,
+													cabinet..ROI_RequestCoretoROI_Patients core
+											WHERE doc.DOC_ID = ?
+												AND doc.ROI_Patients_Seq = core.ROI_Patients_Seq
+												AND core.ROI_RequestCore_Seq = ?),
+
+										?, ?)
+   		]]>
+
+    </sql-query>
+
+     <sql-query name="insertVersionWithDocSeq">
+        <![CDATA[
+				  INSERT INTO cabinet..ROI_VERSIONS (
+								ROI_Documents_Seq,
+								VersionNumber,
+								Doc_Id)
+								
+						VALUES ( ?, ?, ?)
+   		]]>
+
+    </sql-query>
+    
+    <sql-query name="insertGlobalDocumentVersion">
+        <![CDATA[
+				  INSERT INTO cabinet..ROI_VERSIONS (
+								ROI_Documents_Seq,
+								VersionNumber,
+								Doc_Id)
+							VALUES
+								(
+									(SELECT MAX(doc.ROI_Documents_Seq) 
+											FROM cabinet..ROI_DOCUMENTS doc,
+											 	 cabinet..ROI_RequestCoretoROI_Patients core
+											WHERE doc.DOC_ID = ?
+												AND doc.ROI_Patients_Seq = core.ROI_Patients_Seq
+												AND doc.ROI_Encounters_Seq is null
+												AND core.ROI_RequestCore_Seq = ?),
+
+										?, ?)
+   		]]>
+
+    </sql-query>
+
+   <sql-query name="insertPage">
+        <![CDATA[
+				  INSERT INTO  cabinet..ROI_PAGES (
+							ROI_Versions_Seq,
+							imnet,
+							page,
+							contentcount,
+							SelectedForRelease,
+							IsReleased,
+							PageNumberRequested)
+					VALUES (
+								(SELECT MAX(ver.ROI_Versions_Seq) FROM cabinet..ROI_VERSIONS ver,
+											cabinet..ROI_DOCUMENTS doc,
+											cabinet..ROI_ENCOUNTERS enc,
+											cabinet..ROI_RequestCoretoROI_Patients core
+									WHERE ver.ROI_Documents_Seq = doc.ROI_Documents_Seq
+											AND ver.VersionNumber = ?
+											AND ver.Doc_Id = ?
+											AND doc.ROI_Encounters_Seq = enc.ROI_Encounters_Seq
+											AND enc.ROI_Patients_Seq = core.ROI_Patients_Seq
+											AND core.ROI_RequestCore_Seq = ?),
+
+							?, ?, ?, ?, ?, ?)
+
+   		]]>
+    </sql-query>
+
+    <sql-query name="insertGlobalDocumentPage">
+        <![CDATA[
+				  INSERT INTO  cabinet..ROI_PAGES (
+							ROI_Versions_Seq,
+							imnet,
+							page,
+							contentcount,
+							SelectedForRelease,
+							IsReleased,
+							PageNumberRequested)
+					VALUES (
+								(SELECT MAX(ver.ROI_Versions_Seq) FROM cabinet..ROI_VERSIONS ver,
+											cabinet..ROI_DOCUMENTS doc,
+											cabinet..ROI_RequestCoretoROI_Patients core
+									WHERE ver.ROI_Documents_Seq = doc.ROI_Documents_Seq
+											AND ver.VersionNumber = ?
+											AND ver.Doc_Id = ?
+											AND doc.ROI_Patients_Seq = core.ROI_Patients_Seq
+											AND doc.ROI_Encounters_Seq is null
+											AND core.ROI_RequestCore_Seq = ?),
+
+							?, ?, ?, ?, ?, ?)
+
+   		]]>
+    </sql-query>
+
+   <sql-query name="insertPageWithVersionSeq">
+        <![CDATA[
+				  INSERT INTO  cabinet..ROI_PAGES (
+							ROI_Versions_Seq,
+							imnet,
+							page,
+							contentcount,
+							SelectedForRelease,
+							IsReleased,
+							PageNumberRequested)
+					VALUES (?, ?, ?, ?, ?, ?, ?)
+
+	   ]]>
+    </sql-query>
+
+
+
+
+  <sql-query name="insertSupplementarityDoucment">
+        <![CDATA[
+			INSERT INTO  cabinet..ROI_SupplementarityDocumentsCore (
+								MRN,
+								FACILITY,
+								ROI_Patients_Seq,
+								ROI_SupplementarityDocuments_Seq,
+								ROI_BillingTier_Seq,
+								DOCNAME,
+								ENCOUNTER,
+								DOCFACILITY,
+								DEPARTMENT,
+								SUBTITLE,
+								PAGECOUNT,
+								DATEOFSERVICE,
+								COMMENT,
+								SelectedForRelease,
+								Created_Dt,
+								Created_By_Seq,
+								Modified_Dt,
+								Modified_By_Seq)
+							VALUES (
+								?, ?,
+								(SELECT MAX(pat.ROI_Patients_Seq)
+									FROM cabinet..ROI_Patients pat,
+										 cabinet..ROI_RequestCoretoROI_Patients core
+									WHERE pat.MRN = ?
+										AND pat.FACILITY = ?
+										AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
+										AND core.ROI_RequestCore_Seq = ?),
+
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+   		]]>
+    </sql-query>
+
+	<sql-query name="insertSupplementarityDoucmentWithpatientSeq">
+        <![CDATA[
+			INSERT INTO  cabinet..ROI_SupplementarityDocumentsCore (
+								MRN,
+								FACILITY,
+								ROI_Patients_Seq,
+								ROI_SupplementarityDocuments_Seq,
+								ROI_BillingTier_Seq,
+								DOCNAME,
+								ENCOUNTER,
+								DOCFACILITY,
+								DEPARTMENT,
+								SUBTITLE,
+								PAGECOUNT,
+								DATEOFSERVICE,
+								COMMENT,
+								SelectedForRelease,
+								Created_Dt,
+								Created_By_Seq,
+								Modified_Dt,
+								Modified_By_Seq)
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+   		]]>
+    </sql-query>
+
+	<sql-query name="updateSupplementarityDocument">
+        <![CDATA[
+			UPDATE cabinet..ROI_SupplementarityDocumentsCore
+			SET SelectedForRelease = ?,
+				ROI_BillingTier_Seq = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?
+			WHERE
+				ROI_SupplementarityDocumentsCore_Seq = ?
+
+   		]]>
+    </sql-query>
+
+	<sql-query name="updateSupplementalDocument">
+        <![CDATA[
+			UPDATE cabinet..ROI_SupplementalDocumentsCore
+			SET	ROI_BillingTier_Seq = ?,
+				DOCNAME = ?,
+				ENCOUNTER = ?,
+				DEPARTMENT = ?,
+				SUBTITLE = ?,
+				PAGECOUNT = ?,
+				DATEOFSERVICE = ?,
+				COMMENT = ?,
+				SelectedForRelease = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?
+			WHERE
+				ROI_SupplementalDocumentsCore_Seq = ?
+
+   		]]>
+    </sql-query>
+
+	<sql-query name="updateSupplementarityAttachment">
+        <![CDATA[
+			UPDATE cabinet..ROI_SupplementarityAttachmentsCore
+			SET SelectedForRelease = ?,
+				ROI_BillingTier_Seq = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?,
+				Document_Source = ?
+			WHERE
+				ROI_SupplementarityAttachmentsCore_Seq = ?
+
+   		]]>
+    </sql-query>
+
+	<sql-query name="updateSupplementalAttachment">
+        <![CDATA[
+			UPDATE cabinet..ROI_SupplementalAttachmentsCore
+			SET	ROI_BillingTier_Seq = ?,
+				TYPE = ?,
+				ENCOUNTER = ?,
+				DOCFACILITY = ?,
+				SUBTITLE = ?,
+				PAGECOUNT = ?,
+				ISDELETED = ?,
+				DATEOFSERVICE = ?,
+				ATTACHMENTDATE = ?,
+				UUID = ?,
+				FILENAME = ?,
+				VOLUME = ?,
+				PATH = ?,
+				FILETYPE = ?,
+				FILEEXT = ?,
+				printable_flag = ?,
+				SUBMITTEDBY = ?,
+				COMMENT = ?,
+				SelectedForRelease = ?,
+				isreleased = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?,
+				Document_Source = ?
+			WHERE
+				ROI_SupplementalAttachmentsCore_Seq = ?
+
+   		]]>
+    </sql-query>
+
+	<sql-query name="insertSupplementarityAttachment">
+        <![CDATA[
+				insert into ROI_SupplementarityAttachmentsCore (
+							MRN,
+							FACILITY,
+							ROI_Patients_Seq,
+							ROI_SupplementarityAttachments_Seq,
+							ROI_BillingTier_Seq,
+							TYPE,
+							ENCOUNTER,
+							DOCFACILITY,
+							SUBTITLE,
+							PAGECOUNT,
+							ISDELETED,
+							DATEOFSERVICE,
+							ATTACHMENTDATE,
+							UUID,
+							FILENAME,
+							VOLUME,
+							PATH,
+							FILETYPE,
+							FILEEXT,
+							printable_flag,
+							SUBMITTEDBY,
+							COMMENT,
+							SelectedForRelease,
+							Created_Dt,
+							Created_By_Seq,
+							Modified_Dt,
+							Modified_By_Seq, 
+							Document_Source)
+						VALUES (
+							?, ?,
+							(SELECT MAX(pat.ROI_Patients_Seq)
+										FROM cabinet..ROI_Patients pat,
+											 cabinet..ROI_RequestCoretoROI_Patients core
+										WHERE pat.MRN = ?
+											AND pat.FACILITY = ?
+											AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
+											AND core.ROI_RequestCore_Seq = ?),
+
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+   		]]>
+    </sql-query>
+
+
+	<sql-query name="insertSupplementarityAttachmentWithpatientSeq">
+        <![CDATA[
+				INSERT into cabinet..ROI_SupplementarityAttachmentsCore (
+							MRN,
+							FACILITY,
+							ROI_Patients_Seq,
+							ROI_SupplementarityAttachments_Seq,
+							ROI_BillingTier_Seq,
+							TYPE,
+							ENCOUNTER,
+							DOCFACILITY,
+							SUBTITLE,
+							PAGECOUNT,
+							ISDELETED,
+							DATEOFSERVICE,
+							ATTACHMENTDATE,
+							UUID,
+							FILENAME,
+							VOLUME,
+							PATH,
+							FILETYPE,
+							FILEEXT,
+							printable_flag,
+							SUBMITTEDBY,
+							COMMENT,
+							SelectedForRelease,
+							Created_Dt,
+							Created_By_Seq,
+							Modified_Dt,
+							Modified_By_Seq,
+							Document_Source)
+						VALUES
+							(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+							 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+   		]]>
+    </sql-query>
+
+
+	<sql-query name="insertSupplementalDoucment">
+        <![CDATA[
+				 INSERT INTO  cabinet..ROI_SupplementalDocumentsCore (
+								ROI_SupplementalPatientsCore_Seq,
+								ROI_SupplementalDocuments_Seq,
+								ROI_BillingTier_Seq,
+								DOCNAME,
+								ENCOUNTER,
+								DEPARTMENT,
+								SUBTITLE,
+								PAGECOUNT,
+								DATEOFSERVICE,
+								COMMENT,
+								SelectedForRelease,
+								DOCFACILITY,
+								FACILITY,
+								Created_Dt,
+								Created_By_Seq,
+								Modified_Dt,
+								Modified_By_Seq)
+							VALUES (
+								(SELECT MAX(patient.ROI_SupplementalPatientsCore_Seq)
+									FROM ROI_SupplementalPatientsCore patient,
+										 ROI_RequestCoretoROI_SupplementalPatientsCore core
+									WHERE patient.ROI_SupplementalPatients_Seq = ?
+										AND core.ROI_RequestCore_Seq = ?
+										AND patient.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq),
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+   		]]>
+    </sql-query>
+
+	<sql-query name="insertSupplementalDoucmentWithpatientSeq">
+        <![CDATA[
+			INSERT INTO  cabinet..ROI_SupplementalDocumentsCore (
+								ROI_SupplementalPatientsCore_Seq,
+								ROI_SupplementalDocuments_Seq,
+								ROI_BillingTier_Seq,
+								DOCNAME,
+								ENCOUNTER,
+								DEPARTMENT,
+								SUBTITLE,
+								PAGECOUNT,
+								DATEOFSERVICE,
+								COMMENT,
+								SelectedForRelease,
+								DOCFACILITY,
+								FACILITY,
+								Created_Dt,
+								Created_By_Seq,
+								Modified_Dt,
+								Modified_By_Seq)
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+   ]]>
+    </sql-query>
+
+	<sql-query name="insertSupplementalAttachment">
+        <![CDATA[
+				insert into ROI_SupplementalAttachmentsCore (
+							ROI_SupplementalPatientsCore_Seq,
+							ROI_SupplementalAttachments_Seq,
+							ROI_BillingTier_Seq,
+							TYPE,
+							ENCOUNTER,
+							DOCFACILITY,
+							FACILITY,
+							SUBTITLE,
+							PAGECOUNT,
+							ISDELETED,
+							DATEOFSERVICE,
+							ATTACHMENTDATE,
+							UUID,
+							FILENAME,
+							VOLUME,
+							PATH,
+							FILETYPE,
+							FILEEXT,
+							printable_flag,
+							SUBMITTEDBY,
+							COMMENT,
+							SelectedForRelease,
+							Created_Dt,
+							Created_By_Seq,
+							Modified_Dt,
+							Modified_By_Seq,
+							Document_Source)
+						VALUES (
+								(SELECT MAX(patient.ROI_SupplementalPatientsCore_Seq)
+									FROM ROI_SupplementalPatientsCore patient,
+										 ROI_RequestCoretoROI_SupplementalPatientsCore core
+									WHERE patient.ROI_SupplementalPatients_Seq = ?
+										AND core.ROI_RequestCore_Seq = ?
+										AND patient.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq),
+
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+   		]]>
+    </sql-query>
+
+
+	<sql-query name="insertSupplementalAttachmentWithpatientSeq">
+        <![CDATA[
+			INSERT INTO ROI_SupplementalAttachmentsCore (
+							ROI_SupplementalPatientsCore_Seq,
+							ROI_SupplementalAttachments_Seq,
+							ROI_BillingTier_Seq,
+							TYPE,
+							ENCOUNTER,
+							DOCFACILITY,
+							FACILITY,
+							SUBTITLE,
+							PAGECOUNT,
+							ISDELETED,
+							DATEOFSERVICE,
+							ATTACHMENTDATE,
+							UUID,
+							FILENAME,
+							VOLUME,
+							PATH,
+							FILETYPE,
+							FILEEXT,
+							printable_flag,
+							SUBMITTEDBY,
+							COMMENT,
+							SelectedForRelease,
+							Created_Dt,
+							Created_By_Seq,
+							Modified_Dt,
+							Modified_By_Seq,
+							Document_Source)
+					VALUES (
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+   ]]>
+    </sql-query>
+
+
+	<sql-query name="retrieveRequestPatient">
+        <![CDATA[
+
+		(SELECT  coreToPatient.ROI_RequestCore_Seq requestId,
+				patient.ROI_Patients_Seq patientSeq,
+				0 supplementalId,
+				RTRIM(patient.MRN) mrn,
+				RTRIM(patient.Facility) facility,
+				null freeformFacility,
+				RTRIM(patient.NAME) name,
+				RTRIM(patient.NAME_LAST) lastName,
+				RTRIM(patient.NAME_FIRST) firstName,
+				RTRIM(patient.dob) dob,
+				RTRIM(patient.SEX) gender,
+
+				RTRIM(patient.SSN) ssn,
+				RTRIM(patient.EPN) epn,
+				coalesce(RTRIM(patient.VIP), 0) vip,
+				coalesce(patient.LOCKOUT, 0) patientLocked,
+				0 encounterLocked,
+				1 hpf,
+
+				null createdDt,
+				0 createdBy,
+				null modifiedDt,
+				0 modifiedBy
+
+			FROM cabinet..ROI_Patients patient,
+				cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestId
+				and patient.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq)
+		UNION
+
+			(SELECT coreToPatient.ROI_RequestCore_Seq requestId,
+				   supp.ROI_SupplementalPatientsCore_Seq patientSeq,
+				   supp.ROI_SupplementalPatients_Seq supplementalId,
+				   supp.MRN mrn,
+				   supp.Facility facility,
+				   supp.FreeFormFacility freeformFacility,
+				   (case  
+			          when supp.LASTNAME IS NULL then '' 
+			          else supp.LASTNAME
+				       end 
+				       +  case  
+						  when supp.FIRSTNAME = '' then ''
+				          when supp.FIRSTNAME IS NULL then '' 
+				          else ', ' + supp.FIRSTNAME 
+				       end) name,
+				   RTRIM(supp.LASTNAME) lastName,
+				   RTRIM(supp.FIRSTNAME) firstName,
+				   supp.dob dob,
+				   supp.GENDER gender,
+
+				   supp.SSN ssn,
+				   supp.EPN epn,
+				   coalesce(supp.VIP, 0) vip,
+				   coalesce(supp.patientLocked, 0) patientLocked,
+				   coalesce(supp.encounterLocked, 0) encounterLocked,
+				   0 hpf,
+
+				   supp.Created_Dt createdDt,
+	    		   supp.Created_By_Seq createdBy,
+				   supp.Modified_Dt modifiedDt,
+				   supp.Modified_By_Seq modifiedBy
+
+			FROM cabinet..ROI_SupplementalPatientsCore supp,
+			cabinet..ROI_RequestCoretoROI_SupplementalPatientsCore coreToPatient
+			WHERE coreToPatient.ROI_RequestCore_Seq = :requestId
+			AND supp.ROI_SupplementalPatientsCore_Seq = coreToPatient.ROI_SupplementalPatientsCore_Seq)
+
+	   ]]>
+
+    </sql-query>
+
+	<sql-query name="retrieveRequestPatientEncounter">
+        <![CDATA[
+			SELECT  coalesce(encounters.ROI_Encounters_Seq, 0) encounterSeq,
+					coalesce(encounters.ROI_Patients_Seq, 0) patientSeq,
+					RTRIM(encounters.ENCOUNTER) name,
+					RTRIM(encounters.FACILITY) facility,
+					RTRIM(encounters.MRN) mrn,
+					RTRIM(encounters.PT_TYPE) patientType,
+					RTRIM(encounters.SERVICE) patientService,
+					coalesce(encounters.LOCKOUT, 0) locked,
+					coalesce(encounters.VIP, 0) vip,
+					encounters.ADMITTED admitdate,
+					encounters.DISCHARGED dischargeDate,
+					coalesce(encounters.HAS_DEFICIENCY, 0) hasDeficiency
+					
+			FROM cabinet..ROI_ENCOUNTERS encounters,
+				cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestid
+				and encounters.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+
+	   ]]>
+    </sql-query>
+
+	<sql-query name="retrieveRequestPatientDocument">
+        <![CDATA[
+			SELECT  documents.ROI_Documents_Seq documentSeq,
+					coalesce(documents.ROI_Encounters_Seq, 0) encounterSeq,
+					coalesce(documents.ROI_Patients_Seq, 0) patientSeq,
+
+					RTRIM(documents.DOC_NAME) name,
+					RTRIM(documents.SUBTITLE) subtitle,
+					RTRIM(documents.DOC_ID) docId,
+					RTRIM(documents.DOCTYPE_ID) docTypeId,
+					RTRIM(documents.CHART_ORDER) chartOrder,
+					documents.DATETIME dateTime,
+					RTRIM(documents.MRN) mrn,
+					RTRIM(documents.ENCOUNTER) encounter,
+					RTRIM(documents.FACILITY) facility
+					
+			FROM cabinet..ROI_ENCOUNTERS encounters,
+				cabinet..ROI_Documents documents,
+				cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestid
+				and encounters.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+				and documents.ROI_Encounters_Seq = encounters.ROI_Encounters_Seq
+
+	   ]]>
+    </sql-query>
+
+	<sql-query name="retrieveRequestPatientGlobalDocument">
+        <![CDATA[
+			SELECT  documents.ROI_Documents_Seq documentSeq,
+					coalesce(documents.ROI_Encounters_Seq, 0) encounterSeq,
+					coalesce(documents.ROI_Patients_Seq, 0) patientSeq,
+
+					RTRIM(documents.DOC_NAME) name,
+					RTRIM(documents.SUBTITLE) subtitle,
+					RTRIM(documents.DOC_ID) docId,
+					RTRIM(documents.DOCTYPE_ID) docTypeId,
+					RTRIM(documents.CHART_ORDER) chartOrder,
+					documents.DATETIME dateTime,
+					RTRIM(documents.MRN) mrn,
+					RTRIM(documents.ENCOUNTER) encounter,
+					RTRIM(documents.FACILITY) facility
+
+			FROM cabinet..ROI_Documents documents,
+				cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestid
+				and documents.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+				and documents.ROI_Encounters_Seq is null
+
+	   ]]>
+    </sql-query>
+
+
+	<sql-query name="retrieveRequestDocumentsVersion">
+        <![CDATA[
+			SELECT versions.ROI_Versions_Seq versionSeq,
+					versions.ROI_Documents_Seq documentSeq,
+
+					RTRIM(versions.VersionNumber) versionNumber,
+					RTRIM(versions.Doc_Id) docId
+					
+			FROM cabinet..ROI_ENCOUNTERS encounters,
+				cabinet..ROI_Documents documents,
+				cabinet..ROI_VERSIONS versions,
+				cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestid
+				and encounters.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+				and documents.ROI_Encounters_Seq = encounters.ROI_Encounters_Seq
+				and versions.ROI_Documents_Seq = documents.ROI_Documents_Seq
+	   ]]>
+    </sql-query>
+
+	<sql-query name="retrieveRequestPatientGlobalDocumentVersions">
+        <![CDATA[
+			SELECT versions.ROI_Versions_Seq versionSeq,
+					versions.ROI_Documents_Seq documentSeq,
+
+					RTRIM(versions.VersionNumber) versionNumber,
+					RTRIM(versions.Doc_Id) docId
+					
+			FROM cabinet..ROI_Documents documents,
+				cabinet..ROI_VERSIONS versions,
+				cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestid
+				and documents.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+				and versions.ROI_Documents_Seq = documents.ROI_Documents_Seq
+				and documents.ROI_Encounters_Seq is null
+	   ]]>
+    </sql-query>
+
+	<sql-query name="retrieveRequestDocumentsPage">
+        <![CDATA[
+            SELECT pages.ROI_Pages_Seq pageSeq,
+                    pages.ROI_Versions_Seq versionSeq,
+
+                    RTRIM(pages.imnet) imnetId,
+                    RTRIM(pages.ContentCount) contentCount,
+
+                    pages.SelectedForRelease selectedForRelease,
+                    pages.IsReleased released,
+                    RTRIM(pages.page) pageNumber,
+                    RTRIM(pages.PageNumberRequested) pageNumberRequested,
+                    CASE WHEN cabinet.imnet IS NULL OR pages.Deleted = 'Y' THEN 1 ELSE 0 END  AS deleted
+                    
+            FROM cabinet..ROI_ENCOUNTERS encounters
+                JOIN cabinet..ROI_Documents documents 
+                    ON documents.ROI_Encounters_Seq = encounters.ROI_Encounters_Seq
+                JOIN cabinet..ROI_VERSIONS versions 
+                    ON versions.ROI_Documents_Seq = documents.ROI_Documents_Seq
+                JOIN cabinet..ROI_Pages pages 
+                    ON pages.ROI_Versions_Seq = versions.ROI_Versions_Seq
+                JOIN cabinet..ROI_RequestCoretoROI_Patients coreToPatient 
+                    ON encounters.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+                JOIN cabinet..ROI_PATIENTS patient 
+                    ON coreToPatient.ROI_Patients_Seq = patient.ROI_Patients_Seq
+                LEFT OUTER JOIN cabinet..Documents cabinet_doc
+                    ON cabinet_doc.DOC_ID = documents.DOC_ID
+                LEFT OUTER JOIN cabinet..Versions cabinet_vers
+                    ON cabinet_vers.DOC_ID = versions.DOC_ID
+                        AND cabinet_vers.VersionNumber = versions.VersionNumber
+                LEFT OUTER JOIN cabinet..CABINET_VERSION cabinet 
+                    ON cabinet.mrn = patient.mrn 
+                        AND cabinet.FACILITY = patient.FACILITY
+                        AND cabinet.ENCOUNTER = encounters.ENCOUNTER
+                        AND cabinet.version = cabinet_vers.VersionNumber
+                        AND cabinet.DUID = cabinet_doc.DUID
+                        AND cabinet.IMNET = pages.IMNET
+                        AND cabinet.DELETED = 'N'
+            WHERE
+                coreToPatient.ROI_RequestCore_Seq = :requestid
+   		]]>
+    </sql-query>
+
+	<sql-query name="retrieveRequestPatientGlobalDocumentPages">
+        <![CDATA[
+            SELECT pages.ROI_Pages_Seq pageSeq,
+                    pages.ROI_Versions_Seq versionSeq,
+
+                    RTRIM(pages.imnet) imnetId,
+                    RTRIM(pages.ContentCount) contentCount,
+
+                    pages.SelectedForRelease selectedForRelease,
+                    pages.IsReleased released,
+                    RTRIM(pages.page) pageNumber,
+                    RTRIM(pages.PageNumberRequested) pageNumberRequested,
+                    CASE WHEN cabinet.imnet IS NULL OR pages.Deleted = 'Y' THEN 1 ELSE 0 END  AS deleted
+                    
+            FROM cabinet..ROI_Documents documents
+                JOIN cabinet..ROI_VERSIONS versions 
+                    ON versions.ROI_Documents_Seq = documents.ROI_Documents_Seq
+                JOIN cabinet..ROI_Pages pages 
+                    ON pages.ROI_Versions_Seq = versions.ROI_Versions_Seq
+                JOIN cabinet..ROI_RequestCoretoROI_Patients coreToPatient 
+                    ON documents.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+                JOIN cabinet..ROI_PATIENTS patient 
+                    ON coreToPatient.ROI_Patients_Seq = patient.ROI_Patients_Seq
+                LEFT OUTER JOIN cabinet..Documents cabinet_doc
+                    ON cabinet_doc.DOC_ID = documents.DOC_ID
+                LEFT OUTER JOIN cabinet..Versions cabinet_vers
+                    ON cabinet_vers.DOC_ID = versions.DOC_ID
+                        AND cabinet_vers.VersionNumber = versions.VersionNumber
+                LEFT OUTER JOIN cabinet..CABINET_VERSION cabinet 
+                    ON cabinet.mrn = patient.mrn 
+                        AND cabinet.FACILITY = patient.FACILITY
+                        AND cabinet.ENCOUNTER = ''
+                        AND cabinet.version = cabinet_vers.VersionNumber
+                        AND cabinet.DUID = cabinet_doc.DUID
+                        AND cabinet.IMNET = pages.IMNET
+                        AND cabinet.DELETED = 'N'
+            WHERE
+                coreToPatient.ROI_RequestCore_Seq = :requestid
+                and documents.ROI_Encounters_Seq is null
+   		]]>
+    </sql-query>
+
+	<sql-query name="updatePage">
+		<![CDATA[
+		        UPDATE cabinet..ROI_PAGES
+				SET SelectedForRelease = ?
+				WHERE ROI_Pages_Seq = ?
+		 ]]>
+	</sql-query>
+
+	<sql-query name="getEncounterListForPatient">
+		<![CDATA[
+	          SELECT ROI_Encounters_Seq encounterSeq from cabinet..ROI_ENCOUNTERS
+			  WHERE ROI_Patients_Seq in ( :patientSeqList )
+	        ]]>
+	</sql-query>
+
+	<sql-query name="getGlobalDocumentsListForPatient">
+		<![CDATA[
+	          SELECT ROI_Documents_Seq documentSeq from cabinet..ROI_DOCUMENTS
+			  WHERE ROI_Patients_Seq in ( :patientSeqList ) AND ROI_Encounters_Seq is null
+	        ]]>
+	</sql-query>
+
+	<sql-query name="getDocumentsListForEncounter">
+		<![CDATA[
+		       SELECT ROI_Documents_Seq documentSeq from cabinet..ROI_DOCUMENTS
+			   WHERE ROI_Encounters_Seq in ( :encounterSeqList )
+		        ]]>
+    </sql-query>
+
+	<sql-query name="getVersionListForDocument">
+		<![CDATA[
+		      SELECT ROI_Versions_Seq versionSeq FROM cabinet..ROI_Versions
+			  WHERE ROI_Documents_Seq in ( :documentSeqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="getPageListForVersion">
+		<![CDATA[
+		      SELECT ROI_Pages_Seq pageSeq FROM cabinet..ROI_Pages
+			  WHERE ROI_Versions_Seq in ( :versionSeqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="deleteRequestCoreRoiPatient">
+		<![CDATA[
+		      DELETE FROM  cabinet..ROI_RequestCoretoROI_Patients
+			  WHERE ROI_RequestCore_Seq = :requestId
+			  AND ROI_Patients_Seq in ( :seqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="deletePatients">
+		<![CDATA[
+		      DELETE FROM  cabinet..ROI_PATIENTS
+			  WHERE ROI_Patients_Seq in ( :seqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="deleteEncounters">
+		<![CDATA[
+		      DELETE FROM cabinet..ROI_ENCOUNTERS
+			  WHERE ROI_Encounters_Seq in ( :seqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="deleteDocuments">
+		<![CDATA[
+		      DELETE FROM  cabinet..ROI_DOCUMENTS
+			  WHERE ROI_Documents_Seq in ( :seqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="deleteVersions">
+		<![CDATA[
+		      DELETE FROM  cabinet..ROI_Versions
+			  WHERE ROI_Versions_Seq in ( :seqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="deletePages">
+		<![CDATA[
+		      DELETE FROM cabinet..ROI_Pages
+			  WHERE ROI_Pages_Seq in ( :seqList )
+		        ]]>
+	</sql-query>
+
+	<sql-query name="retrieveAllNonHpfDocumentsByRequest">
+		<![CDATA[
+
+		   (SELECT docCore.ROI_SupplementarityDocumentsCore_Seq documentCoreSeq,
+		   			docCore.ROI_SupplementarityDocuments_Seq documentSeq,
+		   			docCore.ROI_Patients_Seq patientSeq,
+		   			0 supplementalId,
+		   			docCore.MRN mrn,
+					docCore.FACILITY facility,
+					docCore.DOCNAME docName,
+					docCore.ENCOUNTER encounter,
+					docCore.DOCFACILITY docFacility,
+					docCore.DEPARTMENT department,
+					docCore.SUBTITLE subtitle,
+					docCore.PAGECOUNT pageCount,
+					docCore.DATEOFSERVICE dateOfService,
+					docCore.COMMENT comment,
+					docCore.SelectedForRelease selectedForRelease,
+					docCore.isreleased	released,
+					docCore.ROI_BillingTier_Seq billingTierId,
+					
+		   			docCore.Created_Dt createdDt,
+					docCore.Created_By_Seq createdBy,
+					docCore.Modified_Dt modifiedDt,
+					docCore.Modified_By_Seq modifiedBy
+
+			    FROM cabinet..ROI_SupplementarityDocumentsCore docCore,
+	   				 cabinet..ROI_RequestCoretoROI_Patients coreToPat
+				WHERE coreToPat.ROI_RequestCore_Seq = :requestId
+		  			 AND docCore.ROI_Patients_Seq = coreToPat.ROI_Patients_Seq)
+			UNION
+
+				(SELECT docCore.ROI_SupplementalDocumentsCore_Seq documentCoreSeq,
+						docCore.ROI_SupplementalDocuments_Seq documentSeq,
+						suppCore.ROI_SupplementalPatientsCore_Seq patientSeq,
+						suppCore.ROI_SupplementalPatients_Seq supplementalId,
+						null mrn,
+						(case when suppCore.FACILITY is not null
+							then suppCore.FACILITY
+							else
+								suppCore.FreeFormFacility
+						end) facility,
+						docCore.DOCNAME docName,
+						docCore.ENCOUNTER encounter,
+						docCore.DOCFACILITY docFacility,
+						docCore.DEPARTMENT department,
+						docCore.SUBTITLE subtitle,
+						docCore.PAGECOUNT pageCount,
+						docCore.DATEOFSERVICE dateOfService,
+						docCore.COMMENT comment,
+						docCore.SelectedForRelease selectedForRelease,
+						docCore.isreleased	released,
+						docCore.ROI_BillingTier_Seq billingTierId,
+
+						docCore.Created_Dt createdDt,
+						docCore.Created_By_Seq createdBy,
+						docCore.Modified_Dt modifiedDt,
+						docCore.Modified_By_Seq modifiedBy
+
+				FROM cabinet..ROI_SupplementalPatientsCore suppCore,
+						  cabinet..ROI_SupplementalDocumentsCore docCore,
+						  cabinet..ROI_RequestCoretoROI_SupplementalPatientsCore coreToPatient
+				WHERE coreToPatient.ROI_RequestCore_Seq = :requestId
+				  AND docCore.ROI_SupplementalPatientsCore_Seq = suppCore.ROI_SupplementalPatientsCore_Seq
+				  AND coreToPatient.ROI_SupplementalPatientsCore_Seq = suppCore.ROI_SupplementalPatientsCore_Seq)
+				]]>
+	</sql-query>
+
+	<sql-query name="retrieveAllAttachmentsByRequest">
+		<![CDATA[
+			    (SELECT attachCore.ROI_SupplementarityAttachmentsCore_Seq attachmentCoreSeq,
+			    		attachCore.ROI_SupplementarityAttachments_Seq attachmentSeq,
+			    		attachCore.ROI_Patients_Seq patientSeq,
+						0 supplementalId,
+						attachCore.MRN mrn,
+						attachCore.FACILITY facility,
+						attachCore.TYPE type,
+						attachCore.ENCOUNTER encounter,
+						attachCore.DOCFACILITY docFacility,
+						attachCore.SUBTITLE subtitle,
+						attachCore.PAGECOUNT pageCount,
+						attachCore.ISDELETED isDeleted,
+						attachCore.DATEOFSERVICE dateOfService,
+						attachCore.ATTACHMENTDATE attachmentDate,
+						attachCore.UUID uuid,
+						attachCore.FILENAME filename,
+						attachCore.VOLUME volume,
+						attachCore.PATH path,
+						attachCore.FILETYPE filetype,
+						attachCore.FILEEXT fileext,
+						attachCore.printable_flag printable,
+						attachCore.SUBMITTEDBY submittedBy,
+						attachCore.COMMENT comment,
+						attachCore.SelectedForRelease selectedForRelease,
+						attachCore.isreleased	released,
+						attachCore.ROI_BillingTier_Seq billingTierId,
+
+						attachCore.Created_Dt createdDt,
+						attachCore.Created_By_Seq createdBy,
+						attachCore.Modified_Dt modifiedDt,
+						attachCore.Modified_By_Seq modifiedBy
+			    FROM cabinet..ROI_SupplementarityAttachmentsCore attachCore,
+	   				 cabinet..ROI_RequestCoretoROI_Patients coreToPat
+				WHERE coreToPat.ROI_RequestCore_Seq = :requestId
+		  			 AND attachCore.ROI_Patients_Seq = coreToPat.ROI_Patients_Seq)
+			UNION
+
+				(SELECT attachCore.ROI_SupplementalAttachmentsCore_Seq attachmentCoreSeq,
+						attachCore.ROI_SupplementalAttachments_Seq attachmentSeq,
+						supp.ROI_SupplementalPatientsCore_Seq patientSeq,
+						supp.ROI_SupplementalPatients_Seq supplementalId,
+						null mrn,
+						(case when supp.FACILITY is not null
+							then supp.FACILITY
+							else
+								supp.FreeFormFacility
+						end) facility,
+						attachCore.TYPE type,
+						attachCore.ENCOUNTER encounter,
+						attachCore.DOCFACILITY docFacility,
+						attachCore.SUBTITLE subtitle,
+						attachCore.PAGECOUNT pageCount,
+						attachCore.ISDELETED isDeleted,
+						attachCore.DATEOFSERVICE dateOfService,
+						attachCore.ATTACHMENTDATE attachmentDate,
+						attachCore.UUID uuid,
+						attachCore.FILENAME filename,
+						attachCore.VOLUME volume,
+						attachCore.PATH path,
+						attachCore.FILETYPE filetype,
+						attachCore.FILEEXT fileext,
+						attachCore.printable_flag printable,
+						attachCore.SUBMITTEDBY submittedBy,
+						attachCore.COMMENT comment,
+						attachCore.SelectedForRelease selectedForRelease,
+						attachCore.isreleased	released,
+						attachCore.ROI_BillingTier_Seq billingTierId,
+
+						attachCore.Created_Dt createdDt,
+						attachCore.Created_By_Seq createdBy,
+						attachCore.Modified_Dt modifiedDt,
+						attachCore.Modified_By_Seq modifiedBy
+
+				FROM cabinet..ROI_SupplementalPatientsCore supp,
+						  cabinet..ROI_SupplementalAttachmentsCore attachCore,
+						  cabinet..ROI_RequestCoretoROI_SupplementalPatientsCore coreToPatient
+				WHERE coreToPatient.ROI_RequestCore_Seq = :requestId
+					  AND attachCore.ROI_SupplementalPatientsCore_Seq = supp.ROI_SupplementalPatientsCore_Seq
+					  AND coreToPatient.ROI_SupplementalPatientsCore_Seq = supp.ROI_SupplementalPatientsCore_Seq)
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteAllSupplementarityAttachments">
+		<![CDATA[
+
+			DELETE attachment
+			FROM ROI_SupplementarityAttachmentsCore attachment
+			WHERE attachment.ROI_Patients_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteSupplementarityAttachmentsBySeq">
+		<![CDATA[
+
+			DELETE attachment
+			FROM cabinet..ROI_SupplementarityAttachmentsCore attachment
+			WHERE attachment.ROI_SupplementarityAttachmentsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteAllSupplementalAttachments">
+		<![CDATA[
+
+			DELETE attachment
+			FROM cabinet..ROI_SupplementalAttachmentsCore attachment
+			WHERE attachment.ROI_SupplementalPatientsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteSupplementalAttachmentsBySeq">
+		<![CDATA[
+
+			DELETE attachment
+			FROM cabinet..ROI_SupplementalAttachmentsCore attachment
+			WHERE attachment.ROI_SupplementalAttachmentsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteAllSupplementarityDocuments">
+		<![CDATA[
+
+			DELETE attachment
+			FROM cabinet..ROI_SupplementarityDocumentsCore attachment
+			WHERE attachment.ROI_Patients_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteSupplementarityDocumentsBySeq">
+		<![CDATA[
+
+			DELETE attachment
+			FROM cabinet..ROI_SupplementarityDocumentsCore attachment
+			WHERE attachment.ROI_SupplementarityDocumentsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteAllSupplementalDocuments">
+		<![CDATA[
+
+			DELETE attachment
+			FROM cabinet..ROI_SupplementalDocumentsCore attachment
+			WHERE attachment.ROI_SupplementalPatientsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteSupplementalDocumentsBySeq">
+		<![CDATA[
+
+			DELETE attachment
+			FROM cabinet..ROI_SupplementalDocumentsCore attachment
+			WHERE attachment.ROI_SupplementalDocumentsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+	
+	<sql-query name="deleteInvoiceSupplementalPatientsBySeq">
+		<![CDATA[
+
+			DELETE invpatients
+			FROM ROI_RequestCoreDeliveryChargesInvoicePatients invpatients
+			WHERE invpatients.ROI_SupplementalPatientsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+	
+	<sql-query name="deleteInvoicePatientsBySeq">
+		<![CDATA[
+
+			DELETE invpatients
+			FROM ROI_RequestCoreDeliveryChargesInvoicePatients invpatients
+			WHERE invpatients.ROI_Patients_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteSupplementalPatientsBySeq">
+		<![CDATA[
+
+			DELETE patients
+			FROM ROI_SupplementalPatientsCore patients
+			WHERE patients.ROI_SupplementalPatientsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="deleteRequestCoreToSupplementalPatientsBySeq">
+		<![CDATA[
+
+			DELETE patients
+			FROM ROI_RequestCoretoROI_SupplementalPatientsCore patients
+			WHERE patients.ROI_SupplementalPatientsCore_Seq in ( :seqList )
+
+		]]>
+	</sql-query>
+
+	<sql-query name="insertSupplementalPatient">
+        <![CDATA[
+          INSERT INTO cabinet..ROI_SupplementalPatientsCore (
+                            ROI_SupplementalPatients_Seq,
+                            MRN,
+                            Facility,
+                            FreeFormFacility,
+                            SSN,
+                            GENDER,
+                            EPN,
+                            dob,
+                            VIP,
+                            patientLocked,
+                            encounterLocked,
+                            FIRSTNAME,
+                            LASTNAME,
+                            ADDRESS1,
+                            ADDRESS2,
+                            ADDRESS3,
+                            CITY,
+                            STATE,
+                            ZIP,
+                            HOMEPHONE,
+                            WORKPHONE,
+                            Created_Dt,
+                            Created_By_Seq,
+                            Modified_Dt,
+                            Modified_By_Seq)
+                        VALUES(
+                            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+           ]]>
+    </sql-query>
+
+    <sql-query name="retrieveInvoiceRequestPatientByInvoiceIds">
+        <![CDATA[
+
+		(SELECT  coreToPatient.ROI_RequestCore_Seq requestId,
+				patient.ROI_Patients_Seq patientSeq,
+				0 supplementalId,
+				invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceId,
+				patient.MRN mrn,
+				patient.Facility facility,
+				patient.NAME name,
+				patient.dob dob,
+				patient.SEX gender,
+
+				patient.SSN ssn,
+				patient.EPN epn,
+				patient.VIP vip,
+				patient.LOCKOUT patientLocked,
+				0 encounterLocked,
+				1 hpf,
+
+				null createdDt,
+				0 createdBy,
+				null modifiedDt,
+				0 modifiedBy
+
+			FROM cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients invoice,
+				cabinet..ROI_Patients patient,
+				cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+			WHERE
+				coreToPatient.ROI_Patients_Seq = invoice.ROI_Patients_Seq
+				and patient.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq
+				and invoice.ROI_RequestCoreDeliveryCharges_Seq in ( :invoiceIds))
+				
+		UNION
+
+			(SELECT coreToPatient.ROI_RequestCore_Seq requestId,
+				   supp.ROI_SupplementalPatientsCore_Seq patientSeq,
+				   supp.ROI_SupplementalPatients_Seq supplementalId,
+				   invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceId,
+				   supp.MRN mrn,
+				   supp.Facility facility,
+				   (case  
+			          when supp.LASTNAME IS NULL then '' 
+			          else supp.LASTNAME
+				       end 
+				       +  case  
+						  when supp.FIRSTNAME = '' then ''
+				          when supp.FIRSTNAME IS NULL then '' 
+				          else ', ' + supp.FIRSTNAME 
+				       end) name,
+				   supp.dob dob,
+				   supp.GENDER gender,
+
+				   supp.SSN ssn,
+				   supp.EPN epn,
+				   supp.VIP vip,
+				   supp.patientLocked patientLocked,
+				   supp.encounterLocked encounterLocked,
+				   0 hpf,
+
+				   supp.Created_Dt createdDt,
+	    		   supp.Created_By_Seq createdBy,
+				   supp.Modified_Dt modifiedDt,
+				   supp.Modified_By_Seq modifiedBy
+
+			FROM cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients invoice,
+				cabinet..ROI_SupplementalPatientsCore supp,
+				cabinet..ROI_RequestCoretoROI_SupplementalPatientsCore coreToPatient
+			WHERE coreToPatient.ROI_SupplementalPatientsCore_Seq = invoice.ROI_SupplementalPatientsCore_Seq
+				AND supp.ROI_SupplementalPatientsCore_Seq = coreToPatient.ROI_SupplementalPatientsCore_Seq
+				AND invoice.ROI_RequestCoreDeliveryCharges_Seq in ( :invoiceIds))
+
+	   ]]>
+
+    </sql-query>
+    
+    <sql-query name="retrieveAllPatientsByPatientIds">
+        <![CDATA[
+
+		SELECT 0 requestId,
+				patient.ROI_Patients_Seq patientSeq,
+				0 supplementalId,
+				patient.MRN mrn,
+				patient.Facility facility,
+				patient.NAME name,
+				patient.dob dob,
+				patient.SEX gender,
+
+				patient.SSN ssn,
+				patient.EPN epn,
+				patient.VIP vip,
+				patient.LOCKOUT patientLocked,
+				0 encounterLocked,
+				1 hpf,
+
+				null createdDt,
+				0 createdBy,
+				null modifiedDt,
+				0 modifiedBy
+			FROM cabinet..ROI_Patients patient 
+			WHERE
+				patient.ROI_Patients_Seq in (:hpfPatientList)
+								
+				UNION
+
+			SELECT supp.ROI_RequestCore_Seq requestId,
+				   supp.ROI_SupplementalPatientsCore_Seq patientSeq,
+				   supp.ROI_SupplementalPatients_Seq supplementalId,
+				   supp.MRN mrn,
+				   supp.Facility facility,
+				   (case  
+			          when supp.LASTNAME IS NULL then '' 
+			          else supp.LASTNAME
+				       end 
+				       +  case  
+						  when supp.FIRSTNAME = '' then ''
+				          when supp.FIRSTNAME IS NULL then '' 
+				          else ', ' + supp.FIRSTNAME 
+				       end) name,
+				   supp.dob dob,
+				   supp.GENDER gender,
+
+				   supp.SSN ssn,
+				   supp.EPN epn,
+				   supp.VIP vip,
+				   supp.patientLocked patientLocked,
+				   supp.encounterLocked encounterLocked,
+				   0 hpf,
+				   
+				   supp.Created_Dt createdDt,
+	    		   supp.Created_By_Seq createdBy,
+				   supp.Modified_Dt modifiedDt,
+				   supp.Modified_By_Seq modifiedBy
+			FROM cabinet..ROI_SupplementalPatientsCore   supp
+			
+			WHERE supp.ROI_SupplementalPatientsCore_Seq in (:nonHpfPatientList)
+	   ]]>
+
+    </sql-query>
+   
+    <sql-query name="retrieveAllStatisticsDetailsByRequestId">
+        <![CDATA[
+        
+        SELECT  patient.MRN mrn,
+				patient.Facility facility,
+				patient.NAME patientName,
+				patient.dob patientDOB,
+				patient.SEX patientSex,
+				encounter.ENCOUNTER encounter,
+				encounter.DISCHARGED dischargeDate,
+				muDocType.MU_DocType hpfMuDocumentType,
+				page.SelectedForRelease selectedForRelease,
+				'HPF Documents' type
+
+			FROM cabinet..ROI_Patients patient,
+				 cabinet..ROI_RequestCoretoROI_Patients coreToPatient,
+				 cabinet..ROI_Encounters encounter,
+				 cabinet..ROI_Documents document,
+				 cabinet..ROI_Versions version,
+				 cabinet..ROI_Pages page,
+				 cabinet..ROI_DocType docType,
+				 cabinet..ROI_MU_DOCTYPE muDocType
+						 
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestId
+				and patient.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq 
+				and coreToPatient.ROI_Patients_Seq = encounter.ROI_Patients_Seq
+				and encounter.ROI_Encounters_Seq = document.ROI_Encounters_Seq
+				and document.ROI_Documents_Seq = version.ROI_Documents_Seq
+				and version.ROI_Versions_Seq = page.ROI_Versions_Seq
+				and document.DOCTYPE_ID = docType.DOCTYPE_ID
+				and docType.ROI_MU_DocType_Seq = muDocType.ROI_MU_DocType_Seq 
+				and docType.Type = :docType
+				
+				UNION
+				
+			SELECT  patient.MRN mrn,
+				patient.Facility facility,
+				patient.NAME patientName,
+				patient.dob patientDOB,
+				patient.SEX patientSex,
+				supp.ENCOUNTER encounter,
+				null dischargeDate,
+				'Clinical Summary' hpfMuDocumentType,
+				suppcore.SelectedForRelease selectedForRelease,
+				supp.TYPE type
+
+			FROM cabinet..ROI_Patients patient,
+				 cabinet..ROI_RequestCoretoROI_Patients coreToPatient,
+				 cabinet..ROI_SupplementarityAttachmentsCore suppCore,
+				 cabinet..ROI_SupplementarityAttachments supp
+			WHERE
+				coreToPatient.ROI_RequestCore_Seq = :requestId
+				and patient.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq 
+				and coreToPatient.ROI_Patients_Seq = suppCore.ROI_Patients_Seq	
+				and suppCore.ROI_SupplementarityAttachments_Seq = supp.ROI_SupplementarityAttachments_Seq
+									
+			]]>
+
+    </sql-query>
+    
+    <sql-query name="getPatientSeqByMRNAndEncounter">
+        <![CDATA[
+        
+        	SELECT  patient.ROI_Patients_Seq patientSeq
+        	
+			FROM cabinet..ROI_Patients patient,
+				 cabinet..ROI_RequestCoretoROI_Patients coreToPatient
+				 WHERE 
+				 coreToPatient.ROI_RequestCore_Seq = :requestId
+				 and patient.ROI_Patients_Seq = coreToPatient.ROI_Patients_Seq 
+				 and patient.MRN = :mrn 
+				 and patient.FACILITY = :facility
+				 
+				 ]]>
+
+    </sql-query>
+    
+    <sql-query name="retrieveExternalSourceDocuments">
+        <![CDATA[
+        
+        	SELECT  distinct ext.MRN mrn
+        	FROM cabinet..ROI_Patients patient,
+				 cabinet..ROI_EXT_SOURCE_DocumentCore ext
+				 WHERE 
+				 patient.ROI_Patients_Seq in ( :patientId )
+				 and ext.ROI_RequestCore_Seq = :requestId
+				 and patient.MRN = ext.MRN 
+				 
+				 ]]>
+
+    </sql-query>
+</hibernate-mapping>

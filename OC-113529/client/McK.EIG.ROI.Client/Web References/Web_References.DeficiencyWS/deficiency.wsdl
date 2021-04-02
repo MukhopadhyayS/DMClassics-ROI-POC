@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:eig="urn:eig.mckesson.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="urn:eig.mckesson.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:eig.mckesson.com">
+      <xsd:element name="trackSession" type="xsd:boolean" />
+      <xsd:element name="getDeficiencyCount">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userid" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="userpassword" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="time" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="key" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDeficienciesByEncounter">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="userid" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="userpassword" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="time" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="key" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="encounter" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="facility" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="deficiency">
+        <xsd:sequence>
+          <xsd:element name="physician" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="document" type="xsd:string" />
+          <xsd:element name="reason" type="xsd:string" />
+          <xsd:element name="status" type="xsd:string" />
+          <xsd:element name="lockedBy" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="deficiencyList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="deficiency" type="eig:deficiency" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="encounter">
+        <xsd:sequence>
+          <xsd:element name="encounterNumber" type="xsd:string" />
+          <xsd:element name="facilityCode" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="deficiencyList" type="eig:deficiencyList" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getDeficienciesByEncounterResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="encounter" type="eig:encounter" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="countType">
+        <xsd:sequence>
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="count" type="xsd:integer" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="worklistType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="worklist" type="eig:countType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="statusType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="status" type="eig:countType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="personalWorklistsType">
+        <xsd:sequence>
+          <xsd:element name="userid" type="xsd:string" />
+          <xsd:element name="worklists" type="eig:worklistType" />
+          <xsd:element name="statuses" type="eig:statusType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="groupWorklistsType">
+        <xsd:sequence>
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="worklists" type="eig:worklistType" />
+          <xsd:element name="statuses" type="eig:statusType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="deficienciesType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="personal" type="eig:personalWorklistsType" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="group" type="eig:groupWorklistsType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getDeficiencyCountResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="deficiencies" type="eig:deficienciesType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getDeficiencyCountRequest">
+    <wsdl:part name="parameters" element="eig:getDeficiencyCount" />
+  </wsdl:message>
+  <wsdl:message name="getDeficienciesByEncounterRequest">
+    <wsdl:part name="parameters" element="eig:getDeficienciesByEncounter" />
+  </wsdl:message>
+  <wsdl:message name="getDeficiencyCountResponse">
+    <wsdl:part name="parameters" element="eig:getDeficiencyCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDeficienciesByEncounterResponse">
+    <wsdl:part name="parameters" element="eig:getDeficienciesByEncounterResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DeficiencyPortType">
+    <wsdl:operation name="getDeficiencyCount">
+      <wsdl:input message="eig:getDeficiencyCountRequest" />
+      <wsdl:output message="eig:getDeficiencyCountResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDeficienciesByEncounter">
+      <wsdl:input message="eig:getDeficienciesByEncounterRequest" />
+      <wsdl:output message="eig:getDeficienciesByEncounterResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeficiencySoapBinding" type="eig:DeficiencyPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getDeficiencyCount">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDeficienciesByEncounter">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DeficiencyService">
+    <wsdl:port name="deficiency" binding="eig:DeficiencySoapBinding">
+      <soap:address location="http://127.0.0.1:8081/portal/eig/iservices/deficiency" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

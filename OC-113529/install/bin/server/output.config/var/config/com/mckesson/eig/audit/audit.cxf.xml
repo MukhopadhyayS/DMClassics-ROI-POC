@@ -1,0 +1,95 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:jaxws="http://cxf.apache.org/jaxws"
+      xmlns:simple="http://cxf.apache.org/simple"
+      xmlns:soap="http://cxf.apache.org/bindings/soap"
+      xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://cxf.apache.org/jaxws                 http://cxf.apache.org/schemas/jaxws.xsd
+      http://cxf.apache.org/bindings/soap         http://cxf.apache.org/schemas/configuration/soap.xsd
+      http://cxf.apache.org/simple                http://cxf.apache.org/schemas/simple.xsd">
+
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
+  <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+  <import resource="classpath:META-INF/cxf/cxf-extension-local.xml"/>
+  <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+  <import resource="classpath:com/mckesson/eig/audit/auditApplicationContext.xml"/>
+  <!-- <import resource="classpath:com/mckesson/eig/audit/auditApplicationContextROI.xml"/> -->
+
+  <bean id="SoapMessageReader"      class="com.mckesson.eig.wsfw.cxf.SoapMessageReader"/> 
+  <bean id="EIGSoap11FaultOut"      class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor"/>
+  <bean id="HeaderParameterRemover" class="com.mckesson.eig.wsfw.cxf.HeaderParameterRemover"/>
+  <bean id="RouteOneWay"            class="com.mckesson.eig.wsfw.cxf.RouteOneWay"/>
+
+  <jaxws:endpoint  name="auditLocal" 
+                   address="local://message"
+                   implementor="#com.mckesson.eig.audit.dao.AuditDaoService">
+
+      <jaxws:inInterceptors>
+           <ref bean="RouteOneWay"/>
+      </jaxws:inInterceptors>
+
+      <jaxws:invoker>
+          <bean class="com.mckesson.eig.wsfw.cxf.CXFDirectServiceInvoker">
+              <constructor-arg>
+                  <ref bean="com.mckesson.eig.audit.dao.AuditDaoService"/>
+              </constructor-arg>
+          </bean>
+      </jaxws:invoker>
+  </jaxws:endpoint>  
+
+  <jaxws:endpoint id="audit"
+                  implementor="#com.mckesson.eig.audit.local.AuditLocalService"
+                  wsdlLocation="WEB-INF/audit/webservices/audit_v1.wsdl"
+                  address="/services/audit">
+
+    <jaxws:properties>
+      <entry key="jmsConfigName" value="eig_auditq_config"/>
+    </jaxws:properties>
+
+    <jaxws:invoker>
+      <bean class="com.mckesson.eig.wsfw.cxf.AsynchronousServiceInvoker">
+      <constructor-arg>
+        <ref bean="com.mckesson.eig.audit.local.AuditLocalService"/>
+      </constructor-arg>
+      </bean>
+    </jaxws:invoker>
+
+  </jaxws:endpoint>
+  
+    <jaxws:endpoint id="component"
+                    implementor="#com.mckesson.eig.audit.service.ComponentServiceImpl"
+                    wsdlLocation="WEB-INF/audit/webservices/auditcomponent_v1.wsdl"
+                    address="/services/component">
+
+    <jaxws:properties>
+      <entry key="forceInvalidateSession" value="false"/>
+    </jaxws:properties>
+
+    <jaxws:invoker>
+      <bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+      <constructor-arg>
+        <ref bean="com.mckesson.eig.audit.service.ComponentServiceImpl"/>
+      </constructor-arg>
+      </bean>
+    </jaxws:invoker>
+
+  </jaxws:endpoint>
+
+  <bean id="cxf" class="org.apache.cxf.bus.CXFBusImpl">
+      <property name="inInterceptors">
+          <list>
+              <ref bean="HeaderParameterRemover"/>
+              <ref bean="SoapMessageReader"/>
+          </list>
+      </property>
+
+      <property name="outFaultInterceptors">
+          <list>
+            <ref bean="EIGSoap11FaultOut"/>
+          </list>
+      </property>
+  </bean>
+
+</beans>

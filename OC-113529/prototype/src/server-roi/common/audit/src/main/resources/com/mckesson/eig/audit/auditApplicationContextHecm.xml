@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+
+  <!-- Logging services-->
+  <bean id="log_initializer"
+    class="com.mckesson.eig.utility.log.log4j.Log4JInitializer">
+    <property name="byXml">
+      <value>com/mckesson/eig/audit/logging/audit.logging.xml</value>
+    </property>
+  </bean>
+
+  <bean id="deploymentInfo" class="com.mckesson.eig.utility.components.DeploymentEntropy" init-method="revealDeployment">
+	<constructor-arg>
+	  <value>audit.war</value>
+	</constructor-arg>
+  </bean>
+
+  <!-- Business Services -->
+  <bean id="com.mckesson.eig.audit.local.AuditLocalService"
+    class="com.mckesson.eig.audit.local.AuditLocalService"
+    lazy-init="true"
+    scope="singleton"/>
+
+  <bean id="com.mckesson.eig.audit.dao.AuditDaoService"
+    class="com.mckesson.eig.audit.dao.AuditDaoService"
+    lazy-init="true"
+    scope="singleton"/>
+
+  <bean id="com.mckesson.eig.audit.service.ComponentServiceImpl"
+        class="com.mckesson.eig.audit.service.ComponentServiceImpl"
+        scope="singleton"/>
+
+  <!-- DAO-hibernate configuration starts here-->
+  <!--  Common transactionContext . Please do not remove  -->
+  <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+  </bean>
+
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <!-- tx:method name="get*" read-only="true" /-->
+      <tx:method name="*" />
+    </tx:attributes>
+  </tx:advice>
+
+  <aop:config>
+    <aop:advisor pointcut="execution(* com.mckesson.eig.audit.local.AuditLocalService.* (..))" advice-ref="txAdvice"/>
+  </aop:config>
+
+  <!-- Modified to use quickstream database configuration -->
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+          <description>Provides access to a datasource registered with JNDI.</description>
+          <property name="jndiName">
+              <value>java:/QspDS</value>
+          </property>
+  </bean>
+
+  <!-- ****************************************************************************  -->
+
+    <!--                    Start section of HECM project                                -->
+
+      <!-- Common  Hibernate SessionFactory -->
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+    <property name="dataSource"><ref local="dataSource"/></property>
+
+    <!-- Must references all OR mapping files. -->
+    <property name="mappingResources">
+      <list>
+          <!--  Report Management  -->
+      <value>/com/mckesson/eig/audit/hibernate/AuditTrail.hbm.xml</value>
+      <value>/com/mckesson/eig/audit/hibernate/AuditTrailDetail.hbm.xml</value>
+        </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <!-- SQL Server Dialect - Uncomment the next line to use SQL Server -->
+        <!-- <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>-->
+        <prop key="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</prop>
+        <prop key="hibernate.connection.pool_size">10</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+        <prop key="hibernate.connection.release_mode">after_transaction</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="daoRegistry" class="com.mckesson.eig.iws.orm.SimpleDaoRegistry" >
+    <property name="registry">
+      <map>
+      <entry key="AuditTrailDao">
+          <ref bean="AuditTrailDao"/>
+      </entry>
+      <entry key="AuditTrailDetailDao">
+        <ref bean="AuditTrailDetailDao"/>
+      </entry>
+      </map>
+    </property>
+  </bean>
+
+  <!--  All DAO go here -->
+
+  <bean id="AuditTrailDao" class="com.mckesson.eig.audit.dao.hecm.hibernate.AuditTrailHibernateDao">
+    <property name="sessionFactory"><ref local="sessionFactory"/></property>
+  </bean>
+
+  <bean id="AuditTrailDetailDao" class="com.mckesson.eig.audit.dao.hecm.hibernate.AuditTrailDetailHibernateDao">
+    <property name="sessionFactory"><ref local="sessionFactory"/></property>
+  </bean>
+
+  <!--  All service classes  -->
+
+  <bean id="BeanFactory"
+      class = "org.springframework.beans.factory.support.DefaultListableBeanFactory">
+  </bean>
+  
+    <bean id="eig_auditq_config"
+          class="com.mckesson.eig.wsfw.jms.MessagePoster">
+
+      <property name="queue">
+        <ref bean="auditQueue"/>
+      </property>
+
+      <property name="connectionFactory">
+        <ref bean="connectionFactory"/>
+      </property>
+
+    </bean>
+  
+  <!-- <bean id="eig_auditq_config"
+      class="com.mckesson.eig.utility.jms.JmsConfig">
+      <property name="url">
+        <value>tcp://127.0.0.1:61616</value>
+      </property>
+      <property name="jmsQueueName">
+        <value>queue/eigAudit</value>
+      </property>
+      <property name="physicalName">
+        <value>queue.eigAudit</value>
+      </property>
+      <property name="connectionFactory">
+            <value>java:/ConnectionFactory</value> 
+        <value>java:activemq/QueueConnectionFactory</value>
+      </property>
+  </bean> -->
+
+  <!-- Spring Message Driven POJO -->
+
+  <bean id="auditQueueListener"
+          class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+
+        <constructor-arg>
+            <bean id="auditCaller"
+                  class="com.mckesson.eig.wsfw.cxf.CXFDirectServiceCaller">
+                <constructor-arg value="true"/>
+            </bean>
+        </constructor-arg>
+        <property name="defaultListenerMethod" value="callService" />
+        <!-- we don't want automatic message context extraction -->
+        <property name="messageConverter">
+            <null />
+        </property>
+  </bean>
+
+  <bean id="jndiTemplate"
+    class="org.springframework.jndi.JndiTemplate">
+    <property name="environment">
+      <props>
+        <prop key="java.naming.factory.initial">
+          org.apache.activemq.jndi.ActiveMQInitialContextFactory
+        </prop>
+        <prop key="java.naming.provider.url">
+          tcp://127.0.0.1:61616
+        </prop>
+        <prop key="queue.queue/eigAudit">
+          queue.eigAudit
+        </prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="connectionFactory"
+    class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiTemplate">
+      <ref bean="jndiTemplate" />
+    </property>
+    <property name="jndiName">
+      <value>java:activemq/QueueConnectionFactory</value>
+<!--      <value>java:/ConnectionFactory</value> -->
+    </property>
+  </bean>
+
+  <bean id="auditQueue"
+    class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiTemplate">
+      <ref bean="jndiTemplate" />
+    </property>
+    <property name="jndiName">
+      <value>queue/eigAudit</value>
+    </property>
+  </bean>
+
+  <bean id="jmsTransactionManager"
+    class="org.springframework.jms.connection.JmsTransactionManager">
+    <property name="connectionFactory" ref="connectionFactory" />
+  </bean>
+
+  <bean id="auditQueueListenerContainer"
+    class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <property name="concurrentConsumers" value="1" />
+    <property name="connectionFactory" ref="connectionFactory" />
+    <property name="destination" ref="auditQueue" />
+    <property name="messageListener" ref="auditQueueListener" />
+    <!--
+    <property name="transactionManager" ref="jmsTransactionManager" />
+    -->
+  </bean>
+
+
+</beans>

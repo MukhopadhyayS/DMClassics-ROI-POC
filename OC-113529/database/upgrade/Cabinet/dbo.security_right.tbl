@@ -1,0 +1,72 @@
+USE [cabinet]
+GO
+
+/**************************************************************************************************
+* Script Name: 
+* Script Type: TBL (For purpose of CREATE, DROP, ALTER, GRANT to table, index or constraint.)
+*
+* Function		:
+*			 
+* Database		: Cabinet
+*
+* Tables		: Security_Rights
+*			
+* Revision History:
+*	Name			Date		Changes/Version&Build/ClearQuest#
+*	---------		-------		----------------------------
+*	Thomas Hart		07/16/2013	Created for adding 8100 - FTS Configuration Secuirty Right per Short Circuit Request
+*	Thomas Hart		07/30/2013	Added 8101 - OneContent Administration & 8102 - Authentication Adminstration for John Harris
+*	Thomas Hart		08/12/2013	Added 8100, 8101 & 8102 to DELETE statement for DB Clean-Up
+*	MD Meersma		09/06/2013	Added 8103 (Requested by Alan Shealy)
+*	Thomas Hart		09/18/2013	Added 8104 - Deficiency Job Monitor
+*	Thomas Hart		09/25/2013	Added 6118 - Release To Disc
+*	Thomas Hart		09/25/2013	Changed 6118 to be 'ROI Write To Disc'
+*	MD Meersma		10/29/2013	Added 8105 - OneContent Local Print
+\*************************************************************************************************/
+
+--Remove Previous List
+IF EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 8100)
+DELETE SECURITY_RIGHTS WHERE SECURITY_ID in (8100, 8101, 8102, 8103, 8104, 6118)
+GO
+
+--FTS_Configuration
+IF NOT EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 8100)
+INSERT SECURITY_RIGHTS (SECURITY_ID, SECURITY_DESC, SECURITY_GROUP)
+SELECT 8100, 'FTS Configuration', 0
+GO
+
+--OneContent Administration
+IF NOT EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 8101)
+INSERT SECURITY_RIGHTS (SECURITY_ID, SECURITY_DESC, SECURITY_GROUP)
+SELECT 8101, 'OneContent Admin', 0
+GO
+
+--Authentication Adminstration
+IF NOT EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 8102)
+INSERT SECURITY_RIGHTS (SECURITY_ID, SECURITY_DESC, SECURITY_GROUP)
+SELECT 8102, 'Authentication Admin', 0
+GO
+
+--OneContent File Upload
+IF NOT EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 8103)
+INSERT SECURITY_RIGHTS (SECURITY_ID, SECURITY_DESC, SECURITY_GROUP)
+SELECT 8103, 'OneContent File Upload', 1
+GO
+
+--OneContent Deficiency Job Monitor
+IF NOT EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 8104)
+INSERT SECURITY_RIGHTS (SECURITY_ID, SECURITY_DESC, SECURITY_GROUP)
+SELECT 8104, 'Deficiency Job Monitor', 0
+GO
+
+--ROI Write To Disc
+IF NOT EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 6118)
+INSERT SECURITY_RIGHTS (SECURITY_ID, SECURITY_DESC, SECURITY_GROUP)
+SELECT 6118, 'ROI Write To Disc', 0
+GO
+
+--OneContent Local Print
+IF NOT EXISTS (SELECT 1 FROM SECURITY_RIGHTS where SECURITY_ID = 8105)
+INSERT SECURITY_RIGHTS (SECURITY_ID, SECURITY_DESC, SECURITY_GROUP)
+SELECT 8105, 'OneContent Local Print', 0
+GO

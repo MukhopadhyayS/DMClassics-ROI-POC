@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+ <class name="com.mckesson.eig.roi.admin.model.LetterTemplateFile"
+       table="ROI_LetterTemplateFile"
+       optimistic-lock="version" >
+
+    <id name="id" >
+        <column name="ROI_LetterTemplateFile_Seq" sql-type="int"/>
+    </id>
+     <version name="recordVersion" column="Record_Version" type="integer" />
+     
+     <property name="name">
+     	<column name="Name" sql-type="varchar(60)" not-null="true" />
+     </property>
+
+ </class>
+
+</hibernate-mapping>

@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Status" >
+  <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+  <topic name="Cancel, pend, or deny a request" url="requests/user_instructions/cancel,_pend,_or_deny_a_request.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+  <topic name="Complete a request" url="requests/user_instructions/complete_a_request.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <key name="ascending" >
+    <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  </key>
+  <key name="Change" >
+    <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+    <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+    <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  </key>
+</key>
+<key name="Status   The" >
+  <topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+</key>
+<key name="Status Reason Added" >
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+</key>
+<key name="status reasons" >
+  <topic name="Maintain request status reasons" url="admin/reasons_maint/user_instruc/maintain_request_status_reasons.htm" />
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="Status Reasons form" >
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+</key>
+<key name="Status Summary" >
+  <topic name="Generate the Request Status Summary Report" url="reports/user_instruc/generate_request_status_summary_rpt.htm" />
+</key>
+<key name="Status Summary form" >
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+</key>
+<key name="Status, Type" >
+  <topic name="Fax dialog box" url="requests/dialog_box_descriptions/fax_dialog_box.htm" />
+  <topic name="Print dialog box" url="requests/dialog_box_descriptions/print_dialog_box.htm" />
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+</key>
+<key name="stops processing any other jobs" >
+  <topic name="Manage output queues" url="requests/user_instructions/manage_output_queues.htm" />
+</key>
+<key name="submitted" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <key name="healthcare" >
+    <topic name="About requests" url="requests/about_requests.htm" />
+  </key>
+</key>
+<key name="submitted by" >
+  <topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+</key>
+<key name="Subtitle" >
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+</key>
+<key name="support" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  <key name="Notes" >
+    <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  </key>
+</key>
+<key name="system administrator" >
+  <topic name="Change your password" url="getting_started/logging_on_and_off/change_your_password.htm" />
+  <topic name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+  <topic name="About this module" url="getting_started/about_this_module.htm" />
+  <topic name="About logging on or off" url="getting_started/logging_on_and_off/about_logging_on_or_off.htm" />
+  <topic name="Log on" url="getting_started/logging_on_and_off/log_on.htm" />
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+  <topic name="Auto-logoff" url="getting_started/logging_on_and_off/auto-logoff.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+</key>
+<key name="system administrator generates" >
+  <topic name="Change your password" url="getting_started/logging_on_and_off/change_your_password.htm" />
+</key>
+<key name="System Administrator's Guide" >
+  <topic name="About ROI Administration" url="admin/about_roi_administration.htm" />
+</key>
+<key name="system records" >
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+</key>
+<key name="System-generated" >
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+</key>
+<key name="tab" >
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <key name="corresponding" >
+    <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  </key>
+</key>
+<key name="TCP" >
+  <topic name="Edit Source dialog box" url="admin/config_output/db_desc/edit_source_db.htm" />
+</key>
+<key name="Template Name" >
+  <topic name="Billing Templates form" url="admin/billing_maint/form_descrip/billing_templates_form.htm" />
+</key>
+<key name="Templates" >
+  <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+  <topic name="Maintain billing templates" url="admin/billing_maint/user_instruc/maintain_billing_templates.htm" />
+  <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+  <topic name="Billing Templates form" url="admin/billing_maint/form_descrip/billing_templates_form.htm" />
+  <key name="Billing" >
+    <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+    <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+    <topic name="Billing Templates form" url="admin/billing_maint/form_descrip/billing_templates_form.htm" />
+  </key>
+</key>
+<key name="Templates form" >
+  <topic name="Billing Templates form" url="admin/billing_maint/form_descrip/billing_templates_form.htm" />
+  <key name="Billing" >
+    <topic name="Billing Templates form" url="admin/billing_maint/form_descrip/billing_templates_form.htm" />
+  </key>
+</key>
+<key name="that are" >
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+</key>
+<key name="the charge for pages" >
+  <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+</key>
+<key name="the end" >
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  <key name="applied" >
+    <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  </key>
+</key>
+<key name="the file" >
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+</key>
+<key name="the patient has encounters" >
+  <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+</key>
+<key name="the requestor" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+</key>
+<key name="the ROI" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  <key name="fulfilling" >
+    <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  </key>
+</key>
+<key name="the standard MPF database tables" >
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+</key>
+<key name="the viewer" >
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+</key>
+<key name="theicon" >
+  <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  <topic name="Maintain requestor types" url="admin/billing_maint/user_instruc/maintain_requestor_types.htm" />
+  <topic name="Maintain media types" url="admin/billing_maint/user_instruc/maintain_media_types.htm" />
+</key>
+<key name="THEN" >
+  <topic name="View/Edit Requestor's Profile dialog box" url="requests/dialog_box_descriptions/view_edit_requestor_s_profile_dialog_box.htm" />
+</key>
+<key name="This Request" >
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <key name="Selected" >
+    <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  </key>
+</key>
+<key name="this status" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="those jobs" >
+  <topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+</key>
+<key name="Tier Name" >
+  <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+  <key name="enter" >
+    <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  </key>
+</key>
+<key name="tiers" >
+  <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+  <topic name="Override a non-MPF billing tier" url="requests/user_instructions/override_a_billing_tier.htm" />
+  <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <key name="Billing" >
+    <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+    <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  </key>
+</key>
+
+</indexdata>

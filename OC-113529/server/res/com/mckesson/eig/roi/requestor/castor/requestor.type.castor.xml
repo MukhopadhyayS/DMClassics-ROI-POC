@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.roi.admin.model.RequestorType">
+		<map-to xml="requestorType" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="id" type="long">
+			<bind-xml name="eig:requestorTypeId" node="element" />
+		</field>
+
+		<field name="name" type="string">
+			<bind-xml name="eig:name" node="element" />
+		</field>
+
+		<field name="description" type="string">
+			<bind-xml name="eig:description" node="element" />
+		</field>
+
+		<field name="rv" type="string">
+			<bind-xml name="eig:rv" node="element" />
+		</field>
+
+		<field name="rvDesc" type="string">
+			<bind-xml name="eig:rvDesc" node="element" />
+		</field>
+
+		<field name="recordVersion" type="int">
+			<bind-xml name="eig:recordVersion" node="element" />
+		</field>
+
+		<field name="relatedBillingTemplate"
+			type="com.mckesson.eig.roi.admin.model.RelatedBillingTemplate"
+			collection="set">
+			<bind-xml name="eig:relatedBillingTemplate" node="element" />
+		</field>
+
+        <field name="relatedBillingTier"
+            type="com.mckesson.eig.roi.admin.model.RelatedBillingTier"
+            collection="set">
+            <bind-xml name="eig:relatedBillingTier" node="element" />
+        </field>
+
+        <field name="billingTemplateIds"
+            type="long"
+            collection="arraylist">
+            <bind-xml name="eig:billingTemplateIds" node="element" />
+        </field>
+
+         <field name="isAssociated" type="boolean">
+            <bind-xml name="eig:isAssociated" node="element" />
+         </field>
+
+		 <field name="salesTax" type="char">
+			<bind-xml name="eig:salesTax" node="element" />
+		</field>
+		
+		<field name="invoiceOptional" type="char">
+			<bind-xml name="eig:invoiceOptional" node="element" />
+		</field>
+
+	</class>
+
+	<class name="com.mckesson.eig.roi.admin.model.RequestorTypesList">
+		<map-to xml="requestorTypes" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="requestorTypes"
+			type="com.mckesson.eig.roi.admin.model.RequestorType"
+			collection="arraylist">
+			<bind-xml name="eig:requestorTypes" node="element" />
+		</field>
+
+	</class>
+
+	<class
+		name="com.mckesson.eig.roi.admin.model.RelatedBillingTemplate">
+		<map-to xml="relatedBillingTemplate" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="id" type="long">
+			<bind-xml name="eig:relatedBillingTemplateId" node="element" />
+		</field>
+
+		<field name="billingTemplateId" type="long">
+			<bind-xml name="eig:billingTemplateId" node="element" />
+		</field>
+
+		<field name="isDefault" type="boolean">
+			<bind-xml name="eig:isDefault" node="element" />
+		</field>
+
+		<field name="recordVersion" type="int">
+			<bind-xml name="eig:recordVersion" node="element" />
+		</field>
+
+	</class>
+
+	   <class
+        name="com.mckesson.eig.roi.admin.model.RelatedBillingTier">
+        <map-to xml="relatedBillingTier" ns-prefix="eig"
+            ns-uri="urn:eig.mckesson.com" />
+
+        <field name="id" type="long">
+            <bind-xml name="eig:relatedBillingTierId" node="element" />
+        </field>
+
+        <field name="billingTierId" type="long">
+            <bind-xml name="eig:billingTierId" node="element" />
+        </field>
+
+        <field name="isHPF" type="boolean">
+            <bind-xml name="eig:isHPF" node="element" />
+        </field>
+
+        <field name="isHECM" type="boolean">
+            <bind-xml name="eig:isHECM" node="element" />
+        </field>
+
+        <field name="isCEVA" type="boolean">
+            <bind-xml name="eig:isCEVA" node="element" />
+        </field>
+
+        <field name="recordVersion" type="int">
+            <bind-xml name="eig:recordVersion" node="element" />
+        </field>
+
+        <field name="isSupplemental" type="boolean">
+            <bind-xml name="eig:isSupplemental" node="element" />
+        </field>
+
+    </class>
+</mapping>

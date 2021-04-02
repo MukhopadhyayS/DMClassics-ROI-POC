@@ -1,0 +1,6 @@
+c:\ROIConfigUtil\ROIConfigUtil\bin\Debug\ROIConfigUtil.exe.config
+c:\ROIConfigUtil\ROIConfigUtil\bin\Debug\ROIConfigUtil.exe
+c:\ROIConfigUtil\ROIConfigUtil\bin\Debug\ROIConfigUtil.pdb
+c:\ROIConfigUtil\ROIConfigUtil\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\ROIConfigUtil\ROIConfigUtil\obj\x86\Debug\ROIConfigUtil.exe
+c:\ROIConfigUtil\ROIConfigUtil\obj\x86\Debug\ROIConfigUtil.pdb

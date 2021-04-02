@@ -1,0 +1,88 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<ftstdata>
+<topic name="Invoice button" url="requests/form_descriptions/billing_&amp;_payment_form_items/invoice_button.htm" />
+<topic name="Output Method options" url="requests/form_descriptions/billing_&amp;_payment_form_items/output_method_options.htm" />
+<topic name="Payment group box" url="requests/form_descriptions/billing_&amp;_payment_form_items/payment_group_box.htm" />
+<topic name="Populate Shipping Address with Requestor's options" url="requests/form_descriptions/billing_&amp;_payment_form_items/populate_shipping_address_with_requestor_s_options.htm" />
+<topic name="Pre-Bill button" url="requests/form_descriptions/billing_&amp;_payment_form_items/pre-bill_button.htm" />
+<topic name="Re-Release button" url="requests/form_descriptions/billing_&amp;_payment_form_items/re-release_button.htm" />
+<topic name="Release button" url="requests/form_descriptions/billing_&amp;_payment_form_items/release_button.htm" />
+<topic name="Requestor Information box" url="requests/form_descriptions/billing_&amp;_payment_form_items/requestor_information_box.htm" />
+<topic name="Reset Address button" url="requests/form_descriptions/billing_&amp;_payment_form_items/reset_address_button.htm" />
+<topic name="Revert button" url="requests/form_descriptions/billing_&amp;_payment_form_items/revert_button.htm" />
+<topic name="Save button" url="requests/form_descriptions/billing_&amp;_payment_form_items/save_button.htm" />
+<topic name="Shipping Charges box" url="requests/form_descriptions/billing_&amp;_payment_form_items/shipping_charges_box.htm" />
+<topic name="Shipping Method box" url="requests/form_descriptions/billing_&amp;_payment_form_items/shipping_method_box.htm" />
+<topic name="Shipping Weight" url="requests/form_descriptions/billing_&amp;_payment_form_items/shipping_weight.htm" />
+<topic name="Totals &amp; Balance Due group box" url="requests/form_descriptions/billing_&amp;_payment_form_items/totals_&amp;_balance_due_group_box.htm" />
+<topic name="Tracking Number box" url="requests/form_descriptions/billing_&amp;_payment_form_items/tracking_number_box.htm" />
+<topic name="Will the Release be Shipped options" url="requests/form_descriptions/billing_&amp;_payment_form_items/will_the_release_be_shipped_options.htm" />
+<topic name="Comments form" url="requests/form_descriptions/comments_form.htm" />
+<topic name="Author box" url="requests/form_descriptions/comments_form_items/author_box.htm" />
+<topic name="Cancel button" url="requests/form_descriptions/comments_form_items/cancel_button.htm" />
+<topic name="Comments grid" url="requests/form_descriptions/comments_form_items/comments_grid.htm" />
+<topic name="Date box" url="requests/form_descriptions/comments_form_items/date_box.htm" />
+<topic name="Enter New Comment box" url="requests/form_descriptions/comments_form_items/enter_new_comment_box.htm" />
+<topic name="Save Comment button" url="requests/form_descriptions/comments_form_items/save_comment_button.htm" />
+<topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+<topic name="Date box" url="requests/form_descriptions/event_history_form_items/date_box.htm" />
+<topic name="Event box" url="requests/form_descriptions/event_history_form_items/event_box.htm" />
+<topic name="Events grid" url="requests/form_descriptions/event_history_form_items/events_grid.htm" />
+<topic name="Originator box" url="requests/form_descriptions/event_history_form_items/originator_box.htm" />
+<topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+<topic name="Balance Due box" url="requests/form_descriptions/find_create_request_form_items/balance_due_box.htm" />
+<topic name="Completed Date box" url="requests/form_descriptions/find_create_request_form_items/completed_date_box.htm" />
+<topic name="Enc/Acct box" url="requests/form_descriptions/find_create_request_form_items/enc_acct_box.htm" />
+<topic name="EPN box" url="requests/form_descriptions/find_create_request_form_items/epn_box.htm" />
+<topic name="Facility box" url="requests/form_descriptions/find_create_request_form_items/facility_box.htm" />
+<topic name="Find Request button" url="requests/form_descriptions/find_create_request_form_items/find_request_button.htm" />
+<topic name="Invoice Number box" url="requests/form_descriptions/find_create_request_form_items/invoice_number_box.htm" />
+<topic name="MRN box" url="requests/form_descriptions/find_create_request_form_items/mrn_box.htm" />
+<topic name="New Request button" url="requests/form_descriptions/find_create_request_form_items/new_request_button.htm" />
+<topic name="View/Edit Request button" url="requests/form_descriptions/find_create_request_form_items/open___view_request_button.htm" />
+<topic name="Patient DOB box" url="requests/form_descriptions/find_create_request_form_items/patient_dob_box.htm" />
+<topic name="Patient First Name box" url="requests/form_descriptions/find_create_request_form_items/patient_first_name_box.htm" />
+<topic name="Patient Last Name box" url="requests/form_descriptions/find_create_request_form_items/patient_last_name_box.htm" />
+<topic name="Patient SSN box" url="requests/form_descriptions/find_create_request_form_items/patient_ssn_box.htm" />
+<topic name="Receipt Date box" url="requests/form_descriptions/find_create_request_form_items/receipt_date_box.htm" />
+<topic name="Request ID box" url="requests/form_descriptions/find_create_request_form_items/request_id_box.htm" />
+<topic name="Request Reason box" url="requests/form_descriptions/find_create_request_form_items/request_reason_box.htm" />
+<topic name="Request Status box" url="requests/form_descriptions/find_create_request_form_items/request_status_box.htm" />
+<topic name="Requestor Name box" url="requests/form_descriptions/find_create_request_form_items/requestor_name_box.htm" />
+<topic name="Requestor Type box" url="requests/form_descriptions/find_create_request_form_items/requestor_type_box.htm" />
+<topic name="Requests grid" url="requests/form_descriptions/find_create_request_form_items/requests_grid.htm" />
+<topic name="Reset button" url="requests/form_descriptions/find_create_request_form_items/reset_button.htm" />
+<topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+<topic name="Invoice grid" url="requests/form_descriptions/invoice_history_form_items/invoice_grid.htm" />
+<topic name="View button" url="requests/form_descriptions/invoice_history_form_items/view_button.htm" />
+<topic name="Letters form" url="requests/form_descriptions/letters_form.htm" />
+<topic name="Cancel button" url="requests/form_descriptions/letters_form_items/cancel_button.htm" />
+<topic name="Create Freeform Note button" url="requests/form_descriptions/letters_form_items/create_freeform_note_button.htm" />
+<topic name="Create Letter button" url="requests/form_descriptions/letters_form_items/create_letter_button.htm" />
+<topic name="Letter Template box" url="requests/form_descriptions/letters_form_items/letter_template_box.htm" />
+<topic name="Letter Type options" url="requests/form_descriptions/letters_form_items/letter_type_options.htm" />
+<topic name="Notes grid" url="requests/form_descriptions/letters_form_items/notes_grid.htm" />
+<topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+<topic name="Add &gt; button" url="requests/form_descriptions/patient_information_form_items/add___button.htm" />
+<topic name="Add All &gt;&gt; button" url="requests/form_descriptions/patient_information_form_items/add_all____button.htm" />
+<topic name="Add Another Patient button" url="requests/form_descriptions/patient_information_form_items/add_another_patient_button.htm" />
+<topic name="Add Patient button" url="requests/form_descriptions/patient_information_form_items/add_patient_button.htm" />
+<topic name="Cancel button" url="requests/form_descriptions/patient_information_form_items/cancel_button.htm" />
+<topic name="Document tree view" url="requests/form_descriptions/patient_information_form_items/document_tree_view.htm" />
+<topic name="Edit Doc button" url="requests/form_descriptions/patient_information_form_items/edit_doc_button.htm" />
+<topic name="Enc Details button" url="requests/form_descriptions/patient_information_form_items/enc_details_button.htm" />
+<topic name="Filter by options" url="requests/form_descriptions/patient_information_form_items/filter_by_options.htm" />
+<topic name="Modify Billing Tier button" url="requests/form_descriptions/patient_information_form_items/modify_billing_tier_button.htm" />
+<topic name="New Doc button" url="requests/form_descriptions/patient_information_form_items/new_doc_button.htm" />
+<topic name="Only Disclosure Docs option" url="requests/form_descriptions/patient_information_form_items/only_disclosure_docs_option.htm" />
+<topic name="Patient(s) on this Request box" url="requests/form_descriptions/patient_information_form_items/patient(s)_on_this_request_box.htm" />
+<topic name="Patient information fields" url="requests/form_descriptions/patient_information_form_items/patient_information_fields.htm" />
+<topic name="Record View box" url="requests/form_descriptions/patient_information_form_items/record_view_box.htm" />
+<topic name="Release documents tree view" url="requests/form_descriptions/patient_information_form_items/release_documents_tree_view.htm" />
+<topic name="Remove All button" url="requests/form_descriptions/patient_information_form_items/remove_all_button.htm" />
+<topic name="Remove button" url="requests/form_descriptions/patient_information_form_items/remove_button.htm" />
+<topic name="Remove Selected Patient button" url="requests/form_descriptions/patient_information_form_items/remove_selected_patient_button.htm" />
+<topic name="Resend button" url="requests/form_descriptions/patient_information_form_items/resend_button.htm" />
+
+</ftstdata>  

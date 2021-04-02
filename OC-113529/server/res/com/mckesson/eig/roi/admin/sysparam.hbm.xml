@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.mckesson.eig.roi.admin.model.SysParam"
+	       table="SYSPARMS_GLOBAL"
+	       dynamic-update="false"
+	       optimistic-lock="version" >
+
+	       <id name="id" >
+		        <column name="GlobalID" sql-type="int"/>
+		        <generator class="identity"/>
+	       </id>
+
+	       <version name="recordVersion" column="RecordVersion" type="integer" />
+
+	       <property name="globalName" >
+	           <column name="GlobalName" sql-type="varchar(256)" not-null="true" />
+	       </property>
+	       
+		   <property name="globalParentID" >
+		       <column name="GlobalParentID" sql-type="int" not-null="true"/>
+		   </property>
+		   
+		   <property name="globalValueID" >
+		       <column name="GlobalValueID" sql-type="int" not-null="false"/>
+		   </property>
+		   
+	       <property name="globalVariant" >
+	           <column name="GlobalVariant" sql-type="sql_variant" not-null="true" />
+	       </property>
+	       
+	       <property name="globalText" >
+	           <column name="GlobalText" sql-type="text" not-null="false" />
+	       </property>	   
+	       
+		   <property name="createdDate" >
+		       <column name="CreatedDate" sql-type="datetime" not-null="true"/>
+		   </property>	           	   	   
+
+		   <property name="createdBy" >
+		       <column name="CreatedById" sql-type="int" not-null="true"/>
+		   </property>
+		   
+		   <property name="modifiedDate" >
+		       <column name="ModifiedDate" sql-type="datetime" not-null="true"/>
+		   </property>
+
+		   <property name="modifiedBy" >
+		       <column name="ModifiedById" sql-type="int" not-null="true"/>
+		   </property>
+    </class>
+    
+    <query name="retrieveAttachmentLocation">
+      <![CDATA[
+        select sys from com.mckesson.eig.roi.admin.model.SysParam sys
+        where sys.globalName = ?
+      ]]>
+    </query>  
+	
+	<query name="retrieveSysParams">
+      <![CDATA[
+        select sys from com.mckesson.eig.roi.admin.model.SysParam sys
+        where sys.globalName like ?
+      ]]>
+    </query>  
+    
+     <query name="retrieveConfigureDaysStatus">
+      <![CDATA[
+          select sys from com.mckesson.eig.roi.admin.model.SysParam sys where sys.globalParentID in
+         (select sys.id from com.mckesson.eig.roi.admin.model.SysParam sys where sys.globalName ='WEEK DAYS CONFIG')order by sys.id asc
+         
+      ]]>
+    </query>
+  
+    <query name="retrieveNoOfWeekEndDays">
+     <![CDATA[
+        select count(sys.globalVariant) from com.mckesson.eig.roi.admin.model.SysParam sys
+        where sys.globalVariant = 'WEEKEND DAY'
+     ]]>
+    </query>
+  
+    <query name="getDayStatusObj">
+      <![CDATA[
+        select sys from com.mckesson.eig.roi.admin.model.SysParam sys where sys.globalName = ?
+      ]]>
+    </query>
+    
+    <sql-query name="updateROIRequestUnbillable">
+        <![CDATA[
+			UPDATE SysParms_Global
+			SET GlobalVariant = :unbillable,
+				ModifiedDate = :modifiedDt
+			WHERE GlobalName = 'ROI.request.billable.default'
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveROIRequestUnbillable">
+        <![CDATA[
+			SELECT cast(GlobalVariant as varchar) as unbillable FROM SysParms_Global
+			WHERE GlobalName = 'ROI.request.billable.default'
+        ]]>
+    </sql-query>
+    
+</hibernate-mapping>
+

@@ -1,0 +1,11 @@
+
+if not exists (select * from sysobjects where id = object_id('dbo.EPRS_VERSION') and sysstat & 0xf = 3)
+	CREATE TABLE dbo.EPRS_VERSION (
+		DB_NAME char (20) NOT NULL ,
+		DB_VERSION varchar(50) NOT NULL ,
+		DB_UPDATE_DATE datetime NOT NULL 
+	)
+GO
+
+GRANT  SELECT  ON [dbo].[EPRS_VERSION]  TO [public]
+GO

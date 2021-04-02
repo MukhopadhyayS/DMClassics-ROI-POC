@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-cascade="none" auto-import="true" default-lazy="false" catalog="cabinet" schema="dbo">
+
+	<sql-query name="retrieve_ROI_PreConversion_UserToBillingLocation_Mapping">
+		<![CDATA[
+		
+		--Declare variables
+		DECLARE @CreatedBySeq VARCHAR(MAX)
+		DECLARE @FacilityCSV VARCHAR(MAX)
+		DECLARE @Name VARCHAR(MAX)
+		DECLARE @FullName VARCHAR(MAX)
+		DECLARE @FacilityCode VARCHAR(MAX)
+		DECLARE @ListOfFacilities VARCHAR(MAX)
+		
+		--Temporary table declaration
+		DECLARE @tmpUserAccessFacility TABLE (
+			Name VARCHAR(MAX), FullName VARCHAR(MAX), Facility VARCHAR(MAX), AccessFacility VARCHAR(MAX));
+		
+		--Cursor implementation to insert the values(The facility column has the CSV...) into the temporary table.	
+		DECLARE RequestCursor CURSOR LOCAL FOR  
+		SELECT 
+			DISTINCT Created_By_Seq 
+			FROM [ROI_RequestMain]
+		
+		OPEN RequestCursor   
+		FETCH NEXT FROM RequestCursor INTO @CreatedBySeq
+		WHILE @@FETCH_STATUS = 0   
+		BEGIN   
+			SET @FacilityCSV = ''
+			
+			SELECT @Name = NAME, @FullName = FullName 
+				FROM [USERS] 
+				WHERE UserInstanceId = @CreatedBySeq
+				
+			SELECT @FacilityCSV = LTRIM(RTRIM(FACILITY)) + ',' + @FacilityCSV 
+				FROM User_Facility 
+				WHERE USER_ID = @CreatedBySeq
+			
+			INSERT 
+				INTO @tmpUserAccessFacility 
+				VALUES(@Name, @FullName, ',' + @FacilityCSV, '');
+				
+			FETCH NEXT FROM RequestCursor INTO @CreatedBySeq
+		END   
+		
+		--Cursor implementation to update the AccessFacility column of temporary table as per the facility code in the ROI_SalesTaxPerFacility table.
+		DECLARE FacilityCursor CURSOR LOCAL FOR  
+		SELECT Facility_Code 
+			FROM ROI_SalesTaxPerFacility 
+			
+		OPEN FacilityCursor   
+		FETCH NEXT FROM FacilityCursor INTO @FacilityCode 
+		WHILE @@FETCH_STATUS = 0   
+		BEGIN   
+		
+			UPDATE @tmpUserAccessFacility 
+				SET AccessFacility = AccessFacility + ','+ LTRIM(RTRIM(@FacilityCode)) 
+				WHERE LTRIM(RTRIM(Facility)) like '%' + ','+LTRIM(RTRIM(@FacilityCode))+',' + '%'
+		
+			FETCH NEXT FROM FacilityCursor INTO @FacilityCode 
+		END   
+		
+		--Insert the facility code from the table ROI_SalesTaxPerFacility into temporary table when the access facility column is empty.
+		SET @ListOfFacilities = ''
+		SELECT @ListOfFacilities =  @ListOfFacilities + ','+ LTRIM(RTRIM(Facility_Code))
+			FROM [ROI_SalesTaxPerFacility]
+			
+		UPDATE @tmpUserAccessFacility 
+			SET AccessFacility = @ListOfFacilities 
+			WHERE AccessFacility = NULL or AccessFacility = ''
+		
+		--Remove the unwanted first character ',' in each column
+		UPDATE @tmpUserAccessFacility 
+			SET AccessFacility = STUFF(AccessFacility, 1, 1, '')
+		
+		--Close and deallocate cursors created
+		CLOSE RequestCursor
+		CLOSE FacilityCursor  
+		DEALLOCATE RequestCursor
+		DEALLOCATE FacilityCursor  
+		
+		--Display the temporary table
+		SELECT CAST(FullName AS VARCHAR(30)) as fullName, CAST(Name AS VARCHAR(20)) as name, 
+			CAST(AccessFacility AS VARCHAR(256)) as accessFacility FROM @tmpUserAccessFacility 
+			WHERE Name != NULL OR Name != ''				
+
+		]]>
+	</sql-query>
+	
+	<sql-query name="retrieveSalestaxBillingLocation">
+		<![CDATA[
+		    SELECT COUNT(Facility_Code) FROM [ROI_SalesTaxPerFacility]
+		]]>
+	</sql-query>
+	
+	<sql-query name="getFacilityInfoByCodes">
+		<return-scalar type="string" column="faciltyCode" /> 
+		<return-scalar type="string" column="facilityName" />	
+		<![CDATA[
+		    select RTRIM(FACILITY_CODE) as facilityCode, RTRIM(FACILITY_NAME) as facilityName from [FACILITY_FILE] where FACILITY_CODE IN (:facilityCodes)
+		]]>
+	</sql-query>
+	
+	<sql-query name="getConfiguredBillingLocations">
+		<![CDATA[
+		    SELECT RTRIM(Facility_Code) as facilityCode FROM [ROI_SalesTaxPerFacility]
+		]]>
+	</sql-query>
+	
+	</hibernate-mapping>

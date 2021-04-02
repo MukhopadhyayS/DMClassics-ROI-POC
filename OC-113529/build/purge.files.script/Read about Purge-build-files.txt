@@ -1,0 +1,15 @@
+exclude-dir-pattern.txt
+--------------------------------------
+
+1. Each line of this file is taken to be an exclude pattern.
+
+2. If u want to exclude a directory name called 'directory1', specify the pattern like 'directory1/**' (** - excludes all subdirectories and files in 'directory1') in a separate line.
+
+
+Purge-build-files.bat
+----------------------------------
+
+1. DirLocation 		Set the directoty location where the build files exist
+
+2. NANT_HOME  		Set NAnt home directory path   
+

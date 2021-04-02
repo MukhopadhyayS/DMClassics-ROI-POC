@@ -1,0 +1,77 @@
+/*********************************************************************************
+REM *  Copyright © 2012 McKesson Corporation and/or one of its subsidiaries. 
+REM *               All rights reserved. 
+REM *
+REM *   The copyright to the computer program(s) herein is the property of 
+REM *	McKesson.  The program(s) may be used and/or copied only with the written
+REM *   permission of McKesson or in accordance with the terms and conditions 
+REM *	stipulated in the agreement/contract under which the program(s)
+REM *   have been supplied.
+REM *
+REM *******************************************************************************
+REM *                 
+REM *	Revision History:
+REM *   Name            Date        ChangeType/Version/StarTeam#
+REM *   ---------       -------     --------------------------
+REM *   
+REM *   Thomas Hart     09/06/2013  Created script to generate new table LocalPrintJobFile
+REM *
+REM *******************************************************************************/
+
+USE [CABINET]
+GO
+
+IF NOT EXISTS (SELECT *
+               FROM SYS.OBJECTS
+               WHERE OBJECT_ID = OBJECT_ID (N'[DBO].[LocalPrintJobFile]')
+                AND TYPE IN (N'U'))
+
+CREATE TABLE [dbo].[LocalPrintJobFile] 
+	(LocalPrintJobFileID BIGINT IDENTITY (1,1) NOT NULL,
+      LocalPrintJobID BIGINT NOT NULL,
+      FileName VARCHAR(1000) NOT NULL,
+      Created_Dt DATETIME NOT NULL CONSTRAINT [DF_LocalPrintJobFile_Created_Dt] DEFAULT (GETDATE()),
+	  Created_By_Seq INT NOT NULL CONSTRAINT [DF_LocalPrintJobFile_Created_By_Seq] DEFAULT ((1)),
+	  Modified_Dt DATETIME NOT NULL CONSTRAINT [DF_LocalPrintJobFile_Modified_Dt] DEFAULT (GETDATE()),
+	  Modified_By_Seq INT NOT NULL CONSTRAINT [DF_LocalPrintJobFile_Modified_By_Seq] DEFAULT ((1)) ,
+	  Record_Version SMALLINT NOT NULL CONSTRAINT [DF_LocalPrintJobFile_Record_Version] DEFAULT ((1)),
+CONSTRAINT [LocalPrintJobFile_PK] PRIMARY KEY CLUSTERED
+      (LocalPrintJobFileID))
+	     
+GO
+
+IF NOT EXISTS (SELECT * 
+				FROM SYS.FOREIGN_KEYS
+				WHERE OBJECT_ID = OBJECT_ID (N'[dbo].[FK_LocalPrintFile_LocalPrintJobID]') 
+					AND PARENT_OBJECT_ID = OBJECT_ID (N'[dbo].[LocalPrintJobFile]'))
+
+ALTER TABLE [dbo].[LocalPrintJobFile] WITH CHECK 
+	ADD CONSTRAINT [FK_LocalPrintFile_LocalPrintJobID] FOREIGN KEY ([LocalPrintJobID])
+		REFERENCES [dbo].[LocalPrintJob] ([LocalPrintJobID])
+GO
+
+IF NOT EXISTS 
+      (SELECT * 
+       FROM SYS.INDEXES 
+       WHERE OBJECT_ID = OBJECT_ID (N'[DBO].[LocalPrintJobFile]') 
+            AND NAME = N'LocalPrintJobFile_LocalPrintJobID_NUNC_IX')
+            
+CREATE NONCLUSTERED INDEX [LocalPrintJobFile_LocalPrintJobID_NUNC_IX] 
+      ON [dbo].LocalPrintJobFile
+            (LocalPrintJobID)
+GO
+
+GRANT DELETE ON [DBO].[LocalPrintJobFile] TO [IMNET] AS [DBO]
+GO
+
+GRANT INSERT ON [DBO].[LocalPrintJobFile] TO [IMNET] AS [DBO]
+GO
+
+GRANT REFERENCES ON [DBO].[LocalPrintJobFile] TO [IMNET] AS [DBO]
+GO
+
+GRANT SELECT ON [DBO].[LocalPrintJobFile] TO [IMNET] AS [DBO]
+GO
+
+GRANT UPDATE ON [DBO].[LocalPrintJobFile] TO [IMNET] AS [DBO]
+GO

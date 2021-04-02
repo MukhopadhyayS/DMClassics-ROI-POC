@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:eig="urn:eig.mckesson.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RequestorService" targetNamespace="urn:eig.mckesson.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+
+        This WSDL document contains reference to Requestor Service
+     </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:eig.mckesson.com">
+      <xsd:import schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+      <xsd:element name="transactionId" type="xsd:long" />
+      <xsd:complexType name="Requestor">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="lastName" type="xsd:string" />
+          <xsd:element name="firstName" type="xsd:string" />
+          <xsd:element name="type" type="xsd:long" />
+          <xsd:element minOccurs="0" name="requestorType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="epn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ssn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mrn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="facility" type="xsd:string" />
+          <xsd:element name="freeFormFacility" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="dob" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="prePayRequired" type="xsd:boolean" />
+          <xsd:element name="certLetterRequired" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="mainAddress" type="eig:Address" />
+          <xsd:element minOccurs="0" name="altAddress" type="eig:Address" />
+          <xsd:element minOccurs="0" name="homePhone" type="xsd:string" />
+          <xsd:element minOccurs="0" name="workPhone" type="xsd:string" />
+          <xsd:element minOccurs="0" name="cellPhone" type="xsd:string" />
+          <xsd:element minOccurs="0" name="email" type="xsd:string" />
+          <xsd:element minOccurs="0" name="fax" type="xsd:string" />
+          <xsd:element minOccurs="0" name="contactName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="contactPhone" type="xsd:string" />
+          <xsd:element minOccurs="0" name="contactEmail" type="xsd:string" />
+          <xsd:element name="associated" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+          <xsd:element name="active" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="salesTax" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Address">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="address1" type="xsd:string" />
+          <xsd:element minOccurs="0" name="address2" type="xsd:string" />
+          <xsd:element minOccurs="0" name="address3" type="xsd:string" />
+          <xsd:element minOccurs="0" name="city" type="xsd:string" />
+          <xsd:element minOccurs="0" name="state" type="xsd:string" />
+          <xsd:element minOccurs="0" name="postalCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="countryCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="countryName" type="xsd:string" />
+          <xsd:element name="newCountry" type="xsd:boolean" />
+          <xsd:element name="countrySeq" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorPaymentList">
+        <xsd:sequence>
+          <xsd:element name="requestorId" type="xsd:long" />
+          <xsd:element name="requestorName" type="xsd:string" />
+          <xsd:element name="requestorType" type="xsd:string" />
+          <xsd:element name="paymentId" type="xsd:long" />
+          <xsd:element name="paymentAmount" type="xsd:double" />
+          <xsd:element name="unAppliedAmount" type="xsd:double" />
+          <xsd:element name="paymentMode" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="paymentDate" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="paymentList" type="eig:RequestorPayment" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorRefund">
+        <xsd:sequence>
+          <xsd:element name="requestorId" type="xsd:long" />
+          <xsd:element name="requestorName" type="xsd:string" />
+          <xsd:element name="requestorType" type="xsd:string" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="refundDate" type="xsd:dateTime" />
+          <xsd:element name="refundAmount" type="xsd:double" />
+          <xsd:element name="templateId" type="xsd:long" />
+          <xsd:element name="templateName" type="xsd:string" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="notes" type="xsd:string" />
+          <xsd:element name="statementCriteria" type="eig:RequestorStatementCriteria" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorPayment">
+        <xsd:sequence>
+          <xsd:element name="requestCoreDeliveryChargesId" type="xsd:long" />
+          <xsd:element name="paymentId" type="xsd:long" />
+          <xsd:element name="requestId" type="xsd:long" />
+          <xsd:element name="totalAppliedAmount" type="xsd:double" />
+          <xsd:element name="lastAppliedAmount" type="xsd:double" />
+          <xsd:element name="invoicedBaseCharge" type="xsd:double" />
+          <xsd:element name="invoiceBalance" type="xsd:double" />
+          <xsd:element name="invoiceAmountPaid" type="xsd:double" />
+          <xsd:element name="invoicePaymentTotal" type="xsd:double" />
+          <xsd:element name="facility" type="xsd:string" />
+          <xsd:element name="prebillPayment" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorSearchCriteria">
+        <xsd:sequence>
+          <xsd:element name="allRequestors" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="type" type="xsd:long" />
+          <xsd:element minOccurs="0" name="requestorTypeName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="lastName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="firstName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="ssn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mrn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="facility" type="xsd:string" />
+          <xsd:element name="freeFormFacility" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="epn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="dob" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="maxCount" type="xsd:int" />
+          <xsd:element name="activeRequestors" type="xsd:boolean" />
+          <xsd:element name="allStatus" type="xsd:boolean" />
+          <xsd:element name="patientRequestor" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorStatementCriteria">
+        <xsd:sequence>
+          <xsd:element name="requestorId" type="xsd:long" />
+          <xsd:element name="templateFileId" type="xsd:long" />
+          <xsd:element name="templateName" type="xsd:string" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="dateRange" nillable="true" type="eig:DateRange" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="notes" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="pastInvIds" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="DateRange">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="DAYS_30" />
+          <xsd:enumeration value="DAYS_60" />
+          <xsd:enumeration value="DAYS_90" />
+          <xsd:enumeration value="DAYS_120" />
+          <xsd:enumeration value="YEAR_TO_DATE" />
+          <xsd:enumeration value="ALL" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="RequestorSearchResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="searchResults" type="eig:Requestor" />
+          <xsd:element name="requestorType" type="xsd:long" />
+          <xsd:element name="maxCountExceeded" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MatchCriteriaList">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="matchCriteria" type="eig:MatchCriteria" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MatchCriteria">
+        <xsd:sequence>
+          <xsd:element name="lastName" type="xsd:string" />
+          <xsd:element name="firstName" type="xsd:string" />
+          <xsd:element name="epn" type="xsd:string" />
+          <xsd:element name="ssn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="mrn" type="xsd:string" />
+          <xsd:element minOccurs="0" name="facility" type="xsd:string" />
+          <xsd:element minOccurs="0" name="dob" nillable="true" type="xsd:dateTime" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorLetterHistory">
+        <xsd:sequence>
+          <xsd:element name="requestorLetterId" type="xsd:long" />
+          <xsd:element name="createdDate" type="xsd:dateTime" />
+          <xsd:element name="resendDate" type="xsd:string" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="createdBy" type="xsd:string" />
+          <xsd:element name="requestTemplateId" type="xsd:long" />
+          <xsd:element name="templateUsed" type="xsd:string" />
+          <xsd:element name="requestPassword" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorLetterHistoryList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestorLetterHistory" type="eig:RequestorLetterHistory" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DocInfoList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="docInfos" type="eig:DocInfo" />
+          <xsd:element name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DocInfo">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="attributesMap">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RegeneratedInvoiceInfo">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="properties" type="eig:attributesMap" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PastInvoice">
+        <xsd:sequence>
+          <xsd:element name="invoiceId" type="xsd:long" />
+          <xsd:element name="createdDate" type="xsd:string" />
+          <xsd:element name="amount" type="xsd:double" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PastInvoiceList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="PastInvoices" type="eig:PastInvoice" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorInvoice">
+        <xsd:sequence>
+          <xsd:element name="requestId" type="xsd:long" />
+          <xsd:element name="invoiceType" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="charge" type="xsd:double" />
+          <xsd:element name="adjustmentAmount" type="xsd:double" />
+          <xsd:element name="paymentAmount" type="xsd:double" />
+          <xsd:element name="adjustmentPaymentTotal" type="xsd:double" />
+          <xsd:element name="balance" type="xsd:double" />
+          <xsd:element name="invoiceStatus" type="xsd:string" />
+          <xsd:element name="unBillableAmount" type="xsd:double" />
+          <xsd:element name="appliedAmount" type="xsd:double" />
+          <xsd:element name="applyAmount" type="xsd:double" />
+          <xsd:element name="refundAmount" type="xsd:double" />
+          <xsd:element name="paymentDescription" type="xsd:string" />
+          <xsd:element name="paymentMethod" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="facility" type="xsd:string" />
+          <xsd:element name="billingLocation" type="xsd:string" />
+          <xsd:element name="unbillable" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestorAdjPay" type="eig:RequestorAdjustmentsPayments" />
+          <xsd:element name="invoiceId" type="xsd:long" />
+          <xsd:element name="createdBy" type="xsd:long" />
+          <xsd:element name="modifiedBy" type="xsd:long" />
+          <xsd:element name="createdDt" type="xsd:dateTime" />
+          <xsd:element name="modifiedDt" type="xsd:dateTime" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorInvoicesList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestorInvoices" type="eig:RequestorInvoice" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorAdjustmentsPayments">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="date" type="xsd:dateTime" />
+          <xsd:element name="paymentAmount" type="xsd:double" />
+          <xsd:element name="appliedAmount" type="xsd:double" />
+          <xsd:element name="txnType" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="paymentMethod" type="xsd:string" />
+          <xsd:element name="invoiceId" type="xsd:long" />
+          <xsd:element name="unAppliedAmt" type="xsd:double" />
+          <xsd:element name="refundAmount" type="xsd:double" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AdjustmentInfo">
+        <xsd:sequence>
+          <xsd:element name="reasonsList" type="eig:ReasonsList" />
+          <xsd:element name="requestorAdjustment" type="eig:RequestorAdjustment" />
+          <xsd:element name="requestorInvoicesList" type="eig:RequestorInvoicesList" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TaxPerFacility">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="code" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="default" type="xsd:string" />
+          <xsd:element name="taxPercentage" type="xsd:float" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TaxPerFacilityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TaxPerFacility" type="eig:TaxPerFacility" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReasonsList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="reasons" type="eig:Reason" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Reason">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="displayText" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="status" type="xsd:int" />
+          <xsd:element name="tpo" type="xsd:boolean" />
+          <xsd:element name="nonTpo" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorAdjustmentsFeeList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestorAdjustmentsFee" type="eig:RequestorAdjustmentsFee" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorAdjustmentsFee">
+        <xsd:sequence>
+          <xsd:element name="feeName" type="xsd:string" />
+          <xsd:element name="amount" type="xsd:double" />
+          <xsd:element name="salestaxAmount" type="xsd:double" />
+          <xsd:element name="feeType" type="xsd:string" />
+          <xsd:element name="isTaxable" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="AdjustmentType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="CUSTOMER_GOODWILL_ADJUSTMENT" />
+          <xsd:enumeration value="BAD_DEBT_ADJUSTMENT" />
+          <xsd:enumeration value="BILLING_ADJUSTMENT" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="RequestorAdjustment">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="requestorSeq" type="xsd:long" />
+          <xsd:element name="requestorName" type="xsd:string" />
+          <xsd:element name="requestorType" type="xsd:string" />
+          <xsd:element name="invoiceSeq" type="xsd:double" />
+          <xsd:element name="adjustmentType" type="eig:AdjustmentType" />
+          <xsd:element name="reason" type="xsd:string" />
+          <xsd:element name="amount" type="xsd:double" />
+          <xsd:element name="unappliedAmount" type="xsd:double" />
+          <xsd:element name="appliedAmount" type="xsd:double" />
+          <xsd:element name="adjustmentDate" type="xsd:dateTime" />
+          <xsd:element name="note" type="xsd:string" />
+          <xsd:element name="delete" type="xsd:boolean" />
+          <xsd:element name="prebillAdjustment" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorHistoryList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestorHistory" type="eig:RequestorHistory" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorHistory">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="creatorName" type="xsd:string" />
+          <xsd:element name="createdDate" type="xsd:string" />
+          <xsd:element name="template" type="xsd:string" />
+          <xsd:element name="requestPassword" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="invoiceDueDate" type="xsd:string" />
+          <xsd:element name="balance" type="xsd:double" />
+          <xsd:element name="invoiceBalance" type="xsd:double" />
+          <xsd:element name="aging" type="xsd:string" />
+          <xsd:element name="status" type="xsd:string" />
+          <xsd:element name="prebillStatus" type="xsd:string" />
+          <xsd:element name="requestId" type="xsd:long" />
+          <xsd:element name="migrated" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorUnappliedAmountDetailsList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestorUnappliedAmountDetails" type="eig:RequestorUnappliedAmountDetails" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorUnappliedAmountDetails">
+        <xsd:sequence>
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="amount" type="xsd:double" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="findRequestor">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorSearchCriteria" type="eig:RequestorSearchCriteria" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="findRequestorResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorSearchResult" type="eig:RequestorSearchResult" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestor">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestor" type="eig:Requestor" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestor">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+            <xsd:element name="isSearchRetrieve" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestor" type="eig:Requestor" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateRequestor">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestor" type="eig:Requestor" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateRequestorResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestor" type="eig:Requestor" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteRequestor">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteRequestorResponse">
+        <xsd:complexType />
+      </xsd:element>
+      <xsd:element name="checkDuplicateRequestorName">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="id" type="xsd:long" />
+            <xsd:element name="lastName" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="checkDuplicateRequestorNameResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="available" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchMatchingRequestors">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="matchCriteriaList" type="eig:MatchCriteriaList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="searchMatchingRequestorsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorSearchResult" type="eig:RequestorSearchResult" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorLetterHistory">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorLetterHistoryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorLetterHistoryList" type="eig:RequestorLetterHistoryList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewRequestorLetter">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorLetterId" type="xsd:long" />
+            <xsd:element name="docType" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewRequestorLetterResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfo" type="eig:DocInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorLetterEntry">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="regeneratedInvoiceInfo" type="eig:RegeneratedInvoiceInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorLetterEntryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorLetterHistory" type="eig:RequestorLetterHistory" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorInvoices">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorInvoicesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorInvoicesList" type="eig:RequestorInvoicesList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAdjustmentInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAdjustmentInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="adjustmentInfo" type="eig:AdjustmentInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="saveAdjustmentInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="adjustmentInfo" type="eig:AdjustmentInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="saveAdjustmentInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorPayment">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorPaymentList" type="eig:RequestorPaymentList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorPaymentResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateRequestorPayment">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorPaymentList" type="eig:RequestorPaymentList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateRequestorPaymentResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAdjustmentInfoByAdjustmentId">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="adjustmentId" type="xsd:long" />
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAdjustmentInfoByAdjustmentIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="adjustmentInfo" type="eig:AdjustmentInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorPastInvoices">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorPastInvoicesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PastInvoiceList" type="eig:PastInvoiceList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorSummaries">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveRequestorSummariesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorHistoryList" type="eig:RequestorHistoryList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="generateRequestorStatement">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RequestorStatementCriteria" type="eig:RequestorStatementCriteria" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="generateRequestorStatementResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfoList" type="eig:DocInfoList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorStatement">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RequestorStatementCriteria" type="eig:RequestorStatementCriteria" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorStatementResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorStatementId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewRequestorDetails">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="invoiceId" type="xsd:long" />
+            <xsd:element name="requestId" type="xsd:long" />
+            <xsd:element name="docType" type="xsd:string" />
+            <xsd:element name="retrieverType" type="xsd:string" />
+            <xsd:element name="letterType" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewRequestorDetailsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfo" type="eig:DocInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveUnappliedAmountDetails">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveUnappliedAmountDetailsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorUnappliedAmountDetailsList" type="eig:RequestorUnappliedAmountDetailsList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorRefund">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorRefund" type="eig:RequestorRefund" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createRequestorRefundResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfoList" type="eig:DocInfoList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewRequestorRefund">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorRefund" type="eig:RequestorRefund" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewRequestorRefundResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfoList" type="eig:DocInfoList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteRequestorPayment">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentId" type="xsd:long" />
+            <xsd:element name="requestorName" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteRequestorPaymentResponse">
+        <xsd:complexType />
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="header">
+    <wsdl:part name="wssHeader" element="wsse:Security" />
+    <wsdl:part name="transIdHeader" element="eig:transactionId" />
+  </wsdl:message>
+  <wsdl:message name="findRequestorRequest">
+    <wsdl:part name="parameters" element="eig:findRequestor" />
+  </wsdl:message>
+  <wsdl:message name="findRequestorResponse">
+    <wsdl:part name="parameters" element="eig:findRequestorResponse" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorRequest">
+    <wsdl:part name="parameters" element="eig:createRequestor" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorResponse">
+    <wsdl:part name="parameters" element="eig:createRequestorResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorRequest">
+    <wsdl:part name="parameters" element="eig:retrieveRequestor" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorResponse">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateRequestorRequest">
+    <wsdl:part name="parameters" element="eig:updateRequestor" />
+  </wsdl:message>
+  <wsdl:message name="updateRequestorResponse">
+    <wsdl:part name="parameters" element="eig:updateRequestorResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteRequestorRequest">
+    <wsdl:part name="parameters" element="eig:deleteRequestor" />
+  </wsdl:message>
+  <wsdl:message name="deleteRequestorResponse">
+    <wsdl:part name="parameters" element="eig:deleteRequestorResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkDuplicateRequestorNameRequest">
+    <wsdl:part name="parameters" element="eig:checkDuplicateRequestorName" />
+  </wsdl:message>
+  <wsdl:message name="checkDuplicateRequestorNameResponse">
+    <wsdl:part name="parameters" element="eig:checkDuplicateRequestorNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchMatchingRequestorsRequest">
+    <wsdl:part name="parameters" element="eig:searchMatchingRequestors" />
+  </wsdl:message>
+  <wsdl:message name="searchMatchingRequestorsResponse">
+    <wsdl:part name="parameters" element="eig:searchMatchingRequestorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorLetterHistoryRequest">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorLetterHistory" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorLetterHistoryResponse">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorLetterHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="viewRequestorLetterRequest">
+    <wsdl:part name="parameters" element="eig:viewRequestorLetter" />
+  </wsdl:message>
+  <wsdl:message name="viewRequestorLetterResponse">
+    <wsdl:part name="parameters" element="eig:viewRequestorLetterResponse" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorLetterEntryRequest">
+    <wsdl:part name="parameters" element="eig:createRequestorLetterEntry" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorLetterEntryResponse">
+    <wsdl:part name="parameters" element="eig:createRequestorLetterEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorInvoicesRequest">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorInvoices" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorInvoicesResponse">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorInvoicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAdjustmentInfoRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAdjustmentInfo" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAdjustmentInfoResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAdjustmentInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="saveAdjustmentInfoRequest">
+    <wsdl:part name="parameters" element="eig:saveAdjustmentInfo" />
+  </wsdl:message>
+  <wsdl:message name="saveAdjustmentInfoResponse">
+    <wsdl:part name="parameters" element="eig:saveAdjustmentInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorPaymentRequest">
+    <wsdl:part name="parameters" element="eig:createRequestorPayment" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorPaymentResponse">
+    <wsdl:part name="parameters" element="eig:createRequestorPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateRequestorPaymentRequest">
+    <wsdl:part name="parameters" element="eig:updateRequestorPayment" />
+  </wsdl:message>
+  <wsdl:message name="updateRequestorPaymentResponse">
+    <wsdl:part name="parameters" element="eig:updateRequestorPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAdjustmentInfoByAdjustmentIdRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAdjustmentInfoByAdjustmentId" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAdjustmentInfoByAdjustmentIdResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAdjustmentInfoByAdjustmentIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorPastInvoicesRequest">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorPastInvoices" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorPastInvoicesResponse">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorPastInvoicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorSummariesRequest">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorSummaries" />
+  </wsdl:message>
+  <wsdl:message name="retrieveRequestorSummariesResponse">
+    <wsdl:part name="parameters" element="eig:retrieveRequestorSummariesResponse" />
+  </wsdl:message>
+  <wsdl:message name="generateRequestorStatementRequest">
+    <wsdl:part name="parameters" element="eig:generateRequestorStatement" />
+  </wsdl:message>
+  <wsdl:message name="generateRequestorStatementResponse">
+    <wsdl:part name="parameters" element="eig:generateRequestorStatementResponse" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorStatementRequest">
+    <wsdl:part name="parameters" element="eig:createRequestorStatement" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorStatementResponse">
+    <wsdl:part name="parameters" element="eig:createRequestorStatementResponse" />
+  </wsdl:message>
+  <wsdl:message name="viewRequestorDetailsRequest">
+    <wsdl:part name="parameters" element="eig:viewRequestorDetails" />
+  </wsdl:message>
+  <wsdl:message name="viewRequestorDetailsResponse">
+    <wsdl:part name="parameters" element="eig:viewRequestorDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveUnappliedAmountDetailsRequest">
+    <wsdl:part name="parameters" element="eig:retrieveUnappliedAmountDetails" />
+  </wsdl:message>
+  <wsdl:message name="retrieveUnappliedAmountDetailsResponse">
+    <wsdl:part name="parameters" element="eig:retrieveUnappliedAmountDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorRefundRequest">
+    <wsdl:part name="parameters" element="eig:createRequestorRefund" />
+  </wsdl:message>
+  <wsdl:message name="createRequestorRefundResponse">
+    <wsdl:part name="parameters" element="eig:createRequestorRefundResponse" />
+  </wsdl:message>
+  <wsdl:message name="viewRequestorRefundRequest">
+    <wsdl:part name="parameters" element="eig:viewRequestorRefund" />
+  </wsdl:message>
+  <wsdl:message name="viewRequestorRefundResponse">
+    <wsdl:part name="parameters" element="eig:viewRequestorRefundResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteRequestorPaymentRequest">
+    <wsdl:part name="parameters" element="eig:deleteRequestorPayment" />
+  </wsdl:message>
+  <wsdl:message name="deleteRequestorPaymentResponse">
+    <wsdl:part name="parameters" element="eig:deleteRequestorPaymentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RequestorPortType">
+    <wsdl:operation name="findRequestor">
+      <wsdl:input message="eig:findRequestorRequest" />
+      <wsdl:output message="eig:findRequestorResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createRequestor">
+      <wsdl:input message="eig:createRequestorRequest" />
+      <wsdl:output message="eig:createRequestorResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestor">
+      <wsdl:input message="eig:retrieveRequestorRequest" />
+      <wsdl:output message="eig:retrieveRequestorResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateRequestor">
+      <wsdl:input message="eig:updateRequestorRequest" />
+      <wsdl:output message="eig:updateRequestorResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteRequestor">
+      <wsdl:input message="eig:deleteRequestorRequest" />
+      <wsdl:output message="eig:deleteRequestorResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="checkDuplicateRequestorName">
+      <wsdl:input message="eig:checkDuplicateRequestorNameRequest" />
+      <wsdl:output message="eig:checkDuplicateRequestorNameResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="searchMatchingRequestors">
+      <wsdl:input message="eig:searchMatchingRequestorsRequest" />
+      <wsdl:output message="eig:searchMatchingRequestorsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorLetterHistory">
+      <wsdl:input message="eig:retrieveRequestorLetterHistoryRequest" />
+      <wsdl:output message="eig:retrieveRequestorLetterHistoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="viewRequestorLetter">
+      <wsdl:input message="eig:viewRequestorLetterRequest" />
+      <wsdl:output message="eig:viewRequestorLetterResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorLetterEntry">
+      <wsdl:input message="eig:createRequestorLetterEntryRequest" />
+      <wsdl:output message="eig:createRequestorLetterEntryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorInvoices">
+      <wsdl:input message="eig:retrieveRequestorInvoicesRequest" />
+      <wsdl:output message="eig:retrieveRequestorInvoicesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAdjustmentInfo">
+      <wsdl:input message="eig:retrieveAdjustmentInfoRequest" />
+      <wsdl:output message="eig:retrieveAdjustmentInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="saveAdjustmentInfo">
+      <wsdl:input message="eig:saveAdjustmentInfoRequest" />
+      <wsdl:output message="eig:saveAdjustmentInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorPayment">
+      <wsdl:input message="eig:createRequestorPaymentRequest" />
+      <wsdl:output message="eig:createRequestorPaymentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateRequestorPayment">
+      <wsdl:input message="eig:updateRequestorPaymentRequest" />
+      <wsdl:output message="eig:updateRequestorPaymentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAdjustmentInfoByAdjustmentId">
+      <wsdl:input message="eig:retrieveAdjustmentInfoByAdjustmentIdRequest" />
+      <wsdl:output message="eig:retrieveAdjustmentInfoByAdjustmentIdResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorPastInvoices">
+      <wsdl:input message="eig:retrieveRequestorPastInvoicesRequest" />
+      <wsdl:output message="eig:retrieveRequestorPastInvoicesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorSummaries">
+      <wsdl:input message="eig:retrieveRequestorSummariesRequest" />
+      <wsdl:output message="eig:retrieveRequestorSummariesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="generateRequestorStatement">
+      <wsdl:input message="eig:generateRequestorStatementRequest" />
+      <wsdl:output message="eig:generateRequestorStatementResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorStatement">
+      <wsdl:input message="eig:createRequestorStatementRequest" />
+      <wsdl:output message="eig:createRequestorStatementResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="viewRequestorDetails">
+      <wsdl:input message="eig:viewRequestorDetailsRequest" />
+      <wsdl:output message="eig:viewRequestorDetailsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveUnappliedAmountDetails">
+      <wsdl:input message="eig:retrieveUnappliedAmountDetailsRequest" />
+      <wsdl:output message="eig:retrieveUnappliedAmountDetailsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorRefund">
+      <wsdl:input message="eig:createRequestorRefundRequest" />
+      <wsdl:output message="eig:createRequestorRefundResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="viewRequestorRefund">
+      <wsdl:input message="eig:viewRequestorRefundRequest" />
+      <wsdl:output message="eig:viewRequestorRefundResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteRequestorPayment">
+      <wsdl:input message="eig:deleteRequestorPaymentRequest" />
+      <wsdl:output message="eig:deleteRequestorPaymentResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RequestorSoapBinding" type="eig:RequestorPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="findRequestor">
+      <soap:operation soapAction="urn:eig.mckesson.com/findRequestor" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createRequestor">
+      <soap:operation soapAction="urn:eig.mckesson.com/createRequestor" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestor">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveRequestor" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateRequestor">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateRequestor" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteRequestor">
+      <soap:operation soapAction="urn:eig.mckesson.com/deleteRequestor" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkDuplicateRequestorName">
+      <soap:operation soapAction="urn:eig.mckesson.com/checkDuplicateRequestorName" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchMatchingRequestors">
+      <soap:operation soapAction="urn:eig.mckesson.com/searchMatchingRequestors" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorLetterHistory">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveRequestorLetterHistory" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewRequestorLetter">
+      <soap:operation soapAction="urn:eig.mckesson.com/viewRequestorLetter" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorLetterEntry">
+      <soap:operation soapAction="urn:eig.mckesson.com/createRequestorLetterEntry" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorInvoices">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveRequestorInvoices" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAdjustmentInfo">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAdjustmentInfo" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveAdjustmentInfo">
+      <soap:operation soapAction="urn:eig.mckesson.com/saveAdjustmentInfo" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorPayment">
+      <soap:operation soapAction="urn:eig.mckesson.com/createRequestorPayment" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateRequestorPayment">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateRequestorPayment" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAdjustmentInfoByAdjustmentId">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAdjustmentInfoByAdjustmentId" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorPastInvoices">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveRequestorPastInvoices" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveRequestorSummaries">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveRequestorSummaries" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateRequestorStatement">
+      <soap:operation soapAction="urn:eig.mckesson.com/generateRequestorStatement" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorStatement">
+      <soap:operation soapAction="urn:eig.mckesson.com/createRequestorStatement" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewRequestorDetails">
+      <soap:operation soapAction="urn:eig.mckesson.com/viewRequestorDetails" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveUnappliedAmountDetails">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveUnappliedAmountDetails" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createRequestorRefund">
+      <soap:operation soapAction="urn:eig.mckesson.com/createRequestorRefund" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewRequestorRefund">
+      <soap:operation soapAction="urn:eig.mckesson.com/viewRequestorRefund" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteRequestorPayment">
+      <soap:operation soapAction="urn:eig.mckesson.com/deleteRequestorPayment" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RequestorService">
+    <wsdl:documentation>
+
+            This service implements all Requestor Service Calls
+          </wsdl:documentation>
+    <wsdl:port name="requestorPort" binding="eig:RequestorSoapBinding">
+      <soap:address location="http://127.0.0.1:8080/roi/services/RequestorService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

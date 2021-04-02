@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<componentInfo componentID="workflow" componentDisplayName="HECM Workflow">
+    <applicationInfo>
+        <componentName>Tool</componentName>
+        <productName>HECMWorkflow</productName>
+        <productType>Embedded</productType>
+    </applicationInfo>
+    <configurationInfo></configurationInfo>
+    <updateInfo>
+        <update>
+            <date>2008-04-14T22:24:26.106+05:30</date>
+            <comments>Initial Version</comments>
+            <version>1.0.0.1572</version>
+        </update>
+        <update>
+            <date>2008-04-14T23:34:53.708+05:30</date>
+        </update>
+    </updateInfo>
+    <logConfig>
+        <file>com/mckesson/eig/workflow/logging.xml</file>
+        <appenders>
+            <appender>eigLogAppender</appender>
+        </appenders>
+        <categories>
+            <category>com.eig.workflow.worklist</category>
+            <category>com.eig.workflow</category>
+        </categories>
+    </logConfig>
+</componentInfo>
