@@ -424,14 +424,14 @@
 						<param name="svn.file.name" value="OCInternalComm-${roi.minor.version}.jar" />
 					</antcall>
 					<antcall target="checkin-file-svn">
-						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/OCSecurity-18.2.dll" />
+						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/OCSecurity-21.0.dll" />
 						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
-						<param name="svn.file.name" value="OCSecurity-18.2.dll" />
+						<param name="svn.file.name" value="OCSecurity-21.0.dll" />
 					</antcall>
 					<antcall target="checkin-file-svn">
-						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/debug/OCSecurity-18.2.dll" />
+						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/debug/OCSecurity-21.0.dll" />
 						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
-						<param name="svn.file.name" value="OCSecurity-18.2" />
+						<param name="svn.file.name" value="OCSecurity-21.0" />
 					</antcall>
 				</then>
 		</if>
