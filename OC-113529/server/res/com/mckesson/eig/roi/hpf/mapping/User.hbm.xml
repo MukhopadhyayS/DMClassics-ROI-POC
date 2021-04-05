@@ -71,6 +71,10 @@
     <property name="rvGroup">
         <column name="RV_GROUP" sql-type="string"/>
     </property>
+    
+    <many-to-one name="userTypeLovId" class="com.mckesson.eig.roi.hpf.model.UserTypeLOV"
+            column="User_TypeLOVId"  not-null="true"
+             />
 
  </class>
 
@@ -103,6 +107,16 @@
 	    <property name="securityGroup" >
 	        <column name="SECURITY_GROUP" sql-type="int" not-null="true"/>
 	    </property>
+	
+    </class>
+    
+    <class name="com.mckesson.eig.roi.hpf.model.UserTypeLOV" table="User_TypeLOV"
+    schema="dbo" catalog="cabinet">
+    
+	    <id name="userTypeLOVId">
+	        <column name="User_TypeLOVId" sql-type="bigint"/>
+	        
+	    </id>  
 	
     </class>
 
