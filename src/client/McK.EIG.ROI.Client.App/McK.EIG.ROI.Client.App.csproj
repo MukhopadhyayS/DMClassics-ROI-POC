@@ -117,7 +117,7 @@
     <Content Include="McKesson.eig.WebServiceLogConfig.xml" />
     <Content Include="McKesson.eig.WinDssLogConfig.xml" />
     <Content Include="msvcp71.dll" />
-    <Content Include="OCSecurity-18.2.dll" />
+    <Content Include="OCSecurity-21.0.dll" />
     <Content Include="RegPermWinDSS.txt" />
     <Content Include="Reports\RequestDetailReport_0.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
