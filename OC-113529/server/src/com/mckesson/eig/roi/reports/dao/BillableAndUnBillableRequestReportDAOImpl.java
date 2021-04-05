@@ -7,16 +7,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
-import com.mckesson.dm.core.common.logging.OCLogger;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 
@@ -79,25 +82,25 @@ extends ROIReportDAOImpl {
             Session session = getSession();
             String queryString = session.getNamedQuery("ROI_Generate_UnBillableAndBillableReport")
                                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameterList("facilities", facilities);
             query.setParameterList("requestorTypes", requestorTypes);
             query.setParameter("requestType",
                                requestType.equals("Both") ? null : requestType,
-                               Hibernate.STRING);
+                               StringType.INSTANCE);
 
-            query.setParameter("fromDate", startDate, Hibernate.TIMESTAMP);
-            query.setParameter("toDate", endDate, Hibernate.TIMESTAMP);
+            query.setParameter("fromDate", startDate, StandardBasicTypes.TIMESTAMP);
+            query.setParameter("toDate", endDate, StandardBasicTypes.TIMESTAMP);
 
-            query.addScalar("facility", Hibernate.STRING);
-            query.addScalar("requestorType", Hibernate.STRING);
-            query.addScalar("requestorName", Hibernate.STRING);
-            query.addScalar("requestId", Hibernate.INTEGER);
-            query.addScalar("billable", Hibernate.STRING);
-            query.addScalar("requestCost", Hibernate.DOUBLE);
-            query.addScalar("totalPages", Hibernate.INTEGER);
-            query.addScalar("patientName", Hibernate.STRING);
-            query.addScalar("patientMRN", Hibernate.STRING);
+            query.addScalar("facility", StringType.INSTANCE);
+            query.addScalar("requestorType", StringType.INSTANCE);
+            query.addScalar("requestorName", StringType.INSTANCE);
+            query.addScalar("requestId", IntegerType.INSTANCE);
+            query.addScalar("billable", StringType.INSTANCE);
+            query.addScalar("requestCost", DoubleType.INSTANCE);
+            query.addScalar("totalPages", IntegerType.INSTANCE);
+            query.addScalar("patientName", StringType.INSTANCE);
+            query.addScalar("patientMRN", StringType.INSTANCE);
 
             List<Object[]> results = query.list();
 

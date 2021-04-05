@@ -20,13 +20,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.StringType;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.Designation;
 import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
 import com.mckesson.eig.roi.admin.model.DocTypeRelation;
@@ -36,7 +37,6 @@ import com.mckesson.eig.roi.admin.model.MUDocTypeModel;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.utility.util.CollectionUtilities;
-import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**
@@ -435,9 +435,9 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
         }
         Session session = getSession();
         String queryString = session.getNamedQuery("retrieveAllGenders").getQueryString();;
-        SQLQuery query = session.createSQLQuery(queryString);
-        query.addScalar("code", Hibernate.STRING);
-        query.addScalar("description", Hibernate.STRING);
+        NativeQuery query = session.createSQLQuery(queryString);
+        query.addScalar("code", StringType.INSTANCE);
+        query.addScalar("description", StringType.INSTANCE);
         query.setResultTransformer(Transformers.aliasToBean(Gender.class));
         List<Gender> genderDetails = query.list();
         if (DO_DEBUG) {

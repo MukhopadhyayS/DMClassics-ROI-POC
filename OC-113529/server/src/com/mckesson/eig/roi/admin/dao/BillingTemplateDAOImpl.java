@@ -21,19 +21,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.BooleanType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.BillingTemplate;
 import com.mckesson.eig.roi.admin.model.BillingTemplatesList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
-import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**
@@ -287,16 +291,16 @@ implements BillingTemplateDAO {
         Session session = getSession();
         String queryString = session.getNamedQuery("retrieveBillingTemplateByRequestorType")
                                     .getQueryString();
-        SQLQuery sqlQuery = session.createSQLQuery(queryString);
+        NativeQuery sqlQuery = session.createSQLQuery(queryString);
 
-        sqlQuery.addScalar("id", Hibernate.LONG);
-        sqlQuery.addScalar("name", Hibernate.STRING);
-        sqlQuery.addScalar("active", Hibernate.BOOLEAN);
-        sqlQuery.addScalar("createdBy", Hibernate.LONG);
-        sqlQuery.addScalar("modifiedDate", Hibernate.TIMESTAMP);
-        sqlQuery.addScalar("modifiedBy", Hibernate.LONG);
-        sqlQuery.addScalar("recordVersion", Hibernate.INTEGER);
-        sqlQuery.addScalar("orgId", Hibernate.LONG);
+        sqlQuery.addScalar("id", LongType.INSTANCE);
+        sqlQuery.addScalar("name", StringType.INSTANCE);
+        sqlQuery.addScalar("active", BooleanType.INSTANCE);
+        sqlQuery.addScalar("createdBy", LongType.INSTANCE);
+        sqlQuery.addScalar("modifiedDate", StandardBasicTypes.TIMESTAMP );
+        sqlQuery.addScalar("modifiedBy", LongType.INSTANCE);
+        sqlQuery.addScalar("recordVersion", IntegerType.INSTANCE);
+        sqlQuery.addScalar("orgId", LongType.INSTANCE);
 
         sqlQuery.setParameter("requestorTypeId", requestorTypeId);
 

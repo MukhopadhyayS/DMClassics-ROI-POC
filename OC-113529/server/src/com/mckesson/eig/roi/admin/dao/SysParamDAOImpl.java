@@ -6,19 +6,20 @@ package com.mckesson.eig.roi.admin.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.SysParam;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
@@ -187,8 +188,8 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
         try {
             Session session = getSession();
             Query query = session.getNamedQuery("updateROIRequestUnbillable");
-            query.setParameter("unbillable", checked ? "true" : "false", Hibernate.STRING);
-            query.setParameter("modifiedDt", getDate(), Hibernate.TIMESTAMP);
+            query.setParameter("unbillable", checked ? "true" : "false", StringType.INSTANCE);
+            query.setParameter("modifiedDt", getDate(), StandardBasicTypes.TIMESTAMP);
             query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -222,8 +223,8 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
         try {
             Session session = getSession();
             String query = session.getNamedQuery("retrieveROIRequestUnbillable").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.addScalar("unbillable", Hibernate.STRING);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.addScalar("unbillable", StringType.INSTANCE);
             String unbillable = (String) sqlQuery.uniqueResult();
             if (!StringUtilities.isEmpty(unbillable)) {
                 if ("true".equalsIgnoreCase(unbillable)) {
