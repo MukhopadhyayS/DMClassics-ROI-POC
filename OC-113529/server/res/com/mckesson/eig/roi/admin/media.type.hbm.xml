@@ -61,14 +61,14 @@
   <query name="getMediaTypeByName">
     <![CDATA[
       select m from com.mckesson.eig.roi.admin.model.MediaType m
-      where m.name = ?
+      where m.name = ?0
     ]]>
   </query>
 
    <query name="getAssociatedBillingTierCount">
    <![CDATA[
      select count(b.id) from com.mckesson.eig.roi.admin.model.BillingTier b
-     where b.mediaType.id = ?
+     where b.mediaType.id = ?0
    ]]>
   </query>
 

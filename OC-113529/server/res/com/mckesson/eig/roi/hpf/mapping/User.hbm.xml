@@ -123,19 +123,19 @@
 	<query name="userByLoginId">
 	<![CDATA[
 		select u from User u
-		where u.loginId = ?
+		where u.loginId = ?0
 	]]></query>
 	
 	<query name="getUserName">
 	<![CDATA[
 		select u from User u
-		where u.instanceId = ?
+		where u.instanceId = ?0
 	]]></query>
 
 	<query name="loadUserSecurity">
 	<![CDATA[
 		select us from UserSecurity us
-		where us.userId = ? and us.facility = ?
+		where us.userId = ?0 and us.facility = ?1
 	]]></query>
 	
 	<sql-query name="getSecurityRights">

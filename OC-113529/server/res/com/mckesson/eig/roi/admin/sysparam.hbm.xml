@@ -56,14 +56,14 @@
     <query name="retrieveAttachmentLocation">
       <![CDATA[
         select sys from com.mckesson.eig.roi.admin.model.SysParam sys
-        where sys.globalName = ?
+        where sys.globalName = ?0
       ]]>
     </query>  
 	
 	<query name="retrieveSysParams">
       <![CDATA[
         select sys from com.mckesson.eig.roi.admin.model.SysParam sys
-        where sys.globalName like ?
+        where sys.globalName like ?0
       ]]>
     </query>  
     
@@ -84,7 +84,7 @@
   
     <query name="getDayStatusObj">
       <![CDATA[
-        select sys from com.mckesson.eig.roi.admin.model.SysParam sys where sys.globalName = ?
+        select sys from com.mckesson.eig.roi.admin.model.SysParam sys where sys.globalName = ?0
       ]]>
     </query>
     
