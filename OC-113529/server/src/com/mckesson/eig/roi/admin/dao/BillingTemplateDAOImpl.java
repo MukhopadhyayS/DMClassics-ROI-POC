@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -32,12 +32,12 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
-import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.BillingTemplate;
 import com.mckesson.eig.roi.admin.model.BillingTemplatesList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 
 /**
@@ -105,7 +105,7 @@ implements BillingTemplateDAO {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
         List<Object[]> billingTemplates = (List<Object[]>)
-            getHibernateTemplate().execute(new HibernateCallback() {
+            getHibernateTemplate().execute(new HibernateCallback<Object>() {
 
              public Object doInHibernate(Session s) {
 
@@ -204,9 +204,9 @@ implements BillingTemplateDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Long> ids = getHibernateTemplate().findByNamedQuery("getAssociatedRequestorTypeCount",
+        List<?> ids = getHibernateTemplate().findByNamedQuery("getAssociatedRequestorTypeCount",
                                                                   new Long(billingTemplateId));
-        long count = toPlong(ids.get(0));
+        long count = toPlong((Long)ids.get(0));
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:" + count);
@@ -227,12 +227,12 @@ implements BillingTemplateDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<BillingTemplate> billingTemplates = getHibernateTemplate().
+        List<?> billingTemplates = getHibernateTemplate().
                               findByNamedQuery("getBillingTemplateName", billingTemplateName);
 
         BillingTemplate billingTemplate = null;
         if (billingTemplates.size() > 0) {
-            billingTemplate = billingTemplates.get(0);
+            billingTemplate = (BillingTemplate)billingTemplates.get(0);
         }
 
         if (DO_DEBUG) {
@@ -288,7 +288,8 @@ implements BillingTemplateDAO {
             LOG.debug(logSM + ">>Start:RequestorTypeId:" + requestorTypeId);
         }
 
-        Session session = getSession();
+//        Session session = getSession();
+        Session session = currentSession();
         String queryString = session.getNamedQuery("retrieveBillingTemplateByRequestorType")
                                     .getQueryString();
         NativeQuery sqlQuery = session.createSQLQuery(queryString);

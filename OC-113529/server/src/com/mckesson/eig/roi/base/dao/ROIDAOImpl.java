@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -38,8 +38,6 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -54,6 +52,8 @@ import com.mckesson.eig.roi.request.model.FreeFormFacility;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 /**
  * @author OFS
@@ -101,6 +101,10 @@ implements ROIDAO {
         return new Timestamp(System.currentTimeMillis() + _diff);
     }
 
+    public Session getSession() {
+        currentSession();
+    }
+    
     /**
      * This method is used for storing individual objects and handling data
      * integrity violation exceptions.
