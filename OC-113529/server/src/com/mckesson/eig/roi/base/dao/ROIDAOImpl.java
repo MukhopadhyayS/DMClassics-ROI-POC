@@ -23,10 +23,7 @@ import java.sql.Clob;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -516,8 +513,9 @@ implements ROIDAO {
     public void bulkInsert(List<MUROIOutboundStatistics> muOutboundStatistics) {
 
         try {
-            //TODO - Need to update this call with new hibernate5 alternative
-//            getHibernateTemplate().saveOrUpdateAll(muOutboundStatistics);
+            for (Iterator it = muOutboundStatistics.iterator(); it.hasNext();) {
+                getHibernateTemplate().saveOrUpdate(it.next());
+            }
         } catch (DataAccessException e) {
             throw new ROIException(
                     ROIClientErrorCodes.MU_CREATEROIOUTBOUND_BULK_INSERT, e

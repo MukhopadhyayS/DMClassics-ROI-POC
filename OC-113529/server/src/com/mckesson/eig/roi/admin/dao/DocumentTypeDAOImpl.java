@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -18,6 +18,7 @@ package com.mckesson.eig.roi.admin.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.ScrollableResults;
@@ -197,7 +198,9 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
             LOG.debug(logSM + ">>Start:");
         }
 
-        getHibernateTemplate().saveOrUpdateAll(docTypeRelations);
+        for (Iterator it = docTypeRelations.iterator(); it.hasNext();) {
+            getHibernateTemplate().saveOrUpdate(it.next());
+        }
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:No.Of DocumentTypes: " + docTypeRelations.size());
