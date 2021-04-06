@@ -52,14 +52,14 @@
     <query name="getBillingTemplateName">
       <![CDATA[
         select b from com.mckesson.eig.roi.admin.model.BillingTemplate b
-        where b.name = ?
+        where b.name = ?0
       ]]>
     </query>
 
     <query name="getAssociatedRequestorTypeCount">
       <![CDATA[
         select count(r.billingTemplateId) from com.mckesson.eig.roi.admin.model.RelatedBillingTemplate r
-        where r.billingTemplateId = ?
+        where r.billingTemplateId = ?0
       ]]>
     </query>
 

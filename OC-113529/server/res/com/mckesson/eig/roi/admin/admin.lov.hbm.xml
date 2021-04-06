@@ -75,7 +75,7 @@
     <query name="getNoteByName">
     <![CDATA[
       select n from com.mckesson.eig.roi.admin.model.Note n
-      where n.name = ?
+      where n.name = ?0
     ]]>
   </query>
 

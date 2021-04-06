@@ -529,7 +529,7 @@
             <![CDATA[
                 SELECT p
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient p
-                WHERE p.id = ?
+                WHERE p.id = ?0
             ]]>
 	</query>
 
@@ -537,7 +537,7 @@
             <![CDATA[
                 SELECT d
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument d
-                WHERE d.patientId = ?
+                WHERE d.patientId = ?0
             ]]>
 	</query>
 
@@ -545,7 +545,7 @@
             <![CDATA[
                 SELECT a
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment a
-                WHERE a.patientId = ?
+                WHERE a.patientId = ?0
             ]]>
 	</query>
 
@@ -553,7 +553,7 @@
             <![CDATA[
                 SELECT d
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument d
-                WHERE d.mrn = ? and d.facility = ?
+                WHERE d.mrn = ?0 and d.facility = ?1
             ]]>
 	</query>
 
@@ -561,7 +561,7 @@
             <![CDATA[
                 SELECT a
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment a
-                WHERE a.mrn = ? and a.facility = ?
+                WHERE a.mrn = ?0 and a.facility = ?1
             ]]>
 	</query>
 
@@ -569,7 +569,7 @@
             <![CDATA[
                 SELECT p
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument p
-                WHERE p.id = ?
+                WHERE p.id = ?0
             ]]>
 	</query>
 
@@ -577,7 +577,7 @@
             <![CDATA[
                 SELECT p
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment p
-                WHERE p.id = ?
+                WHERE p.id = ?0
             ]]>
 	</query>
 	
@@ -585,7 +585,7 @@
             <![CDATA[
                 SELECT p
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument p
-                WHERE p.id = ?
+                WHERE p.id = ?0
             ]]>
 	</query>
 	
@@ -593,7 +593,7 @@
             <![CDATA[
                 SELECT p
                 FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment p
-                WHERE p.id = ?
+                WHERE p.id = ?0
             ]]>
 	</query>
 	

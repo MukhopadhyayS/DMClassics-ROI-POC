@@ -55,7 +55,7 @@
      <query name="getPaymentMethodByName">
        <![CDATA[
          select p from com.mckesson.eig.roi.admin.model.PaymentMethod p
-         where p.name = ?
+         where p.name = ?0
        ]]>
      </query>
 
