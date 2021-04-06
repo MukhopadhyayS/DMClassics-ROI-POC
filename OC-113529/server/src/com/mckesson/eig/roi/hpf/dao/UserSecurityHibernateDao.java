@@ -22,8 +22,8 @@ import javax.sql.DataSource;
 import org.hibernate.Session;
 import org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl;
 import org.hibernate.engine.spi.SessionImplementor;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.hpf.model.User;
@@ -91,8 +91,8 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<UserSecurity> us = getHibernateTemplate()
-                .executeFind(new HibernateCallback() {
+        List<UserSecurity> us = (List<UserSecurity>) getHibernateTemplate()
+                .execute(new HibernateCallback() {
 
                     public Object doInHibernate(Session s) {
 
@@ -127,8 +127,8 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<UserFacility> us = getHibernateTemplate()
-                .executeFind(new HibernateCallback() {
+        List<UserFacility> us = (List<UserFacility>) getHibernateTemplate()
+                .execute(new HibernateCallback() {
 
                     public Object doInHibernate(Session s) {
 
@@ -181,7 +181,7 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
     //Support OCSecurity Internal Security Model
     public DataSource getDataSource() {
         
-        SessionImplementor factory = (SessionImplementor) this.getSession().getSessionFactory(); 
+        SessionImplementor factory = (SessionImplementor) this.currentSession().getSessionFactory(); 
         DatasourceConnectionProviderImpl provider = (DatasourceConnectionProviderImpl)factory.getJdbcConnectionAccess();
         return provider.getDataSource();
         
