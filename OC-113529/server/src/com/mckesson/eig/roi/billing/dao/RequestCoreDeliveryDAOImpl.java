@@ -53,6 +53,7 @@ import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 
 public class RequestCoreDeliveryDAOImpl
@@ -72,7 +73,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + requestCoreId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			String queryString = session.getNamedQuery("createRequestCoreDelivery").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
 			query.addScalar("requestCoreDeliveryId", LongType.INSTANCE);
@@ -132,7 +133,7 @@ implements RequestCoreDeliveryDAO {
 
         try {
 
-            Session session = getSession();
+            Session session = currentSession();
             String queryString = session.getNamedQuery("retrieveRequestIdForRequestCoreDelivery")
                                         .getQueryString();
 
@@ -200,7 +201,7 @@ implements RequestCoreDeliveryDAO {
 		}
 		try {
 
-			Session session = getSession();
+			Session session = currentSession();
 
 			String queryString = session.getNamedQuery("retrievePagesAndReleasedCount")
 			                            .getQueryString();
@@ -252,7 +253,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges");
 			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChagesId, LongType.INSTANCE);
 			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
@@ -280,7 +281,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges");
 			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
@@ -309,7 +310,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + requestCoreId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			String queryString = session.getNamedQuery("retrieveNonReleasedInvoices").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.addScalar("invoiceId", LongType.INSTANCE);
@@ -376,7 +377,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + releaseId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			String queryString = session.getNamedQuery("retrieveInvoicesForRelease").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.addScalar("invoiceId", LongType.INSTANCE);
@@ -406,7 +407,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + invoiceId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			Query query;
 			if (isReleased) {
 				query = session.getNamedQuery("updateInvoiceReleased");
@@ -441,7 +442,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + invoice);
         }
         try {
-            Session session = getSession();
+            Session session = currentSession();
             Query query = session.getNamedQuery("createRequestCoreDeliveryCharges");
 
             query.setParameter("requestCoreId", invoice.getRequestCoreId(), LongType.INSTANCE);
@@ -526,7 +527,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesDocument);
         }
         try{
-            Session session = getSession();
+            Session session = currentSession();
             Query query = session.getNamedQuery("createRequestCoreDeliveryChargesDocument");
 
             query.setParameter("requestCoreDeliveryChargesId",requestCoreDeliveryChargesDocument.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
@@ -617,7 +618,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesShipping);
         }
         try{
-            Session session = getSession();
+            Session session = currentSession();
             Query query = session.getNamedQuery("createRequestCoreDeliveryChargesShipping");
 
             query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesShipping.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
@@ -674,7 +675,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreId);
         }
         try {
-            Session session = getSession();
+            Session session = currentSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryCharges")
                                         .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
@@ -752,7 +753,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId);
         }
         try{
-            Session session = getSession();
+            Session session = currentSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesShipping").getQueryString();;
             NativeQuery query = session.createSQLQuery(queryString);
 
@@ -818,7 +819,7 @@ implements RequestCoreDeliveryDAO {
         }
 
         try{
-            Session session = getSession();
+            Session session = currentSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesAdjustmentPayment").getQueryString();;
             NativeQuery query = session.createSQLQuery(queryString);
 
@@ -872,7 +873,7 @@ implements RequestCoreDeliveryDAO {
         }
 
         try{
-            Session session = getSession();
+            Session session = currentSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment").getQueryString();;
             NativeQuery query = session.createSQLQuery(queryString);
 
@@ -945,7 +946,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId);
         }
         try{
-            Session session = getSession();
+            Session session = currentSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryCharges");
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
@@ -970,7 +971,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId );
         }
         try{
-            Session session = getSession();
+            Session session = currentSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesFee");
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
@@ -998,7 +999,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId);
         }
         try {
-            Session session = getSession();
+            Session session = currentSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesShipping");
             query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
@@ -1023,7 +1024,7 @@ implements RequestCoreDeliveryDAO {
             LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId );
         }
         try{
-            Session session = getSession();
+            Session session = currentSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesDocument");
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
@@ -1079,7 +1080,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryInvoicePatients);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			Query query = session.getNamedQuery("createInvoicePatients");
 			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryInvoicePatients.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
 			query.setParameter("requestHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestHpfPatientsId(), LongType.INSTANCE);
@@ -1105,7 +1106,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore");
 			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 			query.setParameter("roiSupplementalAttachmentId", supplementalAttachmentSeq, LongType.INSTANCE);
@@ -1179,7 +1180,7 @@ implements RequestCoreDeliveryDAO {
 			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
 		}
 		try {
-			Session session = getSession();
+			Session session = currentSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore");
 			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 			query.setParameter("roiSupplementalDocumentId", supplementalDocumentSeq, LongType.INSTANCE);
