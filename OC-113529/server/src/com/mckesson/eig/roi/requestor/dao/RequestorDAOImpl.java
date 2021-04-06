@@ -45,8 +45,8 @@ import org.hibernate.type.LongType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.admin.dao.RequestorTypeDAO;
 import com.mckesson.eig.roi.admin.model.RequestorType;
@@ -751,11 +751,11 @@ implements RequestorDAO {
         List<Long> requestorIds = new ArrayList <Long>();
 
         if (names.length < 2) {
-            requestorIds = getHibernateTemplate()
+            requestorIds = (List<Long>) getHibernateTemplate()
                                .findByNamedQuery("retrieveRequestorByLastName", name);
         } else {
 
-            requestorIds = getHibernateTemplate()
+            requestorIds = (List<Long>) getHibernateTemplate()
                                .findByNamedQueryAndNamedParam("retrieveRequestorByName",
                                                                   new String[] {"lName", "fName"},
                                                                   new String[] {names[0].trim(),
@@ -819,7 +819,7 @@ implements RequestorDAO {
         c.add(j);
 
         @SuppressWarnings("unchecked") // not supported by third party API
-        List<Requestor> requestors = getHibernateTemplate().findByCriteria(c);
+        List<Requestor> requestors = (List<Requestor>) getHibernateTemplate().findByCriteria(c);
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:No.of Requestors Matching:" + requestors.size());
