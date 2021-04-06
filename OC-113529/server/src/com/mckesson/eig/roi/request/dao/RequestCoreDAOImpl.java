@@ -722,7 +722,7 @@ implements RequestCoreDAO {
 
         @SuppressWarnings("unchecked") // not supported by 3rd party API
         List< ? extends RequestEvent> events
-        = getHibernateTemplate().findByNamedQuery("retrieveEventHistory", params);
+        = (List<? extends RequestEvent>) getHibernateTemplate().findByNamedQuery("retrieveEventHistory", params);
 
         List<RequestEvent> eves = new ArrayList<RequestEvent>();
         for (RequestEvent eve : events) {
