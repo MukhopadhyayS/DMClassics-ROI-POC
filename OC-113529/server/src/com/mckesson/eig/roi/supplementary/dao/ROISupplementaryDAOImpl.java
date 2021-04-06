@@ -20,7 +20,7 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -133,7 +133,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalPatient> patients = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalPatient> patients = (List<ROISupplementalPatient>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalPatientById", new Long(id));
 
         if (CollectionUtilities.isEmpty(patients)) {
@@ -155,7 +155,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalDocument> documents = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalDocument> documents = (List<ROISupplementalDocument>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalDocumentsByPatientId", new Long(patientId));
 
         if (DO_DEBUG) {
@@ -174,7 +174,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalAttachment> attachments = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalAttachment> attachments = (List<ROISupplementalAttachment>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalAttachmentsByPatientId", new Long(patientId));
 
         if (DO_DEBUG) {
@@ -193,7 +193,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityDocument> documents = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityDocument> documents = (List<ROISupplementarityDocument>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityDocumentsByMrnFacility", new Object[]{mrn, facility});
 
         if (DO_DEBUG) {
@@ -212,7 +212,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityAttachment> attachments = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityAttachment> attachments = (List<ROISupplementarityAttachment>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityAttachmentsByMrnFacility", new Object[]{mrn, facility});
 
         if (DO_DEBUG) {
@@ -231,7 +231,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalDocument> documents = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalDocument> documents = (List<ROISupplementalDocument>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalDocumentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(documents)) {
@@ -253,7 +253,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalAttachment> attachments = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalAttachment> attachments = (List<ROISupplementalAttachment>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalAttachmentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(attachments)) {
@@ -275,7 +275,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityDocument> documents = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityDocument> documents = (List<ROISupplementarityDocument>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityDocumentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(documents)) {
@@ -297,7 +297,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityAttachment> attachments = getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityAttachment> attachments = (List<ROISupplementarityAttachment>) getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityAttachmentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(attachments)) {
