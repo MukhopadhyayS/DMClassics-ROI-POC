@@ -17,7 +17,6 @@ import org.hibernate.type.LongType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;

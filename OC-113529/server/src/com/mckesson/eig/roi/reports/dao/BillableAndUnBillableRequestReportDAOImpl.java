@@ -14,7 +14,6 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -22,6 +21,7 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 public class BillableAndUnBillableRequestReportDAOImpl
 extends ROIReportDAOImpl {

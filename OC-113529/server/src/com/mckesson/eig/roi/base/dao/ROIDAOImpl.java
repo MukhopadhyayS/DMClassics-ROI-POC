@@ -83,7 +83,7 @@ implements ROIDAO {
     private void setDateDiff() {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Timestamp> list = getHibernateTemplate().findByNamedQuery("getDBDate");
+        List<Timestamp> list = (List<Timestamp>) getHibernateTemplate().findByNamedQuery("getDBDate");
         _diff = list.get(0).getTime() - System.currentTimeMillis();
     }
 
@@ -178,7 +178,7 @@ implements ROIDAO {
         if (_roiEmailPhoneTypes == null) {
 
             @SuppressWarnings("unchecked") // not supported by 3rdParty API
-            List<EmailPhoneType> list = getHibernateTemplate().
+            List<EmailPhoneType> list = (List<EmailPhoneType>) getHibernateTemplate().
                                         findByNamedQuery("getEmailPhoneTypes");
 
             _roiEmailPhoneTypes = new HashMap <String, Long>();
@@ -201,7 +201,7 @@ implements ROIDAO {
         if (_roiAddressTypes == null) {
 
             @SuppressWarnings("unchecked") // not supported by 3rdParty API
-            List<AddressType> list =  getHibernateTemplate().
+            List<AddressType> list = (List<AddressType>)  getHibernateTemplate().
                                         findByNamedQuery("getAddressTypes");
 
             _roiAddressTypes = new HashMap <String, Long>();
@@ -224,7 +224,7 @@ implements ROIDAO {
         if (_roiContactTypes == null) {
 
             @SuppressWarnings("unchecked") // not supported by 3rdParty API
-            List<ContactType> list = getHibernateTemplate().
+            List<ContactType> list = (List<ContactType>) getHibernateTemplate().
                                         findByNamedQuery("getContactTypes");
 
             _roiContactTypes = new HashMap <String, Long>();
@@ -516,7 +516,8 @@ implements ROIDAO {
     public void bulkInsert(List<MUROIOutboundStatistics> muOutboundStatistics) {
 
         try {
-            getHibernateTemplate().saveOrUpdateAll(muOutboundStatistics);
+            //TODO - Need to update this call with new hibernate5 alternative
+//            getHibernateTemplate().saveOrUpdateAll(muOutboundStatistics);
         } catch (DataAccessException e) {
             throw new ROIException(
                     ROIClientErrorCodes.MU_CREATEROIOUTBOUND_BULK_INSERT, e
@@ -587,7 +588,7 @@ implements ROIDAO {
     
         // not supported by 3rdParty API
         @SuppressWarnings("unchecked")
-        List<String> eiwData = getHibernateTemplate().findByNamedQuery(
+        List<String> eiwData = (List<String>) getHibernateTemplate().findByNamedQuery(
                                      "retrieveEIWDATAConfiguration", key);
     
         if (DO_DEBUG) {
