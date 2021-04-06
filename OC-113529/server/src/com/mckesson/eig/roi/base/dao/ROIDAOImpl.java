@@ -102,9 +102,9 @@ implements ROIDAO {
     }
 
     public Session getSession() {
-        currentSession();
+        return currentSession();
     }
-    
+
     /**
      * This method is used for storing individual objects and handling data
      * integrity violation exceptions.
