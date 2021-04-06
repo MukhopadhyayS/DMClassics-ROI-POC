@@ -29,7 +29,6 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -43,6 +42,7 @@ import com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceResult;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 /**
  * @author Karthik Easwaran
