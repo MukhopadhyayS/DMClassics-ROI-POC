@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -17,11 +17,7 @@ package com.mckesson.eig.roi.request.dao;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -757,7 +753,9 @@ implements RequestCoreDAO {
 
         try {
 
-            getHibernateTemplate().saveOrUpdateAll(reqEvents);
+            for (Iterator it = reqEvents.iterator(); it.hasNext();) {
+                getHibernateTemplate().saveOrUpdate(it.next());
+            }
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
