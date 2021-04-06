@@ -12,7 +12,7 @@ import org.hibernate.query.Query;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.SysParam;
@@ -50,7 +50,7 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
         // Currently passing the key as roi.request.password. later on if the key is roi this
         // query will return all the roi specific configurations.
         @SuppressWarnings("unchecked")
-        List<SysParam> sysParams = getHibernateTemplate().findByNamedQuery("retrieveSysParams",
+        List<SysParam> sysParams = (List<SysParam>) getHibernateTemplate().findByNamedQuery("retrieveSysParams",
                                                                            KEY_REQUEST_PASWORD);
 
         if (DO_DEBUG) {
@@ -74,7 +74,7 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
             LOG.debug(logSM + ">>Start:");
         }
 
-        List<SysParam> sysParams = getHibernateTemplate().findByNamedQuery(
+        List<SysParam> sysParams = (List<SysParam>) getHibernateTemplate().findByNamedQuery(
                 "retrieveConfigureDaysStatus");
         List<SysParam> sysParamsList = new ArrayList<SysParam>();
         String dayName = null;
@@ -111,7 +111,7 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
             LOG.debug(logSM + ">>Start:");
         }
 
-        List<Long> ids = getHibernateTemplate().findByNamedQuery(
+        List<Long> ids = (List<Long>) getHibernateTemplate().findByNamedQuery(
                 "retrieveNoOfWeekEndDays");
         if (ids.size() > 0 && ids.get(0) != null) {
 
@@ -140,7 +140,7 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
                     ROIClientErrorCodes.CONFIGURE_GETDAYS_OBJECT);
         }
 
-        List<SysParam> sysParams = getHibernateTemplate().findByNamedQuery(
+        List<SysParam> sysParams = (List<SysParam>) getHibernateTemplate().findByNamedQuery(
                 "getDayStatusObj", dayName);
 
         SysParam sysParam = (sysParams.size() == 0) ? null : sysParams.get(0);

@@ -114,7 +114,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Object[]> feeTypes = getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypes");
+        List<Object[]> feeTypes = (List<Object[]>) getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypes");
 
         List<FeeType> feesList = new ArrayList<FeeType>();
         for (Object[] values : feeTypes) {
@@ -150,7 +150,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Object[]> feeTypes = getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypeName");
+        List<Object[]> feeTypes = (List<Object[]>) getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypeName");
 
         List<FeeType> feesList = new ArrayList<FeeType>();
         for (Object[] values : feeTypes) {
@@ -231,7 +231,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<FeeType> feeTypes = getHibernateTemplate().findByNamedQuery("getFeeTypeByName",
+        List<FeeType> feeTypes = (List<FeeType>) getHibernateTemplate().findByNamedQuery("getFeeTypeByName",
                                                                           feeTypeName);
 
         FeeType feeType = null;
@@ -260,7 +260,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Long> ids = getHibernateTemplate().
+        List<Long> ids = (List<Long>) getHibernateTemplate().
                          findByNamedQuery("getAssociatedBillingTemplateCount", new Long(feeTypeId));
 
         long count = toPlong(ids.get(0));

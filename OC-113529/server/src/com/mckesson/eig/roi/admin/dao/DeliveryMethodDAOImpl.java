@@ -94,7 +94,7 @@ implements DeliveryMethodDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<DeliveryMethod> deliveryMethod = getHibernateTemplate().
+        List<DeliveryMethod> deliveryMethod = (List<DeliveryMethod>) getHibernateTemplate().
                                                 findByNamedQuery("retrieveAllDeliveryMethods");
 
         DeliveryMethodList dml = new DeliveryMethodList(deliveryMethod);
@@ -139,7 +139,7 @@ implements DeliveryMethodDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <DeliveryMethod> deliveryMethods = getHibernateTemplate().
+        List <DeliveryMethod> deliveryMethods = (List<DeliveryMethod>) getHibernateTemplate().
                                                 findByNamedQuery("getDeliveryMethodByName",
                                                                  deliveryMethodName);
 
@@ -179,7 +179,7 @@ implements DeliveryMethodDAO {
     public DeliveryMethod getDefaultDeliveryMethod() {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<DeliveryMethod> deliveryMethod = getHibernateTemplate().
+        List<DeliveryMethod> deliveryMethod = (List<DeliveryMethod>) getHibernateTemplate().
                                               findByNamedQuery("getIsDefaultAsTrue");
         DeliveryMethod dm = null;
         if (deliveryMethod.size() > 0) {
@@ -210,7 +210,7 @@ implements DeliveryMethodDAO {
         }
 
         @SuppressWarnings("unchecked")//not supported by 3party API
-        List<Object[]> dMethods = getHibernateTemplate()
+        List<Object[]> dMethods = (List<Object[]>) getHibernateTemplate()
                                 .findByNamedQuery("retrieveAllDeliveryMethodNames");
 
         List<DeliveryMethod> dmList = new ArrayList<DeliveryMethod>();

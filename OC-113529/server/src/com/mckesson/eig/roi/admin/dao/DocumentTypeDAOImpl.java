@@ -25,7 +25,7 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StringType;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.Designation;
@@ -110,7 +110,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
                                 String muDocName = muList.get(i).getMuDocName();
 
-                                List<Integer> muDocId = getHibernateTemplate()
+                                List<Integer> muDocId = (List<Integer>) getHibernateTemplate()
                                         .findByNamedQuery("getMUDocId",
                                                 muDocName);
 
@@ -164,7 +164,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
                     if (id == muList.get(i).getMuDocId()) {
                         String muDocName = muList.get(i).getMuDocName();
 
-                        List<Integer> muDocId = getHibernateTemplate()
+                        List<Integer> muDocId = (List<Integer>) getHibernateTemplate()
                                 .findByNamedQuery("getMUDocId", muDocName);
 
                         int docID = muDocId.get(0).intValue();
@@ -268,7 +268,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
         Object[] values = { new Long(codeSetId), new String(designation)};
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<DocTypeRelation> docTypeRelations = getHibernateTemplate()
+        List<DocTypeRelation> docTypeRelations = (List<DocTypeRelation>) getHibernateTemplate()
                                                 .findByNamedQuery("getDesignatedDocuments", values);
 
         if (DO_DEBUG) {
@@ -316,7 +316,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
                     MUDocTypeModel muModel = new MUDocTypeModel();
                     muModel.setId(rs.getInteger(2).intValue());
-                    List<String> mudocName = getHibernateTemplate()
+                    List<String> mudocName = (List<String>) getHibernateTemplate()
                             .findByNamedQuery("getMUDocName", muModel.getId());
                     muDocTypeDto.setMuDocName(mudocName.get(0));
 
@@ -340,7 +340,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
                     MUDocTypeModel muModel = new MUDocTypeModel();
                     muModel.setId(rs.getInteger(2).intValue());
-                    List<String> mudocName = getHibernateTemplate()
+                    List<String> mudocName = (List<String>) getHibernateTemplate()
                             .findByNamedQuery("getMUDocName", muModel.getId());
                     muDocTypeDto.setMuDocName(mudocName.get(0));
 
@@ -389,7 +389,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
         List<Long> documentIds =
-            getHibernateTemplate().findByNamedQuery("retrieveDocTypeIdsByDesignation", designation);
+            (List<Long>) getHibernateTemplate().findByNamedQuery("retrieveDocTypeIdsByDesignation", designation);
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:Size of the retrieved documents : " +  documentIds.size());
@@ -410,7 +410,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
             LOG.debug(logSM + ">>Start:");
         }
 
-        List<String> muDocTypes = getHibernateTemplate().findByNamedQuery(
+        List<String> muDocTypes = (List<String>) getHibernateTemplate().findByNamedQuery(
                 "retrieveMUDocTypes");
 
         if (DO_DEBUG) {

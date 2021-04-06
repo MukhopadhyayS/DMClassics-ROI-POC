@@ -12,7 +12,7 @@ import org.hibernate.type.BooleanType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.admin.model.Country;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
