@@ -46,7 +46,8 @@
 		<property name="configLocation"
 			value="classpath:com/mckesson/eig/roi/hibernate.xml" />
 	</bean>
-
+	
+	
 	<!-- DAO-hibernate configuration starts here-->
 	<!-- bean id="dataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -340,7 +341,7 @@
 	</bean>
 	
 	
-	<bean id="ccdProviderFactoryTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	<bean id="ccdProviderFactoryTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
 		<property name="jobDetail" ref="startCcdProviderFactory" />
 		<property name="startDelay" value="30000"/>
     	<property name="repeatInterval" value="600000" />
