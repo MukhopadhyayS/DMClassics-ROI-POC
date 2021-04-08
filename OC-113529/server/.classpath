@@ -9,6 +9,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/spring-jdbc-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/spring-tx-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/spring-context-5.2.13.RELEASE.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-context-support-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/spring-aop-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/spring-expression-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/hibernate-core-5.4.24.Final.jar"/>
@@ -32,6 +33,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/commons-collections-3.2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="plug-in/ClinicalCcdPrivoder/src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="src" path="plug-in/HPFCcdPrivoder/src"/>
 	<classpathentry kind="src" path="plug-in/ParagonCcdPrivoder/src"/>
@@ -121,7 +123,16 @@
 	<classpathentry kind="lib" path="3rdparty/lib/poi-3.9.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/poi-ooxml-3.9.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/policy.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/quartz.jar"/>
+	
+	<classpathentry kind="lib" path="3rdparty/lib/c3p0-0.9.5.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/HikariCP-java6-2.3.13.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/mchange-commons-java-0.2.11.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/quartz-2.3.0.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/slf4j-api-1.7.7.jar"/>
+	
+	
+	
+	
 	<classpathentry kind="lib" path="3rdparty/lib/ridl-3.1.0.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/rtftemplate-1.0.1-b14.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/servlet-api.jar"/>
