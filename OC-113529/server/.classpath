@@ -12,6 +12,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/spring-context-support-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/spring-aop-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/spring-expression-5.2.13.RELEASE.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-web-5.2.13.RELEASE.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/hibernate-core-5.4.24.Final.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jboss-logging-3.4.1.Final.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/javax.persistence-api-2.2.jar"/>
