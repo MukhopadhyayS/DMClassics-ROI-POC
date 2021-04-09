@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.mckesson.eig.roi.utils.SecureStringAccessor;
+
 
 public class InvoiceOrPrebillAndPreviewInfo
 implements Serializable {
@@ -26,7 +28,7 @@ implements Serializable {
     private Date _invoiceDueDate;
     private Date _resendDate;
     private String _outputMethod;
-    private String _queuePassword;
+    private SecureStringAccessor _queuePassword;
     private boolean _overwriteDueDate;
     private double _invoiceSalesTax;
     private double _baseCharge;
@@ -120,8 +122,16 @@ implements Serializable {
         _overwriteDueDate = overwriteDueDate;
     }
 
-    public String getQueuePassword() { return _queuePassword; }
-    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
+    public String getQueuePassword() { 
+        StringBuilder builder = new StringBuilder();
+        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
+    }
+    public void setQueuePassword(String queuePassword) {  
+        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    }
 
     public long getRequestCoreId() { return _requestCoreId; }
     public void setRequestCoreId(long requestCoreId) { _requestCoreId = requestCoreId; }

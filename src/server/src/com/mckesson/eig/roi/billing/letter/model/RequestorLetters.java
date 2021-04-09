@@ -18,6 +18,8 @@ package com.mckesson.eig.roi.billing.letter.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mckesson.eig.roi.utils.SecureStringAccessor;
+
 /**
  * @author OFS
  * @date   Oct 6, 2011
@@ -28,7 +30,7 @@ public class RequestorLetters {
     private List<InvoiceCharge> _invoiceCharges;
     private RequestorInfo _requestor;
     private ShippingInfo _shippingInfo;
-    private String _queuePassword;
+    private SecureStringAccessor _queuePassword;
     private String _outputMethod;
     private String _templateName;
     private String _templateFileId;
@@ -57,8 +59,17 @@ public class RequestorLetters {
     public ShippingInfo getShippingInfo() { return _shippingInfo; }
     public void setShippingInfo(ShippingInfo shippingInfo) { _shippingInfo = shippingInfo; }
 
-    public String getQueuePassword() { return _queuePassword; }
-    public void setQueuePassword(String queuePassword) {  _queuePassword = queuePassword; }
+    public String getQueuePassword() { 
+        StringBuilder builder = new StringBuilder();
+        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
+    }
+
+    public void setQueuePassword(String queuePassword) {    
+        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+     }
 
     public String getResentDt() { return (null == _resentDt) ? "" : _resentDt; }
     public void setResentDt(String resentDt) { _resentDt = resentDt; }

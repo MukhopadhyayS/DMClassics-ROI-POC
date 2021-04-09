@@ -17,6 +17,7 @@ package com.mckesson.eig.roi.billing.model;
 
 import java.io.Serializable;
 
+import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
@@ -30,7 +31,7 @@ implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private String _queuePassword;
+    private SecureStringAccessor _queuePassword;
     private String _outputMethod;
     private boolean _forInvoice;
     private boolean _forLetter;
@@ -39,8 +40,16 @@ implements Serializable {
     private long _letterId;
     private long _releaseId;
     
-    public String getQueuePassword() { return _queuePassword; }
-    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
+    public String getQueuePassword() { 
+        StringBuilder builder = new StringBuilder();
+        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
+    }
+    public void setQueuePassword(String queuePassword) {  
+        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    }
     
     public String getOutputMethod() { return _outputMethod; }
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }
@@ -75,7 +84,6 @@ implements Serializable {
                         .append(", OutpuMethod")
                         .append(_outputMethod)
                         .append(", Has QueuePassword")
-                        .append(StringUtilities.isEmpty(_queuePassword))
                         .toString();
     }
 
