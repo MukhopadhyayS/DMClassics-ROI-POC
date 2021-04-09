@@ -92,7 +92,7 @@
 		</property>
 	</bean>
 
-	<bean id="AuditTrailHibernateDao" class="com.mckesson.eig.audit.dao.hpf.AuditTrailHibernateDao">
+	<bean id="AuditTrailHibernateDao" class="com.mckesson.eig.roi.dao.AuditTrailHibernateDao">
 		<property name="sessionFactory" ref ="sessionFactory"/>
 	</bean>
 
