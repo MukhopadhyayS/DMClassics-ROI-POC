@@ -99,7 +99,7 @@ implements ROIDAO {
     }
 
     public Session getSession() {
-        return currentSession();
+        return getSessionFactory().openSession();
     }
 
     /**
