@@ -20,9 +20,13 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.SessionFactoryUtils;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
@@ -97,11 +101,11 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
                     public Object doInHibernate(Session s) {
 
                         return s.createQuery(
-                                "select us from UserSecurity us where us.userId = ?"
-                                        + " and us.facility = ?")
+                                "select us from UserSecurity us where us.userId = ?0"
+                                        + " and us.facility = ?1")
                                 .setParameter(0, userId)
                                 .setParameter(1, UserSecurity.ENTERPRISE)
-                                .list();
+                                .getResultList();
 
                     }
 
@@ -181,10 +185,9 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
     //Support OCSecurity Internal Security Model
     public DataSource getDataSource() {
         
-        SessionImplementor factory = (SessionImplementor) this.currentSession().getSessionFactory(); 
-        DatasourceConnectionProviderImpl provider = (DatasourceConnectionProviderImpl)factory.getJdbcConnectionAccess();
-        return provider.getDataSource();
-        
-        
-    }    
+        SessionFactory sessionFactory = this.getSessionFactory();
+        DataSource source = SessionFactoryUtils.getDataSource(sessionFactory);
+       
+        return source;
+    }      
 }
