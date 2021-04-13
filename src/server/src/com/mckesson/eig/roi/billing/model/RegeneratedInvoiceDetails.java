@@ -6,7 +6,6 @@ import java.util.Set;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
 
 public class RegeneratedInvoiceDetails 
 extends BaseModel{
@@ -22,7 +21,7 @@ extends BaseModel{
     private String _requestStatus;
     private String _letterTemplateName;
     private long _letterTemplateFileId;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private String _outputMethod;
     private String _notes;
     private double _amountPaid;
@@ -97,16 +96,8 @@ extends BaseModel{
         _letterTemplateFileId = letterTemplateFileId;
     }
     
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
-    }
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
     
     public String getOutputMethod() { return _outputMethod; }
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }

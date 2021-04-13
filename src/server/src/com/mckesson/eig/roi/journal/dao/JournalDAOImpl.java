@@ -22,12 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
+
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -134,14 +138,14 @@ public class JournalDAOImpl extends ROIDAOImpl implements JournalDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery(sqlName)
                     .getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
-            sqlQuery.setParameter("id", transactionId, Hibernate.LONG);
-            sqlQuery.addScalar("transactionDate", Hibernate.TIMESTAMP);
-            sqlQuery.addScalar("amount", Hibernate.DOUBLE);
-            sqlQuery.setResultTransformer(Transformers
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("id", transactionId, LongType.INSTANCE);
+            query.addScalar("transactionDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("amount", DoubleType.INSTANCE);
+            query.setResultTransformer(Transformers
                     .aliasToBean(JournalTransaction.class));
 
-            List<JournalTransaction> transactions = sqlQuery
+            List<JournalTransaction> transactions = query
                     .list();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End" + transactions);
@@ -167,9 +171,9 @@ public class JournalDAOImpl extends ROIDAOImpl implements JournalDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("insertJournalEntry");
             query.setParameter("requestorId", entry.getRequestorId(),
-                    Hibernate.LONG);
+                    LongType.INSTANCE);
             query.setParameter("txnEventId", entry.getTransactionEventId(),
-                    Hibernate.LONG);
+                    LongType.INSTANCE);
             List<BigDecimal> entryId = query.list();
             long result = 0;
             if (entryId != null && entryId.size() > 0) {
@@ -210,8 +214,8 @@ public class JournalDAOImpl extends ROIDAOImpl implements JournalDAO {
             String sql = getRequestorIdSQL(type);
             Session session = getSession();
             String queryString = session.getNamedQuery(sql).getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
-            sqlQuery.setParameter("transactionId", transactionId, Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setParameter("transactionId", transactionId, LongType.INSTANCE);
             List<Integer> requestorIds = sqlQuery.list();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End" + requestorIds);

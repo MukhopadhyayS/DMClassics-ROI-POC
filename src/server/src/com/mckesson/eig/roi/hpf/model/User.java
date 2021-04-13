@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.password.Password;
 import com.mckesson.eig.utility.password.PasswordMD5;
 import com.mckesson.eig.utility.password.PasswordPassThru;
@@ -63,7 +62,7 @@ public class User implements java.io.Serializable {
     public static final int ALLOW_IMMEDIATE_RESTRICTION_OVERRIDES = 2;
     public static final int NINTY_NINE = 100;
 
-    private SecureStringAccessor _password;
+    private String _password;
     private String _loginId;
     private String _fullName;
     private String _pin;
@@ -92,18 +91,8 @@ public class User implements java.io.Serializable {
     private String _rvGroup;
     private boolean _maskSSN;
     private String _maskBy;
-    
     private UserTypeLOV _userTypeLovId;
     
-    public void setUserTypeLovId(UserTypeLOV userTypeLOV) {
-        this._userTypeLovId = userTypeLOV;
-    }
-
-    public UserTypeLOV getUserTypeLovId() {
-        return _userTypeLovId;
-    }
-
-
 
     public User() { }
 
@@ -135,6 +124,13 @@ public class User implements java.io.Serializable {
         setInstanceId(instanceId);
     }
 
+    public void setUserTypeLovId(UserTypeLOV userTypeLOV) {
+        this._userTypeLovId = userTypeLOV;
+    }
+
+    public UserTypeLOV getUserTypeLovId() {
+        return _userTypeLovId;
+    }
     public Object getIdentity() { return _identity; }
     public void setIdentity(Object identity) { _identity = identity; }
 
@@ -155,16 +151,10 @@ public class User implements java.io.Serializable {
 
     public Object getSecondaryIdentity() { return getLoginId(); }
 
-    public String getPassword() {
-        StringBuilder builder = new StringBuilder();
-        _password.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
+    public String getPassword() { return _password; }
     public String getTrimmedPassword() { return StringUtilities.trim(getPassword()); }
 
-    public void setPassword(String password) { _password = new SecureStringAccessor(password.toCharArray()); }
+    public void setPassword(String password) { _password = password; }
 
     public String getFullName() { return _fullName; }
     public String getTrimmedFullName() { return StringUtilities.trim(_fullName); }
@@ -497,8 +487,6 @@ public class User implements java.io.Serializable {
 
     public String getMaskBy() { return _maskBy; }
     public void setMaskBy(String maskBy) { _maskBy = maskBy; }
-    
-    
 
 
     /**

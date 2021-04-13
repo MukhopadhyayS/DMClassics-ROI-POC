@@ -35,7 +35,7 @@
 				     Modified_By_Seq,
 				     Record_Version
 					) 
-			VALUES (?, ?, ?, ?, ?, ?, ?);
+			VALUES (?0, ?1, ?2, ?3, ?4, ?5, ?6);
         ]]>
     </sql-query>
     
@@ -50,7 +50,7 @@
 				     Modified_By_Seq,
 				     Record_Version
 					) 
-			 VALUES (?, ?,  ?, ?, ?, ?, ?);
+			 VALUES (?0, ?1,  ?2, ?3, ?4, ?5, ?6);
         ]]>
     </sql-query>
     

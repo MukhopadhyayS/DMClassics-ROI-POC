@@ -7,7 +7,6 @@ import java.util.Set;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
 
 public class RequestCoreDeliveryCharges
 extends BaseModel {
@@ -42,7 +41,7 @@ extends BaseModel {
     private Date _invoiceDueDate;
     private Date _resendDate;
     private String _outputMethod;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private boolean _overwriteDueDate;
     private double _invoiceSalesTax;
     private double _baseCharge;
@@ -192,15 +191,12 @@ extends BaseModel {
         _overwriteDueDate = overwriteDueDate;
     }
 
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
+
+    public double getPreviouslyReleasedCost() { return _previouslyReleasedCost; }
+    public void setPreviouslyReleasedCost(double previouslyReleasedCost) {
+        _previouslyReleasedCost = previouslyReleasedCost;
     }
 
     public Date getReleaseDate() { return _releaseDate; }

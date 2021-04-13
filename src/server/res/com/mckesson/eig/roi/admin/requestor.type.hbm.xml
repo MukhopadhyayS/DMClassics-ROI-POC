@@ -75,7 +75,7 @@
     <![CDATA[
         SELECT requestorType
         FROM com.mckesson.eig.roi.admin.model.RequestorType requestorType
-        WHERE requestorType.name = ?
+        WHERE requestorType.name = ?0
     ]]>
     </query>
 
@@ -88,7 +88,7 @@
      <query name="getAssociatedRequestorCount">
          <![CDATA[
             select count(re.id) from com.mckesson.eig.roi.requestor.model.Requestor re
-            where re.type = ?
+            where re.type = ?0
         ]]>
     </query>
 

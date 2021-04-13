@@ -18,11 +18,16 @@ package com.mckesson.eig.roi.billing.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.dao.BaseLetterDataRetriever;
 import com.mckesson.eig.roi.billing.letter.model.LetterData;
 import com.mckesson.eig.roi.billing.letter.model.Note;
@@ -30,7 +35,6 @@ import com.mckesson.eig.roi.billing.letter.model.RequestorInfo;
 import com.mckesson.eig.roi.requestor.dao.RequestorStatementDAO;
 import com.mckesson.eig.roi.requestor.model.RefundLetter;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 
@@ -140,24 +144,24 @@ extends BaseLetterDataRetriever {
         Session session = getSession();
         String queryString =
                 session.getNamedQuery("retrieveRequestorRefund").getQueryString();
-        SQLQuery query = session.createSQLQuery(queryString);
-        query.setParameter("refundId", refundLetterId, Hibernate.LONG);
+        NativeQuery query = session.createSQLQuery(queryString);
+        query.setParameter("refundId", refundLetterId, LongType.INSTANCE);
 
-        query.addScalar("requestorId", Hibernate.LONG);
-        query.addScalar("refundAmount", Hibernate.DOUBLE);
-        query.addScalar("refundDate", Hibernate.TIMESTAMP);
-        query.addScalar("note", Hibernate.STRING);
-        query.addScalar("userName", Hibernate.STRING);
-        query.addScalar("templateFileId", Hibernate.LONG);
-        query.addScalar("templateName", Hibernate.STRING);
-        query.addScalar("outputMethod", Hibernate.STRING);
-        query.addScalar("queuePassword", Hibernate.STRING);
+        query.addScalar("requestorId", LongType.INSTANCE);
+        query.addScalar("refundAmount", DoubleType.INSTANCE);
+        query.addScalar("refundDate", StandardBasicTypes.TIMESTAMP);
+        query.addScalar("note", StringType.INSTANCE);
+        query.addScalar("userName", StringType.INSTANCE);
+        query.addScalar("templateFileId", LongType.INSTANCE);
+        query.addScalar("templateName", StringType.INSTANCE);
+        query.addScalar("outputMethod", StringType.INSTANCE);
+        query.addScalar("queuePassword", StringType.INSTANCE);
 
-        query.addScalar("createdDt", Hibernate.TIMESTAMP);
-        query.addScalar("createdBy", Hibernate.LONG);
-        query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-        query.addScalar("modifiedBy", Hibernate.LONG);
-        query.addScalar("recordVersion", Hibernate.INTEGER);
+        query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+        query.addScalar("createdBy", LongType.INSTANCE);
+        query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+        query.addScalar("modifiedBy", LongType.INSTANCE);
+        query.addScalar("recordVersion", IntegerType.INSTANCE);
         query.setResultTransformer(Transformers.aliasToBean(RefundLetter.class));
 
         RefundLetter refundLetter = (RefundLetter) query.uniqueResult();

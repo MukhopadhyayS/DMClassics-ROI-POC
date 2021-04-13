@@ -22,7 +22,14 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.CharacterType;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 
 import com.mckesson.eig.roi.admin.model.FeeType;
 import com.mckesson.eig.roi.admin.model.FeeTypesList;
@@ -107,7 +114,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Object[]> feeTypes = getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypes");
+        List<Object[]> feeTypes = (List<Object[]>) getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypes");
 
         List<FeeType> feesList = new ArrayList<FeeType>();
         for (Object[] values : feeTypes) {
@@ -143,7 +150,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Object[]> feeTypes = getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypeName");
+        List<Object[]> feeTypes = (List<Object[]>) getHibernateTemplate().findByNamedQuery("retrieveAllFeeTypeName");
 
         List<FeeType> feesList = new ArrayList<FeeType>();
         for (Object[] values : feeTypes) {
@@ -224,7 +231,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<FeeType> feeTypes = getHibernateTemplate().findByNamedQuery("getFeeTypeByName",
+        List<FeeType> feeTypes = (List<FeeType>) getHibernateTemplate().findByNamedQuery("getFeeTypeByName",
                                                                           feeTypeName);
 
         FeeType feeType = null;
@@ -253,7 +260,7 @@ implements FeeTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Long> ids = getHibernateTemplate().
+        List<Long> ids = (List<Long>) getHibernateTemplate().
                          findByNamedQuery("getAssociatedBillingTemplateCount", new Long(feeTypeId));
 
         long count = toPlong(ids.get(0));
@@ -282,24 +289,24 @@ implements FeeTypeDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("getFeeTypesByRequestorId").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            sqlQuery.addScalar("id", Hibernate.LONG);
-            sqlQuery.addScalar("name", Hibernate.STRING);
-            sqlQuery.addScalar("chargeAmount", Hibernate.DOUBLE);
-            sqlQuery.addScalar("description", Hibernate.STRING);
-            sqlQuery.addScalar("createdBy", Hibernate.LONG);
-            sqlQuery.addScalar("modifiedDate", Hibernate.TIMESTAMP);
-            sqlQuery.addScalar("modifiedBy", Hibernate.LONG);
-            sqlQuery.addScalar("recordVersion", Hibernate.INTEGER);
-            sqlQuery.addScalar("orgId", Hibernate.LONG);
-            sqlQuery.addScalar("salesTax", Hibernate.CHARACTER);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("name", StringType.INSTANCE);
+            query.addScalar("chargeAmount", DoubleType.INSTANCE);
+            query.addScalar("description", StringType.INSTANCE);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
+            query.addScalar("orgId", LongType.INSTANCE);
+            query.addScalar("salesTax", CharacterType.INSTANCE);
 
-            sqlQuery.setParameter("requestorTypeId", requestorTypeId);
+            query.setParameter("requestorTypeId", requestorTypeId);
 
-            sqlQuery.setResultTransformer(Transformers.aliasToBean(FeeType.class));
+            query.setResultTransformer(Transformers.aliasToBean(FeeType.class));
             @SuppressWarnings("unchecked")
-            List<FeeType> feeTypes = sqlQuery.list();
+            List<FeeType> feeTypes = query.list();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + feeTypes.size());
@@ -324,22 +331,22 @@ implements FeeTypeDAO {
         Session session = getSession();
         String queryString = session.getNamedQuery("retrieveAllRelatedFeeTypeByRequestorType")
                 .getQueryString();
-        SQLQuery sqlQuery = session.createSQLQuery(queryString);
+        NativeQuery query = session.createSQLQuery(queryString);
 
-        sqlQuery.addScalar("id", Hibernate.LONG);
-        sqlQuery.addScalar("billingTemplateId", Hibernate.LONG);
-        sqlQuery.addScalar("feeTypeId", Hibernate.LONG);
-        sqlQuery.addScalar("createdBy", Hibernate.LONG);
-        sqlQuery.addScalar("modifiedDate", Hibernate.TIMESTAMP);
-        sqlQuery.addScalar("modifiedBy", Hibernate.LONG);
-        sqlQuery.addScalar("recordVersion", Hibernate.INTEGER);
+        query.addScalar("id", LongType.INSTANCE);
+        query.addScalar("billingTemplateId", LongType.INSTANCE);
+        query.addScalar("feeTypeId", LongType.INSTANCE);
+        query.addScalar("createdBy", LongType.INSTANCE);
+        query.addScalar("modifiedDate", StandardBasicTypes.TIMESTAMP);
+        query.addScalar("modifiedBy", LongType.INSTANCE);
+        query.addScalar("recordVersion", IntegerType.INSTANCE);
 
-        sqlQuery.setParameter("requestorTypeId", requestorTypeId);
+        query.setParameter("requestorTypeId", requestorTypeId);
 
-        sqlQuery.setResultTransformer(Transformers.aliasToBean(RelatedFeeType.class));
+        query.setResultTransformer(Transformers.aliasToBean(RelatedFeeType.class));
 
         @SuppressWarnings("unchecked")
-        List<RelatedFeeType> relatedFeeTypes = sqlQuery.list();
+        List<RelatedFeeType> relatedFeeTypes = query.list();
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End: No. of RelatedFeeType = " + relatedFeeTypes.size());

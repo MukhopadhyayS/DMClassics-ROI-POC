@@ -24,7 +24,6 @@ import com.mckesson.eig.roi.request.model.RequestCoreCharges;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesShipping;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
 
 /**
  * @author OFS
@@ -44,7 +43,7 @@ implements Serializable {
     private long _letterTemplateId;
     private  String _notes;
     private String _letterType;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private List <RequestPatient> _requestSupplementalPatients;
     private List <RequestPatient> _requestHpfPatients;
     private RequestCoreCharges _chargesDetails;
@@ -82,16 +81,8 @@ implements Serializable {
     public String getLetterType() { return _letterType; }
     public void setLetterType(String letterType) { _letterType = letterType; }
     
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
-    }
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
     
     public RequestCoreChargesShipping getShippingDetails() { return _shippingDetails; }
     public void setShippingDetails(RequestCoreChargesShipping shippingDetails) {

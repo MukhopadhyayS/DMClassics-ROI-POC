@@ -17,8 +17,6 @@ package com.mckesson.eig.roi.billing.model;
 
 import java.io.Serializable;
 
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
-
 
 /**
  * @author OFS
@@ -33,7 +31,7 @@ implements Serializable {
     private String _type;
     private String _creatorName;
     private String _createdDate;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private String _resendDate;
     private String _outputMethod;
     private String _invoiceDueDate;
@@ -54,16 +52,8 @@ implements Serializable {
     public String getCreatedDate() { return _createdDate; }
     public void setCreatedDate(String createdDate) { _createdDate = createdDate; }
     
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
-    }
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
     
     public String getResendDate() { return _resendDate; }
     public void setResendDate(String resendDate) { _resendDate = resendDate; }
