@@ -21,7 +21,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
@@ -66,7 +65,7 @@ implements Serializable {
     private long _templateFileId;
     private String _templateName;
     private String _outputMethod;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private DateRange _dateRange;
     private List<String> _notes;
     private List<Long> _pastInvIds;
@@ -92,17 +91,8 @@ implements Serializable {
     public String getOutputMethod() { return _outputMethod; }
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }
 
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
-    }
-
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
 
     public void setDateRangeAsString(String dateRange) {
         _dateRange = (null == dateRange) ? null : DateRange.valueOf(dateRange);

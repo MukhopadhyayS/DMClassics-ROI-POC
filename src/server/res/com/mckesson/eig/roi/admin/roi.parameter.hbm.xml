@@ -56,7 +56,7 @@
     <query name="getROIParameterByName">
       <![CDATA[
         select p from com.mckesson.eig.roi.admin.model.ROIParameter p
-        where p.itemName = ?
+        where p.itemName = ?0
       ]]>
     </query>
 </hibernate-mapping>

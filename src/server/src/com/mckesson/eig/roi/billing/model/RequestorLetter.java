@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria.DateRange;
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
 
 /**
  * This class  is a persistent model used to store requestor summary Invoices for hibernate.
@@ -55,7 +54,7 @@ implements Serializable {
     private String _requestorPostalCode;
     private String _requestorCountry;
     private String _outputMethod;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private String _templateName;
     private Date _resendDate;
     private List<String> _notes;
@@ -155,17 +154,8 @@ implements Serializable {
     public Date getResendDate() { return _resendDate; }
     public void setResendDate(Date resendDate) { _resendDate = resendDate; }
 
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
-    }
-
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
 
     public String getTemplateName() { return _templateName; }
     public void setTemplateName(String templateName) { _templateName = templateName; }

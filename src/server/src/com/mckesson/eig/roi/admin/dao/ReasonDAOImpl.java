@@ -23,7 +23,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 import com.mckesson.eig.roi.admin.model.Reason;
 import com.mckesson.eig.roi.admin.model.ReasonsList;
@@ -137,7 +137,7 @@ implements ReasonDAO {
         Object[] values = {reasonName, reasonType};
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Reason> reasons = getHibernateTemplate().
+        List<Reason> reasons = (List<Reason>) getHibernateTemplate().
                                findByNamedQuery("getReasonByName", values);
 
         Reason reason = null;
@@ -165,7 +165,7 @@ implements ReasonDAO {
         Object[] values = {reasonDisplayText, reasonType};
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Reason> reasons = getHibernateTemplate().
+        List<Reason> reasons = (List<Reason>) getHibernateTemplate().
                                findByNamedQuery("getReasonByDispText", values);
 
         Reason reason = null;
@@ -193,7 +193,7 @@ implements ReasonDAO {
         Object[] values = {reason.getType(), reason.getName(), reason.getStatus()};
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Reason> reasons = getHibernateTemplate().
+        List<Reason> reasons = (List<Reason>) getHibernateTemplate().
                                findByNamedQuery("getStatusReasonByName", values);
 
         Reason statusReason = null;
@@ -221,7 +221,7 @@ implements ReasonDAO {
         Object[] values = {reason.getType(), reason.getDisplayText(), reason.getStatus()};
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Reason> reasons = getHibernateTemplate().
+        List<Reason> reasons = (List<Reason>) getHibernateTemplate().
                                findByNamedQuery("getStatusReasonByDispText", values);
 
         Reason statusReason = null;
@@ -302,7 +302,7 @@ implements ReasonDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<String> statusReasons = getHibernateTemplate().findByNamedQuery("getReasonsByStatus",
+        List<String> statusReasons = (List<String>) getHibernateTemplate().findByNamedQuery("getReasonsByStatus",
                                                                              statusId);
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:Size Of Reasons:" + statusReasons.size());

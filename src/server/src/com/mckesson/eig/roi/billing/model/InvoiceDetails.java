@@ -17,8 +17,6 @@ package com.mckesson.eig.roi.billing.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
-
 /**
  * @author rajeshkumarg
  * @date   Oct 21, 2011
@@ -35,7 +33,7 @@ implements Serializable {
     private long _templateId;
     private String _resendBy;
     private double _invoiceAmount;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
 
     public Date getResendDateTime() { return _resendDateTime; }
     public void setResendDateTime(Date resendDateTime) { _resendDateTime = resendDateTime; }
@@ -52,16 +50,8 @@ implements Serializable {
     public double getInvoiceAmount() { return _invoiceAmount; }
     public void setInvoiceAmount(double invoiceAmount) { _invoiceAmount = invoiceAmount; }
 
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
-    }
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
 
     public void setTemplateId(long templateId) { _templateId = templateId; }
     public long getTemplateId() { return _templateId; }

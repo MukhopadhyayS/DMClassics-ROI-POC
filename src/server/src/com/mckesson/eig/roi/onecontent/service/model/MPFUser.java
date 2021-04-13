@@ -18,8 +18,6 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
-
 /**
  * @author ais
  *
@@ -31,7 +29,7 @@ implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String _name;
-    private SecureStringAccessor _password;
+    private String _password;
     private Integer _userInstanceId;
     private String _pvGroup;
     private String _rvGroup;
@@ -55,7 +53,7 @@ implements Serializable {
     private String _groupLimit;
     private String _keyIdLimit;
     private String _physGroupName;
-    private SecureStringAccessor _contentPassword;
+    private String _contentPassword;
     private Boolean _adminFlag;
     private List<String> _facilities;
     private String _epnOrGpi;
@@ -303,15 +301,11 @@ implements Serializable {
     }
 
     public String getPassword() {
-        StringBuilder builder = new StringBuilder();
-        _password.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
+        return _password;
     }
 
     public void setPassword(String password) {
-        this._password = new SecureStringAccessor(password.toCharArray());
+        this._password = password;
     }
     
     public void setUserSqlFragments(List<String> userSqlFragments) {
@@ -397,18 +391,14 @@ implements Serializable {
      * @return the contentPassword
      */
     public String getContentPassword() {
-        StringBuilder builder = new StringBuilder();
-        _contentPassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
+        return this._contentPassword;
     }
 
     /**
      * @param contentPassword the contentPassword to set
      */
     public void setContentPassword(String contentPassword) {
-        this._contentPassword = new SecureStringAccessor(contentPassword.toCharArray());
+        this._contentPassword = contentPassword;
     }
     
     public String getAttestationRequirement() {

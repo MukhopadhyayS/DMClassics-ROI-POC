@@ -17,8 +17,6 @@ package com.mckesson.eig.roi.billing.model;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
-
 /**
  * @author rajeshkumarg
  * @date   Oct 24, 2011
@@ -31,7 +29,7 @@ implements Serializable {
     
     private long _id;
     private String _outputMethod;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private boolean _isInvoice;
     private Map<String, String> _properties;
     
@@ -44,17 +42,12 @@ implements Serializable {
     public void setOutputMethod(String outputMethod) {
         _outputMethod = outputMethod;
     }
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
+    public String getQueuePassword() {
+        return _queuePassword;
     }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    public void setQueuePassword(String queuePassword) {
+        _queuePassword = queuePassword;
     }
-    
     public boolean isInvoice() {
         return _isInvoice;
     }

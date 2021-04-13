@@ -17,13 +17,19 @@ package com.mckesson.eig.roi.requestor.dao;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.BooleanType;
+import org.hibernate.type.DateType;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -33,7 +39,6 @@ import com.mckesson.eig.roi.requestor.model.RequestorAging;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria.DateRange;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementInfo;
 import com.mckesson.eig.roi.requestor.model.RequestorTransaction;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -67,13 +72,13 @@ implements RequestorStatementDAO {
             Session session = getSession();
             String queryString =
                     session.getNamedQuery("retrieveRequestorPastInvoices").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("requestorId", requestorId, Hibernate.LONG);
+            query.setParameter("requestorId", requestorId, LongType.INSTANCE);
 
-            query.addScalar("invoiceId", Hibernate.LONG);
-            query.addScalar("amount", Hibernate.DOUBLE);
-            query.addScalar("createdDate", Hibernate.STRING);
+            query.addScalar("invoiceId", LongType.INSTANCE);
+            query.addScalar("amount", DoubleType.INSTANCE);
+            query.addScalar("createdDate", StringType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(PastInvoice.class));
             List<PastInvoice> invoiceDetailsList = query.list();
@@ -127,25 +132,25 @@ implements RequestorStatementDAO {
             }
 
             String queryString = session.getNamedQuery(queryName).getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("requestorId", requestorId, Hibernate.LONG);
+            query.setParameter("requestorId", requestorId, LongType.INSTANCE);
             if (!isAllTransactions) {
-                query.setParameter("dateRange", dateRange.getAgingDays(), Hibernate.INTEGER);
+                query.setParameter("dateRange", dateRange.getAgingDays(), IntegerType.INSTANCE);
             }
 
-            query.addScalar("date", Hibernate.DATE);
-            query.addScalar("invoiceId", Hibernate.LONG);
-            query.addScalar("type", Hibernate.STRING);
-            query.addScalar("description", Hibernate.STRING);
-            query.addScalar("charges", Hibernate.DOUBLE);
-            query.addScalar("balances", Hibernate.DOUBLE);
+            query.addScalar("date", DateType.INSTANCE);
+            query.addScalar("invoiceId", LongType.INSTANCE);
+            query.addScalar("type", StringType.INSTANCE);
+            query.addScalar("description", StringType.INSTANCE);
+            query.addScalar("charges", DoubleType.INSTANCE);
+            query.addScalar("balances", DoubleType.INSTANCE);
             // DE1560/CR# 384,396 - Fix
-            query.addScalar("unbillable", Hibernate.BOOLEAN);
-            query.addScalar("adjustment", Hibernate.DOUBLE);
-            query.addScalar("payment", Hibernate.DOUBLE);
-            query.addScalar("refund", Hibernate.DOUBLE);
-            query.addScalar("invoiceAmount", Hibernate.DOUBLE);
+            query.addScalar("unbillable", BooleanType.INSTANCE);
+            query.addScalar("adjustment", DoubleType.INSTANCE);
+            query.addScalar("payment", DoubleType.INSTANCE);
+            query.addScalar("refund", DoubleType.INSTANCE);
+            query.addScalar("invoiceAmount", DoubleType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestorTransaction.class));
             @SuppressWarnings("unchecked")
@@ -189,17 +194,17 @@ implements RequestorStatementDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestorAccountDetails")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("requestorId", requestorId, Hibernate.LONG);
+            query.setParameter("requestorId", requestorId, LongType.INSTANCE);
 
-            query.addScalar("charge", Hibernate.DOUBLE);
-            query.addScalar("paymentAmount", Hibernate.DOUBLE);
-            query.addScalar("creditAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("debitAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("balances", Hibernate.DOUBLE);
-            query.addScalar("unAppliedPayment", Hibernate.DOUBLE);
-            query.addScalar("unAppliedAdjustment", Hibernate.DOUBLE);
+            query.addScalar("charge", DoubleType.INSTANCE);
+            query.addScalar("paymentAmount", DoubleType.INSTANCE);
+            query.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("balances", DoubleType.INSTANCE);
+            query.addScalar("unAppliedPayment", DoubleType.INSTANCE);
+            query.addScalar("unAppliedAdjustment", DoubleType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestorAccount.class));
             @SuppressWarnings("unchecked")
@@ -245,12 +250,12 @@ implements RequestorStatementDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestorAccountBalanceAging")
                     .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("requestorId", requestorId, Hibernate.LONG);
+            query.setParameter("requestorId", requestorId, LongType.INSTANCE);
 
-            query.addScalar("charges", Hibernate.DOUBLE);
-            query.addScalar("aging", Hibernate.STRING);
+            query.addScalar("charges", DoubleType.INSTANCE);
+            query.addScalar("aging", StringType.INSTANCE);
             @SuppressWarnings("unchecked")
             List<Object[]> requestorAgingList = query.list();
 
@@ -296,24 +301,24 @@ implements RequestorStatementDAO {
             String queryString = session.getNamedQuery("retrieveRequestorDetails")
                                         .getQueryString();
 
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setParameter("requestorId", requestorId, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestorId", requestorId, LongType.INSTANCE);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("name", Hibernate.STRING);
-            query.addScalar("requestorTypeName", Hibernate.STRING);
-            query.addScalar("requestorTypeId", Hibernate.LONG);
-            query.addScalar("cellPhone", Hibernate.STRING);
-            query.addScalar("homePhone", Hibernate.STRING);
-            query.addScalar("workPhone", Hibernate.STRING);
-            query.addScalar("address1", Hibernate.STRING);
-            query.addScalar("address2", Hibernate.STRING);
-            query.addScalar("address3", Hibernate.STRING);
-            query.addScalar("city", Hibernate.STRING);
-            query.addScalar("state", Hibernate.STRING);
-            query.addScalar("postalCode", Hibernate.STRING);
-            query.addScalar("country", Hibernate.STRING);
-            query.addScalar("countryCode", Hibernate.STRING);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("name", StringType.INSTANCE);
+            query.addScalar("requestorTypeName", StringType.INSTANCE);
+            query.addScalar("requestorTypeId", LongType.INSTANCE);
+            query.addScalar("cellPhone", StringType.INSTANCE);
+            query.addScalar("homePhone", StringType.INSTANCE);
+            query.addScalar("workPhone", StringType.INSTANCE);
+            query.addScalar("address1", StringType.INSTANCE);
+            query.addScalar("address2", StringType.INSTANCE);
+            query.addScalar("address3", StringType.INSTANCE);
+            query.addScalar("city", StringType.INSTANCE);
+            query.addScalar("state", StringType.INSTANCE);
+            query.addScalar("postalCode", StringType.INSTANCE);
+            query.addScalar("country", StringType.INSTANCE);
+            query.addScalar("countryCode", StringType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestorStatementInfo.class));
 
             @SuppressWarnings("unchecked")

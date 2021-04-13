@@ -17,8 +17,6 @@ package com.mckesson.eig.roi.billing.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.mckesson.eig.roi.utils.SecureStringAccessor;
-
 /**
  * This class  is a persistent model used to view the requestor letter history for hibernate.
  * @author rajeshkumarg
@@ -37,8 +35,8 @@ implements Serializable {
     private String _createdBy;
     private long _requestTemplateId;
     private String _templateUsed;
-    private SecureStringAccessor _requestPassword;
-    private SecureStringAccessor _queuePassword;
+    private String _requestPassword;
+    private String _queuePassword;
     
     public long getRequestorLetterId() { return _requestorLetterId; }
     public void setRequestorLetterId(long requestorLetterId) {
@@ -65,26 +63,10 @@ implements Serializable {
     public String getTemplateUsed() { return _templateUsed; }
     public void setTemplateUsed(String templateUsed) { _templateUsed = templateUsed; }
     
-    public String getRequestPassword() {
-        StringBuilder builder = new StringBuilder();
-        _requestPassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setRequestPassword(String requestPassword) {
-        _requestPassword =  new SecureStringAccessor(requestPassword.toCharArray()); 
-    }
+    public String getRequestPassword() { return _requestPassword; }
+    public void setRequestPassword(String requestPassword) { _requestPassword = requestPassword; }
     
-    public String getQueuePassword() { 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
-    }
-    public void setQueuePassword(String queuePassword) {  
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
-    }
+    public String getQueuePassword() { return _queuePassword; }
+    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
 
 }

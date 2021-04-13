@@ -71,7 +71,7 @@ implements ROIReportDAO {
         }
 
         @SuppressWarnings("unchecked") // Not supported by 3rdparty
-        List<Object[]> results = getHibernateTemplate().
+        List<Object[]> results = (List<Object[]>) getHibernateTemplate().
         findByNamedQuery(queryName, params);
 
         if (DO_DEBUG) {
