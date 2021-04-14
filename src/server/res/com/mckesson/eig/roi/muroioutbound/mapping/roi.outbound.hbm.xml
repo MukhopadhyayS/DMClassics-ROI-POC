@@ -191,7 +191,7 @@
              select a FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a 
 			 where a.id in (select min(ra.id) as id from com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics
 			 ra where ra.reqStatus = 'Fulfilled' and 
-			 ra.reqDate >= ?0 and ra.reqDate <= ?1 and ra.hpfMuDocumentType = ?2 and ra.facility = ?3 group by ra.reqID) 
+			 ra.reqDate >= ? and ra.reqDate <= ? and ra.hpfMuDocumentType = ? and ra.facility = ? group by ra.reqID) 
             
         ]]>
 	</query>
@@ -201,7 +201,7 @@
              select a FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a 
 			 where a.id in (select min(ra.id) as id from com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics
 			 ra where ra.reqStatus = 'Fulfilled' and 
-			 ra.reqDate >= ?0 and ra.reqDate <= ?1 and ra.hpfMuDocumentType = ?2 and ra.facility = ?3 group by ra.reqID) 
+			 ra.reqDate >= ? and ra.reqDate <= ? and ra.hpfMuDocumentType = ? and ra.facility = ? group by ra.reqID) 
         ]]>
 	</query>
 	
@@ -209,7 +209,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
-            where a.reqID =?0 and a.facility = ?1 and a.mrn = ?2 and a.encounter =?3 and a.hpfMuDocumentType=?4
+            where a.reqID =? and a.facility = ? and a.mrn = ? and a.encounter =? and a.hpfMuDocumentType=?
         ]]>
 	</query>
 	
@@ -217,7 +217,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
-            where a.reqID =?0 and a.facility = ?1 and a.mrn = ?2 and a.encounter is null and a.hpfMuDocumentType=?3
+            where a.reqID =? and a.facility = ? and a.mrn = ? and a.encounter is null and a.hpfMuDocumentType=?
         ]]>
 	</query>
 	
@@ -225,7 +225,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
-            where a.reqID = ?0 
+            where a.reqID = ? 
         ]]>
 	</query>
 	
@@ -233,7 +233,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
-            where a.reqID = ?0 and a.reqStatus = 'Requested' or a.reqID = ?1 and a.reqStatus = 'Canceled'
+            where a.reqID = ? and a.reqStatus = 'Requested' or a.reqID = ? and a.reqStatus = 'Canceled'
         ]]>
 	</query>
 
@@ -241,7 +241,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.reqID = ?0 
+            where a.reqID = ? 
         ]]>
 	</query>
 	
@@ -249,7 +249,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.reqID = ?0 and a.mrn = ?1
+            where a.reqID = ? and a.mrn = ?
         ]]>
 	</query>
 	
@@ -257,7 +257,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.reqID = ?0 and a.attId = ?1 and a.reqStatus = ?2
+            where a.reqID = ? and a.attId = ? and a.reqStatus = ?
         ]]>
 	</query>
 	
@@ -265,7 +265,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.reqID = ?0 and a.reqStatus = 'Requested' and a.outbound is null
+            where a.reqID = ? and a.reqStatus = 'Requested' and a.outbound is null
         ]]>
 	</query>
 	
@@ -273,7 +273,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.reqID = ?0 and a.outbound is null
+            where a.reqID = ? and a.outbound is null
         ]]>
 	</query>	
 
@@ -289,7 +289,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.attId = ?0
+            where a.attId = ?
         ]]>
 	</query>
 	
@@ -297,7 +297,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.reqID = ?0 and a.mrn = ?1 and a.encounter = ?2 and a.reqStatus = ?3
+            where a.reqID = ? and a.mrn = ? and a.encounter = ? and a.reqStatus = ?
         ]]>
 	</query>
 	
@@ -305,7 +305,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
-            where a.reqID = ?0 and a.mrn = ?1 and a.encounter = ?2
+            where a.reqID = ? and a.mrn = ? and a.encounter = ?
         ]]>
 	</query>
 	

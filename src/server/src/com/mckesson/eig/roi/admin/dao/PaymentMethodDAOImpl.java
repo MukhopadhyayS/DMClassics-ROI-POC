@@ -90,7 +90,7 @@ implements PaymentMethodDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<PaymentMethod> paymentMethods = (List<PaymentMethod>) getHibernateTemplate().
+        List<PaymentMethod> paymentMethods = getHibernateTemplate().
                                                 findByNamedQuery("retrieveAllPaymentMethods");
 
         PaymentMethodList pml = new PaymentMethodList(paymentMethods);
@@ -153,7 +153,7 @@ implements PaymentMethodDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<PaymentMethod> paymentMethods = (List<PaymentMethod>) getHibernateTemplate().
+        List<PaymentMethod> paymentMethods = getHibernateTemplate().
             findByNamedQuery("getPaymentMethodByName", paymentMethodName);
 
         PaymentMethod pMethod = null;
@@ -179,7 +179,7 @@ implements PaymentMethodDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Object[]> payments = (List<Object[]>) getHibernateTemplate()
+        List<Object[]> payments = getHibernateTemplate()
                                     .findByNamedQuery("retrieveAllPaymentMethodNames");
 
         List<PaymentMethod> paymentList = new ArrayList<PaymentMethod>();

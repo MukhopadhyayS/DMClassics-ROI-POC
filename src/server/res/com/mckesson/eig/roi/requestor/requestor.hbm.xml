@@ -197,7 +197,7 @@
     <query name="retrieveRequestorByLastName">
         <![CDATA[
             SELECT r.id FROM com.mckesson.eig.roi.requestor.model.Requestor r
-            WHERE r.lastName = ?0
+            WHERE r.lastName = ?
         ]]>
     </query>
 
@@ -212,7 +212,7 @@
          <![CDATA[
              SELECT summaryLetter.createdDate, summaryLetter.requestTemplateId
              FROM com.mckesson.eig.roi.billing.model.RequestorLetter AS summaryLetter
-             WHERE summaryLetter.requestorLetterId = ?0
+             WHERE summaryLetter.requestorLetterId = ?
          ]]>
     </query>
 
@@ -1554,18 +1554,18 @@ WHERE
 	
 	<sql-query name="updateRequestorInvoice">
         <![CDATA[
-            if exists (select 1 from cabinet..ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq = ?0 and type = 'Invoice')
+            if exists (select 1 from cabinet..ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq = ? and type = 'Invoice')
 			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
-				SET Invoice_Balance_Due = ?1,
-					Modified_Dt = ?2,
-					Modified_By_Seq = ?3
-				WHERE ROI_RequestCoreDeliveryCharges_Seq = ?4
+				SET Invoice_Balance_Due = ?,
+					Modified_Dt = ?,
+					Modified_By_Seq = ?
+				WHERE ROI_RequestCoreDeliveryCharges_Seq = ?
 			ELSE
 			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
-				SET Balance_Due = ?5,
-					Modified_Dt = ?6,
-					Modified_By_Seq = ?7
-				WHERE ROI_RequestCoreDeliveryCharges_Seq = ?8
+				SET Balance_Due = ?,
+					Modified_Dt = ?,
+					Modified_By_Seq = ?
+				WHERE ROI_RequestCoreDeliveryCharges_Seq = ?
         ]]>
     </sql-query> 
     
@@ -1593,31 +1593,31 @@ WHERE
     <sql-query name="updatePayment">
         <![CDATA[
 			UPDATE cabinet..ROI_RequestorPayment
-				SET Modified_Dt = ?0,
-					Modified_By_Seq = ?1,
-					UnappliedAmount = ?2
-				WHERE ROI_RequestorPayment_Seq = ?3 
+				SET Modified_Dt = ?,
+					Modified_By_Seq = ?,
+					UnappliedAmount = ?
+				WHERE ROI_RequestorPayment_Seq = ? 
         ]]>
     </sql-query>
     
     <sql-query name="updateRefundPayment">
         <![CDATA[
 			UPDATE cabinet..ROI_RequestorPayment
-				SET RefundAmount = ?0,
-					Modified_Dt = ?1,
-					Modified_By_Seq = ?2,
-					UnappliedAmount = ?3
-				WHERE ROI_RequestorPayment_Seq = ?4 
+				SET RefundAmount = ?,
+					Modified_Dt = ?,
+					Modified_By_Seq = ?,
+					UnappliedAmount = ?
+				WHERE ROI_RequestorPayment_Seq = ? 
         ]]>
     </sql-query>
     
     <sql-query name="updateUnappliedAdjustment">
         <![CDATA[
 			UPDATE cabinet..ROI_RequestorAdjustment
-				SET UnappliedAmount = ?0,
-					Modified_Dt = ?1,
-					Modified_By_Seq = ?2
-				WHERE ROI_RequestorAdjustment_Seq = ?3
+				SET UnappliedAmount = ?,
+					Modified_Dt = ?,
+					Modified_By_Seq = ?
+				WHERE ROI_RequestorAdjustment_Seq = ?
         ]]>
     </sql-query> 
     

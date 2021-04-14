@@ -120,7 +120,7 @@ implements LetterTemplateDAO, FileTransferHelper {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        LetterTemplateList ltList = new LetterTemplateList((List<LetterTemplate>) getHibernateTemplate().
+        LetterTemplateList ltList = new LetterTemplateList(getHibernateTemplate().
                                      findByNamedQuery("retrieveAllLetterTemplates"));
 
         if (DO_DEBUG) {
@@ -228,7 +228,7 @@ implements LetterTemplateDAO, FileTransferHelper {
 
         @SuppressWarnings("unchecked") // not supported by third party API
         List<LetterTemplate> letterTemplates =
-            (List<LetterTemplate>) getHibernateTemplate().findByNamedQuery("getLetterTemplateByName", obj);
+            getHibernateTemplate().findByNamedQuery("getLetterTemplateByName", obj);
         LetterTemplate lt = (letterTemplates.size() == 0) ? null : letterTemplates.get(0);
 
         if (DO_DEBUG) {
@@ -249,7 +249,7 @@ implements LetterTemplateDAO, FileTransferHelper {
        }
 
        @SuppressWarnings("unchecked") // not supported by third party API
-       List<LetterTemplate> letterTemplates = (List<LetterTemplate>) getHibernateTemplate().
+       List<LetterTemplate> letterTemplates = getHibernateTemplate().
                                              findByNamedQuery("getLetterTemplateIsDefault",
                                                               new String(letterType));
 
@@ -570,7 +570,7 @@ implements LetterTemplateDAO, FileTransferHelper {
 
         @SuppressWarnings("unchecked") // not supported by third party API
         List<Object> letterTemplates =
-            (List<Object>) getHibernateTemplate().findByNamedQuery("getLetterTemplateByType", obj);
+            getHibernateTemplate().findByNamedQuery("getLetterTemplateByType", obj);
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:");

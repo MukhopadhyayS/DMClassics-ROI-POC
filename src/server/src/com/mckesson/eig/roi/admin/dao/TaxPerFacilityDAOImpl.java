@@ -86,7 +86,7 @@ implements TaxPerFacilityDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<TaxPerFacility> salesTaxFacilities = (List<TaxPerFacility>) getHibernateTemplate().
+        List<TaxPerFacility> salesTaxFacilities = getHibernateTemplate().
                                         findByNamedQuery("retrieveAllSalesTaxFacility");
 
         Collections.sort(salesTaxFacilities);
@@ -140,7 +140,7 @@ implements TaxPerFacilityDAO {
             String salesTaxPerFacilityCode) {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<TaxPerFacility> salesTaxFacility = (List<TaxPerFacility>) getHibernateTemplate().
+        List<TaxPerFacility> salesTaxFacility = getHibernateTemplate().
                                               findByNamedQuery("getSalesTaxFacilityByCode",
                                                       salesTaxPerFacilityCode);
         TaxPerFacility sTF = null;
@@ -154,7 +154,7 @@ implements TaxPerFacilityDAO {
     public TaxPerFacility getDefaultTaxPerFacility() {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<TaxPerFacility> salesTaxFacility = (List<TaxPerFacility>) getHibernateTemplate().
+        List<TaxPerFacility> salesTaxFacility = getHibernateTemplate().
                                               findByNamedQuery("getDefaultAsTrue");
         TaxPerFacility sTF = null;
         if (salesTaxFacility.size() > 0) {

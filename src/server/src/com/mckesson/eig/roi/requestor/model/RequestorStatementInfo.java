@@ -21,6 +21,7 @@ import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria.DateRange;
+import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 
@@ -50,7 +51,7 @@ public class RequestorStatementInfo {
     private String _country;
     private String _countryCode;
     private String _outputMethod;
-    private String _queuePassword;
+    private SecureStringAccessor _queuePassword;
     private Date _resendDate;
     private Date _createdDate;
     private DateRange _dateRange;
@@ -179,8 +180,16 @@ public class RequestorStatementInfo {
     public String getOutputMethod() { return _outputMethod; }
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }
 
-    public String getQueuePassword() { return _queuePassword; }
-    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
+    public String getQueuePassword() { 
+        StringBuilder builder = new StringBuilder();
+        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
+    }
+    public void setQueuePassword(String queuePassword) {  
+        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    }
 
     public Date getResendDate() { return _resendDate; }
     public void setResendDate(Date resendDate) { _resendDate = resendDate; }

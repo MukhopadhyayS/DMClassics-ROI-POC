@@ -77,7 +77,7 @@
       	SELECT ltdoc
         FROM com.mckesson.eig.roi.admin.model.LetterTemplate lt,
         	com.mckesson.eig.roi.admin.model.LetterTemplateDocument ltdoc
-        WHERE lt.templateId = ?0
+        WHERE lt.templateId = ?
         AND ltdoc.id = lt.file
         ORDER BY lt.letterType asc
      ]]>
@@ -87,7 +87,7 @@
       <![CDATA[
         SELECT l
         FROM com.mckesson.eig.roi.admin.model.LetterTemplate l
-        WHERE l.name = ?0 and l.letterType = ?1
+        WHERE l.name = ? and l.letterType = ?
      ]]>
   </query>
 
@@ -95,7 +95,7 @@
       <![CDATA[
         SELECT letter
         FROM com.mckesson.eig.roi.admin.model.LetterTemplate letter
-        WHERE letter.isDefault = true and letter.letterType = ?0
+        WHERE letter.isDefault = true and letter.letterType = ?
       ]]>
     </query>
 
@@ -103,7 +103,7 @@
       <![CDATA[
         SELECT count(l)
         FROM com.mckesson.eig.roi.admin.model.LetterTemplate l
-        WHERE l.letterType = ?0
+        WHERE l.letterType = ?
      ]]>
   </query>
 </hibernate-mapping>

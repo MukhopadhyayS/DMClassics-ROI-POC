@@ -104,42 +104,42 @@
      <query name="getMUDocName">
       <![CDATA[
       select d.muDocType from com.mckesson.eig.roi.admin.model.MUDocTypeModel d
-      where d.id = ?0
+      where d.id = ?
       ]]>
     </query>
     
     <query name="getMUDocId">
       <![CDATA[
       select d.id from com.mckesson.eig.roi.admin.model.MUDocTypeModel d
-      where d.muDocType = ?0
+      where d.muDocType = ?
       ]]>
     </query>
 
      <query name="getDesignatedDocuments">
       <![CDATA[
         SELECT d FROM com.mckesson.eig.roi.admin.model.DocTypeRelation d
-        where d.codeSetId = ?0 AND d.type = ?1
+        where d.codeSetId = ? AND d.type = ?
       ]]>
     </query>
 
     <query name="retrieveDesignations">
       <![CDATA[
         SELECT d.docTypeId, d.type ,d.muDocumentId FROM com.mckesson.eig.roi.admin.model.DocTypeRelation d
-        where d.codeSetId = ?0
+        where d.codeSetId = ?
       ]]>
     </query>
 
     <query name="retrieveDocTypeIdsByDesignation">
       <![CDATA[
       select d.docTypeId from com.mckesson.eig.roi.admin.model.DocTypeRelation d
-      where d.type = ?0
+      where d.type = ?
       ]]>
     </query>
     
     <query name="selectMUDocSeq">
       <![CDATA[
       select d from com.mckesson.eig.roi.admin.model.DocTypeRelation d
-      where d.codeSetId = ?0 and d.docTypeId = ?1 and d.type='mu'
+      where d.codeSetId = ? and d.docTypeId = ? and d.type='mu'
       ]]>
     </query>
     

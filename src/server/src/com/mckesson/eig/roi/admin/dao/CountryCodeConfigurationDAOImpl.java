@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.admin.model.Country;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -43,7 +40,7 @@ implements CountryCodeConfigurationDAO {
         try {
             Session session = getSession();
             Query query = session.getNamedQuery("updateCountryCode");            
-            query.setParameter("countryCode", country.getCountryCode(), StringType.INSTANCE);
+            query.setParameter("countryCode", country.getCountryCode(), Hibernate.STRING);
             
             query.executeUpdate();
 
@@ -77,14 +74,14 @@ implements CountryCodeConfigurationDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("fetchAllCountries").getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
-            query.addScalar("countrySeq", LongType.INSTANCE);
-            query.addScalar("countryCode", StringType.INSTANCE);
-            query.addScalar("countryName", StringType.INSTANCE);
-            query.addScalar("defaultCountry", BooleanType.INSTANCE);          
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.addScalar("countrySeq", Hibernate.LONG);
+            sqlQuery.addScalar("countryCode", Hibernate.STRING);
+            sqlQuery.addScalar("countryName", Hibernate.STRING);
+            sqlQuery.addScalar("defaultCountry", Hibernate.BOOLEAN);          
             
-            query.setResultTransformer(Transformers.aliasToBean(Country.class));           
-            countryList = (List<Country>) query.list();           
+            sqlQuery.setResultTransformer(Transformers.aliasToBean(Country.class));           
+            countryList = (List<Country>) sqlQuery.list();           
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());

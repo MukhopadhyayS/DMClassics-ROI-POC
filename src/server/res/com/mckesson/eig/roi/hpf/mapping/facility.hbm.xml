@@ -38,7 +38,7 @@
     	<![CDATA[
             SELECT uf.facility
             FROM com.mckesson.eig.roi.hpf.model.UserFacility uf
-            WHERE uf.userId = ?0 ORDER BY uf.facility ASC
+            WHERE uf.userId = ? ORDER BY uf.facility ASC
         ]]>
     </query>
     
@@ -46,7 +46,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.hpf.model.Facility a
-            where a.facilityCode = ?0
+            where a.facilityCode = ?
         ]]>
 	</query>
 

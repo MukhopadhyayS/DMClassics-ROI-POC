@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.mckesson.eig.roi.inuse.base.dao.BaseInUseDAOImpl;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
@@ -87,7 +87,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = getHibernateTemplate().findByNamedQuery(
                 "retrieveExpiredRecords",
                 new Object[] { gracePeriodMinutes, Calendar.getInstance().getTime() });
 
@@ -126,7 +126,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery("retrieveAll");
+        List <InUseRecord> records = getHibernateTemplate().findByNamedQuery("retrieveAll");
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End: count: " + records.size());
@@ -146,7 +146,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = getHibernateTemplate().findByNamedQuery(
                 "retrieveAllForType",
                 new Object[] { objectType });
 
@@ -168,7 +168,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = getHibernateTemplate().findByNamedQuery(
                 "retrieveByObjectTypeAndID",
                 new Object[] { objectType, objectID });
 
@@ -248,7 +248,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = getHibernateTemplate().findByNamedQuery(
                                     "retrieveByAppIDAndUserID",
                                     new Object[] { appID, userID});
 

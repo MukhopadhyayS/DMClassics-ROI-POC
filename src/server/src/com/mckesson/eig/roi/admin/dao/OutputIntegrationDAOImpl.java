@@ -22,7 +22,7 @@ import javax.xml.bind.JAXBException;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.mckesson.eig.roi.admin.model.OutputServerProperties;
 import com.mckesson.eig.roi.admin.model.ROIParameter;

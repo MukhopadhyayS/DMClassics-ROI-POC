@@ -1198,9 +1198,9 @@ implements ROISupplementaryService {
         String oldAddress = getAddress(existingPatient);
         String newAddress = getAddress(newPatient);
         String oldVip = String.valueOf(ConversionUtilities.toBooleanValue(
-                existingPatient.isVip(), false));
+                existingPatient.getVip(), false));
         String newVip = String.valueOf(ConversionUtilities.toBooleanValue(
-                newPatient.isVip(), false));
+                newPatient.getVip(), false));
         String userName = getUser().getLoginId().trim();
         String auditMsg = SupplementaryAudit.EDIT_PATIENT.auditString();
         MessageFormat mf = new MessageFormat(auditMsg);

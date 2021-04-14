@@ -9,21 +9,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Hibernate;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.DoubleType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.StandardBasicTypes;
-import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.journal.model.LedgerAccountDTO;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class BillingReportDAOImpl extends ROIReportDAOImpl {
 
@@ -130,13 +127,13 @@ public class BillingReportDAOImpl extends ROIReportDAOImpl {
             String queryStringValue = session.getNamedQuery(
                     "ROI_Generate_BillingReport").getQueryString();
 
-            NativeQuery queryValue = session.createSQLQuery(queryStringValue);
+            SQLQuery queryValue = session.createSQLQuery(queryStringValue);
            // queryValue.setParameterList("names", accountNames);
-            queryValue.setParameter("startDate", startDate, StandardBasicTypes.TIMESTAMP);
-            queryValue.setParameter("endDate", endDate, StandardBasicTypes.TIMESTAMP);
-            queryValue.addScalar("name", StringType.INSTANCE);
-            queryValue.addScalar("amount", DoubleType.INSTANCE);
-            queryValue.addScalar("ledgerSeq", LongType.INSTANCE);
+            queryValue.setParameter("startDate", startDate, Hibernate.TIMESTAMP);
+            queryValue.setParameter("endDate", endDate, Hibernate.TIMESTAMP);
+            queryValue.addScalar("name", Hibernate.STRING);
+            queryValue.addScalar("amount", Hibernate.DOUBLE);
+            queryValue.addScalar("ledgerSeq", Hibernate.LONG);
 
             @SuppressWarnings("unchecked")
             List<Object[]> results = queryValue.list();
@@ -161,13 +158,13 @@ public class BillingReportDAOImpl extends ROIReportDAOImpl {
             Session session = getSession();
             String queryString = session.getNamedQuery(
                     "select_all_from_Ledger_Account").getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
+            SQLQuery query = session.createSQLQuery(queryString);
 
-            query.addScalar("balance", LongType.INSTANCE);
-            query.addScalar("id", LongType.INSTANCE);
-            query.addScalar("code", StringType.INSTANCE);
-            query.addScalar("name", StringType.INSTANCE);
-            query.addScalar("liquidityOrder", LongType.INSTANCE);
+            query.addScalar("balance", Hibernate.LONG);
+            query.addScalar("id", Hibernate.LONG);
+            query.addScalar("code", Hibernate.STRING);
+            query.addScalar("name", Hibernate.STRING);
+            query.addScalar("liquidityOrder", Hibernate.LONG);
 
             query.setResultTransformer(Transformers
                     .aliasToBean(LedgerAccountDTO.class));

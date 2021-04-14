@@ -32,6 +32,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import net.sourceforge.jtds.jdbcx.JtdsDataSource;
+
 import org.apache.axis.Message;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
@@ -55,13 +57,12 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.eig.roi.hpf.model.UserTypeLOV;
 import com.mckesson.eig.roi.hpf.service.HPFAuthenticationStrategy;
 import com.mckesson.eig.roi.hpf.service.SOAPMessenger;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
@@ -72,8 +73,6 @@ import com.mckesson.eig.wsfw.session.WsSession;
 import com.mckesson.eig.wsfw.test.axis.SoapRequestBuilder;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
-
-import net.sourceforge.jtds.jdbcx.JtdsDataSource;
 
 
 /**
@@ -208,9 +207,6 @@ extends junit.framework.TestCase {
         }
         user = new User(DEFAULT_TEST_USER, DEFAULT_TEST_PWD, "ROI TESTER");
 
-        UserTypeLOV userLov =  (UserTypeLOV)_dao.getHibernateTemplate().find("select u from UserTypeLOV u where u.userTypeLOVId = -1").get(0);
-        user.setUserTypeLovId(userLov);
-        
         _dao.getHibernateTemplate().saveOrUpdate(user);
         _user = _dao.retrieveUser(DEFAULT_TEST_USER);
         _user.setEpnEnabled(true);

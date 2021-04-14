@@ -33,7 +33,7 @@
     <query name="retrieveEIWDATAConfiguration">
       <![CDATA[
         select globalStrValue from com.mckesson.eig.roi.admin.model.EiwGlobalData eiwGlobal
-        where eiwGlobal.globalName = ?0
+        where eiwGlobal.globalName = ?
       ]]>
     </query>  
 	 

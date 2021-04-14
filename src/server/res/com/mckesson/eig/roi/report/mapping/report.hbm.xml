@@ -7,79 +7,79 @@
 
    <sql-query name="Generate_LoggedStatusReport">
 	   <![CDATA[
-	      exec ROI_Generate_LoggedStatusReport ?0, ?1, ?2, ?3
+	      exec ROI_Generate_LoggedStatusReport ?, ?, ?, ?
 	   ]]>
    </sql-query>
 
    <sql-query name="Generate_RequestDetailReport">
 	   <![CDATA[
-	      exec ROI_Generate_RequestDetailReport ?0, ?1, ?2, ?3, ?4
+	      exec ROI_Generate_RequestDetailReport ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
 
    <sql-query name="ROI_Generate_RequestStatusSummaryReport">
 	   <![CDATA[
-	      exec ROI_Generate_RequestStatusSummaryReport ?0, ?1, ?2, ?3, ?4
+	      exec ROI_Generate_RequestStatusSummaryReport ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
 
    <sql-query name="ROI_Generate_PendingAgingReport">
 	   <![CDATA[
-	      exec ROI_Generate_PendingAgingReport ?0, ?1, ?2, ?3, ?4
+	      exec ROI_Generate_PendingAgingReport ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
    
    <sql-query name="ROI_Generate_SalesTaxReport">
 	   <![CDATA[
-	      exec ROI_Generate_SalesTaxReport ?0, ?1, ?2, ?3, ?4, ?5
+	      exec ROI_Generate_SalesTaxReport ?, ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
   
    <sql-query name="ROI_GenerateAccountReceivableAgingReport">
 	   <![CDATA[
-	      exec ROI_GenerateAccountReceivableAgingReport ?0, ?1, ?2, ?3, ?4
+	      exec ROI_GenerateAccountReceivableAgingReport ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
    
    <sql-query name="ROI_GenerateOutstandingInvoiceBalanceReport">
 	   <![CDATA[
-	      exec ROI_GenerateOutstandingInvoiceBalanceReport ?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8
+	      exec ROI_GenerateOutstandingInvoiceBalanceReport ?, ?, ?, ?, ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
 
    <sql-query name="ROI_Generate_ProcessedRequestsSummaryReport">
 	   <![CDATA[
-	      exec ROI_Generate_ProcessedRequestsSummaryReport ?0, ?1, ?2, ?3
+	      exec ROI_Generate_ProcessedRequestsSummaryReport ?, ?, ?, ?
 	   ]]>
    </sql-query>
 
    <sql-query name="ROI_Generate_PostedPaymentsSummaryReport">
 	   <![CDATA[
-	      exec ROI_Generate_PostedPaymentsSummaryReport ?0, ?1, ?2, ?3
+	      exec ROI_Generate_PostedPaymentsSummaryReport ?, ?, ?, ?
 	   ]]>
    </sql-query>
    
    <sql-query name="ROI_Generate_DocumentsReleasedByMRNReport">
 	   <![CDATA[
-	      exec ROI_Generate_DocumentsReleasedByMRNReport ?0, ?1
+	      exec ROI_Generate_DocumentsReleasedByMRNReport ?, ?
 	   ]]>
    </sql-query>
 
   <sql-query name="Generate_TurnAroundTimeReport">
 	   <![CDATA[
-	      exec ROI_Generate_TurnAroundTimeReport ?0, ?1, ?2, ?3, ?4, ?5
+	      exec ROI_Generate_TurnAroundTimeReport ?, ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
 
   <sql-query name="Generate_TurnAroundTimeReport_Summary_View">
 	   <![CDATA[
-	      exec ROI_Generate_TurnAroundTimeReport_SummaryView ?0, ?1, ?2, ?3, ?4, ?5
+	      exec ROI_Generate_TurnAroundTimeReport_SummaryView ?, ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
 
    <sql-query name="ROI_Generate_AODReport">
 	   <![CDATA[
-	      exec ROI_Generate_AODReport ?0, ?1, ?2, ?3, ?4, ?5
+	      exec ROI_Generate_AODReport ?, ?, ?, ?, ?, ?
 	   ]]>
    </sql-query>
    

@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
+import com.mckesson.eig.roi.utils.SecureStringAccessor;
 
 
 /**
@@ -44,7 +45,7 @@ extends BaseModel {
     private long _templateId;
     private String _templateName;
     private String _outputMethod;
-    private String _queuePassword;
+    private SecureStringAccessor _queuePassword;
     private List<String> _notes;
 
     public long getRequestorId() { return _requestorId; }
@@ -74,8 +75,17 @@ extends BaseModel {
     public String getOutputMethod() { return _outputMethod; }
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }
 
-    public String getQueuePassword() { return _queuePassword; }
-    public void setQueuePassword(String queuePassword) { _queuePassword = queuePassword; }
+    public String getQueuePassword() { 
+        StringBuilder builder = new StringBuilder();
+        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
+    }
+    public void setQueuePassword(String queuePassword) {  
+        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    }
+
 
     public RequestorStatementCriteria getStatementCriteria() { return _statementCriteria; }
     public void setStatementCriteria(RequestorStatementCriteria statementCriteria) {

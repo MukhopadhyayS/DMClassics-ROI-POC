@@ -54,7 +54,7 @@
     <query name="getAssociatedBillingTemplateCount">
     <![CDATA[
         select count(b.id) from com.mckesson.eig.roi.admin.model.RelatedFeeType b
-        where b.feeTypeId = ?0
+        where b.feeTypeId = ?
     ]]>
   </query>
 
@@ -77,7 +77,7 @@
   <query name="getFeeTypeByName">
     <![CDATA[
       select feetype from com.mckesson.eig.roi.admin.model.FeeType feetype
-      where feetype.name = ?0
+      where feetype.name = ?
     ]]>
   </query>
 

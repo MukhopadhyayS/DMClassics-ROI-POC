@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -17,22 +17,20 @@ package com.mckesson.eig.roi.request.dao;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.DoubleType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.StandardBasicTypes;
-import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -50,6 +48,7 @@ import com.mckesson.eig.roi.request.model.RequestEventCriteria;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoice;
 import com.mckesson.eig.roi.requestor.model.RequestorInvoicesList;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
@@ -91,22 +90,22 @@ implements RequestCoreDAO {
             Session session = getSession();
             String finalQuery =  _helper.constructSearchSQLQuery(searchCriteria, session, parameters);
             finalQuery = _helper.constructRetrieveRequestDataQuery(searchCriteria, session, finalQuery);
-            NativeQuery sqlQuery = session.createSQLQuery(finalQuery);
-            sqlQuery.addScalar("requestId", LongType.INSTANCE);
-            sqlQuery.addScalar("receiptDate", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("requestStatus", StringType.INSTANCE);
-            sqlQuery.addScalar("subtitle", StringType.INSTANCE);
-            sqlQuery.addScalar("lastUpdated", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("updatedBy", StringType.INSTANCE);
-            sqlQuery.addScalar("requestorName", StringType.INSTANCE);
-            sqlQuery.addScalar("requestorTypeName", StringType.INSTANCE);
-            sqlQuery.addScalar("requestorType", LongType.INSTANCE);
-            sqlQuery.addScalar("patientsString", StringType.INSTANCE);
-            sqlQuery.addScalar("facility", StringType.INSTANCE);
-            sqlQuery.addScalar("encounterString", StringType.INSTANCE);
-            sqlQuery.addScalar("patientLocked", BooleanType.INSTANCE);
-            sqlQuery.addScalar("vip", BooleanType.INSTANCE);
-            sqlQuery.addScalar("balance", DoubleType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
+            sqlQuery.addScalar("requestId", Hibernate.LONG);
+            sqlQuery.addScalar("receiptDate", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("requestStatus", Hibernate.STRING);
+            sqlQuery.addScalar("subtitle", Hibernate.STRING);
+            sqlQuery.addScalar("lastUpdated", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("updatedBy", Hibernate.STRING);
+            sqlQuery.addScalar("requestorName", Hibernate.STRING);
+            sqlQuery.addScalar("requestorTypeName", Hibernate.STRING);
+            sqlQuery.addScalar("requestorType", Hibernate.LONG);
+            sqlQuery.addScalar("patientsString", Hibernate.STRING);
+            sqlQuery.addScalar("facility", Hibernate.STRING);
+            sqlQuery.addScalar("encounterString", Hibernate.STRING);
+            sqlQuery.addScalar("patientLocked", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("vip", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("balance", Hibernate.DOUBLE);
 
             Set<String> keys = parameters.keySet();
             for(String key: keys){
@@ -158,8 +157,8 @@ implements RequestCoreDAO {
             Session session = getSession();
             HashMap<String, String> parameters =  new HashMap<String, String>();
             String finalQuery = _helper.constructSearchSQLQuery(searchCriteria, session, parameters);
-            NativeQuery sqlQuery = session.createSQLQuery(finalQuery);
-            sqlQuery.addScalar("requestId", LongType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
+            sqlQuery.addScalar("requestId", Hibernate.LONG);
             Set<String> keys = parameters.keySet();
             for(String key: keys){
                 String value = parameters.get(key);
@@ -300,35 +299,35 @@ implements RequestCoreDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveCreatedRequest").getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
+            SQLQuery query = session.createSQLQuery(queryString);
 
-            query.addScalar("id", LongType.INSTANCE);
-            query.addScalar("status", StringType.INSTANCE);
-            query.addScalar("receiptDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("statusReason", StringType.INSTANCE);
-            query.addScalar("requestReason", StringType.INSTANCE);
-            query.addScalar("requestReasonAttribute", StringType.INSTANCE);
-            query.addScalar("statusChangedDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("requestPassword", StringType.INSTANCE);
+            query.addScalar("id", Hibernate.LONG);
+            query.addScalar("status", Hibernate.STRING);
+            query.addScalar("receiptDate", Hibernate.TIMESTAMP);
+            query.addScalar("statusReason", Hibernate.STRING);
+            query.addScalar("requestReason", Hibernate.STRING);
+            query.addScalar("requestReasonAttribute", Hibernate.STRING);
+            query.addScalar("statusChangedDt", Hibernate.TIMESTAMP);
+            query.addScalar("requestPassword", Hibernate.STRING);
 
-            query.addScalar("releaseCount", LongType.INSTANCE);
-            query.addScalar("hasDraftRelease", BooleanType.INSTANCE);
-            query.addScalar("balanceDue", DoubleType.INSTANCE);
+            query.addScalar("releaseCount", Hibernate.LONG);
+            query.addScalar("hasDraftRelease", Hibernate.BOOLEAN);
+            query.addScalar("balanceDue", Hibernate.DOUBLE);
 
-            query.addScalar("authDoc", StringType.INSTANCE);
-            query.addScalar("authDocName", StringType.INSTANCE);
-            query.addScalar("authDocSubtitle", StringType.INSTANCE);
-            query.addScalar("authDocDateTime", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("conversionSource", StringType.INSTANCE);
-            query.addScalar("unbillable", BooleanType.INSTANCE);
+            query.addScalar("authDoc", Hibernate.STRING);
+            query.addScalar("authDocName", Hibernate.STRING);
+            query.addScalar("authDocSubtitle", Hibernate.STRING);
+            query.addScalar("authDocDateTime", Hibernate.TIMESTAMP);
+            query.addScalar("conversionSource", Hibernate.STRING);
+            query.addScalar("unbillable", Hibernate.BOOLEAN);
 
-            query.addScalar("createdDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("createdBy", IntegerType.INSTANCE);
-            query.addScalar("modifiedDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("modifiedBy", IntegerType.INSTANCE);
-            query.addScalar("modifiedByUser", StringType.INSTANCE);
+            query.addScalar("createdDate", Hibernate.TIMESTAMP);
+            query.addScalar("createdBy", Hibernate.INTEGER);
+            query.addScalar("modifiedDate", Hibernate.TIMESTAMP);
+            query.addScalar("modifiedBy", Hibernate.INTEGER);
+            query.addScalar("modifiedByUser", Hibernate.STRING);
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.setResultTransformer(Transformers.aliasToBean(RequestCore.class));
 
             RequestCore requestDetails = (RequestCore) query.uniqueResult();
@@ -432,19 +431,19 @@ implements RequestCoreDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("updateRequestCore");
 
-            query.setParameter("requestId", request.getId(), LongType.INSTANCE);
+            query.setParameter("requestId", request.getId(), Hibernate.LONG);
 
-            query.setParameter("requestStatus", request.getStatus(), StringType.INSTANCE);
-            query.setParameter("receiptDate", request.getReceiptDate(), StandardBasicTypes.TIMESTAMP);
-            query.setParameter("statusReason", request.getStatusReason(), StringType.INSTANCE);
-            query.setParameter("requestReason", request.getRequestReason(), StringType.INSTANCE);
+            query.setParameter("requestStatus", request.getStatus(), Hibernate.STRING);
+            query.setParameter("receiptDate", request.getReceiptDate(), Hibernate.TIMESTAMP);
+            query.setParameter("statusReason", request.getStatusReason(), Hibernate.STRING);
+            query.setParameter("requestReason", request.getRequestReason(), Hibernate.STRING);
             query.setParameter("requestReasonAttribute", request.getRequestReasonAttribute());
             query.setParameter("statusChangedDt", request.getStatusChangedDt(),
-                                                                              StandardBasicTypes.TIMESTAMP);
-            query.setParameter("requestPassword", request.getRequestPassword(), StringType.INSTANCE);
+                                                                              Hibernate.TIMESTAMP);
+            query.setParameter("requestPassword", request.getRequestPassword(), Hibernate.STRING);
 
-            query.setParameter("modifiedDate", request.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
-            query.setParameter("modifiedBy", request.getModifiedBy(), IntegerType.INSTANCE);
+            query.setParameter("modifiedDate", request.getModifiedDate(), Hibernate.TIMESTAMP);
+            query.setParameter("modifiedBy", request.getModifiedBy(), Hibernate.INTEGER);
 
             long noOfRowsUpdated = query.executeUpdate();
 
@@ -455,10 +454,10 @@ implements RequestCoreDAO {
             //update completed date if exists
             if (request.getCompletedDate() != null) {
 	            query = session.getNamedQuery("updateRequestCoreCompletedDate");
-	            query.setParameter("requestId", request.getId(), LongType.INSTANCE);
-	            query.setParameter("completedDate", request.getCompletedDate(), StandardBasicTypes.TIMESTAMP);
-	            query.setParameter("modifiedDate", request.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
-	            query.setParameter("modifiedBy", request.getModifiedBy(), IntegerType.INSTANCE);
+	            query.setParameter("requestId", request.getId(), Hibernate.LONG);
+	            query.setParameter("completedDate", request.getCompletedDate(), Hibernate.TIMESTAMP);
+	            query.setParameter("modifiedDate", request.getModifiedDate(), Hibernate.TIMESTAMP);
+	            query.setParameter("modifiedBy", request.getModifiedBy(), Hibernate.INTEGER);
 	            noOfRowsUpdated = query.executeUpdate();
 
 	            if (noOfRowsUpdated <= 0) {
@@ -505,36 +504,36 @@ implements RequestCoreDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveCoreRequestor").getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
+            SQLQuery query = session.createSQLQuery(queryString);
 
-            query.addScalar("id", LongType.INSTANCE);
-            query.addScalar("requestorSeq", LongType.INSTANCE);
-            query.addScalar("requestorType", LongType.INSTANCE);
-            query.addScalar("requestorTypeName", StringType.INSTANCE);
-            query.addScalar("workPhone", StringType.INSTANCE);
-            query.addScalar("HomePhone", StringType.INSTANCE);
-            query.addScalar("cellPhone", StringType.INSTANCE);
-            query.addScalar("contactPhone", StringType.INSTANCE);
-            query.addScalar("contactName", StringType.INSTANCE);
-            query.addScalar("fax", StringType.INSTANCE);
-            query.addScalar("firstName", StringType.INSTANCE);
-            query.addScalar("middleName", StringType.INSTANCE);
-            query.addScalar("lastName", StringType.INSTANCE);
-            query.addScalar("suffix", StringType.INSTANCE);
-            query.addScalar("createdDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("createdBy", IntegerType.INSTANCE);
-            query.addScalar("modifiedDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("modifiedBy", IntegerType.INSTANCE);
-            query.addScalar("mainAddress1", StringType.INSTANCE);
-            query.addScalar("mainAddress2", StringType.INSTANCE);
-            query.addScalar("mainAddress3", StringType.INSTANCE);
-            query.addScalar("mainCity", StringType.INSTANCE);
-            query.addScalar("mainPostalCode", StringType.INSTANCE);
-            query.addScalar("mainState", StringType.INSTANCE);
-            query.addScalar("mainCountryName", StringType.INSTANCE);
-            query.addScalar("mainCountryCode", StringType.INSTANCE);
+            query.addScalar("id", Hibernate.LONG);
+            query.addScalar("requestorSeq", Hibernate.LONG);
+            query.addScalar("requestorType", Hibernate.LONG);
+            query.addScalar("requestorTypeName", Hibernate.STRING);
+            query.addScalar("workPhone", Hibernate.STRING);
+            query.addScalar("HomePhone", Hibernate.STRING);
+            query.addScalar("cellPhone", Hibernate.STRING);
+            query.addScalar("contactPhone", Hibernate.STRING);
+            query.addScalar("contactName", Hibernate.STRING);
+            query.addScalar("fax", Hibernate.STRING);
+            query.addScalar("firstName", Hibernate.STRING);
+            query.addScalar("middleName", Hibernate.STRING);
+            query.addScalar("lastName", Hibernate.STRING);
+            query.addScalar("suffix", Hibernate.STRING);
+            query.addScalar("createdDate", Hibernate.TIMESTAMP);
+            query.addScalar("createdBy", Hibernate.INTEGER);
+            query.addScalar("modifiedDate", Hibernate.TIMESTAMP);
+            query.addScalar("modifiedBy", Hibernate.INTEGER);
+            query.addScalar("mainAddress1", Hibernate.STRING);
+            query.addScalar("mainAddress2", Hibernate.STRING);
+            query.addScalar("mainAddress3", Hibernate.STRING);
+            query.addScalar("mainCity", Hibernate.STRING);
+            query.addScalar("mainPostalCode", Hibernate.STRING);
+            query.addScalar("mainState", Hibernate.STRING);
+            query.addScalar("mainCountryName", Hibernate.STRING);
+            query.addScalar("mainCountryCode", Hibernate.STRING);
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.setResultTransformer(Transformers.aliasToBean(RequestorCore.class));
 
             RequestorCore requestorDetails = (RequestorCore) query.uniqueResult();
@@ -569,14 +568,14 @@ implements RequestCoreDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("createRequestEvent");
 
-            query.setParameter("createdDate", getDate(), StandardBasicTypes.TIMESTAMP);
-            query.setParameter("CreatedBy", event.getCreatedBy(), IntegerType.INSTANCE);
-            query.setParameter("modifiedDate", event.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
-            query.setParameter("modifiedBy", event.getModifiedBy(), IntegerType.INSTANCE);
-            query.setParameter("recordVersion", event.getRecordVersion(), IntegerType.INSTANCE);
-            query.setParameter("requestCoreSeq", event.getRequestId(), LongType.INSTANCE);
-            query.setParameter("name", event.getName(), StringType.INSTANCE);
-            query.setParameter("description", event.getDescription(), StringType.INSTANCE);
+            query.setParameter("createdDate", getDate(), Hibernate.TIMESTAMP);
+            query.setParameter("CreatedBy", event.getCreatedBy(), Hibernate.INTEGER);
+            query.setParameter("modifiedDate", event.getModifiedDate(), Hibernate.TIMESTAMP);
+            query.setParameter("modifiedBy", event.getModifiedBy(), Hibernate.INTEGER);
+            query.setParameter("recordVersion", event.getRecordVersion(), Hibernate.INTEGER);
+            query.setParameter("requestCoreSeq", event.getRequestId(), Hibernate.LONG);
+            query.setParameter("name", event.getName(), Hibernate.STRING);
+            query.setParameter("description", event.getDescription(), Hibernate.STRING);
 
             query.executeUpdate();
 
@@ -614,8 +613,8 @@ implements RequestCoreDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("deleteLatestRequestEventByRequestIdAndEvent");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
-            query.setParameter("eventType", eventType.toString(), StringType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
+            query.setParameter("eventType", eventType.toString(), Hibernate.STRING);
 
             query.executeUpdate();
 
@@ -650,35 +649,35 @@ implements RequestCoreDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveCoreRequestorByInvoiceIds").getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
+            SQLQuery query = session.createSQLQuery(queryString);
 
-            query.addScalar("id", LongType.INSTANCE);
-            query.addScalar("requestId", LongType.INSTANCE);
-            query.addScalar("requestorSeq", LongType.INSTANCE);
-            query.addScalar("requestorType", LongType.INSTANCE);
-            query.addScalar("requestorTypeName", StringType.INSTANCE);
-            query.addScalar("workPhone", StringType.INSTANCE);
-            query.addScalar("HomePhone", StringType.INSTANCE);
-            query.addScalar("cellPhone", StringType.INSTANCE);
-            query.addScalar("contactPhone", StringType.INSTANCE);
-            query.addScalar("contactName", StringType.INSTANCE);
-            query.addScalar("fax", StringType.INSTANCE);
-            query.addScalar("firstName", StringType.INSTANCE);
-            query.addScalar("middleName", StringType.INSTANCE);
-            query.addScalar("lastName", StringType.INSTANCE);
-            query.addScalar("suffix", StringType.INSTANCE);
-            query.addScalar("createdDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("createdBy", IntegerType.INSTANCE);
-            query.addScalar("modifiedDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("modifiedBy", IntegerType.INSTANCE);
-            query.addScalar("mainAddress1", StringType.INSTANCE);
-            query.addScalar("mainAddress2", StringType.INSTANCE);
-            query.addScalar("mainAddress3", StringType.INSTANCE);
-            query.addScalar("mainCity", StringType.INSTANCE);
-            query.addScalar("mainPostalCode", StringType.INSTANCE);
-            query.addScalar("mainState", StringType.INSTANCE);
-            query.addScalar("mainCountryName", StringType.INSTANCE);
-            query.addScalar("mainCountryCode", StringType.INSTANCE);
+            query.addScalar("id", Hibernate.LONG);
+            query.addScalar("requestId", Hibernate.LONG);
+            query.addScalar("requestorSeq", Hibernate.LONG);
+            query.addScalar("requestorType", Hibernate.LONG);
+            query.addScalar("requestorTypeName", Hibernate.STRING);
+            query.addScalar("workPhone", Hibernate.STRING);
+            query.addScalar("HomePhone", Hibernate.STRING);
+            query.addScalar("cellPhone", Hibernate.STRING);
+            query.addScalar("contactPhone", Hibernate.STRING);
+            query.addScalar("contactName", Hibernate.STRING);
+            query.addScalar("fax", Hibernate.STRING);
+            query.addScalar("firstName", Hibernate.STRING);
+            query.addScalar("middleName", Hibernate.STRING);
+            query.addScalar("lastName", Hibernate.STRING);
+            query.addScalar("suffix", Hibernate.STRING);
+            query.addScalar("createdDate", Hibernate.TIMESTAMP);
+            query.addScalar("createdBy", Hibernate.INTEGER);
+            query.addScalar("modifiedDate", Hibernate.TIMESTAMP);
+            query.addScalar("modifiedBy", Hibernate.INTEGER);
+            query.addScalar("mainAddress1", Hibernate.STRING);
+            query.addScalar("mainAddress2", Hibernate.STRING);
+            query.addScalar("mainAddress3", Hibernate.STRING);
+            query.addScalar("mainCity", Hibernate.STRING);
+            query.addScalar("mainPostalCode", Hibernate.STRING);
+            query.addScalar("mainState", Hibernate.STRING);
+            query.addScalar("mainCountryName", Hibernate.STRING);
+            query.addScalar("mainCountryCode", Hibernate.STRING);
 
             query.setParameterList("invoiceIds", invoiceIds);
             query.setResultTransformer(Transformers.aliasToBean(RequestorCore.class));
@@ -718,7 +717,7 @@ implements RequestCoreDAO {
 
         @SuppressWarnings("unchecked") // not supported by 3rd party API
         List< ? extends RequestEvent> events
-        = (List<? extends RequestEvent>) getHibernateTemplate().findByNamedQuery("retrieveEventHistory", params);
+        = getHibernateTemplate().findByNamedQuery("retrieveEventHistory", params);
 
         List<RequestEvent> eves = new ArrayList<RequestEvent>();
         for (RequestEvent eve : events) {
@@ -753,9 +752,7 @@ implements RequestCoreDAO {
 
         try {
 
-            for (Iterator it = reqEvents.iterator(); it.hasNext();) {
-                getHibernateTemplate().saveOrUpdate(it.next());
-            }
+            getHibernateTemplate().saveOrUpdateAll(reqEvents);
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
@@ -789,19 +786,19 @@ implements RequestCoreDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveReleasedDocumentCharges")
                                         .getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(queryString);
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestId", requestId);
-            sqlQuery.addScalar("id", LongType.INSTANCE);
-            sqlQuery.addScalar("amount", DoubleType.INSTANCE);
-            sqlQuery.addScalar("copies", IntegerType.INSTANCE);
-            sqlQuery.addScalar("billingTierName", StringType.INSTANCE);
-            sqlQuery.addScalar("pages", IntegerType.INSTANCE);
-            sqlQuery.addScalar("billingtierId", StringType.INSTANCE);
-            sqlQuery.addScalar("isElectronic", BooleanType.INSTANCE);
-            sqlQuery.addScalar("removeBaseCharge", BooleanType.INSTANCE);
-            sqlQuery.addScalar("hasSalesTax", BooleanType.INSTANCE);
-            sqlQuery.addScalar("salesTaxAmount", DoubleType.INSTANCE);
-            sqlQuery.addScalar("releaseCount", IntegerType.INSTANCE);
+            sqlQuery.addScalar("id", Hibernate.LONG);
+            sqlQuery.addScalar("amount", Hibernate.DOUBLE);
+            sqlQuery.addScalar("copies", Hibernate.INTEGER);
+            sqlQuery.addScalar("billingTierName", Hibernate.STRING);
+            sqlQuery.addScalar("pages", Hibernate.INTEGER);
+            sqlQuery.addScalar("billingtierId", Hibernate.STRING);
+            sqlQuery.addScalar("isElectronic", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("removeBaseCharge", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("hasSalesTax", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("salesTaxAmount", Hibernate.DOUBLE);
+            sqlQuery.addScalar("releaseCount", Hibernate.INTEGER);
 
             sqlQuery.setResultTransformer(Transformers.aliasToBean(RequestCoreChargesDocument.class));
             @SuppressWarnings("unchecked")
@@ -841,24 +838,24 @@ implements RequestCoreDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestInvoiceDetails")
                                         .getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            SQLQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
-            query.addScalar("id", LongType.INSTANCE);
-            query.addScalar("requestId", LongType.INSTANCE);
-            query.addScalar("invoiceType", StringType.INSTANCE);
-            query.addScalar("charge", DoubleType.INSTANCE);
-            query.addScalar("balance", DoubleType.INSTANCE);
-            query.addScalar("paymentAmount", DoubleType.INSTANCE);
-            query.addScalar("adjustmentAmount", DoubleType.INSTANCE);
-            query.addScalar("description", StringType.INSTANCE);
-            query.addScalar("paymentDescription", StringType.INSTANCE);
-            query.addScalar("paymentMethod", StringType.INSTANCE);
-            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("createdBy", LongType.INSTANCE);
-            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("modifiedBy", LongType.INSTANCE);
-            query.addScalar("recordVersion", IntegerType.INSTANCE);
+            query.addScalar("id", Hibernate.LONG);
+            query.addScalar("requestId", Hibernate.LONG);
+            query.addScalar("invoiceType", Hibernate.STRING);
+            query.addScalar("charge", Hibernate.DOUBLE);
+            query.addScalar("balance", Hibernate.DOUBLE);
+            query.addScalar("paymentAmount", Hibernate.DOUBLE);
+            query.addScalar("adjustmentAmount", Hibernate.DOUBLE);
+            query.addScalar("description", Hibernate.STRING);
+            query.addScalar("paymentDescription", Hibernate.STRING);
+            query.addScalar("paymentMethod", Hibernate.STRING);
+            query.addScalar("createdDt", Hibernate.TIMESTAMP);
+            query.addScalar("createdBy", Hibernate.LONG);
+            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
+            query.addScalar("modifiedBy", Hibernate.LONG);
+            query.addScalar("recordVersion", Hibernate.INTEGER);
             query.setResultTransformer(Transformers.aliasToBean(RequestorInvoice.class));
             List<RequestorInvoice> requestInvoiceList = query.list();
 
@@ -900,11 +897,11 @@ implements RequestCoreDAO {
             Session session = getSession();
             Query query;
             query = session.getNamedQuery("updateRequestCoreUnbillable");
-            query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
-            query.setParameter("unbillable", unbillable, BooleanType.INSTANCE);
-            query.setParameter("modifiedDt", date, StandardBasicTypes.TIMESTAMP);
+            query.setParameter("requestCoreId", requestCoreId, Hibernate.LONG);
+            query.setParameter("unbillable", unbillable, Hibernate.BOOLEAN);
+            query.setParameter("modifiedDt", date, Hibernate.TIMESTAMP);
             query.setParameter("modifiedBy", user.getInstanceId(),
-                    IntegerType.INSTANCE);
+                    Hibernate.INTEGER);
             query.executeUpdate();
 
             query.executeUpdate();
@@ -963,27 +960,27 @@ implements RequestCoreDAO {
                 queryString = session.getNamedQuery("retriveProductivityReportDetailsFourthLevel")
                                             .getQueryString();
 
-            NativeQuery query = session.createSQLQuery(queryString);
+            SQLQuery query = session.createSQLQuery(queryString);
             query.setParameterList("facility",facility);
             query.setParameterList("userName",userName);
             query.setParameterList("requestorType",requestorType);
-            query.setParameter("fromDate",fromDate, StandardBasicTypes.TIMESTAMP);
-            query.setParameter("toDate",toDate , StandardBasicTypes.TIMESTAMP);
+            query.setParameter("fromDate",fromDate, Hibernate.TIMESTAMP);
+            query.setParameter("toDate",toDate , Hibernate.TIMESTAMP);
 
-            query.addScalar("reqID", StringType.INSTANCE);
-            query.addScalar("reqIDCount", IntegerType.INSTANCE);
-            query.addScalar("mrn", StringType.INSTANCE);
-            query.addScalar("facility", StringType.INSTANCE);
-            query.addScalar("userName", StringType.INSTANCE);
-            query.addScalar("patientName", StringType.INSTANCE);
-            query.addScalar("requestorType", StringType.INSTANCE);
+            query.addScalar("reqID", Hibernate.STRING);
+            query.addScalar("reqIDCount", Hibernate.INTEGER);
+            query.addScalar("mrn", Hibernate.STRING);
+            query.addScalar("facility", Hibernate.STRING);
+            query.addScalar("userName", Hibernate.STRING);
+            query.addScalar("patientName", Hibernate.STRING);
+            query.addScalar("requestorType", Hibernate.STRING);
             //if("\"Request ID,MRN\"".equalsIgnoreCase(resultType)){
-               query.addScalar("requestorName", StringType.INSTANCE);
+               query.addScalar("requestorName", Hibernate.STRING);
             //}
-            query.addScalar("billable", StringType.INSTANCE);
-            query.addScalar("createDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("pageType", StringType.INSTANCE);
-            query.addScalar("pages", IntegerType.INSTANCE);
+            query.addScalar("billable", Hibernate.STRING);
+            query.addScalar("createDate", Hibernate.TIMESTAMP);
+            query.addScalar("pageType", Hibernate.STRING);
+            query.addScalar("pages", Hibernate.INTEGER);
 
             query.setResultTransformer(Transformers.aliasToBean(ProductivityReportDetails.class));
             List<ProductivityReportDetails> productivityReportDetailsList = query.list();

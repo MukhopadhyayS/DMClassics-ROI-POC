@@ -66,7 +66,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
     @SuppressWarnings("unchecked")
     public List<CcdSourceModel> loadSourceFromDB() {
 	final String logSM = "loadSourceFromDB()";
-	List<CcdSourceModel> providers = (List<CcdSourceModel>) getHibernateTemplate()
+	List<CcdSourceModel> providers = getHibernateTemplate()
 		.findByNamedQuery("getExternalSources");
 
 	if (providers.size() == 0) {
@@ -108,7 +108,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
     @SuppressWarnings("unchecked")
     public List<CcdSourceConfigModel> loadSourceConfigFromDB(int providerId) {
 	final String logSM = "loadSourceConfigFromDB() :" + providerId;
-	List<CcdSourceConfigModel> providers = (List<CcdSourceConfigModel>) getHibernateTemplate()
+	List<CcdSourceConfigModel> providers = getHibernateTemplate()
 		.findByNamedQuery("getExternalSourceConfig",
 			new Integer(providerId));
 
@@ -177,7 +177,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:" + facility);
 	}
 
-	List<String> sources = (List<String>) getHibernateTemplate().findByNamedQuery(
+	List<String> sources = getHibernateTemplate().findByNamedQuery(
 		"getExternalSourceNameByFacility", facility);
 
 	if (DO_DEBUG) {
@@ -203,7 +203,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:" + facility);
 	}
 
-	List<Integer> sources = (List<Integer>) getHibernateTemplate().findByNamedQuery(
+	List<Integer> sources = getHibernateTemplate().findByNamedQuery(
 		"getExternalSourceIdForFacility", facility);
 
 	if (DO_DEBUG) {
@@ -229,7 +229,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:" + facility);
 	}
 
-	List<AssigningAuthorityModel> getExternalFacility = (List<AssigningAuthorityModel>) getHibernateTemplate()
+	List<AssigningAuthorityModel> getExternalFacility = getHibernateTemplate()
 		.findByNamedQuery("getExternalFacilityFromAuthority", facility);
 
 	if (DO_DEBUG) {
@@ -248,7 +248,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:" + requestId);
 	}
 
-	List<MUROIOutboundStatistics> statistics = (List<MUROIOutboundStatistics>) getHibernateTemplate()
+	List<MUROIOutboundStatistics> statistics = getHibernateTemplate()
 		.findByNamedQuery("getOutboundStatisticsByRequestId", requestId);
 
 	if (DO_DEBUG) {
@@ -304,7 +304,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	if (DO_DEBUG) {
 	    LOG.debug(logSM + ">>Start:" + source);
 	}
-	List<CcdSourceModel> sources = (List<CcdSourceModel>) getHibernateTemplate().findByNamedQuery(
+	List<CcdSourceModel> sources = getHibernateTemplate().findByNamedQuery(
 		"getExternalSourcesByName", source);
 
 	if (DO_DEBUG) {
@@ -322,7 +322,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	if (DO_DEBUG) {
 	    LOG.debug(logSM + ">>Start:" + sourceId);
 	}
-	List<ExtFacilityMappingModel> mappings = (List<ExtFacilityMappingModel>) getHibernateTemplate()
+	List<ExtFacilityMappingModel> mappings = getHibernateTemplate()
 		.findByNamedQuery("getExternalSourceById", sourceId);
 
 	if (DO_DEBUG) {
@@ -400,7 +400,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:" + requestId);
 	}
 
-	List<ExternalSourceDocument> externalSourceDocumentList = (List<ExternalSourceDocument>) getHibernateTemplate()
+	List<ExternalSourceDocument> externalSourceDocumentList = getHibernateTemplate()
 		.findByNamedQuery("getExternalSourceDocumentByReqId", requestId);
 
 	if (DO_DEBUG) {
@@ -418,7 +418,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:" + reqId + mrn);
 	}
 	Object[] values = { reqId, mrn };
-	List<ExternalSourceDocument> externalSourceDocumentList = (List<ExternalSourceDocument>) getHibernateTemplate()
+	List<ExternalSourceDocument> externalSourceDocumentList = getHibernateTemplate()
 		.findByNamedQuery("getExternalSourceDocumentByReqIdAndMrn",
 			values);
 
@@ -437,7 +437,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	}
 	Object[] values = { reqID, fileName, reqStatus };
 
-	List<ExternalSourceDocument> externalSourceDocumentList = (List<ExternalSourceDocument>) getHibernateTemplate()
+	List<ExternalSourceDocument> externalSourceDocumentList = getHibernateTemplate()
 		.findByNamedQuery(
 			"getExternalSourceDocumentByReqIdFileNameStatus",
 			values);
@@ -460,7 +460,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:" + reqID);
 	}
 
-	List<ExternalSourceDocument> externalSourceDocumentList = (List<ExternalSourceDocument>) getHibernateTemplate()
+	List<ExternalSourceDocument> externalSourceDocumentList = getHibernateTemplate()
 		.findByNamedQuery(
 			"getExternalSourceDocumentByReqIdStatusRequested",
 			reqID);
@@ -478,7 +478,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
 	    LOG.debug(logSM + ">>Start:");
 	}
 
-	List<ExternalSourceDocument> documents = (List<ExternalSourceDocument>) getHibernateTemplate()
+	List<ExternalSourceDocument> documents = getHibernateTemplate()
 		.findByNamedQuery(
 			"getExternalSourceDocumentsForRetry");
 
@@ -495,7 +495,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
         LOG.debug(logSM + ">>Start:");
     }
 
-    List<ExternalSourceDocument> documents = (List<ExternalSourceDocument>) getHibernateTemplate()
+    List<ExternalSourceDocument> documents = getHibernateTemplate()
         .findByNamedQuery(
             "getExternalSourceDocumentsByFileName",fileName);
 
@@ -513,7 +513,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
         LOG.debug(logSM + ">>Start:" + reqId + mrn + encounter);
     }
     Object[] values = { reqId, mrn, encounter, ROIConstants.REQUESTED_STATUS};
-    List<ExternalSourceDocument> extList = (List<ExternalSourceDocument>) getHibernateTemplate()
+    List<ExternalSourceDocument> extList = getHibernateTemplate()
         .findByNamedQuery("getExternalSourceDocumentsByReqIdAndMrnAndEncounterStatusRequested",
             values);
 
@@ -531,7 +531,7 @@ public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
         LOG.debug(logSM + ">>Start:" + reqId + mrn + encounter);
     }
     Object[] values = { reqId, mrn, encounter};
-    List<ExternalSourceDocument> extList = (List<ExternalSourceDocument>) getHibernateTemplate()
+    List<ExternalSourceDocument> extList = getHibernateTemplate()
         .findByNamedQuery("getExternalSourceDocumentsByReqIdAndMrnAndEncounter",
             values);
 

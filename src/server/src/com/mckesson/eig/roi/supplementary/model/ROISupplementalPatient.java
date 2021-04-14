@@ -159,17 +159,19 @@ extends BaseModel{
         _workphone = workphone;
     }
 
-    
+    public Boolean getVip() {
+        return _vip;
+    }
 
     public void setVip(Boolean vip) {
         _vip = vip;
     }
 
     public boolean isVip() {
-        if (null == _vip) {
+        if (null == getVip()) {
             return false;
         }
-        return _vip.booleanValue();
+        return getVip().booleanValue();
     }
 
     public String getCountryCode() {
@@ -265,7 +267,7 @@ extends BaseModel{
         setZip(p.getZip());
         setHomephone(p.getHomephone());
         setWorkphone(p.getWorkphone());
-        setVip(p.isVip());
+        setVip(p.getVip());
         setCountryCode(p.getCountryCode());
         setNewCountry(p.isNewCountry());
         setCountryName(p.getCountryName());

@@ -17,16 +17,16 @@ package com.mckesson.eig.roi.admin.dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
-import org.hibernate.type.StringType;
 
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.service.ROIAdminServiceImpl;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 /**
@@ -54,14 +54,14 @@ implements ROIAttachmentDAO {
         
             Session session = getSession();
             String namedQuery = session.getNamedQuery("retrieveSupplementarityAttachmentInfos").getQueryString();
-            NativeQuery createSQLQuery = super.prepareSQLQuery(session, namedQuery, ROISupplementarityAttachment.class);
-            createSQLQuery.setParameter("mrn", mrn, StringType.INSTANCE);
-            createSQLQuery.setParameter("facility", facilityCode, StringType.INSTANCE);
-            createSQLQuery.setParameter("encounter", encounter, StringType.INSTANCE);
-            createSQLQuery.addScalar("volume", StringType.INSTANCE);
-            createSQLQuery.addScalar("fileext", StringType.INSTANCE);
-            createSQLQuery.addScalar("path", StringType.INSTANCE);
-            createSQLQuery.addScalar("uuid", StringType.INSTANCE);
+            SQLQuery createSQLQuery = super.prepareSQLQuery(session, namedQuery, ROISupplementarityAttachment.class);
+            createSQLQuery.setString("mrn", mrn);
+            createSQLQuery.setString("facility", facilityCode);
+            createSQLQuery.setString("encounter", encounter);
+            createSQLQuery.addScalar("volume", Hibernate.STRING);
+            createSQLQuery.addScalar("fileext", Hibernate.STRING);
+            createSQLQuery.addScalar("path", Hibernate.STRING);
+            createSQLQuery.addScalar("uuid", Hibernate.STRING);
             List<ROISupplementarityAttachment> attachmentInfo = (List<ROISupplementarityAttachment>) createSQLQuery.list();
             
             if (DO_DEBUG) {
@@ -90,13 +90,13 @@ implements ROIAttachmentDAO {
             
             Session session = getSession();
             String namedQuery = session.getNamedQuery("retrieveAllSupplementarityAttachments").getQueryString();
-            NativeQuery createSQLQuery = super.prepareSQLQuery(session, namedQuery, ROISupplementarityAttachment.class);
-            createSQLQuery.setParameter("mrn", mrn, StringType.INSTANCE);
-            createSQLQuery.setParameter("facility", facilityCode, StringType.INSTANCE);
-            createSQLQuery.addScalar("volume", StringType.INSTANCE);
-            createSQLQuery.addScalar("fileext", StringType.INSTANCE);
-            createSQLQuery.addScalar("path", StringType.INSTANCE);
-            createSQLQuery.addScalar("uuid", StringType.INSTANCE);
+            SQLQuery createSQLQuery = super.prepareSQLQuery(session, namedQuery, ROISupplementarityAttachment.class);
+            createSQLQuery.setString("mrn", mrn);
+            createSQLQuery.setString("facility", facilityCode);
+            createSQLQuery.addScalar("volume", Hibernate.STRING);
+            createSQLQuery.addScalar("fileext", Hibernate.STRING);
+            createSQLQuery.addScalar("path", Hibernate.STRING);
+            createSQLQuery.addScalar("uuid", Hibernate.STRING);
             List<ROISupplementarityAttachment> attachmentInfo = (List<ROISupplementarityAttachment>) createSQLQuery.list();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
@@ -123,12 +123,12 @@ implements ROIAttachmentDAO {
             
             Session session = getSession();
             String namedQuery = session.getNamedQuery("retrieveSupplementarityAttachment").getQueryString();
-            NativeQuery createSQLQuery = super.prepareSQLQuery(session, namedQuery, ROISupplementarityAttachment.class);
+            SQLQuery createSQLQuery = super.prepareSQLQuery(session, namedQuery, ROISupplementarityAttachment.class);
             createSQLQuery.setParameterList("attachmentIds", attachmentIds);
-            createSQLQuery.addScalar("volume", StringType.INSTANCE);
-            createSQLQuery.addScalar("fileext", StringType.INSTANCE);
-            createSQLQuery.addScalar("path", StringType.INSTANCE);
-            createSQLQuery.addScalar("uuid", StringType.INSTANCE);
+            createSQLQuery.addScalar("volume", Hibernate.STRING);
+            createSQLQuery.addScalar("fileext", Hibernate.STRING);
+            createSQLQuery.addScalar("path", Hibernate.STRING);
+            createSQLQuery.addScalar("uuid", Hibernate.STRING);
             List attachments = createSQLQuery.list();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
