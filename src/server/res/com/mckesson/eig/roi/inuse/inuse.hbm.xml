@@ -57,21 +57,21 @@
   <query name="retrieveExpiredRecords">
     <![CDATA[
       select m from com.mckesson.eig.roi.inuse.model.InUseRecord m
-      where datediff(minute,dateadd(minute, m.expiresMinutes + ?, m.modifiedDate), ?) >= -1
+      where datediff(minute,dateadd(minute, m.expiresMinutes + ?0, m.modifiedDate), ?1) >= -1
     ]]>
   </query>
 
   <query name="retrieveAllForType">
     <![CDATA[
       select m from com.mckesson.eig.roi.inuse.model.InUseRecord m
-      where m.objectType = ?
+      where m.objectType = ?0
     ]]>
   </query>
 
   <query name="retrieveByAppIDAndUserID">
     <![CDATA[
       select m from com.mckesson.eig.roi.inuse.model.InUseRecord m
-      where m.applicationID = ? and m.userID = ?
+      where m.applicationID = ?0 and m.userID = ?1
     ]]>
   </query>
 
@@ -84,7 +84,7 @@
   <query name="retrieveByObjectTypeAndID">
     <![CDATA[
       select m from com.mckesson.eig.roi.inuse.model.InUseRecord m
-      where m.objectType = ? and m.objectID = ?
+      where m.objectType = ?0 and m.objectID = ?1
     ]]>
   </query>
 

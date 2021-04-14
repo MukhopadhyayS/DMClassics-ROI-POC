@@ -21,16 +21,18 @@ import javax.sql.DataSource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.connection.ConnectionProvider;
-import org.hibernate.impl.SessionFactoryImpl;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.LocalDataSourceConnectionProvider;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.internal.SessionFactoryImpl;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.SessionFactoryUtils;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.hpf.model.UserFacility;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SqlEncoderAdvanced;
 
 /**
@@ -93,17 +95,17 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<UserSecurity> us = getHibernateTemplate()
-                .executeFind(new HibernateCallback() {
+        List<UserSecurity> us = (List<UserSecurity>) getHibernateTemplate()
+                .execute(new HibernateCallback() {
 
                     public Object doInHibernate(Session s) {
 
                         return s.createQuery(
-                                "select us from UserSecurity us where us.userId = ?"
-                                        + " and us.facility = ?")
+                                "select us from UserSecurity us where us.userId = ?0"
+                                        + " and us.facility = ?1")
                                 .setParameter(0, userId)
                                 .setParameter(1, UserSecurity.ENTERPRISE)
-                                .list();
+                                .getResultList();
 
                     }
 
@@ -129,8 +131,8 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<UserFacility> us = getHibernateTemplate()
-                .executeFind(new HibernateCallback() {
+        List<UserFacility> us = (List<UserFacility>) getHibernateTemplate()
+                .execute(new HibernateCallback() {
 
                     public Object doInHibernate(Session s) {
 
@@ -182,15 +184,10 @@ public class UserSecurityHibernateDao extends HibernateDaoSupport {
     
     //Support OCSecurity Internal Security Model
     public DataSource getDataSource() {
-        DataSource ds = null;
         
-        SessionFactory sessionFactory = this.getSession().getSessionFactory();
-        if (sessionFactory instanceof SessionFactoryImpl) {
-            ConnectionProvider cp = ((SessionFactoryImpl) sessionFactory).getConnectionProvider();
-            if (cp instanceof LocalDataSourceConnectionProvider) {
-                return ((LocalDataSourceConnectionProvider) cp).getDataSource();
-            }
-        }
-        return ds;
-    }    
+        SessionFactory sessionFactory = this.getSessionFactory();
+        DataSource source = SessionFactoryUtils.getDataSource(sessionFactory);
+       
+        return source;
+    }      
 }

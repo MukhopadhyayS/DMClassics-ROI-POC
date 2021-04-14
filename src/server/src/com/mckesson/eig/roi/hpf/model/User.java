@@ -92,18 +92,7 @@ public class User implements java.io.Serializable {
     private String _rvGroup;
     private boolean _maskSSN;
     private String _maskBy;
-    
     private UserTypeLOV _userTypeLovId;
-    
-    public void setUserTypeLovId(UserTypeLOV userTypeLOV) {
-        this._userTypeLovId = userTypeLOV;
-    }
-
-    public UserTypeLOV getUserTypeLovId() {
-        return _userTypeLovId;
-    }
-
-
 
     public User() { }
 
@@ -135,6 +124,13 @@ public class User implements java.io.Serializable {
         setInstanceId(instanceId);
     }
 
+    public void setUserTypeLovId(UserTypeLOV userTypeLOV) {
+        this._userTypeLovId = userTypeLOV;
+    }
+
+    public UserTypeLOV getUserTypeLovId() {
+        return _userTypeLovId;
+    }
     public Object getIdentity() { return _identity; }
     public void setIdentity(Object identity) { _identity = identity; }
 

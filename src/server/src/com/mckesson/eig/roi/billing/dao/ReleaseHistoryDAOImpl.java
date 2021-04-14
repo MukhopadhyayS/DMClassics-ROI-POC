@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.BooleanType;
+import org.hibernate.type.DateType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryItem;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryPatient;
-import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class ReleaseHistoryDAOImpl
 extends ROIDAOImpl
@@ -39,20 +45,20 @@ implements ReleaseHistoryDAO {
         String stringQuery = session.getNamedQuery(
                 "retrieveReleasePatientsByRequestId").getQueryString();
 
-        SQLQuery sqlQuery = session.createSQLQuery(stringQuery);
+        NativeQuery sqlQuery = session.createSQLQuery(stringQuery);
 
-        sqlQuery.setLong(REQUEST_ID, requestId);
-        sqlQuery.addScalar("patientSeq", Hibernate.LONG);
-        sqlQuery.addScalar("name", Hibernate.STRING);
-        sqlQuery.addScalar("gender", Hibernate.STRING);
-        sqlQuery.addScalar("dob", Hibernate.DATE);
-        sqlQuery.addScalar("ssn", Hibernate.STRING);
-        sqlQuery.addScalar("facility", Hibernate.STRING);
-        sqlQuery.addScalar("mrn", Hibernate.STRING);
-        sqlQuery.addScalar("epn", Hibernate.STRING);
-        sqlQuery.addScalar("patientLocked", Hibernate.BOOLEAN);
-        sqlQuery.addScalar("encounterLocked", Hibernate.BOOLEAN);
-        sqlQuery.addScalar("vip", Hibernate.STRING);
+        sqlQuery.setParameter(REQUEST_ID, requestId, LongType.INSTANCE);
+        sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
+        sqlQuery.addScalar("name", StringType.INSTANCE);
+        sqlQuery.addScalar("gender", StringType.INSTANCE);
+        sqlQuery.addScalar("dob", DateType.INSTANCE);
+        sqlQuery.addScalar("ssn", StringType.INSTANCE);
+        sqlQuery.addScalar("facility", StringType.INSTANCE);
+        sqlQuery.addScalar("mrn", StringType.INSTANCE);
+        sqlQuery.addScalar("epn", StringType.INSTANCE);
+        sqlQuery.addScalar("patientLocked", BooleanType.INSTANCE);
+        sqlQuery.addScalar("encounterLocked", BooleanType.INSTANCE);
+        sqlQuery.addScalar("vip", StringType.INSTANCE);
 
 
         sqlQuery.setResultTransformer(Transformers
@@ -85,28 +91,28 @@ implements ReleaseHistoryDAO {
         String stringQuery = session.getNamedQuery(
                 "retrieveReleaseHistoryByRequestId").getQueryString();
 
-        SQLQuery sqlQuery = session.createSQLQuery(stringQuery);
-        sqlQuery.setLong(REQUEST_ID, requestId);
-        sqlQuery.addScalar("patientSeq", Hibernate.LONG);
-        sqlQuery.addScalar("patientName", Hibernate.STRING);
-        sqlQuery.addScalar("trackingNumber", Hibernate.STRING);
-        sqlQuery.addScalar("datetime", Hibernate.TIMESTAMP);
-        sqlQuery.addScalar("enctr", Hibernate.STRING);
-        sqlQuery.addScalar("selfPay", Hibernate.BOOLEAN);
-        sqlQuery.addScalar("documentVersionSubtitle", Hibernate.STRING);
-        sqlQuery.addScalar("pages", Hibernate.INTEGER);
-        sqlQuery.addScalar("requestPassword", Hibernate.STRING);
-        sqlQuery.addScalar("queuePassword", Hibernate.STRING);
-        sqlQuery.addScalar("shippingMethod", Hibernate.STRING);
-        sqlQuery.addScalar("outputMethod", Hibernate.STRING);
-        sqlQuery.addScalar("address1", Hibernate.STRING);
-        sqlQuery.addScalar("address2", Hibernate.STRING);
-        sqlQuery.addScalar("address3", Hibernate.STRING);
-        sqlQuery.addScalar("city", Hibernate.STRING);
-        sqlQuery.addScalar("state", Hibernate.STRING);
-        sqlQuery.addScalar("zipcode", Hibernate.STRING);
-        sqlQuery.addScalar("userName", Hibernate.STRING);
-        sqlQuery.addScalar("userId", Hibernate.LONG);
+        NativeQuery sqlQuery = session.createSQLQuery(stringQuery);
+        sqlQuery.setParameter(REQUEST_ID, requestId, LongType.INSTANCE);
+        sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
+        sqlQuery.addScalar("patientName", StringType.INSTANCE);
+        sqlQuery.addScalar("trackingNumber", StringType.INSTANCE);
+        sqlQuery.addScalar("datetime", StandardBasicTypes.TIMESTAMP);
+        sqlQuery.addScalar("enctr", StringType.INSTANCE);
+        sqlQuery.addScalar("selfPay", BooleanType.INSTANCE);
+        sqlQuery.addScalar("documentVersionSubtitle", StringType.INSTANCE);
+        sqlQuery.addScalar("pages", IntegerType.INSTANCE);
+        sqlQuery.addScalar("requestPassword", StringType.INSTANCE);
+        sqlQuery.addScalar("queuePassword", StringType.INSTANCE);
+        sqlQuery.addScalar("shippingMethod", StringType.INSTANCE);
+        sqlQuery.addScalar("outputMethod", StringType.INSTANCE);
+        sqlQuery.addScalar("address1", StringType.INSTANCE);
+        sqlQuery.addScalar("address2", StringType.INSTANCE);
+        sqlQuery.addScalar("address3", StringType.INSTANCE);
+        sqlQuery.addScalar("city", StringType.INSTANCE);
+        sqlQuery.addScalar("state", StringType.INSTANCE);
+        sqlQuery.addScalar("zipcode", StringType.INSTANCE);
+        sqlQuery.addScalar("userName", StringType.INSTANCE);
+        sqlQuery.addScalar("userId", LongType.INSTANCE);
 
 
         sqlQuery.setResultTransformer(Transformers

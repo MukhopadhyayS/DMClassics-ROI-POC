@@ -44,7 +44,7 @@ implements WeightDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Weight> weights = getHibernateTemplate().findByNamedQuery("getWeight");
+        List<Weight> weights = (List<Weight>) getHibernateTemplate().findByNamedQuery("getWeight");
 
         Weight weight = null;
         if (weights.size() > 0) {

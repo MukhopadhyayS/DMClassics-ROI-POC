@@ -89,7 +89,7 @@ implements MediaTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Object[]> mediaTypes = getHibernateTemplate().
+        List<Object[]> mediaTypes = (List<Object[]>) getHibernateTemplate().
                                         findByNamedQuery("retrieveAllMediaTypes");
 
         List<MediaType> mediaList = new ArrayList<MediaType>();
@@ -123,7 +123,7 @@ implements MediaTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Object[]> mediaTypes = getHibernateTemplate().
+        List<Object[]> mediaTypes = (List<Object[]>) getHibernateTemplate().
                                         findByNamedQuery("retrieveAllMediaTypeName");
 
         List<MediaType> mediaList = new ArrayList<MediaType>();
@@ -176,7 +176,7 @@ implements MediaTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <MediaType> mediaTypes = getHibernateTemplate().findByNamedQuery("getMediaTypeByName",
+        List <MediaType> mediaTypes = (List<MediaType>) getHibernateTemplate().findByNamedQuery("getMediaTypeByName",
                                                                               mediaTypeName);
 
         MediaType mType = null;
@@ -220,7 +220,7 @@ implements MediaTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Long> ids = getHibernateTemplate().findByNamedQuery("getAssociatedBillingTierCount",
+        List<Long> ids = (List<Long>) getHibernateTemplate().findByNamedQuery("getAssociatedBillingTierCount",
                                                                  new Long(mediaTypeId));
 
         long count = toPlong(ids.get(0).longValue());

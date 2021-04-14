@@ -19,8 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
+
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.type.BooleanType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StringType;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -48,7 +52,7 @@ public class JournalTemplateDAOImpl extends ROIDAOImpl implements JournalTemplat
             Session session = getSession();
             String queryString = session.getNamedQuery(JOURNAL_TEMPLATE).getQueryString();
             
-            SQLQuery query = selectJournalDetailTemplate(session, queryString, JournalTemplate.class);
+            NativeQuery query = selectJournalDetailTemplate(session, queryString, JournalTemplate.class);
 
             List<JournalTemplate> templates = (List<JournalTemplate>) query.list();
             if (DO_DEBUG) {
@@ -65,15 +69,15 @@ public class JournalTemplateDAOImpl extends ROIDAOImpl implements JournalTemplat
         }
      }
 
-    protected SQLQuery selectJournalDetailTemplate(Session session, String query, Class clazz) {
-        SQLQuery sqlQuery = super.prepareSQLQuery(session, query, clazz);
-        sqlQuery.addScalar("txnTypeId", Hibernate.LONG);
-        sqlQuery.addScalar("lineItemTypeId", Hibernate.LONG);
-        sqlQuery.addScalar("ledgerAccountId", Hibernate.LONG);
-        sqlQuery.addScalar("credit", Hibernate.BOOLEAN);
-        sqlQuery.addScalar("increase", Hibernate.BOOLEAN);
-        sqlQuery.addScalar("active", Hibernate.BOOLEAN);
-        return sqlQuery;
+    protected NativeQuery selectJournalDetailTemplate(Session session, String query, Class clazz) {
+        NativeQuery nativeuery = super.prepareSQLQuery(session, query, clazz);
+        nativeuery.addScalar("txnTypeId", LongType.INSTANCE);
+        nativeuery.addScalar("lineItemTypeId", LongType.INSTANCE);
+        nativeuery.addScalar("ledgerAccountId", LongType.INSTANCE);
+        nativeuery.addScalar("credit", BooleanType.INSTANCE);
+        nativeuery.addScalar("increase", BooleanType.INSTANCE);
+        nativeuery.addScalar("active", BooleanType.INSTANCE);
+        return nativeuery;
     }
     
     
@@ -88,7 +92,7 @@ public class JournalTemplateDAOImpl extends ROIDAOImpl implements JournalTemplat
             Session session = getSession();
             String queryString = session.getNamedQuery(LINE_ITEM_TYPE).getQueryString();
             
-            SQLQuery query = selectLineItemType(session, queryString, FinancialLineItemType.class);
+            NativeQuery query = selectLineItemType(session, queryString, FinancialLineItemType.class);
 
             List<FinancialLineItemType> types = (List<FinancialLineItemType>) query.list();
             if (DO_DEBUG) {
@@ -105,13 +109,13 @@ public class JournalTemplateDAOImpl extends ROIDAOImpl implements JournalTemplat
         }
     }
 
-    protected SQLQuery selectLineItemType(Session session, String query, Class clazz) {
-        SQLQuery sqlQuery = super.prepareSQLQuery(session, query, clazz);
-        sqlQuery.addScalar("entityId", Hibernate.LONG);
-        sqlQuery.addScalar("txnTypeId", Hibernate.LONG);
-        sqlQuery.addScalar("name", Hibernate.STRING);
-        sqlQuery.addScalar("code", Hibernate.STRING);
-        sqlQuery.addScalar("query", Hibernate.STRING);
+    protected NativeQuery selectLineItemType(Session session, String query, Class clazz) {
+        NativeQuery sqlQuery = super.prepareSQLQuery(session, query, clazz);
+        sqlQuery.addScalar("entityId", LongType.INSTANCE);
+        sqlQuery.addScalar("txnTypeId", LongType.INSTANCE);
+        sqlQuery.addScalar("name", StringType.INSTANCE);
+        sqlQuery.addScalar("code", StringType.INSTANCE);
+        sqlQuery.addScalar("query", StringType.INSTANCE);
         return sqlQuery;
     }
     

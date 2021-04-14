@@ -18,10 +18,16 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.quartz.JobBuilder;
+
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import org.quartz.SimpleTrigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.springframework.util.ObjectUtils;
 
 import com.mckesson.eig.roi.hpf.model.User;
@@ -33,6 +39,8 @@ import com.mckesson.eig.roi.inuse.model.InUseRecordList;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.exception.ApplicationException;
 import com.mckesson.eig.wsfw.session.WsSession;
+
+
 
 /**
  * @author OFS
@@ -84,14 +92,26 @@ public class InUseServiceImpl implements InUseService {
 
             try {
 
-                JobDetail detail = new JobDetail();
-                detail.setGroup(QUARTZ_GROUP_NAME);
-                detail.setName(QUARTZ_JOB_NAME);
-                detail.setJobClass(InUseQuartzJob.class);
-                detail.setDurability(true);
-                detail.getJobDataMap().put("InUseDAO", _inUseDAO);
-                detail.getJobDataMap().put("gracePeriodMin", getGracePeriodMinutes());
-                _scheduler.addJob(detail, true);
+                //  JobDetail detail = new JobDetail();
+                /*
+                 * detail.setGroup(QUARTZ_GROUP_NAME);
+                 * detail.setName(QUARTZ_JOB_NAME);
+                 * detail.setJobClass(InUseQuartzJob.class);
+                 * detail.setDurability(true);
+                 * detail.getJobDataMap().put("InUseDAO", _inUseDAO);
+                 * detail.getJobDataMap().put("gracePeriodMin",
+                 * getGracePeriodMinutes());
+                 */
+                
+                JobDetail job = JobBuilder.newJob(InUseQuartzJob.class)
+                        .withIdentity(QUARTZ_JOB_NAME, QUARTZ_JOB_NAME)
+                        .usingJobData("gracePeriodMin", getGracePeriodMinutes())
+                        .storeDurably(true)
+                        .build();
+                job.getJobDataMap().put("InUseDAO", _inUseDAO);
+                
+                
+                _scheduler.addJob(job, true);
                 _scheduler.start();
 
                 records = _inUseDAO.retrieveAll();
@@ -483,15 +503,15 @@ public class InUseServiceImpl implements InUseService {
         _inUseDAO = dao;
     }
 
-    private void cancelTimerForRecord(InUseRecord record) throws SchedulerException {
-
+    private void cancelTimerForRecord(InUseRecord record) throws SchedulerException {        
         if (DO_DEBUG) {
             if (null == record) {
                 LOG.info("Cancel Timer Job:record argument was null");
             }
         }
         String name = Long.toString(record.getRecordSequence());
-        _scheduler.unscheduleJob(name, QUARTZ_GROUP_NAME);
+        TriggerKey triggerKey = TriggerKey.triggerKey(name, QUARTZ_GROUP_NAME);
+        _scheduler.unscheduleJob(triggerKey);
     }
 
     private void createTimerForRecord(InUseRecord record) throws SchedulerException {
@@ -503,11 +523,16 @@ public class InUseServiceImpl implements InUseService {
         }
         String name = Long.toString(record.getRecordSequence());
         long fireTime = record.getModifiedDate().getTime()
-                        + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE);
-        SimpleTrigger trigger = new SimpleTrigger(name, QUARTZ_GROUP_NAME, new Date(fireTime));
-        trigger.setJobGroup(QUARTZ_GROUP_NAME);
-        trigger.setJobName(QUARTZ_JOB_NAME);
-        trigger.setRepeatCount(0);
+                        + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE); 
+        
+        SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder
+                .newTrigger()
+                .withIdentity(name, QUARTZ_GROUP_NAME)
+                .startAt(new Date(fireTime)) // some Date
+                .forJob(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
+                .withSchedule(simpleSchedule().withRepeatCount(0))
+                .build();
+        
         _scheduler.scheduleJob(trigger);
     }
 
@@ -523,11 +548,17 @@ public class InUseServiceImpl implements InUseService {
         String name = Long.toString(record.getRecordSequence());
         long fireTime = record.getModifiedDate().getTime()
                         + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE);
-        SimpleTrigger trigger = new SimpleTrigger(name, QUARTZ_GROUP_NAME, new Date(fireTime));
-        trigger.setJobGroup(QUARTZ_GROUP_NAME);
-        trigger.setJobName(QUARTZ_JOB_NAME);
-        trigger.setRepeatCount(0);
-        _scheduler.rescheduleJob(name, QUARTZ_GROUP_NAME, trigger);
+        
+        
+        SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder
+                .newTrigger()
+                .withIdentity(name, QUARTZ_GROUP_NAME)
+                .startAt(new Date(fireTime)) // some Date
+                .forJob(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
+                .build();
+        TriggerKey triggerKey = TriggerKey.triggerKey(name, QUARTZ_GROUP_NAME);
+        _scheduler.rescheduleJob(triggerKey, trigger);
+        
     }
 
     /**
