@@ -21,9 +21,14 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.DateType;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -37,6 +42,7 @@ import com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceResult;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 /**
  * @author Karthik Easwaran
@@ -69,7 +75,7 @@ implements OverDueInvoiceCoreDAO {
             // session object is retrieved from the hibernate template and the
             // query is retrieved from the ssession
             Session session = getSession();
-            SQLQuery query;
+            NativeQuery query;
             String queryString;
             switch(searchCriteria.getOverDueRestriction()) {
 
@@ -92,16 +98,16 @@ implements OverDueInvoiceCoreDAO {
 
             String requestorName = getSpecialCharSearchStr(searchCriteria.getRequestorName());
 //            query.setProperties(new PastDueInvoice());
-            query.addScalar("billingLocation", Hibernate.STRING);
-            query.addScalar("invoiceNumber", Hibernate.LONG);
-            query.addScalar("requestId", Hibernate.LONG);
-            query.addScalar("overdueAmount", Hibernate.DOUBLE);
-            query.addScalar("requestorName", Hibernate.STRING);
-            query.addScalar("phoneNumber", Hibernate.STRING);
-            query.addScalar("requestorType", Hibernate.STRING);
-            query.addScalar("requestorId", Hibernate.LONG);
-            query.addScalar("overDueDays", Hibernate.LONG);
-            query.addScalar("invoiceAge", Hibernate.LONG);
+            query.addScalar("billingLocation", StringType.INSTANCE);
+            query.addScalar("invoiceNumber", LongType.INSTANCE);
+            query.addScalar("requestId", LongType.INSTANCE);
+            query.addScalar("overdueAmount", DoubleType.INSTANCE);
+            query.addScalar("requestorName", StringType.INSTANCE);
+            query.addScalar("phoneNumber", StringType.INSTANCE);
+            query.addScalar("requestorType", StringType.INSTANCE);
+            query.addScalar("requestorId", LongType.INSTANCE);
+            query.addScalar("overDueDays", LongType.INSTANCE);
+            query.addScalar("invoiceAge", LongType.INSTANCE);
 
 
             query.setParameterList("facility", searchCriteria.getBillingLocations());
@@ -168,8 +174,8 @@ implements OverDueInvoiceCoreDAO {
             for (RequestorLetter letter : reqLetter) {
 
 
-                SQLQuery query = session.createSQLQuery(queryString);
-                query.addScalar("requestorLetterId", Hibernate.LONG);
+                NativeQuery query = session.createSQLQuery(queryString);
+                query.addScalar("requestorLetterId", LongType.INSTANCE);
 
                 query.setParameter("requestorId", letter.getRequestorId());
                 query.setParameter("requestorName", letter.getRequestorName());
@@ -262,41 +268,41 @@ implements OverDueInvoiceCoreDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestorLetter").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.addScalar("requestorLetterId", Hibernate.LONG);
-            query.addScalar("requestorId", Hibernate.LONG);
-            query.addScalar("requestorName", Hibernate.STRING);
-            query.addScalar("requestorPhone", Hibernate.STRING);
-            query.addScalar("requestorAddress1", Hibernate.STRING);
-            query.addScalar("requestorAddress2", Hibernate.STRING);
-            query.addScalar("requestorAddress3", Hibernate.STRING);
-            query.addScalar("requestorCity", Hibernate.STRING);
-            query.addScalar("requestorState", Hibernate.STRING);
-            query.addScalar("requestorPostalCode", Hibernate.STRING);
-            query.addScalar("requestorCountry", Hibernate.STRING);
-            query.addScalar("resendDate", Hibernate.DATE);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("queuePassword", Hibernate.STRING);
-            query.addScalar("templateName", Hibernate.STRING);
-            query.addScalar("requestTemplateId", Hibernate.LONG);
-            query.addScalar("createdDate", Hibernate.DATE);
-            query.addScalar("createdBy", Hibernate.INTEGER);
-            query.addScalar("modifiedDt", Hibernate.DATE);
-            query.addScalar("modifiedBy", Hibernate.INTEGER);
-            query.addScalar("notesString", Hibernate.STRING);
-            query.addScalar("dateRangeAsString", Hibernate.STRING);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.addScalar("requestorLetterId", LongType.INSTANCE);
+            query.addScalar("requestorId", LongType.INSTANCE);
+            query.addScalar("requestorName", StringType.INSTANCE);
+            query.addScalar("requestorPhone", StringType.INSTANCE);
+            query.addScalar("requestorAddress1", StringType.INSTANCE);
+            query.addScalar("requestorAddress2", StringType.INSTANCE);
+            query.addScalar("requestorAddress3", StringType.INSTANCE);
+            query.addScalar("requestorCity", StringType.INSTANCE);
+            query.addScalar("requestorState", StringType.INSTANCE);
+            query.addScalar("requestorPostalCode", StringType.INSTANCE);
+            query.addScalar("requestorCountry", StringType.INSTANCE);
+            query.addScalar("resendDate", DateType.INSTANCE);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("queuePassword", StringType.INSTANCE);
+            query.addScalar("templateName", StringType.INSTANCE);
+            query.addScalar("requestTemplateId", LongType.INSTANCE);
+            query.addScalar("createdDate", DateType.INSTANCE);
+            query.addScalar("createdBy", IntegerType.INSTANCE);
+            query.addScalar("modifiedDt", DateType.INSTANCE);
+            query.addScalar("modifiedBy", IntegerType.INSTANCE);
+            query.addScalar("notesString", StringType.INSTANCE);
+            query.addScalar("dateRangeAsString", StringType.INSTANCE);
 
-            query.addScalar("charges", Hibernate.DOUBLE);
-            query.addScalar("adjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("paymentAmount", Hibernate.DOUBLE);
-            query.addScalar("balances", Hibernate.DOUBLE);
-            query.addScalar("unAppliedAdjustment", Hibernate.DOUBLE);
-            query.addScalar("unAppliedPayment", Hibernate.DOUBLE);
+            query.addScalar("charges", DoubleType.INSTANCE);
+            query.addScalar("adjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("paymentAmount", DoubleType.INSTANCE);
+            query.addScalar("balances", DoubleType.INSTANCE);
+            query.addScalar("unAppliedAdjustment", DoubleType.INSTANCE);
+            query.addScalar("unAppliedPayment", DoubleType.INSTANCE);
 
-            query.addScalar("balance30", Hibernate.DOUBLE);
-            query.addScalar("balance60", Hibernate.DOUBLE);
-            query.addScalar("balance90", Hibernate.DOUBLE);
-            query.addScalar("balanceOther", Hibernate.DOUBLE);
+            query.addScalar("balance30", DoubleType.INSTANCE);
+            query.addScalar("balance60", DoubleType.INSTANCE);
+            query.addScalar("balance90", DoubleType.INSTANCE);
+            query.addScalar("balanceOther", DoubleType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestorLetter.class));
 

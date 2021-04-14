@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -23,20 +23,20 @@ import java.sql.Clob;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.DateType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -46,10 +46,11 @@ import com.mckesson.eig.roi.base.model.EmailPhoneType;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.request.model.FreeFormFacility;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 /**
  * @author OFS
@@ -79,7 +80,7 @@ implements ROIDAO {
     private void setDateDiff() {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Timestamp> list = getHibernateTemplate().findByNamedQuery("getDBDate");
+        List<Timestamp> list = (List<Timestamp>) getHibernateTemplate().findByNamedQuery("getDBDate");
         _diff = list.get(0).getTime() - System.currentTimeMillis();
     }
 
@@ -95,6 +96,10 @@ implements ROIDAO {
         }
 
         return new Timestamp(System.currentTimeMillis() + _diff);
+    }
+
+    public Session getSession() {
+        return getSessionFactory().openSession();
     }
 
     /**
@@ -170,7 +175,7 @@ implements ROIDAO {
         if (_roiEmailPhoneTypes == null) {
 
             @SuppressWarnings("unchecked") // not supported by 3rdParty API
-            List<EmailPhoneType> list = getHibernateTemplate().
+            List<EmailPhoneType> list = (List<EmailPhoneType>) getHibernateTemplate().
                                         findByNamedQuery("getEmailPhoneTypes");
 
             _roiEmailPhoneTypes = new HashMap <String, Long>();
@@ -193,7 +198,7 @@ implements ROIDAO {
         if (_roiAddressTypes == null) {
 
             @SuppressWarnings("unchecked") // not supported by 3rdParty API
-            List<AddressType> list = getHibernateTemplate().
+            List<AddressType> list = (List<AddressType>)  getHibernateTemplate().
                                         findByNamedQuery("getAddressTypes");
 
             _roiAddressTypes = new HashMap <String, Long>();
@@ -216,7 +221,7 @@ implements ROIDAO {
         if (_roiContactTypes == null) {
 
             @SuppressWarnings("unchecked") // not supported by 3rdParty API
-            List<ContactType> list = getHibernateTemplate().
+            List<ContactType> list = (List<ContactType>) getHibernateTemplate().
                                         findByNamedQuery("getContactTypes");
 
             _roiContactTypes = new HashMap <String, Long>();
@@ -246,8 +251,8 @@ implements ROIDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveROIFreeFormFacilityByUser")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.addScalar("freeFormFacilityName", Hibernate.STRING);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.addScalar("freeFormFacilityName", StringType.INSTANCE);
             query.setParameter("createdBy", userId);
             
             @SuppressWarnings("unchecked") // not supported by the 3rdParty API
@@ -284,7 +289,7 @@ implements ROIDAO {
             String queryString = session.getNamedQuery("createROIFreeFormFacility")
                                         .getQueryString();
             
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("freeFormFacilityName", freeformFacility.getFreeFormFacilityName());
             query.setParameter("createdDt", freeformFacility.getCreatedDt());
             query.setParameter("createdBy", freeformFacility.getCreatedBy());
@@ -292,7 +297,7 @@ implements ROIDAO {
             query.setParameter("modifiedBy", freeformFacility.getModifiedBy());
             query.setParameter("recordVersion", freeformFacility.getRecordVersion());
             
-            query.addScalar("freeformFacilityId", Hibernate.LONG);
+            query.addScalar("freeformFacilityId", LongType.INSTANCE);
             
             @SuppressWarnings("unchecked") // not supported by the 3rdParty API
             List<Long> freeformFacilityId = query.list();
@@ -333,14 +338,14 @@ implements ROIDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveROIFreeFormFacilityByName")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("freeFormFacilityName", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.DATE);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.DATE);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("freeFormFacilityName", StringType.INSTANCE);
+            query.addScalar("createdDt", DateType.INSTANCE);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", DateType.INSTANCE);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             
             query.setParameter("freeFormFacilityName", facility);
             query.setParameter("createdBy", userId);
@@ -466,10 +471,10 @@ implements ROIDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("getSecurityRights")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setString("userId", userID);
-            query.setString("facilityCode", ROIConstants.DEFAULT_FACILITY);
-            query.setString("securityDesc", ROIConstants.ROI_ADMINISTRATION_SECURITY);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("userId", userID, StringType.INSTANCE);
+            query.setParameter("facilityCode", ROIConstants.DEFAULT_FACILITY, StringType.INSTANCE);
+            query.setParameter("securityDesc", ROIConstants.ROI_ADMINISTRATION_SECURITY, StringType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(UserSecurity.class));          
             userSecurity = query.list();
@@ -508,7 +513,9 @@ implements ROIDAO {
     public void bulkInsert(List<MUROIOutboundStatistics> muOutboundStatistics) {
 
         try {
-            getHibernateTemplate().saveOrUpdateAll(muOutboundStatistics);
+            for (Iterator it = muOutboundStatistics.iterator(); it.hasNext();) {
+                getHibernateTemplate().saveOrUpdate(it.next());
+            }
         } catch (DataAccessException e) {
             throw new ROIException(
                     ROIClientErrorCodes.MU_CREATEROIOUTBOUND_BULK_INSERT, e
@@ -516,15 +523,15 @@ implements ROIDAO {
         }
     }
     
-    protected SQLQuery prepareSQLQuery(Session session, String query, Class clazz) {
-        SQLQuery sqlQuery = session.createSQLQuery(query);
-        sqlQuery.setResultTransformer(Transformers.aliasToBean(clazz));
-        sqlQuery.addScalar("id", Hibernate.LONG);
-        sqlQuery.addScalar("createdBy", Hibernate.INTEGER);
-        sqlQuery.addScalar("createdDt", Hibernate.TIMESTAMP);
-        sqlQuery.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-        sqlQuery.addScalar("modifiedBy", Hibernate.INTEGER);
-        return sqlQuery;
+    protected NativeQuery prepareSQLQuery(Session session, String query, Class clazz) {
+        NativeQuery nativeQuery = session.createSQLQuery(query);
+        nativeQuery.setResultTransformer(Transformers.aliasToBean(clazz));
+        nativeQuery.addScalar("id", LongType.INSTANCE);
+        nativeQuery.addScalar("createdBy", IntegerType.INSTANCE);
+        nativeQuery.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+        nativeQuery.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+        nativeQuery.addScalar("modifiedBy", IntegerType.INSTANCE);
+        return nativeQuery;
     }
     
     /** 
@@ -546,9 +553,9 @@ implements ROIDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("getSecurityRightsForOutputType")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setString("userId", userID);
-            query.setString("facilityCode", ROIConstants.DEFAULT_FACILITY);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("userId", userID, StringType.INSTANCE);
+            query.setParameter("facilityCode", ROIConstants.DEFAULT_FACILITY, StringType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(UserSecurity.class));          
             userSecurity = query.list();
@@ -579,7 +586,7 @@ implements ROIDAO {
     
         // not supported by 3rdParty API
         @SuppressWarnings("unchecked")
-        List<String> eiwData = getHibernateTemplate().findByNamedQuery(
+        List<String> eiwData = (List<String>) getHibernateTemplate().findByNamedQuery(
                                      "retrieveEIWDATAConfiguration", key);
     
         if (DO_DEBUG) {

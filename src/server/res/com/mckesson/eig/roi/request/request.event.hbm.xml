@@ -52,7 +52,7 @@
       <![CDATA[
         SELECT event
         FROM com.mckesson.eig.roi.request.model.RequestEvent event
-        WHERE event.requestId= ? and event.name like ? order by event.id desc
+        WHERE event.requestId= ?0 and event.name like ?1 order by event.id desc
         ]]>
       </query>
 
@@ -74,7 +74,7 @@
 		<![CDATA[
 	        SELECT event
 	        FROM com.mckesson.eig.roi.request.model.RequestEvent event
-	        WHERE event.requestId= ? 
+	        WHERE event.requestId= ?0 
 	    ]]>
     </query>
         

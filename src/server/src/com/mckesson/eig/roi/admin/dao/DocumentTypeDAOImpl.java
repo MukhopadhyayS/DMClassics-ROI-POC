@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -18,15 +18,17 @@ package com.mckesson.eig.roi.admin.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.hibernate.type.StringType;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.Designation;
 import com.mckesson.eig.roi.admin.model.DocTypeDesignations;
 import com.mckesson.eig.roi.admin.model.DocTypeRelation;
@@ -36,7 +38,6 @@ import com.mckesson.eig.roi.admin.model.MUDocTypeModel;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.utility.util.CollectionUtilities;
-import com.mckesson.dm.core.common.logging.OCLogger;
 
 
 /**
@@ -110,7 +111,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
                                 String muDocName = muList.get(i).getMuDocName();
 
-                                List<Integer> muDocId = getHibernateTemplate()
+                                List<Integer> muDocId = (List<Integer>) getHibernateTemplate()
                                         .findByNamedQuery("getMUDocId",
                                                 muDocName);
 
@@ -164,7 +165,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
                     if (id == muList.get(i).getMuDocId()) {
                         String muDocName = muList.get(i).getMuDocName();
 
-                        List<Integer> muDocId = getHibernateTemplate()
+                        List<Integer> muDocId = (List<Integer>) getHibernateTemplate()
                                 .findByNamedQuery("getMUDocId", muDocName);
 
                         int docID = muDocId.get(0).intValue();
@@ -197,7 +198,9 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
             LOG.debug(logSM + ">>Start:");
         }
 
-        getHibernateTemplate().saveOrUpdateAll(docTypeRelations);
+        for (Iterator it = docTypeRelations.iterator(); it.hasNext();) {
+            getHibernateTemplate().saveOrUpdate(it.next());
+        }
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:No.Of DocumentTypes: " + docTypeRelations.size());
@@ -268,7 +271,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
         Object[] values = { new Long(codeSetId), new String(designation)};
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<DocTypeRelation> docTypeRelations = getHibernateTemplate()
+        List<DocTypeRelation> docTypeRelations = (List<DocTypeRelation>) getHibernateTemplate()
                                                 .findByNamedQuery("getDesignatedDocuments", values);
 
         if (DO_DEBUG) {
@@ -316,7 +319,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
                     MUDocTypeModel muModel = new MUDocTypeModel();
                     muModel.setId(rs.getInteger(2).intValue());
-                    List<String> mudocName = getHibernateTemplate()
+                    List<String> mudocName = (List<String>) getHibernateTemplate()
                             .findByNamedQuery("getMUDocName", muModel.getId());
                     muDocTypeDto.setMuDocName(mudocName.get(0));
 
@@ -340,7 +343,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
                     MUDocTypeModel muModel = new MUDocTypeModel();
                     muModel.setId(rs.getInteger(2).intValue());
-                    List<String> mudocName = getHibernateTemplate()
+                    List<String> mudocName = (List<String>) getHibernateTemplate()
                             .findByNamedQuery("getMUDocName", muModel.getId());
                     muDocTypeDto.setMuDocName(mudocName.get(0));
 
@@ -389,7 +392,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
         List<Long> documentIds =
-            getHibernateTemplate().findByNamedQuery("retrieveDocTypeIdsByDesignation", designation);
+            (List<Long>) getHibernateTemplate().findByNamedQuery("retrieveDocTypeIdsByDesignation", designation);
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:Size of the retrieved documents : " +  documentIds.size());
@@ -410,7 +413,7 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
             LOG.debug(logSM + ">>Start:");
         }
 
-        List<String> muDocTypes = getHibernateTemplate().findByNamedQuery(
+        List<String> muDocTypes = (List<String>) getHibernateTemplate().findByNamedQuery(
                 "retrieveMUDocTypes");
 
         if (DO_DEBUG) {
@@ -435,9 +438,9 @@ public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
         }
         Session session = getSession();
         String queryString = session.getNamedQuery("retrieveAllGenders").getQueryString();;
-        SQLQuery query = session.createSQLQuery(queryString);
-        query.addScalar("code", Hibernate.STRING);
-        query.addScalar("description", Hibernate.STRING);
+        NativeQuery query = session.createSQLQuery(queryString);
+        query.addScalar("code", StringType.INSTANCE);
+        query.addScalar("description", StringType.INSTANCE);
         query.setResultTransformer(Transformers.aliasToBean(Gender.class));
         List<Gender> genderDetails = query.list();
         if (DO_DEBUG) {

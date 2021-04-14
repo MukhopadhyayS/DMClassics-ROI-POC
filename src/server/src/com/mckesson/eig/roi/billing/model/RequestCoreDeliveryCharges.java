@@ -202,7 +202,10 @@ extends BaseModel {
     public void setQueuePassword(String queuePassword) {  
         _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
-
+public double getPreviouslyReleasedCost() { return _previouslyReleasedCost; }
+    public void setPreviouslyReleasedCost(double previouslyReleasedCost) {
+        _previouslyReleasedCost = previouslyReleasedCost;
+    }
     public Date getReleaseDate() { return _releaseDate; }
     public void setReleaseDate(Date releaseDate) { _releaseDate = releaseDate; }
 

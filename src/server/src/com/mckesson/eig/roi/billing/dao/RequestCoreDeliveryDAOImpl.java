@@ -10,13 +10,19 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
+
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.BooleanType;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.StringType;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -46,6 +52,7 @@ import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 
 
 public class RequestCoreDeliveryDAOImpl
@@ -67,9 +74,9 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			String queryString = session.getNamedQuery("createRequestCoreDelivery").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-			query.addScalar("requestCoreDeliveryId", Hibernate.LONG);
-			query.setParameter("requestCoreId", requestCoreId, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+			query.addScalar("requestCoreDeliveryId", LongType.INSTANCE);
+			query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 			Long requestCoreDeliveryId = (Long) query.uniqueResult();
 			if (DO_DEBUG) {
 				LOG.debug(logSM + "<<End");
@@ -96,7 +103,7 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("deleteRequestCoreDelivery");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -129,9 +136,9 @@ implements RequestCoreDeliveryDAO {
             String queryString = session.getNamedQuery("retrieveRequestIdForRequestCoreDelivery")
                                         .getQueryString();
 
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.addScalar("requestId", Hibernate.LONG);
-            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.addScalar("requestId", LongType.INSTANCE);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
             @SuppressWarnings("unchecked")
             List<Long> requestIds = query.list();
@@ -165,9 +172,9 @@ implements RequestCoreDeliveryDAO {
 
 			Session session = getSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_Pages");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
-			query.setParameter("roiPagesId", roiPages.getPageSeq(), Hibernate.LONG);
-			query.setParameter("selfPayEncounter", roiPages.isSelfPayEncounter(), Hibernate.BOOLEAN);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+			query.setParameter("roiPagesId", roiPages.getPageSeq(), LongType.INSTANCE);
+			query.setParameter("selfPayEncounter", roiPages.isSelfPayEncounter(), BooleanType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -197,7 +204,7 @@ implements RequestCoreDeliveryDAO {
 
 			String queryString = session.getNamedQuery("retrievePagesAndReleasedCount")
 			                            .getQueryString();
-			SQLQuery sqlQuery = session.createSQLQuery(queryString);
+			NativeQuery sqlQuery = session.createSQLQuery(queryString);
 			sqlQuery.setParameter("requestCoreDeliveryId", requestCoreDeliveryId);
 			List<Object[]> list = sqlQuery.list();
 
@@ -220,7 +227,7 @@ implements RequestCoreDeliveryDAO {
 			}
 
 			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_Pages");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -247,8 +254,8 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges");
-			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChagesId, Hibernate.LONG);
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChagesId, LongType.INSTANCE);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -275,7 +282,7 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -304,9 +311,9 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			String queryString = session.getNamedQuery("retrieveNonReleasedInvoices").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.addScalar("invoiceId", Hibernate.LONG);
-			query.setParameter("requestCoreId", requestCoreId, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.addScalar("invoiceId", LongType.INSTANCE);
+			query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
 			List<Long> nonReleasedInvoices = query.list();
 			if (DO_DEBUG) {
@@ -337,9 +344,9 @@ implements RequestCoreDeliveryDAO {
 	        Session session = getSession();
 	        String queryString = session.getNamedQuery("isRequestContainsNonReleasedInvoices")
 	                                    .getQueryString();
-	        SQLQuery query = session.createSQLQuery(queryString);
-	        query.addScalar("isInvoiced", Hibernate.BOOLEAN);
-	        query.setParameter("requestCoreId", requestCoreId, Hibernate.LONG);
+	        NativeQuery query = session.createSQLQuery(queryString);
+	        query.addScalar("isInvoiced", BooleanType.INSTANCE);
+	        query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
 	         Boolean nonReleasedInvoices = (Boolean) query.uniqueResult();
 
@@ -371,9 +378,9 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			String queryString = session.getNamedQuery("retrieveInvoicesForRelease").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.addScalar("invoiceId", Hibernate.LONG);
-			query.setParameter("releaseId", releaseId, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.addScalar("invoiceId", LongType.INSTANCE);
+			query.setParameter("releaseId", releaseId, LongType.INSTANCE);
 
 			List<Long> nonReleasedInvoices = query.list();
 			if (DO_DEBUG) {
@@ -406,7 +413,7 @@ implements RequestCoreDeliveryDAO {
 			}  else {
 				query = session.getNamedQuery("updateInvoiceReleaseCancelled");
 			}
-			query.setParameter("invoiceId", invoiceId, Hibernate.LONG);
+			query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -437,53 +444,53 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("createRequestCoreDeliveryCharges");
 
-            query.setParameter("requestCoreId", invoice.getRequestCoreId(), Hibernate.LONG);
-            query.setParameter("createdDate", invoice.getCreatedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("createdBy", invoice.getCreatedBy(), Hibernate.LONG);
-            query.setParameter("modifiedDate", invoice.getModifiedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("modifiedBy", invoice.getModifiedBy(), Hibernate.LONG);
-            query.setParameter("isReleased", invoice.getIsReleased(), Hibernate.BOOLEAN);
+            query.setParameter("requestCoreId", invoice.getRequestCoreId(), LongType.INSTANCE);
+            query.setParameter("createdDate", invoice.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdBy", invoice.getCreatedBy(), LongType.INSTANCE);
+            query.setParameter("modifiedDate", invoice.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", invoice.getModifiedBy(), LongType.INSTANCE);
+            query.setParameter("isReleased", invoice.getIsReleased(), BooleanType.INSTANCE);
             query.setParameter("previouslyReleasedCost", invoice.getPreviouslyReleasedCost(),
-                                Hibernate.DOUBLE);
+                                DoubleType.INSTANCE);
             query.setParameter("totalPagesReleased", invoice.getTotalPagesReleased() ,
-                                Hibernate.INTEGER);
-            query.setParameter("totalPages", invoice.getTotalPages() , Hibernate.INTEGER);
-            query.setParameter("salesTaxAmount", invoice.getSalesTaxAmount() , Hibernate.DOUBLE);
+                                IntegerType.INSTANCE);
+            query.setParameter("totalPages", invoice.getTotalPages() , IntegerType.INSTANCE);
+            query.setParameter("salesTaxAmount", invoice.getSalesTaxAmount() , DoubleType.INSTANCE);
             query.setParameter("salesTaxPercentage", invoice.getSalesTaxPercentage(),
-                                Hibernate.DOUBLE);
+                                DoubleType.INSTANCE);
             query.setParameter("letterTemplateName", invoice.getLetterTemplateName(),
-                                Hibernate.STRING);
-            query.setParameter("requestStatus", invoice.getRequestStatus(), Hibernate.STRING);
-            query.setParameter("requestDate", invoice.getRequestDate(), Hibernate.TIMESTAMP);
+                                StringType.INSTANCE);
+            query.setParameter("requestStatus", invoice.getRequestStatus(), StringType.INSTANCE);
+            query.setParameter("requestDate", invoice.getRequestDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("letterTemplateFileId", invoice.getLetterTemplateFileId(),
-                               Hibernate.LONG);
-            query.setParameter("type", invoice.getType(), Hibernate.STRING);
+                               LongType.INSTANCE);
+            query.setParameter("type", invoice.getType(), StringType.INSTANCE);
             query.setParameter("invoicePrebillDate", invoice.getInvoicePrebillDate(),
-                                Hibernate.TIMESTAMP);
-            query.setParameter("invoiceDueDate", invoice.getInvoiceDueDate(), Hibernate.TIMESTAMP);
-            query.setParameter("resendDate", invoice.getResendDate(), Hibernate.TIMESTAMP);
-            query.setParameter("outputMethod", invoice.getOutputMethod(), Hibernate.STRING);
-            query.setParameter("queuePassword", invoice.getQueuePassword(), Hibernate.STRING);
+                                StandardBasicTypes.TIMESTAMP);
+            query.setParameter("invoiceDueDate", invoice.getInvoiceDueDate(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("resendDate", invoice.getResendDate(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("outputMethod", invoice.getOutputMethod(), StringType.INSTANCE);
+            query.setParameter("queuePassword", invoice.getQueuePassword(), StringType.INSTANCE);
             query.setParameter("overwriteDueDate", invoice.getOverwriteDueDate(),
-                                Hibernate.BOOLEAN);
-            query.setParameter("invoiceSalesTax", invoice.getInvoiceSalesTax(), Hibernate.DOUBLE);
-            query.setParameter("baseCharge", invoice.getBaseCharge(), Hibernate.DOUBLE);
-            query.setParameter("balanceDue", invoice.getBalanceDue(), Hibernate.DOUBLE);
+                                BooleanType.INSTANCE);
+            query.setParameter("invoiceSalesTax", invoice.getInvoiceSalesTax(), DoubleType.INSTANCE);
+            query.setParameter("baseCharge", invoice.getBaseCharge(), DoubleType.INSTANCE);
+            query.setParameter("balanceDue", invoice.getBalanceDue(), DoubleType.INSTANCE);
             query.setParameter("invoiceBillingLocCode", invoice.getInvoiceBillingLocCode(),
-                                Hibernate.STRING);
+                                StringType.INSTANCE);
             query.setParameter("invoiceBillinglocName", invoice.getInvoiceBillinglocName(),
-                                Hibernate.STRING);
+                                StringType.INSTANCE);
             query.setParameter("invoiceBalanceDue", invoice.getInvoiceBalanceDue(),
-                                Hibernate.DOUBLE);
-            query.setParameter("releaseDate", invoice.getReleaseDate() , Hibernate.TIMESTAMP);
-            query.setParameter("billingType", invoice.getBillingType() , Hibernate.STRING);
-            query.setParameter("unbillable", invoice.isUnbillable() , Hibernate.BOOLEAN);
+                                DoubleType.INSTANCE);
+            query.setParameter("releaseDate", invoice.getReleaseDate() , StandardBasicTypes.TIMESTAMP);
+            query.setParameter("billingType", invoice.getBillingType() , StringType.INSTANCE);
+            query.setParameter("unbillable", invoice.isUnbillable() , BooleanType.INSTANCE);
             query.setParameter("unbillableAmount", invoice.getUnbillableAmount(),
-                               Hibernate.DOUBLE);
-            query.setParameter("applySalesTax", invoice.getApplySalesTax() , Hibernate.BOOLEAN);
-            query.setParameter("notes", invoice.getNotes() , Hibernate.STRING);
-            query.setParameter("invoiceDueDays", invoice.getInvoiceDueDays() , Hibernate.LONG);
-            query.setParameter("prebillStatus", invoice.getPrebillStatus() , Hibernate.STRING);
+                               DoubleType.INSTANCE);
+            query.setParameter("applySalesTax", invoice.getApplySalesTax() , BooleanType.INSTANCE);
+            query.setParameter("notes", invoice.getNotes() , StringType.INSTANCE);
+            query.setParameter("invoiceDueDays", invoice.getInvoiceDueDays() , LongType.INSTANCE);
+            query.setParameter("prebillStatus", invoice.getPrebillStatus() , StringType.INSTANCE);
             List<BigDecimal> requestCoreDeliveryChargesList = query.list();
             long requestCoreChargesId = 0;
             if (CollectionUtilities.hasContent(requestCoreDeliveryChargesList)) {
@@ -522,22 +529,22 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("createRequestCoreDeliveryChargesDocument");
 
-            query.setParameter("requestCoreDeliveryChargesId",requestCoreDeliveryChargesDocument.getRequestCoreDeliveryChargesId(), Hibernate.LONG);
-            query.setParameter("amount", requestCoreDeliveryChargesDocument.getAmount(), Hibernate.DOUBLE);
-            query.setParameter("copies", requestCoreDeliveryChargesDocument.getCopies(), Hibernate.INTEGER);
-            query.setParameter("billingtierName", requestCoreDeliveryChargesDocument.getBillingTierName(), Hibernate.STRING);
-            query.setParameter("totalPages", requestCoreDeliveryChargesDocument.getTotalPages(), Hibernate.INTEGER);
-            query.setParameter("pages", requestCoreDeliveryChargesDocument.getPages(), Hibernate.INTEGER);
-            query.setParameter("billingtierId", requestCoreDeliveryChargesDocument.getBillingtierId(), Hibernate.STRING);
-            query.setParameter("releaseCount", requestCoreDeliveryChargesDocument.getReleaseCount(), Hibernate.INTEGER);
-            query.setParameter("isElectronic", requestCoreDeliveryChargesDocument.getIsElectronic(), Hibernate.BOOLEAN);
-            query.setParameter("removeBasecharge", requestCoreDeliveryChargesDocument.getRemoveBaseCharge(), Hibernate.BOOLEAN);
-            query.setParameter("hasSalesTax", requestCoreDeliveryChargesDocument.getHasSalesTax(), Hibernate.BOOLEAN);
-            query.setParameter("salesTaxAmount", requestCoreDeliveryChargesDocument.getSalesTaxAmount(), Hibernate.DOUBLE);
-            query.setParameter("createdDate", requestCoreDeliveryChargesDocument.getCreatedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("createdBy", requestCoreDeliveryChargesDocument.getCreatedBy(), Hibernate.LONG);
-            query.setParameter("modifiedDate", requestCoreDeliveryChargesDocument.getModifiedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("modifiedBy", requestCoreDeliveryChargesDocument.getModifiedBy(), Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesId",requestCoreDeliveryChargesDocument.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
+            query.setParameter("amount", requestCoreDeliveryChargesDocument.getAmount(), DoubleType.INSTANCE);
+            query.setParameter("copies", requestCoreDeliveryChargesDocument.getCopies(), IntegerType.INSTANCE);
+            query.setParameter("billingtierName", requestCoreDeliveryChargesDocument.getBillingTierName(), StringType.INSTANCE);
+            query.setParameter("totalPages", requestCoreDeliveryChargesDocument.getTotalPages(), IntegerType.INSTANCE);
+            query.setParameter("pages", requestCoreDeliveryChargesDocument.getPages(), IntegerType.INSTANCE);
+            query.setParameter("billingtierId", requestCoreDeliveryChargesDocument.getBillingtierId(), StringType.INSTANCE);
+            query.setParameter("releaseCount", requestCoreDeliveryChargesDocument.getReleaseCount(), IntegerType.INSTANCE);
+            query.setParameter("isElectronic", requestCoreDeliveryChargesDocument.getIsElectronic(), BooleanType.INSTANCE);
+            query.setParameter("removeBasecharge", requestCoreDeliveryChargesDocument.getRemoveBaseCharge(), BooleanType.INSTANCE);
+            query.setParameter("hasSalesTax", requestCoreDeliveryChargesDocument.getHasSalesTax(), BooleanType.INSTANCE);
+            query.setParameter("salesTaxAmount", requestCoreDeliveryChargesDocument.getSalesTaxAmount(), DoubleType.INSTANCE);
+            query.setParameter("createdDate", requestCoreDeliveryChargesDocument.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdBy", requestCoreDeliveryChargesDocument.getCreatedBy(), LongType.INSTANCE);
+            query.setParameter("modifiedDate", requestCoreDeliveryChargesDocument.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", requestCoreDeliveryChargesDocument.getModifiedBy(), LongType.INSTANCE);
 
             query.list();
 
@@ -570,16 +577,16 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("createRequestCoreDeliveryChargesFee");
 
-            query.setParameter("requestCoreDeliveryChargesId",requestCoreDeliveryChargesFee.getRequestCoreDeliveryChargesId(), Hibernate.LONG);
-            query.setParameter("amount", requestCoreDeliveryChargesFee.getAmount(), Hibernate.DOUBLE);
-            query.setParameter("isCustomFee", requestCoreDeliveryChargesFee.getIsCustomFee(), Hibernate.BOOLEAN);
-            query.setParameter("feeType", requestCoreDeliveryChargesFee.getFeeType(), Hibernate.STRING);
-            query.setParameter("hasSalesTax", requestCoreDeliveryChargesFee.getHasSalesTax(), Hibernate.BOOLEAN);
-            query.setParameter("salesTaxAmount", requestCoreDeliveryChargesFee.getSalesTaxAmount(), Hibernate.DOUBLE);
-            query.setParameter("createdDate", requestCoreDeliveryChargesFee.getCreatedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("createdBy", requestCoreDeliveryChargesFee.getCreatedBy(), Hibernate.LONG);
-            query.setParameter("modifiedDate", requestCoreDeliveryChargesFee.getModifiedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("modifiedBy", requestCoreDeliveryChargesFee.getModifiedBy(), Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesId",requestCoreDeliveryChargesFee.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
+            query.setParameter("amount", requestCoreDeliveryChargesFee.getAmount(), DoubleType.INSTANCE);
+            query.setParameter("isCustomFee", requestCoreDeliveryChargesFee.getIsCustomFee(), BooleanType.INSTANCE);
+            query.setParameter("feeType", requestCoreDeliveryChargesFee.getFeeType(), StringType.INSTANCE);
+            query.setParameter("hasSalesTax", requestCoreDeliveryChargesFee.getHasSalesTax(), BooleanType.INSTANCE);
+            query.setParameter("salesTaxAmount", requestCoreDeliveryChargesFee.getSalesTaxAmount(), DoubleType.INSTANCE);
+            query.setParameter("createdDate", requestCoreDeliveryChargesFee.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdBy", requestCoreDeliveryChargesFee.getCreatedBy(), LongType.INSTANCE);
+            query.setParameter("modifiedDate", requestCoreDeliveryChargesFee.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", requestCoreDeliveryChargesFee.getModifiedBy(), LongType.INSTANCE);
 
             query.list();
 
@@ -613,30 +620,30 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("createRequestCoreDeliveryChargesShipping");
 
-            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesShipping.getRequestCoreDeliveryChargesId(), Hibernate.LONG);
-            query.setParameter("shippingCharge", requestCoreDeliveryChargesShipping.getShippingCharge(), Hibernate.DOUBLE);
-            query.setParameter("postalCode", requestCoreDeliveryChargesShipping.getPostalCode(), Hibernate.STRING);
-            query.setParameter("addressType", requestCoreDeliveryChargesShipping.getAddressType(), Hibernate.STRING);
-            query.setParameter("state", requestCoreDeliveryChargesShipping.getState(), Hibernate.STRING);
-            query.setParameter("shippingUrl",requestCoreDeliveryChargesShipping.getShippingUrl(), Hibernate.STRING);
-            query.setParameter("address1", requestCoreDeliveryChargesShipping.getAddress1(), Hibernate.STRING);
-            query.setParameter("address2", requestCoreDeliveryChargesShipping.getAddress2(), Hibernate.STRING);
-            query.setParameter("address3", requestCoreDeliveryChargesShipping.getAddress3(), Hibernate.STRING);
-            query.setParameter("shippingWeight", requestCoreDeliveryChargesShipping.getShippingWeight(),Hibernate.DOUBLE);
-            query.setParameter("trackingNumber", requestCoreDeliveryChargesShipping.getTrackingNumber(), Hibernate.STRING);
-            query.setParameter("city", requestCoreDeliveryChargesShipping.getCity(), Hibernate.STRING);
-            query.setParameter("countryCode", requestCoreDeliveryChargesShipping.getCountryCode(), Hibernate.STRING);
-            query.setParameter("countryName", requestCoreDeliveryChargesShipping.getCountryName(), Hibernate.STRING);
-            query.setParameter("willReleaseShipped", requestCoreDeliveryChargesShipping.isWillReleaseShipped(), Hibernate.BOOLEAN);
-            query.setParameter("willInvoiceShipped", requestCoreDeliveryChargesShipping.isWillInvoiceShipped(), Hibernate.BOOLEAN);
-            query.setParameter("shippingMethod", requestCoreDeliveryChargesShipping.getShippingMethod(), Hibernate.STRING);
-            query.setParameter("outputMethod", requestCoreDeliveryChargesShipping.getOutputMethod(), Hibernate.STRING);
-            query.setParameter("shippingMethodId", requestCoreDeliveryChargesShipping.getShippingMethodId(), Hibernate.LONG);
-            query.setParameter("nonPrintableAttachmentQueue", requestCoreDeliveryChargesShipping.getNonPrintableAttachmentQueue(), Hibernate.STRING);
-            query.setParameter("createdDate", requestCoreDeliveryChargesShipping.getCreatedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("createdBy", requestCoreDeliveryChargesShipping.getCreatedBy(), Hibernate.LONG);
-            query.setParameter("modifiedDate", requestCoreDeliveryChargesShipping.getModifiedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("modifiedBy", requestCoreDeliveryChargesShipping.getModifiedBy(), Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesShipping.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
+            query.setParameter("shippingCharge", requestCoreDeliveryChargesShipping.getShippingCharge(), DoubleType.INSTANCE);
+            query.setParameter("postalCode", requestCoreDeliveryChargesShipping.getPostalCode(), StringType.INSTANCE);
+            query.setParameter("addressType", requestCoreDeliveryChargesShipping.getAddressType(), StringType.INSTANCE);
+            query.setParameter("state", requestCoreDeliveryChargesShipping.getState(), StringType.INSTANCE);
+            query.setParameter("shippingUrl",requestCoreDeliveryChargesShipping.getShippingUrl(), StringType.INSTANCE);
+            query.setParameter("address1", requestCoreDeliveryChargesShipping.getAddress1(), StringType.INSTANCE);
+            query.setParameter("address2", requestCoreDeliveryChargesShipping.getAddress2(), StringType.INSTANCE);
+            query.setParameter("address3", requestCoreDeliveryChargesShipping.getAddress3(), StringType.INSTANCE);
+            query.setParameter("shippingWeight", requestCoreDeliveryChargesShipping.getShippingWeight(),DoubleType.INSTANCE);
+            query.setParameter("trackingNumber", requestCoreDeliveryChargesShipping.getTrackingNumber(), StringType.INSTANCE);
+            query.setParameter("city", requestCoreDeliveryChargesShipping.getCity(), StringType.INSTANCE);
+            query.setParameter("countryCode", requestCoreDeliveryChargesShipping.getCountryCode(), StringType.INSTANCE);
+            query.setParameter("countryName", requestCoreDeliveryChargesShipping.getCountryName(), StringType.INSTANCE);
+            query.setParameter("willReleaseShipped", requestCoreDeliveryChargesShipping.isWillReleaseShipped(), BooleanType.INSTANCE);
+            query.setParameter("willInvoiceShipped", requestCoreDeliveryChargesShipping.isWillInvoiceShipped(), BooleanType.INSTANCE);
+            query.setParameter("shippingMethod", requestCoreDeliveryChargesShipping.getShippingMethod(), StringType.INSTANCE);
+            query.setParameter("outputMethod", requestCoreDeliveryChargesShipping.getOutputMethod(), StringType.INSTANCE);
+            query.setParameter("shippingMethodId", requestCoreDeliveryChargesShipping.getShippingMethodId(), LongType.INSTANCE);
+            query.setParameter("nonPrintableAttachmentQueue", requestCoreDeliveryChargesShipping.getNonPrintableAttachmentQueue(), StringType.INSTANCE);
+            query.setParameter("createdDate", requestCoreDeliveryChargesShipping.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdBy", requestCoreDeliveryChargesShipping.getCreatedBy(), LongType.INSTANCE);
+            query.setParameter("modifiedDate", requestCoreDeliveryChargesShipping.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", requestCoreDeliveryChargesShipping.getModifiedBy(), LongType.INSTANCE);
 
             query.list();
 
@@ -670,50 +677,50 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryCharges")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setParameter("requestCoreId", requestCoreId, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("isReleased", Hibernate.BOOLEAN);
-            query.addScalar("previouslyReleasedCost", Hibernate.DOUBLE);
-            query.addScalar("releaseCost", Hibernate.DOUBLE);
-            query.addScalar("totalRequestCost", Hibernate.DOUBLE);
-            query.addScalar("totalPagesReleased", Hibernate.INTEGER);
-            query.addScalar("totalPages", Hibernate.INTEGER);
-            query.addScalar("salesTaxAmount", Hibernate.DOUBLE);
-            query.addScalar("salesTaxPercentage", Hibernate.DOUBLE);
-            query.addScalar("letterTemplateName", Hibernate.STRING);
-            query.addScalar("requestStatus", Hibernate.STRING);
-            query.addScalar("requestDate", Hibernate.TIMESTAMP);
-            query.addScalar("releaseDate", Hibernate.TIMESTAMP);
-            query.addScalar("letterTemplateFileId", Hibernate.LONG);
-            query.addScalar("type", Hibernate.STRING);
-            query.addScalar("invoicePrebillDate", Hibernate.TIMESTAMP);
-            query.addScalar("invoiceDueDate", Hibernate.TIMESTAMP);
-            query.addScalar("resendDate", Hibernate.TIMESTAMP);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("queuePassword", Hibernate.STRING);
-            query.addScalar("overwriteDueDate", Hibernate.BOOLEAN);
-            query.addScalar("invoiceSalesTax", Hibernate.DOUBLE);
-            query.addScalar("baseCharge", Hibernate.DOUBLE);
-            query.addScalar("balanceDue", Hibernate.DOUBLE);
-            query.addScalar("invoiceBillingLocCode", Hibernate.STRING);
-            query.addScalar("invoiceBillinglocName", Hibernate.STRING);
-            query.addScalar("invoiceBalanceDue", Hibernate.DOUBLE);
-            query.addScalar("paymentAmount", Hibernate.DOUBLE);
-            query.addScalar("creditAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("debitAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("applySalesTax", Hibernate.BOOLEAN);
-            query.addScalar("notes", Hibernate.STRING);
-            query.addScalar("unbillable", Hibernate.BOOLEAN);
-            query.addScalar("unbillableAmount", Hibernate.DOUBLE);
-            query.addScalar("invoiceDueDays", Hibernate.LONG);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
-            query.addScalar("prebillStatus", Hibernate.STRING);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("isReleased", BooleanType.INSTANCE);
+            query.addScalar("previouslyReleasedCost", DoubleType.INSTANCE);
+            query.addScalar("releaseCost", DoubleType.INSTANCE);
+            query.addScalar("totalRequestCost", DoubleType.INSTANCE);
+            query.addScalar("totalPagesReleased", IntegerType.INSTANCE);
+            query.addScalar("totalPages", IntegerType.INSTANCE);
+            query.addScalar("salesTaxAmount", DoubleType.INSTANCE);
+            query.addScalar("salesTaxPercentage", DoubleType.INSTANCE);
+            query.addScalar("letterTemplateName", StringType.INSTANCE);
+            query.addScalar("requestStatus", StringType.INSTANCE);
+            query.addScalar("requestDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("releaseDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("letterTemplateFileId", LongType.INSTANCE);
+            query.addScalar("type", StringType.INSTANCE);
+            query.addScalar("invoicePrebillDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("invoiceDueDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("resendDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("queuePassword", StringType.INSTANCE);
+            query.addScalar("overwriteDueDate", BooleanType.INSTANCE);
+            query.addScalar("invoiceSalesTax", DoubleType.INSTANCE);
+            query.addScalar("baseCharge", DoubleType.INSTANCE);
+            query.addScalar("balanceDue", DoubleType.INSTANCE);
+            query.addScalar("invoiceBillingLocCode", StringType.INSTANCE);
+            query.addScalar("invoiceBillinglocName", StringType.INSTANCE);
+            query.addScalar("invoiceBalanceDue", DoubleType.INSTANCE);
+            query.addScalar("paymentAmount", DoubleType.INSTANCE);
+            query.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("applySalesTax", BooleanType.INSTANCE);
+            query.addScalar("notes", StringType.INSTANCE);
+            query.addScalar("unbillable", BooleanType.INSTANCE);
+            query.addScalar("unbillableAmount", DoubleType.INSTANCE);
+            query.addScalar("invoiceDueDays", LongType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
+            query.addScalar("prebillStatus", StringType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryCharges.class));
             List<RequestCoreDeliveryCharges> requestCoreDeliveryChargesList = query.list();
 
@@ -747,38 +754,38 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesShipping").getQueryString();;
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             List<Long> ids = new ArrayList<Long>();
             ids.add(requestCoreDeliveryChargesId);
             query.setParameterList("requestCoreDeliveryChargesId", ids);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("requestCoreDeliveryChargesId" ,Hibernate.LONG);
-            query.addScalar("shippingCharge", Hibernate.DOUBLE);
-            query.addScalar("postalCode", Hibernate.STRING);
-            query.addScalar("addressType", Hibernate.STRING);
-            query.addScalar("state", Hibernate.STRING);
-            query.addScalar("shippingUrl", Hibernate.STRING);
-            query.addScalar("address1", Hibernate.STRING);
-            query.addScalar("address2", Hibernate.STRING);
-            query.addScalar("address3", Hibernate.STRING);
-            query.addScalar("shippingWeight", Hibernate.DOUBLE);
-            query.addScalar("trackingNumber", Hibernate.STRING);
-            query.addScalar("city", Hibernate.STRING);
-            query.addScalar("countryCode", Hibernate.STRING);
-            query.addScalar("countryName", Hibernate.STRING);
-            query.addScalar("willReleaseShipped", Hibernate.BOOLEAN);
-            query.addScalar("willInvoiceShipped", Hibernate.BOOLEAN);
-            query.addScalar("shippingMethod", Hibernate.STRING);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("shippingMethodId", Hibernate.LONG);
-            query.addScalar("nonPrintableAttachmentQueue", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("requestCoreDeliveryChargesId" ,LongType.INSTANCE);
+            query.addScalar("shippingCharge", DoubleType.INSTANCE);
+            query.addScalar("postalCode", StringType.INSTANCE);
+            query.addScalar("addressType", StringType.INSTANCE);
+            query.addScalar("state", StringType.INSTANCE);
+            query.addScalar("shippingUrl", StringType.INSTANCE);
+            query.addScalar("address1", StringType.INSTANCE);
+            query.addScalar("address2", StringType.INSTANCE);
+            query.addScalar("address3", StringType.INSTANCE);
+            query.addScalar("shippingWeight", DoubleType.INSTANCE);
+            query.addScalar("trackingNumber", StringType.INSTANCE);
+            query.addScalar("city", StringType.INSTANCE);
+            query.addScalar("countryCode", StringType.INSTANCE);
+            query.addScalar("countryName", StringType.INSTANCE);
+            query.addScalar("willReleaseShipped", BooleanType.INSTANCE);
+            query.addScalar("willInvoiceShipped", BooleanType.INSTANCE);
+            query.addScalar("shippingMethod", StringType.INSTANCE);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("shippingMethodId", LongType.INSTANCE);
+            query.addScalar("nonPrintableAttachmentQueue", StringType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesShipping.class));
             List requestCoreDeliveryChargesShippingList = query.list();
             RequestCoreDeliveryChargesShipping requestCoreDeliveryChargesShipping = (RequestCoreDeliveryChargesShipping)requestCoreDeliveryChargesShippingList.get(0);
@@ -813,27 +820,27 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesAdjustmentPayment").getQueryString();;
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             List<Long> ids = new ArrayList<Long>();
             ids.add(requestCoreDeliveryChargesId);
             query.setParameterList("requestCoreDeliveryChargesIds", ids);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("requestorId",Hibernate.LONG);
-            query.addScalar("requestCoreDeliveryChargesId",Hibernate.LONG);
-            query.addScalar("invoiceAppliedAmount", Hibernate.DOUBLE);
-            query.addScalar("baseAmount", Hibernate.DOUBLE);
-            query.addScalar("totalUnappliedAmount", Hibernate.DOUBLE);
-            query.addScalar("paymentMode", Hibernate.STRING);
-            query.addScalar("description", Hibernate.STRING);
-            query.addScalar("paymentDate", Hibernate.TIMESTAMP);
-            query.addScalar("transactionType", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("requestorId",LongType.INSTANCE);
+            query.addScalar("requestCoreDeliveryChargesId",LongType.INSTANCE);
+            query.addScalar("invoiceAppliedAmount", DoubleType.INSTANCE);
+            query.addScalar("baseAmount", DoubleType.INSTANCE);
+            query.addScalar("totalUnappliedAmount", DoubleType.INSTANCE);
+            query.addScalar("paymentMode", StringType.INSTANCE);
+            query.addScalar("description", StringType.INSTANCE);
+            query.addScalar("paymentDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("transactionType", StringType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesAdjustmentPayment.class));
             List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesAdjustmentPaymentList = query.list();
 
@@ -867,27 +874,27 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesPrebillAdjustmentPayment").getQueryString();;
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             List<Long> ids = new ArrayList<Long>();
             ids.add(requestCoreDeliveryChargesId);
             query.setParameterList("requestCoreDeliveryChargesIds", ids);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("requestorId",Hibernate.LONG);
-            query.addScalar("requestCoreDeliveryChargesId",Hibernate.LONG);
-            query.addScalar("invoiceAppliedAmount", Hibernate.DOUBLE);
-            query.addScalar("baseAmount", Hibernate.DOUBLE);
-            query.addScalar("totalUnappliedAmount", Hibernate.DOUBLE);
-            query.addScalar("paymentMode", Hibernate.STRING);
-            query.addScalar("description", Hibernate.STRING);
-            query.addScalar("paymentDate", Hibernate.TIMESTAMP);
-            query.addScalar("transactionType", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("requestorId",LongType.INSTANCE);
+            query.addScalar("requestCoreDeliveryChargesId",LongType.INSTANCE);
+            query.addScalar("invoiceAppliedAmount", DoubleType.INSTANCE);
+            query.addScalar("baseAmount", DoubleType.INSTANCE);
+            query.addScalar("totalUnappliedAmount", DoubleType.INSTANCE);
+            query.addScalar("paymentMode", StringType.INSTANCE);
+            query.addScalar("description", StringType.INSTANCE);
+            query.addScalar("paymentDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("transactionType", StringType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesAdjustmentPayment.class));
             @SuppressWarnings("unchecked")
             List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesAdjustmentPaymentList = query.list();
@@ -915,7 +922,7 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesAdjustmentPayment");
-            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -940,7 +947,7 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryCharges");
-            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -965,7 +972,7 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesFee");
-            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -993,7 +1000,7 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesShipping");
-            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -1018,7 +1025,7 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesDocument");
-            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -1044,7 +1051,7 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesInvoicePatients");
-            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, Hibernate.LONG);
+            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -1074,13 +1081,13 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("createInvoicePatients");
-			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryInvoicePatients.getRequestCoreDeliveryChargesId(), Hibernate.LONG);
-			query.setParameter("requestHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestHpfPatientsId(), Hibernate.LONG);
-			query.setParameter("requestNonHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestNonHpfPatientsId(), Hibernate.LONG);
-			query.setParameter("createdDt", requestCoreDeliveryInvoicePatients.getCreatedDt(), Hibernate.TIMESTAMP);
-			query.setParameter("createdBy", requestCoreDeliveryInvoicePatients.getCreatedBy(), Hibernate.LONG);
-			query.setParameter("modifiedDt", requestCoreDeliveryInvoicePatients.getModifiedDt(), Hibernate.TIMESTAMP);
-			query.setParameter("modifiedBy", requestCoreDeliveryInvoicePatients.getModifiedBy(), Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryInvoicePatients.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
+			query.setParameter("requestHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestHpfPatientsId(), LongType.INSTANCE);
+			query.setParameter("requestNonHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestNonHpfPatientsId(), LongType.INSTANCE);
+			query.setParameter("createdDt", requestCoreDeliveryInvoicePatients.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+			query.setParameter("createdBy", requestCoreDeliveryInvoicePatients.getCreatedBy(), LongType.INSTANCE);
+			query.setParameter("modifiedDt", requestCoreDeliveryInvoicePatients.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+			query.setParameter("modifiedBy", requestCoreDeliveryInvoicePatients.getModifiedBy(), LongType.INSTANCE);
 			query.list();
 		} catch (DataIntegrityViolationException e) {
 			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
@@ -1100,8 +1107,8 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
-			query.setParameter("roiSupplementalAttachmentId", supplementalAttachmentSeq, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+			query.setParameter("roiSupplementalAttachmentId", supplementalAttachmentSeq, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1127,7 +1134,7 @@ implements RequestCoreDeliveryDAO {
 		    Session session = getSession();
             String queryString = session.getNamedQuery("retrieveSupplementalAttachmentAndReleasedCount")
                                         .getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId", requestCoreDeliveryId);
             List<Object[]> list = sqlQuery.list();
 
@@ -1150,7 +1157,7 @@ implements RequestCoreDeliveryDAO {
             }
 
 			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1174,8 +1181,8 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
-			query.setParameter("roiSupplementalDocumentId", supplementalDocumentSeq, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+			query.setParameter("roiSupplementalDocumentId", supplementalDocumentSeq, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1201,7 +1208,7 @@ implements RequestCoreDeliveryDAO {
 			Session session = getSession();
 			String queryString = session.getNamedQuery("retrieveSupplementalDocumentAndReleasedCount")
                                          .getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId", requestCoreDeliveryId);
             List<Object[]> list = sqlQuery.list();
 
@@ -1227,7 +1234,7 @@ implements RequestCoreDeliveryDAO {
             }
 
 			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1254,8 +1261,8 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
-			query.setParameter("roiSupplementarityAttachmentId", supplementarityAttachmentSeq, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+			query.setParameter("roiSupplementarityAttachmentId", supplementarityAttachmentSeq, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1284,7 +1291,7 @@ implements RequestCoreDeliveryDAO {
 			Session session = getSession();
 			String queryString = session.getNamedQuery("retrieveSupplementarityAttachmentAndReleasedCount")
                                         .getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId",
                     requestCoreDeliveryId);
             List<Object[]> list = sqlQuery.list();
@@ -1311,7 +1318,7 @@ implements RequestCoreDeliveryDAO {
             }
 
 			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1338,8 +1345,8 @@ implements RequestCoreDeliveryDAO {
 		try {
 			Session session = getSession();
 			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
-			query.setParameter("roiSupplementarityDocumentId", supplementarityDocumentSeq, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+			query.setParameter("roiSupplementarityDocumentId", supplementarityDocumentSeq, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1368,7 +1375,7 @@ implements RequestCoreDeliveryDAO {
 			Session session = getSession();
 			String queryString = session.getNamedQuery("retrieveSupplementarityDocumentAndReleasedCount")
                     .getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId",
                     requestCoreDeliveryId);
             List<Object[]> list = sqlQuery.list();
@@ -1393,7 +1400,7 @@ implements RequestCoreDeliveryDAO {
             }
 
 			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, Hibernate.LONG);
+			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
 			query.executeUpdate();
 			if (DO_DEBUG) {
@@ -1425,13 +1432,13 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("createSalesTaxReason");
 
-            query.setParameter("requestCoreChargesSeq",salesTaxReason.getRequestCoreChargesSeq(), Hibernate.LONG);
-            query.setParameter("reason", salesTaxReason.getReason(), Hibernate.STRING);
-            query.setParameter("reasonDate", salesTaxReason.getReasonDate(), Hibernate.TIMESTAMP);
-            query.setParameter("createdDate", salesTaxReason.getCreatedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("createdBy", salesTaxReason.getCreatedBy(), Hibernate.LONG);
-            query.setParameter("modifiedDate", salesTaxReason.getModifiedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("modifiedBy", salesTaxReason.getModifiedBy(), Hibernate.LONG);
+            query.setParameter("requestCoreChargesSeq",salesTaxReason.getRequestCoreChargesSeq(), LongType.INSTANCE);
+            query.setParameter("reason", salesTaxReason.getReason(), StringType.INSTANCE);
+            query.setParameter("reasonDate", salesTaxReason.getReasonDate(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdDate", salesTaxReason.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdBy", salesTaxReason.getCreatedBy(), LongType.INSTANCE);
+            query.setParameter("modifiedDate", salesTaxReason.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", salesTaxReason.getModifiedBy(), LongType.INSTANCE);
 
             query.list();
             if (DO_DEBUG) {
@@ -1464,17 +1471,17 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveSalesTaxReason").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("requestCoreChargesSeq", requestCoreChargesSeq, Hibernate.LONG);
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("reason", Hibernate.STRING);
-            query.addScalar("reasonDate", Hibernate.TIMESTAMP);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.setParameter("requestCoreChargesSeq", requestCoreChargesSeq, LongType.INSTANCE);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("reason", StringType.INSTANCE);
+            query.addScalar("reasonDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(SalesTaxReason.class));
             List<SalesTaxReason> salesTaxReasonList = query.list();
 
@@ -1581,54 +1588,54 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesInvoice")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setParameter("requestCoreDeliveryChargesId", rcdChargesSeq, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryChargesId", rcdChargesSeq, LongType.INSTANCE);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("requestCoreId", Hibernate.LONG);
-            query.addScalar("isReleased", Hibernate.BOOLEAN);
-            query.addScalar("previouslyReleasedCost", Hibernate.DOUBLE);
-            query.addScalar("releaseCost", Hibernate.DOUBLE);
-            query.addScalar("totalRequestCost", Hibernate.DOUBLE);
-            query.addScalar("totalPagesReleased", Hibernate.INTEGER);
-            query.addScalar("totalPages", Hibernate.INTEGER);
-            query.addScalar("salesTaxAmount", Hibernate.DOUBLE);
-            query.addScalar("salesTaxPercentage", Hibernate.DOUBLE);
-            query.addScalar("letterTemplateName", Hibernate.STRING);
-            query.addScalar("requestStatus", Hibernate.STRING);
-            query.addScalar("requestDate", Hibernate.TIMESTAMP);
-            query.addScalar("releaseDate", Hibernate.TIMESTAMP);
-            query.addScalar("letterTemplateFileId", Hibernate.LONG);
-            query.addScalar("type", Hibernate.STRING);
-            query.addScalar("invoicePrebillDate", Hibernate.TIMESTAMP);
-            query.addScalar("invoiceDueDate", Hibernate.TIMESTAMP);
-            query.addScalar("resendDate", Hibernate.TIMESTAMP);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("queuePassword", Hibernate.STRING);
-            query.addScalar("overwriteDueDate", Hibernate.BOOLEAN);
-            query.addScalar("invoiceSalesTax", Hibernate.DOUBLE);
-            query.addScalar("baseCharge", Hibernate.DOUBLE);
-            query.addScalar("balanceDue", Hibernate.DOUBLE);
-            query.addScalar("invoiceBillingLocCode", Hibernate.STRING);
-            query.addScalar("invoiceBillinglocName", Hibernate.STRING);
-            query.addScalar("invoiceBalanceDue", Hibernate.DOUBLE);
-            query.addScalar("paymentAmount", Hibernate.DOUBLE);
-            query.addScalar("creditAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("debitAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("applySalesTax", Hibernate.BOOLEAN);
-            query.addScalar("notes", Hibernate.STRING);
-            query.addScalar("invoiceDueDays", Hibernate.LONG);
-            query.addScalar("requestCreditAdjustment", Hibernate.DOUBLE);
-            query.addScalar("requestDebitAdjustment", Hibernate.DOUBLE);
-            query.addScalar("requestBalanceDue", Hibernate.DOUBLE);
-            query.addScalar("requestpayment", Hibernate.DOUBLE);
-            query.addScalar("unbillable", Hibernate.BOOLEAN);
-            query.addScalar("unbillableAmount", Hibernate.DOUBLE);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("requestCoreId", LongType.INSTANCE);
+            query.addScalar("isReleased", BooleanType.INSTANCE);
+            query.addScalar("previouslyReleasedCost", DoubleType.INSTANCE);
+            query.addScalar("releaseCost", DoubleType.INSTANCE);
+            query.addScalar("totalRequestCost", DoubleType.INSTANCE);
+            query.addScalar("totalPagesReleased", IntegerType.INSTANCE);
+            query.addScalar("totalPages", IntegerType.INSTANCE);
+            query.addScalar("salesTaxAmount", DoubleType.INSTANCE);
+            query.addScalar("salesTaxPercentage", DoubleType.INSTANCE);
+            query.addScalar("letterTemplateName", StringType.INSTANCE);
+            query.addScalar("requestStatus", StringType.INSTANCE);
+            query.addScalar("requestDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("releaseDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("letterTemplateFileId", LongType.INSTANCE);
+            query.addScalar("type", StringType.INSTANCE);
+            query.addScalar("invoicePrebillDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("invoiceDueDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("resendDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("queuePassword", StringType.INSTANCE);
+            query.addScalar("overwriteDueDate", BooleanType.INSTANCE);
+            query.addScalar("invoiceSalesTax", DoubleType.INSTANCE);
+            query.addScalar("baseCharge", DoubleType.INSTANCE);
+            query.addScalar("balanceDue", DoubleType.INSTANCE);
+            query.addScalar("invoiceBillingLocCode", StringType.INSTANCE);
+            query.addScalar("invoiceBillinglocName", StringType.INSTANCE);
+            query.addScalar("invoiceBalanceDue", DoubleType.INSTANCE);
+            query.addScalar("paymentAmount", DoubleType.INSTANCE);
+            query.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("applySalesTax", BooleanType.INSTANCE);
+            query.addScalar("notes", StringType.INSTANCE);
+            query.addScalar("invoiceDueDays", LongType.INSTANCE);
+            query.addScalar("requestCreditAdjustment", DoubleType.INSTANCE);
+            query.addScalar("requestDebitAdjustment", DoubleType.INSTANCE);
+            query.addScalar("requestBalanceDue", DoubleType.INSTANCE);
+            query.addScalar("requestpayment", DoubleType.INSTANCE);
+            query.addScalar("unbillable", BooleanType.INSTANCE);
+            query.addScalar("unbillableAmount", DoubleType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryCharges.class));
             List<RequestCoreDeliveryCharges> requestCoreDeliveryChargesList = query.list();
 
@@ -1665,21 +1672,21 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesFee").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             Set<RequestCoreDeliveryChargesFee> rcdcFeeSet = new LinkedHashSet<RequestCoreDeliveryChargesFee>();
 
-            query.setParameter("rcdChargesSeq", rcdChargesId, Hibernate.LONG);
-            query.addScalar("amount", Hibernate.DOUBLE);
-            query.addScalar("isCustomFee", Hibernate.BOOLEAN);
-            query.addScalar("feeType", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
-            query.addScalar("hasSalesTax", Hibernate.BOOLEAN);
-            query.addScalar("SalesTaxAmount", Hibernate.DOUBLE);
+            query.setParameter("rcdChargesSeq", rcdChargesId, LongType.INSTANCE);
+            query.addScalar("amount", DoubleType.INSTANCE);
+            query.addScalar("isCustomFee", BooleanType.INSTANCE);
+            query.addScalar("feeType", StringType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
+            query.addScalar("hasSalesTax", BooleanType.INSTANCE);
+            query.addScalar("SalesTaxAmount", DoubleType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesFee.class));
 
@@ -1716,27 +1723,27 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesDocument").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             Set<RequestCoreDeliveryChargesDocument> rcdcDocumentSet = new LinkedHashSet<RequestCoreDeliveryChargesDocument>();
 
-            query.setParameter("rcdChargesSeq", rcdChargesId, Hibernate.LONG);
-            query.addScalar("amount", Hibernate.DOUBLE);
-            query.addScalar("copies", Hibernate.INTEGER);
-            query.addScalar("billingTierName", Hibernate.STRING);
-            query.addScalar("totalPages", Hibernate.INTEGER);
-            query.addScalar("pages", Hibernate.INTEGER);
-            query.addScalar("billingtierId", Hibernate.STRING);
-            query.addScalar("releaseCount", Hibernate.INTEGER);
-            query.addScalar("isElectronic", Hibernate.BOOLEAN);
-            query.addScalar("removeBaseCharge", Hibernate.BOOLEAN);
-            query.addScalar("hasSalesTax", Hibernate.BOOLEAN);
-            query.addScalar("SalesTaxAmount", Hibernate.DOUBLE);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.setParameter("rcdChargesSeq", rcdChargesId, LongType.INSTANCE);
+            query.addScalar("amount", DoubleType.INSTANCE);
+            query.addScalar("copies", IntegerType.INSTANCE);
+            query.addScalar("billingTierName", StringType.INSTANCE);
+            query.addScalar("totalPages", IntegerType.INSTANCE);
+            query.addScalar("pages", IntegerType.INSTANCE);
+            query.addScalar("billingtierId", StringType.INSTANCE);
+            query.addScalar("releaseCount", IntegerType.INSTANCE);
+            query.addScalar("isElectronic", BooleanType.INSTANCE);
+            query.addScalar("removeBaseCharge", BooleanType.INSTANCE);
+            query.addScalar("hasSalesTax", BooleanType.INSTANCE);
+            query.addScalar("SalesTaxAmount", DoubleType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesDocument.class));
 
@@ -1770,7 +1777,7 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("deleteSalesTaxReason");
 
-            query.setParameter("requestCoreChargesSeq", requestCoreChargesId, Hibernate.LONG);
+            query.setParameter("requestCoreChargesSeq", requestCoreChargesId, LongType.INSTANCE);
 
             query.executeUpdate();
 
@@ -1804,10 +1811,10 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveInvoicePatients").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setParameterList("requestCoreDeliveryChargesId", invoiceIds, Hibernate.LONG);
-            query.addScalar("requestHpfPatientsId",Hibernate.LONG);
-            query.addScalar("requestNonHpfPatientsId",Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameterList("requestCoreDeliveryChargesId", invoiceIds, LongType.INSTANCE);
+            query.addScalar("requestHpfPatientsId",LongType.INSTANCE);
+            query.addScalar("requestNonHpfPatientsId",LongType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryInvoicePatients.class));
 
@@ -1847,19 +1854,19 @@ implements RequestCoreDeliveryDAO {
             String queryString = session.getNamedQuery("retrieveDeliveryChargesFee")
                                         .getQueryString();
 
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("rcdChargesSeq", rcdChargesId);
-            query.addScalar("amount", Hibernate.DOUBLE);
-            query.addScalar("isCustomFee", Hibernate.BOOLEAN);
-            query.addScalar("feeType", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
-            query.addScalar("hasSalesTax", Hibernate.BOOLEAN);
-            query.addScalar("SalesTaxAmount", Hibernate.DOUBLE);
+            query.addScalar("amount", DoubleType.INSTANCE);
+            query.addScalar("isCustomFee", BooleanType.INSTANCE);
+            query.addScalar("feeType", StringType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
+            query.addScalar("hasSalesTax", BooleanType.INSTANCE);
+            query.addScalar("SalesTaxAmount", DoubleType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesFee.class));
 
@@ -1899,10 +1906,10 @@ implements RequestCoreDeliveryDAO {
             String queryString = session.getNamedQuery("retrieveDeliveryChargesDistinctFee")
                                         .getQueryString();
 
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("rcdChargesSeq", rcdChargesId);
-            query.addScalar("feeType", Hibernate.STRING);
+            query.addScalar("feeType", StringType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesFee.class));
 
@@ -1940,25 +1947,25 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesDocument")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("rcdChargesSeq", rcdChargesId);
-            query.addScalar("amount", Hibernate.DOUBLE);
-            query.addScalar("copies", Hibernate.INTEGER);
-            query.addScalar("billingTierName", Hibernate.STRING);
-            query.addScalar("totalPages", Hibernate.INTEGER);
-            query.addScalar("pages", Hibernate.INTEGER);
-            query.addScalar("billingtierId", Hibernate.STRING);
-            query.addScalar("releaseCount", Hibernate.INTEGER);
-            query.addScalar("isElectronic", Hibernate.BOOLEAN);
-            query.addScalar("removeBaseCharge", Hibernate.BOOLEAN);
-            query.addScalar("hasSalesTax", Hibernate.BOOLEAN);
-            query.addScalar("SalesTaxAmount", Hibernate.DOUBLE);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("amount", DoubleType.INSTANCE);
+            query.addScalar("copies", IntegerType.INSTANCE);
+            query.addScalar("billingTierName", StringType.INSTANCE);
+            query.addScalar("totalPages", IntegerType.INSTANCE);
+            query.addScalar("pages", IntegerType.INSTANCE);
+            query.addScalar("billingtierId", StringType.INSTANCE);
+            query.addScalar("releaseCount", IntegerType.INSTANCE);
+            query.addScalar("isElectronic", BooleanType.INSTANCE);
+            query.addScalar("removeBaseCharge", BooleanType.INSTANCE);
+            query.addScalar("hasSalesTax", BooleanType.INSTANCE);
+            query.addScalar("SalesTaxAmount", DoubleType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(
                                                         RequestCoreDeliveryChargesDocument.class));
@@ -1997,10 +2004,10 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesDistinctDocument")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("rcdChargesSeq", rcdChargesId);
-            query.addScalar("billingTierName", Hibernate.STRING);
+            query.addScalar("billingTierName", StringType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(
                                                         RequestCoreDeliveryChargesDocument.class));
@@ -2040,56 +2047,56 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesInvoice")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("requestCoreDeliveryChargesId", rcdChargesSeq);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("requestCoreId", Hibernate.LONG);
-            query.addScalar("isReleased", Hibernate.BOOLEAN);
-            query.addScalar("previouslyReleasedCost", Hibernate.DOUBLE);
-            query.addScalar("releaseCost", Hibernate.DOUBLE);
-            query.addScalar("totalRequestCost", Hibernate.DOUBLE);
-            query.addScalar("totalPagesReleased", Hibernate.INTEGER);
-            query.addScalar("totalPages", Hibernate.INTEGER);
-            query.addScalar("salesTaxAmount", Hibernate.DOUBLE);
-            query.addScalar("salesTaxPercentage", Hibernate.DOUBLE);
-            query.addScalar("letterTemplateName", Hibernate.STRING);
-            query.addScalar("requestStatus", Hibernate.STRING);
-            query.addScalar("requestDate", Hibernate.TIMESTAMP);
-            query.addScalar("releaseDate", Hibernate.TIMESTAMP);
-            query.addScalar("letterTemplateFileId", Hibernate.LONG);
-            query.addScalar("type", Hibernate.STRING);
-            query.addScalar("invoicePrebillDate", Hibernate.TIMESTAMP);
-            query.addScalar("invoiceDueDate", Hibernate.TIMESTAMP);
-            query.addScalar("resendDate", Hibernate.TIMESTAMP);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("queuePassword", Hibernate.STRING);
-            query.addScalar("overwriteDueDate", Hibernate.BOOLEAN);
-            query.addScalar("invoiceSalesTax", Hibernate.DOUBLE);
-            query.addScalar("baseCharge", Hibernate.DOUBLE);
-            query.addScalar("balanceDue", Hibernate.DOUBLE);
-            query.addScalar("invoiceBillingLocCode", Hibernate.STRING);
-            query.addScalar("invoiceBillinglocName", Hibernate.STRING);
-            query.addScalar("invoiceBalanceDue", Hibernate.DOUBLE);
-            query.addScalar("paymentAmount", Hibernate.DOUBLE);
-            query.addScalar("creditAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("debitAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("applySalesTax", Hibernate.BOOLEAN);
-            query.addScalar("notes", Hibernate.STRING);
-            query.addScalar("invoiceDueDays", Hibernate.LONG);
-            query.addScalar("creator", Hibernate.STRING);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("requestCoreId", LongType.INSTANCE);
+            query.addScalar("isReleased", BooleanType.INSTANCE);
+            query.addScalar("previouslyReleasedCost", DoubleType.INSTANCE);
+            query.addScalar("releaseCost", DoubleType.INSTANCE);
+            query.addScalar("totalRequestCost", DoubleType.INSTANCE);
+            query.addScalar("totalPagesReleased", IntegerType.INSTANCE);
+            query.addScalar("totalPages", IntegerType.INSTANCE);
+            query.addScalar("salesTaxAmount", DoubleType.INSTANCE);
+            query.addScalar("salesTaxPercentage", DoubleType.INSTANCE);
+            query.addScalar("letterTemplateName", StringType.INSTANCE);
+            query.addScalar("requestStatus", StringType.INSTANCE);
+            query.addScalar("requestDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("releaseDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("letterTemplateFileId", LongType.INSTANCE);
+            query.addScalar("type", StringType.INSTANCE);
+            query.addScalar("invoicePrebillDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("invoiceDueDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("resendDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("queuePassword", StringType.INSTANCE);
+            query.addScalar("overwriteDueDate", BooleanType.INSTANCE);
+            query.addScalar("invoiceSalesTax", DoubleType.INSTANCE);
+            query.addScalar("baseCharge", DoubleType.INSTANCE);
+            query.addScalar("balanceDue", DoubleType.INSTANCE);
+            query.addScalar("invoiceBillingLocCode", StringType.INSTANCE);
+            query.addScalar("invoiceBillinglocName", StringType.INSTANCE);
+            query.addScalar("invoiceBalanceDue", DoubleType.INSTANCE);
+            query.addScalar("paymentAmount", DoubleType.INSTANCE);
+            query.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("applySalesTax", BooleanType.INSTANCE);
+            query.addScalar("notes", StringType.INSTANCE);
+            query.addScalar("invoiceDueDays", LongType.INSTANCE);
+            query.addScalar("creator", StringType.INSTANCE);
 
-            query.addScalar("requestCreditAdjustment", Hibernate.DOUBLE);
-            query.addScalar("requestDebitAdjustment", Hibernate.DOUBLE);
-            query.addScalar("requestBalanceDue", Hibernate.DOUBLE);
-            query.addScalar("requestpayment", Hibernate.DOUBLE);
+            query.addScalar("requestCreditAdjustment", DoubleType.INSTANCE);
+            query.addScalar("requestDebitAdjustment", DoubleType.INSTANCE);
+            query.addScalar("requestBalanceDue", DoubleType.INSTANCE);
+            query.addScalar("requestpayment", DoubleType.INSTANCE);
 
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryCharges.class));
             List<RequestCoreDeliveryCharges> requestCoreDeliveryChargesList = query.list();
 
@@ -2121,22 +2128,22 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesAdjustmentPayment")
                                         .getQueryString();;
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("requestCoreDeliveryChargesIds", requestCoreDeliveryChargesId);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("requestCoreDeliveryChargesId", Hibernate.LONG);
-            query.addScalar("invoiceAppliedAmount", Hibernate.DOUBLE);
-            query.addScalar("paymentMode", Hibernate.STRING);
-            query.addScalar("description", Hibernate.STRING);
-            query.addScalar("paymentDate", Hibernate.TIMESTAMP);
-            query.addScalar("transactionType", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("requestCoreDeliveryChargesId", LongType.INSTANCE);
+            query.addScalar("invoiceAppliedAmount", DoubleType.INSTANCE);
+            query.addScalar("paymentMode", StringType.INSTANCE);
+            query.addScalar("description", StringType.INSTANCE);
+            query.addScalar("paymentDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("transactionType", StringType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(
                                                 RequestCoreDeliveryChargesAdjustmentPayment.class));
             List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesAdjustmentPaymentList = query.list();
@@ -2170,36 +2177,36 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesShipping").getQueryString();;
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("requestCoreDeliveryChargesId", Hibernate.LONG);
-            query.addScalar("shippingCharge", Hibernate.DOUBLE);
-            query.addScalar("postalCode", Hibernate.STRING);
-            query.addScalar("addressType", Hibernate.STRING);
-            query.addScalar("state", Hibernate.STRING);
-            query.addScalar("shippingUrl", Hibernate.STRING);
-            query.addScalar("address1", Hibernate.STRING);
-            query.addScalar("address2", Hibernate.STRING);
-            query.addScalar("address3", Hibernate.STRING);
-            query.addScalar("shippingWeight", Hibernate.DOUBLE);
-            query.addScalar("trackingNumber", Hibernate.STRING);
-            query.addScalar("city", Hibernate.STRING);
-            query.addScalar("countryCode", Hibernate.STRING);
-            query.addScalar("countryName", Hibernate.STRING);
-            query.addScalar("willReleaseShipped", Hibernate.BOOLEAN);
-            query.addScalar("willInvoiceShipped", Hibernate.BOOLEAN);
-            query.addScalar("shippingMethod", Hibernate.STRING);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("shippingMethodId", Hibernate.LONG);
-            query.addScalar("nonPrintableAttachmentQueue", Hibernate.STRING);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("requestCoreDeliveryChargesId", LongType.INSTANCE);
+            query.addScalar("shippingCharge", DoubleType.INSTANCE);
+            query.addScalar("postalCode", StringType.INSTANCE);
+            query.addScalar("addressType", StringType.INSTANCE);
+            query.addScalar("state", StringType.INSTANCE);
+            query.addScalar("shippingUrl", StringType.INSTANCE);
+            query.addScalar("address1", StringType.INSTANCE);
+            query.addScalar("address2", StringType.INSTANCE);
+            query.addScalar("address3", StringType.INSTANCE);
+            query.addScalar("shippingWeight", DoubleType.INSTANCE);
+            query.addScalar("trackingNumber", StringType.INSTANCE);
+            query.addScalar("city", StringType.INSTANCE);
+            query.addScalar("countryCode", StringType.INSTANCE);
+            query.addScalar("countryName", StringType.INSTANCE);
+            query.addScalar("willReleaseShipped", BooleanType.INSTANCE);
+            query.addScalar("willInvoiceShipped", BooleanType.INSTANCE);
+            query.addScalar("shippingMethod", StringType.INSTANCE);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("shippingMethodId", LongType.INSTANCE);
+            query.addScalar("nonPrintableAttachmentQueue", StringType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryChargesShipping.class));
 
             List<RequestCoreDeliveryChargesShipping> requestCoreDeliveryChargesShippingList = query.list();
@@ -2234,11 +2241,11 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("updateRequestCoreDeliveryCharges");
 
-            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, Hibernate.LONG);
-            query.setParameter("invoicedAmount",updatedInvoicedAmount,Hibernate.DOUBLE);
-            query.setParameter("paymentAmount", paymentAmount, Hibernate.DOUBLE);
-            query.setParameter("creditAdjAmount", creditAdjAmount, Hibernate.DOUBLE);
-            query.setParameter("debitAdjAmount", debitAdjAmount, Hibernate.DOUBLE);
+            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
+            query.setParameter("invoicedAmount",updatedInvoicedAmount,DoubleType.INSTANCE);
+            query.setParameter("paymentAmount", paymentAmount, DoubleType.INSTANCE);
+            query.setParameter("creditAdjAmount", creditAdjAmount, DoubleType.INSTANCE);
+            query.setParameter("debitAdjAmount", debitAdjAmount, DoubleType.INSTANCE);
 
             query.executeUpdate();
             if (DO_DEBUG) {
@@ -2270,18 +2277,18 @@ implements RequestCoreDeliveryDAO {
 
             final Session session = getSession();
             Query query = session.getNamedQuery("CreateCoverLetterCore");
-//            query.setParameter("requestCoreChargesId", coverLetterCore.getRequestCoreChargesId(), Hibernate.LONG);
-            query.setParameter("requestId", coverLetterCore.getRequestId(), Hibernate.LONG);
-            query.setParameter("requestorId", coverLetterCore.getRequestorId(), Hibernate.LONG);
-            query.setParameter("letterTemplateId", coverLetterCore.getLetterTemplateId(), Hibernate.LONG);
-            query.setParameter("note", coverLetterCore.getNotes(), Hibernate.STRING);
-            query.setParameter("templateType", coverLetterCore.getLetterType(), Hibernate.STRING);
-            query.setParameter("queuePassword", coverLetterCore.getQueuePassword(), Hibernate.STRING);
-            query.setParameter("modifiedDt", coverLetterCore.getModifiedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("modifiedBy", coverLetterCore.getModifiedBy(), Hibernate.LONG);
-            query.setParameter("createdDt", coverLetterCore.getCreatedDt(), Hibernate.TIMESTAMP);
-            query.setParameter("createdBy", coverLetterCore.getCreatedBy(), Hibernate.LONG);
-            query.setParameter("recordVersion", coverLetterCore.getRecordVersion(), Hibernate.INTEGER);
+//            query.setParameter("requestCoreChargesId", coverLetterCore.getRequestCoreChargesId(), LongType.INSTANCE);
+            query.setParameter("requestId", coverLetterCore.getRequestId(), LongType.INSTANCE);
+            query.setParameter("requestorId", coverLetterCore.getRequestorId(), LongType.INSTANCE);
+            query.setParameter("letterTemplateId", coverLetterCore.getLetterTemplateId(), LongType.INSTANCE);
+            query.setParameter("note", coverLetterCore.getNotes(), StringType.INSTANCE);
+            query.setParameter("templateType", coverLetterCore.getLetterType(), StringType.INSTANCE);
+            query.setParameter("queuePassword", coverLetterCore.getQueuePassword(), StringType.INSTANCE);
+            query.setParameter("modifiedDt", coverLetterCore.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", coverLetterCore.getModifiedBy(), LongType.INSTANCE);
+            query.setParameter("createdDt", coverLetterCore.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdBy", coverLetterCore.getCreatedBy(), LongType.INSTANCE);
+            query.setParameter("recordVersion", coverLetterCore.getRecordVersion(), IntegerType.INSTANCE);
 
             BigDecimal coverLetterId = (BigDecimal) query.uniqueResult();
             if (coverLetterId == null || coverLetterId.longValue() <= 0) {
@@ -2327,17 +2334,17 @@ implements RequestCoreDeliveryDAO {
 
             // deletes the hpf patients corresponding for the given cover letter
             Query query = session.getNamedQuery("deleteCoverLetterRequestHpfPatient");
-            query.setParameter("coverLetterId", coverLetterId, Hibernate.LONG);
+            query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
             query.executeUpdate();
 
             // deletes the non-hpf patients corresponding for the given cover letter
             query = session.getNamedQuery("deleteCoverLetterRequestSupplementalPatient");
-            query.setParameter("coverLetterId", coverLetterId, Hibernate.LONG);
+            query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
             query.executeUpdate();
 
             // deletes the cover letter
             query = session.getNamedQuery("deleteCoverLetter");
-            query.setParameter("coverLetterId", coverLetterId, Hibernate.LONG);
+            query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -2488,20 +2495,20 @@ implements RequestCoreDeliveryDAO {
             final Session session = getSession();
             String queryString = session.getNamedQuery("retrieveCoverLetterCore").getQueryString();
 
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.addScalar("id", Hibernate.LONG);
-//            query.addScalar("requestCoreChargesId", Hibernate.LONG);
-            query.addScalar("requestId", Hibernate.LONG);
-            query.addScalar("requestorId",Hibernate.LONG);
-            query.addScalar("letterTemplateId", Hibernate.LONG);
-            query.addScalar("notes", Hibernate.STRING);
-            query.addScalar("letterType", Hibernate.STRING);
-            query.addScalar("queuePassword", Hibernate.STRING);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
+            query.addScalar("id", LongType.INSTANCE);
+//            query.addScalar("requestCoreChargesId", LongType.INSTANCE);
+            query.addScalar("requestId", LongType.INSTANCE);
+            query.addScalar("requestorId",LongType.INSTANCE);
+            query.addScalar("letterTemplateId", LongType.INSTANCE);
+            query.addScalar("notes", StringType.INSTANCE);
+            query.addScalar("letterType", StringType.INSTANCE);
+            query.addScalar("queuePassword", StringType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
 
             query.setParameter("coverLetterId", coverLetterId);
             query.setResultTransformer(Transformers.aliasToBean(CoverLetterCore.class));
@@ -2514,7 +2521,7 @@ implements RequestCoreDeliveryDAO {
             query = session.createSQLQuery(queryString);
             setScalarsForRequestPatient(query);
 
-            query.setParameter("coverLetterId", coverLetterId, Hibernate.LONG);
+            query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
             List<RequestPatient> requestHpfPatients = query.list();
             coverLetter.setRequestHpfPatients(requestHpfPatients);
 
@@ -2525,7 +2532,7 @@ implements RequestCoreDeliveryDAO {
             query = session.createSQLQuery(queryString);
             setScalarsForRequestPatient(query);
 
-            query.setParameter("coverLetterId", coverLetterId, Hibernate.LONG);
+            query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
             List<RequestPatient> requestsupplementalPatients = query.list();
             coverLetter.setRequestSupplementalPatients(requestsupplementalPatients);
 
@@ -2548,27 +2555,27 @@ implements RequestCoreDeliveryDAO {
      * @param session
      * @param queryString
      */
-    private void setScalarsForRequestPatient(SQLQuery query) {
+    private void setScalarsForRequestPatient(NativeQuery query) {
 
-        query.addScalar("patientSeq", Hibernate.LONG);
-        query.addScalar("requestId", Hibernate.LONG);
-        query.addScalar("supplementalId", Hibernate.LONG);
-        query.addScalar("mrn", Hibernate.STRING);
-        query.addScalar("facility", Hibernate.STRING);
-        query.addScalar("name", Hibernate.STRING);
-        query.addScalar("gender", Hibernate.STRING);
-        query.addScalar("epn", Hibernate.STRING);
-        query.addScalar("ssn", Hibernate.STRING);
-        query.addScalar("patientLocked", Hibernate.BOOLEAN);
-        query.addScalar("encounterLocked", Hibernate.BOOLEAN);
-        query.addScalar("vip", Hibernate.BOOLEAN);
-        query.addScalar("hpf", Hibernate.BOOLEAN);
-        query.addScalar("dob", Hibernate.TIMESTAMP);
+        query.addScalar("patientSeq", LongType.INSTANCE);
+        query.addScalar("requestId", LongType.INSTANCE);
+        query.addScalar("supplementalId", LongType.INSTANCE);
+        query.addScalar("mrn", StringType.INSTANCE);
+        query.addScalar("facility", StringType.INSTANCE);
+        query.addScalar("name", StringType.INSTANCE);
+        query.addScalar("gender", StringType.INSTANCE);
+        query.addScalar("epn", StringType.INSTANCE);
+        query.addScalar("ssn", StringType.INSTANCE);
+        query.addScalar("patientLocked", BooleanType.INSTANCE);
+        query.addScalar("encounterLocked", BooleanType.INSTANCE);
+        query.addScalar("vip", BooleanType.INSTANCE);
+        query.addScalar("hpf", BooleanType.INSTANCE);
+        query.addScalar("dob", StandardBasicTypes.TIMESTAMP);
 
-        query.addScalar("createdDt", Hibernate.TIMESTAMP);
-        query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-        query.addScalar("modifiedBy", Hibernate.INTEGER);
-        query.addScalar("createdBy", Hibernate.INTEGER);
+        query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+        query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+        query.addScalar("modifiedBy", IntegerType.INSTANCE);
+        query.addScalar("createdBy", IntegerType.INSTANCE);
 
         query.setResultTransformer(Transformers.aliasToBean(RequestPatient.class));
     }
@@ -2584,25 +2591,25 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRegeneratedInvoiceUsingRegeneratedId")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("regeneratedInvoiceId", regInvoiceId, Hibernate.LONG);
+            query.setParameter("regeneratedInvoiceId", regInvoiceId, LongType.INSTANCE);
 
-            query.addScalar("resendDt", Hibernate.TIMESTAMP);
-            query.addScalar("requestCoreDeliveryChargesId", Hibernate.LONG);
-            query.addScalar("letterTemplateName", Hibernate.STRING);
-            query.addScalar("letterTemplateFileId", Hibernate.LONG);
-            query.addScalar("requestBalanceDue", Hibernate.DOUBLE);
-            query.addScalar("queuePassword", Hibernate.STRING);
-            query.addScalar("requestCreditAmount", Hibernate.DOUBLE);
-            query.addScalar("requestDebitAmount", Hibernate.DOUBLE);
-            query.addScalar("requestPaymentAmount", Hibernate.DOUBLE);
-            query.addScalar("requestStatus", Hibernate.STRING);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("amountPaid", Hibernate.DOUBLE);
-            query.addScalar("balanceDue", Hibernate.DOUBLE);
-            query.addScalar("baseCharge", Hibernate.DOUBLE);
-            query.addScalar("originalBalance", Hibernate.DOUBLE);
+            query.addScalar("resendDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("requestCoreDeliveryChargesId", LongType.INSTANCE);
+            query.addScalar("letterTemplateName", StringType.INSTANCE);
+            query.addScalar("letterTemplateFileId", LongType.INSTANCE);
+            query.addScalar("requestBalanceDue", DoubleType.INSTANCE);
+            query.addScalar("queuePassword", StringType.INSTANCE);
+            query.addScalar("requestCreditAmount", DoubleType.INSTANCE);
+            query.addScalar("requestDebitAmount", DoubleType.INSTANCE);
+            query.addScalar("requestPaymentAmount", DoubleType.INSTANCE);
+            query.addScalar("requestStatus", StringType.INSTANCE);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("amountPaid", DoubleType.INSTANCE);
+            query.addScalar("balanceDue", DoubleType.INSTANCE);
+            query.addScalar("baseCharge", DoubleType.INSTANCE);
+            query.addScalar("originalBalance", DoubleType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(RegeneratedInvoiceDetails.class));
 
@@ -2633,13 +2640,13 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveAllPastInvoices").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("requestId", requestId, Hibernate.LONG);
+            query.setParameter("requestId", requestId, LongType.INSTANCE);
 
-            query.addScalar("invoiceId", Hibernate.LONG);
-            query.addScalar("amount", Hibernate.DOUBLE);
-            query.addScalar("createdDate", Hibernate.STRING);
+            query.addScalar("invoiceId", LongType.INSTANCE);
+            query.addScalar("amount", DoubleType.INSTANCE);
+            query.addScalar("createdDate", StringType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(PastInvoice.class));
             List<PastInvoice> invoiceDetailsList = query.list();
@@ -2671,16 +2678,16 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveReleaseChargeHistory").getQueryString();;
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameter("requestId", requestId, Hibernate.LONG);
+            query.setParameter("requestId", requestId, LongType.INSTANCE);
 
-            query.addScalar("releaseDate", Hibernate.TIMESTAMP);
-            query.addScalar("totalShippingCharge", Hibernate.DOUBLE);
-            query.addScalar("totalSalesTax", Hibernate.DOUBLE);
-            query.addScalar("totalFeeCharge", Hibernate.DOUBLE);
-            query.addScalar("totalDocumentCharge", Hibernate.DOUBLE);
-            query.addScalar("unbillable", Hibernate.BOOLEAN);
+            query.addScalar("releaseDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("totalShippingCharge", DoubleType.INSTANCE);
+            query.addScalar("totalSalesTax", DoubleType.INSTANCE);
+            query.addScalar("totalFeeCharge", DoubleType.INSTANCE);
+            query.addScalar("totalDocumentCharge", DoubleType.INSTANCE);
+            query.addScalar("unbillable", BooleanType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(ChargeHistory.class));
             List<ChargeHistory> chargeHistory = query.list();
@@ -2718,7 +2725,7 @@ implements RequestCoreDeliveryDAO {
             if (outputProperties.isForInvoice()) {
 
                 String queryString = session.getNamedQuery("updateInvoiceProperty").getQueryString();;
-                SQLQuery query = session.createSQLQuery(queryString);
+                NativeQuery query = session.createSQLQuery(queryString);
 
                 query.setParameter("invoiceId", outputProperties.getInvoiceId());
                 query.setParameter("queuePassword", outputProperties.getQueuePassword());
@@ -2730,7 +2737,7 @@ implements RequestCoreDeliveryDAO {
             if (outputProperties.isForLetter()) {
 
                 String queryString = session.getNamedQuery("updateLetterProperty").getQueryString();;
-                SQLQuery query = session.createSQLQuery(queryString);
+                NativeQuery query = session.createSQLQuery(queryString);
 
                 query.setParameter("letterId", outputProperties.getLetterId());
                 query.setParameter("queuePassword", outputProperties.getQueuePassword());
@@ -2769,7 +2776,7 @@ implements RequestCoreDeliveryDAO {
 
             String queryString = session.getNamedQuery("updateReleaseOutputProperty")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("releaseId", outputProperties.getReleaseId());
             query.setParameter("queuePassword", outputProperties.getQueuePassword());
@@ -2818,7 +2825,7 @@ implements RequestCoreDeliveryDAO {
 
             String queryString = session.getNamedQuery("deleteInvoiceAutoAdjEvent")
                                         .getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("description1", description1);
             query.setParameter("description2", description2);
             query.setParameter("invoiceId", invoiceId);
@@ -2856,15 +2863,15 @@ implements RequestCoreDeliveryDAO {
             String queryString = session.getNamedQuery("retrieveRequestChargesByInvoice")
                                         .getQueryString();
 
-            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameterList("invoiceIds", invoiceIds);
 
-            sqlQuery.addScalar("requestCoreSeq", Hibernate.LONG);
-            sqlQuery.addScalar("balanceDue", Hibernate.DOUBLE);
-            sqlQuery.addScalar("invoicesBalance", Hibernate.DOUBLE);
-            sqlQuery.addScalar("creditAdjustmentAmount", Hibernate.DOUBLE);
-            sqlQuery.addScalar("debitAdjustmentAmount", Hibernate.DOUBLE);
-            sqlQuery.addScalar("paymentAmount", Hibernate.DOUBLE);
+            sqlQuery.addScalar("requestCoreSeq", LongType.INSTANCE);
+            sqlQuery.addScalar("balanceDue", DoubleType.INSTANCE);
+            sqlQuery.addScalar("invoicesBalance", DoubleType.INSTANCE);
+            sqlQuery.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
+            sqlQuery.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
+            sqlQuery.addScalar("paymentAmount", DoubleType.INSTANCE);
 
             sqlQuery.setResultTransformer(Transformers.aliasToBean(RequestCoreCharges.class));
             @SuppressWarnings("unchecked")
@@ -2976,10 +2983,10 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("updateInvoiceBalance");
 
-            query.setParameter("invoiceId", invoiceId, Hibernate.LONG);
-            query.setParameter("invoiceBalance", invoiceBalance, Hibernate.DOUBLE);
-            query.setParameter("modifiedDt", getSQLTimeStamp(date), Hibernate.TIMESTAMP);
-            query.setParameter("modifiedBy", user.getInstanceId(), Hibernate.INTEGER);
+            query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
+            query.setParameter("invoiceBalance", invoiceBalance, DoubleType.INSTANCE);
+            query.setParameter("modifiedDt", getSQLTimeStamp(date), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", user.getInstanceId(), IntegerType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3019,8 +3026,8 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             Query query = session.getNamedQuery("updatePrebillStatusInvoice");
 
-            query.setParameter("reqCoreSeq", invoice.getRequestCoreId(), Hibernate.LONG);
-            query.setParameter("prebillStatus", invoice.getPrebillStatus(), Hibernate.STRING);
+            query.setParameter("reqCoreSeq", invoice.getRequestCoreId(), LongType.INSTANCE);
+            query.setParameter("prebillStatus", invoice.getPrebillStatus(), StringType.INSTANCE);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3057,50 +3064,50 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesPrebill")
                                         .getQueryString();;
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setParameter("requestCoreId", requestCoreId, Hibernate.LONG);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
-            query.addScalar("id", Hibernate.LONG);
-            query.addScalar("isReleased", Hibernate.BOOLEAN);
-            query.addScalar("previouslyReleasedCost", Hibernate.DOUBLE);
-            query.addScalar("releaseCost", Hibernate.DOUBLE);
-            query.addScalar("totalRequestCost", Hibernate.DOUBLE);
-            query.addScalar("totalPagesReleased", Hibernate.INTEGER);
-            query.addScalar("totalPages", Hibernate.INTEGER);
-            query.addScalar("salesTaxAmount", Hibernate.DOUBLE);
-            query.addScalar("salesTaxPercentage", Hibernate.DOUBLE);
-            query.addScalar("letterTemplateName", Hibernate.STRING);
-            query.addScalar("requestStatus", Hibernate.STRING);
-            query.addScalar("requestDate", Hibernate.TIMESTAMP);
-            query.addScalar("releaseDate", Hibernate.TIMESTAMP);
-            query.addScalar("letterTemplateFileId", Hibernate.LONG);
-            query.addScalar("type", Hibernate.STRING);
-            query.addScalar("invoicePrebillDate", Hibernate.TIMESTAMP);
-            query.addScalar("invoiceDueDate", Hibernate.TIMESTAMP);
-            query.addScalar("resendDate", Hibernate.TIMESTAMP);
-            query.addScalar("outputMethod", Hibernate.STRING);
-            query.addScalar("queuePassword", Hibernate.STRING);
-            query.addScalar("overwriteDueDate", Hibernate.BOOLEAN);
-            query.addScalar("invoiceSalesTax", Hibernate.DOUBLE);
-            query.addScalar("baseCharge", Hibernate.DOUBLE);
-            query.addScalar("balanceDue", Hibernate.DOUBLE);
-            query.addScalar("invoiceBillingLocCode", Hibernate.STRING);
-            query.addScalar("invoiceBillinglocName", Hibernate.STRING);
-            query.addScalar("invoiceBalanceDue", Hibernate.DOUBLE);
-            query.addScalar("paymentAmount", Hibernate.DOUBLE);
-            query.addScalar("creditAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("debitAdjustmentAmount", Hibernate.DOUBLE);
-            query.addScalar("applySalesTax", Hibernate.BOOLEAN);
-            query.addScalar("notes", Hibernate.STRING);
-            query.addScalar("unbillable", Hibernate.BOOLEAN);
-            query.addScalar("unbillableAmount", Hibernate.DOUBLE);
-            query.addScalar("invoiceDueDays", Hibernate.LONG);
-            query.addScalar("createdDt", Hibernate.TIMESTAMP);
-            query.addScalar("createdBy", Hibernate.LONG);
-            query.addScalar("modifiedDt", Hibernate.TIMESTAMP);
-            query.addScalar("modifiedBy", Hibernate.LONG);
-            query.addScalar("recordVersion", Hibernate.INTEGER);
-            query.addScalar("prebillStatus", Hibernate.STRING);
+            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("isReleased", BooleanType.INSTANCE);
+            query.addScalar("previouslyReleasedCost", DoubleType.INSTANCE);
+            query.addScalar("releaseCost", DoubleType.INSTANCE);
+            query.addScalar("totalRequestCost", DoubleType.INSTANCE);
+            query.addScalar("totalPagesReleased", IntegerType.INSTANCE);
+            query.addScalar("totalPages", IntegerType.INSTANCE);
+            query.addScalar("salesTaxAmount", DoubleType.INSTANCE);
+            query.addScalar("salesTaxPercentage", DoubleType.INSTANCE);
+            query.addScalar("letterTemplateName", StringType.INSTANCE);
+            query.addScalar("requestStatus", StringType.INSTANCE);
+            query.addScalar("requestDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("releaseDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("letterTemplateFileId", LongType.INSTANCE);
+            query.addScalar("type", StringType.INSTANCE);
+            query.addScalar("invoicePrebillDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("invoiceDueDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("resendDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("outputMethod", StringType.INSTANCE);
+            query.addScalar("queuePassword", StringType.INSTANCE);
+            query.addScalar("overwriteDueDate", BooleanType.INSTANCE);
+            query.addScalar("invoiceSalesTax", DoubleType.INSTANCE);
+            query.addScalar("baseCharge", DoubleType.INSTANCE);
+            query.addScalar("balanceDue", DoubleType.INSTANCE);
+            query.addScalar("invoiceBillingLocCode", StringType.INSTANCE);
+            query.addScalar("invoiceBillinglocName", StringType.INSTANCE);
+            query.addScalar("invoiceBalanceDue", DoubleType.INSTANCE);
+            query.addScalar("paymentAmount", DoubleType.INSTANCE);
+            query.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
+            query.addScalar("applySalesTax", BooleanType.INSTANCE);
+            query.addScalar("notes", StringType.INSTANCE);
+            query.addScalar("unbillable", BooleanType.INSTANCE);
+            query.addScalar("unbillableAmount", DoubleType.INSTANCE);
+            query.addScalar("invoiceDueDays", LongType.INSTANCE);
+            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("createdBy", LongType.INSTANCE);
+            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("modifiedBy", LongType.INSTANCE);
+            query.addScalar("recordVersion", IntegerType.INSTANCE);
+            query.addScalar("prebillStatus", StringType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryCharges.class));
             List<RequestCoreDeliveryCharges> requestCoreDeliveryChargesList = query.list();
 
@@ -3140,25 +3147,25 @@ implements RequestCoreDeliveryDAO {
             else
                 queryString = session.getNamedQuery("retrievePrebillReportDetailsThirdLevelWithRequestorName").getQueryString();
 
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setParameterList("facilities", facility,Hibernate.STRING);
-            query.setParameterList("requestorTypeName", requestorTypeName,Hibernate.STRING);
-            query.setParameterList("requestStatus",reqStatus,Hibernate.STRING);
-            query.setParameter("balanceCriteria",balanceCriterion,Hibernate.STRING);
-            query.setParameter("requestorName","%" + getSpecialCharSearchStr(requestorName) + "%",Hibernate.STRING);
-            query.setParameter("balanceDue",balance,Hibernate.DOUBLE);
-            query.setParameter("fromDt",fromDt, Hibernate.STRING);
-            query.setParameter("toDt", toDt, Hibernate.STRING);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameterList("facilities", facility,StringType.INSTANCE);
+            query.setParameterList("requestorTypeName", requestorTypeName,StringType.INSTANCE);
+            query.setParameterList("requestStatus",reqStatus,StringType.INSTANCE);
+            query.setParameter("balanceCriteria",balanceCriterion,StringType.INSTANCE);
+            query.setParameter("requestorName","%" + getSpecialCharSearchStr(requestorName) + "%",StringType.INSTANCE);
+            query.setParameter("balanceDue",balance,DoubleType.INSTANCE);
+            query.setParameter("fromDt",fromDt, StringType.INSTANCE);
+            query.setParameter("toDt", toDt, StringType.INSTANCE);
 
-            query.addScalar("facility", Hibernate.STRING);
-            query.addScalar("requestorType", Hibernate.STRING);
-            query.addScalar("requestorName", Hibernate.STRING);
-            query.addScalar("requestorPhone", Hibernate.STRING);
-            query.addScalar("requestId", Hibernate.STRING);
-            query.addScalar("prebillNumber", Hibernate.STRING);
-            query.addScalar("prebillDate", Hibernate.TIMESTAMP);
-            query.addScalar("prebillAmount", Hibernate.DOUBLE);
-            query.addScalar("aging", Hibernate.STRING);
+            query.addScalar("facility", StringType.INSTANCE);
+            query.addScalar("requestorType", StringType.INSTANCE);
+            query.addScalar("requestorName", StringType.INSTANCE);
+            query.addScalar("requestorPhone", StringType.INSTANCE);
+            query.addScalar("requestId", StringType.INSTANCE);
+            query.addScalar("prebillNumber", StringType.INSTANCE);
+            query.addScalar("prebillDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("prebillAmount", DoubleType.INSTANCE);
+            query.addScalar("aging", StringType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(PrebillReportDetails.class));
             @SuppressWarnings("unchecked")
             List<PrebillReportDetails> reportList = query.list();
@@ -3198,24 +3205,24 @@ implements RequestCoreDeliveryDAO {
                  queryString = session.getNamedQuery("retrievePrebillReportDetailsSecondLevelWithoutRequestorName").getQueryString();
              else
                  queryString = session.getNamedQuery("retrievePrebillReportDetailsThirdLevelWithoutRequestorName").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
-            query.setParameterList("facilities", facility,Hibernate.STRING);
-            query.setParameterList("requestorTypeName", requestorTypeName,Hibernate.STRING);
-            query.setParameterList("requestStatus",reqStatus,Hibernate.STRING);
-            query.setParameter("balanceCriteria",balanceCriterion,Hibernate.STRING);
-            query.setParameter("balanceDue",balance,Hibernate.DOUBLE);
-            query.setParameter("fromDt",fromDt, Hibernate.STRING);
-            query.setParameter("toDt", toDt, Hibernate.STRING);
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameterList("facilities", facility,StringType.INSTANCE);
+            query.setParameterList("requestorTypeName", requestorTypeName,StringType.INSTANCE);
+            query.setParameterList("requestStatus",reqStatus,StringType.INSTANCE);
+            query.setParameter("balanceCriteria",balanceCriterion,StringType.INSTANCE);
+            query.setParameter("balanceDue",balance,DoubleType.INSTANCE);
+            query.setParameter("fromDt",fromDt, StringType.INSTANCE);
+            query.setParameter("toDt", toDt, StringType.INSTANCE);
 
-            query.addScalar("facility", Hibernate.STRING);
-            query.addScalar("requestorType", Hibernate.STRING);
-            query.addScalar("requestorName", Hibernate.STRING);
-            query.addScalar("requestorPhone", Hibernate.STRING);
-            query.addScalar("requestId", Hibernate.STRING);
-            query.addScalar("prebillNumber", Hibernate.STRING);
-            query.addScalar("prebillDate", Hibernate.TIMESTAMP);
-            query.addScalar("prebillAmount", Hibernate.DOUBLE);
-            query.addScalar("aging", Hibernate.STRING);
+            query.addScalar("facility", StringType.INSTANCE);
+            query.addScalar("requestorType", StringType.INSTANCE);
+            query.addScalar("requestorName", StringType.INSTANCE);
+            query.addScalar("requestorPhone", StringType.INSTANCE);
+            query.addScalar("requestId", StringType.INSTANCE);
+            query.addScalar("prebillNumber", StringType.INSTANCE);
+            query.addScalar("prebillDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("prebillAmount", DoubleType.INSTANCE);
+            query.addScalar("aging", StringType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(PrebillReportDetails.class));
             @SuppressWarnings("unchecked")
             List<PrebillReportDetails> reportList = query.list();
@@ -3254,25 +3261,25 @@ implements RequestCoreDeliveryDAO {
                queryString = session.getNamedQuery("retrievePostPaymentReportDetailsFirstLevel").getQueryString();
             else
                 queryString = session.getNamedQuery("retrievePostPaymentReportDetailsSecondLevel").getQueryString();
-            SQLQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameterList("facilities", facility);
             query.setParameterList("requestorType", requestorTypeName);
             query.setParameterList("userName", userName);
-            query.setParameter("fromDt",fromDt, Hibernate.TIMESTAMP);
-            query.setParameter("toDt", toDt, Hibernate.TIMESTAMP);
+            query.setParameter("fromDt",fromDt, StandardBasicTypes.TIMESTAMP);
+            query.setParameter("toDt", toDt, StandardBasicTypes.TIMESTAMP);
 
-            query.addScalar("facility", Hibernate.STRING);
-            query.addScalar("userName", Hibernate.STRING);
-            query.addScalar("requestorType", Hibernate.STRING);
-            query.addScalar("requestorName", Hibernate.STRING);
-            query.addScalar("mrn", Hibernate.STRING);
-            query.addScalar("requestId", Hibernate.STRING);
-            query.addScalar("invoiceNumber", Hibernate.STRING);
-            query.addScalar("paymentMethod", Hibernate.STRING);
-            query.addScalar("paymentDetails", Hibernate.STRING);
-            query.addScalar("paymentAmount", Hibernate.DOUBLE);
-            query.addScalar("createdDate", Hibernate.TIMESTAMP);
-            query.addScalar("paymentId", Hibernate.STRING);
+            query.addScalar("facility", StringType.INSTANCE);
+            query.addScalar("userName", StringType.INSTANCE);
+            query.addScalar("requestorType", StringType.INSTANCE);
+            query.addScalar("requestorName", StringType.INSTANCE);
+            query.addScalar("mrn", StringType.INSTANCE);
+            query.addScalar("requestId", StringType.INSTANCE);
+            query.addScalar("invoiceNumber", StringType.INSTANCE);
+            query.addScalar("paymentMethod", StringType.INSTANCE);
+            query.addScalar("paymentDetails", StringType.INSTANCE);
+            query.addScalar("paymentAmount", DoubleType.INSTANCE);
+            query.addScalar("createdDate", StandardBasicTypes.TIMESTAMP);
+            query.addScalar("paymentId", StringType.INSTANCE);
             query.setResultTransformer(Transformers.aliasToBean(PostPaymentReportDetails.class));
             @SuppressWarnings("unchecked")
             List<PostPaymentReportDetails> reportList = query.list();
@@ -3303,7 +3310,7 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             Query query = session.getNamedQuery("deleteAllMappedAdjustmentInvoicesByInvoiceId");
-            query.setParameter("invoiceId", invoiceId, Hibernate.LONG);
+            query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
             query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -3333,7 +3340,7 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             Query query = session.getNamedQuery("deleteAllMappedPaymentInvoicesByInvoiceId");
-            query.setParameter("invoiceId", invoiceId, Hibernate.LONG);
+            query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
             query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -3360,8 +3367,8 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("updatePrebillPaymentsToInvoice").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3395,8 +3402,8 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("updatePrebillAdjustmentsToInvoice").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3429,9 +3436,9 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("updateInvoicePaymentsToPrebill").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
-            sqlQuery.setParameter("invoiceId", invoiceId, Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3465,9 +3472,9 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("updateInvoiceAdjustmentsToPrebill").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
-            sqlQuery.setParameter("invoiceId", invoiceId, Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3500,8 +3507,8 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("updateUnappliedToAppliedPaymentsToPrebill").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3534,8 +3541,8 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("updateUnappliedToAppliedAdjustmentsToPrebill").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3570,9 +3577,9 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("retrievePaymentDetailsFromDialog").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
-            sqlQuery.addScalar("paymentId", Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
+            sqlQuery.addScalar("paymentId", LongType.INSTANCE);
             paymentValue = (Long) sqlQuery.uniqueResult();
             
             if (null != paymentValue) {
@@ -3611,9 +3618,9 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("retrieveAdjustmentDetailsFromDialog").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
-            sqlQuery.addScalar("adjustmentId", Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
+            sqlQuery.addScalar("adjustmentId", LongType.INSTANCE);
             adjustmentValue = (Long) sqlQuery.uniqueResult();
             
             if (null != adjustmentValue) {
@@ -3649,8 +3656,8 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("unmapPaymentsFromInvoiceFromDialog").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestorPaymentSeq", paymentId, Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestorPaymentSeq", paymentId, LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3683,8 +3690,8 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("unmapAdjustmentsFromInvoiceFromDialog").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestorAdjustmentSeq", adjustmentId, Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestorAdjustmentSeq", adjustmentId, LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3718,8 +3725,8 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("activateLatestPrebill").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId,Hibernate.LONG);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.setParameter("requestId", requestId,LongType.INSTANCE);
             sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
@@ -3753,9 +3760,9 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("prebillPaymentExists").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
            
-            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
+            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
             
@@ -3792,9 +3799,9 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("prebillAdjustmentExists").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
            
-            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
+            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
             
@@ -3832,10 +3839,10 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("totalPostPrebillPayments").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
            
-            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(), Hibernate.LONG);
-            sqlQuery.setParameter("Charge", invOrPrebillPreviewInfo.getBaseCharge(), Hibernate.DOUBLE);
+            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(), LongType.INSTANCE);
+            sqlQuery.setParameter("Charge", invOrPrebillPreviewInfo.getBaseCharge(), DoubleType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
             double Doublevalue = value.doubleValue();
@@ -3874,10 +3881,10 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String query = session.getNamedQuery("totalPostPrebillAdjustments").getQueryString();
-            SQLQuery sqlQuery = session.createSQLQuery(query);
+            NativeQuery sqlQuery = session.createSQLQuery(query);
            
-            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(), Hibernate.LONG);
-            sqlQuery.setParameter("Charge", invOrPrebillPreviewInfo.getBaseCharge(), Hibernate.DOUBLE);
+            sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(), LongType.INSTANCE);
+            sqlQuery.setParameter("Charge", invOrPrebillPreviewInfo.getBaseCharge(), DoubleType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
             double Doublevalue = value.doubleValue();
