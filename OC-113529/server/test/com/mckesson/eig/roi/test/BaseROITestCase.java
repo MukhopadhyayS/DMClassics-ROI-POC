@@ -46,7 +46,7 @@ import org.exolab.castor.mapping.Mapping;
 import org.junit.runner.RunWith;
 import org.mockejb.jndi.MockContextFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate3.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
