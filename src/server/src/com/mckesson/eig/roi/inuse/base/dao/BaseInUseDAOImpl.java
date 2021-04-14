@@ -17,8 +17,8 @@ package com.mckesson.eig.roi.inuse.base.dao;
 import java.io.Serializable;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.mckesson.eig.roi.inuse.base.api.InUseClientErrorCodes;
 import com.mckesson.eig.roi.inuse.base.api.InUseException;

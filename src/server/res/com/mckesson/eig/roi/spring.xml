@@ -40,14 +40,14 @@
     
 	<!-- Common  Hibernate SessionFactory -->
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref ="dataSource" />
-		
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
 		<property name="configLocation"
 			value="classpath:com/mckesson/eig/roi/hibernate.xml" />
 	</bean>
-	
-	
+
 	<!-- DAO-hibernate configuration starts here-->
 	<!-- bean id="dataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -92,14 +92,14 @@
 		</property>
 	</bean>
 
-	<bean id="AuditTrailHibernateDao" class="com.mckesson.eig.roi.dao.AuditTrailHibernateDao">
-		<property name="sessionFactory" ref ="sessionFactory"/>
+	<bean id="AuditTrailHibernateDao" class="com.mckesson.eig.audit.dao.hpf.AuditTrailHibernateDao">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
 	</bean>
 
 	<!-- Audit Configuration Ends -->
 	
 	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
@@ -341,7 +341,7 @@
 	</bean>
 	
 	
-	<bean id="ccdProviderFactoryTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+	<bean id="ccdProviderFactoryTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail" ref="startCcdProviderFactory" />
 		<property name="startDelay" value="30000"/>
     	<property name="repeatInterval" value="600000" />

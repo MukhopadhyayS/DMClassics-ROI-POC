@@ -66,49 +66,49 @@
      <query name="getReasonByName">
      <![CDATA[
        SELECT r FROM com.mckesson.eig.roi.admin.model.Reason r
-       WHERE r.name = ?0 AND r.type = ?1
+       WHERE r.name = ? AND r.type = ?
       ]]>
     </query>
 
     <query name="getReasonByDispText">
      <![CDATA[
        SELECT r FROM com.mckesson.eig.roi.admin.model.Reason r
-       WHERE r.displayText = ?0 AND r.type = ?1
+       WHERE r.displayText = ? AND r.type = ?
       ]]>
     </query>
 
     <query name="getStatusReasonByName">
      <![CDATA[
        SELECT r FROM com.mckesson.eig.roi.admin.model.Reason r
-       WHERE r.type = ?0 AND r.name = ?1 AND r.status = ?2
+       WHERE r.type = ? AND r.name = ? AND r.status = ?
       ]]>
     </query>
 
     <query name="getStatusReasonByDispText">
      <![CDATA[
        SELECT r FROM com.mckesson.eig.roi.admin.model.Reason r
-       WHERE r.type = ?0 AND r.displayText = ?1 AND r.status = ?2
+       WHERE r.type = ? AND r.displayText = ? AND r.status = ?
       ]]>
     </query>
 
     <query name="retrieveAllReasonsByType">
        <![CDATA[
          select r from com.mckesson.eig.roi.admin.model.Reason r
-         where r.type = ?0 order by r.name asc
+         where r.type = ? order by r.name asc
        ]]>
      </query>
 
          <query name="retrieveAllRequestStatus">
        <![CDATA[
          select r from com.mckesson.eig.roi.admin.model.Reason r
-         where r.type = ?0 order by r.status asc
+         where r.type = ? order by r.status asc
        ]]>
     </query>
 
     <query name="getReasonsByStatus">
        <![CDATA[
          select r.name from com.mckesson.eig.roi.admin.model.Reason r
-         where r.status = ?0
+         where r.status = ?
        ]]>
     </query>
 

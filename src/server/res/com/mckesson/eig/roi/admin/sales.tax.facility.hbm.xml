@@ -70,7 +70,7 @@
   <query name="getSalesTaxFacilityByCode">
     <![CDATA[
       select st from com.mckesson.eig.roi.admin.model.TaxPerFacility st
-      where st.code = ?0
+      where st.code = ?
     ]]>
   </query>
 
@@ -86,7 +86,7 @@
       <![CDATA[
         select distinct trim(uf.facility) from com.mckesson.eig.roi.hpf.model.User u,
          com.mckesson.eig.roi.hpf.model.UserFacility uf
-         where u.loginId = ?0 and uf.userId = u.instanceId
+         where u.loginId = ? and uf.userId = u.instanceId
       ]]>
     </query>
 

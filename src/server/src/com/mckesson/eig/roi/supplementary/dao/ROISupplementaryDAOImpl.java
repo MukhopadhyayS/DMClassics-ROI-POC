@@ -9,18 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Hibernate;
-
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -133,7 +127,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalPatient> patients = (List<ROISupplementalPatient>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalPatient> patients = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalPatientById", new Long(id));
 
         if (CollectionUtilities.isEmpty(patients)) {
@@ -155,7 +149,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalDocument> documents = (List<ROISupplementalDocument>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalDocument> documents = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalDocumentsByPatientId", new Long(patientId));
 
         if (DO_DEBUG) {
@@ -174,7 +168,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalAttachment> attachments = (List<ROISupplementalAttachment>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalAttachment> attachments = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalAttachmentsByPatientId", new Long(patientId));
 
         if (DO_DEBUG) {
@@ -193,7 +187,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityDocument> documents = (List<ROISupplementarityDocument>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityDocument> documents = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityDocumentsByMrnFacility", new Object[]{mrn, facility});
 
         if (DO_DEBUG) {
@@ -212,7 +206,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityAttachment> attachments = (List<ROISupplementarityAttachment>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityAttachment> attachments = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityAttachmentsByMrnFacility", new Object[]{mrn, facility});
 
         if (DO_DEBUG) {
@@ -231,7 +225,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalDocument> documents = (List<ROISupplementalDocument>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalDocument> documents = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalDocumentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(documents)) {
@@ -253,7 +247,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementalAttachment> attachments = (List<ROISupplementalAttachment>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementalAttachment> attachments = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementalAttachmentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(attachments)) {
@@ -275,7 +269,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityDocument> documents = (List<ROISupplementarityDocument>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityDocument> documents = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityDocumentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(documents)) {
@@ -297,7 +291,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
 
         @SuppressWarnings("unchecked")
         // not supported by 3rdParty API
-        List<ROISupplementarityAttachment> attachments = (List<ROISupplementarityAttachment>) getHibernateTemplate().findByNamedQuery(
+        List<ROISupplementarityAttachment> attachments = getHibernateTemplate().findByNamedQuery(
                 "getROISupplementarityAttachmentById", new Long(id));
 
         if (CollectionUtilities.isEmpty(attachments)) {
@@ -510,7 +504,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
             HashMap<String, String>  parameterMap =  new HashMap<String, String>(); 
             sql += criteria.getWhereClause(parameterMap);
             
-            NativeQuery query = prepareSQLQuery(session, sql, ROISupplementalPatient.class);
+            SQLQuery query = prepareSQLQuery(session, sql, ROISupplementalPatient.class);
 
             Set<String> keys = parameterMap.keySet();
             for(String key: keys){
@@ -610,32 +604,32 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
             
             Session session = getSession();
             String queryString;
-            NativeQuery query;
+            SQLQuery query;
             if (encounter != null && freeformFacility != null) {
                 
                 queryString = 
                         session.getNamedQuery("searchSupplementaryForEncounterAndFreeformFacility")
                                .getQueryString();
                 query = session.createSQLQuery(queryString);
-                query.setParameter("encounter", encounter, StringType.INSTANCE);
-                query.setParameter("freeformFacility", freeformFacility, StringType.INSTANCE);
+                query.setParameter("encounter", encounter, Hibernate.STRING);
+                query.setParameter("freeformFacility", freeformFacility, Hibernate.STRING);
                 
             } else if (encounter != null) {
                 
                 queryString = session.getNamedQuery("searchSupplementaryForEncounter")
                         .getQueryString();
                 query = session.createSQLQuery(queryString);
-                query.setParameter("encounter", encounter, StringType.INSTANCE);
+                query.setParameter("encounter", encounter, Hibernate.STRING);
                 
             } else {
 
                 queryString = session.getNamedQuery("searchSupplementaryForFreeformFacility")
                                      .getQueryString();
                 query = session.createSQLQuery(queryString);
-                query.setParameter("freeformFacility", freeformFacility, StringType.INSTANCE);
+                query.setParameter("freeformFacility", freeformFacility, Hibernate.STRING);
             }
             
-            query.addScalar("id", LongType.INSTANCE);
+            query.addScalar("id", Hibernate.LONG);
             List<Long> result = query.list();
             return result == null ? new ArrayList<Long>() : result;
         } catch (Throwable e) {
@@ -644,26 +638,26 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
         }
     }
     
-    protected NativeQuery prepareSQLQuery(Session session, String query, Class clazz) {
-        NativeQuery sqlQuery = super.prepareSQLQuery(session, query, clazz);
-        sqlQuery.addScalar("mrn", StringType.INSTANCE);
-        sqlQuery.addScalar("facility", StringType.INSTANCE);
-        sqlQuery.addScalar("epn", StringType.INSTANCE);
-        sqlQuery.addScalar("lastName", StringType.INSTANCE);
-        sqlQuery.addScalar("firstName", StringType.INSTANCE);
-        sqlQuery.addScalar("gender", StringType.INSTANCE);
-        sqlQuery.addScalar("dateOfBirth", StringType.INSTANCE);
-        sqlQuery.addScalar("ssn", StringType.INSTANCE);
-        sqlQuery.addScalar("address1", StringType.INSTANCE);
-        sqlQuery.addScalar("address2", StringType.INSTANCE);
-        sqlQuery.addScalar("address3", StringType.INSTANCE);
-        sqlQuery.addScalar("city", StringType.INSTANCE);
-        sqlQuery.addScalar("zip", StringType.INSTANCE);
-        sqlQuery.addScalar("homephone", StringType.INSTANCE);
-        sqlQuery.addScalar("workphone", StringType.INSTANCE);
-        sqlQuery.addScalar("vip", BooleanType.INSTANCE);
-        sqlQuery.addScalar("freeformFacilityCode", StringType.INSTANCE);
-        sqlQuery.addScalar("freeformFacilityId", LongType.INSTANCE);
+    protected SQLQuery prepareSQLQuery(Session session, String query, Class clazz) {
+        SQLQuery sqlQuery = super.prepareSQLQuery(session, query, clazz);
+        sqlQuery.addScalar("mrn", Hibernate.STRING);
+        sqlQuery.addScalar("facility", Hibernate.STRING);
+        sqlQuery.addScalar("epn", Hibernate.STRING);
+        sqlQuery.addScalar("lastName", Hibernate.STRING);
+        sqlQuery.addScalar("firstName", Hibernate.STRING);
+        sqlQuery.addScalar("gender", Hibernate.STRING);
+        sqlQuery.addScalar("dateOfBirth", Hibernate.STRING);
+        sqlQuery.addScalar("ssn", Hibernate.STRING);
+        sqlQuery.addScalar("address1", Hibernate.STRING);
+        sqlQuery.addScalar("address2", Hibernate.STRING);
+        sqlQuery.addScalar("address3", Hibernate.STRING);
+        sqlQuery.addScalar("city", Hibernate.STRING);
+        sqlQuery.addScalar("zip", Hibernate.STRING);
+        sqlQuery.addScalar("homephone", Hibernate.STRING);
+        sqlQuery.addScalar("workphone", Hibernate.STRING);
+        sqlQuery.addScalar("vip", Hibernate.BOOLEAN);
+        sqlQuery.addScalar("freeformFacilityCode", Hibernate.STRING);
+        sqlQuery.addScalar("freeformFacilityId", Hibernate.LONG);
         return sqlQuery;
     }
 
@@ -680,9 +674,9 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
             Session session = getSession();
             Query query = session.getNamedQuery("checkDuplicate");
             
-            query.setParameter("lastName", lastName, StringType.INSTANCE);
-            query.setParameter("firstName", firstName, StringType.INSTANCE);
-            query.setParameter("supplementalId", supplementalId, LongType.INSTANCE);
+            query.setParameter("lastName", lastName, Hibernate.STRING);
+            query.setParameter("firstName", firstName, Hibernate.STRING);
+            query.setParameter("supplementalId", supplementalId, Hibernate.LONG);
             
             int count = ((Integer)(query.uniqueResult())).intValue();
            
@@ -708,11 +702,11 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
         try {
             Session session = getSession();
             String sql = session.getNamedQuery("retrieveAttachment").getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(sql);
-            sqlQuery.setParameter("uuid", uuid, StringType.INSTANCE);
-            sqlQuery.addScalar("volume", StringType.INSTANCE);
-            sqlQuery.addScalar("path", StringType.INSTANCE);
-            sqlQuery.addScalar("uuid", StringType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(sql);
+            sqlQuery.setParameter("uuid", uuid, Hibernate.STRING);
+            sqlQuery.addScalar("volume", Hibernate.STRING);
+            sqlQuery.addScalar("path", Hibernate.STRING);
+            sqlQuery.addScalar("uuid", Hibernate.STRING);
             List<Object[]> result = sqlQuery.list();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:searchSupplementalPatients result :" + result);
@@ -738,7 +732,7 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
             Session session = getSession();
             Query query = session.getNamedQuery("retrievePatientCoreIdByPatientId");
            
-            query.setParameter("patientId",patientId,LongType.INSTANCE);
+            query.setParameter("patientId",patientId,Hibernate.LONG);
 
             @SuppressWarnings("unchecked")
             List<BigInteger> idValue = query.list();
@@ -771,32 +765,32 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
             else
                query = session.getNamedQuery("getSupplementarityDocumentsCore").getQueryString();
             
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
             
-            sqlQuery.setParameter("patientId",patientId,LongType.INSTANCE);
+            sqlQuery.setParameter("patientId",patientId,Hibernate.LONG);
             
-            sqlQuery.addScalar("documentCoreSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("supplementalId", LongType.INSTANCE);
-            sqlQuery.addScalar("mrn", StringType.INSTANCE);
-            sqlQuery.addScalar("facility", StringType.INSTANCE);
-            sqlQuery.addScalar("billingTierId", LongType.INSTANCE);
-            sqlQuery.addScalar("docName", StringType.INSTANCE);
-            sqlQuery.addScalar("encounter", StringType.INSTANCE);
-            sqlQuery.addScalar("docFacility", StringType.INSTANCE);
-            sqlQuery.addScalar("freeformfacility", StringType.INSTANCE);
-            sqlQuery.addScalar("department", StringType.INSTANCE);
-            sqlQuery.addScalar("subtitle", StringType.INSTANCE);
-            sqlQuery.addScalar("pageCount", StringType.INSTANCE);
-            sqlQuery.addScalar("dateOfService", DateType.INSTANCE);
-            sqlQuery.addScalar("comment", StringType.INSTANCE);
-            sqlQuery.addScalar("id", LongType.INSTANCE);
-            sqlQuery.addScalar("createdBy", LongType.INSTANCE);
-            sqlQuery.addScalar("modifiedBy", LongType.INSTANCE);
-            sqlQuery.addScalar("createdDt", DateType.INSTANCE);
-            sqlQuery.addScalar("modifiedDt", DateType.INSTANCE);
-            sqlQuery.addScalar("recordVersion", IntegerType.INSTANCE);
+            sqlQuery.addScalar("documentCoreSeq", Hibernate.LONG);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
+            sqlQuery.addScalar("patientSeq", Hibernate.LONG);
+            sqlQuery.addScalar("supplementalId", Hibernate.LONG);
+            sqlQuery.addScalar("mrn", Hibernate.STRING);
+            sqlQuery.addScalar("facility", Hibernate.STRING);
+            sqlQuery.addScalar("billingTierId", Hibernate.LONG);
+            sqlQuery.addScalar("docName", Hibernate.STRING);
+            sqlQuery.addScalar("encounter", Hibernate.STRING);
+            sqlQuery.addScalar("docFacility", Hibernate.STRING);
+            sqlQuery.addScalar("freeformfacility", Hibernate.STRING);
+            sqlQuery.addScalar("department", Hibernate.STRING);
+            sqlQuery.addScalar("subtitle", Hibernate.STRING);
+            sqlQuery.addScalar("pageCount", Hibernate.STRING);
+            sqlQuery.addScalar("dateOfService", Hibernate.DATE);
+            sqlQuery.addScalar("comment", Hibernate.STRING);
+            sqlQuery.addScalar("id", Hibernate.LONG);
+            sqlQuery.addScalar("createdBy", Hibernate.LONG);
+            sqlQuery.addScalar("modifiedBy", Hibernate.LONG);
+            sqlQuery.addScalar("createdDt", Hibernate.DATE);
+            sqlQuery.addScalar("modifiedDt", Hibernate.DATE);
+            sqlQuery.addScalar("recordVersion", Hibernate.INTEGER);
             sqlQuery.setResultTransformer(Transformers.aliasToBean(RequestSupplementalDocument.class));
             
             @SuppressWarnings("unchecked")
@@ -831,42 +825,42 @@ public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplement
             else
                query = session.getNamedQuery("getSupplementarityAttachmentsCore").getQueryString();
             
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
             
-            sqlQuery.setParameter("patientId",patientId,LongType.INSTANCE);
+            sqlQuery.setParameter("patientId",patientId,Hibernate.LONG);
             
-            sqlQuery.addScalar("attachmentCoreSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("attachmentSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("supplementalId", LongType.INSTANCE);
-            sqlQuery.addScalar("mrn", StringType.INSTANCE);
-            sqlQuery.addScalar("facility", StringType.INSTANCE);
-            sqlQuery.addScalar("billingTierId", LongType.INSTANCE);
-            sqlQuery.addScalar("encounter", StringType.INSTANCE);
-            sqlQuery.addScalar("docFacility", StringType.INSTANCE);
-            sqlQuery.addScalar("freeformfacility", StringType.INSTANCE);
-            sqlQuery.addScalar("subtitle", StringType.INSTANCE);
-            sqlQuery.addScalar("isDeleted", BooleanType.INSTANCE);
-            sqlQuery.addScalar("pageCount", StringType.INSTANCE);
-            sqlQuery.addScalar("dateOfService", DateType.INSTANCE);
-            sqlQuery.addScalar("attachmentDate", DateType.INSTANCE);
-            sqlQuery.addScalar("uuid", StringType.INSTANCE);
-            sqlQuery.addScalar("volume", StringType.INSTANCE);
-            sqlQuery.addScalar("path", StringType.INSTANCE);
-            sqlQuery.addScalar("filename", StringType.INSTANCE);
-            sqlQuery.addScalar("filetype", StringType.INSTANCE);
-            sqlQuery.addScalar("fileext", StringType.INSTANCE);
-            sqlQuery.addScalar("printable", StringType.INSTANCE);
-            sqlQuery.addScalar("submittedBy", StringType.INSTANCE);
-            sqlQuery.addScalar("comment", StringType.INSTANCE);
-            sqlQuery.addScalar("externalSource", StringType.INSTANCE);
-            sqlQuery.addScalar("type", StringType.INSTANCE);
-            sqlQuery.addScalar("id", LongType.INSTANCE);
-            sqlQuery.addScalar("createdBy", LongType.INSTANCE);
-            sqlQuery.addScalar("modifiedBy", LongType.INSTANCE);
-            sqlQuery.addScalar("createdDt", DateType.INSTANCE);
-            sqlQuery.addScalar("modifiedDt", DateType.INSTANCE);
-            sqlQuery.addScalar("recordVersion", IntegerType.INSTANCE);
+            sqlQuery.addScalar("attachmentCoreSeq", Hibernate.LONG);
+            sqlQuery.addScalar("attachmentSeq", Hibernate.LONG);
+            sqlQuery.addScalar("patientSeq", Hibernate.LONG);
+            sqlQuery.addScalar("supplementalId", Hibernate.LONG);
+            sqlQuery.addScalar("mrn", Hibernate.STRING);
+            sqlQuery.addScalar("facility", Hibernate.STRING);
+            sqlQuery.addScalar("billingTierId", Hibernate.LONG);
+            sqlQuery.addScalar("encounter", Hibernate.STRING);
+            sqlQuery.addScalar("docFacility", Hibernate.STRING);
+            sqlQuery.addScalar("freeformfacility", Hibernate.STRING);
+            sqlQuery.addScalar("subtitle", Hibernate.STRING);
+            sqlQuery.addScalar("isDeleted", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("pageCount", Hibernate.STRING);
+            sqlQuery.addScalar("dateOfService", Hibernate.DATE);
+            sqlQuery.addScalar("attachmentDate", Hibernate.DATE);
+            sqlQuery.addScalar("uuid", Hibernate.STRING);
+            sqlQuery.addScalar("volume", Hibernate.STRING);
+            sqlQuery.addScalar("path", Hibernate.STRING);
+            sqlQuery.addScalar("filename", Hibernate.STRING);
+            sqlQuery.addScalar("filetype", Hibernate.STRING);
+            sqlQuery.addScalar("fileext", Hibernate.STRING);
+            sqlQuery.addScalar("printable", Hibernate.STRING);
+            sqlQuery.addScalar("submittedBy", Hibernate.STRING);
+            sqlQuery.addScalar("comment", Hibernate.STRING);
+            sqlQuery.addScalar("externalSource", Hibernate.STRING);
+            sqlQuery.addScalar("type", Hibernate.STRING);
+            sqlQuery.addScalar("id", Hibernate.LONG);
+            sqlQuery.addScalar("createdBy", Hibernate.LONG);
+            sqlQuery.addScalar("modifiedBy", Hibernate.LONG);
+            sqlQuery.addScalar("createdDt", Hibernate.DATE);
+            sqlQuery.addScalar("modifiedDt", Hibernate.DATE);
+            sqlQuery.addScalar("recordVersion", Hibernate.INTEGER);
             sqlQuery.setResultTransformer(Transformers.aliasToBean(RequestSupplementalAttachment.class));
             
             @SuppressWarnings("unchecked")

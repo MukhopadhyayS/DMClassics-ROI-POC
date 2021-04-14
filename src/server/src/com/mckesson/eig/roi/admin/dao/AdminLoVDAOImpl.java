@@ -86,7 +86,7 @@ implements AdminLoVDAO {
         }
 
         @SuppressWarnings("unchecked")  //not supported by 3PartyAPI
-        List<Object[]> notes = (List<Object[]>) getHibernateTemplate().findByNamedQuery("retrieveAllNotes");
+        List<Object[]> notes = getHibernateTemplate().findByNamedQuery("retrieveAllNotes");
 
         List<Note> res = new ArrayList <Note>();
         for (Object[] value : notes) {
@@ -156,7 +156,7 @@ implements AdminLoVDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<AdminLoV> notes = (List<AdminLoV>) getHibernateTemplate().findByNamedQuery("getNoteByName", name);
+        List<AdminLoV> notes = getHibernateTemplate().findByNamedQuery("getNoteByName", name);
 
         AdminLoV lov = null;
         if (notes.size() > 0) {

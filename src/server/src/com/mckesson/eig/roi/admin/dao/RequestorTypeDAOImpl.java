@@ -25,7 +25,7 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
-import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.mckesson.eig.roi.admin.model.RelatedBillingTier;
 import com.mckesson.eig.roi.admin.model.RequestorType;
@@ -255,7 +255,7 @@ implements RequestorTypeDAO {
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
         List<RequestorType> requestorTypes =
-            (List<RequestorType>) getHibernateTemplate().findByNamedQuery("getRequestorTypeByName", requestorTypeName);
+            getHibernateTemplate().findByNamedQuery("getRequestorTypeByName", requestorTypeName);
 
         RequestorType requestorType = (requestorTypes.size() == 0) ? null : requestorTypes.get(0);
 
@@ -312,7 +312,7 @@ implements RequestorTypeDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Long> ids = (List<Long>) getHibernateTemplate().findByNamedQuery("getAssociatedRequestorCount",
+        List<Long> ids = getHibernateTemplate().findByNamedQuery("getAssociatedRequestorCount",
                                                                  new Long(requestorTypeId));
 
         long count = toPlong(ids.get(0));

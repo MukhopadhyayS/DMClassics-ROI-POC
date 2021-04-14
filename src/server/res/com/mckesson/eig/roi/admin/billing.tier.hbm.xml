@@ -81,21 +81,21 @@
     <query name="retrieveBillingTierByName">
     <![CDATA[
        SELECT billingTier FROM  com.mckesson.eig.roi.admin.model.BillingTier billingTier
-       WHERE billingTier.name = ?0
+       WHERE billingTier.name = ?
     ]]>
   </query>
 
     <query name="getAssociatedRequestorTypeCountForBillingTier">
     <![CDATA[
         SELECT count(r.billingTierId) FROM com.mckesson.eig.roi.admin.model.RelatedBillingTier r
-        WHERE r.billingTierId = ?0
+        WHERE r.billingTierId = ?
     ]]>
     </query>
 
   <query name="retrieveBillingTierByMediaTypeName">
   <![CDATA[
     SELECT bt.id FROM com.mckesson.eig.roi.admin.model.BillingTier bt
-    WHERE bt.mediaType.name = ?0
+    WHERE bt.mediaType.name = ?
     ]]>
   </query>
   

@@ -169,7 +169,7 @@
             SELECT source.sourceName 
             FROM com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel source,
             com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel mapping
-            where mapping.sourceId = source.id and mapping.facCode = ?0
+            where mapping.sourceId = source.id and mapping.facCode = ?
         ]]>
 	</query>
 
@@ -177,7 +177,7 @@
          <![CDATA[
             SELECT mapping.sourceId 
             FROM com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel mapping
-            where mapping.facCode = ?0
+            where mapping.facCode = ?
         ]]>
 	</query>
 
@@ -185,7 +185,7 @@
          <![CDATA[
             SELECT mapping
             FROM com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel mapping
-            where mapping.sourceId = ?0
+            where mapping.sourceId = ?
         ]]>
 	</query>
 
@@ -193,7 +193,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.ccd.provider.model.CcdSourceConfigModel a
-            where a.sourceId = ?0
+            where a.sourceId = ?
         ]]>
 	</query>
 
@@ -201,7 +201,7 @@
          <![CDATA[
             SELECT a
             FROM com.mckesson.eig.roi.ccd.provider.model.AssigningAuthorityModel a
-            where a.facCode = ?0
+            where a.facCode = ?
         ]]>
 	</query>
 
@@ -209,7 +209,7 @@
 	     <![CDATA[
 	        SELECT a 
 	        FROM com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel a
-	        where a.sourceName = ?0
+	        where a.sourceName = ?
 	    ]]>
 	</query>
 </hibernate-mapping>

@@ -24,8 +24,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateCallback;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.admin.model.BillingTier;
 import com.mckesson.eig.roi.admin.model.BillingTiersList;
@@ -190,7 +190,7 @@ implements BillingTierDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<BillingTier> billingTiers = (List<BillingTier>) getHibernateTemplate().
+        List<BillingTier> billingTiers = getHibernateTemplate().
                                          findByNamedQuery("retrieveBillingTierByName",
                                                           name);
         BillingTier billingTier = null;
@@ -215,7 +215,7 @@ implements BillingTierDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<Long> ids = (List<Long>) getHibernateTemplate()
+        List<Long> ids = getHibernateTemplate()
                          .findByNamedQuery("getAssociatedRequestorTypeCountForBillingTier",
                                            new Long(billingTierId));
 
@@ -239,7 +239,7 @@ implements BillingTierDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        BillingTiersList btList = new BillingTiersList((List<BillingTier>) getHibernateTemplate().
+        BillingTiersList btList = new BillingTiersList(getHibernateTemplate().
                                   findByNamedQuery("retrieveBillingTierByMediaTypeName",
                                   new String(mediaTypeName)));
 

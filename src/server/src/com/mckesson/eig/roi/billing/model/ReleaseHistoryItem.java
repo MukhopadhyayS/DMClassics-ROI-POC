@@ -18,6 +18,8 @@ package com.mckesson.eig.roi.billing.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.mckesson.eig.roi.utils.SecureStringAccessor;
+
 @SuppressWarnings("serial")
 public class ReleaseHistoryItem
 implements Serializable {
@@ -31,8 +33,8 @@ implements Serializable {
     private boolean selfPay;
     private String documentVersionSubtitle;
     private int pages;
-    private String requestPassword;
-    private String queuePassword;
+    private SecureStringAccessor requestPassword;
+    private SecureStringAccessor queuePassword;
     private String shippingMethod;
     private String trackingNumber;
     private String userName;
@@ -86,19 +88,27 @@ implements Serializable {
     }
     
     public String getRequestPassword() {
-        return requestPassword;
+        StringBuilder builder = new StringBuilder();
+        requestPassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
     }
     
     public void setRequestPassword(String requestPassword) {
-        this.requestPassword = requestPassword;
+        this.requestPassword = new SecureStringAccessor(requestPassword.toCharArray());
     }
     
     public String getQueuePassword() {
-        return queuePassword;
+        StringBuilder builder = new StringBuilder();
+        queuePassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
     }
     
     public void setQueuePassword(String queuePassword) {
-        this.queuePassword = queuePassword;
+        this.queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
   
     public String getShippingMethod() {

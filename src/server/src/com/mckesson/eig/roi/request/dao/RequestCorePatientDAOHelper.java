@@ -21,19 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.StandardBasicTypes;
-import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -46,6 +40,7 @@ import com.mckesson.eig.roi.request.model.RequestPage;
 import com.mckesson.eig.roi.request.model.RequestSupplementalAttachment;
 import com.mckesson.eig.roi.request.model.RequestSupplementalDocument;
 import com.mckesson.eig.roi.request.model.RequestVersion;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.BeanUtilities;
 
 /**
@@ -958,8 +953,8 @@ public class RequestCorePatientDAOHelper
 
             String query = session.getNamedQuery("getEncounterListForPatient")
                     .getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.addScalar("encounterSeq", LongType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.addScalar("encounterSeq", Hibernate.LONG);
             sqlQuery.setParameterList("patientSeqList", patients);
 
             @SuppressWarnings("unchecked")
@@ -1202,8 +1197,8 @@ public class RequestCorePatientDAOHelper
                     .getNamedQuery("getDocumentsListForEncounter")
                     .getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
             List<Long> docList = new ArrayList<Long>();
             
             List<Long> paramList = new ArrayList<Long>();
@@ -1277,8 +1272,8 @@ public class RequestCorePatientDAOHelper
             String query = session.getNamedQuery("getVersionListForDocument")
                     .getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.addScalar("versionSeq", LongType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.addScalar("versionSeq", Hibernate.LONG);
             
             List<Long> versionList = new ArrayList<Long>();
             List<Long> paramList = new ArrayList<Long>();
@@ -1352,8 +1347,8 @@ public class RequestCorePatientDAOHelper
             String query = session.getNamedQuery(
                     "getGlobalDocumentsListForPatient").getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
             sqlQuery.setParameterList("patientSeqList", patients);
             List<Long> documents = sqlQuery.list();
 
@@ -1364,7 +1359,7 @@ public class RequestCorePatientDAOHelper
                     .getQueryString();
 
             sqlQuery = session.createSQLQuery(query);
-            sqlQuery.addScalar("versionSeq", LongType.INSTANCE);
+            sqlQuery.addScalar("versionSeq", Hibernate.LONG);
             sqlQuery.setParameterList("documentSeqList", documents);
 
             List<Long> versionList = sqlQuery.list();
@@ -1415,8 +1410,8 @@ public class RequestCorePatientDAOHelper
 
             String query = session.getNamedQuery("getPageListForVersion")
                     .getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.addScalar("pageSeq", LongType.INSTANCE);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            sqlQuery.addScalar("pageSeq", Hibernate.LONG);
 
             List<Long> pageList = new ArrayList<Long>();
             List<Long> paramList = new ArrayList<Long>();
@@ -1528,41 +1523,41 @@ public class RequestCorePatientDAOHelper
                     "retrieveAllAttachmentsByRequest")
                     .getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("attachmentCoreSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("attachmentSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("supplementalId", LongType.INSTANCE);
-            sqlQuery.addScalar("mrn", StringType.INSTANCE);
-            sqlQuery.addScalar("facility", StringType.INSTANCE);
-            sqlQuery.addScalar("type", StringType.INSTANCE);
-            sqlQuery.addScalar("encounter", StringType.INSTANCE);
-            sqlQuery.addScalar("docFacility", StringType.INSTANCE);
-            sqlQuery.addScalar("subtitle", StringType.INSTANCE);
-            sqlQuery.addScalar("pageCount", StringType.INSTANCE);
-            sqlQuery.addScalar("isDeleted", StringType.INSTANCE);
-            sqlQuery.addScalar("dateOfService", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("attachmentDate", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("uuid", StringType.INSTANCE);
-            sqlQuery.addScalar("filename", StringType.INSTANCE);
-            sqlQuery.addScalar("volume", StringType.INSTANCE);
-            sqlQuery.addScalar("path", StringType.INSTANCE);
-            sqlQuery.addScalar("filetype", StringType.INSTANCE);
-            sqlQuery.addScalar("fileext", StringType.INSTANCE);
-            sqlQuery.addScalar("printable", StringType.INSTANCE);
-            sqlQuery.addScalar("submittedBy", StringType.INSTANCE);
-            sqlQuery.addScalar("comment", StringType.INSTANCE);
-            sqlQuery.addScalar("selectedForRelease", BooleanType.INSTANCE);
-            sqlQuery.addScalar("released", BooleanType.INSTANCE);
-            sqlQuery.addScalar("billingTierId", LongType.INSTANCE);
+            sqlQuery.addScalar("attachmentCoreSeq", Hibernate.LONG);
+            sqlQuery.addScalar("attachmentSeq", Hibernate.LONG);
+            sqlQuery.addScalar("patientSeq", Hibernate.LONG);
+            sqlQuery.addScalar("supplementalId", Hibernate.LONG);
+            sqlQuery.addScalar("mrn", Hibernate.STRING);
+            sqlQuery.addScalar("facility", Hibernate.STRING);
+            sqlQuery.addScalar("type", Hibernate.STRING);
+            sqlQuery.addScalar("encounter", Hibernate.STRING);
+            sqlQuery.addScalar("docFacility", Hibernate.STRING);
+            sqlQuery.addScalar("subtitle", Hibernate.STRING);
+            sqlQuery.addScalar("pageCount", Hibernate.STRING);
+            sqlQuery.addScalar("isDeleted", Hibernate.STRING);
+            sqlQuery.addScalar("dateOfService", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("attachmentDate", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("uuid", Hibernate.STRING);
+            sqlQuery.addScalar("filename", Hibernate.STRING);
+            sqlQuery.addScalar("volume", Hibernate.STRING);
+            sqlQuery.addScalar("path", Hibernate.STRING);
+            sqlQuery.addScalar("filetype", Hibernate.STRING);
+            sqlQuery.addScalar("fileext", Hibernate.STRING);
+            sqlQuery.addScalar("printable", Hibernate.STRING);
+            sqlQuery.addScalar("submittedBy", Hibernate.STRING);
+            sqlQuery.addScalar("comment", Hibernate.STRING);
+            sqlQuery.addScalar("selectedForRelease", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("released", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("billingTierId", Hibernate.LONG);
 
-            sqlQuery.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("modifiedBy", IntegerType.INSTANCE);
-            sqlQuery.addScalar("createdBy", IntegerType.INSTANCE);
+            sqlQuery.addScalar("createdDt", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("modifiedDt", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("modifiedBy", Hibernate.INTEGER);
+            sqlQuery.addScalar("createdBy", Hibernate.INTEGER);
 
-            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers.aliasToBean(
                     RequestSupplementalAttachment.class));
 
@@ -1614,32 +1609,32 @@ public class RequestCorePatientDAOHelper
                     "retrieveAllNonHpfDocumentsByRequest")
                     .getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("documentCoreSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("supplementalId", LongType.INSTANCE);
-            sqlQuery.addScalar("mrn", StringType.INSTANCE);
-            sqlQuery.addScalar("facility", StringType.INSTANCE);
-            sqlQuery.addScalar("docName", StringType.INSTANCE);
-            sqlQuery.addScalar("encounter", StringType.INSTANCE);
-            sqlQuery.addScalar("docFacility", StringType.INSTANCE);
-            sqlQuery.addScalar("department", StringType.INSTANCE);
-            sqlQuery.addScalar("subtitle", StringType.INSTANCE);
-            sqlQuery.addScalar("pageCount", StringType.INSTANCE);
-            sqlQuery.addScalar("dateOfService", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("comment", StringType.INSTANCE);
-            sqlQuery.addScalar("selectedForRelease", BooleanType.INSTANCE);
-            sqlQuery.addScalar("released", BooleanType.INSTANCE);
-            sqlQuery.addScalar("billingTierId", LongType.INSTANCE);
+            sqlQuery.addScalar("documentCoreSeq", Hibernate.LONG);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
+            sqlQuery.addScalar("patientSeq", Hibernate.LONG);
+            sqlQuery.addScalar("supplementalId", Hibernate.LONG);
+            sqlQuery.addScalar("mrn", Hibernate.STRING);
+            sqlQuery.addScalar("facility", Hibernate.STRING);
+            sqlQuery.addScalar("docName", Hibernate.STRING);
+            sqlQuery.addScalar("encounter", Hibernate.STRING);
+            sqlQuery.addScalar("docFacility", Hibernate.STRING);
+            sqlQuery.addScalar("department", Hibernate.STRING);
+            sqlQuery.addScalar("subtitle", Hibernate.STRING);
+            sqlQuery.addScalar("pageCount", Hibernate.STRING);
+            sqlQuery.addScalar("dateOfService", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("comment", Hibernate.STRING);
+            sqlQuery.addScalar("selectedForRelease", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("released", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("billingTierId", Hibernate.LONG);
 
-            sqlQuery.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("modifiedBy", IntegerType.INSTANCE);
-            sqlQuery.addScalar("createdBy", IntegerType.INSTANCE);
+            sqlQuery.addScalar("createdDt", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("modifiedDt", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("modifiedBy", Hibernate.INTEGER);
+            sqlQuery.addScalar("createdBy", Hibernate.INTEGER);
 
-            sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestId", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers.aliasToBean(
                     RequestSupplementalDocument.class));
 
@@ -1688,23 +1683,23 @@ public class RequestCorePatientDAOHelper
             String query =
                     session.getNamedQuery("retrieveRequestPatientEncounter")
                             .getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("encounterSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("name", StringType.INSTANCE);
-            sqlQuery.addScalar("facility", StringType.INSTANCE);
-            sqlQuery.addScalar("patientType", StringType.INSTANCE);
-            sqlQuery.addScalar("patientService", StringType.INSTANCE);
-            sqlQuery.addScalar("mrn", StringType.INSTANCE);
+            sqlQuery.addScalar("encounterSeq", Hibernate.LONG);
+            sqlQuery.addScalar("patientSeq", Hibernate.LONG);
+            sqlQuery.addScalar("name", Hibernate.STRING);
+            sqlQuery.addScalar("facility", Hibernate.STRING);
+            sqlQuery.addScalar("patientType", Hibernate.STRING);
+            sqlQuery.addScalar("patientService", Hibernate.STRING);
+            sqlQuery.addScalar("mrn", Hibernate.STRING);
 
-            sqlQuery.addScalar("vip", BooleanType.INSTANCE);
-            sqlQuery.addScalar("locked", BooleanType.INSTANCE);
-            sqlQuery.addScalar("hasDeficiency", BooleanType.INSTANCE);
-            sqlQuery.addScalar("admitdate", StandardBasicTypes.TIMESTAMP);
-            sqlQuery.addScalar("dischargeDate", StandardBasicTypes.TIMESTAMP);
+            sqlQuery.addScalar("vip", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("locked", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("hasDeficiency", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("admitdate", Hibernate.TIMESTAMP);
+            sqlQuery.addScalar("dischargeDate", Hibernate.TIMESTAMP);
 
-            sqlQuery.setParameter("requestid", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestid", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers
                     .aliasToBean(RequestEncounter.class));
 
@@ -1751,20 +1746,20 @@ public class RequestCorePatientDAOHelper
 
             String query = session.getNamedQuery(
                     "retrieveRequestPatientDocument").getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("encounterSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("name", StringType.INSTANCE);
-            sqlQuery.addScalar("chartOrder", StringType.INSTANCE);
-            sqlQuery.addScalar("subtitle", StringType.INSTANCE);
-            // sqlQuery.addScalar("duid", StringType.INSTANCE);
-            sqlQuery.addScalar("docId", LongType.INSTANCE);
-            sqlQuery.addScalar("docTypeId", LongType.INSTANCE);
-            sqlQuery.addScalar("dateTime", StandardBasicTypes.TIMESTAMP);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
+            sqlQuery.addScalar("encounterSeq", Hibernate.LONG);
+            sqlQuery.addScalar("patientSeq", Hibernate.LONG);
+            sqlQuery.addScalar("name", Hibernate.STRING);
+            sqlQuery.addScalar("chartOrder", Hibernate.STRING);
+            sqlQuery.addScalar("subtitle", Hibernate.STRING);
+            // sqlQuery.addScalar("duid", Hibernate.STRING);
+            sqlQuery.addScalar("docId", Hibernate.LONG);
+            sqlQuery.addScalar("docTypeId", Hibernate.LONG);
+            sqlQuery.addScalar("dateTime", Hibernate.TIMESTAMP);
 
-            sqlQuery.setParameter("requestid", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestid", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers
                     .aliasToBean(RequestDocument.class));
 
@@ -1814,20 +1809,20 @@ public class RequestCorePatientDAOHelper
                     "retrieveRequestPatientGlobalDocument")
                     .getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("encounterSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("patientSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("name", StringType.INSTANCE);
-            sqlQuery.addScalar("chartOrder", StringType.INSTANCE);
-            sqlQuery.addScalar("subtitle", StringType.INSTANCE);
-            // sqlQuery.addScalar("duid", StringType.INSTANCE);
-            sqlQuery.addScalar("docId", LongType.INSTANCE);
-            sqlQuery.addScalar("docTypeId", LongType.INSTANCE);
-            sqlQuery.addScalar("dateTime", StandardBasicTypes.TIMESTAMP);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
+            sqlQuery.addScalar("encounterSeq", Hibernate.LONG);
+            sqlQuery.addScalar("patientSeq", Hibernate.LONG);
+            sqlQuery.addScalar("name", Hibernate.STRING);
+            sqlQuery.addScalar("chartOrder", Hibernate.STRING);
+            sqlQuery.addScalar("subtitle", Hibernate.STRING);
+            // sqlQuery.addScalar("duid", Hibernate.STRING);
+            sqlQuery.addScalar("docId", Hibernate.LONG);
+            sqlQuery.addScalar("docTypeId", Hibernate.LONG);
+            sqlQuery.addScalar("dateTime", Hibernate.TIMESTAMP);
 
-            sqlQuery.setParameter("requestid", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestid", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers
                     .aliasToBean(RequestDocument.class));
 
@@ -1877,15 +1872,15 @@ public class RequestCorePatientDAOHelper
                     "retrieveRequestPatientGlobalDocumentVersions")
                     .getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("versionSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
+            sqlQuery.addScalar("versionSeq", Hibernate.LONG);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
 
-            sqlQuery.addScalar("versionNumber", LongType.INSTANCE);
-            sqlQuery.addScalar("docId", LongType.INSTANCE);
+            sqlQuery.addScalar("versionNumber", Hibernate.LONG);
+            sqlQuery.addScalar("docId", Hibernate.LONG);
 
-            sqlQuery.setParameter("requestid", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestid", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers
                     .aliasToBean(RequestVersion.class));
 
@@ -1935,20 +1930,20 @@ public class RequestCorePatientDAOHelper
                     "retrieveRequestPatientGlobalDocumentPages")
                     .getQueryString();
 
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("pageSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("versionSeq", LongType.INSTANCE);
+            sqlQuery.addScalar("pageSeq", Hibernate.LONG);
+            sqlQuery.addScalar("versionSeq", Hibernate.LONG);
 
-            sqlQuery.addScalar("imnetId", StringType.INSTANCE);
-            sqlQuery.addScalar("contentCount", LongType.INSTANCE);
-            sqlQuery.addScalar("selectedForRelease", BooleanType.INSTANCE);
-            sqlQuery.addScalar("released", BooleanType.INSTANCE);
-            sqlQuery.addScalar("pageNumber", IntegerType.INSTANCE);
-            sqlQuery.addScalar("pageNumberRequested", IntegerType.INSTANCE);
-            sqlQuery.addScalar("deleted", BooleanType.INSTANCE);
+            sqlQuery.addScalar("imnetId", Hibernate.STRING);
+            sqlQuery.addScalar("contentCount", Hibernate.LONG);
+            sqlQuery.addScalar("selectedForRelease", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("released", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("pageNumber", Hibernate.INTEGER);
+            sqlQuery.addScalar("pageNumberRequested", Hibernate.INTEGER);
+            sqlQuery.addScalar("deleted", Hibernate.BOOLEAN);
 
-            sqlQuery.setParameter("requestid", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestid", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers
                     .aliasToBean(RequestPage.class));
 
@@ -1995,15 +1990,15 @@ public class RequestCorePatientDAOHelper
             String query =
                     session.getNamedQuery("retrieveRequestDocumentsVersion")
                             .getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("versionSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("documentSeq", LongType.INSTANCE);
+            sqlQuery.addScalar("versionSeq", Hibernate.LONG);
+            sqlQuery.addScalar("documentSeq", Hibernate.LONG);
 
-            sqlQuery.addScalar("versionNumber", LongType.INSTANCE);
-            sqlQuery.addScalar("docId", LongType.INSTANCE);
+            sqlQuery.addScalar("versionNumber", Hibernate.LONG);
+            sqlQuery.addScalar("docId", Hibernate.LONG);
 
-            sqlQuery.setParameter("requestid", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestid", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers
                     .aliasToBean(RequestVersion.class));
 
@@ -2050,20 +2045,20 @@ public class RequestCorePatientDAOHelper
             String query = session
                     .getNamedQuery("retrieveRequestDocumentsPage")
                     .getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
+            SQLQuery sqlQuery = session.createSQLQuery(query);
 
-            sqlQuery.addScalar("pageSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("versionSeq", LongType.INSTANCE);
+            sqlQuery.addScalar("pageSeq", Hibernate.LONG);
+            sqlQuery.addScalar("versionSeq", Hibernate.LONG);
 
-            sqlQuery.addScalar("imnetId", StringType.INSTANCE);
-            sqlQuery.addScalar("contentCount", LongType.INSTANCE);
-            sqlQuery.addScalar("selectedForRelease", BooleanType.INSTANCE);
-            sqlQuery.addScalar("released", BooleanType.INSTANCE);
-            sqlQuery.addScalar("pageNumber", IntegerType.INSTANCE);
-            sqlQuery.addScalar("pageNumberRequested", IntegerType.INSTANCE);
-            sqlQuery.addScalar("deleted", BooleanType.INSTANCE);
+            sqlQuery.addScalar("imnetId", Hibernate.STRING);
+            sqlQuery.addScalar("contentCount", Hibernate.LONG);
+            sqlQuery.addScalar("selectedForRelease", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("released", Hibernate.BOOLEAN);
+            sqlQuery.addScalar("pageNumber", Hibernate.INTEGER);
+            sqlQuery.addScalar("pageNumberRequested", Hibernate.INTEGER);
+            sqlQuery.addScalar("deleted", Hibernate.BOOLEAN);
 
-            sqlQuery.setParameter("requestid", requestId, LongType.INSTANCE);
+            sqlQuery.setParameter("requestid", requestId, Hibernate.LONG);
             sqlQuery.setResultTransformer(Transformers
                     .aliasToBean(RequestPage.class));
 

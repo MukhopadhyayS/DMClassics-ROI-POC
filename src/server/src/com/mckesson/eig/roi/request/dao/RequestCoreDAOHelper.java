@@ -21,14 +21,10 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.StandardBasicTypes;
-import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -65,23 +61,23 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("updateRequestorCore");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
-            query.setParameter("requestorSeq", requestor.getRequestorSeq(), LongType.INSTANCE);
-            query.setParameter("requestorType", requestor.getRequestorType(), LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
+            query.setParameter("requestorSeq", requestor.getRequestorSeq(), Hibernate.LONG);
+            query.setParameter("requestorType", requestor.getRequestorType(), Hibernate.LONG);
             query.setParameter("requestorTypeName", requestor.getRequestorTypeName(),
-                                                    StringType.INSTANCE);
-            query.setParameter("workPhone", requestor.getWorkPhone(), StringType.INSTANCE);
-            query.setParameter("homePhone", requestor.getHomePhone(), StringType.INSTANCE);
-            query.setParameter("cellPhone", requestor.getCellPhone(), StringType.INSTANCE);
-            query.setParameter("contactName", requestor.getContactName(), StringType.INSTANCE);
-            query.setParameter("contactPhone", requestor.getContactPhone(), StringType.INSTANCE);
-            query.setParameter("fax", requestor.getFax(), StringType.INSTANCE);
-            query.setParameter("firstName", requestor.getFirstName(), StringType.INSTANCE);
-            query.setParameter("middleName", requestor.getMiddleName(), StringType.INSTANCE);
-            query.setParameter("lastName", requestor.getLastName(), StringType.INSTANCE);
-            query.setParameter("suffix", null, StringType.INSTANCE);
-            query.setParameter("modifiedDt", requestor.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
-            query.setParameter("modifiedSeq", requestor.getModifiedBy(), IntegerType.INSTANCE);
+                                                    Hibernate.STRING);
+            query.setParameter("workPhone", requestor.getWorkPhone(), Hibernate.STRING);
+            query.setParameter("homePhone", requestor.getHomePhone(), Hibernate.STRING);
+            query.setParameter("cellPhone", requestor.getCellPhone(), Hibernate.STRING);
+            query.setParameter("contactName", requestor.getContactName(), Hibernate.STRING);
+            query.setParameter("contactPhone", requestor.getContactPhone(), Hibernate.STRING);
+            query.setParameter("fax", requestor.getFax(), Hibernate.STRING);
+            query.setParameter("firstName", requestor.getFirstName(), Hibernate.STRING);
+            query.setParameter("middleName", requestor.getMiddleName(), Hibernate.STRING);
+            query.setParameter("lastName", requestor.getLastName(), Hibernate.STRING);
+            query.setParameter("suffix", null, Hibernate.STRING);
+            query.setParameter("modifiedDt", requestor.getModifiedDate(), Hibernate.TIMESTAMP);
+            query.setParameter("modifiedSeq", requestor.getModifiedBy(), Hibernate.INTEGER);
 
             long noOfRowsUpdated = query.executeUpdate();
 
@@ -114,7 +110,7 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("deleteAllPagesByRequestId");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
             query.executeUpdate();
 
@@ -146,7 +142,7 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("deleteAllVersionsByRequestId");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
             query.executeUpdate();
 
@@ -178,7 +174,7 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("deleteAllDocumentsByRequestId");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
             query.executeUpdate();
 
@@ -210,7 +206,7 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("deleteAllEncountersByRequestId");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
             query.executeUpdate();
 
@@ -241,12 +237,12 @@ extends ROIDAOImpl {
         try {
             // delete Supplemental Attachments
             Query query = session.getNamedQuery("deleteAllSupplementalAttachmentsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             // delete Supplementarity Attachments
             query = session.getNamedQuery("deleteAllSupplementarityAttachmentsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -276,12 +272,12 @@ extends ROIDAOImpl {
         try {
             // delete Supplemental NonHpf Documents
             Query query = session.getNamedQuery("deleteAllSupplementalDocumentsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             // delete Supplementarity Non-Hpf Documents
             query = session.getNamedQuery("deleteAllSupplementarityDocumentsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -311,12 +307,12 @@ extends ROIDAOImpl {
 
             // deletes the hpf patients for the request
             Query query = session.getNamedQuery("deleteAllPatientsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             // deletes the suppelmental patients for the request
             query = session.getNamedQuery("deleteAllSupplementalPatientsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -347,12 +343,12 @@ extends ROIDAOImpl {
 
             // deletes the hpf patients request mapping table
             Query query = session.getNamedQuery("deleteAllRequestToPatientsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             // deletes the supplemental patients request mapping table
             query = session.getNamedQuery("deleteAllRequestToSupplementalPatientsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -382,7 +378,7 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("deleteRequestorByRequestId");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
             query.executeUpdate();
 
@@ -414,7 +410,7 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("deleteRequestById");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
             query.executeUpdate();
 
@@ -446,7 +442,7 @@ extends ROIDAOImpl {
 
             Query query = session.getNamedQuery("deleteRequestCoreEventById");
 
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
 
             query.executeUpdate();
 
@@ -1049,23 +1045,23 @@ extends ROIDAOImpl {
         try {
 
             Query query = session.getNamedQuery("deleteAllShippingByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllDocumentByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllFeeByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllInvoicePatientsByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllInvoicesByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -1094,23 +1090,23 @@ extends ROIDAOImpl {
         try {
 
             Query query = session.getNamedQuery("deleteAllBillingPaymentShippingInfoByRequest");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllBillingPaymentFeeChargesInfoByRequest");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllBillingPaymentDocChargesInfoByRequest");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllBillingPaymentsalesTaxInfoByRequest");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteRequestCoreCharges");
-            query.setParameter("requestCoreSeq", requestId, LongType.INSTANCE);
+            query.setParameter("requestCoreSeq", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             if (DO_DEBUG) {
@@ -1139,15 +1135,15 @@ extends ROIDAOImpl {
         try {
 
             Query query = session.getNamedQuery("deleteAllCoverLetterRequestHpfPatientByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             query = session.getNamedQuery("deleteAllCoverLetterRequestSupplementalPatientByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
             
             query = session.getNamedQuery("deleteAllCoverLetterByRequestId");
-            query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.setParameter("requestId", requestId, Hibernate.LONG);
             query.executeUpdate();
 
             if (DO_DEBUG) {

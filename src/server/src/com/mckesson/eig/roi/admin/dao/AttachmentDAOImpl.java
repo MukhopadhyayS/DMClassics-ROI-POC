@@ -44,7 +44,7 @@ public class AttachmentDAOImpl extends ROIDAOImpl implements AttachmentDAO {
     
     	@SuppressWarnings("unchecked")
     	// not supported by 3rdParty API
-    	List<SysParam> sysparams = (List<SysParam>) getHibernateTemplate().findByNamedQuery(
+    	List<SysParam> sysparams = getHibernateTemplate().findByNamedQuery(
     		"retrieveAttachmentLocation", key);
     
     	if (DO_DEBUG) {

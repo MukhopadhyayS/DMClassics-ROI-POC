@@ -78,7 +78,7 @@ public class MUROIOutboundDAOImpl extends ROIDAOImpl
                     + facility);
         }
         Object[] values = {fromDate, toDate, muDocName, facility};
-        List<MUROIOutboundStatistics> retriveMURequestDetailsForReport = (List<MUROIOutboundStatistics>) getHibernateTemplate()
+        List<MUROIOutboundStatistics> retriveMURequestDetailsForReport = getHibernateTemplate()
                 .findByNamedQuery("retriveFromROIOutboundForDetailsView",
                         values);
 
@@ -109,7 +109,7 @@ public class MUROIOutboundDAOImpl extends ROIDAOImpl
                     + facility);
         }
         Object[] values = {fromDate, toDate, muDocName, facility};
-        List<MUROIOutboundStatistics> totalNumberOfReleasesList = (List<MUROIOutboundStatistics>) getHibernateTemplate()
+        List<MUROIOutboundStatistics> totalNumberOfReleasesList = getHibernateTemplate()
                 .findByNamedQuery("retriveFromROIOutboundForFacilityView",
                         values);
 
@@ -141,7 +141,7 @@ public class MUROIOutboundDAOImpl extends ROIDAOImpl
         int totalNumberCompliant = 0;
 
         Object[] values = {fromDate, toDate, muDocType, facility};
-        List<MUROIOutboundStatistics> totalNumberCompliantList = (List<MUROIOutboundStatistics>) getHibernateTemplate()
+        List<MUROIOutboundStatistics> totalNumberCompliantList = getHibernateTemplate()
                 .findByNamedQuery("retriveFromROIOutboundForFacilityView",
                         values);
         if (totalNumberCompliantList.size() > 0) {
@@ -187,7 +187,7 @@ public class MUROIOutboundDAOImpl extends ROIDAOImpl
             LOG.debug(logSM + ">>Start:" + requestId);
         }
         Object[] values = {requestId,requestId};
-        List<MUROIOutboundStatistics> muROIOutboundStatisticsList = (List<MUROIOutboundStatistics>) getHibernateTemplate()
+        List<MUROIOutboundStatistics> muROIOutboundStatisticsList = getHibernateTemplate()
                 .findByNamedQuery("getOutboundStatisticsByRequestIdandStatus",
                         values);
         for (int i = 0; muROIOutboundStatisticsList != null
@@ -262,7 +262,7 @@ public class MUROIOutboundDAOImpl extends ROIDAOImpl
             LOG.debug(logSM + ">>Start:");
         }
         Object[] values = {userID};
-        List<User> userList = (List<User>) getHibernateTemplate()
+        List<User> userList = getHibernateTemplate()
                 .findByNamedQuery("getUserName", values);
 
         User user = new User();
@@ -291,7 +291,7 @@ public class MUROIOutboundDAOImpl extends ROIDAOImpl
             LOG.debug(logSM + ">>Start:" + facilityCode);
         }
 
-        List<Facility> facilityList = (List<Facility>) getHibernateTemplate().findByNamedQuery(
+        List<Facility> facilityList = getHibernateTemplate().findByNamedQuery(
                 "getCodeSetIdForFacility", facilityCode);
         Facility facilityModel = new Facility();
         if (facilityList.size() > 0) {
