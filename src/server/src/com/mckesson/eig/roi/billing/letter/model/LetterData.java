@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.dm.core.common.logging.OCLogger;
+import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -56,7 +57,7 @@ public class LetterData {
     private String _templateFileId = StringUtilities.EMPTYSTRING;
     private String _salesTaxPercentage = StringUtilities.EMPTYSTRING;
     private String _outputMethod = StringUtilities.EMPTYSTRING;
-    private String _queuePassword = null;
+    private SecureStringAccessor _queuePassword = null;
     private boolean _hasNotes;
 
     //Invoice DueDate
@@ -644,8 +645,17 @@ public class LetterData {
     public String getOutputMethod() { return _outputMethod; }
     public void setOutputMethod(String outputMethod) { _outputMethod = StringUtilities.safe(outputMethod); }
 
-    public String getQueuePassword() { return _queuePassword; }
-    public void setQueuePassword(String queuePassword) { _queuePassword = StringUtilities.safe(queuePassword); }
+    public String getQueuePassword() {
+        StringBuilder builder = new StringBuilder();
+        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+            builder.append(chars);
+        });
+        return builder.toString();
+    }
+    public void setQueuePassword(String queuePassword) {
+        queuePassword = StringUtilities.safe(queuePassword);
+        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    }
 
     public String getRequestBalanceDue() { return _requestBalanceDue; }
     public void setRequestBalanceDue(String requestBalanceDue) {
