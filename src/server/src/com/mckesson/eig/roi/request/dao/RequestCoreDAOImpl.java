@@ -567,7 +567,10 @@ implements RequestCoreDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("createRequestEvent");
+            
+            String queryString = session.getNamedQuery("createRequestEvent")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("createdDate", getDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("CreatedBy", event.getCreatedBy(), IntegerType.INSTANCE);
@@ -576,9 +579,7 @@ implements RequestCoreDAO {
             query.setParameter("recordVersion", event.getRecordVersion(), IntegerType.INSTANCE);
             query.setParameter("requestCoreSeq", event.getRequestId(), LongType.INSTANCE);
             query.setParameter("name", event.getName(), StringType.INSTANCE);
-            query.setParameter("description", event.getDescription(), StringType.INSTANCE);
-
-            query.executeUpdate();
+            query.setParameter("description", event.getDescription(), StringType.INSTANCE);           
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:RequestEventId :" + event);

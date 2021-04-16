@@ -53,8 +53,8 @@ public class InUseServiceImpl implements InUseService {
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final int MILLIS_IN_MINUTE = 60000;
     private static final int DEFAULT_GRACE_PERIOD = 5;
-    private static final String QUARTZ_GROUP_NAME = "com.mckesson.eig.roi.inuse";
-    private static final String QUARTZ_JOB_NAME = "com.mckesson.eig.roi.inuse.service.InUseQuartzJob";
+    private static final String QUARTZ_GROUP_NAME = "com.mckesson.eig.roi.inuse.service";
+    private static final String QUARTZ_JOB_NAME = "InUseQuartzJob";
     private static final String AUTHENTICATED_USER = "authenticated_roi_user";
 
     private Scheduler _scheduler;
@@ -523,17 +523,20 @@ public class InUseServiceImpl implements InUseService {
         }
         String name = Long.toString(record.getRecordSequence());
         long fireTime = record.getModifiedDate().getTime()
-                        + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE); 
+                        + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE);
+        
+        JobDetail job = JobBuilder.newJob(InUseQuartzJob.class)
+                .withIdentity(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
+                .build();
         
         SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder
                 .newTrigger()
                 .withIdentity(name, QUARTZ_GROUP_NAME)
                 .startAt(new Date(fireTime)) // some Date
-                .forJob(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
                 .withSchedule(simpleSchedule().withRepeatCount(0))
                 .build();
         
-        _scheduler.scheduleJob(trigger);
+        _scheduler.scheduleJob(job,trigger);
     }
 
 
