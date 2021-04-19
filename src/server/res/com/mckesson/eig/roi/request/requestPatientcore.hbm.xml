@@ -20,7 +20,7 @@
 							VIP,
 							LOCKOUT)
 						VALUES(
-							?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10);
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
    		]]>
     </sql-query>
 
@@ -33,14 +33,14 @@
 				Created_By_Seq,
 				Modified_Dt,
 				Modified_By_Seq )
-			VALUES (?0,
+			VALUES (?,
 					(SELECT MAX(patient.ROI_Patients_Seq) FROM cabinet..ROI_Patients patient
-						WHERE patient.MRN = ?1
-						AND patient.Facility = ?2),
-						?3,
-						?4,
-						?5,
-						?6);
+						WHERE patient.MRN = ?
+						AND patient.Facility = ?),
+						?,
+						?,
+						?,
+						?);
    		]]>
     </sql-query>
 
