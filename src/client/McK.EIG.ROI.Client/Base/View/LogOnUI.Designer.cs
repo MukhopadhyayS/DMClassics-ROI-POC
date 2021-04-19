@@ -93,6 +93,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.PasswordTextBox.Location = new System.Drawing.Point(130, 68);
             this.PasswordTextBox.MaxLength = 32;
             this.PasswordTextBox.Name = "PasswordTextBox";
+            this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(210, 21);
             this.PasswordTextBox.TabIndex = 2;
             // 
