@@ -53,13 +53,13 @@
 				Created_By_Seq,
 				Modified_Dt,
 				Modified_By_Seq )
-			VALUES (?0,
+			VALUES (?,
 					(SELECT MAX(patient.ROI_SupplementalPatientsCore_Seq) FROM cabinet..ROI_SupplementalPatientsCore patient
-						WHERE patient.ROI_SupplementalPatients_Seq = ?1),
-						?2,
-						?3,
-						?4,
-						?5);
+						WHERE patient.ROI_SupplementalPatients_Seq = ?),
+						?,
+						?,
+						?,
+						?);
    		]]>
     </sql-query>
 
@@ -81,12 +81,12 @@
 								(SELECT MAX(pat.ROI_Patients_Seq)
 									FROM cabinet..ROI_Patients pat,
 										 cabinet..ROI_RequestCoretoROI_Patients core
-									WHERE pat.MRN = ?0
-										AND pat.FACILITY = ?1
+									WHERE pat.MRN = ?
+										AND pat.FACILITY = ?
 										AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
-										AND core.ROI_RequestCore_Seq = ?2),
+										AND core.ROI_RequestCore_Seq = ?),
 
-								 ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12);
+								 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
    		]]>
     </sql-query>
 
@@ -104,7 +104,7 @@
 								VIP,
 								HAS_DEFICIENCY,
 								PT_TYPE)
-							VALUES (?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10);
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
    		]]>
     </sql-query>
 
@@ -127,19 +127,19 @@
 								   (    (SELECT MAX(enc.ROI_Encounters_Seq)
 								   				FROM  cabinet..ROI_ENCOUNTERS enc,
 													cabinet..ROI_RequestCoretoROI_Patients core
-												WHERE enc.FACILITY = ?0
-													AND enc.ENCOUNTER = ?1
+												WHERE enc.FACILITY = ?
+													AND enc.ENCOUNTER = ?
 													AND enc.ROI_Patients_Seq = core.ROI_Patients_Seq
-													AND core.ROI_RequestCore_Seq = ?2),
+													AND core.ROI_RequestCore_Seq = ?),
 										(SELECT MAX(pat.ROI_Patients_Seq)
 												FROM cabinet..ROI_Patients pat,
 													 cabinet..ROI_RequestCoretoROI_Patients core
-												WHERE pat.MRN = ?3
-													AND pat.FACILITY = ?4
+												WHERE pat.MRN = ?
+													AND pat.FACILITY = ?
 													AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
-													AND core.ROI_RequestCore_Seq = ?5),
+													AND core.ROI_RequestCore_Seq = ?),
 
-										?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14)
+										?, ?, ?, ?, ?, ?, ?, ?, ?)
 
    		]]>
 
@@ -160,7 +160,7 @@
 									CHART_ORDER,
 									DATETIME)
 							VALUES
-								   ( ?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)
+								   ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
    		]]>
 
@@ -183,12 +183,12 @@
 								(SELECT MAX(pat.ROI_Patients_Seq)
 									FROM cabinet..ROI_Patients pat,
 										 cabinet..ROI_RequestCoretoROI_Patients core
-									WHERE pat.MRN = ?0
-										AND pat.FACILITY = ?1
+									WHERE pat.MRN = ?
+										AND pat.FACILITY = ?
 										AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
-										AND core.ROI_RequestCore_Seq = ?2),
+										AND core.ROI_RequestCore_Seq = ?),
 
-								?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)
+								?, ?, ?, ?, ?, ?, ?, ?, ?)
 
    		]]>
 
@@ -208,7 +208,7 @@
 									CHART_ORDER,
 									DATETIME)
 							VALUES
-								   ( ?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)
+								   ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
    		]]>
 
@@ -225,11 +225,11 @@
 								(
 									(SELECT MAX(doc.ROI_Documents_Seq) FROM cabinet..ROI_DOCUMENTS doc,
 													cabinet..ROI_RequestCoretoROI_Patients core
-											WHERE doc.DOC_ID = ?0
+											WHERE doc.DOC_ID = ?
 												AND doc.ROI_Patients_Seq = core.ROI_Patients_Seq
-												AND core.ROI_RequestCore_Seq = ?1),
+												AND core.ROI_RequestCore_Seq = ?),
 
-										?2, ?3)
+										?, ?)
    		]]>
 
     </sql-query>
@@ -241,7 +241,7 @@
 								VersionNumber,
 								Doc_Id)
 								
-						VALUES ( ?0, ?1, ?2)
+						VALUES ( ?, ?, ?)
    		]]>
 
     </sql-query>
@@ -257,12 +257,12 @@
 									(SELECT MAX(doc.ROI_Documents_Seq) 
 											FROM cabinet..ROI_DOCUMENTS doc,
 											 	 cabinet..ROI_RequestCoretoROI_Patients core
-											WHERE doc.DOC_ID = ?0
+											WHERE doc.DOC_ID = ?
 												AND doc.ROI_Patients_Seq = core.ROI_Patients_Seq
 												AND doc.ROI_Encounters_Seq is null
-												AND core.ROI_RequestCore_Seq = ?1),
+												AND core.ROI_RequestCore_Seq = ?),
 
-										?2, ?3)
+										?, ?)
    		]]>
 
     </sql-query>
@@ -283,13 +283,13 @@
 											cabinet..ROI_ENCOUNTERS enc,
 											cabinet..ROI_RequestCoretoROI_Patients core
 									WHERE ver.ROI_Documents_Seq = doc.ROI_Documents_Seq
-											AND ver.VersionNumber = ?0
-											AND ver.Doc_Id = ?1
+											AND ver.VersionNumber = ?
+											AND ver.Doc_Id = ?
 											AND doc.ROI_Encounters_Seq = enc.ROI_Encounters_Seq
 											AND enc.ROI_Patients_Seq = core.ROI_Patients_Seq
-											AND core.ROI_RequestCore_Seq = ?2),
+											AND core.ROI_RequestCore_Seq = ?),
 
-							?3, ?4, ?5, ?6, ?7, ?8)
+							?, ?, ?, ?, ?, ?)
 
    		]]>
     </sql-query>
@@ -309,13 +309,13 @@
 											cabinet..ROI_DOCUMENTS doc,
 											cabinet..ROI_RequestCoretoROI_Patients core
 									WHERE ver.ROI_Documents_Seq = doc.ROI_Documents_Seq
-											AND ver.VersionNumber = ?0
-											AND ver.Doc_Id = ?1
+											AND ver.VersionNumber = ?
+											AND ver.Doc_Id = ?
 											AND doc.ROI_Patients_Seq = core.ROI_Patients_Seq
 											AND doc.ROI_Encounters_Seq is null
-											AND core.ROI_RequestCore_Seq = ?2),
+											AND core.ROI_RequestCore_Seq = ?),
 
-							?3, ?4, ?5, ?6, ?7, ?8)
+							?, ?, ?, ?, ?, ?)
 
    		]]>
     </sql-query>
@@ -330,7 +330,7 @@
 							SelectedForRelease,
 							IsReleased,
 							PageNumberRequested)
-					VALUES (?0, ?1, ?2, ?3, ?4, ?5, ?6)
+					VALUES (?, ?, ?, ?, ?, ?, ?)
 
 	   ]]>
     </sql-query>
@@ -360,16 +360,16 @@
 								Modified_Dt,
 								Modified_By_Seq)
 							VALUES (
-								?0, ?1,
+								?, ?,
 								(SELECT MAX(pat.ROI_Patients_Seq)
 									FROM cabinet..ROI_Patients pat,
 										 cabinet..ROI_RequestCoretoROI_Patients core
-									WHERE pat.MRN = ?2
-										AND pat.FACILITY = ?3
+									WHERE pat.MRN = ?
+										AND pat.FACILITY = ?
 										AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
-										AND core.ROI_RequestCore_Seq = ?4),
+										AND core.ROI_RequestCore_Seq = ?),
 
-								?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19);
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
    		]]>
     </sql-query>
@@ -395,7 +395,7 @@
 								Created_By_Seq,
 								Modified_Dt,
 								Modified_By_Seq)
-							VALUES (?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17)
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
    		]]>
     </sql-query>
@@ -403,12 +403,12 @@
 	<sql-query name="updateSupplementarityDocument">
         <![CDATA[
 			UPDATE cabinet..ROI_SupplementarityDocumentsCore
-			SET SelectedForRelease = ?0,
-				ROI_BillingTier_Seq = ?1,
-				Modified_Dt = ?2,
-				Modified_By_Seq = ?3
+			SET SelectedForRelease = ?,
+				ROI_BillingTier_Seq = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?
 			WHERE
-				ROI_SupplementarityDocumentsCore_Seq = ?4
+				ROI_SupplementarityDocumentsCore_Seq = ?
 
    		]]>
     </sql-query>
@@ -416,19 +416,19 @@
 	<sql-query name="updateSupplementalDocument">
         <![CDATA[
 			UPDATE cabinet..ROI_SupplementalDocumentsCore
-			SET	ROI_BillingTier_Seq = ?0,
-				DOCNAME = ?1,
-				ENCOUNTER = ?2,
-				DEPARTMENT = ?3,
-				SUBTITLE = ?4,
-				PAGECOUNT = ?5,
-				DATEOFSERVICE = ?6,
-				COMMENT = ?7,
-				SelectedForRelease = ?8,
-				Modified_Dt = ?9,
-				Modified_By_Seq = ?10
+			SET	ROI_BillingTier_Seq = ?,
+				DOCNAME = ?,
+				ENCOUNTER = ?,
+				DEPARTMENT = ?,
+				SUBTITLE = ?,
+				PAGECOUNT = ?,
+				DATEOFSERVICE = ?,
+				COMMENT = ?,
+				SelectedForRelease = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?
 			WHERE
-				ROI_SupplementalDocumentsCore_Seq = ?11
+				ROI_SupplementalDocumentsCore_Seq = ?
 
    		]]>
     </sql-query>
@@ -436,13 +436,13 @@
 	<sql-query name="updateSupplementarityAttachment">
         <![CDATA[
 			UPDATE cabinet..ROI_SupplementarityAttachmentsCore
-			SET SelectedForRelease = ?0,
-				ROI_BillingTier_Seq = ?1,
-				Modified_Dt = ?2,
-				Modified_By_Seq = ?3,
-				Document_Source = ?4
+			SET SelectedForRelease = ?,
+				ROI_BillingTier_Seq = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?,
+				Document_Source = ?
 			WHERE
-				ROI_SupplementarityAttachmentsCore_Seq = ?5
+				ROI_SupplementarityAttachmentsCore_Seq = ?
 
    		]]>
     </sql-query>
@@ -450,31 +450,31 @@
 	<sql-query name="updateSupplementalAttachment">
         <![CDATA[
 			UPDATE cabinet..ROI_SupplementalAttachmentsCore
-			SET	ROI_BillingTier_Seq = ?0,
-				TYPE = ?1,
-				ENCOUNTER = ?2,
-				DOCFACILITY = ?3,
-				SUBTITLE = ?4,
-				PAGECOUNT = ?5,
-				ISDELETED = ?6,
-				DATEOFSERVICE = ?7,
-				ATTACHMENTDATE = ?8,
-				UUID = ?9,
-				FILENAME = ?10,
-				VOLUME = ?11,
-				PATH = ?12,
-				FILETYPE = ?13,
-				FILEEXT = ?14,
-				printable_flag = ?15,
-				SUBMITTEDBY = ?16,
-				COMMENT = ?17,
-				SelectedForRelease = ?18,
-				isreleased = ?19,
-				Modified_Dt = ?20,
-				Modified_By_Seq = ?21,
-				Document_Source = ?22
+			SET	ROI_BillingTier_Seq = ?,
+				TYPE = ?,
+				ENCOUNTER = ?,
+				DOCFACILITY = ?,
+				SUBTITLE = ?,
+				PAGECOUNT = ?,
+				ISDELETED = ?,
+				DATEOFSERVICE = ?,
+				ATTACHMENTDATE = ?,
+				UUID = ?,
+				FILENAME = ?,
+				VOLUME = ?,
+				PATH = ?,
+				FILETYPE = ?,
+				FILEEXT = ?,
+				printable_flag = ?,
+				SUBMITTEDBY = ?,
+				COMMENT = ?,
+				SelectedForRelease = ?,
+				isreleased = ?,
+				Modified_Dt = ?,
+				Modified_By_Seq = ?,
+				Document_Source = ?
 			WHERE
-				ROI_SupplementalAttachmentsCore_Seq = ?23
+				ROI_SupplementalAttachmentsCore_Seq = ?
 
    		]]>
     </sql-query>
@@ -511,17 +511,17 @@
 							Modified_By_Seq, 
 							Document_Source)
 						VALUES (
-							?0, ?1,
+							?, ?,
 							(SELECT MAX(pat.ROI_Patients_Seq)
 										FROM cabinet..ROI_Patients pat,
 											 cabinet..ROI_RequestCoretoROI_Patients core
-										WHERE pat.MRN = ?2
-											AND pat.FACILITY = ?3
+										WHERE pat.MRN = ?
+											AND pat.FACILITY = ?
 											AND pat.ROI_Patients_Seq = core.ROI_Patients_Seq
-											AND core.ROI_RequestCore_Seq = ?4),
+											AND core.ROI_RequestCore_Seq = ?),
 
-							?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, 
-							?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24, ?25, ?26, ?27, ?28, ?29)
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
    		]]>
     </sql-query>
 
@@ -558,8 +558,8 @@
 							Modified_By_Seq,
 							Document_Source)
 						VALUES
-							(?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13,
-							 ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24, ?25, ?26, ?27)
+							(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+							 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
    		]]>
     </sql-query>
 
@@ -588,10 +588,10 @@
 								(SELECT MAX(patient.ROI_SupplementalPatientsCore_Seq)
 									FROM ROI_SupplementalPatientsCore patient,
 										 ROI_RequestCoretoROI_SupplementalPatientsCore core
-									WHERE patient.ROI_SupplementalPatients_Seq = ?0
-										AND core.ROI_RequestCore_Seq = ?1
+									WHERE patient.ROI_SupplementalPatients_Seq = ?
+										AND core.ROI_RequestCore_Seq = ?
 										AND patient.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq),
-								?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17);
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
    		]]>
     </sql-query>
@@ -616,7 +616,7 @@
 								Created_By_Seq,
 								Modified_Dt,
 								Modified_By_Seq)
-							VALUES (?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16);
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
    ]]>
     </sql-query>
@@ -655,12 +655,12 @@
 								(SELECT MAX(patient.ROI_SupplementalPatientsCore_Seq)
 									FROM ROI_SupplementalPatientsCore patient,
 										 ROI_RequestCoretoROI_SupplementalPatientsCore core
-									WHERE patient.ROI_SupplementalPatients_Seq = ?0
-										AND core.ROI_RequestCore_Seq = ?1
+									WHERE patient.ROI_SupplementalPatients_Seq = ?
+										AND core.ROI_RequestCore_Seq = ?
 										AND patient.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq),
 
-								?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13,
-								?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24, ?25, ?26, ?27)
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+								?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
    		]]>
     </sql-query>
 
@@ -696,8 +696,8 @@
 							Modified_By_Seq,
 							Document_Source)
 					VALUES (
-							?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12,
-							?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24, ?25, ?26)
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
    ]]>
     </sql-query>
 
@@ -982,8 +982,8 @@
 	<sql-query name="updatePage">
 		<![CDATA[
 		        UPDATE cabinet..ROI_PAGES
-				SET SelectedForRelease = ?0
-				WHERE ROI_Pages_Seq = ?1
+				SET SelectedForRelease = ?
+				WHERE ROI_Pages_Seq = ?
 		 ]]>
 	</sql-query>
 
@@ -1366,7 +1366,7 @@
                             Modified_Dt,
                             Modified_By_Seq)
                         VALUES(
-                            ?0, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24);
+                            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
            ]]>
     </sql-query>
 
