@@ -187,10 +187,12 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
         }
         try {
             Session session = getSession();
-            Query query = session.getNamedQuery("updateROIRequestUnbillable");
+            String queryString = session.getNamedQuery("updateROIRequestUnbillable").getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            
             query.setParameter("unbillable", checked ? "true" : "false", StringType.INSTANCE);
             query.setParameter("modifiedDt", getDate(), StandardBasicTypes.TIMESTAMP);
-            query.executeUpdate();
+            
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }

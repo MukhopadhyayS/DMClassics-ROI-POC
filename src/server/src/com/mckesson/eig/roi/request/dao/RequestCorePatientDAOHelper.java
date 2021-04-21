@@ -1106,11 +1106,13 @@ public class RequestCorePatientDAOHelper
         }
         try {
 
-            Query sqlQuery = session.getNamedQuery(queryName);
+            //Query sqlQuery = session.getNamedQuery(queryName);
+            String queryString = session.getNamedQuery(queryName).getQueryString();
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
             
             List<Long> paramList = new ArrayList<Long>();
             int size = sequenceList.size();
-            int noOfRowsDeleted = 0;
+            //int noOfRowsDeleted = 0;
             
             /*
              *  As prepared statement has not been allowed to execute with more than 2000 parameters markers,
@@ -1127,12 +1129,6 @@ public class RequestCorePatientDAOHelper
                 paramList.addAll(sequenceList.subList(i, toIndex));
                 
                 sqlQuery.setParameterList("seqList", paramList);
-                noOfRowsDeleted += sqlQuery.executeUpdate();
-            }
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:No.Of Rows affected: "
-                        + noOfRowsDeleted);
             }
 
         } catch (DataIntegrityViolationException e) {
@@ -1162,10 +1158,11 @@ public class RequestCorePatientDAOHelper
         try {
 
             // Delete the Entry in ROI_RequestCoretoROI_Patients_Seq
-            Query query = session.getNamedQuery("deleteRequestCoreRoiPatient");
+            String queryString = session.getNamedQuery("deleteRequestCoreRoiPatient").getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            
             query.setLong("requestId", requestId);
             query.setParameterList("seqList", patients);
-            query.executeUpdate();
 
             // deletes the cover letter associated with the patient
             deleteRequestPatientDetailsById(session, patients, "deleteCoverLetterByRequestHpfPatientId");

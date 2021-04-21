@@ -42,11 +42,10 @@ implements CountryCodeConfigurationDAO {
         }
         try {
             Session session = getSession();
-            Query query = session.getNamedQuery("updateCountryCode");            
+            String queryString = session.getNamedQuery("updateCountryCode").getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("countryCode", country.getCountryCode(), StringType.INSTANCE);
             
-            query.executeUpdate();
-
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
