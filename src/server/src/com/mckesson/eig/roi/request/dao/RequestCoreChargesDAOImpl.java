@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
- * Copyright © 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+ * Copyright ï¿½ 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
  * Use of this software and related documentation is governed by a license agreement.
  * This material contains confidential, proprietary and trade secret information of
  * McKesson Information Solutions and is protected under United States
@@ -640,14 +640,10 @@ implements RequestCoreChargesDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("updateRequestCoreChargesAsUnReleased");
-
+            String queryString = session.getNamedQuery("updateRequestCoreChargesAsUnReleased")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-            int noOfRowsAffected = query.executeUpdate();
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:noOfRowsAffected:" + noOfRowsAffected);
-            }
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());

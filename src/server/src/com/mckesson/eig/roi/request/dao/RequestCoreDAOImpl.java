@@ -899,16 +899,15 @@ implements RequestCoreDAO {
         }
         try {
             Session session = getSession();
-            Query query;
-            query = session.getNamedQuery("updateRequestCoreUnbillable");
+            String queryString = session.getNamedQuery("updateRequestCoreUnbillable")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
             query.setParameter("unbillable", unbillable, BooleanType.INSTANCE);
             query.setParameter("modifiedDt", date, StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy", user.getInstanceId(),
                     IntegerType.INSTANCE);
-            query.executeUpdate();
 
-            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
