@@ -66,57 +66,58 @@ implements RequestCoreDeliveryDAO {
      * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#createRequestCoreDelivery(long)
      */
     @Override
-	public long createRequestCoreDelivery(long requestCoreId) {
-		final String logSM = "createRequestCoreDelivery(requestCoreId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreId);
-		}
-		try {
-			Session session = getSession();
-			String queryString = session.getNamedQuery("createRequestCoreDelivery").getQueryString();
+    public long createRequestCoreDelivery(long requestCoreId) {
+        final String logSM = "createRequestCoreDelivery(requestCoreId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("createRequestCoreDelivery").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
-			query.addScalar("requestCoreDeliveryId", LongType.INSTANCE);
-			query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
-			Long requestCoreDeliveryId = (Long) query.uniqueResult();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-			return requestCoreDeliveryId;
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            query.addScalar("requestCoreDeliveryId", LongType.INSTANCE);
+            query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
+            Long requestCoreDeliveryId = (Long) query.uniqueResult();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+            return requestCoreDeliveryId;
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /**
      * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDelivery(long)
      */
     @Override
-	public void deleteRequestCoreDelivery(long requestCoreDeliveryId) {
-    	final String logSM = "deleteRequestCoreDelivery(requestCoreDeliveryId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("deleteRequestCoreDelivery");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+    public void deleteRequestCoreDelivery(long requestCoreDeliveryId) {
+        final String logSM = "deleteRequestCoreDelivery(requestCoreDeliveryId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("deleteRequestCoreDelivery")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /**
      * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO
@@ -134,7 +135,7 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestIdForRequestCoreDelivery")
-                                        .getQueryString();
+                    .getQueryString();
 
             NativeQuery query = session.createSQLQuery(queryString);
             query.addScalar("requestId", LongType.INSTANCE);
@@ -163,270 +164,276 @@ implements RequestCoreDeliveryDAO {
     @Override
     public void createRequestCoreDeliveryToPages(long requestCoreDeliveryId, ReleasePages roiPages) {
 
-    	final String logSM = "createRequestCoreDeliveryToPages(requestCoreDeliveryId, roiPages)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
+        final String logSM = "createRequestCoreDeliveryToPages(requestCoreDeliveryId, roiPages)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
 
         try {
 
-			Session session = getSession();
-			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_Pages");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-			query.setParameter("roiPagesId", roiPages.getPageSeq(), LongType.INSTANCE);
-			query.setParameter("selfPayEncounter", roiPages.isSelfPayEncounter(), BooleanType.INSTANCE);
+            Session session = getSession();
+            String queryString = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_Pages")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            query.setParameter("roiPagesId", roiPages.getPageSeq(), LongType.INSTANCE);
+            query.setParameter("selfPayEncounter", roiPages.isSelfPayEncounter(), BooleanType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /**
      * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDeliveryToPages(long)
      */
     @Override
-	public void deleteRequestCoreDeliveryToPages(long requestCoreDeliveryId) {
-    	final String logSM = "deleteRequestCoreDeliveryToPages(requestCoreDeliveryId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
+    public void deleteRequestCoreDeliveryToPages(long requestCoreDeliveryId) {
+        final String logSM = "deleteRequestCoreDeliveryToPages(requestCoreDeliveryId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
 
-			Session session = getSession();
+            Session session = getSession();
 
-			String queryString = session.getNamedQuery("retrievePagesAndReleasedCount")
-			                            .getQueryString();
-			NativeQuery sqlQuery = session.createSQLQuery(queryString);
-			sqlQuery.setParameter("requestCoreDeliveryId", requestCoreDeliveryId);
-			List<Object[]> list = sqlQuery.list();
+            String queryString = session.getNamedQuery("retrievePagesAndReleasedCount")
+                    .getQueryString();
+            NativeQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setParameter("requestCoreDeliveryId", requestCoreDeliveryId);
+            List<Object[]> list = sqlQuery.list();
 
-			if (CollectionUtilities.hasContent(list)) {
+            if (CollectionUtilities.hasContent(list)) {
 
-			    queryString = session.getNamedQuery("updatePagesReleaseStatus")
-                                     .getQueryString();
+                queryString = session.getNamedQuery("updatePagesReleaseStatus")
+                        .getQueryString();
 
-    			for (Object[] obj : list) {
+                for (Object[] obj : list) {
 
-    			    sqlQuery = session.createSQLQuery(queryString);
-    			    // if the relesed count is greater than 1 then it is already released.
-    			    boolean isReleased = (null == obj[1]) ? false : (((Integer) obj[1]) > 1);
+                    sqlQuery = session.createSQLQuery(queryString);
+                    // if the relesed count is greater than 1 then it is already released.
+                    boolean isReleased = (null == obj[1]) ? false : (((Integer) obj[1]) > 1);
 
-    			    sqlQuery.setParameter("isReleased",isReleased);
-    			    sqlQuery.setParameter("pagesSeq", obj[0]);
-    			    sqlQuery.executeUpdate();
+                    sqlQuery.setParameter("isReleased",isReleased);
+                    sqlQuery.setParameter("pagesSeq", obj[0]);
 
-    			}
-			}
+                }
+            }
 
-			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_Pages");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            String queryStr = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_Pages")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryStr);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /**
      * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#createRequestCoreDeliveryToInvoice(long, long)
      */
     @Override
-	public void createRequestCoreDeliveryToInvoice(long requestCoreDeliveryId, long requestCoreDeliveryChagesId) {
-    	final String logSM = "createRequestCoreDeliveryToInvoice(requestCoreDeliveryId, requestCoreDeliveryChagesId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges");
-			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChagesId, LongType.INSTANCE);
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+    public void createRequestCoreDeliveryToInvoice(long requestCoreDeliveryId, long requestCoreDeliveryChagesId) {
+        final String logSM = "createRequestCoreDeliveryToInvoice(requestCoreDeliveryId, requestCoreDeliveryChagesId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChagesId, LongType.INSTANCE);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDeliveryToInvoice(long)
-	 */
-	@Override
-	public void deleteRequestCoreDeliveryToInvoice(long requestCoreDeliveryId) {
-		final String logSM = "deleteRequestCoreDeliveryToInvoice(requestCoreDeliveryId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDeliveryToInvoice(long)
+     */
+    @Override
+    public void deleteRequestCoreDeliveryToInvoice(long requestCoreDeliveryId) {
+        final String logSM = "deleteRequestCoreDeliveryToInvoice(requestCoreDeliveryId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_RequestCoreDeliveryCharges")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#retrieveNonReleasedInvoices(long)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Long> retrieveNonReleasedInvoices(long requestCoreId) {
-		final String logSM = "retrieveNonReleasedInvoices(requestCoreId)";
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#retrieveNonReleasedInvoices(long)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Long> retrieveNonReleasedInvoices(long requestCoreId) {
+        final String logSM = "retrieveNonReleasedInvoices(requestCoreId)";
 
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreId);
-		}
-		try {
-			Session session = getSession();
-			String queryString = session.getNamedQuery("retrieveNonReleasedInvoices").getQueryString();
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("retrieveNonReleasedInvoices").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.addScalar("invoiceId", LongType.INSTANCE);
-			query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
+            query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
-			List<Long> nonReleasedInvoices = query.list();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-			return nonReleasedInvoices;
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            List<Long> nonReleasedInvoices = query.list();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+            return nonReleasedInvoices;
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#retrieveNonReleasedInvoices(long)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean isRequestContainsNonReleasedInvoices(long requestCoreId) {
-	    final String logSM = "isRequestContainsNonReleasedInvoices(requestCoreId)";
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#retrieveNonReleasedInvoices(long)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean isRequestContainsNonReleasedInvoices(long requestCoreId) {
+        final String logSM = "isRequestContainsNonReleasedInvoices(requestCoreId)";
 
-	    if (DO_DEBUG) {
-	        LOG.debug(logSM + ">>Start:" + requestCoreId);
-	    }
-	    try {
-	        Session session = getSession();
-	        String queryString = session.getNamedQuery("isRequestContainsNonReleasedInvoices")
-	                                    .getQueryString();
-	        NativeQuery query = session.createSQLQuery(queryString);
-	        query.addScalar("isInvoiced", BooleanType.INSTANCE);
-	        query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("isRequestContainsNonReleasedInvoices")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.addScalar("isInvoiced", BooleanType.INSTANCE);
+            query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
-	         Boolean nonReleasedInvoices = (Boolean) query.uniqueResult();
+            Boolean nonReleasedInvoices = (Boolean) query.uniqueResult();
 
-	        if (DO_DEBUG) {
-	            LOG.debug(logSM + "<<End");
-	        }
-	        return (nonReleasedInvoices == null) ? false: nonReleasedInvoices.booleanValue();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+            return (nonReleasedInvoices == null) ? false: nonReleasedInvoices.booleanValue();
 
-	    } catch (DataIntegrityViolationException e) {
-	        throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-	    } catch (HibernateOptimisticLockingFailureException e) {
-	        throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-	    } catch (Exception e) {
-	        throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-	    }
-	}
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#retrieveInvoicesForRelease(long)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Long> retrieveInvoicesForRelease(long releaseId) {
-		final String logSM = "retrieveInvoicesForRelease(releseId)";
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#retrieveInvoicesForRelease(long)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Long> retrieveInvoicesForRelease(long releaseId) {
+        final String logSM = "retrieveInvoicesForRelease(releseId)";
 
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + releaseId);
-		}
-		try {
-			Session session = getSession();
-			String queryString = session.getNamedQuery("retrieveInvoicesForRelease").getQueryString();
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + releaseId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("retrieveInvoicesForRelease").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.addScalar("invoiceId", LongType.INSTANCE);
-			query.setParameter("releaseId", releaseId, LongType.INSTANCE);
+            query.setParameter("releaseId", releaseId, LongType.INSTANCE);
 
-			List<Long> nonReleasedInvoices = query.list();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-			return nonReleasedInvoices;
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            List<Long> nonReleasedInvoices = query.list();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+            return nonReleasedInvoices;
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#updateInvoiceReleased(long, boolean)
-	 */
-	@Override
-	public void updateInvoiceReleased(long invoiceId, boolean isReleased) {
-		final String logSM = "updateInvoiceReleased(invoiceId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + invoiceId);
-		}
-		try {
-			Session session = getSession();
-			Query query;
-			if (isReleased) {
-				query = session.getNamedQuery("updateInvoiceReleased");
-			}  else {
-				query = session.getNamedQuery("updateInvoiceReleaseCancelled");
-			}
-			query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#updateInvoiceReleased(long, boolean)
+     */
+    @Override
+    public void updateInvoiceReleased(long invoiceId, boolean isReleased) {
+        final String logSM = "updateInvoiceReleased(invoiceId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + invoiceId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = "";
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (isReleased) {
+                queryString = session.getNamedQuery("updateInvoiceReleased")
+                        .getQueryString();
+            }  else {
+                queryString = session.getNamedQuery("updateInvoiceReleaseCancelled")
+                        .getQueryString();
+            }
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /**
      * This method will create RequestCoreDeliveryCharges
@@ -451,42 +458,42 @@ implements RequestCoreDeliveryDAO {
             query.setParameter("modifiedBy", invoice.getModifiedBy(), LongType.INSTANCE);
             query.setParameter("isReleased", invoice.getIsReleased(), BooleanType.INSTANCE);
             query.setParameter("previouslyReleasedCost", invoice.getPreviouslyReleasedCost(),
-                                DoubleType.INSTANCE);
+                    DoubleType.INSTANCE);
             query.setParameter("totalPagesReleased", invoice.getTotalPagesReleased() ,
-                                IntegerType.INSTANCE);
+                    IntegerType.INSTANCE);
             query.setParameter("totalPages", invoice.getTotalPages() , IntegerType.INSTANCE);
             query.setParameter("salesTaxAmount", invoice.getSalesTaxAmount() , DoubleType.INSTANCE);
             query.setParameter("salesTaxPercentage", invoice.getSalesTaxPercentage(),
-                                DoubleType.INSTANCE);
+                    DoubleType.INSTANCE);
             query.setParameter("letterTemplateName", invoice.getLetterTemplateName(),
-                                StringType.INSTANCE);
+                    StringType.INSTANCE);
             query.setParameter("requestStatus", invoice.getRequestStatus(), StringType.INSTANCE);
             query.setParameter("requestDate", invoice.getRequestDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("letterTemplateFileId", invoice.getLetterTemplateFileId(),
-                               LongType.INSTANCE);
+                    LongType.INSTANCE);
             query.setParameter("type", invoice.getType(), StringType.INSTANCE);
             query.setParameter("invoicePrebillDate", invoice.getInvoicePrebillDate(),
-                                StandardBasicTypes.TIMESTAMP);
+                    StandardBasicTypes.TIMESTAMP);
             query.setParameter("invoiceDueDate", invoice.getInvoiceDueDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("resendDate", invoice.getResendDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("outputMethod", invoice.getOutputMethod(), StringType.INSTANCE);
             query.setParameter("queuePassword", invoice.getQueuePassword(), StringType.INSTANCE);
             query.setParameter("overwriteDueDate", invoice.getOverwriteDueDate(),
-                                BooleanType.INSTANCE);
+                    BooleanType.INSTANCE);
             query.setParameter("invoiceSalesTax", invoice.getInvoiceSalesTax(), DoubleType.INSTANCE);
             query.setParameter("baseCharge", invoice.getBaseCharge(), DoubleType.INSTANCE);
             query.setParameter("balanceDue", invoice.getBalanceDue(), DoubleType.INSTANCE);
             query.setParameter("invoiceBillingLocCode", invoice.getInvoiceBillingLocCode(),
-                                StringType.INSTANCE);
+                    StringType.INSTANCE);
             query.setParameter("invoiceBillinglocName", invoice.getInvoiceBillinglocName(),
-                                StringType.INSTANCE);
+                    StringType.INSTANCE);
             query.setParameter("invoiceBalanceDue", invoice.getInvoiceBalanceDue(),
-                                DoubleType.INSTANCE);
+                    DoubleType.INSTANCE);
             query.setParameter("releaseDate", invoice.getReleaseDate() , StandardBasicTypes.TIMESTAMP);
             query.setParameter("billingType", invoice.getBillingType() , StringType.INSTANCE);
             query.setParameter("unbillable", invoice.isUnbillable() , BooleanType.INSTANCE);
             query.setParameter("unbillableAmount", invoice.getUnbillableAmount(),
-                               DoubleType.INSTANCE);
+                    DoubleType.INSTANCE);
             query.setParameter("applySalesTax", invoice.getApplySalesTax() , BooleanType.INSTANCE);
             query.setParameter("notes", invoice.getNotes() , StringType.INSTANCE);
             query.setParameter("invoiceDueDays", invoice.getInvoiceDueDays() , LongType.INSTANCE);
@@ -506,10 +513,10 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -676,7 +683,7 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryCharges")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
@@ -732,10 +739,10 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -857,7 +864,7 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
         }
     }
-    
+
     /**
      * This method will retrieve RequestCoreDeliveryChargesAdjustmentPayment for prebill payment
      * @param List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesId
@@ -913,29 +920,7 @@ implements RequestCoreDeliveryDAO {
         }
     }
 
-    /*public void deleteRequestCoreDeliveryChargesAdjustmentPayment(long  requestCoreDeliveryChargesId) {
-        final String logSM = "deleteRequestCoreChargesAdjustmentPayment(requestCoreDeliveryChargesId)";
 
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId);
-        }
-        try{
-            Session session = getSession();
-            Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesAdjustmentPayment");
-            query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
-            query.executeUpdate();
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
-        } catch (DataIntegrityViolationException e) {
-            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-        } catch (HibernateOptimisticLockingFailureException e) {
-            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-        } catch (Exception e) {
-            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-        }
-    }*/
 
     @Override
     public void deleteRequestCoreDeliveryCharges(long requestCoreDeliveryChargesId) {
@@ -946,9 +931,10 @@ implements RequestCoreDeliveryDAO {
         }
         try{
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteRequestCoreDeliveryCharges");
+            String queryString = session.getNamedQuery("deleteRequestCoreDeliveryCharges")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -971,9 +957,10 @@ implements RequestCoreDeliveryDAO {
         }
         try{
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesFee");
+            String queryString = session.getNamedQuery("deleteRequestCoreDeliveryChargesFee")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -999,9 +986,10 @@ implements RequestCoreDeliveryDAO {
         }
         try {
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesShipping");
+            String queryString = session.getNamedQuery("deleteRequestCoreDeliveryChargesShipping")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -1024,9 +1012,10 @@ implements RequestCoreDeliveryDAO {
         }
         try{
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesDocument");
+            String queryString = session.getNamedQuery("deleteRequestCoreDeliveryChargesDocument")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -1050,9 +1039,10 @@ implements RequestCoreDeliveryDAO {
         }
         try{
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteRequestCoreDeliveryChargesInvoicePatients");
+            String queryString = session.getNamedQuery("deleteRequestCoreDeliveryChargesInvoicePatients")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -1072,68 +1062,69 @@ implements RequestCoreDeliveryDAO {
      * @param requestCoreDeliveryInvoicePatients
      */
     @Override
-	public void createInvoicePatients(RequestCoreDeliveryInvoicePatients requestCoreDeliveryInvoicePatients) {
-		final String logSM = "createInvoicePatients(requestCoreDeliveryInvoicePatients)";
+    public void createInvoicePatients(RequestCoreDeliveryInvoicePatients requestCoreDeliveryInvoicePatients) {
+        final String logSM = "createInvoicePatients(requestCoreDeliveryInvoicePatients)";
 
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryInvoicePatients);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("createInvoicePatients");
-			query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryInvoicePatients.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
-			query.setParameter("requestHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestHpfPatientsId(), LongType.INSTANCE);
-			query.setParameter("requestNonHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestNonHpfPatientsId(), LongType.INSTANCE);
-			query.setParameter("createdDt", requestCoreDeliveryInvoicePatients.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
-			query.setParameter("createdBy", requestCoreDeliveryInvoicePatients.getCreatedBy(), LongType.INSTANCE);
-			query.setParameter("modifiedDt", requestCoreDeliveryInvoicePatients.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
-			query.setParameter("modifiedBy", requestCoreDeliveryInvoicePatients.getModifiedBy(), LongType.INSTANCE);
-			query.list();
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryInvoicePatients);
+        }
+        try {
+            Session session = getSession();
+            Query query = session.getNamedQuery("createInvoicePatients");
+            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryInvoicePatients.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
+            query.setParameter("requestHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestHpfPatientsId(), LongType.INSTANCE);
+            query.setParameter("requestNonHpfPatientsId", requestCoreDeliveryInvoicePatients.getRequestNonHpfPatientsId(), LongType.INSTANCE);
+            query.setParameter("createdDt", requestCoreDeliveryInvoicePatients.getCreatedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("createdBy", requestCoreDeliveryInvoicePatients.getCreatedBy(), LongType.INSTANCE);
+            query.setParameter("modifiedDt", requestCoreDeliveryInvoicePatients.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
+            query.setParameter("modifiedBy", requestCoreDeliveryInvoicePatients.getModifiedBy(), LongType.INSTANCE);
+            query.list();
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     @Override
     public void createRequestCoreDeliveryToSupplementalAttachments(long requestCoreDeliveryId, Long supplementalAttachmentSeq) {
-    	final String logSM = "createRequestCoreDeliveryToSupplementalAttachments(requestCoreDeliveryId, supplementalAttachmentSeq)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-			query.setParameter("roiSupplementalAttachmentId", supplementalAttachmentSeq, LongType.INSTANCE);
+        final String logSM = "createRequestCoreDeliveryToSupplementalAttachments(requestCoreDeliveryId, supplementalAttachmentSeq)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            query.setParameter("roiSupplementalAttachmentId", supplementalAttachmentSeq, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     @Override
-	public void deleteRequestCoreDeliveryToSupplementalAttachments(long requestCoreDeliveryId) {
-    	final String logSM = "deleteRequestCoreDeliveryToPages(requestCoreDeliveryId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
+    public void deleteRequestCoreDeliveryToSupplementalAttachments(long requestCoreDeliveryId) {
+        final String logSM = "deleteRequestCoreDeliveryToPages(requestCoreDeliveryId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
 
-		    Session session = getSession();
+            Session session = getSession();
             String queryString = session.getNamedQuery("retrieveSupplementalAttachmentAndReleasedCount")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId", requestCoreDeliveryId);
             List<Object[]> list = sqlQuery.list();
@@ -1141,7 +1132,7 @@ implements RequestCoreDeliveryDAO {
             if (CollectionUtilities.hasContent(list)) {
 
                 queryString = session.getNamedQuery("updateSupplementalAttachmentsReleaseStatus")
-                                     .getQueryString();
+                        .getQueryString();
 
                 for (Object[] obj : list) {
 
@@ -1151,63 +1142,65 @@ implements RequestCoreDeliveryDAO {
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementalAttachmentId", obj[0]);
-                    sqlQuery.executeUpdate();
 
                 }
             }
 
-			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            String queryStr = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementalAttachmentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryStr);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
 
-	@Override
-	public void createRequestCoreDeliveryToSupplementalDocuments(long requestCoreDeliveryId, Long supplementalDocumentSeq) {
-		final String logSM = "createRequestCoreDeliveryToSupplementalDocuments(requestCoreDeliveryId, supplementalDocumentSeq)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-			query.setParameter("roiSupplementalDocumentId", supplementalDocumentSeq, LongType.INSTANCE);
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+    @Override
+    public void createRequestCoreDeliveryToSupplementalDocuments(long requestCoreDeliveryId, Long supplementalDocumentSeq) {
+        final String logSM = "createRequestCoreDeliveryToSupplementalDocuments(requestCoreDeliveryId, supplementalDocumentSeq)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            query.setParameter("roiSupplementalDocumentId", supplementalDocumentSeq, LongType.INSTANCE);
 
-	@Override
-	public void deleteRequestCoreDeliveryToSupplementalDocuments(long requestCoreDeliveryId) {
-		final String logSM = "deleteRequestCoreDeliveryToSupplementalDocuments(requestCoreDeliveryId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-			Session session = getSession();
-			String queryString = session.getNamedQuery("retrieveSupplementalDocumentAndReleasedCount")
-                                         .getQueryString();
+    @Override
+    public void deleteRequestCoreDeliveryToSupplementalDocuments(long requestCoreDeliveryId) {
+        final String logSM = "deleteRequestCoreDeliveryToSupplementalDocuments(requestCoreDeliveryId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+
+            Session session = getSession();
+            String queryString = session.getNamedQuery("retrieveSupplementalDocumentAndReleasedCount")
+                    .getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId", requestCoreDeliveryId);
             List<Object[]> list = sqlQuery.list();
@@ -1215,7 +1208,7 @@ implements RequestCoreDeliveryDAO {
             if (CollectionUtilities.hasContent(list)) {
 
                 queryString = session.getNamedQuery("updateSupplementalDocumentsReleaseStatus")
-                                     .getQueryString();
+                        .getQueryString();
 
                 for (Object[] obj : list) {
 
@@ -1224,73 +1217,76 @@ implements RequestCoreDeliveryDAO {
                     // released.
                     boolean isReleased = (null == obj[1])
                             ? false
-                            : (((Integer) obj[1]) > 1);
+                                    : (((Integer) obj[1]) > 1);
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementalDocumentId", obj[0]);
-                    sqlQuery.executeUpdate();
 
                 }
             }
 
-			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            String queryStr = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementalDocumentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryStr);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#createRequestCoreDeliveryToSupplementarityAttachments(long, java.lang.Long)
-	 */
-	@Override
-	public void createRequestCoreDeliveryToSupplementarityAttachments(long requestCoreDeliveryId, Long supplementarityAttachmentSeq) {
-		final String logSM = "createRequestCoreDeliveryToSupplementarityAttachments(requestCoreDeliveryId, supplementarityAttachmentSeq)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-			query.setParameter("roiSupplementarityAttachmentId", supplementarityAttachmentSeq, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDeliveryToSupplementarityAttachments(long)
-	 */
-	@Override
-	public void deleteRequestCoreDeliveryToSupplementarityAttachments(long requestCoreDeliveryId) {
-		final String logSM = "deleteRequestCoreDeliveryToSupplementarityAttachments(requestCoreDeliveryId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#createRequestCoreDeliveryToSupplementarityAttachments(long, java.lang.Long)
+     */
+    @Override
+    public void createRequestCoreDeliveryToSupplementarityAttachments(long requestCoreDeliveryId, Long supplementarityAttachmentSeq) {
+        final String logSM = "createRequestCoreDeliveryToSupplementarityAttachments(requestCoreDeliveryId, supplementarityAttachmentSeq)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            query.setParameter("roiSupplementarityAttachmentId", supplementarityAttachmentSeq, LongType.INSTANCE);
 
-			Session session = getSession();
-			String queryString = session.getNamedQuery("retrieveSupplementarityAttachmentAndReleasedCount")
-                                        .getQueryString();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
+
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDeliveryToSupplementarityAttachments(long)
+     */
+    @Override
+    public void deleteRequestCoreDeliveryToSupplementarityAttachments(long requestCoreDeliveryId) {
+        final String logSM = "deleteRequestCoreDeliveryToSupplementarityAttachments(requestCoreDeliveryId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+
+            Session session = getSession();
+            String queryString = session.getNamedQuery("retrieveSupplementarityAttachmentAndReleasedCount")
+                    .getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId",
                     requestCoreDeliveryId);
@@ -1299,7 +1295,7 @@ implements RequestCoreDeliveryDAO {
             if (CollectionUtilities.hasContent(list)) {
 
                 queryString = session.getNamedQuery("updateSupplementarityAttachmentsReleaseStatus")
-                                     .getQueryString();
+                        .getQueryString();
 
                 for (Object[] obj : list) {
 
@@ -1308,72 +1304,73 @@ implements RequestCoreDeliveryDAO {
                     // released.
                     boolean isReleased = (null == obj[1])
                             ? false
-                            : (((Integer) obj[1]) > 1);
+                                    : (((Integer) obj[1]) > 1);
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementarityAttachmentId", obj[0]);
-                    sqlQuery.executeUpdate();
 
                 }
             }
 
-			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            String queryStr = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementarityAttachmentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryStr);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#createRequestCoreDeliveryToSupplementarityDocuments(long, java.lang.Long)
-	 */
-	@Override
-	public void createRequestCoreDeliveryToSupplementarityDocuments(long requestCoreDeliveryId, Long supplementarityDocumentSeq) {
-		final String logSM = "createRequestCoreDeliveryToSupplementarityDocuments(requestCoreDeliveryId, supplementarityDocumentSeq)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
-			Session session = getSession();
-			Query query = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-			query.setParameter("roiSupplementarityDocumentId", supplementarityDocumentSeq, LongType.INSTANCE);
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#createRequestCoreDeliveryToSupplementarityDocuments(long, java.lang.Long)
+     */
+    @Override
+    public void createRequestCoreDeliveryToSupplementarityDocuments(long requestCoreDeliveryId, Long supplementarityDocumentSeq) {
+        final String logSM = "createRequestCoreDeliveryToSupplementarityDocuments(requestCoreDeliveryId, supplementarityDocumentSeq)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("createROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            query.setParameter("roiSupplementarityDocumentId", supplementarityDocumentSeq, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
-	/**
-	 * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDeliveryToSupplementarityDocuments(long)
-	 */
-	@Override
-	public void deleteRequestCoreDeliveryToSupplementarityDocuments(long requestCoreDeliveryId) {
-		final String logSM = "deleteRequestCoreDeliveryToSupplementarityDocuments(requestCoreDeliveryId)";
-		if (DO_DEBUG) {
-			LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
-		}
-		try {
+    /**
+     * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#deleteRequestCoreDeliveryToSupplementarityDocuments(long)
+     */
+    @Override
+    public void deleteRequestCoreDeliveryToSupplementarityDocuments(long requestCoreDeliveryId) {
+        final String logSM = "deleteRequestCoreDeliveryToSupplementarityDocuments(requestCoreDeliveryId)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryId);
+        }
+        try {
 
-			Session session = getSession();
-			String queryString = session.getNamedQuery("retrieveSupplementarityDocumentAndReleasedCount")
+            Session session = getSession();
+            String queryString = session.getNamedQuery("retrieveSupplementarityDocumentAndReleasedCount")
                     .getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setParameter("requestCoreDeliveryId",
@@ -1383,7 +1380,7 @@ implements RequestCoreDeliveryDAO {
             if (CollectionUtilities.hasContent(list)) {
 
                 queryString = session.getNamedQuery("updateSupplementarityDocumentsReleaseStatus")
-                                     .getQueryString();
+                        .getQueryString();
 
                 for (Object[] obj : list) {
 
@@ -1394,26 +1391,26 @@ implements RequestCoreDeliveryDAO {
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementarityDocumentId", obj[0]);
-                    sqlQuery.executeUpdate();
 
                 }
             }
 
-			Query query = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore");
-			query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            String queryStr = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
 
-			query.executeUpdate();
-			if (DO_DEBUG) {
-				LOG.debug(logSM + "<<End");
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-		} catch (HibernateOptimisticLockingFailureException e) {
-			throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-		} catch (Exception e) {
-			throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-		}
-	}
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /**
      * This method will save the sales tax reason details.
@@ -1494,10 +1491,10 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -1518,7 +1515,7 @@ implements RequestCoreDeliveryDAO {
         try {
 
             List<RequestCoreDeliveryCharges> rcDeliveryChargesList =
-                                            retrieveRequestCoreDeliveryCharges(requestCoreId);
+                    retrieveRequestCoreDeliveryCharges(requestCoreId);
 
             List<Invoice> invList = new ArrayList<Invoice>();
             if (rcDeliveryChargesList != null && rcDeliveryChargesList.size() > 0) {
@@ -1540,7 +1537,7 @@ implements RequestCoreDeliveryDAO {
                     inv.setResendDate(ROIConstants.DATETIME_FORMATTER.format(info.getResendDate()));
                     inv.setOutputMethod(info.getOutputMethod());
                     inv.setInvoiceDueDate(ROIConstants.DATE_FORMATTER.format(
-                                                            info.getInvoiceDueDate()));
+                            info.getInvoiceDueDate()));
 
                     //Added to show total adjustment and total payment
                     //of invoice in invoice history.
@@ -1570,10 +1567,10 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -1587,7 +1584,7 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesInvoice")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesId", rcdChargesSeq, LongType.INSTANCE);
 
@@ -1643,16 +1640,16 @@ implements RequestCoreDeliveryDAO {
                 LOG.debug(logSM + "<<End");
             }
             return (CollectionUtilities.hasContent(requestCoreDeliveryChargesList))
-                                        ? requestCoreDeliveryChargesList.get(0) : null;
+                    ? requestCoreDeliveryChargesList.get(0) : null;
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -1775,11 +1772,12 @@ implements RequestCoreDeliveryDAO {
         }
         try{
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteSalesTaxReason");
+            String queryString = session.getNamedQuery("deleteSalesTaxReason")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("requestCoreChargesSeq", requestCoreChargesId, LongType.INSTANCE);
 
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -1841,7 +1839,7 @@ implements RequestCoreDeliveryDAO {
      */
     @Override
     public List<RequestCoreDeliveryChargesFee>  retrieveAllDeliveryChargesFeeByInvoice(
-                                                                    List<Long> rcdChargesId) {
+            List<Long> rcdChargesId) {
 
         final String logSM = "retrieveAllDeliveryChargesFeeByInvoice(rcdChargesId)";
 
@@ -1852,7 +1850,7 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesFee")
-                                        .getQueryString();
+                    .getQueryString();
 
             NativeQuery query = session.createSQLQuery(queryString);
 
@@ -1893,7 +1891,7 @@ implements RequestCoreDeliveryDAO {
      */
     @Override
     public List<RequestCoreDeliveryChargesFee>  retrieveAllDeliveryChargesDistinctFeeByInvoice(
-                                                                    List<Long> rcdChargesId) {
+            List<Long> rcdChargesId) {
 
         final String logSM = "retrieveAllDeliveryChargesDistinctFeeByInvoice(rcdChargesId)";
 
@@ -1904,7 +1902,7 @@ implements RequestCoreDeliveryDAO {
 
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesDistinctFee")
-                                        .getQueryString();
+                    .getQueryString();
 
             NativeQuery query = session.createSQLQuery(queryString);
 
@@ -1936,7 +1934,7 @@ implements RequestCoreDeliveryDAO {
      */
     @Override
     public List<RequestCoreDeliveryChargesDocument> retrieveAllDeliveryChargesDocument(
-                                                                     List<Long> rcdChargesId) {
+            List<Long> rcdChargesId) {
 
         final String logSM = "retrieveAllDeliveryChargesDocument(rcdChargesId)";
         if (DO_DEBUG) {
@@ -1946,7 +1944,7 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesDocument")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("rcdChargesSeq", rcdChargesId);
@@ -1968,7 +1966,7 @@ implements RequestCoreDeliveryDAO {
             query.addScalar("recordVersion", IntegerType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(
-                                                        RequestCoreDeliveryChargesDocument.class));
+                    RequestCoreDeliveryChargesDocument.class));
 
             List<RequestCoreDeliveryChargesDocument> rcdChargesDocument = query.list();
             if (DO_DEBUG) {
@@ -1993,7 +1991,7 @@ implements RequestCoreDeliveryDAO {
      */
     @Override
     public List<RequestCoreDeliveryChargesDocument> retrieveAllDeliveryChargesDistinctDocument(
-                                                                     List<Long> rcdChargesId) {
+            List<Long> rcdChargesId) {
 
         final String logSM = "retrieveAllDeliveryChargesDistinctDocument(rcdChargesId)";
         if (DO_DEBUG) {
@@ -2003,14 +2001,14 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveDeliveryChargesDistinctDocument")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("rcdChargesSeq", rcdChargesId);
             query.addScalar("billingTierName", StringType.INSTANCE);
 
             query.setResultTransformer(Transformers.aliasToBean(
-                                                        RequestCoreDeliveryChargesDocument.class));
+                    RequestCoreDeliveryChargesDocument.class));
 
             List<RequestCoreDeliveryChargesDocument> rcdChargesDocument = query.list();
             if (DO_DEBUG) {
@@ -2046,7 +2044,7 @@ implements RequestCoreDeliveryDAO {
         try {
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesInvoice")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameterList("requestCoreDeliveryChargesId", rcdChargesSeq);
@@ -2127,32 +2125,32 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesAdjustmentPayment")
-                                        .getQueryString();;
-            NativeQuery query = session.createSQLQuery(queryString);
+                    .getQueryString();;
+                    NativeQuery query = session.createSQLQuery(queryString);
 
-            query.setParameterList("requestCoreDeliveryChargesIds", requestCoreDeliveryChargesId);
+                    query.setParameterList("requestCoreDeliveryChargesIds", requestCoreDeliveryChargesId);
 
-            query.addScalar("id", LongType.INSTANCE);
-            query.addScalar("requestCoreDeliveryChargesId", LongType.INSTANCE);
-            query.addScalar("invoiceAppliedAmount", DoubleType.INSTANCE);
-            query.addScalar("paymentMode", StringType.INSTANCE);
-            query.addScalar("description", StringType.INSTANCE);
-            query.addScalar("paymentDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("transactionType", StringType.INSTANCE);
-            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("createdBy", LongType.INSTANCE);
-            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("modifiedBy", LongType.INSTANCE);
-            query.addScalar("recordVersion", IntegerType.INSTANCE);
-            query.setResultTransformer(Transformers.aliasToBean(
-                                                RequestCoreDeliveryChargesAdjustmentPayment.class));
-            List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesAdjustmentPaymentList = query.list();
+                    query.addScalar("id", LongType.INSTANCE);
+                    query.addScalar("requestCoreDeliveryChargesId", LongType.INSTANCE);
+                    query.addScalar("invoiceAppliedAmount", DoubleType.INSTANCE);
+                    query.addScalar("paymentMode", StringType.INSTANCE);
+                    query.addScalar("description", StringType.INSTANCE);
+                    query.addScalar("paymentDate", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("transactionType", StringType.INSTANCE);
+                    query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("createdBy", LongType.INSTANCE);
+                    query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("modifiedBy", LongType.INSTANCE);
+                    query.addScalar("recordVersion", IntegerType.INSTANCE);
+                    query.setResultTransformer(Transformers.aliasToBean(
+                            RequestCoreDeliveryChargesAdjustmentPayment.class));
+                    List<RequestCoreDeliveryChargesAdjustmentPayment> requestCoreDeliveryChargesAdjustmentPaymentList = query.list();
 
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
+                    if (DO_DEBUG) {
+                        LOG.debug(logSM + "<<End");
+                    }
 
-            return requestCoreDeliveryChargesAdjustmentPaymentList;
+                    return requestCoreDeliveryChargesAdjustmentPaymentList;
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
@@ -2167,7 +2165,7 @@ implements RequestCoreDeliveryDAO {
      */
     @Override
     public List<RequestCoreDeliveryChargesShipping> retrieveAllRequestCoreDeliveryChargesShipping(
-                                                         List<Long> requestCoreDeliveryChargesId) {
+            List<Long> requestCoreDeliveryChargesId) {
 
         final String logSM = "retrieveAllRequestCoreDeliveryChargesShipping(requestCoreDeliveryChargesId)";
 
@@ -2225,42 +2223,7 @@ implements RequestCoreDeliveryDAO {
         }
     }
 
-    /**
-     * This method is used to update the RequestCoreDeliveryCharges
-     * @param requestCoreDeliveryChargesId
-     * @param updatedInvoicedAmount
-     */
-    /*@Override
-      public void updateRequestCoreDeliveryCharges(long requestCoreDeliveryChargesId, double updatedInvoicedAmount, double paymentAmount, double creditAdjAmount,
-            double debitAdjAmount) {
-        final String logSM = "updateRequestCoreDeliveryCharges(requestCoreDeliveryChargesId, updatedInvoicedAmount, paymentAmouont, creditAdjAmount, debitAdjamount)";
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + requestCoreDeliveryChargesId +updatedInvoicedAmount);
-        }
-        try {
-            Session session = getSession();
-            Query query = session.getNamedQuery("updateRequestCoreDeliveryCharges");
-
-            query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
-            query.setParameter("invoicedAmount",updatedInvoicedAmount,DoubleType.INSTANCE);
-            query.setParameter("paymentAmount", paymentAmount, DoubleType.INSTANCE);
-            query.setParameter("creditAdjAmount", creditAdjAmount, DoubleType.INSTANCE);
-            query.setParameter("debitAdjAmount", debitAdjAmount, DoubleType.INSTANCE);
-
-            query.executeUpdate();
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
-        } catch (DataIntegrityViolationException e) {
-            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-        } catch (HibernateOptimisticLockingFailureException e) {
-            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-        } catch (Exception e) {
-            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-        }
-
-    }*/
-
+   
     /**
      * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO
      * #createLetterCore(com.mckesson.eig.roi.billing.model.CoverLetterCore)
@@ -2277,7 +2240,7 @@ implements RequestCoreDeliveryDAO {
 
             final Session session = getSession();
             Query query = session.getNamedQuery("CreateCoverLetterCore");
-//            query.setParameter("requestCoreChargesId", coverLetterCore.getRequestCoreChargesId(), LongType.INSTANCE);
+            //            query.setParameter("requestCoreChargesId", coverLetterCore.getRequestCoreChargesId(), LongType.INSTANCE);
             query.setParameter("requestId", coverLetterCore.getRequestId(), LongType.INSTANCE);
             query.setParameter("requestorId", coverLetterCore.getRequestorId(), LongType.INSTANCE);
             query.setParameter("letterTemplateId", coverLetterCore.getLetterTemplateId(), LongType.INSTANCE);
@@ -2312,7 +2275,7 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.FAILED_TO_CREATE_COVER_LETTER,
-                                   e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -2333,19 +2296,22 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
 
             // deletes the hpf patients corresponding for the given cover letter
-            Query query = session.getNamedQuery("deleteCoverLetterRequestHpfPatient");
+            String queryString = session.getNamedQuery("deleteCoverLetterRequestHpfPatient")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
-            query.executeUpdate();
 
             // deletes the non-hpf patients corresponding for the given cover letter
-            query = session.getNamedQuery("deleteCoverLetterRequestSupplementalPatient");
+             queryString = session.getNamedQuery("deleteCoverLetterRequestSupplementalPatient")
+                    .getQueryString();
+             query = session.createSQLQuery(queryString);
             query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
-            query.executeUpdate();
 
             // deletes the cover letter
-            query = session.getNamedQuery("deleteCoverLetter");
+            queryString = session.getNamedQuery("deleteCoverLetter")
+                    .getQueryString();
+             query = session.createSQLQuery(queryString);
             query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -2404,9 +2370,9 @@ implements RequestCoreDeliveryDAO {
             };
 
             List<RequestPatient> supplementalPatients =
-                                                coverLetterCore.getRequestSupplementalPatients();
+                    coverLetterCore.getRequestSupplementalPatients();
             String queryString = session.getNamedQuery("insertRequestSupplementalPatient")
-                                        .getQueryString();
+                    .getQueryString();
             processor.execute(supplementalPatients, queryString);
 
         } catch (DataIntegrityViolationException e) {
@@ -2415,8 +2381,8 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(),
-                                   ROIClientErrorCodes.FAILED_TO_CREATE_COVER_LETTER_PATIENTS,
-                                   e.getMessage());
+                    ROIClientErrorCodes.FAILED_TO_CREATE_COVER_LETTER_PATIENTS,
+                    e.getMessage());
         }
     }
 
@@ -2474,8 +2440,8 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(),
-                                   ROIClientErrorCodes.FAILED_TO_CREATE_COVER_LETTER_PATIENTS,
-                                   e.getMessage());
+                    ROIClientErrorCodes.FAILED_TO_CREATE_COVER_LETTER_PATIENTS,
+                    e.getMessage());
         }
     }
 
@@ -2498,7 +2464,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.addScalar("id", LongType.INSTANCE);
-//            query.addScalar("requestCoreChargesId", LongType.INSTANCE);
+            //            query.addScalar("requestCoreChargesId", LongType.INSTANCE);
             query.addScalar("requestId", LongType.INSTANCE);
             query.addScalar("requestorId",LongType.INSTANCE);
             query.addScalar("letterTemplateId", LongType.INSTANCE);
@@ -2516,7 +2482,7 @@ implements RequestCoreDeliveryDAO {
 
             // retrieves the list of hpf patients Sequences
             queryString = session.getNamedQuery("retrieveCoverLetterRequestHpfPatient")
-                                 .getQueryString();
+                    .getQueryString();
 
             query = session.createSQLQuery(queryString);
             setScalarsForRequestPatient(query);
@@ -2527,7 +2493,7 @@ implements RequestCoreDeliveryDAO {
 
             // retrieves the list of nonhpf patients Sequences
             queryString = session.getNamedQuery("retrieveCoverLetterRequestSupplementalPatient")
-                                 .getQueryString();
+                    .getQueryString();
 
             query = session.createSQLQuery(queryString);
             setScalarsForRequestPatient(query);
@@ -2580,7 +2546,7 @@ implements RequestCoreDeliveryDAO {
         query.setResultTransformer(Transformers.aliasToBean(RequestPatient.class));
     }
 
-   /* @Override
+    /* @Override
     public RegeneratedInvoiceDetails retrieveRegeneratedInvoiceUsingRegeneratedId(long regInvoiceId) {
         final String logSM = "retrieveRegeneratedInvoices(rcdChargesId)";
 
@@ -2703,10 +2669,10 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                                                                    e.getMessage());
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                                                                    e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -2731,7 +2697,6 @@ implements RequestCoreDeliveryDAO {
                 query.setParameter("queuePassword", outputProperties.getQueuePassword());
                 query.setParameter("outputMethod", outputProperties.getOutputMethod());
 
-                query.executeUpdate();
             }
 
             if (outputProperties.isForLetter()) {
@@ -2742,7 +2707,6 @@ implements RequestCoreDeliveryDAO {
                 query.setParameter("letterId", outputProperties.getLetterId());
                 query.setParameter("queuePassword", outputProperties.getQueuePassword());
 
-                query.executeUpdate();
             }
 
             if (DO_DEBUG) {
@@ -2775,13 +2739,12 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
 
             String queryString = session.getNamedQuery("updateReleaseOutputProperty")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("releaseId", outputProperties.getReleaseId());
             query.setParameter("queuePassword", outputProperties.getQueuePassword());
 
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -2791,10 +2754,10 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
     }
 
@@ -2824,16 +2787,11 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
 
             String queryString = session.getNamedQuery("deleteInvoiceAutoAdjEvent")
-                                        .getQueryString();
+                    .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("description1", description1);
             query.setParameter("description2", description2);
             query.setParameter("invoiceId", invoiceId);
-            int executeUpdate = query.executeUpdate();
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:No Of Rows Deleted:" + executeUpdate);
-            }
 
         } catch (DataAccessException e) {
 
@@ -2895,8 +2853,8 @@ implements RequestCoreDeliveryDAO {
                                    e.getMessage());
         }
     }
-*/
-   /* @Override
+     */
+    /* @Override
     public void updateRequestCharges(List<RequestCoreCharges> requestCharges) {
 
         final String logSM = "updateRequestCharges(requestCharges)";
@@ -2981,13 +2939,14 @@ implements RequestCoreDeliveryDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("updateInvoiceBalance");
+            String queryString = session.getNamedQuery("updateInvoiceBalance")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
             query.setParameter("invoiceBalance", invoiceBalance, DoubleType.INSTANCE);
             query.setParameter("modifiedDt", getSQLTimeStamp(date), StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy", user.getInstanceId(), IntegerType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:");
@@ -2997,12 +2956,12 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e,
-                                   ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(),
-                                   ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                    e.getMessage());
         }
 
     }
@@ -3024,11 +2983,12 @@ implements RequestCoreDeliveryDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("updatePrebillStatusInvoice");
+            String queryString = session.getNamedQuery("updatePrebillStatusInvoice")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("reqCoreSeq", invoice.getRequestCoreId(), LongType.INSTANCE);
             query.setParameter("prebillStatus", invoice.getPrebillStatus(), StringType.INSTANCE);
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:");
@@ -3038,12 +2998,12 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e,
-                                   ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
+                    e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(),
-                                   ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                    e.getMessage());
         }
 
     }
@@ -3063,58 +3023,58 @@ implements RequestCoreDeliveryDAO {
         try{
             Session session = getSession();
             String queryString = session.getNamedQuery("retrieveRequestCoreDeliveryChargesPrebill")
-                                        .getQueryString();;
-            NativeQuery query = session.createSQLQuery(queryString);
-            query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
+                    .getQueryString();;
+                    NativeQuery query = session.createSQLQuery(queryString);
+                    query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
 
-            query.addScalar("id", LongType.INSTANCE);
-            query.addScalar("isReleased", BooleanType.INSTANCE);
-            query.addScalar("previouslyReleasedCost", DoubleType.INSTANCE);
-            query.addScalar("releaseCost", DoubleType.INSTANCE);
-            query.addScalar("totalRequestCost", DoubleType.INSTANCE);
-            query.addScalar("totalPagesReleased", IntegerType.INSTANCE);
-            query.addScalar("totalPages", IntegerType.INSTANCE);
-            query.addScalar("salesTaxAmount", DoubleType.INSTANCE);
-            query.addScalar("salesTaxPercentage", DoubleType.INSTANCE);
-            query.addScalar("letterTemplateName", StringType.INSTANCE);
-            query.addScalar("requestStatus", StringType.INSTANCE);
-            query.addScalar("requestDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("releaseDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("letterTemplateFileId", LongType.INSTANCE);
-            query.addScalar("type", StringType.INSTANCE);
-            query.addScalar("invoicePrebillDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("invoiceDueDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("resendDate", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("outputMethod", StringType.INSTANCE);
-            query.addScalar("queuePassword", StringType.INSTANCE);
-            query.addScalar("overwriteDueDate", BooleanType.INSTANCE);
-            query.addScalar("invoiceSalesTax", DoubleType.INSTANCE);
-            query.addScalar("baseCharge", DoubleType.INSTANCE);
-            query.addScalar("balanceDue", DoubleType.INSTANCE);
-            query.addScalar("invoiceBillingLocCode", StringType.INSTANCE);
-            query.addScalar("invoiceBillinglocName", StringType.INSTANCE);
-            query.addScalar("invoiceBalanceDue", DoubleType.INSTANCE);
-            query.addScalar("paymentAmount", DoubleType.INSTANCE);
-            query.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
-            query.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
-            query.addScalar("applySalesTax", BooleanType.INSTANCE);
-            query.addScalar("notes", StringType.INSTANCE);
-            query.addScalar("unbillable", BooleanType.INSTANCE);
-            query.addScalar("unbillableAmount", DoubleType.INSTANCE);
-            query.addScalar("invoiceDueDays", LongType.INSTANCE);
-            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("createdBy", LongType.INSTANCE);
-            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("modifiedBy", LongType.INSTANCE);
-            query.addScalar("recordVersion", IntegerType.INSTANCE);
-            query.addScalar("prebillStatus", StringType.INSTANCE);
-            query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryCharges.class));
-            List<RequestCoreDeliveryCharges> requestCoreDeliveryChargesList = query.list();
+                    query.addScalar("id", LongType.INSTANCE);
+                    query.addScalar("isReleased", BooleanType.INSTANCE);
+                    query.addScalar("previouslyReleasedCost", DoubleType.INSTANCE);
+                    query.addScalar("releaseCost", DoubleType.INSTANCE);
+                    query.addScalar("totalRequestCost", DoubleType.INSTANCE);
+                    query.addScalar("totalPagesReleased", IntegerType.INSTANCE);
+                    query.addScalar("totalPages", IntegerType.INSTANCE);
+                    query.addScalar("salesTaxAmount", DoubleType.INSTANCE);
+                    query.addScalar("salesTaxPercentage", DoubleType.INSTANCE);
+                    query.addScalar("letterTemplateName", StringType.INSTANCE);
+                    query.addScalar("requestStatus", StringType.INSTANCE);
+                    query.addScalar("requestDate", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("releaseDate", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("letterTemplateFileId", LongType.INSTANCE);
+                    query.addScalar("type", StringType.INSTANCE);
+                    query.addScalar("invoicePrebillDate", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("invoiceDueDate", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("resendDate", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("outputMethod", StringType.INSTANCE);
+                    query.addScalar("queuePassword", StringType.INSTANCE);
+                    query.addScalar("overwriteDueDate", BooleanType.INSTANCE);
+                    query.addScalar("invoiceSalesTax", DoubleType.INSTANCE);
+                    query.addScalar("baseCharge", DoubleType.INSTANCE);
+                    query.addScalar("balanceDue", DoubleType.INSTANCE);
+                    query.addScalar("invoiceBillingLocCode", StringType.INSTANCE);
+                    query.addScalar("invoiceBillinglocName", StringType.INSTANCE);
+                    query.addScalar("invoiceBalanceDue", DoubleType.INSTANCE);
+                    query.addScalar("paymentAmount", DoubleType.INSTANCE);
+                    query.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
+                    query.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
+                    query.addScalar("applySalesTax", BooleanType.INSTANCE);
+                    query.addScalar("notes", StringType.INSTANCE);
+                    query.addScalar("unbillable", BooleanType.INSTANCE);
+                    query.addScalar("unbillableAmount", DoubleType.INSTANCE);
+                    query.addScalar("invoiceDueDays", LongType.INSTANCE);
+                    query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("createdBy", LongType.INSTANCE);
+                    query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
+                    query.addScalar("modifiedBy", LongType.INSTANCE);
+                    query.addScalar("recordVersion", IntegerType.INSTANCE);
+                    query.addScalar("prebillStatus", StringType.INSTANCE);
+                    query.setResultTransformer(Transformers.aliasToBean(RequestCoreDeliveryCharges.class));
+                    List<RequestCoreDeliveryCharges> requestCoreDeliveryChargesList = query.list();
 
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
-            return requestCoreDeliveryChargesList;
+                    if (DO_DEBUG) {
+                        LOG.debug(logSM + "<<End");
+                    }
+                    return requestCoreDeliveryChargesList;
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
@@ -3141,7 +3101,7 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = null;
             if("\"Summary - Requestor Type\"".equalsIgnoreCase(resultType))
-               queryString = session.getNamedQuery("retrievePrebillReportDetailsFirstLevelWithRequestorName").getQueryString();
+                queryString = session.getNamedQuery("retrievePrebillReportDetailsFirstLevelWithRequestorName").getQueryString();
             else if("\"Detailed - Requestor name\"".equalsIgnoreCase(resultType))
                 queryString = session.getNamedQuery("retrievePrebillReportDetailsSecondLevelWithRequestorName").getQueryString();
             else
@@ -3174,14 +3134,14 @@ implements RequestCoreDeliveryDAO {
                 LOG.debug(logSM + "<<End:");
             }
             return reportList;
-    } catch (DataIntegrityViolationException e) {
-        throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-    } catch (HibernateOptimisticLockingFailureException e) {
-        throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-    } catch (Exception e) {
-        throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
     }
-}
 
     /**
      *  This method is used to retrieve details for the prebill report without requestor name
@@ -3201,10 +3161,10 @@ implements RequestCoreDeliveryDAO {
             String queryString = null;
             if("\"Summary - Requestor Type\"".equalsIgnoreCase(resultType))
                 queryString = session.getNamedQuery("retrievePrebillReportDetailsFirstLevelWithoutRequestorName").getQueryString();
-             else if("\"Detailed - Requestor name\"".equalsIgnoreCase(resultType))
-                 queryString = session.getNamedQuery("retrievePrebillReportDetailsSecondLevelWithoutRequestorName").getQueryString();
-             else
-                 queryString = session.getNamedQuery("retrievePrebillReportDetailsThirdLevelWithoutRequestorName").getQueryString();
+            else if("\"Detailed - Requestor name\"".equalsIgnoreCase(resultType))
+                queryString = session.getNamedQuery("retrievePrebillReportDetailsSecondLevelWithoutRequestorName").getQueryString();
+            else
+                queryString = session.getNamedQuery("retrievePrebillReportDetailsThirdLevelWithoutRequestorName").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameterList("facilities", facility,StringType.INSTANCE);
             query.setParameterList("requestorTypeName", requestorTypeName,StringType.INSTANCE);
@@ -3231,14 +3191,14 @@ implements RequestCoreDeliveryDAO {
                 LOG.debug(logSM + "<<End:");
             }
             return reportList;
-    } catch (DataIntegrityViolationException e) {
-        throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-    } catch (HibernateOptimisticLockingFailureException e) {
-        throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-    } catch (Exception e) {
-        throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
     }
-}
 
     /**
      *  This method is used to retrieve details for the PostPayment report
@@ -3249,7 +3209,7 @@ implements RequestCoreDeliveryDAO {
     @Override
     public List<PostPaymentReportDetails> retrievePostPaymentReportDetails(
             String[] facility, List<String> userName,String[] requestorTypeName,
-           Date fromDt, Date toDt,String resultType) {
+            Date fromDt, Date toDt,String resultType) {
         final String logSM = "retrievePostPaymentReportDetails()";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
@@ -3258,7 +3218,7 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String queryString = null;
             if("\"Posted By\"".equalsIgnoreCase(resultType))
-               queryString = session.getNamedQuery("retrievePostPaymentReportDetailsFirstLevel").getQueryString();
+                queryString = session.getNamedQuery("retrievePostPaymentReportDetailsFirstLevel").getQueryString();
             else
                 queryString = session.getNamedQuery("retrievePostPaymentReportDetailsSecondLevel").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
@@ -3288,20 +3248,20 @@ implements RequestCoreDeliveryDAO {
                 LOG.debug(logSM + "<<End:");
             }
             return reportList;
-    } catch (DataIntegrityViolationException e) {
-        throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-    } catch (HibernateOptimisticLockingFailureException e) {
-        throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-    } catch (Exception e) {
-        throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
     }
-}
 
     @Override
     public void deleteAllMappedAdjustmentInvoicesByInvoiceId(long invoiceId) {
 
         final String logSM =
-                           "deleteAllMappedAdjustmentInvoicesByInvoiceId(invoiceId)";
+                "deleteAllMappedAdjustmentInvoicesByInvoiceId(invoiceId)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + invoiceId);
         }
@@ -3309,9 +3269,10 @@ implements RequestCoreDeliveryDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteAllMappedAdjustmentInvoicesByInvoiceId");
+            String queryString = session.getNamedQuery("deleteAllMappedAdjustmentInvoicesByInvoiceId")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -3319,10 +3280,10 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e,
-                                  ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
 
     }
@@ -3331,7 +3292,7 @@ implements RequestCoreDeliveryDAO {
     public void deleteAllMappedPaymentInvoicesByInvoiceId(long invoiceId) {
 
         final String logSM =
-                           "deleteAllMappedPaymentInvoicesByInvoiceId(invoiceId)";
+                "deleteAllMappedPaymentInvoicesByInvoiceId(invoiceId)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + invoiceId);
         }
@@ -3339,9 +3300,10 @@ implements RequestCoreDeliveryDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteAllMappedPaymentInvoicesByInvoiceId");
+            String queryString = session.getNamedQuery("deleteAllMappedPaymentInvoicesByInvoiceId")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -3349,14 +3311,14 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
             throw new ROIException(e,
-                                  ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
+                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
         } catch (Exception e) {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
+                    e.getMessage());
         }
 
     }
-	//US16834 changes to Include requests in the pre-bill status on the payments popup(This function will convert prebill payments to invoice payments).
+    //US16834 changes to Include requests in the pre-bill status on the payments popup(This function will convert prebill payments to invoice payments).
     public void updatePrebillPaymentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo) {
         final String logSM = "updatePrebillPaymentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo)";
 
@@ -3369,28 +3331,27 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("updatePrebillPaymentsToInvoice").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),LongType.INSTANCE);
-            sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
             }
 
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
+
     //US16834 changes to Include requests in the pre-bill status on the payments/adjustments popup(This function will convert prebill adjustments to invoice adjustments).
     public void updatePrebillAdjustmentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo) {
         final String logSM = "updatePrebillAdjustmentsToInvoice(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo)";
@@ -3404,28 +3365,27 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("updatePrebillAdjustmentsToInvoice").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),LongType.INSTANCE);
-            sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
             }
 
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
+
     public void updateInvoicePaymentsToPrebill(long requestId, long invoiceId) {
         final String logSM = "updateInvoicePaymentsToPrebill(requestId, invoiceId)";
 
@@ -3439,28 +3399,27 @@ implements RequestCoreDeliveryDAO {
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
             sqlQuery.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-            sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
 
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
+
     //US16834 changes to Include requests in the pre-bill status on the payments/adjustments popup(This function will convert prebill adjustments to invoice adjustments).
     public void updateInvoiceAdjustmentsToPrebill(long requestId, long invoiceId) {
         final String logSM = "updateInvoiceAdjustmentsToPrebill(requestId, invoiceId)";
@@ -3475,95 +3434,27 @@ implements RequestCoreDeliveryDAO {
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
             sqlQuery.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-            sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
 
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
-    /*public void updateUnappliedToAppliedPaymentsToPrebill(long requestId) {
-        final String logSM = "updateUnappliedToAppliedPaymentsToPrebill(requestId)";
 
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + requestId);
-        }
-        try {
-
-            Session session = getSession();
-            String query = session.getNamedQuery("updateUnappliedToAppliedPaymentsToPrebill").getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId,LongType.INSTANCE);
-            sqlQuery.executeUpdate();
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + ">>End:" + requestId);
-            }
-
-
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
-                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
-                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
-                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
-    }*/
-    
-    /*public void updateUnappliedToAppliedAdjustmentsToPrebill(long requestId) {
-        final String logSM = "updateUnappliedToAppliedAdjustmentsToPrebill(requestId)";
-
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + requestId);
-        }
-        try {
-
-            Session session = getSession();
-            String query = session.getNamedQuery("updateUnappliedToAppliedAdjustmentsToPrebill").getQueryString();
-            NativeQuery sqlQuery = session.createSQLQuery(query);
-            sqlQuery.setParameter("requestId", requestId,LongType.INSTANCE);
-            sqlQuery.executeUpdate();
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + ">>End:" + requestId);
-            }
-
-
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
-                    ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
-                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
-                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
-    }*/
     
     public long retrievePaymentDetailsFromDialog(long requestId) {
         final String logSM = "retrievePaymentDetailsFromDialog(requestId)";
@@ -3581,31 +3472,31 @@ implements RequestCoreDeliveryDAO {
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
             sqlQuery.addScalar("paymentId", LongType.INSTANCE);
             paymentValue = (Long) sqlQuery.uniqueResult();
-            
+
             if (null != paymentValue) {
                 paymentId = paymentValue.longValue();
             }
-            
+
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
         return paymentId;
     }
-    
+
     public long retrieveAdjustmentDetailsFromDialog(long requestId) {
         final String logSM = "retrieveAdjustmentDetailsFromDialog(requestId)";
 
@@ -3622,30 +3513,30 @@ implements RequestCoreDeliveryDAO {
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
             sqlQuery.addScalar("adjustmentId", LongType.INSTANCE);
             adjustmentValue = (Long) sqlQuery.uniqueResult();
-            
+
             if (null != adjustmentValue) {
                 adjustmentId = adjustmentValue.longValue();
             }
-            
+
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
         return adjustmentId;
     }
-    
+
     public void unmapPaymentsFromInvoiceFromDialog(long paymentId) {
         final String logSM = "unmapPaymentsFromInvoiceFromDialog(paymentId)";
 
@@ -3658,28 +3549,27 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("unmapPaymentsFromInvoiceFromDialog").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestorPaymentSeq", paymentId, LongType.INSTANCE);
-            sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + paymentId);
             }
 
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
+
     public void unmapAdjustmentsFromInvoiceFromDialog(long adjustmentId) {
         final String logSM = "unmapAdjustmentsFromInvoiceFromDialog(adjustmentId)";
 
@@ -3692,28 +3582,27 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("unmapAdjustmentsFromInvoiceFromDialog").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestorAdjustmentSeq", adjustmentId, LongType.INSTANCE);
-            sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + adjustmentId);
             }
 
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
+
     //US16834 changes to Include requests in the pre-bill status on the payments/adjustments popup(This function will convert prebill adjustments to invoice adjustments).
     public void activateLatestPrebill(long requestId) {
         final String logSM = "activateLatestPrebill(requestId)";
@@ -3727,29 +3616,28 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("activateLatestPrebill").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId,LongType.INSTANCE);
-            sqlQuery.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
 
 
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
-	//US16834 changes to Include requests in the pre-bill status on the payments popup(This function will check if there is any prebill payment).
+
+    //US16834 changes to Include requests in the pre-bill status on the payments popup(This function will check if there is any prebill payment).
     public boolean prebillPaymentExists(long requestId) {
         final String logSM = "IsPrebillPaymentExists(long requestId)";
 
@@ -3761,11 +3649,11 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String query = session.getNamedQuery("prebillPaymentExists").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
-           
+
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
-            
+
             if (value != null && value.doubleValue() != 0.0) {
                 return true;
             }
@@ -3773,21 +3661,21 @@ implements RequestCoreDeliveryDAO {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
             return false;
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
+
     // US16834 changes to Include requests in the pre-bill status on the payments/adjustment popup(This function will check if there is any prebill adjustment).
     public boolean prebillAdjustmentExists(long requestId) {
         final String logSM = "prebillAdjustmentExists(long requestId)";
@@ -3800,11 +3688,11 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String query = session.getNamedQuery("prebillAdjustmentExists").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
-           
+
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
-            
+
             if (value != null && value.doubleValue() != 0.0) {
                 return true;
             }
@@ -3812,24 +3700,24 @@ implements RequestCoreDeliveryDAO {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
             return false;
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
+                    e.getMessage());
+        }
     }
-    
-	//US16834 changes to Include requests in the pre-bill status on the payments popup.(this function will calculate total post prebill payments)
+
+    //US16834 changes to Include requests in the pre-bill status on the payments popup.(this function will calculate total post prebill payments)
     public double totalPostPrebillPayments(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo){      
-        
+
         final String logSM = "TotalPostPrebillPayments(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo)";
 
         if (DO_DEBUG) {
@@ -3840,38 +3728,38 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String query = session.getNamedQuery("totalPostPrebillPayments").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
-           
+
             sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(), LongType.INSTANCE);
             sqlQuery.setParameter("Charge", invOrPrebillPreviewInfo.getBaseCharge(), DoubleType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
             double Doublevalue = value.doubleValue();
-            
-            
+
+
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
             }
             return Doublevalue;
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
-                
-        
+                    e.getMessage());
+        }
+
+
     }
-    
+
     //US16834 changes to Include requests in the pre-bill status on the payments/adjustment popup.(this function will calculate total post prebill adjustments)
     public double totalPostPrebillAdjustments(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo){      
-        
+
         final String logSM = "totalPostPrebillAdjustments(InvoiceOrPrebillAndPreviewInfo invOrPrebillPreviewInfo)";
 
         if (DO_DEBUG) {
@@ -3882,33 +3770,33 @@ implements RequestCoreDeliveryDAO {
             Session session = getSession();
             String query = session.getNamedQuery("totalPostPrebillAdjustments").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
-           
+
             sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(), LongType.INSTANCE);
             sqlQuery.setParameter("Charge", invOrPrebillPreviewInfo.getBaseCharge(), DoubleType.INSTANCE);
 
             BigDecimal value = (BigDecimal) sqlQuery.uniqueResult();
             double Doublevalue = value.doubleValue();
-            
-            
+
+
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
             }
             return Doublevalue;
-         } catch (DataIntegrityViolationException e) {
-           throw new ROIException(e,
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION,
-                        e.getMessage());
-         } catch (HibernateOptimisticLockingFailureException e) {
-           throw new ROIException(e,
+                    e.getMessage());
+        } catch (HibernateOptimisticLockingFailureException e) {
+            throw new ROIException(e,
                     ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                        e.getMessage());
-         } catch (Throwable e) {
-           throw new ROIException(e.getCause(),
+                    e.getMessage());
+        } catch (Throwable e) {
+            throw new ROIException(e.getCause(),
                     ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                        e.getMessage());
-         }
-                
-        
+                    e.getMessage());
+        }
+
+
     }
 
 }
