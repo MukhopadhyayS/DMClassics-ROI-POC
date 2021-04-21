@@ -430,8 +430,9 @@ implements RequestCoreDAO {
             RequestorCore requestor = request.getRequestorDetail();
 
             Session session = getSession();
-            Query query = session.getNamedQuery("updateRequestCore");
-
+            String queryString = session.getNamedQuery("updateRequestCore").getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            
             query.setParameter("requestId", request.getId(), LongType.INSTANCE);
 
             query.setParameter("requestStatus", request.getStatus(), StringType.INSTANCE);
@@ -446,24 +447,15 @@ implements RequestCoreDAO {
             query.setParameter("modifiedDate", request.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy", request.getModifiedBy(), IntegerType.INSTANCE);
 
-            long noOfRowsUpdated = query.executeUpdate();
-
-            if (noOfRowsUpdated <= 0) {
-                throw new ROIException(ROIClientErrorCodes.UPDATE_REQUEST_CORE_OPERATION_FAILED);
-            }
-
             //update completed date if exists
             if (request.getCompletedDate() != null) {
-	            query = session.getNamedQuery("updateRequestCoreCompletedDate");
+	            queryString = session.getNamedQuery("updateRequestCoreCompletedDate").getQueryString();
+	            query = session.createSQLQuery(queryString);
 	            query.setParameter("requestId", request.getId(), LongType.INSTANCE);
 	            query.setParameter("completedDate", request.getCompletedDate(), StandardBasicTypes.TIMESTAMP);
 	            query.setParameter("modifiedDate", request.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
 	            query.setParameter("modifiedBy", request.getModifiedBy(), IntegerType.INSTANCE);
-	            noOfRowsUpdated = query.executeUpdate();
-
-	            if (noOfRowsUpdated <= 0) {
-	                throw new ROIException(ROIClientErrorCodes.UPDATE_REQUEST_CORE_OPERATION_FAILED);
-	            }
+	            
             }
 
 
@@ -613,12 +605,10 @@ implements RequestCoreDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteLatestRequestEventByRequestIdAndEvent");
-
+            String queryString = session.getNamedQuery("deleteLatestRequestEventByRequestIdAndEvent").getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
             query.setParameter("eventType", eventType.toString(), StringType.INSTANCE);
-
-            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");

@@ -64,8 +64,10 @@ extends ROIDAOImpl {
 
         try {
 
-            Query query = session.getNamedQuery("updateRequestorCore");
-
+            //Query query = session.getNamedQuery("updateRequestorCore");
+            String queryString = session.getNamedQuery("updateRequestorCore").getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
+            
             query.setParameter("requestId", requestId, LongType.INSTANCE);
             query.setParameter("requestorSeq", requestor.getRequestorSeq(), LongType.INSTANCE);
             query.setParameter("requestorType", requestor.getRequestorType(), LongType.INSTANCE);
@@ -83,12 +85,6 @@ extends ROIDAOImpl {
             query.setParameter("suffix", null, StringType.INSTANCE);
             query.setParameter("modifiedDt", requestor.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedSeq", requestor.getModifiedBy(), IntegerType.INSTANCE);
-
-            long noOfRowsUpdated = query.executeUpdate();
-
-            if (noOfRowsUpdated <= 0) {
-                throw new ROIException(ROIClientErrorCodes.UPDATE_REQUEST_CORE_OPERATION_FAILED);
-            }
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
