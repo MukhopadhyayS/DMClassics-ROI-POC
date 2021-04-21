@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -1496,15 +1496,14 @@ implements RequestorDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("updateRequestorPayment");
+            String queryString = session.getNamedQuery("updateRequestorPayment").getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("modifiedDate", paymentInfo.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy", paymentInfo.getModifiedBy(), LongType.INSTANCE);
             query.setParameter("unappliedAmount", paymentInfo.getUnAppliedAmount(),
                                 DoubleType.INSTANCE);
             query.setParameter("requestorPaymentId", paymentInfo.getPaymentId(), LongType.INSTANCE);
-
-            query.executeUpdate();
 
             return paymentInfo.getPaymentId();
 
@@ -1646,14 +1645,14 @@ implements RequestorDAO {
          try {
 
              Session session = getSession();
-             Query query = session.getNamedQuery("updateRequestorAdjustment");
+             String queryString = session.getNamedQuery("updateRequestorAdjustment").getQueryString();
+             NativeQuery query = session.createSQLQuery(queryString);
 
              query.setParameter("adjustmentId", requestorAdjustment.getId(), LongType.INSTANCE);
              query.setParameter("unappliedAmount", requestorAdjustment.getUnappliedAmount(),
                                                                                   DoubleType.INSTANCE);
              query.setParameter("modifiedDt", requestorAdjustment.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
              query.setParameter("modifiedBy", requestorAdjustment.getModifiedBy(), LongType.INSTANCE);
-             query.executeUpdate();
 
              if (DO_DEBUG) {
                  LOG.debug(logSM + ">>End:");
@@ -1691,10 +1690,11 @@ implements RequestorDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("deleteMappedInvoicesByAdjustmentAndInvoiceId");
+            String queryString = session.getNamedQuery("deleteMappedInvoicesByAdjustmentAndInvoiceId")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("adjustmentId", adjustmentId, LongType.INSTANCE);
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1963,15 +1963,15 @@ implements RequestorDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("updateRequestorPaymentDetails");
+            String queryString = session.getNamedQuery("updateRequestorPaymentDetails")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("modifiedDate", date, StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy",user.getInstanceId(), IntegerType.INSTANCE);
             query.setParameter("unappliedAmount", unappliedAmt,
                                 DoubleType.INSTANCE);
             query.setParameter("requestorPaymentId", requestorPayId, LongType.INSTANCE);
-
-            query.executeUpdate();
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
@@ -2002,7 +2002,9 @@ implements RequestorDAO {
         try {
 
             Session session = getSession();
-            Query query = session.getNamedQuery("updateRequestorAdjustmentDetails");
+            String queryString = session.getNamedQuery("updateRequestorAdjustmentDetails")
+                    .getQueryString();
+            NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("modifiedDate", date, StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy",user.getInstanceId(), IntegerType.INSTANCE);
@@ -2010,8 +2012,6 @@ implements RequestorDAO {
            /* query.setParameter("appliedAmount", appliedAmt,
                     DoubleType.INSTANCE); for cr 377572*/
             query.setParameter("requestorAdjustmentId", requestorAdjId, LongType.INSTANCE);
-
-            query.executeUpdate();
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
@@ -2413,7 +2413,6 @@ implements RequestorDAO {
            String queryString = session.getNamedQuery("deleteRequestorPayment").getQueryString();
            NativeQuery query = session.createSQLQuery(queryString);
            query.setParameter("paymentId", paymentId);
-           query.executeUpdate();
 
            if (DO_DEBUG) {
               LOG.debug(logSM + "<<End:");
@@ -2448,7 +2447,6 @@ implements RequestorDAO {
            String queryString = session.getNamedQuery("deleteRequestorAdjustment").getQueryString();
            NativeQuery query = session.createSQLQuery(queryString);
            query.setParameter("adjustmentId", adjustmentId);
-           query.executeUpdate();
 
            if (DO_DEBUG) {
               LOG.debug(logSM + "<<End:");
@@ -2616,14 +2614,14 @@ implements RequestorDAO {
          try {
 
              Session session = getSession();
-             Query query = session.getNamedQuery("deleteMappedInvoices");
+             String queryString = session.getNamedQuery("deleteMappedInvoices")
+                     .getQueryString();
+             NativeQuery query = session.createSQLQuery(queryString);
 
              query.setParameter("invoiceId",
                     paymentInfo.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
              query.setParameter("paymentId", paymentInfo.getPaymentId(), LongType.INSTANCE);
-
-             query.executeUpdate();
-
+             
              if (DO_DEBUG) {
                  LOG.debug(logSM);
              }
