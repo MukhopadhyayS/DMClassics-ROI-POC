@@ -92,14 +92,18 @@ implements Serializable {
     public String getOutputMethod() { return _outputMethod; }
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }
 
-    public String getQueuePassword() { 
+    public String getQueuePassword() {
+        if (_queuePassword == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
         });
         return builder.toString();
     }
-    public void setQueuePassword(String queuePassword) {  
+    public void setQueuePassword(String queuePassword) { 
+        queuePassword = StringUtilities.safe(queuePassword);
         _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
 
