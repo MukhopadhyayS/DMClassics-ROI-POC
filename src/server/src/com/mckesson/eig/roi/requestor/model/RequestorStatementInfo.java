@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.mckesson.dm.core.common.util.StringUtilities;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria.DateRange;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
@@ -181,13 +182,17 @@ public class RequestorStatementInfo {
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }
 
     public String getQueuePassword() { 
+        if (_queuePassword == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
         });
         return builder.toString();
     }
-    public void setQueuePassword(String queuePassword) {  
+    public void setQueuePassword(String queuePassword) { 
+        queuePassword = StringUtilities.safe(queuePassword);
         _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
 

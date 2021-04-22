@@ -19,6 +19,7 @@ package com.mckesson.eig.roi.requestor.model;
 import java.util.Date;
 import java.util.List;
 
+import com.mckesson.dm.core.common.util.StringUtilities;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 
@@ -76,6 +77,9 @@ extends BaseModel {
     public void setOutputMethod(String outputMethod) { _outputMethod = outputMethod; }
 
     public String getQueuePassword() { 
+        if (_queuePassword == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
@@ -83,6 +87,7 @@ extends BaseModel {
         return builder.toString();
     }
     public void setQueuePassword(String queuePassword) {  
+        queuePassword = StringUtilities.safe(queuePassword);
         _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
 

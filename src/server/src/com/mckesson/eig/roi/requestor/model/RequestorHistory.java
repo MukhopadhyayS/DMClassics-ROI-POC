@@ -3,6 +3,7 @@ package com.mckesson.eig.roi.requestor.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.mckesson.dm.core.common.util.StringUtilities;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 
 public class RequestorHistory implements Serializable{
@@ -75,6 +76,9 @@ public class RequestorHistory implements Serializable{
         this.template = template;
     }
     public String getRequestPassword() {
+        if (requestPassword == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         requestPassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
@@ -82,9 +86,13 @@ public class RequestorHistory implements Serializable{
         return builder.toString();
     }
     public void setRequestPassword(String requestPassword) {
+        requestPassword = StringUtilities.safe(requestPassword);
         this.requestPassword = new SecureStringAccessor(requestPassword.toCharArray());
     }
     public String getQueuePassword() {
+        if (queuePassword == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
@@ -92,6 +100,7 @@ public class RequestorHistory implements Serializable{
         return builder.toString();
     }
     public void setQueuePassword(String queuePassword) {
+        queuePassword = StringUtilities.safe(queuePassword);
         this.queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
     public String getInvoiceDueDate() {
