@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2011 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2011 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
+import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
  * @author rajeshkumarg
@@ -52,14 +53,19 @@ implements Serializable {
     public double getInvoiceAmount() { return _invoiceAmount; }
     public void setInvoiceAmount(double invoiceAmount) { _invoiceAmount = invoiceAmount; }
 
-    public String getQueuePassword() { 
+    public String getQueuePassword() {
+        if (_queuePassword == null) {
+            return null;
+        }
+
         StringBuilder builder = new StringBuilder();
         _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
         });
         return builder.toString();
     }
-    public void setQueuePassword(String queuePassword) {  
+    public void setQueuePassword(String queuePassword) {
+        queuePassword = StringUtilities.safe(queuePassword);
         _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
 

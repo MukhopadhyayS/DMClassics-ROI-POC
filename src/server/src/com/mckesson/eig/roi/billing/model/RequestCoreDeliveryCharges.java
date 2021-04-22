@@ -8,6 +8,7 @@ import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
+import com.mckesson.eig.utility.util.StringUtilities;
 
 public class RequestCoreDeliveryCharges
 extends BaseModel {
@@ -192,14 +193,19 @@ extends BaseModel {
         _overwriteDueDate = overwriteDueDate;
     }
 
-    public String getQueuePassword() { 
+    public String getQueuePassword() {
+        if (_queuePassword == null) {
+            return null;
+        }
+
         StringBuilder builder = new StringBuilder();
         _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
         });
         return builder.toString();
     }
-    public void setQueuePassword(String queuePassword) {  
+    public void setQueuePassword(String queuePassword) {
+        queuePassword = StringUtilities.safe(queuePassword);
         _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
 public double getPreviouslyReleasedCost() { return _previouslyReleasedCost; }

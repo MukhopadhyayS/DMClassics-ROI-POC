@@ -646,6 +646,10 @@ public class LetterData {
     public void setOutputMethod(String outputMethod) { _outputMethod = StringUtilities.safe(outputMethod); }
 
     public String getQueuePassword() {
+        if (_queuePassword == null) {
+            return null;
+        }
+
         StringBuilder builder = new StringBuilder();
         _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
