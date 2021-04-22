@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
+import com.mckesson.eig.utility.util.StringUtilities;
 
 @SuppressWarnings("serial")
 public class ReleaseHistoryItem
@@ -88,6 +89,10 @@ implements Serializable {
     }
     
     public String getRequestPassword() {
+        if (requestPassword == null) {
+            return null;
+        }
+
         StringBuilder builder = new StringBuilder();
         requestPassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
@@ -96,10 +101,15 @@ implements Serializable {
     }
     
     public void setRequestPassword(String requestPassword) {
+        requestPassword = StringUtilities.safe(requestPassword);
         this.requestPassword = new SecureStringAccessor(requestPassword.toCharArray());
     }
     
     public String getQueuePassword() {
+        if (queuePassword == null) {
+            return null;
+        }
+
         StringBuilder builder = new StringBuilder();
         queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
@@ -108,6 +118,7 @@ implements Serializable {
     }
     
     public void setQueuePassword(String queuePassword) {
+        queuePassword = StringUtilities.safe(queuePassword);
         this.queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
   

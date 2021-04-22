@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2011 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2011 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -24,6 +24,7 @@ import java.util.List;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria.DateRange;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
+import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
  * This class  is a persistent model used to store requestor summary Invoices for hibernate.
@@ -155,14 +156,19 @@ implements Serializable {
     public Date getResendDate() { return _resendDate; }
     public void setResendDate(Date resendDate) { _resendDate = resendDate; }
 
-    public String getQueuePassword() { 
+    public String getQueuePassword() {
+        if (_queuePassword == null) {
+            return null;
+        }
+
         StringBuilder builder = new StringBuilder();
         _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
         });
         return builder.toString();
     }
-    public void setQueuePassword(String queuePassword) {  
+    public void setQueuePassword(String queuePassword) {
+        queuePassword = StringUtilities.safe(queuePassword);
         _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
 
