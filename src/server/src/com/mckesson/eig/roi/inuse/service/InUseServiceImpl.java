@@ -87,7 +87,7 @@ public class InUseServiceImpl implements InUseService {
             List<InUseRecord> records =
                 _inUseDAO.retrieveExpiredRecords(_gracePeriodMinutes);
             if (records.size() > 0) {
-                _inUseDAO.deleteRecords(records);
+                _inUseDAO.deleteRecordsOnInit(records);
             }
 
             try {
@@ -129,7 +129,7 @@ public class InUseServiceImpl implements InUseService {
             }
         }
     }
-
+    
 
     /**
      * @see InUseService#releaseInUseRecord(String, String, String, String)

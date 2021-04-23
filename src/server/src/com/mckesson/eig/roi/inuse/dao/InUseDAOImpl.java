@@ -19,8 +19,14 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateCallback;
 
+import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
+import com.mckesson.eig.roi.base.api.ROIException;
+import com.mckesson.eig.roi.inuse.base.api.InUseClientErrorCodes;
+import com.mckesson.eig.roi.inuse.base.api.InUseException;
 import com.mckesson.eig.roi.inuse.base.dao.BaseInUseDAOImpl;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
 import com.mckesson.dm.core.common.logging.OCLogger;
@@ -198,6 +204,31 @@ implements InUseDAO {
             LOG.debug(logSM + "<<End: ");
         }
     }
+
+    public void deleteRecordsOnInit(List<InUseRecord> records) {
+        records.parallelStream().forEach(t->deleteOnInit(t));
+    };
+    private void deleteOnInit(InUseRecord object) {
+        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Transaction trans = session.beginTransaction();
+            session.delete(object);
+            trans.commit();
+        } catch (DataIntegrityViolationException e) {
+            throw new InUseException(InUseClientErrorCodes.DATA_INTEGRITY_VIOLATION,
+                                     e.getMessage());
+        }
+        catch(Throwable e) {
+            throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                    e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+    
 
     /**
      * @see com.mckesson.eig.inuse.dao.InUseDAO
