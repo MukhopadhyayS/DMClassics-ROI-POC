@@ -99,4 +99,6 @@ public interface InUseDAO {
      * @return InUse record
      */
     InUseRecord retrieveRecordByAppIdAndUserID(String appId, String userID);
+
+    void deleteRecordsOnInit(List<InUseRecord> records);
 }
