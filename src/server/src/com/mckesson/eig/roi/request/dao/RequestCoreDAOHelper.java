@@ -85,6 +85,10 @@ extends ROIDAOImpl {
             query.setParameter("suffix", null, StringType.INSTANCE);
             query.setParameter("modifiedDt", requestor.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedSeq", requestor.getModifiedBy(), IntegerType.INSTANCE);
+            long noOfRowsUpdated = query.executeUpdate();
+            if (noOfRowsUpdated <= 0) {
+                throw new ROIException(ROIClientErrorCodes.UPDATE_REQUEST_CORE_OPERATION_FAILED);
+            }
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
@@ -112,7 +116,7 @@ extends ROIDAOImpl {
             String queryString = session.getNamedQuery("deleteAllPagesByRequestId").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllPagesForRequest RequestId :" + requestId);
@@ -144,7 +148,7 @@ extends ROIDAOImpl {
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllVersionsForRequest RequestId :" + requestId);
@@ -176,7 +180,7 @@ extends ROIDAOImpl {
 
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllDocumentsForRequest RequestId :" + requestId);
@@ -207,7 +211,7 @@ extends ROIDAOImpl {
 
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllEncountersForRequest RequestId :" + requestId);
@@ -238,12 +242,12 @@ extends ROIDAOImpl {
             String queryString = session.getNamedQuery("deleteAllSupplementalAttachmentsByRequestId").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
             // delete Supplementarity Attachments
             queryString = session.getNamedQuery("deleteAllSupplementarityAttachmentsByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllEncountersForRequest RequestId :" + requestId);
             }
@@ -274,13 +278,14 @@ extends ROIDAOImpl {
             NativeQuery query = session.createSQLQuery(queryString);
             
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             // delete Supplementarity Non-Hpf Documents
             queryString = session.getNamedQuery("deleteAllSupplementarityDocumentsByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllEncountersForRequest RequestId :" + requestId);
             }
@@ -310,12 +315,14 @@ extends ROIDAOImpl {
             String queryString = session.getNamedQuery("deleteAllPatientsByRequestId").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             // deletes the suppelmental patients for the request
             queryString = session.getNamedQuery("deleteAllSupplementalPatientsByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllPatientsForRequest RequestId :" + requestId);
             }
@@ -346,12 +353,14 @@ extends ROIDAOImpl {
             String queryString = session.getNamedQuery("deleteAllRequestToPatientsByRequestId").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             // deletes the supplemental patients request mapping table
             queryString = session.getNamedQuery("deleteAllRequestToSupplementalPatientsByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllRequestPatients RequestId :" + requestId);
             }
@@ -381,7 +390,7 @@ extends ROIDAOImpl {
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted RequestorForRequest RequestId :" + requestId);
@@ -413,7 +422,7 @@ extends ROIDAOImpl {
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted RequestCorForRequest RequestId :" + requestId);
@@ -445,7 +454,7 @@ extends ROIDAOImpl {
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted RequestEventForRequest RequestId :" + requestId);
@@ -1048,22 +1057,27 @@ extends ROIDAOImpl {
             String queryString = session.getNamedQuery("deleteAllShippingByRequestId").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.executeUpdate();
 
             queryString = session.getNamedQuery("deleteAllDocumentByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.executeUpdate();
 
             queryString = session.getNamedQuery("deleteAllFeeByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.executeUpdate();
 
             queryString = session.getNamedQuery("deleteAllInvoicePatientsByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.executeUpdate();
 
             queryString = session.getNamedQuery("deleteAllInvoicesByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllInvoicesForRequest RequestId :" + requestId);
@@ -1093,22 +1107,27 @@ extends ROIDAOImpl {
             String queryString = session.getNamedQuery("deleteAllBillingPaymentShippingInfoByRequest").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             queryString = session.getNamedQuery("deleteAllBillingPaymentFeeChargesInfoByRequest").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             queryString = session.getNamedQuery("deleteAllBillingPaymentDocChargesInfoByRequest").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             queryString = session.getNamedQuery("deleteAllBillingPaymentsalesTaxInfoByRequest").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
+            query.executeUpdate();
 
             queryString = session.getNamedQuery("deleteRequestCoreCharges").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreSeq", requestId, LongType.INSTANCE);
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted BillingPaymentInfoForRequest RequestId :"
@@ -1138,15 +1157,18 @@ extends ROIDAOImpl {
             String queryString = session.getNamedQuery("deleteAllCoverLetterRequestHpfPatientByRequestId").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             queryString = session.getNamedQuery("deleteAllCoverLetterRequestSupplementalPatientByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             queryString = session.getNamedQuery("deleteAllCoverLetterByRequestId").getQueryString();
             query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:Deleted AllLetterForRequest RequestId :"
                         + requestId);
