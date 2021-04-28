@@ -446,7 +446,10 @@ implements RequestCoreDAO {
 
             query.setParameter("modifiedDate", request.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy", request.getModifiedBy(), IntegerType.INSTANCE);
-
+            long noOfRowsUpdated = query.executeUpdate();
+            if (noOfRowsUpdated <= 0) {
+                throw new ROIException(ROIClientErrorCodes.UPDATE_REQUEST_CORE_OPERATION_FAILED);
+            }
             //update completed date if exists
             if (request.getCompletedDate() != null) {
 	            queryString = session.getNamedQuery("updateRequestCoreCompletedDate").getQueryString();
@@ -455,6 +458,10 @@ implements RequestCoreDAO {
 	            query.setParameter("completedDate", request.getCompletedDate(), StandardBasicTypes.TIMESTAMP);
 	            query.setParameter("modifiedDate", request.getModifiedDate(), StandardBasicTypes.TIMESTAMP);
 	            query.setParameter("modifiedBy", request.getModifiedBy(), IntegerType.INSTANCE);
+	            noOfRowsUpdated = query.executeUpdate();
+	            if (noOfRowsUpdated <= 0) {
+                    throw new ROIException(ROIClientErrorCodes.UPDATE_REQUEST_CORE_OPERATION_FAILED);
+                }
 	            
             }
 
@@ -572,7 +579,8 @@ implements RequestCoreDAO {
             query.setParameter("requestCoreSeq", event.getRequestId(), LongType.INSTANCE);
             query.setParameter("name", event.getName(), StringType.INSTANCE);
             query.setParameter("description", event.getDescription(), StringType.INSTANCE);           
-
+            query.executeUpdate();
+            
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:RequestEventId :" + event);
             }
@@ -609,7 +617,7 @@ implements RequestCoreDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
             query.setParameter("eventType", eventType.toString(), StringType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
@@ -897,6 +905,7 @@ implements RequestCoreDAO {
             query.setParameter("modifiedDt", date, StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy", user.getInstanceId(),
                     IntegerType.INSTANCE);
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");

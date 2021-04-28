@@ -192,7 +192,7 @@ public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
             
             query.setParameter("unbillable", checked ? "true" : "false", StringType.INSTANCE);
             query.setParameter("modifiedDt", getDate(), StandardBasicTypes.TIMESTAMP);
-            
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }

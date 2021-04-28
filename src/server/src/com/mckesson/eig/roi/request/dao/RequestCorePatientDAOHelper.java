@@ -1112,7 +1112,7 @@ public class RequestCorePatientDAOHelper
             
             List<Long> paramList = new ArrayList<Long>();
             int size = sequenceList.size();
-            //int noOfRowsDeleted = 0;
+            int noOfRowsDeleted = 0;
             
             /*
              *  As prepared statement has not been allowed to execute with more than 2000 parameters markers,
@@ -1129,6 +1129,11 @@ public class RequestCorePatientDAOHelper
                 paramList.addAll(sequenceList.subList(i, toIndex));
                 
                 sqlQuery.setParameterList("seqList", paramList);
+                noOfRowsDeleted += sqlQuery.executeUpdate();
+            }
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End:No.Of Rows affected: "
+                        + noOfRowsDeleted);
             }
 
         } catch (DataIntegrityViolationException e) {
@@ -1163,7 +1168,7 @@ public class RequestCorePatientDAOHelper
             
             query.setLong("requestId", requestId);
             query.setParameterList("seqList", patients);
-
+            query.executeUpdate();
             // deletes the cover letter associated with the patient
             deleteRequestPatientDetailsById(session, patients, "deleteCoverLetterByRequestHpfPatientId");
             

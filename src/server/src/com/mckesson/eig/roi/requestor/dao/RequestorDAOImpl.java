@@ -1149,55 +1149,7 @@ implements RequestorDAO {
                                    e.getMessage());
         }
     }
-    /*@Override
-    @SuppressWarnings("unchecked")
-    public RequestorAdjustmentsFeeList retrieveRequestorAdjustmentFee(long requestorId){
-        final String logSM = "retrieveRequestorAdjustmentFee(Long requestorId)";
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + requestorId);
-        }
-        try{
-            Session session = getSession();
-            String queryString = session.getNamedQuery(
-                    "retrieveRequestorAdjustmentsFee").getQueryString();;
-            NativeQuery query = session.createSQLQuery(queryString);
-            query.setParameter("requestorId", requestorId, LongType.INSTANCE);
-            query.addScalar("feeName", StringType.INSTANCE);
-            query.addScalar("amount", DoubleType.INSTANCE);
-            query.addScalar("salestaxAmount", DoubleType.INSTANCE);
-            query.addScalar("feeType", StringType.INSTANCE);
-            query.addScalar("isTaxable", BooleanType.INSTANCE);
-            query.addScalar("createdDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("createdBy", LongType.INSTANCE);
-            query.addScalar("modifiedDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("modifiedBy", LongType.INSTANCE);
-            query.addScalar("recordVersion", IntegerType.INSTANCE);
-
-
-            query.setResultTransformer(Transformers.aliasToBean(RequestorAdjustmentsFee.class));
-            List<RequestorAdjustmentsFee> adjFee = query.list();
-            RequestorAdjustmentsFeeList requestorAdjustmentsFeeList
-                                                    = new RequestorAdjustmentsFeeList();
-            requestorAdjustmentsFeeList.setRequestorAdjustmentsFee(adjFee);
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
-            return requestorAdjustmentsFeeList;
-        } catch (DataIntegrityViolationException e) {
-            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-        } catch (HibernateOptimisticLockingFailureException e) {
-            throw new ROIException(e,
-                    ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                    e.getMessage());
-        } catch (Exception e) {
-            throw new ROIException(e.getCause(),
-                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                    e.getMessage());
-        }
-    }*/
-
-    /**
+       /**
      * This method retrieves only the Invoices associated to the requestor
      * @param requestorId
      * @param adjustmentId
@@ -1504,7 +1456,7 @@ implements RequestorDAO {
             query.setParameter("unappliedAmount", paymentInfo.getUnAppliedAmount(),
                                 DoubleType.INSTANCE);
             query.setParameter("requestorPaymentId", paymentInfo.getPaymentId(), LongType.INSTANCE);
-
+            query.executeUpdate();
             return paymentInfo.getPaymentId();
 
         } catch (DataIntegrityViolationException e) {
@@ -1654,6 +1606,7 @@ implements RequestorDAO {
              query.setParameter("modifiedDt", requestorAdjustment.getModifiedDt(), StandardBasicTypes.TIMESTAMP);
              query.setParameter("modifiedBy", requestorAdjustment.getModifiedBy(), LongType.INSTANCE);
 
+             query.executeUpdate();
              if (DO_DEBUG) {
                  LOG.debug(logSM + ">>End:");
              }
@@ -1695,6 +1648,7 @@ implements RequestorDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("adjustmentId", adjustmentId, LongType.INSTANCE);
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1972,6 +1926,7 @@ implements RequestorDAO {
             query.setParameter("unappliedAmount", unappliedAmt,
                                 DoubleType.INSTANCE);
             query.setParameter("requestorPaymentId", requestorPayId, LongType.INSTANCE);
+            query.executeUpdate();
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
@@ -2012,6 +1967,7 @@ implements RequestorDAO {
            /* query.setParameter("appliedAmount", appliedAmt,
                     DoubleType.INSTANCE); for cr 377572*/
             query.setParameter("requestorAdjustmentId", requestorAdjId, LongType.INSTANCE);
+            query.executeUpdate();
 
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
@@ -2413,7 +2369,7 @@ implements RequestorDAO {
            String queryString = session.getNamedQuery("deleteRequestorPayment").getQueryString();
            NativeQuery query = session.createSQLQuery(queryString);
            query.setParameter("paymentId", paymentId);
-
+           query.executeUpdate();
            if (DO_DEBUG) {
               LOG.debug(logSM + "<<End:");
            }
@@ -2447,7 +2403,7 @@ implements RequestorDAO {
            String queryString = session.getNamedQuery("deleteRequestorAdjustment").getQueryString();
            NativeQuery query = session.createSQLQuery(queryString);
            query.setParameter("adjustmentId", adjustmentId);
-
+           query.executeUpdate();
            if (DO_DEBUG) {
               LOG.debug(logSM + "<<End:");
            }
@@ -2621,6 +2577,7 @@ implements RequestorDAO {
              query.setParameter("invoiceId",
                     paymentInfo.getRequestCoreDeliveryChargesId(), LongType.INSTANCE);
              query.setParameter("paymentId", paymentInfo.getPaymentId(), LongType.INSTANCE);
+             query.executeUpdate();
              
              if (DO_DEBUG) {
                  LOG.debug(logSM);

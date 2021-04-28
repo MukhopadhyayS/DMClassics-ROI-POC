@@ -45,6 +45,7 @@ implements CountryCodeConfigurationDAO {
             String queryString = session.getNamedQuery("updateCountryCode").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("countryCode", country.getCountryCode(), StringType.INSTANCE);
+            query.executeUpdate();
             
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());

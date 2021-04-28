@@ -400,7 +400,7 @@ implements RequestCoreChargesDAO {
             String queryString = session.getNamedQuery("deleteRequestCoreCharges").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreSeq", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -428,7 +428,7 @@ implements RequestCoreChargesDAO {
             String queryString = session.getNamedQuery("deleteRequestCoreChargesDocument").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreChargesSeq", requestCoreChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -456,7 +456,7 @@ implements RequestCoreChargesDAO {
             String queryString = session.getNamedQuery("deleteRequestCoreChargesFee").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreChargesSeq", requestCoreChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -484,7 +484,7 @@ implements RequestCoreChargesDAO {
             String queryString = session.getNamedQuery("deleteRequestCoreChargesShipping").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreChargesSeq", requestCoreChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -598,7 +598,7 @@ implements RequestCoreChargesDAO {
             String queryString = session.getNamedQuery("updateRequestCoreChargesAsReleased").getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            query.executeUpdate();
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
@@ -631,7 +631,10 @@ implements RequestCoreChargesDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestId", requestId, LongType.INSTANCE);
-
+            int noOfRowsAffected = query.executeUpdate();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End:noOfRowsAffected:" + noOfRowsAffected);
+            }
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         } catch (HibernateOptimisticLockingFailureException e) {
@@ -868,7 +871,7 @@ implements RequestCoreChargesDAO {
             String query = session.getNamedQuery("clearRequestReleaseCost").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
@@ -907,7 +910,7 @@ implements RequestCoreChargesDAO {
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId);
             sqlQuery.setParameter("releaseCost", releaseCost);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
@@ -949,7 +952,7 @@ implements RequestCoreChargesDAO {
             sqlQuery.setParameter("releaseCost", releaseCost,DoubleType.INSTANCE);
             sqlQuery.setParameter("modifiedDt", modifiedDt,StandardBasicTypes.TIMESTAMP);
             sqlQuery.setParameter("modifiedBySeq", modifiedBySeq,IntegerType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }

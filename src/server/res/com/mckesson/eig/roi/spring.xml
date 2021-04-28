@@ -5,13 +5,13 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-                        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
                         http://www.springframework.org/schema/tx
-                        http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+                        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
                         http://www.springframework.org/schema/aop
-                        http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+                        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
                         http://www.springframework.org/schema/util
-						http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+						http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -104,6 +104,7 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
 
 	<!--  Common transactionContext . Please do not remove  -->
 
@@ -119,68 +120,69 @@
 
 	<aop:config proxy-target-class="true">
 		<aop:advisor
-			pointcut="execution(* com.mckesson.eig.roi.admin.service.BillingAdminServiceImpl.* (..))"
+			pointcut="execution(* com.mckesson.eig.roi.admin.service.BillingAdminServiceImpl.*(..))"
 			advice-ref="txAdvice" />
 	</aop:config>
 
 	<aop:config proxy-target-class="true">
 		<aop:advisor
-			pointcut="execution(* com.mckesson.eig.roi.admin.service.ROIAdminServiceImpl.* (..))"
+			pointcut="execution(* com.mckesson.eig.roi.admin.service.ROIAdminServiceImpl.*(..))"
 			advice-ref="txAdvice" />
 	</aop:config>
 
 	<aop:config proxy-target-class="true">
 		<aop:advisor
-			pointcut="execution(* com.mckesson.eig.roi.requestor.service.RequestorServiceImpl.* (..))"
+			pointcut="execution(* com.mckesson.eig.roi.requestor.service.RequestorServiceImpl.*(..))"
 			advice-ref="txAdvice" />
 	</aop:config>
 
 	<aop:config proxy-target-class="true">
 		<aop:advisor
-			pointcut="execution(* com.mckesson.eig.roi.hpf.service.HPFSecurityAuthenticationService.* (..))"
+			pointcut="execution(* com.mckesson.eig.roi.hpf.service.HPFSecurityAuthenticationService.*(..))"
 			advice-ref="txAdvice" />
 	</aop:config>
 
 	<aop:config proxy-target-class="true">
         <aop:advisor
-            pointcut="execution(* com.mckesson.eig.roi.reports.service.ROIReportServiceImpl.* (..))"
+            pointcut="execution(* com.mckesson.eig.roi.reports.service.ROIReportServiceImpl.*(..))"
             advice-ref="txAdvice" />
     </aop:config>
 
     <aop:config proxy-target-class="true">
         <aop:advisor
-            pointcut="execution(* com.mckesson.eig.roi.admin.service.ROIAttachmentServiceImpl.* (..))"
+            pointcut="execution(* com.mckesson.eig.roi.admin.service.ROIAttachmentServiceImpl.*(..))"
             advice-ref="txAdvice" />
     </aop:config>
 
- 	<aop:config proxy-target-class="true">
+ 	 <aop:config proxy-target-class="true">
         <aop:advisor
-            pointcut="execution(* com.mckesson.eig.roi.request.service.RequestCoreServiceImpl.* (..))"
+            pointcut="execution(* com.mckesson.eig.roi.request.service.RequestCoreServiceImpl.*(..))"
             advice-ref="txAdvice" />
     </aop:config>
-
+ 
  	<aop:config proxy-target-class="true">
         <aop:advisor
-            pointcut="execution(* com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreServiceImpl.* (..))"
+            pointcut="execution(* com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreServiceImpl.*(..))"
             advice-ref="txAdvice" />
     </aop:config>
 
     <aop:config proxy-target-class="true">
         <aop:advisor
-            pointcut="execution(* com.mckesson.eig.roi.supplementary.service.ROISupplementaryServiceImpl.* (..))"
+            pointcut="execution(* com.mckesson.eig.roi.supplementary.service.ROISupplementaryServiceImpl.*(..))"
             advice-ref="txAdvice" />
     </aop:config>
     
     <aop:config proxy-target-class="true">
         <aop:advisor
-            pointcut="execution(* com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl.* (..))"
+            pointcut="execution(* com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl.*(..))"
             advice-ref="txAdvice" />
     </aop:config>
     
     <aop:config proxy-target-class="true">
-        <aop:advisor pointcut="execution(* com.mckesson.eig.roi.inuse.service.InUseServiceImpl.* (..))" advice-ref="txAdvice"/>
+        <aop:advisor pointcut="execution(* com.mckesson.eig.roi.inuse.service.InUseServiceImpl.*(..))" 
+        advice-ref="txAdvice" />
     </aop:config>
-   
+    
 	<import resource="dao.spring.xml" />
 	<import resource="service.spring.xml" />
 

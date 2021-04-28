@@ -106,7 +106,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -178,7 +178,7 @@ implements RequestCoreDeliveryDAO {
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
             query.setParameter("roiPagesId", roiPages.getPageSeq(), LongType.INSTANCE);
             query.setParameter("selfPayEncounter", roiPages.isSelfPayEncounter(), BooleanType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -231,6 +231,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryStr);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -260,6 +261,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChagesId, LongType.INSTANCE);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -288,7 +290,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -318,7 +320,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.addScalar("invoiceId", LongType.INSTANCE);
             query.setParameter("requestCoreId", requestCoreId, LongType.INSTANCE);
-
+            
             List<Long> nonReleasedInvoices = query.list();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -422,7 +424,7 @@ implements RequestCoreDeliveryDAO {
             }
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -935,7 +937,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -961,7 +963,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -990,7 +992,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1016,7 +1018,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesSeq", requestCoreDeliveryChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1043,7 +1045,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryChargesId", requestCoreDeliveryChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1101,7 +1103,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
             query.setParameter("roiSupplementalAttachmentId", supplementalAttachmentSeq, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1150,7 +1152,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryStr);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -1177,7 +1179,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
             query.setParameter("roiSupplementalDocumentId", supplementalDocumentSeq, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1229,7 +1231,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryStr);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
 
             if (DO_DEBUG) {
@@ -1260,7 +1262,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
             query.setParameter("roiSupplementarityAttachmentId", supplementarityAttachmentSeq, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1316,7 +1318,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryStr);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1345,7 +1347,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
             query.setParameter("roiSupplementarityDocumentId", supplementarityDocumentSeq, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1399,7 +1401,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -1777,7 +1779,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery query = session.createSQLQuery(queryString);
 
             query.setParameter("requestCoreChargesSeq", requestCoreChargesId, LongType.INSTANCE);
-
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -2300,18 +2302,21 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
-
+            query.executeUpdate();
+            
             // deletes the non-hpf patients corresponding for the given cover letter
              queryString = session.getNamedQuery("deleteCoverLetterRequestSupplementalPatient")
                     .getQueryString();
              query = session.createSQLQuery(queryString);
             query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
+            query.executeUpdate();
 
             // deletes the cover letter
             queryString = session.getNamedQuery("deleteCoverLetter")
                     .getQueryString();
              query = session.createSQLQuery(queryString);
             query.setParameter("coverLetterId", coverLetterId, LongType.INSTANCE);
+            query.executeUpdate();
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
@@ -2546,54 +2551,7 @@ implements RequestCoreDeliveryDAO {
         query.setResultTransformer(Transformers.aliasToBean(RequestPatient.class));
     }
 
-    /* @Override
-    public RegeneratedInvoiceDetails retrieveRegeneratedInvoiceUsingRegeneratedId(long regInvoiceId) {
-        final String logSM = "retrieveRegeneratedInvoices(rcdChargesId)";
-
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + regInvoiceId);
-        }
-        try{
-            Session session = getSession();
-            String queryString = session.getNamedQuery("retrieveRegeneratedInvoiceUsingRegeneratedId")
-                                        .getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
-
-            query.setParameter("regeneratedInvoiceId", regInvoiceId, LongType.INSTANCE);
-
-            query.addScalar("resendDt", StandardBasicTypes.TIMESTAMP);
-            query.addScalar("requestCoreDeliveryChargesId", LongType.INSTANCE);
-            query.addScalar("letterTemplateName", StringType.INSTANCE);
-            query.addScalar("letterTemplateFileId", LongType.INSTANCE);
-            query.addScalar("requestBalanceDue", DoubleType.INSTANCE);
-            query.addScalar("queuePassword", StringType.INSTANCE);
-            query.addScalar("requestCreditAmount", DoubleType.INSTANCE);
-            query.addScalar("requestDebitAmount", DoubleType.INSTANCE);
-            query.addScalar("requestPaymentAmount", DoubleType.INSTANCE);
-            query.addScalar("requestStatus", StringType.INSTANCE);
-            query.addScalar("outputMethod", StringType.INSTANCE);
-            query.addScalar("amountPaid", DoubleType.INSTANCE);
-            query.addScalar("balanceDue", DoubleType.INSTANCE);
-            query.addScalar("baseCharge", DoubleType.INSTANCE);
-            query.addScalar("originalBalance", DoubleType.INSTANCE);
-
-            query.setResultTransformer(Transformers.aliasToBean(RegeneratedInvoiceDetails.class));
-
-            List<RegeneratedInvoiceDetails> invoiceDetailsList = query.list();
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
-            return (invoiceDetailsList != null && invoiceDetailsList.size() > 0) ? invoiceDetailsList.get(0) : null;
-        } catch (DataIntegrityViolationException e) {
-            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-        } catch (HibernateOptimisticLockingFailureException e) {
-            throw new ROIException(e, ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION, e.getMessage());
-        } catch (Exception e) {
-            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
-        }
-    }*/
-
+    
     @Override
     public List<PastInvoice> retrievePastInvoices(long requestId) {
 
@@ -2696,7 +2654,7 @@ implements RequestCoreDeliveryDAO {
                 query.setParameter("invoiceId", outputProperties.getInvoiceId());
                 query.setParameter("queuePassword", outputProperties.getQueuePassword());
                 query.setParameter("outputMethod", outputProperties.getOutputMethod());
-
+                query.executeUpdate();
             }
 
             if (outputProperties.isForLetter()) {
@@ -2706,7 +2664,7 @@ implements RequestCoreDeliveryDAO {
 
                 query.setParameter("letterId", outputProperties.getLetterId());
                 query.setParameter("queuePassword", outputProperties.getQueuePassword());
-
+                query.executeUpdate();
             }
 
             if (DO_DEBUG) {
@@ -2744,6 +2702,7 @@ implements RequestCoreDeliveryDAO {
 
             query.setParameter("releaseId", outputProperties.getReleaseId());
             query.setParameter("queuePassword", outputProperties.getQueuePassword());
+            query.executeUpdate();
 
 
             if (DO_DEBUG) {
@@ -2792,6 +2751,7 @@ implements RequestCoreDeliveryDAO {
             query.setParameter("description1", description1);
             query.setParameter("description2", description2);
             query.setParameter("invoiceId", invoiceId);
+            query.executeUpdate();
 
         } catch (DataAccessException e) {
 
@@ -2806,116 +2766,7 @@ implements RequestCoreDeliveryDAO {
     }
 
 
-    /*@Override
-    public List<RequestCoreCharges> retrieveRequestCharges(List<Long> invoiceIds) {
-
-        final String logSM = "retrieveRequestCharges(invoiceIds)";
-
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start: InvoiceIds" + invoiceIds);
-        }
-
-        try {
-
-            Session session = getSession();
-            String queryString = session.getNamedQuery("retrieveRequestChargesByInvoice")
-                                        .getQueryString();
-
-            NativeQuery sqlQuery = session.createSQLQuery(queryString);
-            sqlQuery.setParameterList("invoiceIds", invoiceIds);
-
-            sqlQuery.addScalar("requestCoreSeq", LongType.INSTANCE);
-            sqlQuery.addScalar("balanceDue", DoubleType.INSTANCE);
-            sqlQuery.addScalar("invoicesBalance", DoubleType.INSTANCE);
-            sqlQuery.addScalar("creditAdjustmentAmount", DoubleType.INSTANCE);
-            sqlQuery.addScalar("debitAdjustmentAmount", DoubleType.INSTANCE);
-            sqlQuery.addScalar("paymentAmount", DoubleType.INSTANCE);
-
-            sqlQuery.setResultTransformer(Transformers.aliasToBean(RequestCoreCharges.class));
-            @SuppressWarnings("unchecked")
-            List<RequestCoreCharges> requestCharges = sqlQuery.list();
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
-
-            return requestCharges;
-
-        } catch (DataIntegrityViolationException e) {
-            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-        } catch (HibernateOptimisticLockingFailureException e) {
-            throw new ROIException(e,
-                                   ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
-        } catch (Exception e) {
-            throw new ROIException(e.getCause(),
-                                   ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
-        }
-    }
-     */
-    /* @Override
-    public void updateRequestCharges(List<RequestCoreCharges> requestCharges) {
-
-        final String logSM = "updateRequestCharges(requestCharges)";
-
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + requestCharges);
-        }
-
-        try {
-
-            final Session session = getSession();
-            PlainSqlBatchProcessor processor = new PlainSqlBatchProcessor() {
-
-                @Override
-                protected Session getSession() {
-                    return session;
-                }
-
-                @Override
-                protected long getBatchSize() {
-                    return ROIConstants.SQL_BATCH_SIZE;
-                }
-
-                @Override
-                protected <T extends BaseModel> void addToBatch(PreparedStatement pStmt,
-                        T object) throws SQLException {
-
-                    RequestCoreCharges requestCharge = (RequestCoreCharges) object;
-
-                    int index = 1;
-                    pStmt.setDouble(index++, requestCharge.getPaymentAmount());
-                    pStmt.setDouble(index++,  requestCharge.getCreditAdjustmentAmount());
-                    pStmt.setDouble(index++, requestCharge.getDebitAdjustmentAmount());
-                    pStmt.setDouble(index++, requestCharge.getBalanceDue());
-                    pStmt.setTimestamp(index++, getSQLTimeStamp(requestCharge.getModifiedDt()));
-                    pStmt.setLong(index++, requestCharge.getModifiedBy());
-                    pStmt.setLong(index++, requestCharge.getRequestCoreSeq());
-
-                }
-            };
-
-            String query = session.getNamedQuery("updateRequestBalances").getQueryString();
-            processor.execute(requestCharges, query);
-
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End");
-            }
-
-        } catch (DataIntegrityViolationException e) {
-            throw new ROIException(e, ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
-        } catch (HibernateOptimisticLockingFailureException e) {
-            throw new ROIException(e,
-                                   ROIClientErrorCodes.OPTIMISTIC_LOCKING_COLLISION,
-                                   e.getMessage());
-        } catch (Exception e) {
-            throw new ROIException(e.getCause(),
-                                   ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
-                                   e.getMessage());
-        }
-    }*/
-
+    
     /**
      * This method is used to update the invoice balance
      *
@@ -2947,7 +2798,7 @@ implements RequestCoreDeliveryDAO {
             query.setParameter("invoiceBalance", invoiceBalance, DoubleType.INSTANCE);
             query.setParameter("modifiedDt", getSQLTimeStamp(date), StandardBasicTypes.TIMESTAMP);
             query.setParameter("modifiedBy", user.getInstanceId(), IntegerType.INSTANCE);
-
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:");
             }
@@ -2989,7 +2840,8 @@ implements RequestCoreDeliveryDAO {
 
             query.setParameter("reqCoreSeq", invoice.getRequestCoreId(), LongType.INSTANCE);
             query.setParameter("prebillStatus", invoice.getPrebillStatus(), StringType.INSTANCE);
-
+            query.executeUpdate();
+            
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:");
             }
@@ -3273,6 +3125,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -3304,6 +3157,7 @@ implements RequestCoreDeliveryDAO {
                     .getQueryString();
             NativeQuery query = session.createSQLQuery(queryString);
             query.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
+            query.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End");
             }
@@ -3331,7 +3185,7 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("updatePrebillPaymentsToInvoice").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),LongType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
             }
@@ -3365,7 +3219,7 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("updatePrebillAdjustmentsToInvoice").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", invOrPrebillPreviewInfo.getRequestCoreId(),LongType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + invOrPrebillPreviewInfo.getRequestCoreId());
             }
@@ -3399,7 +3253,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
             sqlQuery.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
@@ -3434,7 +3288,7 @@ implements RequestCoreDeliveryDAO {
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId, LongType.INSTANCE);
             sqlQuery.setParameter("invoiceId", invoiceId, LongType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
@@ -3549,7 +3403,7 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("unmapPaymentsFromInvoiceFromDialog").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestorPaymentSeq", paymentId, LongType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + paymentId);
             }
@@ -3582,7 +3436,7 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("unmapAdjustmentsFromInvoiceFromDialog").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestorAdjustmentSeq", adjustmentId, LongType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + adjustmentId);
             }
@@ -3616,7 +3470,7 @@ implements RequestCoreDeliveryDAO {
             String query = session.getNamedQuery("activateLatestPrebill").getQueryString();
             NativeQuery sqlQuery = session.createSQLQuery(query);
             sqlQuery.setParameter("requestId", requestId,LongType.INSTANCE);
-
+            sqlQuery.executeUpdate();
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>End:" + requestId);
             }
