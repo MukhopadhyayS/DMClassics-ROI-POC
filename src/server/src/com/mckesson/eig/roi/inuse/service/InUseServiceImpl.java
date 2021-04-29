@@ -90,26 +90,13 @@ public class InUseServiceImpl implements InUseService {
                 _inUseDAO.deleteRecordsOnInit(records);
             }
 
-            try {
-
-                //  JobDetail detail = new JobDetail();
-                /*
-                 * detail.setGroup(QUARTZ_GROUP_NAME);
-                 * detail.setName(QUARTZ_JOB_NAME);
-                 * detail.setJobClass(InUseQuartzJob.class);
-                 * detail.setDurability(true);
-                 * detail.getJobDataMap().put("InUseDAO", _inUseDAO);
-                 * detail.getJobDataMap().put("gracePeriodMin",
-                 * getGracePeriodMinutes());
-                 */
-                
+            try {                
                 JobDetail job = JobBuilder.newJob(InUseQuartzJob.class)
-                        .withIdentity(QUARTZ_JOB_NAME, QUARTZ_JOB_NAME)
+                        .withIdentity(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
                         .usingJobData("gracePeriodMin", getGracePeriodMinutes())
                         .storeDurably(true)
                         .build();
                 job.getJobDataMap().put("InUseDAO", _inUseDAO);
-                
                 
                 _scheduler.addJob(job, true);
                 _scheduler.start();
@@ -526,8 +513,10 @@ public class InUseServiceImpl implements InUseService {
                         + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE);
         
         JobDetail job = JobBuilder.newJob(InUseQuartzJob.class)
-                .withIdentity(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
+                .withIdentity(name, QUARTZ_GROUP_NAME)
+                .usingJobData("gracePeriodMin", getGracePeriodMinutes())
                 .build();
+        job.getJobDataMap().put("InUseDAO", _inUseDAO);
         
         SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder
                 .newTrigger()
@@ -557,7 +546,7 @@ public class InUseServiceImpl implements InUseService {
                 .newTrigger()
                 .withIdentity(name, QUARTZ_GROUP_NAME)
                 .startAt(new Date(fireTime)) // some Date
-                .forJob(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
+                .forJob(name, QUARTZ_GROUP_NAME)
                 .build();
         TriggerKey triggerKey = TriggerKey.triggerKey(name, QUARTZ_GROUP_NAME);
         _scheduler.rescheduleJob(triggerKey, trigger);
