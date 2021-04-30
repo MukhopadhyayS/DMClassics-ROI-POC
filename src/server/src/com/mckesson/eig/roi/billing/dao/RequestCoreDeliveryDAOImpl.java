@@ -1393,13 +1393,14 @@ implements RequestCoreDeliveryDAO {
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementarityDocumentId", obj[0]);
+                    sqlQuery.executeUpdate();
 
                 }
             }
 
             String queryStr = session.getNamedQuery("deleteROI_RequestCoreDeliverytoROI_SupplementarityDocumentsCore")
                     .getQueryString();
-            NativeQuery query = session.createSQLQuery(queryString);
+            NativeQuery query = session.createSQLQuery(queryStr);
             query.setParameter("requestCoreDeliveryId", requestCoreDeliveryId, LongType.INSTANCE);
             query.executeUpdate();
             if (DO_DEBUG) {
