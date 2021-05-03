@@ -59,7 +59,7 @@ public class InUseQuartzJob implements Job {
 
         List<InUseRecord> records = inUseDAO.retrieveExpiredRecords(gracePM);
         if (records.size() > 0) {
-            inUseDAO.deleteRecords(records);
+            inUseDAO.deleteRecordsOnInit(records);
         }
     }
 }
