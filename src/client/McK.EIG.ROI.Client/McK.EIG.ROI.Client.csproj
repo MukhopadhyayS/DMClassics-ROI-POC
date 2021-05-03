@@ -90,9 +90,8 @@
       <HintPath>..\3rdparty\lib\Interop.SHDocVw.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\3rdparty\lib\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="McK.EIG.Common.Audit, Version=17.0.0.140, Culture=neutral, PublicKeyToken=ee69d9bc131b57c3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -140,7 +139,7 @@
     <Reference Include="O2S.Components.PDFView4NET">
       <HintPath>..\3rdparty\lib\O2S.Components.PDFView4NET.dll</HintPath>
     </Reference>
-       <Reference Include="OCSecurity-21.0">
+    <Reference Include="OCSecurity-21.0">
       <HintPath>..\McK.EIG.ROI.Client.App\OCSecurity-21.0.dll</HintPath>
     </Reference>
     <Reference Include="seclib">
@@ -2189,6 +2188,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="McK.EIG.ROI.Client.snk" />
+    <None Include="packages.config" />
     <None Include="Web References\Web_References.AlertServiceWS\AlertService.wsdl" />
     <None Include="Web References\Web_References.AlertServiceWS\oasis-200401-wss-wssecurity-secext-1.xsd">
       <SubType>Designer</SubType>
