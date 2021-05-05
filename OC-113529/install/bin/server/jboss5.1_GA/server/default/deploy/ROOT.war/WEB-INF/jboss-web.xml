@@ -1,5 +1,0 @@
-<jboss-web>     
-         
-       <security-domain>java:/jaas/tomcat-status</security-domain>     
-         
-</jboss-web>  
