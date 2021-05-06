@@ -109,7 +109,7 @@ namespace McK.EIG.ROI.Client.Base.View
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(292, 15);
             this.label1.TabIndex = 8;
-            this.label1.Text = "OneContent Release of Information Foundation EP1";
+            this.label1.Text = "OneContent Release of Information Foundation EP2";
             // 
             // AboutROIHelpDialogUI
             // 
