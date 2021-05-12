@@ -9,7 +9,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.Hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
