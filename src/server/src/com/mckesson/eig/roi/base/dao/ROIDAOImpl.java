@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.util.*;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
@@ -44,6 +45,8 @@ import com.mckesson.eig.roi.base.model.AddressType;
 import com.mckesson.eig.roi.base.model.ContactType;
 import com.mckesson.eig.roi.base.model.EmailPhoneType;
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
+import com.mckesson.eig.roi.inuse.base.api.InUseClientErrorCodes;
+import com.mckesson.eig.roi.inuse.base.api.InUseException;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.request.model.FreeFormFacility;
 import com.mckesson.eig.utility.util.CollectionUtilities;
@@ -115,6 +118,33 @@ implements ROIDAO {
             return getHibernateTemplate().save(object);
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        }
+    }
+    
+    /**
+     * This method is used for storing individual objects and handling data
+     * integrity violation exceptions.
+     *
+     * @param object Object to create in the database.
+     * @return The primary key value of the object inserted.
+     */
+    public Serializable createFile(Object object) {        Session session = null;
+        try {
+            session = getSessionFactory().openSession();
+            Transaction trans = session.beginTransaction();
+            Serializable ser = session.save(object);
+            trans.commit();
+            return ser;
+        } catch (DataIntegrityViolationException e) {
+            throw new ROIException(ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
+        }
+        catch(Throwable e) {
+            throw new ROIException(e.getCause(),
+                    ROIClientErrorCodes.DATABASE_OPERATION_FAILED,
+                    e.getMessage());
+        }
+        finally {
+            session.close();
         }
     }
 

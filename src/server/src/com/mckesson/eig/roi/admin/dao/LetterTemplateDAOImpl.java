@@ -291,7 +291,7 @@ implements LetterTemplateDAO, FileTransferHelper {
             doc.setModifiedBy(userId);
             doc.setModifiedDate(getDate());
             doc.setCreatedBy(userId);
-            documentId = toPlong((Long) create(doc));
+            documentId = toPlong((Long) createFile(doc));
 
             //result = pdfHasField(content, NOTES_FIELD);
             result = docxHasField(content, NOTES_FIELD);
