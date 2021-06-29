@@ -1,9 +1,0 @@
-2008-12-19 14:53:15,368 - [DEBUG] | HPFWService | McK.EIG.ROI.Client.Base.Controller.ROIController.LogOn | TransactionId | f183d0e8-c3f2-4d23-b459-88c96b56729d | Duration | 2 | Extra info | 
-2008-12-19 17:43:46,003 - [DEBUG] | HPFWService | McK.EIG.ROI.Client.Base.Controller.ROIController.LogOn | TransactionId | 01cd7e3b-2595-4dfc-9e68-73d4280835f2 | Duration | 3.593727 | Extra info | 
-2008-12-19 17:43:47,550 - [DEBUG] | HPFWService | McK.EIG.ROI.Client.Base.Controller.ROIController.GetConfiguration | TransactionId | 997ced40-a23a-4d5a-8d40-9b910be40227 | Duration | 1.406241 | Extra info | 
-2008-12-19 17:44:08,253 - [DEBUG] | Service | McK.EIG.ROI.Client.Admin.Controller.BillingAdminController.RetrieveAllMediaTypes | TransactionId | c9e43e44-0776-4e88-b53b-ee3c27486224 | Duration | 12.1405473 | Extra info | 
-2008-12-19 17:44:10,034 - [DEBUG] | Service | McK.EIG.ROI.Client.Admin.Controller.BillingAdminController.UpdateMediaType | TransactionId | 9c90b77d-7fd3-47ab-9365-4c4a948773b2 | Duration | 1.1406177 | Extra info | 
-2008-12-19 17:46:41,377 - [DEBUG] | HPFWService | McK.EIG.ROI.Client.Base.Controller.ROIController.LogOn | TransactionId | 7afaf77c-eba5-43c5-838e-db6875872140 | Duration | 3.8281005 | Extra info | 
-2008-12-19 17:46:46,111 - [DEBUG] | HPFWService | McK.EIG.ROI.Client.Base.Controller.ROIController.GetConfiguration | TransactionId | c3680d3d-a732-4615-ae8b-5db9f75deab7 | Duration | 4.7030949 | Extra info | 
-2008-12-19 17:46:54,783 - [DEBUG] | Service | McK.EIG.ROI.Client.Admin.Controller.BillingAdminController.RetrieveAllMediaTypes | TransactionId | 10d5d71f-32cc-46fa-8211-467674d95273 | Duration | 2.9062314 | Extra info | 
-2008-12-19 17:46:56,236 - [DEBUG] | Service | McK.EIG.ROI.Client.Admin.Controller.BillingAdminController.UpdateMediaType | TransactionId | 240f15ab-51e4-4ff7-be30-e0ef8f37a530 | Duration | 0.6562458 | Extra info | 
