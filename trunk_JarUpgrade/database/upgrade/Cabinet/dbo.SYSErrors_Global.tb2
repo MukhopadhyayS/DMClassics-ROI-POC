@@ -1,0 +1,236 @@
+USE [cabinet]
+GO
+
+/***************************************************************************************************************
+* Table: SYSERRORS_GLOBAL
+* Creation Date  : 6/27/2011
+* Copyright  : COPYRIGHT MCKESSON 2011
+*   : ALL RIGHTS RESERVED
+*
+*    : The copyright to the computer program(s) herein
+*    : is the property of McKesson. The program(s)
+*    : may be used and/or copied only with the written
+*    : permission of McKesson or in accordance with
+*    : the terms and conditions stipulated in the
+*    : agreement/contract under which the program(s)
+*    : have been supplied.
+*
+* Written by  : MD Meersma
+*
+* Purpose  : Table to store common errors
+*
+* Database  : CABINET
+*
+* Data Modifications :
+*
+*	Updates  :
+*
+*	Name		Date		Purpose
+*	---------	-------		-------------
+*	MD Meersma	06/27/2011	Created
+*	MD Meersma	06/28/2011	Mont Retention
+*	MD Meersma	07/01/2011	New Table Structure with FK to SYSPARMS_GLOBAL and seed data for SYSPARMS_GLOBAL
+*	MD Meersma	08/31/2011	Change -34 ROI Output Service to Common Output Service per Srini
+*	MD Meersma	11/30/2011	Add new columns for Database Common Error Logging to SYSERRORS_GLOBAL table
+*	MD Meersma	12/06/2011	Change DROP Table to not use object_id syntax
+*	Brian Campbell 07/30/2012 add columns [ERROR_TRANSACTION_ID][ERROR_CLASS_NAME]
+*	MD Meersma	04/02/2013	Change IDX_SYSERRORS_GLOBAL_Occurred index to clustered
+***************************************************************************************************************/
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SYSERRORS_GLOBAL]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[SYSERRORS_GLOBAL](
+    [GlobalID] [bigint] NOT NULL,
+	[OCCURRED] [datetime] NOT NULL DEFAULT getdate(),
+	[ERROR_TYPE] [varchar] (10) NULL,
+	[ERROR_DESC] [nvarchar](2048) NULL,
+	[ERROR_NUMBER] INT NULL,
+	[ERROR_SEVERITY] INT NULL,
+	[ERROR_STATE] INT NULL,
+	[ERROR_PROCEDURE] nvarchar(126) NULL,
+	[ERROR_LINE] INT NULL,
+	[ERROR_TRANSACTION_ID] [nvarchar](50) NULL,
+	[ERROR_CLASS_NAME] [varchar](250) NULL
+	CONSTRAINT SYSERRORS_GLOBAL_FK_SYSPARMS_GLOBAL
+              FOREIGN KEY (GLOBALID)
+                             REFERENCES  SYSPARMS_GLOBAL
+)
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[SYSERRORS_GLOBAL]') AND name = N'IDX_SYSERRORS_GLOBAL_GlobalID_Occurred')
+CREATE NONCLUSTERED INDEX IDX_SYSERRORS_GLOBAL_GlobalID_Occurred ON [dbo].[SYSERRORS_GLOBAL]
+(
+	[GlobalID], [OCCURRED] ASC
+)
+GO
+
+-- If IDX_SYSERRORS_GLOBAL_Occurred is NONCLUSTERED drop index
+IF EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[SYSERRORS_GLOBAL]') AND name = N'IDX_SYSERRORS_GLOBAL_Occurred' and type_desc = 'NONCLUSTERED')
+DROP INDEX [dbo].[SYSERRORS_GLOBAL].IDX_SYSERRORS_GLOBAL_Occurred
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[SYSERRORS_GLOBAL]') AND name = N'IDX_SYSERRORS_GLOBAL_Occurred')
+CREATE CLUSTERED INDEX IDX_SYSERRORS_GLOBAL_Occurred ON [dbo].[SYSERRORS_GLOBAL]
+(
+	[OCCURRED] ASC
+)
+GO
+
+GRANT DELETE ON [dbo].[SYSERRORS_GLOBAL] TO [IMNET] AS [dbo]
+GO
+GRANT INSERT ON [dbo].[SYSERRORS_GLOBAL] TO [IMNET] AS [dbo]
+GO
+GRANT REFERENCES ON [dbo].[SYSERRORS_GLOBAL] TO [IMNET] AS [dbo]
+GO
+GRANT SELECT ON [dbo].[SYSERRORS_GLOBAL] TO [IMNET] AS [dbo]
+GO
+GRANT UPDATE ON [dbo].[SYSERRORS_GLOBAL] TO [IMNET] AS [dbo]
+GO
+
+-- sysparms_global entries for SYSERRORS_GLOBAL
+
+set identity_insert sysparms_global on
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -20)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-20, 1, 'Release Server', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -21)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-21, 1, 'Batch Compiler', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -22)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-22, 1, 'Signature Server', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -23)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-23, 1, 'Output Server', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -24)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-24, 1, 'ILE', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -25)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-25, 1, 'ILE Server', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -26)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-26, 1, 'ILE_HPF_Plugin', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -27)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-27, 1, 'ILE_DAL', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -28)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-28, 1, 'ROI Server', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -29)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-29, 1, 'Index Upload', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -30)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-30, 1, 'Trans Agent', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -31)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-31, 1, 'Text Editing Server', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -32)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-32, 1, 'Archive Server', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -33)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-33, 1, 'HMS', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+if not exists (select 1 from SYSPARMS_GLOBAL where GlobalID = -34)
+insert sysparms_global
+(GlobalID, GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+values (-34, 1, 'Common Output Service', null, null, null, getdate(), 1, getdate(), 1, 1)
+
+set identity_insert sysparms_global off
+go
+
+
+declare @globalid int
+
+select @globalid=1
+
+if not exists(select 1 from sysparms_global where GlobalName='sysparms.SYSERRORS_GLOBAL.RetentionDays')
+begin
+  insert sysparms_global
+  (GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+  values (@globalid, 'sysparms.SYSERRORS_GLOBAL.RetentionDays', null, 31, null, getdate(), 1, getdate(), 1, 1)
+end
+
+if not exists(select 1 from sysparms_global where GlobalName='sysparms.SYSERRORS_GLOBAL.RetentionDeleteEveryXHours')
+begin
+  insert sysparms_global
+  (GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+  values (@globalid, 'sysparms.SYSERRORS_GLOBAL.RetentionDeleteEveryXHours', null, 1, null, getdate(), 1, getdate(), 1, 1)
+end
+
+if not exists(select 1 from sysparms_global where GlobalName='sysparms.SYSERRORS_GLOBAL.RetentionDeleteCommitSize')
+begin
+  insert sysparms_global
+  (GlobalParentID, GlobalName, GlobalValueID, GlobalVariant, GlobalText, CreatedDate, CreatedById, ModifiedDate, ModifiedByID, RecordVersion)
+  values (@globalid, 'sysparms.SYSERRORS_GLOBAL.RetentionDeleteCommitSize', null, 10000, null, getdate(), 1, getdate(), 1, 1)
+end
+go
+
+
+-- SYSERRORS_GLOBAL Trigger Insert After for Mont Retention
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[SYSERRORS_GLOBAL_TIA]') AND OBJECTPROPERTY(id, N'IsTrigger') = 1)
+DROP Trigger SYSERRORS_GLOBAL_TIA
+GO
+
+create trigger SYSERRORS_GLOBAL_TIA
+ON SYSERRORS_GLOBAL
+AFTER INSERT
+AS
+BEGIN
+
+--SYSERRORS_GLOBAL.RetentionDeleteEveryXHours < getdate then delete x number of rows from table
+if exists (select 1 from cabinet.dbo.SYSPARMS_GLOBAL where GlobalName = 'sysparms.SYSERRORS_GLOBAL.RetentionDeleteEveryXHours'
+			and DATEADD(hour, cast(GlobalVariant as int), ModifiedDate) < GETDATE())
+begin
+	SET NOCOUNT ON
+	declare @RetentionDeleteCommitSize int, @RetentionDays int
+
+	-- SYSERRORS_GLOBAL.RetentionDeleteCommitSize
+	select @RetentionDeleteCommitSize = CAST(GlobalVariant as int) from cabinet.dbo.SYSPARMS_GLOBAL where GlobalName = 'sysparms.SYSERRORS_GLOBAL.RetentionDeleteCommitSize'
+	if @RetentionDeleteCommitSize is null set @RetentionDeleteCommitSize = 10000
+	set rowcount @RetentionDeleteCommitSize
+
+	--SYSERRORS_GLOBAL.RetentionDays
+	select @RetentionDays = CAST(GlobalVariant as int) from cabinet.dbo.SYSPARMS_GLOBAL where GlobalName = 'sysparms.SYSERRORS_GLOBAL.RetentionDays'
+	if @RetentionDays is null set @RetentionDays = 31
+
+	delete SYSERRORS_GLOBAL where Occurred < DATEADD(day, @RetentionDays * -1, GETDATE())
+
+	set rowcount 0
+	update cabinet.dbo.SYSPARMS_GLOBAL set ModifiedDate = GETDATE() where GlobalName = 'sysparms.SYSERRORS_GLOBAL.RetentionDeleteEveryXHours'
+end
+END
+GO
+

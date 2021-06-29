@@ -1,0 +1,32 @@
+set identity_insert [dbo].[ROI_MediaType] on
+go
+insert into [dbo].[ROI_MediaType]
+(
+	[ROI_MediaType_Seq] ,
+	[Created_Dt] ,
+	[Created_By_Seq] ,
+	[Modified_Dt] ,
+	[Modified_By_Seq] ,
+	[Record_Version] ,
+	[Organization_Seq],
+	[Name] ,
+	[Description] ,
+	[Active]
+)
+  select 
+	[ROI_MediaType_Seq] ,
+	[Created_Dt] ,
+	[Created_By_Seq] ,
+	[Modified_Dt] ,
+	[Modified_By_Seq] ,
+	[Record_Version] ,
+	[Organization_Seq],
+	[Name] ,
+	[Description] ,
+	[Active]
+ from [$(refserver)].[cabinet].[dbo].[ROI_MediaType]
+go
+set identity_insert [dbo].[ROI_MediaType] off
+
+
+

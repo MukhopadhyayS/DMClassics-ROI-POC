@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+   <sql-query name="Generate_LoggedStatusReport">
+	   <![CDATA[
+	      exec ROI_Generate_LoggedStatusReport ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+
+   <sql-query name="Generate_RequestDetailReport">
+	   <![CDATA[
+	      exec ROI_Generate_RequestDetailReport ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+
+   <sql-query name="ROI_Generate_RequestStatusSummaryReport">
+	   <![CDATA[
+	      exec ROI_Generate_RequestStatusSummaryReport ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+
+   <sql-query name="ROI_Generate_PendingAgingReport">
+	   <![CDATA[
+	      exec ROI_Generate_PendingAgingReport ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+   
+   <sql-query name="ROI_Generate_SalesTaxReport">
+	   <![CDATA[
+	      exec ROI_Generate_SalesTaxReport ?, ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+  
+   <sql-query name="ROI_GenerateAccountReceivableAgingReport">
+	   <![CDATA[
+	      exec ROI_GenerateAccountReceivableAgingReport ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+   
+   <sql-query name="ROI_GenerateOutstandingInvoiceBalanceReport">
+	   <![CDATA[
+	      exec ROI_GenerateOutstandingInvoiceBalanceReport ?, ?, ?, ?, ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+
+   <sql-query name="ROI_Generate_ProcessedRequestsSummaryReport">
+	   <![CDATA[
+	      exec ROI_Generate_ProcessedRequestsSummaryReport ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+
+   <sql-query name="ROI_Generate_PostedPaymentsSummaryReport">
+	   <![CDATA[
+	      exec ROI_Generate_PostedPaymentsSummaryReport ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+   
+   <sql-query name="ROI_Generate_DocumentsReleasedByMRNReport">
+	   <![CDATA[
+	      exec ROI_Generate_DocumentsReleasedByMRNReport ?, ?
+	   ]]>
+   </sql-query>
+
+  <sql-query name="Generate_TurnAroundTimeReport">
+	   <![CDATA[
+	      exec ROI_Generate_TurnAroundTimeReport ?, ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+
+  <sql-query name="Generate_TurnAroundTimeReport_Summary_View">
+	   <![CDATA[
+	      exec ROI_Generate_TurnAroundTimeReport_SummaryView ?, ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+
+   <sql-query name="ROI_Generate_AODReport">
+	   <![CDATA[
+	      exec ROI_Generate_AODReport ?, ?, ?, ?, ?, ?
+	   ]]>
+   </sql-query>
+   
+   <sql-query name="ROI_Generate_UnBillableAndBillableReport">
+ 		<![CDATA[	 
+
+	SELECT 
+			cast(result.facility as varchar(256)) as facility,
+			cast(result.requestorType as varchar(256)) as requestorType,
+			cast(result.requestorName as varchar(256)) as requestorName,
+			cast(result.requestId as varchar(50)) as requestId,
+			cast(result.billable as varchar(20)) as billable,
+			cast(result.requestCost as varchar(50)) requestCost,
+			cast(result.totalPages as varchar(50)) totalPages,
+			cast(result.patientName as varchar(256)) patientName, 
+			cast(result.PatientMRN as varchar(50)) patientMRN
+			
+		FROM
+	
+		(
+			-- For HPF patients
+			(SELECT 			
+				requestCharges.FACILITY_NAME as facility,
+				requestor.RequestorTypeName as requestorType,
+				case  
+					  when requestor.NameLast IS NULL then '' 
+					  else requestor.NameLast
+				   end 
+				   +  case  
+					  when requestor.NameFirst = '' then ''
+					  when requestor.NameFirst IS NULL then '' 
+					  else ', ' + requestor.NameFirst 
+					end 
+				   +  case  
+					  when requestor.NameMiddle IS NULL then '' 
+					  else ' ' + requestor.NameMiddle 
+				end as requestorName,
+				requestCore.ROI_RequestCore_Seq as requestId,
+				(case
+					when requestCharges.Unbillable = 0 then 'true'
+					else 'false' 
+				end) as billable, 
+				(COALESCE((SELECT SUM(inv.Base_Charge) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = requestCharges.ROI_RequestCore_Seq  and inv.Type = 'Invoice'), 0))as requestCost,
+				cast(((COALESCE((SELECT COUNT(page.ROI_Pages_Seq) 
+						FROM ROI_Pages page, ROI_Versions version, ROI_Documents document, ROI_RequestCoretoROI_Patients pat
+						WHERE page.ROI_Versions_Seq = version.ROI_Versions_Seq 
+						AND document.ROI_Documents_Seq = version.ROI_Documents_Seq
+						AND document.ROI_Patients_Seq = pat.ROI_Patients_Seq 
+						AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) +
+						(COALESCE((SELECT SUM(docs.PAGECOUNT) FROM ROI_SupplementarityDocumentsCore docs, ROI_RequestCoretoROI_Patients pat WHERE docs.ROI_Patients_Seq = pat.ROI_Patients_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) +
+						(COALESCE((SELECT SUM(CAST(attachment.PAGECOUNT as int)) FROM ROI_SupplementarityAttachmentsCore attachment, ROI_RequestCoretoROI_Patients pat WHERE attachment.ROI_Patients_Seq = pat.ROI_Patients_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) +
+						(COALESCE((SELECT SUM(docs.PAGECOUNT) FROM ROI_SupplementalDocumentsCore docs, ROI_RequestCoretoROI_SupplementalPatientsCore pat WHERE docs.ROI_SupplementalPatientsCore_Seq = pat.ROI_SupplementalPatientsCore_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) + 
+						(COALESCE((SELECT SUM(attachment.PAGECOUNT) FROM ROI_SupplementalAttachmentsCore attachment, ROI_RequestCoretoROI_SupplementalPatientsCore pat WHERE attachment.ROI_SupplementalPatientsCore_Seq = pat.ROI_SupplementalPatientsCore_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0))) as varchar(50)) as totalPages,
+				hpfPatients.NAME as patientName,
+				hpfPatients.MRN as patientMRN
+				
+			FROM 
+			
+				ROI_RequestCoreCharges as requestCharges,
+				ROI_RequestCoreRequestor as requestor,
+				ROI_RequestCore as requestCore,
+				ROI_RequestCoretoROI_Patients requestCoreToPatients,
+				ROI_PATIENTS hpfPatients,
+				ROI_RequestCoreDeliveryCharges invoice
+				
+			WHERE 
+				
+				requestCharges.Facility_Code in (:facilities)
+				AND requestor.RequestorTypeName in (:requestorTypes)
+				AND requestCore.Created_Dt between :fromDate and :toDate
+				AND (:requestType IS NOT NULL and ((:requestType = 'Billable' and requestCore.Unbillable = 0)
+						OR(:requestType = 'Un-Billable' and requestCore.Unbillable = 1))
+					or :requestType IS NULL)
+				AND requestCore.ROI_RequestCore_Seq = requestCharges.ROI_RequestCore_Seq 
+				AND requestor.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq
+				AND requestCoreToPatients.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq
+				AND requestCoreToPatients.ROI_Patients_Seq = hpfPatients.ROI_Patients_Seq
+				AND requestCore.ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq
+				AND invoice.Type = 'Invoice'
+				
+			)
+	
+			UNION 
+	
+			--For ROI Patients 
+			(SELECT 
+			
+				requestCharges.FACILITY_NAME as facility,
+				requestor.RequestorTypeName as requestorType,
+				case  
+					  when requestor.NameLast IS NULL then '' 
+					  else requestor.NameLast
+				   end 
+				   +  case  
+					  when requestor.NameFirst = '' then ''
+					  when requestor.NameFirst IS NULL then '' 
+					  else ', ' + requestor.NameFirst 
+				   end 
+				   +  case  
+					  when requestor.NameMiddle IS NULL then '' 
+					  else ' ' + requestor.NameMiddle 
+				end as requestorName,
+				requestCore.ROI_RequestCore_Seq as requestId,
+				(case
+					when requestCharges.Unbillable = 0 then 'true'
+					else 'false' 
+				end) as billable, 
+				(COALESCE((SELECT SUM(inv.Base_Charge) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = requestCharges.ROI_RequestCore_Seq  and inv.Type = 'Invoice'), 0))as requestCost,
+				cast(((COALESCE((SELECT COUNT(page.ROI_Pages_Seq) 
+						FROM ROI_Pages page, ROI_Versions version, ROI_Documents document, ROI_RequestCoretoROI_Patients pat
+						WHERE page.ROI_Versions_Seq = version.ROI_Versions_Seq 
+						AND document.ROI_Documents_Seq = version.ROI_Documents_Seq
+						AND document.ROI_Patients_Seq = pat.ROI_Patients_Seq 
+						AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) +
+						(COALESCE((SELECT SUM(docs.PAGECOUNT) FROM ROI_SupplementarityDocumentsCore docs, ROI_RequestCoretoROI_Patients pat WHERE docs.ROI_Patients_Seq = pat.ROI_Patients_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) +
+						(COALESCE((SELECT SUM(CAST(attachment.PAGECOUNT as int)) FROM ROI_SupplementarityAttachmentsCore attachment, ROI_RequestCoretoROI_Patients pat WHERE attachment.ROI_Patients_Seq = pat.ROI_Patients_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) +
+						(COALESCE((SELECT SUM(docs.PAGECOUNT) FROM ROI_SupplementalDocumentsCore docs, ROI_RequestCoretoROI_SupplementalPatientsCore pat WHERE docs.ROI_SupplementalPatientsCore_Seq = pat.ROI_SupplementalPatientsCore_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0)) + 
+						(COALESCE((SELECT SUM(attachment.PAGECOUNT) FROM ROI_SupplementalAttachmentsCore attachment, ROI_RequestCoretoROI_SupplementalPatientsCore pat WHERE attachment.ROI_SupplementalPatientsCore_Seq = pat.ROI_SupplementalPatientsCore_Seq AND pat.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq), 0))) as varchar(50)) as totalPages,
+				(case  
+			          when roiPatients.LASTNAME IS NULL then '' 
+			          else roiPatients.LASTNAME
+			       end 
+			       +  case  
+					  when roiPatients.FIRSTNAME = '' then ''
+			          when roiPatients.FIRSTNAME IS NULL then '' 
+			          else ', ' + roiPatients.FIRSTNAME 
+			       end) as patientName,
+				roiPatients.MRN as patientMRN
+	
+			FROM 
+			
+				ROI_RequestCoreCharges as requestCharges,
+				ROI_RequestCoreRequestor as requestor,
+				ROI_RequestCore as requestCore,
+				ROI_RequestCoretoROI_SupplementalPatientsCore requestCoreToSuppPatCore,
+				ROI_SupplementalPatientsCore roiPatients,
+				ROI_RequestCoreDeliveryCharges invoice			
+				
+			WHERE 
+				
+				requestCharges.Facility_Code in (:facilities)
+				AND requestor.RequestorTypeName in (:requestorTypes)
+				AND requestCore.Created_Dt between :fromDate and :toDate
+				AND (:requestType IS NOT NULL and ((:requestType = 'Billable' and requestCore.Unbillable = 0)
+						OR(:requestType = 'Un-Billable' and requestCore.Unbillable = 1))
+					or :requestType IS NULL)
+				AND requestCore.ROI_RequestCore_Seq = requestCharges.ROI_RequestCore_Seq 
+				AND requestor.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq
+				AND requestCoreToSuppPatCore.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq
+				AND requestCoreToSuppPatCore.ROI_SupplementalPatientsCore_Seq = roiPatients.ROI_SupplementalPatientsCore_Seq
+				AND requestCore.ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq
+				AND invoice.Type = 'Invoice'
+			) 
+	
+	) as result
+		ORDER BY facility asc, requestorType asc
+	
+ 		]]>
+   </sql-query>
+   
+   <sql-query name="ROI_Generate_BillingReport">
+	   <![CDATA[
+			declare @name varchar(50)
+			declare @ledgerSeq bigint
+			declare @amount decimal(18,2)
+			declare @tmp table (name varchar(50), ledgerSeq bigint, amount decimal(18,2))
+			set @ledgerSeq = (select top 1 [ROI_LedgerAccount_Seq] from [ROI_LedgerAccount] order by [ROI_LedgerAccount_Seq])
+
+			while @ledgerSeq is not null 
+			begin
+					set @name = (select name from [ROI_LedgerAccount] where [ROI_LedgerAccount_Seq] = @ledgerSeq)
+			       set @amount = (select COALESCE(SUM(rjd.Amount),0.0) as increaseamount
+						FROM  ROI_JournalDetail rjd 
+						where rjd.ROI_LedgerAccount_Seq = @ledgerSeq
+									   and rjd.TxnOccurenceTimestamp >= :startDate
+									   and rjd.TxnOccurenceTimestamp <= :endDate
+							and rjd.DecreaseIncreaseFlag = 1
+						) -                                                                                      
+						(select COALESCE(SUM(rjd.Amount),0.0) as decreaseamount
+						FROM  ROI_JournalDetail rjd 
+						where rjd.ROI_LedgerAccount_Seq = @ledgerSeq
+									and rjd.TxnOccurenceTimestamp >= :startDate
+									and rjd.TxnOccurenceTimestamp <= :endDate
+							and rjd.DecreaseIncreaseFlag = 0
+						) 
+			       insert @tmp
+			       select @name, @ledgerSeq, @amount
+			       set @ledgerSeq = (select top 1 [ROI_LedgerAccount_Seq] from [ROI_LedgerAccount] where [ROI_LedgerAccount_Seq] > @ledgerSeq  order by [ROI_LedgerAccount_Seq])
+			end
+			select * from @tmp         		
+	   ]]>
+   </sql-query>
+   
+</hibernate-mapping>

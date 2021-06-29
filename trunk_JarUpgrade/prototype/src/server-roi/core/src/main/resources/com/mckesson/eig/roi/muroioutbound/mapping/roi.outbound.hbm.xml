@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics"
+		table="ROI_Outbound_StatisticsCore" dynamic-update="true">
+
+		<id name="id">
+			<column name="ROI_OS_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+		
+		<property name="reqID">
+			<column name="ROI_RequestCore_Seq" sql-type="int" not-null="true"/>
+		</property>
+		
+		<property name="reqStatus">
+			<column name="Request_Status" sql-type="varchar(10)"/>
+		</property>
+		
+		<property name="reqDate" >
+            <column name="Requested_Dt" sql-type="smalldatetime"/>
+        </property>
+		
+		 <property name="availDate" >
+            <column name="Available_Dt" sql-type="smalldatetime" />
+        </property>
+        
+        <property name="fulfilledDate" >
+            <column name="Fulfilled_Dt" sql-type="smalldatetime" />
+        </property>
+        
+        <property name="cancelledDate" >
+            <column name="Cancelled_Dt" sql-type="smalldatetime" />
+        </property>
+
+		<property name="ta">
+			<column name="TAHours" sql-type="decimal" />
+		</property>
+
+		<property name="totalDays">
+			<column name="TotalDays" sql-type="decimal" />
+		</property>
+
+		<property name="weekEndDays">
+			<column name="WeekendDays" sql-type="int" />
+		</property>
+		
+		<property name="mrn">
+			<column name="MRN" sql-type="varchar(20)"/>
+		</property>
+		
+		<property name="encounter">
+			<column name="Encounter" sql-type="varchar(20)"/>
+		</property>
+		
+		<property name="facility">
+		   <column name="Facility" sql-type="varchar(10)" not-null="true" />
+		</property>
+		
+		<property name="hpfMuDocumentType">
+			<column name="HPFMUDocumentType" sql-type="varchar(40)"/>
+		</property>
+		
+		<property name="userName">
+			<column name="UserInstanceId" sql-type="int" />
+		</property>
+		
+		<property name="externalSource">
+			<column name="ExternalSource" sql-type="varchar(40)" />
+		</property>
+		
+		<property name="reportSname">
+			<column name="Report_Sname" sql-type="varchar(40)"  />
+		</property>
+		
+		<property name="requestFor">
+			<column name="Requested_For" sql-type="varchar(40)" />
+		</property>
+		
+		<property name="documentType">
+			<column name="Document_Type" sql-type="varchar(40)"  />
+		</property>
+		
+		<property name="patSeq">
+			<column name="Pat_Seq" sql-type="varchar(40)"  />
+		</property>
+		
+		<property name="availBy">
+			<column name="Available_By" sql-type="int" />
+		</property>
+		
+		<property name="cpiSeq">
+			<column name="CPI_Seq" sql-type="varchar(40)" />
+		</property>
+		
+	    <property name="dischargeDate" >
+            <column name="Discharge_Dt" sql-type="smalldatetime" />
+        </property>
+		
+		<property name="patientFirstName">
+			<column name="PatientFirstName" sql-type="varchar(40)" />
+		</property>
+		
+		<property name="patientLastName">
+			<column name="PatientLastName" sql-type="varchar(40)" />
+		</property>
+		
+		<property name="patientDOB" >
+            <column name="PatientDOB" sql-type="smalldatetime" />
+        </property>
+		
+		<property name="patientSex">
+			<column name="PatientSex" sql-type="varchar(40)" />
+		</property>
+		
+		<property name="outbound">
+			<column name="outbound" sql-type="varchar(1)" />
+		</property>
+		
+		
+</class>
+	
+<class name="com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument"
+		table="ROI_EXT_SOURCE_DOCUMENTCore" dynamic-update="true">
+		
+		<id name="id">
+			<column name="ROI_EXT_SOURCE_DOC_SEQ" sql-type="int" />
+			<generator class="identity" />
+		</id>
+		
+		<property name="reqID">
+			<column name="ROI_RequestCore_Seq" sql-type="int" not-null="true"/>
+		</property>
+		
+		<property name="reqType">
+			<column name="REQUEST_TYPE" sql-type="varchar(40)" />
+		</property>
+		
+		<property name="reqStatus">
+			<column name="REQUEST_STATUS" sql-type="varchar(10)"/>
+		</property>
+		
+		<property name="mrn">
+			<column name="MRN" sql-type="varchar(20)"/>
+		</property>
+		
+		<property name="encounter">
+			<column name="ENCOUNTER" sql-type="varchar(20)"/>
+		</property>
+		
+		<property name="facility">
+		   <column name="FACILITY" sql-type="varchar(10)" not-null="true" />
+		</property>
+		
+		<property name="attId">
+			<column name="ATT_ID" sql-type="varchar(50)"/>
+		</property>
+		
+		<property name="outbound">
+			<column name="OUTBOUND" sql-type="varchar(1)" />
+		</property>
+		
+		<property name="referenceId">
+			<column name="REFERENCE_ID" sql-type="varchar(40)" />
+		</property>
+		
+		<property name="retry">
+			<column name="RETRY" sql-type="varchar(1)" />
+		</property>
+		
+		<property name="receivedDate">
+			<column name="RECEIVE_DATE" sql-type="varchar(20)" />
+		</property>
+		
+		<property name="fulfillDate">
+			<column name="FULFILL_DATE" sql-type="varchar(20)" />
+		</property>
+		
+		<property name="outputType">
+			<column name="OUTPUT_TYPE" sql-type="varchar(20)" />
+		</property>
+		
+</class>
+	
+	<query name="retriveFromROIOutboundForDetailsView">
+         <![CDATA[
+             select a FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a 
+			 where a.id in (select min(ra.id) as id from com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics
+			 ra where ra.reqStatus = 'Fulfilled' and 
+			 ra.reqDate >= ? and ra.reqDate <= ? and ra.hpfMuDocumentType = ? and ra.facility = ? group by ra.reqID) 
+            
+        ]]>
+	</query>
+	
+	<query name="retriveFromROIOutboundForFacilityView">
+         <![CDATA[
+             select a FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a 
+			 where a.id in (select min(ra.id) as id from com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics
+			 ra where ra.reqStatus = 'Fulfilled' and 
+			 ra.reqDate >= ? and ra.reqDate <= ? and ra.hpfMuDocumentType = ? and ra.facility = ? group by ra.reqID) 
+        ]]>
+	</query>
+	
+	<query name="retriveFromROIOutbound">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
+            where a.reqID =? and a.facility = ? and a.mrn = ? and a.encounter =? and a.hpfMuDocumentType=?
+        ]]>
+	</query>
+	
+	<query name="retriveFromROIOutboundForGlobalDocuments">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
+            where a.reqID =? and a.facility = ? and a.mrn = ? and a.encounter is null and a.hpfMuDocumentType=?
+        ]]>
+	</query>
+	
+	<query name="getOutboundStatisticsByRequestId">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
+            where a.reqID = ? 
+        ]]>
+	</query>
+	
+	<query name="getOutboundStatisticsByRequestIdandStatus">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics a
+            where a.reqID = ? and a.reqStatus = 'Requested' or a.reqID = ? and a.reqStatus = 'Canceled'
+        ]]>
+	</query>
+
+	<query name="getExternalSourceDocumentByReqId">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.reqID = ? 
+        ]]>
+	</query>
+	
+	<query name="getExternalSourceDocumentByReqIdAndMrn">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.reqID = ? and a.mrn = ?
+        ]]>
+	</query>
+	
+    <query name="getExternalSourceDocumentByReqIdFileNameStatus">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.reqID = ? and a.attId = ? and a.reqStatus = ?
+        ]]>
+	</query>
+	
+	<query name="getExternalSourceDocumentByReqIdStatusRequested">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.reqID = ? and a.reqStatus = 'Requested' and a.outbound is null
+        ]]>
+	</query>
+	
+   <query name="getExternalSourceDocumentByReqIdOutboundNull">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.reqID = ? and a.outbound is null
+        ]]>
+	</query>	
+
+   <query name="getExternalSourceDocumentsForRetry">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.retry = 'Y'
+        ]]>
+	</query>	
+	
+    <query name="getExternalSourceDocumentsByFileName">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.attId = ?
+        ]]>
+	</query>
+	
+	<query name="getExternalSourceDocumentsByReqIdAndMrnAndEncounterStatusRequested">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.reqID = ? and a.mrn = ? and a.encounter = ? and a.reqStatus = ?
+        ]]>
+	</query>
+	
+	<query name="getExternalSourceDocumentsByReqIdAndMrnAndEncounter">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument a
+            where a.reqID = ? and a.mrn = ? and a.encounter = ?
+        ]]>
+	</query>
+	
+</hibernate-mapping>

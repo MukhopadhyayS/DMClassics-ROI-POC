@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Copyright (C) 2007 McKesson Corporation and/or one of its
+	subsidiaries. All Rights Reserved.
+
+	Use of this material is governed by a license agreement.
+	This material contains confidential, proprietary and trade
+	secret information of McKesson Information Solutions and is
+	protected under United States and international copyright and
+	other intellectual property laws. Use, disclosure,
+	reproduction, modification, distribution, or storage in a
+	retrieval system in any form or by any means is prohibited
+	without the prior express written permission of McKesson
+	Information Solutions.
+-->
+
+<project default="database-build" basedir="../" >
+
+   <property file="build/props/${build.config.file.name}" />
+   <property file="build/props/project.properties"/>
+   
+    <property file="${dir.src}/build/props/base.properties"/>
+	<property file="${dir.src}/build/props/hpf.starteam.properties"/>
+	<property file="${dir.src}/build/props/hpf.svn.properties"/>
+
+   <property name="dir.src" value="${basedir}" />
+
+   <property name="dir.roi.database" value="database" />
+   <property name="dir.roi.datavault" value="${dir.roi.database}/datavault" />
+	<property name="dir.database.upgrade" value="${dir.roi.database}/upgrade" />
+
+   <property name="roi.database.scripts.dir" value="${dir.src}/${dir.roi.database}/${dir.roi.database.scripts}" />
+   <property name="roi.datavault.scripts.dir" value="${dir.src}/${dir.roi.datavault}/${dir.roi.datavault.scripts}" />
+
+   <property name="upgrade.cmd" value="upgrade.cmd" />
+   <property name="dir.upgrade.cmd" value="${dir.src}/${dir.database.upgrade}" />
+   <property name="dir.upgrade.hpf.cmd" value="${dir.upgrade.cmd}/HPF/src/Database/HPFUpgrade" />
+
+
+   <property name="load.datavault.cmd" value="upgrade.cmd" />
+   <property name="dir.load.datavault.cmd" value="${dir.src}/${dir.roi.database}/testdata/upgrade" />
+
+   <import file="${dir.src}/build/starteam.xml" />
+   <import file="${dir.src}/build/cvs.xml" />
+   <import file="${dir.src}/build/svn.xml" />
+
+   <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+   
+    <!-- **********************************************************************
+             *  Target : database-build
+             *  target to do the database tasks in sequence
+             ********************************************************************** -->
+   <target name="database-build" >
+
+        <!-- This will call the command file to refresh the database schema -->
+        <antcall target="refresh-database" />
+
+        <!-- To Load datavault -->
+      	<!-- This will call the script file to load datavault -->
+      	<antcall target="load-datavault" />
+   </target>
+
+    <!-- **********************************************************************
+             *  Target : refresh-database
+             *  target to call the command (upgrade.cmd file) to perform
+             *  database schema refresh
+             ********************************************************************** -->
+     <target name="refresh-database" >
+        <if> <equals arg1="${refresh.database}" arg2="true" />
+            <then>
+                <echo message="Refreshing database..." />
+				<antcall target="refresh-upgrade-script"/>
+            	<exec executable="${dir.upgrade.hpf.cmd}/${upgrade.cmd}" failonerror="false" dir="${dir.upgrade.hpf.cmd}">
+                  <arg value="${database.server}"/>
+                  <arg value="qc"/>
+				  <arg value="Y"/>
+                </exec>
+            </then>
+            <else>
+                <echo message="Not Refreshing database..." />
+            </else>
+        </if>
+     </target>
+	 
+	 <target name="refresh-upgrade-script">
+		<echo message="Refreshing upgrade script.." />
+		<delete dir="${dir.upgrade.cmd}"/>
+		<mkdir dir="${dir.upgrade.cmd}"/>
+		<antcall target="get-from-hpf"/>
+	 </target>
+
+    <!-- **********************************************************************
+             *  Target : load-datavault
+             *  target to load Data Vault
+             ********************************************************************** -->
+     <target name="load-datavault" >
+        <if> <equals arg1="${load.datavault}" arg2="true" />
+            <then>
+                <echo message="Loading Datavault..." />
+				<echo message="Loading Datavault..." />
+				<echo message="Exec : ${dir.load.datavault.cmd}/${load.datavault.cmd}" />
+				<echo message="Cmd : ${dir.load.datavault.cmd}" />
+                <exec executable="${dir.load.datavault.cmd}/${load.datavault.cmd}" dir="${dir.load.datavault.cmd}" failonerror="false">
+                  <arg value="${database.server}"/>
+                  <arg value="${database.password}"/>
+                </exec>
+            </then>
+        <else>
+            <echo message="Not Loading Datavault..." />
+        </else>
+        </if>
+     </target>
+		<!-- Since upgrade folder moved to hpf view the below target is return to check-out the upgrade folder-->
+	   <target name="get-from-hpf">
+			
+			
+			<echo message="svn local path = ${hpf.svn.local.file.path}" />
+			<echo message="svn command = ${svn.command.path}" />
+			<echo message="svn url = ${hpf.svn.baseurl}/${hpf.svn.trunk}/${hpf.svn.file.path} " />
+			<!-- <exec executable="${starteam.cp.client.dir}/bco.bat">
+				<arg line="-p '${hpf.starteam.username}:${hpf.starteam.password}@${hpf.starteam.servername}:${hpf.starteam.serverport}/${hpf.starteam.projectname}/${hpf.starteam.viewname}/${hpf.starteam.file.path}' -useca starteamapp:49260 -is -vb -cmp -o -rp '${hpf.starteam.local.file.path}' -t" />
+			</exec> -->
+			<exec executable="${svn.command.path}">
+				<arg value="co"/>
+				<arg value="--username=${hpf.svn.username}"/>
+				<arg value="--password=${hpf.svn.password}"/>
+				<arg value="${hpf.svn.baseurl}/${hpf.svn.trunk}/${hpf.svn.file.path}"/>
+				<arg value="${hpf.svn.local.file.path}"/>
+			</exec>
+		</target>
+
+</project>

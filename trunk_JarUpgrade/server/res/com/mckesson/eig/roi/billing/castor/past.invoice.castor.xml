@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+
+	<class name="com.mckesson.eig.roi.billing.model.PastInvoice">
+        <map-to xml="pastInfo" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="invoiceId" type="long">
+            <bind-xml name="eig:invoiceId" node="element"/>
+        </field>
+
+        <field name="createdDate" type="string">
+            <bind-xml name="eig:createdDate" node="element"/>
+        </field>
+		
+		<field name="amount" type="double">
+            <bind-xml name="eig:amount" node="element"/>
+        </field>
+
+    </class>
+
+	<class name="com.mckesson.eig.roi.billing.model.PastInvoiceList">
+        <map-to xml="PastInvoiceList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="pastInvoices" type="com.mckesson.eig.roi.billing.model.PastInvoice" collection="arraylist">
+            <bind-xml name="eig:PastInvoices" node="element"/>
+        </field>
+
+    </class>
+    
+    <class name="com.mckesson.eig.roi.billing.model.OverDueDocInfo">
+        <map-to xml="overDueDocInfo" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="id" type="long">
+            <bind-xml name="eig:id" node="element"/>
+        </field>
+
+        <field name="name" type="string">
+            <bind-xml name="eig:name" node="element"/>
+        </field>
+
+        <field name="type" type="string">
+            <bind-xml name="eig:type" node="element"/>
+        </field>
+        
+        <field name="requestorGroupingKey" type="string">
+            <bind-xml name="eig:requestorGroupingKey" node="element"/>
+        </field>
+        
+    </class>
+    
+    <class name="com.mckesson.eig.roi.billing.model.OverDueDocInfoList">
+        <map-to xml="overDueDocInfoList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="overDueDocInfos"
+            type="com.mckesson.eig.roi.billing.model.OverDueDocInfo"
+            collection="arraylist">
+            <bind-xml name="eig:overDueDocInfos" node="element" />
+        </field>
+
+        <field name="name" type="string">
+            <bind-xml name="eig:name" node="element"/>
+        </field>
+
+    </class>
+	
+</mapping>

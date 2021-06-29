@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+ <Words>
+  <Unrecognized>
+   <Word>cb</Word>
+  </Unrecognized>
+  <Recognized>
+   <Word>contravariant</Word>
+   <Word>Hpfw</Word>
+   <Word>Roi</Word>
+   <Word>Params</Word>
+   <Word>IWs</Word>
+   <Word>Worklist</Word>
+   <Word>Colour</Word>
+   <Word>Hsb</Word>
+   <Word>Rgb</Word>
+   <Word>tpo</Word>
+   <Word>ssn</Word>
+   <Word>mrn</Word>
+   <Word>epn</Word>
+   <Word>dob</Word>
+   <Word>hpf</Word>
+   <Word>lov</Word>
+  </Recognized>
+
+  <Deprecated>
+    <!-- Be sure to pascal-case deprecated terms and preferred alternates     -->
+    <!-- Note that terms consisting of one or two tokens only will be flagged -->
+    <!-- eg, ComPlus can be checked for but NewComPlus will not be detected   -->
+    <Term PreferredAlternate="EnterpriseServices">ComPlus</Term>
+  </Deprecated>
+  <Inappropriate/>
+ </Words>
+ <Acronyms>
+  <CasingExceptions>
+   <Acronym>CJK</Acronym>
+   <Acronym>Pi</Acronym>
+   <Acronym>NESW</Acronym>
+   <Acronym>NWSE</Acronym>
+   <Acronym>ROI</Acronym>
+   <Acronym>McK</Acronym>
+   <Acronym>Mc</Acronym>
+   <Acronym>EIG</Acronym>
+   <Acronym>HPFW</Acronym>
+   <Acronym>LSP</Acronym>
+   <Acronym>RCP</Acronym>
+   <Acronym>MCP</Acronym>
+   <Acronym>RSP</Acronym>
+   <Acronym>ODP</Acronym>
+   <Acronym>SSN</Acronym>
+   <Acronym>MRN</Acronym>
+   <Acronym>EPN</Acronym>
+   <Acronym>DOB</Acronym>
+   <Acronym>DVD</Acronym>
+   <Acronym>Imnet</Acronym>
+   <Acronym>Rerelease</Acronym>
+   <Acronym>Imnets</Acronym>
+   <Acronym>Rereleased</Acronym>
+
+
+</CasingExceptions>
+ </Acronyms>
+</Dictionary>

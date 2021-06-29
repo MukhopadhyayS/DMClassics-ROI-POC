@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="eigLogAppender"
+	    class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="eig.alert.log" />
+	    <param name="Append" value="true" />
+	    <param name="MaxFileSize" value="20MB" />
+	    <param name="MaxBackupIndex" value="10" />
+	    <layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+	    </layout>
+    </appender>
+
+    <appender name="eigMetricsAppender"
+	    class="org.apache.log4j.RollingFileAppender">
+	    <param name="File" value="eig-metrics.log" />
+	    <param name="Append" value="true" />
+	    <param name="MaxFileSize" value="20MB" />
+	    <param name="MaxBackupIndex" value="10" />
+	    <layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+	    </layout>
+    </appender>
+
+    <appender name="eigConsoleAppender"
+              class="org.apache.log4j.ConsoleAppender">
+	    <layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+	    </layout>
+    </appender>
+
+
+    <appender name="eigDatabaseAppender" class="com.mckesson.eig.utility.log.log4j.appender.DatabaseLoggingAppender">
+       <param name="dsSource" value="java:/ROI_DS"/>
+       <param name="Threshold" value="ERROR"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern"
+              value="INSERT INTO SYSERRORS_GLOBAL(GlobalID,OCCURRED,ERROR_TYPE,ERROR_DESC) VALUES ('%X{GLOBAL_ID}',getDate(),'%p','%m%throwable{short}%n' )"
+            />
+        </layout>
+    </appender>
+
+    <appender name="EMAIL"  class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="512"/>
+        <param name="SMTPHost" value="192.168.0.70"/>
+        <param name="From" value="alert@mckesson.com" />
+        <param name="To" value="rethinamt@object-frontier.com"/>
+        <param name="Subject" value="EIG Alerting Service" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m" />
+        </layout>
+    </appender>
+
+    <!--
+    <appender name="IM"  class="com.mckesson.eig.utility.log.log4j.appender.IMAppender">
+        <param name="BufferSize" value="512"/>
+        <param name="host" value="talk.google.com"/>
+        <param name="port" value="5222"/>
+        <param name="SSL"  value="true"/>
+        <param name="recipient" value="pvselva@gmail.com"/>
+        <param name="username" value="sethusharp@gmail.com"/>
+        <param name="password" value="hariprasathvishnu"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m" />
+        </layout>
+    </appender>
+    -->
+
+    <!-- Log events through SNMP
+	<appender name="TRAP_LOG" class="org.apache.log4j.ext.SNMPTrapAppender">
+		<errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+		<param name="ImplementationClassName" value="org.apache.log4j.ext.JoeSNMPTrapSender"/>
+		<param name="ManagementHost" value="127.0.0.1"/>
+		<param name="ManagementHostTrapListenPort" value="162"/>
+		<param name="EnterpriseOID" value="1.3.6.1.4.1.24.0"/>
+		<param name="LocalIPAddress" value="127.0.0.1"/>
+		<param name="LocalTrapSendPort" value="161"/>
+		<param name="GenericTrapType" value="6"/>
+		<param name="SpecificTrapType" value="12345678"/>
+		<param name="CommunityString" value="public"/>
+		<param name="ForwardStackTraceWithTrap" value="true"/>
+		<param name="Threshold" value="DEBUG"/>
+		<param name="ApplicationTrapOID" value="1.3.6.1.4.1.24.12.10.22.64"/>
+		<layout class="org.apache.log4j.PatternLayout">
+		      <param name="ConversionPattern" value="%m"/>
+		</layout>
+	</appender>
+    -->
+
+    <category name="com.mckesson.eig.alert.service.AlertHandler" additivity="false">
+	    <priority value="info" />
+	    <appender-ref ref="eigConsoleAppender" />
+	    <appender-ref ref="eigLogAppender" />
+	    <appender-ref ref="EMAIL" />
+	    <appender-ref ref="eigDatabaseAppender" />
+    </category>
+
+</log4j:configuration>
+
+

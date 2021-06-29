@@ -1,0 +1,160 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Pre" >
+  <topic name="Fax dialog box" url="requests/dialog_box_descriptions/fax_dialog_box.htm" />
+  <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+  <topic name="Update Request Status dialog box" url="requests/dialog_box_descriptions/update_request_status_dialog_box.htm" />
+  <topic name="Release documents" url="requests/user_instructions/release_documents.htm" />
+  <topic name="Enter shipping information" url="requests/user_instructions/enter_shipping_information.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Print dialog box" url="requests/dialog_box_descriptions/print_dialog_box.htm" />
+  <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Letter Templates form" url="admin/other_maint/form_descrip/letter_templates_form.htm" />
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="View pre-bill and invoice history" url="requests/user_instructions/view_prebill_and_invoice_history.htm" />
+  <topic name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+  <topic name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  <key name="Launches" >
+    <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  </key>
+  <key name="Preview" >
+    <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+    <topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+    <topic name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  </key>
+  <key name="Received" >
+    <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  </key>
+</key>
+<key name="Pre-Bill   Pre-Bill" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+</key>
+<key name="Pre-Bill Sent" >
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+</key>
+<key name="Pre-Billed" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+</key>
+<key name="Pre-Billed   The system" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="Pre-Payment Required" >
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+</key>
+<key name="Prebill Sent" >
+  <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+</key>
+<key name="preconfigured" >
+  <topic name="Invoice dialog box" url="requests/dialog_box_descriptions/invoice_dialog_box.htm" />
+  <topic name="Release dialog box" url="requests/dialog_box_descriptions/release_dialog_box.htm" />
+  <key name="existing" >
+    <topic name="Invoice dialog box" url="requests/dialog_box_descriptions/invoice_dialog_box.htm" />
+  </key>
+</key>
+<key name="predefined template" >
+  <topic name="Generate a letter" url="requests/user_instructions/generate_a_letter.htm" />
+  <key name="cover letter" >
+    <topic name="Generate a letter" url="requests/user_instructions/generate_a_letter.htm" />
+  </key>
+</key>
+<key name="pressing" >
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <key name="F1 key" >
+    <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  </key>
+</key>
+<key name="Preview" >
+  <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <topic name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+  <topic name="Release documents" url="requests/user_instructions/release_documents.htm" />
+  <topic name="Preview of Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_invoice_dialog_box.htm" />
+  <topic name="Create an invoice" url="requests/user_instructions/create_an_invoice.htm" />
+  <topic name="Preview of Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_cover_letter_dialog_box.htm" />
+  <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <topic name="Preview of Other" url="requests/dialog_box_descriptions/preview_of_other.htm" />
+  <topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+  <topic name="Release dialog box" url="requests/dialog_box_descriptions/release_dialog_box.htm" />
+  <topic name="Print, fax, or save as a file" url="requests/user_instructions/print_fax_or_save_as_a_file.htm" />
+  <topic name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+  <topic name="Generate a letter" url="requests/user_instructions/generate_a_letter.htm" />
+  <topic name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  <key name="Cover Letter" >
+    <topic name="Preview of Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_cover_letter_dialog_box.htm" />
+  </key>
+  <key name="displays" >
+    <topic name="Release documents" url="requests/user_instructions/release_documents.htm" />
+    <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  </key>
+  <key name="Invoice" >
+    <topic name="Preview of Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_invoice_dialog_box.htm" />
+    <topic name="Create an invoice" url="requests/user_instructions/create_an_invoice.htm" />
+    <topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+  </key>
+  <key name="launches" >
+    <topic name="Release dialog box" url="requests/dialog_box_descriptions/release_dialog_box.htm" />
+    <topic name="Pre-Bill dialog box" url="requests/dialog_box_descriptions/pre-bill_dialog_box.htm" />
+  </key>
+  <key name="Other" >
+    <topic name="Preview of Other" url="requests/dialog_box_descriptions/preview_of_other.htm" />
+  </key>
+  <key name="Pre" >
+    <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+    <topic name="Invoice History form" url="requests/form_descriptions/invoice_history_form.htm" />
+    <topic name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  </key>
+  <key name="Release Letters" >
+    <topic name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+  </key>
+</key>
+<key name="Preview dialog" >
+  <topic name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+  <key name="Closes" >
+    <topic name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+  </key>
+</key>
+<key name="Previous Month" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+<key name="Previous Year" >
+  <topic name="Outstanding Invoice Balances form" url="reports/form_descrip/outstanding_invoice_balances_form.htm" />
+  <topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_form.htm" />
+  <topic name="Posted Payment Summary form" url="reports/form_descrip/posted_payment_summary_form.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Requests with Logged Status form" url="reports/form_descrip/requests_with_logged_status_form.htm" />
+  <topic name="Request Status Summary form" url="reports/form_descrip/request_status_summary_form.htm" />
+  <topic name="Turn Around Times form" url="reports/form_descrip/turn_around_times_form.htm" />
+  <topic name="Request Detail form" url="reports/form_descrip/request_detail_form.htm" />
+  <topic name="Processed Request Summary form" url="reports/form_descrip/processed_request_summary_form.htm" />
+</key>
+
+</indexdata>

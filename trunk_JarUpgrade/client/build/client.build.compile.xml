@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2008 McKesson Corporation and/or one of its
+	subsidiaries. All Rights Reserved.
+
+	Use of this material is governed by a license agreement.
+	This material contains confidential, proprietary and trade
+	secret information of McKesson Information Solutions and is
+	protected under United States and international copyright and
+	other intellectual property laws. Use, disclosure,
+	reproduction, modification, distribution, or storage in a
+	retrieval system in any form or by any means is prohibited
+	without the prior express written permission of McKesson
+	Information Solutions.
+-->
+
+<!-- This build file contains the process includes compile the project source and genrate ndoc file-->
+
+<project name ="client.build.compile" default ="" basedir=".">
+<description>Include this project when building C# projects using NAnt.</description>
+
+	<!-- includes the client.build.helpgenerator.xml to create the msdn style documentation for each assembly -->
+	<include buildfile ="${dir.src}\client\build\client.build.docgeneration.xml"/>
+
+    <property name="TempResourceFile" value="EmbededResources.tmp"/>
+    <property name="TempReferenceFile" value="csIncludes.tmp"/>
+    <property name="Prop_Key" value=""/>
+
+    <!-- Compile the project source code-->
+    <target name ="Compile">
+
+    	<call target="StartTime"/>
+    	<property name="CompileStartTime" value="${startTime}"/>
+
+        <property name ="CompileOptions" value="TRACE"/>
+        <property name ="DocumentName" value=""/>
+
+        <!--Extract just the filename from the outfile property-->
+        <regex pattern="^(?'filename'.*)\.(?'extension'\w+)$" input="${outfile}"/>
+
+        <property name="DocumentName" value="bin\${filename}.xml"/>
+
+        <if test="${debug}">
+            <property name ="CompileOptions" value ="DEBUG;TRACE"/>
+        </if>
+
+        <property name="FileName" value="${TempReferenceFile}"/>
+        <property name="Prop_Key" value="csIncludes"/>
+         <!--Extract the values from csIncludes property and write the values in to new file called csIncludes.tmp  -->
+        <call target="CreateReferenceTempFile"/>
+
+        <property name="FileName" value="${TempResourceFile}"/>
+        <property name="Prop_Key" value="EmbededResources"/>
+         <!-- Extract the values from EmbededResources property and write the values in to new file called EmbededResources.tmp -->
+        <call target="CreateResourceTempFile"/>
+
+        <copy file="${projectName}.snk" todir="${projBaseDir}/bin/${outDir}" failonerror="false"/>
+        <property name="supportskeyfile" value="true"/>
+
+        <!-- Compile without icon-->
+        <if test ="${not property::exists('appIcon')}">
+            <csc
+                verbose  = "true"
+                target   = "${Target}"
+                output   = "${projBaseDir}/bin/${outDir}/${outfile}"
+                debug    = "${debug}"
+                unsafe   = "true"
+            	platform = "x86"
+                doc      = "${DocumentName}"
+                optimize = "${optimize}"
+                define   = "${CompileOptions}"
+                keyfile  = "${projectName}.snk">
+
+                 <nowarn>
+                  <warning number="1570"/>
+                  <warning number="1572"/>
+                  <warning number="1573"/>
+                  <warning number="1587"/>
+                  <warning number="1591"/>
+                </nowarn>
+
+                <sources basedir="${projBaseDir}">
+                    <include name ="**.cs"/>
+                </sources>
+
+                <resources basedir ="${projBaseDir}"
+                           prefix ="${namespace}"
+                           dynamicprefix ="true">
+                    <include name ="**.resx"/>
+                    <includesfile name = "${projBaseDir}\${TempResourceFile}"/>
+                </resources>
+
+                <references>
+                    <includesfile name ="${projBaseDir}\${TempReferenceFile}"/>
+                </references>
+
+           </csc>
+        </if>
+
+        <if test="${property::exists('appIcon')}">
+
+            <csc
+                verbose  = "true"
+                target   = "${Target}"
+                output   = "${projBaseDir}/bin/${outDir}/${outfile}"
+                debug    = "${debug}"
+                unsafe   = "true"
+                doc      = "${DocumentName}"
+                optimize = "${optimize}"
+                define   = "${CompileOptions}"
+            	platform = "x86"
+                keyfile  = "${projectName}.snk">
+
+
+                <nowarn>
+                  <warning number="1570"/>
+                  <warning number="1572"/>
+                  <warning number="1573"/>
+                  <warning number="1587"/>
+                  <warning number="1591"/>
+                </nowarn>
+
+                <sources basedir="${projBaseDir}">
+                    <include name ="**.cs"/>
+                </sources>
+
+                <resources basedir ="${projBaseDir}"
+                           prefix ="${namespace}"
+                           dynamicprefix ="true">
+                    <include name ="**.resx"/>
+                    <includesfile name = "${projBaseDir}\${TempResourceFile}"/>
+                </resources>
+
+                <references>
+                    <includesfile name ="${projBaseDir}\${TempReferenceFile}"/>
+                </references>
+
+           </csc>
+        </if>
+
+        <delete file ="${projBaseDir}\${TempResourceFile}" failonerror ="false"/>
+        <delete file ="${projBaseDir}\${TempReferenceFile}" failonerror ="false"/>
+
+        <copy overwrite="true"  file="${DocumentName}" todir="bin/${outDir}" if="${debug}" failonerror="false"/>
+
+        <!-- Copy the project output file and place them into respective directory-->
+        <call target ="CopyProjectOutputFile"/>
+
+        <!-- Copy culture specific resources to bin and deploy-->
+        <call target ="CopyCultureResource"/>
+
+    	<call target="EndTime"/>
+        <echo message="Compile start : ${CompileStartTime}"/>
+        <echo message="Compile end : ${endTime}"/>
+    </target>
+
+    <!-- Copy the project output file and place them into respective directory-->
+    <target name="CopyProjectOutputFile">
+
+        <!--Copy the output file into Client level bin-->
+        <property name="todir" value ="${dir.client.bin}/${outDir}"/>
+        <property name="OutputFile" value="${projBaseDir}/bin/${outDir}/${outfile}"/>
+        <call target ="CopyToRootLevel"/>
+
+        <!--Copy the pdb file into client level bin-->
+        <property name="OutputFile" value="${projBaseDir}/bin/${outDir}/${filename}.pdb"/>
+        <call target="CopyToRootLevel" if="${debug}"/>
+
+    </target>
+
+
+    <!-- Copy culture specific resources to bin and deploy-->
+    <target name="CopyCultureResource">
+
+         <foreach item="Folder" property="subBuildDir" trim="Both" in="${project::get-base-directory()}\bin\${outDir}">
+          <do>
+            <!-- get the name of the sub-directory after ${project::get-base-directory()}/bin/${outDir} -->
+            <property name="tmpDirName" value="${project::get-base-directory()}/bin/${outDir}"/>
+            <property name="tmpDirNameLen" value="${string::get-length( tmpDirName )}"/>
+            <property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
+            <property name="OutputFile" value="${project::get-base-directory()}/bin/${outDir}/${subBuildDir}/${projectName}.resources.dll"/>
+            <property name="todir" value="${dir.client.bin}/${outDir}/${subBuildDir}"/>
+            <call target="CopyToRootLevel" if="${file::exists(OutputFile)}"/>
+          </do>
+        </foreach>
+    </target>
+
+    <!--CompileTests compile C# test projects-->
+    <target name="CompileTests">
+
+    	<call target="StartTime"/>
+    	<property name="CompileTestsStartTime" value="${startTime}"/>
+
+        <property name="compileOptions" value="TRACE"/>
+
+        <!--Extract just the filename from the outfile property-->
+        <regex pattern="^(?'filename'.*)\.(?'extension'\w+)$" input="${outfile}"/>
+
+        <property name="FileName" value="${TempReferenceFile}"/>
+        <property name="Prop_Key" value="csIncludes"/>
+        <!--Extract the values from csIncludes property and write the values in to new file called csIncludes.tmp  -->
+        <call target="CreateReferenceTempFile"/>
+
+    	<property name="FileName" value="${TempResourceFile}"/>
+        <property name="Prop_Key" value="EmbededResources"/>
+         <!-- Extract the values from EmbededResources property and write the values in to new file called EmbededResources.tmp -->
+        <call target="CreateResourceTempFile"/>
+
+        <if test="${debug}">
+            <property name="CompileOptions" value="DEBUG;TRACE"/>
+        </if>
+
+        <csc
+            verbose  = "false"
+    		target   = "${Target}"
+    		output   = "${projBaseDir}/bin/${outDir}/${outfile}"
+    		debug    = "${debug}"
+    		unsafe   = "true"
+        	platform = "x86"
+    		optimize = "${optimize}"
+    		define   = "${CompileOptions}">
+
+            <nowarn>
+            </nowarn>
+
+            <sources basedir="${projBaseDir}">
+                <include name="**.cs"/>
+            </sources>
+
+            <resources basedir ="${projBaseDir}"
+                       prefix ="${namespace}"
+                       dynamicprefix ="true">
+                <include name ="**.resx"/>
+            	<includesfile name = "${projBaseDir}\${TempResourceFile}"/>
+            </resources>
+
+            <references>
+                <includesfile name="${projBaseDir}\${TempReferenceFile}"/>
+                <include name="${dir.3rdParty.dll}\nunit.framework.dll"/>
+            </references>
+        </csc>
+
+    	<delete file ="${projBaseDir}\${TempResourceFile}" failonerror ="false"/>
+        <delete file="${projBaseDir}\${TempReferenceFile}" failonerror="false"/>
+
+        <!-- Copy the test project output file and place them into respective directory-->
+        <call target ="CopyTestProjectOutputFile"/>
+
+    	<call target="EndTime"/>
+        <echo message="CompileTests start : ${CompileTestsStartTime}"/>
+        <echo message="CompileTests end : ${endTime}"/>
+
+    </target>
+
+     <!-- Copy the test project output file and place them into respective directory-->
+    <target name = "CopyTestProjectOutputFile">
+
+        <copy overwrite="true"  file="${projBaseDir}/bin/${outDir}/${filename}.pdb" todir="${dir.client.bin}/${outDir}/test" if="${debug}" failonerror="false"/>
+
+        <!-- Copy to client level bin-->
+        <property name="todir" value="${dir.client.bin}/${outDir}/test"/>
+        <property name="OutputFile" value="${projBaseDir}/bin/${outDir}/${outfile}"/>
+        <call target="CopyToRootLevel"/>
+
+    </target>
+
+    <!--Create reference temp file -->
+    <target name = "CreateReferenceTempFile">
+        <script language="C#" verbose="true">
+            <code>
+                <![CDATA[
+
+                    public static void ScriptMain(Project project) {
+    				System.IO.StreamWriter file;
+                    string fileName = (String)project.Properties["TempReferenceFile"];
+                    string Key = (String)project.Properties["Prop_Key"];
+    				string file_FullName = (String)project.Properties["projBaseDir"] + "\\" + fileName;
+
+    				if( System.IO.File.Exists(file_FullName) )
+                        System.IO.File.Delete(file_FullName);
+
+    				file = System.IO.File.CreateText(file_FullName);
+    				if( project.Properties.Contains(Key) ){
+    					String includes = (String)project.Properties[Key];
+
+    					if( includes.Length > 0 ){
+    						foreach(string name in includes.Split(',')){
+    							if( name.Trim().Length > 0 ){
+    								file.WriteLine( name.Trim() );
+    							}
+    						}
+    					}
+    				}
+    				file.Close();
+    			}
+                ]]>
+            </code>
+        </script>
+    </target>
+
+    <!--Create resource temp file -->
+    <target name = "CreateResourceTempFile">
+        <script language="C#" verbose="true">
+            <code>
+                <![CDATA[
+
+                    public static void ScriptMain(Project project) {
+    				System.IO.StreamWriter file;
+                    string fileName = (String)project.Properties["TempResourceFile"];
+                    string Key = (String)project.Properties["Prop_Key"];
+    				string file_FullName = (String)project.Properties["projBaseDir"] + "\\" + fileName;
+
+    				if( System.IO.File.Exists(file_FullName) )
+                        System.IO.File.Delete(file_FullName);
+
+    				file = System.IO.File.CreateText(file_FullName);
+    				if( project.Properties.Contains(Key) ){
+    					String includes = (String)project.Properties[Key];
+
+    					if( includes.Length > 0 ){
+    						foreach(string name in includes.Split(',')){
+    							if( name.Trim().Length > 0 ){
+    								file.WriteLine( name.Trim() );
+    							}
+    						}
+    					}
+    				}
+    				file.Close();
+    			}
+                ]]>
+            </code>
+        </script>
+    </target>
+
+    <!-- Creates the msdn style documentation for each assembly in the deploy directory-->
+    <target name="Documentation" description="document the source code by using sandcastle" >
+
+        <call target="StartTime"/>
+        <property name="DocumentationStartTime" value="${startTime}"/>
+
+    	<call target="BuildDocumentation"/>
+        <!-- Copy the genrated help file and place it into respective directory-->
+        <call target ="CopyHelpFile"/>
+
+        <!-- clean up the document files -->
+        <!--<delete dir="bin/${outDir}/docTemp" failonerror="false"/>-->
+
+    	<call target="EndTime"/>
+        <echo message="Documentation start : ${DocumentationStartTime}"/>
+    	<echo message="Documentation end : ${endTime}"/>
+    </target>
+
+    <!-- Copy the genrated help file and place it into respective directory-->
+    <target name="CopyHelpFile">
+
+        <!--Copy the generated document into cleint level build-->
+        <property name="todir" value="${dir.client.reports}\${project::get-name()}"/>
+        <property name="OutputFile" value="bin\${outDir}\docTemp\chm\${project::get-name()}.chm"/>
+        <call target="CopyToRootLevel" if="${file::exists(OutputFile)}"/>
+    </target>
+</project>

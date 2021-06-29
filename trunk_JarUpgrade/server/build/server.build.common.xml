@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Copyright (C) 2007 McKesson Corporation and/or one of its
+	subsidiaries. All Rights Reserved.
+
+	Use of this material is governed by a license agreement.
+	This material contains confidential, proprietary and trade
+	secret information of McKesson Information Solutions and is
+	protected under United States and international copyright and
+	other intellectual property laws. Use, disclosure,
+	reproduction, modification, distribution, or storage in a
+	retrieval system in any form or by any means is prohibited
+	without the prior express written permission of McKesson
+	Information Solutions.
+-->
+
+
+<project name="ServerBuildCommon">
+
+	<!-- Java Projects can include this project to compile, create jars,run unit test cases,
+		 Check coding standard and generate reports
+		 Projects that include this must define some properties that are specific to the project
+		 For example :
+		 <property name="dir.src" value="../" />
+
+		 set 'dir.src' to the main src folder
+		 set 'dir.java.test' to the path where the test cases are placed
+		 set 'dir.build.test' to destination path for compiled test cases
+
+		 set 'dir.java.src' to the path where the java src files are placed
+		 set 'dir.bin' to destination path for compiled src files
+
+		 set 'dir.build.reports' to the path where the reports are to be generated
+
+	     set 'checkstyle.report.name' to name of the check-style report
+		 set 'emma.report.name' to name of the code coverage report
+
+		 set 'jar.name' as name of the jar file
+	     set 'test.jar.name' as name of the jar file
+
+	     Then do the include, for example
+	     <import file="../../build/server.build.common.xml" />
+
+	     After include,
+	     	Define the class path for compiling
+
+	     	For example:
+
+			<path id="classpath">
+		        <fileset dir="3rdParty/jars" includes="*.jar"/>
+		    	<fileset dir="${dir.utils}/3rdParty/jars">
+		    		<include name="concurrent*.jar"/>
+		        	<include name="log4j*.jar"/>
+		    	</fileset>
+		        <pathelement location="${dir.bin}"/>
+			</path>
+
+		The other targets that are required for that project can de defined like
+		cleaning, building war and ear
+
+		-->
+
+	<path id="emma.classpath">
+		<pathelement location="${dir.bin}" />
+	</path>
+
+	<path id="junit.test.classpath">
+		<pathelement location="${dir.out.instr}" />
+		<pathelement location="${dir.build.test}" />
+		<path refid="classpath" />
+		<pathelement location="${dir.bin}" />
+	</path>
+
+	<!--Path element used by EMMA taskdef below: -->
+	<path id="emma.lib">
+		<fileset dir="${dir.3rdparty.jars}">
+			<include name="emma.jar" />
+			<include name="emma_ant.jar" />
+		</fileset>
+	</path>
+
+    <!-- **********************************************************************
+             *  Traget : compile-server
+             *  target to compile src files, test files and check coding standard
+             ********************************************************************** -->
+	<target name="build-server-src">
+		<if>
+		    <equals arg1="${compile.server.source.code}" arg2="true" />
+			<then>
+				<antcall target="clean-binaries" />
+				<antcall target="compile-src" />
+				<antcall target="copy-resources" />
+				<antcall target="jar" >
+					<param name="jar.file.path" value="${dir.bin}" />
+ 					<param name="jar.file.name" value="${jar.name}.jar" />
+					<param name="src.dir" value="${dir.bin}" />
+				</antcall>
+				<!--<antcall target="coding-standard-check" />-->
+			</then>
+			<else>
+				<echo message="Not Compiling server source and not running check style..." />
+			</else>
+		</if>
+	</target>
+	
+	<!-- **********************************************************************
+             *  Traget : copy-resources
+             *  copy the resources files to the bin directory
+             ********************************************************************** -->
+	<target name="copy-resources">
+		<copy todir="${dir.bin}" preservelastmodified="true" includeEmptyDirs="false">
+            <fileset dir="${dir.resources}" defaultexcludes="yes">
+                <include name="**/*"/>
+                <exclude name="oc*.properties"/>
+            </fileset>
+        </copy>
+	</target>
+
+    <!-- **********************************************************************
+             *  Traget : compile-server
+             *  target to compile src files, test files and check coding standard
+             ********************************************************************** -->
+    <target name="build-server-tests">
+        <if>
+            <equals arg1="${compile.server.source.code}" arg2="true" />
+            <then>
+                <echo message="Cleaning ${dir.build.test} folder..." />
+                <delete dir="${dir.build.test}" failonerror="false" includeemptydirs="true" />
+
+                <antcall target="compile-tests" />
+                <antcall target="jar" >
+                    <param name="jar.file.path" value="${dir.bin}" />
+                    <param name="jar.file.name" value="${test.jar.name}.jar" />
+                    <param name="src.dir" value="${dir.build.test}" />
+                </antcall>
+                <antcall target="coding-standard-check" />
+            </then>
+            <else>
+                <echo message="Not Compiling server source and not running check style..." />
+            </else>
+        </if>
+    </target>
+
+	<!-- **********************************************************************
+             *  Traget : compile-tests
+             *  target to compile test cases
+             ********************************************************************** -->
+	<target name="compile-tests">
+		<echo message="Compiling test files..." />
+		<mkdir dir="${dir.build.test}" />
+
+        <copy todir="${dir.build.test}" preservelastmodified="true" includeEmptyDirs="false">
+            <fileset dir="${dir.java.test}">
+                    <exclude name="**/*.scc"/>
+                    <exclude name="**/.sbas/*"/>
+                    <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+
+		<javac srcdir="${dir.java.test}" includeAntRuntime="no" destdir="${dir.build.test}" debug="on" source="${class.compatibility}" target="${class.compatibility}" optimize="off" deprecation="on">
+			<classpath>
+				<path refid="classpath" />
+				<pathelement location="${dir.bin}" />
+				<pathelement location="${dir.lib}/eig-clinical-plugin.jar"/>
+				<pathelement location="${dir.lib}/eig-paragon-plugin.jar"/>
+			</classpath>
+		</javac>
+	</target>
+
+    <!-- **********************************************************************
+             *  Traget : compile-src
+             *  target to compile src files
+             ********************************************************************** -->
+	<target name="compile-src">
+		<echo message="Compiling src files..." />
+		<mkdir dir="${dir.bin}" />
+		<javac srcdir="${dir.java.src}" includeAntRuntime="no" destdir="${dir.bin}" debug="on" source="${class.compatibility}" target="${class.compatibility}" optimize="off" deprecation="on">
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+		</javac>
+	</target>
+
+    <!-- **********************************************************************
+             *  Traget : jar
+             *  target to create jar
+             ********************************************************************** -->
+	<target name="jar">
+		<echo message="Creating ${jar.file.name}..." />
+		<jar jarfile="${jar.file.path}/${jar.file.name}" basedir="${src.dir}">
+			<manifest>
+				<attribute name="Implementation-Title" value="${Product} ${jar.file.name}" />
+				<attribute name="Implementation-Version" value="${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+				<attribute name="Implementation-Build-Date" value="${build.date}" />
+				<attribute name="Implementation-Vendor" value="${Company}" />
+			</manifest>
+		</jar>
+	</target>
+
+    <!-- **********************************************************************
+             *  Traget : coding-standard-check
+             *  target to check coding standard
+             ********************************************************************** -->
+	<target name="coding-standard-check">
+
+		<echo message="Running checkstyle ..." />
+		<taskdef resource="checkstyletask.properties" />
+		<mkdir dir="${dir.build.reports}/${dir.checkstyle.reports}" />
+		<checkstyle failOnViolation="false" config="build/config/ROI_CheckStyle_defs.xml">
+			<fileset dir="${dir.src}/server" includes="**/*.java" />
+			<formatter type="xml" toFile="${dir.build.reports}/${dir.checkstyle.reports}/${checkstyle.report.name}.xml" />
+			<classpath>
+				<path refid="classpath" />
+				<pathelement location="${dir.bin}" />
+			</classpath>
+		</checkstyle>
+		<style in="${dir.build.reports}/${dir.checkstyle.reports}/${checkstyle.report.name}.xml" out="${dir.build.reports}/${dir.checkstyle.reports}/${checkstyle.report.name}.html" style="build/config/checkstyle-simple.xsl" />
+	</target>
+
+    <!-- **********************************************************************
+             *  Traget : run-server-test-cases
+             *  target to run unit test cases
+             ********************************************************************** -->
+	<target name="run-server-test-cases">
+		<if>
+			<equals arg1="${run.server.test.cases}" arg2="true" />
+			<then>
+
+				<!-- If compile.server.source.code is false, we need to compile test cases alone
+				            for running test cases -->
+				<if> <equals arg1="${compile.server.source.code}" arg2="false" />
+				    <then>
+				    	<antcall target="compile-tests" />
+				    </then>
+				</if>
+
+				<echo message="Running TestCases..." />
+				<mkdir dir="${dir.emma.coverage}" />
+				<mkdir dir="${dir.out.instr}" />
+
+				<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+
+				<emma enabled="true">
+					<instr instrpathref="emma.classpath" destdir="${dir.out.instr}" metadatafile="${dir.emma.coverage}/metadata.emma" merge="true">
+						<filter value="" />
+					</instr>
+				</emma>
+
+				<mkdir dir="${dir.build.reports}/${dir.junit.reports}" />
+				<junit printsummary="yes" dir="${basedir}">
+					<classpath>
+						<path refid="junit.test.classpath" />
+						<path refid="config.classpath" />
+						<pathelement location="${dir.lib}/eig-clinical-plugin.jar"/>
+						<pathelement location="${dir.lib}/eig-paragon-plugin.jar"/>
+					</classpath>
+
+					<formatter type="xml" />
+					<batchtest fork="true" todir="${dir.build.reports}/${dir.junit.reports}">
+						<fileset dir="${dir.java.test}" includes="" excludes="${exclude.test.cases}">
+							<include name="**/*Test*.java" />
+						</fileset>
+					</batchtest>
+					<jvmarg value="-Xms256m" />
+					<jvmarg value="-Xmx512m" />
+					<jvmarg value="-XX:MaxPermSize=256m" />
+					<jvmarg value="-XX:+UseParallelGC" />
+					<jvmarg value="-Demma.coverage.out.file=${dir.emma.coverage}/coverage.emma" />
+					<jvmarg value="-Demma.coverage.out.merge=true" />
+				</junit>
+
+				<junitreport todir="${dir.build.reports}/${dir.junit.reports}">
+					<fileset dir="${dir.build.reports}/${dir.junit.reports}">
+						<include name="TEST-*.xml" />
+					</fileset>
+					<report format="frames" todir="${dir.build.reports}/${dir.junit.reports}/html" />
+				</junitreport>
+
+				<antcall target="emma-report" />
+			</then>
+			<else>
+				<echo message="Not running server test cases..." />
+			</else>
+		</if>
+
+	</target>
+
+    <!-- **********************************************************************
+             *  Traget : emma-report
+             *  target to generate emma report
+             ********************************************************************** -->
+	<target name="emma-report">
+
+		<mkdir dir="${dir.build.reports}/${dir.emma.reports}" />
+		<!-- Generate the Emma Code Coverage Reports  -->
+		<emma enabled="true">
+			<report sourcepath="${dir.java.src}">
+				<fileset dir="${dir.emma.coverage}">
+					<include name="*.emma" />
+					<include name="*.ec" />
+				</fileset>
+				<xml outfile="${basedir}/${dir.build.reports}/${dir.emma.reports}/${emma.report.name}.xml" />
+				<html outfile="${basedir}/${dir.build.reports}/${dir.emma.reports}/${emma.report.name}.html" />
+			</report>
+		</emma>
+	</target>
+
+
+	<!-- **********************************************************************
+           * Target : deploy-server
+           * Deploy the server components
+           ********************************************************************** -->
+	<target name="deploy-server">
+		<if>
+			<equals arg1="${deploy.serverside.components}" arg2="true" />
+			<then>
+				<echo message="Deploying server side componenets..." />
+
+				<!-- stops server -->
+				<if>
+					<equals arg1="${stop.server}" arg2="true" />
+					<then>
+						<antcall target="server-stop" />
+					</then>
+				</if>
+
+				<!-- deletes the old deployable from tomcat deploy directory -->
+				<delete failonerror="false">
+					<fileset dir="${dir.tomcat.deploy}">
+						<include name="${roi.war.name}.war" />
+						<include name="${roi.war.name}" />
+                        <!-- <include name="alert.war" />
+						<include name="audit.war" />
+						<include name="inuse.war" />
+						<include name="eig-output.ear" /> -->
+					</fileset>
+				</delete>
+
+                <delete failonerror="false">
+                    <fileset dir="${tomcat.home}/logs">
+                        <include name="*.log*" />
+                    </fileset>
+                </delete>
+
+				<!-- JBOSS Deployment Scripts commented -->
+				<!-- Copies the Common deployable to jboss 
+                <copy todir="${dir.jboss.deploy}" >
+                    <fileset dir="${dir.3rdparty}">
+                        <include name="alert.war" />
+                    	<include name="audit.war" />
+                    	<include name="inuse.war" />
+                    	<include name="eig-output.ear" />
+                    </fileset>
+                </copy> -->
+
+                <!-- Copies the new deployable to jboss -->
+                <copy todir="${dir.tomcat.deploy}">
+                     <fileset dir="${dir.bin}">
+                         <include name="${roi.war.name}.war" />
+                     </fileset>
+				</copy>
+
+				<!-- JBOSS Deployment Scripts commented -->
+				<!-- start with fresh var config collection -->
+				<!-- start with fresh var config collection 
+				<delete dir="${dir.jboss.deploy}/../var" quiet="true"/>
+
+                <echo message="**** Unzipping Audit config files to var folder ****" />
+                <unzip src="${dir.3rdparty}/audit-config.zip" dest="${dir.jboss.deploy}/.."/>
+
+                <echo message="**** Unzipping Alert config files to var folder ****" />
+                <unzip src="${dir.3rdparty}/alert-config.zip" dest="${dir.jboss.deploy}/.."/>
+
+                <echo message="**** Unzipping InUse config files to var folder ****" />
+                <unzip src="${dir.3rdparty}/InUse-config.zip" dest="${dir.jboss.deploy}/.."/>
+
+                <echo message="**** Unzipping Output config files to var folder ****" />
+                <unzip src="${dir.3rdparty}/eig-output.zip" dest="${dir.jboss.deploy}/.."/> -->
+				
+				<!--To replace the jms port 61617 to 61616 @ output-spring.xml
+				<replace file="${dir.jboss.deploy}/../var/config/com/mckesson/eig/output/output-spring.xml">
+					<replacetoken><![CDATA[61617]]></replacetoken>
+					<replacevalue><![CDATA[61616]]></replacevalue>
+				</replace>
+                
+				<echo message="**** Unzipping ROI config files to var folder ****" />
+                <unzip src="${dir.bin}/${roi.config.zip.name}.zip" dest="${dir.jboss.deploy}/.."/> --> 
+
+				<!-- starts the server -->
+				<if>
+					<equals arg1="${start.server}" arg2="true" />
+					<then>
+						<antcall target="server-start" />
+					</then>
+				</if>
+
+				<antcall target="wait-for-server-to-start" />
+			</then>
+			<else>
+				<echo message="Not deploying server side componenets..." />
+			</else>
+		</if>
+	</target>
+
+    <!-- **********************************************************************
+           * Target : server-start
+           * target to start jboss server
+           ********************************************************************** -->
+	<target name="server-start">
+		<if>
+			<equals arg1="${start.server}" arg2="true" />
+			<then>
+
+				<echo message="**** Killing openoffice****" />
+				<exec executable="${jboss.home}\bin\ookill.bat"/> 
+
+				<echo message="**** Starting the ROI JBoss Server****" />
+				<java dir="${jboss.home}/bin" classname="org.jboss.Main" fork="true" spawn="true">
+					<jvmarg value="-Xms256m" />
+					<jvmarg value="-Xmx512m" />
+					<jvmarg value="-XX:MaxPermSize=256m" />
+					<jvmarg value="-Dsun.rmi.dgc.client.gcInterval=3600000" />
+					<jvmarg value="-Dsun.rmi.dgc.server.gcInterval=3600000" />
+					<jvmarg value="-Djava.endorsed.dirs=${jboss.home}/lib/endorsed" />
+					<jvmarg value="-Dapplication.home=${jboss.home}/server/default" />
+					<jvmarg value="-Djboss.bind.address=0.0.0.0" />
+					<jvmarg value="-Dorg.jboss.resolver.warning=true" />
+					<jvmarg value="-Dorg.apache.catalina.connector.Request.SESSION_ID_CHECK=false" />
+ 					<jvmarg value="-server" />
+					<jvmarg value="-Dprogram.name=run.bat" />
+
+					<classpath>
+						<pathelement path="${env.JAVA_HOME}/lib/tools.jar" />
+						<pathelement path="${jboss.home}/bin/run.jar" />
+						<pathelement location="${jboss.home}/server/default/var/config" />
+					</classpath>
+				</java>
+
+			</then>
+			<else>
+				<echo message="**** Not Starting ROI Jboss Server as per configuration Flag ****" />
+			</else>
+		</if>
+	</target>
+
+    <!-- **********************************************************************
+           * Target : server-stop
+           * target to stop jboss server
+           ********************************************************************** -->
+	<target name="server-stop">
+		<echo message="**** Stopping the ROI JBoss Server****" />
+
+		<java dir="${jboss.home}/bin" classname="org.jboss.Shutdown" fork="true">
+			<jvmarg value="-Djboss.boot.loader.name=shutdown.bat" />
+			<arg value="-S" />
+			<arg value="-s localhost:8080" />
+			<classpath>
+				<pathelement path="${jboss.home}/client/jbossall-client.jar" />
+				<pathelement path="${jboss.home}/bin/shutdown.jar" />
+			</classpath>
+		</java>
+
+	</target>
+
+    <!-- **********************************************************************
+           * Target : wait-for-server-to-start
+           * target to wait until the server starts
+           ********************************************************************** -->
+	<target name="wait-for-server-to-start">
+		<!-- only wait if we are running client side unit tests -->
+		<if>
+			<and>
+				<equals arg1="${build.clientside.components}" arg2="true" />
+				<equals arg1="${run.client.test.cases}" arg2="true" />
+			</and>
+			<then>
+				<tstamp>
+					<format property="wait.start.timestamp" pattern="dd-MMM-yy HH:mm:ss" />
+				</tstamp>
+				<echo message="**** ${wait.start.timestamp} Waiting for server to start before running client tests ****" />
+				<waitfor maxwait="3" maxwaitunit="minute" checkevery="5" checkeveryunit="second">
+					<http url="${jboss.url}" />
+				</waitfor>
+				<tstamp>
+					<format property="wait.stop.timestamp" pattern="dd-MMM-yy HH:mm:ss" />
+				</tstamp>
+				<echo message="**** ${wait.stop.timestamp} The server is up or we timed out at 3 minutes ****" />
+			</then>
+			<else>
+				<echo message="**** Not running client tests, no need to wait for ROI server to start ****" />
+			</else>
+		</if>
+	</target>
+
+	<!-- ** New script for starting HPFW -->
+	
+	    <!-- **********************************************************************
+           * Target : server-start
+           * target to start hpfw jboss server
+           ********************************************************************** -->
+	<target name="hpfw-server-start">
+		<if>
+			<equals arg1="${start.server}" arg2="true" />
+			<then>
+
+			<echo message="**** Starting the HPFW JBoss Server****" />
+				<java dir="${hpfw.jboss.home}/bin" classname="org.jboss.Main" fork="true" spawn="true">
+					<jvmarg value="-Xms256m" />
+					<jvmarg value="-Xmx512m" />
+					<jvmarg value="-XX:MaxPermSize=256m" />
+					<jvmarg value="-Dsun.rmi.dgc.client.gcInterval=3600000" />
+					<jvmarg value="-Dsun.rmi.dgc.server.gcInterval=3600000" />
+					<jvmarg value="-Djava.endorsed.dirs=${hpfw.jboss.home}/lib/endorsed" />
+					<jvmarg value="-Dapplication.home=${hpfw.jboss.home}/server/default" />
+					<jvmarg value="-Djboss.bind.address=0.0.0.0" />
+					<jvmarg value="-Dorg.jboss.resolver.warning=true" />
+					<jvmarg value="-Djavax.security.auth.useSubjectCredsOnly=false" />
+					<jvmarg value="-Djava.security.krb5.conf=C:\HPFW15.1\HPFW\hpfw\portal.war\WEB-INF\classes\config\authentication\krb5.conf" />
+					<jvmarg value="-Dorg.apache.catalina.connector.Request.SESSION_ID_CHECK=false" />
+ 					<jvmarg value="-server" />
+					<jvmarg value="-Dprogram.name=run.bat" />
+
+					<classpath>
+						<pathelement path="${env.JAVA_HOME}/lib/tools.jar" />
+						<pathelement path="${hpfw.jboss.home}/bin/run.jar" />
+					</classpath>
+				</java>
+
+			</then>
+			<else>
+				<echo message="**** Not Starting HPFW Jboss Server as per configuration Flag ****" />
+			</else>
+		</if>
+	</target>
+	
+	 <target name="hpfw-delete-data-folder">
+		<delete dir="${hpfw.jboss.home}/server/default/data" includeemptydirs="true" />
+	</target> 
+	
+	<target name="stop-open-office">
+		<!-- Kill soffice.bin for initial time -->
+		<exec executable="${jboss.home}\bin\ookill.bat"/> 
+	</target>
+
+    <!-- **********************************************************************
+           * Target : server-stop
+           * target to stop jboss server
+           ********************************************************************** -->
+	<target name="hpfw-server-stop">
+		<echo message="**** Stopping the HPFW JBoss Server****" />
+
+		<java dir="${hpfw.jboss.home}/bin" classname="org.jboss.Shutdown" fork="true">
+			<jvmarg value="-Djboss.boot.loader.name=shutdown.bat" />
+			<arg value="-S" />
+			<arg value="-s localhost:80" />
+			<classpath>
+				<pathelement path="${hpfw.jboss.home}/client/jbossall-client.jar" />
+				<pathelement path="${hpfw.jboss.home}/bin/shutdown.jar" />
+			</classpath>
+		</java>
+
+	</target>
+
+    <!-- **********************************************************************
+           * Target : wait-for-server-to-start
+           * target to wait until the server starts
+           ********************************************************************** -->
+	<target name="wait-for-hpfw-server-to-start">
+		<!-- only wait if we are running client side unit tests -->
+		<if>
+			<and>
+				<equals arg1="${build.clientside.components}" arg2="true" />
+				<equals arg1="${run.client.test.cases}" arg2="true" />
+			</and>
+			<then>
+				<tstamp>
+					<format property="wait.start.timestamp" pattern="dd-MMM-yy HH:mm:ss" />
+				</tstamp>
+				<echo message="**** ${wait.start.timestamp} Waiting for server to start before running client tests ****" />
+				<waitfor maxwait="3" maxwaitunit="minute" checkevery="5" checkeveryunit="second">
+					<http url="${hpfw.jboss.url}" />
+				</waitfor>
+				<tstamp>
+					<format property="wait.stop.timestamp" pattern="dd-MMM-yy HH:mm:ss" />
+				</tstamp>
+				<echo message="**** ${wait.stop.timestamp} The server is up or we timed out at 3 minutes ****" />
+			</then>
+			<else>
+				<echo message="**** Not running client tests, no need to wait for HPFW server to start ****" />
+			</else>
+		</if>
+	</target>
+	
+	
+	
+	
+    <!-- **********************************************************************
+           * Target : clean-binaries
+           * target to clean the generated class files
+           ********************************************************************** -->
+	<target name="clean-binaries">
+		<echo message="Cleaning ${dir.bin} folder..." />
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${dir.bin}" defaultexcludes="yes" includes="**/*" />
+		</delete>
+
+	</target>
+
+    <target name="generate-performance-report" >
+
+        <!-- NANT call to generate performance report
+             Server side performance report is generated based on the metrics logging made by client test cases
+             Hence server performance report should be generated only when client test cases are running -->
+        <if>
+            <and>
+                <equals arg1="${run.client.test.cases}" arg2="true" />
+                <equals arg1="${build.serverside.components}" arg2="true" />
+            </and>
+            <then>
+
+            	 <mkdir dir="${basedir}/build/temp" />
+                 <copy todir="${basedir}/build/temp" failonerror="false" overwrite="true">
+                     <fileset dir="${jboss.home}/server/default/log"
+                              includes="eig-metrics*.log*"
+                              excludes="eig-metrics.audit.log*" />
+                 </copy>
+
+        		  <!-- parse the log files and trim unwanted data -->
+                 <replaceregexp match="(.*)\|(.*)\|(.*)\|(.*)\| (.*) \| Metric \|(.*)\|Duration\|(.*)\|(.*): (.*)"
+                                replace="\5\|\8\|\9\|\7"
+                                byline="true">
+                  <fileset dir="${basedir}/build/temp" includes="eig-metrics*.log*" />
+                 </replaceregexp>
+
+                 <replaceregexp match="(.*)\$\$EnhancerByCGLIB\$\$(.*)\.(.*)"
+                                replace="\1.\3"
+                                byline="true">
+                 <fileset dir="${basedir}/build/temp" includes="eig-metrics*.log*" />
+                 </replaceregexp>
+
+                 <concat destfile="${basedir}/build/temp/roi-metrics.properties" append="true">
+                    <fileset dir="${basedir}/build/temp" includes="eig-metrics*.log*" />
+                    <filterchain>
+                        <tokenfilter>
+                            <ignoreblank/>
+                        </tokenfilter>
+                    </filterchain>
+                 </concat>
+
+                 <exec executable="nant.exe" failonerror="true" dir="${dir.src}/client/build">
+                    <arg value="-buildfile:client.build.common.xml" />
+                    <arg value="GeneratePerformanceReport" />
+                	<arg value="-D:perfReportType=Server" />
+                 </exec>
+
+                 <delete dir="${basedir}/build/temp" failonerror="false" includeemptydirs="true" />
+            </then>
+       </if>
+    </target>
+
+</project>

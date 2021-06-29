@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="File" >
+  <key name="email" >
+    <topic name="Preview of Release Letters dialog box" url="requests/dialog_box_descriptions/preview_of_release_letters_dialog_box.htm" />
+    <topic name="Preview of Invoice dialog box" url="requests/dialog_box_descriptions/preview_of_invoice_dialog_box.htm" />
+    <topic name="Preview of Cover Letter dialog box" url="requests/dialog_box_descriptions/preview_of_cover_letter_dialog_box.htm" />
+    <topic name="Preview of Other" url="requests/dialog_box_descriptions/preview_of_other.htm" />
+    <topic name="Preview of Pre-Bill" url="requests/dialog_box_descriptions/preview_of_pre-bill.htm" />
+  </key>
+  <key name="Save" >
+    <topic name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+  </key>
+</key>
+<key name="File Format" >
+  <topic name="Print or export reports" url="reports/user_instruc/print_or_export_reports.htm" />
+</key>
+<key name="File Name" >
+  <topic name="Print or export reports" url="reports/user_instruc/print_or_export_reports.htm" />
+  <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  <key name="populates" >
+    <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  </key>
+</key>
+<key name="Filter" >
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Find a requestor" url="requestors/user_instructions/find_a_requestor.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <topic name="Select or change a requestor" url="requests/user_instructions/select_or_change_a_requestor.htm" />
+  <key name="Select" >
+    <topic name="Select or change a requestor" url="requests/user_instructions/select_or_change_a_requestor.htm" />
+  </key>
+  <key name="set" >
+    <topic name="Find a requestor" url="requestors/user_instructions/find_a_requestor.htm" />
+  </key>
+</key>
+<key name="Filter By" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+</key>
+<key name="Filter By Encounters" >
+  <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+</key>
+<key name="Filter Patients" >
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  <key name="Select" >
+    <topic name="View release history" url="requests/user_instructions/view_release_history.htm" />
+  </key>
+</key>
+<key name="Find" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <topic name="Post payments or adjustments to a request" url="requests/user_instructions/post_payments_or_adjustments_to_a_request.htm" />
+  <topic name="Release documents" url="requests/user_instructions/release_documents.htm" />
+  <topic name="Create an invoice" url="requests/user_instructions/create_an_invoice.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Cancel, pend, or deny a request" url="requests/user_instructions/cancel,_pend,_or_deny_a_request.htm" />
+  <topic name="Create a request from the Requests tab" url="requests/user_instructions/create_a_request_from_the_requests_tab.htm" />
+  <topic name="View pre-bill and invoice history" url="requests/user_instructions/view_prebill_and_invoice_history.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="Generate a letter" url="requests/user_instructions/generate_a_letter.htm" />
+  <topic name="To find and open a request" url="popup_topics/to_find_and_open_a_request.htm" />
+  <key name="Adjustments" >
+    <topic name="Post payments or adjustments to a request" url="requests/user_instructions/post_payments_or_adjustments_to_a_request.htm" />
+  </key>
+  <key name="View" >
+    <topic name="About requests" url="requests/about_requests.htm" />
+  </key>
+</key>
+<key name="Find / Create Request" >
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+</key>
+<key name="Find Patient" >
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+  <topic name="Create a request for a non-patient requestor" url="requests/user_instructions/create_a_req_for_non-pat_requestor.htm" />
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+  <topic name="Create a non-MPF patient" url="patients/user_instructions/create_a_non-hpf_patient.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="View documents" url="requests/user_instructions/view_documents.htm" />
+  <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  <topic name="Potential Patient Mismatch dialog box" url="patients/dbox_desc/potential_patient_mismatch_dialog_box.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <topic name="Create a request with patient requesting" url="requests/user_instructions/create_a_req_with_pat_requesting.htm" />
+  <key name="Displays" >
+    <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+    <topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+    <topic name="Create a non-MPF patient" url="patients/user_instructions/create_a_non-hpf_patient.htm" />
+  </key>
+  <key name="Edit Patient" >
+    <topic name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+  </key>
+  <key name="See" >
+    <topic name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+  </key>
+  <key name="View" >
+    <topic name="About patient records" url="patients/about_patient_records.htm" />
+  </key>
+</key>
+<key name="Find Patient button" >
+  <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+</key>
+<key name="Find Patient form" >
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+</key>
+<key name="Find Request" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+  <topic name="To find and open a request" url="popup_topics/to_find_and_open_a_request.htm" />
+</key>
+<key name="Find Request button" >
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="Find Requestor" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Maintain requestor records" url="requestors/user_instructions/maintain_requestor_records.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Menu descriptions" url="getting_started/your_workspace/menu_descriptions.htm" />
+  <topic name="Select Requestor dialog box" url="requests/dialog_box_descriptions/select_requestor_dialog_box.htm" />
+  <topic name="Find a requestor" url="requestors/user_instructions/find_a_requestor.htm" />
+  <topic name="Create a requestor" url="requestors/user_instructions/create_a_requestor.htm" />
+  <topic name="About requestors" url="requestors/about_requestors.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="Create a request from the Requestor's tab" url="requests/user_instructions/create_a_req_from_requestor_tab.htm" />
+  <topic name="Select or change a requestor" url="requests/user_instructions/select_or_change_a_requestor.htm" />
+  <topic name="Change Requestor dialog box" url="requests/dialog_box_descriptions/change_requestor_dialog_box.htm" />
+  <key name="Edit Requestor" >
+    <topic name="Select Requestor dialog box" url="requests/dialog_box_descriptions/select_requestor_dialog_box.htm" />
+    <topic name="Change Requestor dialog box" url="requests/dialog_box_descriptions/change_requestor_dialog_box.htm" />
+  </key>
+  <key name="View" >
+    <topic name="About requestors" url="requestors/about_requestors.htm" />
+  </key>
+</key>
+<key name="Find Requestor button" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+</key>
+<key name="Find Requestor form" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+</key>
+<key name="Find/Create Request form" >
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="First" >
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+</key>
+<key name="First Name" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  <topic name="Last Name box" url="patients/form_descriptions/patient_records_form_items/last_name_box.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="First Name box" >
+  <topic name="First Name box" url="patients/form_descriptions/patient_records_form_items/first_name_box.htm" />
+</key>
+<key name="First Name OR Last Name OR" >
+  <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+</key>
+<key name="firstname" >
+  <topic name="Print dialog box" url="requests/dialog_box_descriptions/print_dialog_box.htm" />
+</key>
+
+</indexdata>

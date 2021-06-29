@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+
+     <class name="com.mckesson.eig.roi.request.model.RequestCoreSearchResult">
+        <map-to xml="requestCoreSearchResult" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="requestId" type="long">
+            <bind-xml name="eig:requestId" node="element"/>
+        </field>
+
+        <field name="receiptDate" type="date">
+            <bind-xml name="eig:receiptDate" node="element"/>
+        </field>
+
+        <field name="requestStatus" type="string">
+            <bind-xml name="eig:requestStatus" node="element"/>
+        </field>
+
+        <field name="requestorName" type="string">
+            <bind-xml name="eig:requestorName" node="element"/>
+        </field>
+
+        <field name="requestorType" type="long">
+            <bind-xml name="eig:requestorType" node="element"/>
+        </field>
+
+        <field name="requestorTypeName" type="string">
+            <bind-xml name="eig:requestorTypeName" node="element"/>
+        </field>
+
+        <field name="subtitle" type="string">
+            <bind-xml name="eig:subtitle" node="element"/>
+        </field>
+
+        <field name="lastUpdated" type="date">
+            <bind-xml name="eig:lastUpdated" node="element"/>
+        </field>
+
+        <field name="updatedBy" type="string">
+            <bind-xml name="eig:updatedBy" node="element"/>
+        </field>
+
+        <field name="balance" type="double">
+            <bind-xml name="eig:balance" node="element"/>
+        </field>
+
+        <field name="patients" type="string" collection="arraylist">
+            <bind-xml name="eig:patients" node="element"/>
+        </field>
+
+        <field name="encounters" type="string" collection="arraylist">
+            <bind-xml name="eig:encounters" node="element"/>
+        </field>
+
+        <field name="facility" type="string">
+            <bind-xml name="eig:facility" node="element"/>
+        </field>
+        
+        <field name="patientLocked" type="boolean">
+            <bind-xml name="eig:patientLocked" node="element"/>
+        </field>
+        
+        <field name="vip" type="boolean">
+            <bind-xml name="eig:vip" node="element"/>
+        </field>
+
+    </class>
+
+	<class name="com.mckesson.eig.roi.request.model.RequestCoreSearchResultList">
+    	<map-to xml="requestCoreSearchResultList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+    	<field name="requestCoreSearchResult" type="com.mckesson.eig.roi.request.model.RequestCoreSearchResult"
+           collection="arraylist">
+      		<bind-xml name="eig:requestCoreSearchResult" node="element" />
+    	</field>
+
+    	<field name="maxCountExceeded" type="boolean">
+      		<bind-xml name="eig:maxCountExceeded" node="element" />
+	    </field>
+
+	</class>
+	
+	<class name="com.mckesson.eig.roi.request.model.RequestCoreSearchCriteria">
+        <map-to xml="requestCoreSearchCriteria" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+		
+        <field name="requestId" type="long">
+            <bind-xml name="eig:requestId" node="element"/>
+        </field>
+
+        <field name="patientLastName" type="string">
+            <bind-xml name="eig:patientLastName" node="element"/>
+        </field>
+
+        <field name="patientFirstName" type="string">
+            <bind-xml name="eig:patientFirstName" node="element"/>
+        </field>
+
+        <field name="mrn" type="string">
+            <bind-xml name="eig:mrn" node="element"/>
+        </field>
+
+        <field name="patientSsn" type="string">
+            <bind-xml name="eig:patientSsn" node="element"/>
+        </field>
+
+        <field name="encounter" type="string">
+            <bind-xml name="eig:encounter" node="element"/>
+        </field>
+
+        <field name="patientEpn" type="string">
+            <bind-xml name="eig:patientEpn" node="element"/>
+        </field>
+        
+        <field name="patientId" type="long">
+            <bind-xml name="eig:patientId" node="element"/>
+        </field>
+
+        <field name="patientDob" type="date">
+            <bind-xml name="eig:patientDob" node="element"/>
+        </field>
+
+        <field name="facility" type="string">
+            <bind-xml name="eig:facility" node="element"/>
+        </field>
+
+        <field name="requestStatus" type="string">
+            <bind-xml name="eig:requestStatus" node="element"/>
+        </field>
+
+        <field name="requestReason" type="string">
+            <bind-xml name="eig:requestReason" node="element"/>
+        </field>
+
+        <field name="invoiceNumber" type="long">
+            <bind-xml name="eig:invoiceNumber" node="element"/>
+        </field>
+
+        <field name="balanceDue" type="double">
+            <bind-xml name="eig:balanceDue" node="element"/>
+        </field>
+
+        <field name="balanceDueOperator" type="string" >
+            <bind-xml name="eig:balanceDueOperator" node="element"/>
+        </field>
+
+        <field name="requestorName" type="string">
+            <bind-xml name="eig:requestorName" node="element"/>
+        </field>
+
+        <field name="requestorTypeName" type="string">
+            <bind-xml name="eig:requestorTypeName" node="element"/>
+        </field>
+
+        <field name="requestorType" type="long">
+            <bind-xml name="eig:requestorType" node="element"/>
+        </field>
+
+        <field name="requestorId" type="long">
+            <bind-xml name="eig:requestorId" node="element"/>
+        </field>
+
+        <field name="completedDateFrom" type="date">
+            <bind-xml name="eig:completedDateFrom" node="element"/>
+        </field>
+
+        <field name="completedDateTo" type="date">
+            <bind-xml name="eig:completedDateTo" node="element"/>
+        </field>
+
+        <field name="receiptDateFrom" type="date">
+            <bind-xml name="eig:receiptDateFrom" node="element"/>
+        </field>
+
+        <field name="receiptDateTo" type="date">
+            <bind-xml name="eig:receiptDateTo" node="element"/>
+        </field>
+
+        <field name="paginationData" type="com.mckesson.eig.roi.request.model.PaginationData">
+            <bind-xml name="eig:paginationData" node="element"/>
+        </field>
+
+        <field name="maxCount" type="long">
+            <bind-xml name="eig:maxCount" node="element"/>
+        </field>
+
+    </class>
+    
+    <class name="com.mckesson.eig.roi.request.model.PaginationData">
+        <map-to xml="paginationData" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+
+        <field name="startIndex" type="int">
+          <bind-xml name="eig:startIndex" node="element" />
+        </field>
+
+        <field name="count" type="int">
+          <bind-xml name="eig:count" node="element" />
+        </field>
+
+        <field name="isDesc" type="boolean">
+          <bind-xml name="eig:isDesc" node="element" />
+        </field>
+
+        <field name="sortBy" type="string">
+          <bind-xml name="eig:sortBy" node="element" />
+        </field>
+
+        <field name="domainType" type="string">
+          <bind-xml name="eig:domainType" node="element" />
+        </field>
+
+ 	</class>
+
+</mapping>

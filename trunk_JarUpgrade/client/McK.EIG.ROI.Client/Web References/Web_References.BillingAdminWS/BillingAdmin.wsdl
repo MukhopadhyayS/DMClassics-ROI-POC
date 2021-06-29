@@ -1,0 +1,1377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:eig="urn:eig.mckesson.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BillingAdmin" targetNamespace="urn:eig.mckesson.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+
+        This WSDL document contains a reference to Admin Service
+     </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:eig.mckesson.com">
+      <xsd:import schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+      <xsd:element name="transactionId" type="xsd:long" />
+      <xsd:complexType name="MediaType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element name="isAssociated" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MediaTypeList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="mediaTypeList" type="eig:MediaType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FeeType">
+        <xsd:sequence>
+          <xsd:element name="feeTypeId" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element name="chargeAmount" type="xsd:double" />
+          <xsd:element name="isAssociated" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="salesTax" type="xsd:string" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FeeTypeList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="feeTypes" type="eig:FeeType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PaymentMethod">
+        <xsd:sequence>
+          <xsd:element name="paymentMethodId" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element name="display" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PaymentMethodList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="paymentMethods" type="eig:PaymentMethod" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BillingTemplate">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="associated" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="feeTypeIds" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="relatedFeeTypes" type="eig:RelatedFeeType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RelatedFeeType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="feeTypeId" type="xsd:long" />
+          <xsd:element name="billingTemplateId" type="xsd:long" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BillingTemplateList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingTemplates" type="eig:BillingTemplate" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PageLevelTier">
+        <xsd:sequence>
+          <xsd:element name="pageLevelTierId" type="xsd:long" />
+          <xsd:element name="page" type="xsd:int" />
+          <xsd:element name="pageCharge" type="xsd:float" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BillingTier">
+        <xsd:sequence>
+          <xsd:element name="billingTierId" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="salesTax" type="xsd:string" />
+          <xsd:element name="associated" type="xsd:boolean" />
+          <xsd:element name="baseCharge" type="xsd:float" />
+          <xsd:element name="defaultPageCharge" type="xsd:float" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+          <xsd:element minOccurs="0" name="mediaType" type="eig:MediaType" />
+          <xsd:element name="mediaTypeId" type="xsd:long" />
+          <xsd:element minOccurs="0" name="mediaTypeName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="pageLevelTier" type="eig:PageLevelTier" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BillingTierList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingTiers" type="eig:BillingTier" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TaxPerFacility">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="code" type="xsd:string" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="default" type="xsd:string" />
+          <xsd:element name="taxPercentage" type="xsd:float" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TaxPerFacilityList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="TaxPerFacility" type="eig:TaxPerFacility" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DeliveryMethod">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element name="url" type="xsd:string" />
+          <xsd:element name="default" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DeliveryMethodList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="deliveryMethodList" type="eig:DeliveryMethod" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Weight">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+          <xsd:element name="unitPerMeasure" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Country">
+        <xsd:sequence>
+          <xsd:element name="countryCode" type="xsd:string" />
+          <xsd:element name="countryName" type="xsd:string" />
+          <xsd:element name="defaultCountry" type="xsd:boolean" />
+          <xsd:element name="countrySeq" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Reason">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="displayText" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="status" type="xsd:int" />
+          <xsd:element name="tpo" type="xsd:boolean" />
+          <xsd:element name="nonTpo" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReasonsList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="reasons" type="eig:Reason" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RelatedBillingTemplate">
+        <xsd:sequence>
+          <xsd:element name="relatedBillingTemplateId" type="xsd:long" />
+          <xsd:element name="billingTemplateId" type="xsd:long" />
+          <xsd:element name="isDefault" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RelatedBillingTier">
+        <xsd:sequence>
+          <xsd:element name="relatedBillingTierId" type="xsd:long" />
+          <xsd:element name="billingTierId" type="xsd:long" />
+          <xsd:element name="isHPF" type="xsd:boolean" />
+          <xsd:element name="isHECM" type="xsd:boolean" />
+          <xsd:element name="isCEVA" type="xsd:boolean" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+          <xsd:element name="isSupplemental" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorType">
+        <xsd:sequence>
+          <xsd:element name="requestorTypeId" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="rv" type="xsd:string" />
+          <xsd:element minOccurs="0" name="rvDesc" type="xsd:string" />
+          <xsd:element name="recordVersion" type="xsd:int" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="relatedBillingTemplate" type="eig:RelatedBillingTemplate" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="relatedBillingTier" type="eig:RelatedBillingTier" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingTemplateIds" nillable="true" type="xsd:long" />
+          <xsd:element name="isAssociated" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="salesTax" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BillingPaymentInfo">
+        <xsd:sequence>
+          <xsd:element name="paymentMethodList" type="eig:PaymentMethodList" />
+          <xsd:element name="billingTemplateList" type="eig:BillingTemplateList" />
+          <xsd:element name="feeTypeList" type="eig:FeeTypeList" />
+          <xsd:element name="deliveryMethodList" type="eig:DeliveryMethodList" />
+          <xsd:element name="weight" type="eig:Weight" />
+          <xsd:element name="reasonsList" type="eig:ReasonsList" />
+          <xsd:element name="requestorType" type="eig:RequestorType" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="countries" type="eig:Country" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="createMediaType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeDetails" type="eig:MediaType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createMediaTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveMediaType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveMediaTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeDetails" type="eig:MediaType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllMediaTypes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="detailedFetch" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllMediaTypesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypes" type="eig:MediaTypeList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateMediaType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeDetails" type="eig:MediaType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateMediaTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeDetails" type="eig:MediaType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteMediaType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteMediaTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createFeeType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypeDetails" type="eig:FeeType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createFeeTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypeId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveFeeType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypeId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveFeeTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypeDetails" type="eig:FeeType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllFeeTypes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="detailedFetch" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllFeeTypesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypes" type="eig:FeeTypeList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateFeeType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypeDetails" type="eig:FeeType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateFeeTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypeDetails" type="eig:FeeType" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteFeeType">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="feeTypeId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteFeeTypeResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createPaymentMethod">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethodDetails" type="eig:PaymentMethod" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createPaymentMethodResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethodId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrievePaymentMethod">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethodId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrievePaymentMethodResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethodDetails" type="eig:PaymentMethod" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllPaymentMethods">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="detailedFetch" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllPaymentMethodsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethods" type="eig:PaymentMethodList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updatePaymentMethod">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethodDetails" type="eig:PaymentMethod" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updatePaymentMethodResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethodDetails" type="eig:PaymentMethod" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deletePaymentMethod">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="paymentMethodId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deletePaymentMethodResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createBillingTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplate" type="eig:BillingTemplate" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createBillingTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplateId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplateId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplate" type="eig:BillingTemplate" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllBillingTemplates">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getAssociation" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllBillingTemplatesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplates" type="eig:BillingTemplateList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateBillingTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplate" type="eig:BillingTemplate" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateBillingTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplate" type="eig:BillingTemplate" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteBillingTemplate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTemplateId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteBillingTemplateResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createBillingTier">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="bt" type="eig:BillingTier" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createBillingTierResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="bt" type="eig:BillingTier" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingTier">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTierId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingTierResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="bt" type="eig:BillingTier" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllBillingTiers">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="loadAssociation" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllBillingTiersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTiers" type="eig:BillingTierList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateBillingTier">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="bt" type="eig:BillingTier" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateBillingTierResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="bt" type="eig:BillingTier" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteBillingTier">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTierId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteBillingTierResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingTiersByMediaTypeName">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mediaTypeName" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingTiersByMediaTypeNameResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingTiers" type="eig:BillingTierList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createTaxPerFacility">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacility" type="eig:TaxPerFacility" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createTaxPerFacilityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacility" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateTaxPerFacility">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacility" type="eig:TaxPerFacility" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateTaxPerFacilityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacility" type="eig:TaxPerFacility" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllTaxPerFacilities">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllTaxPerFacilitiesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacilityList" type="eig:TaxPerFacilityList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllTaxPerFacilitiesByUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="UserId" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveAllTaxPerFacilitiesByUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacilityList" type="eig:TaxPerFacilityList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveTaxPerFacility">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacilityId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveTaxPerFacilityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacility" type="eig:TaxPerFacility" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteTaxPerFacility">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TaxPerFacilityId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deleteTaxPerFacilityResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingAndPaymentInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestorTypeId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveBillingAndPaymentInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="billingPaymentInfo" type="eig:BillingPaymentInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="header">
+    <wsdl:part name="wssHeader" element="wsse:Security" />
+    <wsdl:part name="transIdHeader" element="eig:transactionId" />
+  </wsdl:message>
+  <wsdl:message name="createMediaTypeRequest">
+    <wsdl:part name="parameters" element="eig:createMediaType" />
+  </wsdl:message>
+  <wsdl:message name="createMediaTypeResponse">
+    <wsdl:part name="parameters" element="eig:createMediaTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveMediaTypeRequest">
+    <wsdl:part name="parameters" element="eig:retrieveMediaType" />
+  </wsdl:message>
+  <wsdl:message name="retrieveMediaTypeResponse">
+    <wsdl:part name="parameters" element="eig:retrieveMediaTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllMediaTypesRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllMediaTypes" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllMediaTypesResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllMediaTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateMediaTypeRequest">
+    <wsdl:part name="parameters" element="eig:updateMediaType" />
+  </wsdl:message>
+  <wsdl:message name="updateMediaTypeResponse">
+    <wsdl:part name="parameters" element="eig:updateMediaTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteMediaTypeRequest">
+    <wsdl:part name="parameters" element="eig:deleteMediaType" />
+  </wsdl:message>
+  <wsdl:message name="deleteMediaTypeResponse">
+    <wsdl:part name="parameters" element="eig:deleteMediaTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="createFeeTypeRequest">
+    <wsdl:part name="parameters" element="eig:createFeeType" />
+  </wsdl:message>
+  <wsdl:message name="createFeeTypeResponse">
+    <wsdl:part name="parameters" element="eig:createFeeTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveFeeTypeRequest">
+    <wsdl:part name="parameters" element="eig:retrieveFeeType" />
+  </wsdl:message>
+  <wsdl:message name="retrieveFeeTypeResponse">
+    <wsdl:part name="parameters" element="eig:retrieveFeeTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllFeeTypesRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllFeeTypes" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllFeeTypesResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllFeeTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateFeeTypeRequest">
+    <wsdl:part name="parameters" element="eig:updateFeeType" />
+  </wsdl:message>
+  <wsdl:message name="updateFeeTypeResponse">
+    <wsdl:part name="parameters" element="eig:updateFeeTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteFeeTypeRequest">
+    <wsdl:part name="parameters" element="eig:deleteFeeType" />
+  </wsdl:message>
+  <wsdl:message name="deleteFeeTypeResponse">
+    <wsdl:part name="parameters" element="eig:deleteFeeTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="createPaymentMethodRequest">
+    <wsdl:part name="parameters" element="eig:createPaymentMethod" />
+  </wsdl:message>
+  <wsdl:message name="createPaymentMethodResponse">
+    <wsdl:part name="parameters" element="eig:createPaymentMethodResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrievePaymentMethodRequest">
+    <wsdl:part name="parameters" element="eig:retrievePaymentMethod" />
+  </wsdl:message>
+  <wsdl:message name="retrievePaymentMethodResponse">
+    <wsdl:part name="parameters" element="eig:retrievePaymentMethodResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllPaymentMethodsRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllPaymentMethods" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllPaymentMethodsResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllPaymentMethodsResponse" />
+  </wsdl:message>
+  <wsdl:message name="updatePaymentMethodRequest">
+    <wsdl:part name="parameters" element="eig:updatePaymentMethod" />
+  </wsdl:message>
+  <wsdl:message name="updatePaymentMethodResponse">
+    <wsdl:part name="parameters" element="eig:updatePaymentMethodResponse" />
+  </wsdl:message>
+  <wsdl:message name="deletePaymentMethodRequest">
+    <wsdl:part name="parameters" element="eig:deletePaymentMethod" />
+  </wsdl:message>
+  <wsdl:message name="deletePaymentMethodResponse">
+    <wsdl:part name="parameters" element="eig:deletePaymentMethodResponse" />
+  </wsdl:message>
+  <wsdl:message name="createBillingTemplateRequest">
+    <wsdl:part name="parameters" element="eig:createBillingTemplate" />
+  </wsdl:message>
+  <wsdl:message name="createBillingTemplateResponse">
+    <wsdl:part name="parameters" element="eig:createBillingTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingTemplateRequest">
+    <wsdl:part name="parameters" element="eig:retrieveBillingTemplate" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingTemplateResponse">
+    <wsdl:part name="parameters" element="eig:retrieveBillingTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllBillingTemplatesRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllBillingTemplates" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllBillingTemplatesResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllBillingTemplatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateBillingTemplateRequest">
+    <wsdl:part name="parameters" element="eig:updateBillingTemplate" />
+  </wsdl:message>
+  <wsdl:message name="updateBillingTemplateResponse">
+    <wsdl:part name="parameters" element="eig:updateBillingTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteBillingTemplateRequest">
+    <wsdl:part name="parameters" element="eig:deleteBillingTemplate" />
+  </wsdl:message>
+  <wsdl:message name="deleteBillingTemplateResponse">
+    <wsdl:part name="parameters" element="eig:deleteBillingTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="createBillingTierRequest">
+    <wsdl:part name="parameters" element="eig:createBillingTier" />
+  </wsdl:message>
+  <wsdl:message name="createBillingTierResponse">
+    <wsdl:part name="parameters" element="eig:createBillingTierResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingTierRequest">
+    <wsdl:part name="parameters" element="eig:retrieveBillingTier" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingTierResponse">
+    <wsdl:part name="parameters" element="eig:retrieveBillingTierResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllBillingTiersRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllBillingTiers" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllBillingTiersResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllBillingTiersResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateBillingTierRequest">
+    <wsdl:part name="parameters" element="eig:updateBillingTier" />
+  </wsdl:message>
+  <wsdl:message name="updateBillingTierResponse">
+    <wsdl:part name="parameters" element="eig:updateBillingTierResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteBillingTierRequest">
+    <wsdl:part name="parameters" element="eig:deleteBillingTier" />
+  </wsdl:message>
+  <wsdl:message name="deleteBillingTierResponse">
+    <wsdl:part name="parameters" element="eig:deleteBillingTierResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingTiersByMediaTypeNameRequest">
+    <wsdl:part name="parameters" element="eig:retrieveBillingTiersByMediaTypeName" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingTiersByMediaTypeNameResponse">
+    <wsdl:part name="parameters" element="eig:retrieveBillingTiersByMediaTypeNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="createTaxPerFacilityRequest">
+    <wsdl:part name="parameters" element="eig:createTaxPerFacility" />
+  </wsdl:message>
+  <wsdl:message name="createTaxPerFacilityResponse">
+    <wsdl:part name="parameters" element="eig:createTaxPerFacilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateTaxPerFacilityRequest">
+    <wsdl:part name="parameters" element="eig:updateTaxPerFacility" />
+  </wsdl:message>
+  <wsdl:message name="updateTaxPerFacilityResponse">
+    <wsdl:part name="parameters" element="eig:updateTaxPerFacilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllTaxPerFacilityRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllTaxPerFacilities" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllTaxPerFacilityResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllTaxPerFacilitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllTaxPerFacilityByUserRequest">
+    <wsdl:part name="parameters" element="eig:retrieveAllTaxPerFacilitiesByUser" />
+  </wsdl:message>
+  <wsdl:message name="retrieveAllTaxPerFacilityByUserResponse">
+    <wsdl:part name="parameters" element="eig:retrieveAllTaxPerFacilitiesByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveTaxPerFacilityRequest">
+    <wsdl:part name="parameters" element="eig:retrieveTaxPerFacility" />
+  </wsdl:message>
+  <wsdl:message name="retrieveTaxPerFacilityResponse">
+    <wsdl:part name="parameters" element="eig:retrieveTaxPerFacilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteTaxPerFacilityRequest">
+    <wsdl:part name="parameters" element="eig:deleteTaxPerFacility" />
+  </wsdl:message>
+  <wsdl:message name="deleteTaxPerFacilityResponse">
+    <wsdl:part name="parameters" element="eig:deleteTaxPerFacilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingAndPaymentInfoRequest">
+    <wsdl:part name="parameters" element="eig:retrieveBillingAndPaymentInfo" />
+  </wsdl:message>
+  <wsdl:message name="retrieveBillingAndPaymentInfoResponse">
+    <wsdl:part name="parameters" element="eig:retrieveBillingAndPaymentInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AdminPortType">
+    <wsdl:operation name="createMediaType">
+      <wsdl:input message="eig:createMediaTypeRequest" />
+      <wsdl:output message="eig:createMediaTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveMediaType">
+      <wsdl:input message="eig:retrieveMediaTypeRequest" />
+      <wsdl:output message="eig:retrieveMediaTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllMediaTypes">
+      <wsdl:input message="eig:retrieveAllMediaTypesRequest" />
+      <wsdl:output message="eig:retrieveAllMediaTypesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateMediaType">
+      <wsdl:input message="eig:updateMediaTypeRequest" />
+      <wsdl:output message="eig:updateMediaTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteMediaType">
+      <wsdl:input message="eig:deleteMediaTypeRequest" />
+      <wsdl:output message="eig:deleteMediaTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createFeeType">
+      <wsdl:input message="eig:createFeeTypeRequest" />
+      <wsdl:output message="eig:createFeeTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveFeeType">
+      <wsdl:input message="eig:retrieveFeeTypeRequest" />
+      <wsdl:output message="eig:retrieveFeeTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllFeeTypes">
+      <wsdl:input message="eig:retrieveAllFeeTypesRequest" />
+      <wsdl:output message="eig:retrieveAllFeeTypesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateFeeType">
+      <wsdl:input message="eig:updateFeeTypeRequest" />
+      <wsdl:output message="eig:updateFeeTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteFeeType">
+      <wsdl:input message="eig:deleteFeeTypeRequest" />
+      <wsdl:output message="eig:deleteFeeTypeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createPaymentMethod">
+      <wsdl:input message="eig:createPaymentMethodRequest" />
+      <wsdl:output message="eig:createPaymentMethodResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrievePaymentMethod">
+      <wsdl:input message="eig:retrievePaymentMethodRequest" />
+      <wsdl:output message="eig:retrievePaymentMethodResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllPaymentMethods">
+      <wsdl:input message="eig:retrieveAllPaymentMethodsRequest" />
+      <wsdl:output message="eig:retrieveAllPaymentMethodsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updatePaymentMethod">
+      <wsdl:input message="eig:updatePaymentMethodRequest" />
+      <wsdl:output message="eig:updatePaymentMethodResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deletePaymentMethod">
+      <wsdl:input message="eig:deletePaymentMethodRequest" />
+      <wsdl:output message="eig:deletePaymentMethodResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createBillingTemplate">
+      <wsdl:input message="eig:createBillingTemplateRequest" />
+      <wsdl:output message="eig:createBillingTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingTemplate">
+      <wsdl:input message="eig:retrieveBillingTemplateRequest" />
+      <wsdl:output message="eig:retrieveBillingTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllBillingTemplates">
+      <wsdl:input message="eig:retrieveAllBillingTemplatesRequest" />
+      <wsdl:output message="eig:retrieveAllBillingTemplatesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateBillingTemplate">
+      <wsdl:input message="eig:updateBillingTemplateRequest" />
+      <wsdl:output message="eig:updateBillingTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteBillingTemplate">
+      <wsdl:input message="eig:deleteBillingTemplateRequest" />
+      <wsdl:output message="eig:deleteBillingTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createBillingTier">
+      <wsdl:input message="eig:createBillingTierRequest" />
+      <wsdl:output message="eig:createBillingTierResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingTier">
+      <wsdl:input message="eig:retrieveBillingTierRequest" />
+      <wsdl:output message="eig:retrieveBillingTierResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllBillingTiers">
+      <wsdl:input message="eig:retrieveAllBillingTiersRequest" />
+      <wsdl:output message="eig:retrieveAllBillingTiersResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateBillingTier">
+      <wsdl:input message="eig:updateBillingTierRequest" />
+      <wsdl:output message="eig:updateBillingTierResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteBillingTier">
+      <wsdl:input message="eig:deleteBillingTierRequest" />
+      <wsdl:output message="eig:deleteBillingTierResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingTiersByMediaTypeName">
+      <wsdl:input message="eig:retrieveBillingTiersByMediaTypeNameRequest" />
+      <wsdl:output message="eig:retrieveBillingTiersByMediaTypeNameResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createTaxPerFacility">
+      <wsdl:input message="eig:createTaxPerFacilityRequest" />
+      <wsdl:output message="eig:createTaxPerFacilityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateTaxPerFacility">
+      <wsdl:input message="eig:updateTaxPerFacilityRequest" />
+      <wsdl:output message="eig:updateTaxPerFacilityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveTaxPerFacility">
+      <wsdl:input message="eig:retrieveTaxPerFacilityRequest" />
+      <wsdl:output message="eig:retrieveTaxPerFacilityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllTaxPerFacilities">
+      <wsdl:input message="eig:retrieveAllTaxPerFacilityRequest" />
+      <wsdl:output message="eig:retrieveAllTaxPerFacilityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllTaxPerFacilitiesByUser">
+      <wsdl:input message="eig:retrieveAllTaxPerFacilityByUserRequest" />
+      <wsdl:output message="eig:retrieveAllTaxPerFacilityByUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteTaxPerFacility">
+      <wsdl:input message="eig:deleteTaxPerFacilityRequest" />
+      <wsdl:output message="eig:deleteTaxPerFacilityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingAndPaymentInfo">
+      <wsdl:input message="eig:retrieveBillingAndPaymentInfoRequest" />
+      <wsdl:output message="eig:retrieveBillingAndPaymentInfoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AdminSoapBinding" type="eig:AdminPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="createMediaType">
+      <soap:operation soapAction="urn:eig.mckesson.com/createMediaType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveMediaType">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveMediaType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllMediaTypes">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllMediaTypes" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateMediaType">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateMediaType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteMediaType">
+      <soap:operation soapAction="urn:eig.mckesson.com/deleteMediaType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createFeeType">
+      <soap:operation soapAction="urn:eig.mckesson.com/createFeeType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveFeeType">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveFeeType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllFeeTypes">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllFeeTypes" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateFeeType">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateFeeType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFeeType">
+      <soap:operation soapAction="urn:eig.mckesson.com/deleteFeeType" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createPaymentMethod">
+      <soap:operation soapAction="urn:eig.mckesson.com/createPaymentMethod" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrievePaymentMethod">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrievePaymentMethod" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllPaymentMethods">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllPaymentMethods" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updatePaymentMethod">
+      <soap:operation soapAction="urn:eig.mckesson.com/updatePaymentMethod" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deletePaymentMethod">
+      <soap:operation soapAction="urn:eig.mckesson.com/deletePaymentMethod" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createBillingTemplate">
+      <soap:operation soapAction="urn:eig.mckesson.com/createBillingTemplate" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingTemplate">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveBillingTemplate" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllBillingTemplates">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllBillingTemplates" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateBillingTemplate">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateBillingTemplate" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteBillingTemplate">
+      <soap:operation soapAction="urn:eig.mckesson.com/deleteBillingTemplate" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createBillingTier">
+      <soap:operation soapAction="urn:eig.mckesson.com/createBillingTier" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingTier">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveBillingTier" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllBillingTiers">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllBillingTiers" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateBillingTier">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateBillingTier" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteBillingTier">
+      <soap:operation soapAction="urn:eig.mckesson.com/deleteBillingTier" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingTiersByMediaTypeName">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveBillingTiersByMediaTypeName" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTaxPerFacility">
+      <soap:operation soapAction="urn:eig.mckesson.com/createTaxPerFacility" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateTaxPerFacility">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateTaxPerFacility" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveTaxPerFacility">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveTaxPerFacility" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllTaxPerFacilities">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllTaxPerFacilities" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveAllTaxPerFacilitiesByUser">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveAllTaxPerFacilitiesByUser" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteTaxPerFacility">
+      <soap:operation soapAction="urn:eig.mckesson.com/deleteTaxPerFacility" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveBillingAndPaymentInfo">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveBillingAndPaymentInfo" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BillingAdminService">
+    <wsdl:documentation>
+
+            This service implements all Billing Admin Service Calls
+          </wsdl:documentation>
+    <wsdl:port name="adminPort" binding="eig:AdminSoapBinding">
+      <soap:address location="http://127.0.0.1:8080/roi/services/BillingAdminService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

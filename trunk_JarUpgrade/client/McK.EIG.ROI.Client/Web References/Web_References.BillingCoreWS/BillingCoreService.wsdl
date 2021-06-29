@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:eig="urn:eig.mckesson.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BillingCoreService" targetNamespace="urn:eig.mckesson.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+
+		This	WSDL	contains	the	Billing,	Invoice	and	Release	Services
+	 </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:eig.mckesson.com">
+      <xsd:import schemaLocation="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+      <xsd:element name="transactionId" type="xsd:long" />
+      <xsd:complexType name="ReleaseCore">
+        <xsd:sequence>
+          <xsd:element name="coverLetterFileId" type="xsd:long" />
+          <xsd:element name="coverLetterRequired" type="xsd:boolean" />
+          <xsd:element name="invoiceDueDays" type="xsd:long" />
+          <xsd:element name="invoiceRequired" type="xsd:boolean" />
+          <xsd:element name="invoiceTemplateId" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="roiPages" nillable="true" type="eig:ROIPages" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="supplementarityAttachmentsSeq" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="supplementarityDocumentsSeq" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="supplementalAttachmentsSeq" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="supplementalDocumentsSeq" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="pastDueInvoices" nillable="true" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="notes" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="coverLetterNotes" nillable="true" type="xsd:string" />
+          <xsd:element name="requestId" type="xsd:long" />
+          <xsd:element name="statusChangeToComplete" type="xsd:boolean" />
+          <xsd:element name="invoiceOrPrebillAndPreviewInfo" type="eig:InvoiceOrPrebillAndPreviewInfo" />
+          <xsd:element name="statementCriteria" type="eig:RequestorStatementCriteria" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ROIPages">
+        <xsd:sequence>
+          <xsd:element name="pageSeq" type="xsd:long" />
+          <xsd:element name="selfPayEncounter" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestorStatementCriteria">
+        <xsd:sequence>
+          <xsd:element name="requestorId" type="xsd:long" />
+          <xsd:element name="templateFileId" type="xsd:long" />
+          <xsd:element name="templateName" type="xsd:string" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="dateRange" nillable="true" type="eig:DateRange" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="notes" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="pastInvIds" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="DateRange">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="DAYS_30" />
+          <xsd:enumeration value="DAYS_60" />
+          <xsd:enumeration value="DAYS_90" />
+          <xsd:enumeration value="DAYS_120" />
+          <xsd:enumeration value="YEAR_TO_DATE" />
+          <xsd:enumeration value="ALL" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="DocInfo">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="LetterInfo">
+        <xsd:sequence>
+          <xsd:element name="letterTemplateId" type="xsd:long" />
+          <xsd:element name="requestId" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="notes" type="xsd:string" />
+          <xsd:element name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DocInfoList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="docInfos" type="eig:DocInfo" />
+          <xsd:element name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReleaseAndPreviewInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="releaseId" type="xsd:long" />
+          <xsd:element minOccurs="0" name="invoiceId" type="xsd:long" />
+          <xsd:element minOccurs="0" name="docInfoList" type="eig:DocInfoList" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReleaseHistoryPatient">
+        <xsd:sequence>
+          <xsd:element name="patientSeq" type="xsd:long" />
+          <xsd:element name="name" type="xsd:string" />
+          <xsd:element name="gender" type="xsd:string" />
+          <xsd:element name="dob" type="xsd:dateTime" />
+          <xsd:element name="ssn" type="xsd:string" />
+          <xsd:element name="facility" type="xsd:string" />
+          <xsd:element name="mrn" type="xsd:string" />
+          <xsd:element name="epn" type="xsd:string" />
+          <xsd:element name="patientLocked" type="xsd:string" />
+          <xsd:element name="encounterLocked" type="xsd:string" />
+          <xsd:element name="vip" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InvoiceOrPrebillAndPreviewInfo">
+        <xsd:sequence>
+          <xsd:element name="requestCoreId" type="xsd:long" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="invoiceDueDays" type="xsd:long" />
+          <xsd:element name="letterTemplateFileId" type="xsd:long" />
+          <xsd:element name="letterTemplateName" type="xsd:string" />
+          <xsd:element name="requestStatus" type="xsd:string" />
+          <xsd:element name="requestDate" type="xsd:dateTime" />
+          <xsd:element name="invoicePrebillDate" type="xsd:dateTime" />
+          <xsd:element name="invoiceDueDate" type="xsd:dateTime" />
+          <xsd:element name="resendDate" type="xsd:dateTime" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="overwriteDueDate" type="xsd:boolean" />
+          <xsd:element name="invoiceSalesTax" type="xsd:double" />
+          <xsd:element name="baseCharge" type="xsd:double" />
+          <xsd:element name="invoiceBillingLocCode" type="xsd:string" />
+          <xsd:element name="invoiceBillinglocName" type="xsd:string" />
+          <xsd:element name="invoiceBalanceDue" type="xsd:double" />
+          <xsd:element name="amountpaid" type="xsd:double" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="notes" type="xsd:string" />
+          <xsd:element name="letterType" type="xsd:string" />
+          <xsd:element name="willInvoiceShipped" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="autoAdjustments" type="eig:RequestCoreDeliveryChargesAdjustmentPayment" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RequestCoreDeliveryChargesAdjustmentPayment">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="requestCoreDeliveryChargesId" type="xsd:long" />
+          <xsd:element name="amount" type="xsd:double" />
+          <xsd:element name="paymentMode" type="xsd:string" />
+          <xsd:element name="description" type="xsd:string" />
+          <xsd:element name="paymentDate" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="transactionType" type="xsd:string" />
+          <xsd:element name="isDebit" type="xsd:boolean" />
+          <xsd:element name="newlyAdded" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReleaseHistoryItem">
+        <xsd:sequence>
+          <xsd:element name="datetime" type="xsd:dateTime" />
+          <xsd:element name="patientName" type="xsd:string" />
+          <xsd:element name="patientSeq" type="xsd:long" />
+          <xsd:element name="enctr" type="xsd:string" />
+          <xsd:element name="isSelfPay" type="xsd:boolean" />
+          <xsd:element name="documentVersionSubtitle" type="xsd:string" />
+          <xsd:element name="pages" type="xsd:integer" />
+          <xsd:element name="requestPassword" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="shippingMethod" type="xsd:string" />
+          <xsd:element name="trackingNumber" type="xsd:string" />
+          <xsd:element name="userName" type="xsd:string" />
+          <xsd:element name="userId" type="xsd:long" />
+          <xsd:element name="address1" type="xsd:string" />
+          <xsd:element name="address2" type="xsd:string" />
+          <xsd:element name="address3" type="xsd:string" />
+          <xsd:element name="city" type="xsd:string" />
+          <xsd:element name="state" type="xsd:string" />
+          <xsd:element name="zipcode" type="xsd:string" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReleaseHistoryList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="releasedPatients" type="eig:ReleaseHistoryPatient" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="history" type="eig:ReleaseHistoryItem" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InvoiceHistory">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="invoice" type="eig:Invoice" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Invoice">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="type" type="xsd:string" />
+          <xsd:element name="creatorName" type="xsd:string" />
+          <xsd:element name="createdDate" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="resendDate" type="xsd:string" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="invoiceDueDate" type="xsd:string" />
+          <xsd:element name="baseCharge" type="xsd:double" />
+          <xsd:element name="totalAdjustments" type="xsd:double" />
+          <xsd:element name="totalPayments" type="xsd:double" />
+          <xsd:element name="currentBalance" type="xsd:double" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InvoiceDetails">
+        <xsd:sequence>
+          <xsd:element name="resendDateTime" type="xsd:dateTime" />
+          <xsd:element name="invoiceNumber" type="xsd:long" />
+          <xsd:element name="templateUsed" type="xsd:string" />
+          <xsd:element name="templateId" type="xsd:long" />
+          <xsd:element name="resendBy" type="xsd:string" />
+          <xsd:element name="invoiceAmount" type="xsd:double" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ChargeHistory">
+        <xsd:sequence>
+          <xsd:element name="totalFeeCharge" type="xsd:double" />
+          <xsd:element name="totalDocumentCharge" type="xsd:double" />
+          <xsd:element name="totalShippingCharge" type="xsd:double" />
+          <xsd:element name="totalSalesTax" type="xsd:double" />
+          <xsd:element name="releaseDate" type="xsd:dateTime" />
+          <xsd:element name="unbillableAmount" type="xsd:double" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InvoiceAndLetterOutputProperties">
+        <xsd:sequence>
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="forInvoice" type="xsd:boolean" />
+          <xsd:element name="forLetter" type="xsd:boolean" />
+          <xsd:element name="forRelease" type="xsd:boolean" />
+          <xsd:element name="invoiceId" type="xsd:long" />
+          <xsd:element name="letterId" type="xsd:long" />
+          <xsd:element name="releaseId" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ChargeHistoryList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="chargeHistories" type="eig:ChargeHistory" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InvoiceDetailsList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="invoiceDetails" type="eig:InvoiceDetails" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PastInvoice">
+        <xsd:sequence>
+          <xsd:element name="invoiceId" type="xsd:long" />
+          <xsd:element name="createdDate" type="xsd:string" />
+          <xsd:element name="amount" type="xsd:double" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PastInvoiceList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="PastInvoices" type="eig:PastInvoice" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RegeneratedInvoiceInfo">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:long" />
+          <xsd:element name="outputMethod" type="xsd:string" />
+          <xsd:element name="queuePassword" type="xsd:string" />
+          <xsd:element name="invoice" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="createReleaseAndPreviewInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="releaseCore" type="eig:ReleaseCore" />
+            <xsd:element name="amtAppliedFlag" type="xsd:boolean" />
+            <xsd:element name="appliedAmount" type="xsd:double" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createReleaseAndPreviewInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="releaseAndPreviewInfo" type="eig:ReleaseAndPreviewInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelRelease">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="releaseId" type="xsd:long" />
+            <xsd:element name="invoiceId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelReleaseResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createLetterAndPreview">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="letterInfo" type="eig:LetterInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createLetterAndPreviewResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfo" type="eig:DocInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelCoverLetter">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestId" type="xsd:long" />
+            <xsd:element name="coverLetterId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelCoverLetterResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveReleaseHistoryList">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="releaseId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveReleaseHistoryListResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="releaseHistoryList" type="eig:ReleaseHistoryList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createInvoiceOrPrebillAndPreview">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="invoiceOrPrebillAndPreviewInfo" type="eig:InvoiceOrPrebillAndPreviewInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createInvoiceOrPrebillAndPreviewResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfo" type="eig:DocInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelInvoiceOrPrebillAndPreview">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestCoreId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelInvoiceOrPrebillAndPreviewResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveInvoiceSummaries">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestCoreId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveInvoiceSummariesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="invoiceHistory" type="eig:InvoiceHistory" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewInvoice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="invoiceId" type="xsd:long" />
+            <xsd:element name="docType" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="viewInvoiceResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="docInfo" type="eig:DocInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrievePastInvoices">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrievePastInvoicesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PastInvoiceList" type="eig:PastInvoiceList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveChargeHistory">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveChargeHistoryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="chargeHistoryList" type="eig:ChargeHistoryList" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateInvoiceOutputProperties">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="invoiceAndLetterOutputProperties" type="eig:InvoiceAndLetterOutputProperties" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateInvoiceOutputPropertiesResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="setDisplayBillingInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestId" type="xsd:long" />
+            <xsd:element name="displayBillingInfo" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="setDisplayBillingInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="autoApplyToInvoice">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="requestId" type="xsd:long" />
+            <xsd:element name="invoiceId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="autoApplyToInvoiceResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateInvoiceBalance">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="invoiceId" type="xsd:long" />
+            <xsd:element name="invoiceBalance" type="xsd:double" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateInvoiceBalanceResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="header">
+    <wsdl:part name="wssHeader" element="wsse:Security" />
+    <wsdl:part name="transIdHeader" element="eig:transactionId" />
+  </wsdl:message>
+  <wsdl:message name="createReleaseAndPreviewInfoRequest">
+    <wsdl:part name="parameters" element="eig:createReleaseAndPreviewInfo" />
+  </wsdl:message>
+  <wsdl:message name="createReleaseAndPreviewInfoResponse">
+    <wsdl:part name="parameters" element="eig:createReleaseAndPreviewInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="cancelReleaseRequest">
+    <wsdl:part name="parameters" element="eig:cancelRelease" />
+  </wsdl:message>
+  <wsdl:message name="cancelReleaseResponse">
+    <wsdl:part name="parameters" element="eig:cancelReleaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="createLetterAndPreviewRequest">
+    <wsdl:part name="parameters" element="eig:createLetterAndPreview" />
+  </wsdl:message>
+  <wsdl:message name="createLetterAndPreviewResponse">
+    <wsdl:part name="parameters" element="eig:createLetterAndPreviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="cancelCoverLetterRequest">
+    <wsdl:part name="parameters" element="eig:cancelCoverLetter" />
+  </wsdl:message>
+  <wsdl:message name="cancelCoverLetterResponse">
+    <wsdl:part name="parameters" element="eig:cancelCoverLetterResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveReleaseHistoryListRequest">
+    <wsdl:part name="parameters" element="eig:retrieveReleaseHistoryList" />
+  </wsdl:message>
+  <wsdl:message name="retrieveReleaseHistoryListResponse">
+    <wsdl:part name="parameters" element="eig:retrieveReleaseHistoryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="createInvoiceOrPrebillAndPreviewRequest">
+    <wsdl:part name="parameters" element="eig:createInvoiceOrPrebillAndPreview" />
+  </wsdl:message>
+  <wsdl:message name="createInvoiceOrPrebillAndPreviewResponse">
+    <wsdl:part name="parameters" element="eig:createInvoiceOrPrebillAndPreviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="cancelInvoiceOrPrebillAndPreviewRequest">
+    <wsdl:part name="parameters" element="eig:cancelInvoiceOrPrebillAndPreview" />
+  </wsdl:message>
+  <wsdl:message name="cancelInvoiceOrPrebillAndPreviewResponse">
+    <wsdl:part name="parameters" element="eig:cancelInvoiceOrPrebillAndPreviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveInvoiceSummariesRequest">
+    <wsdl:part name="parameters" element="eig:retrieveInvoiceSummaries" />
+  </wsdl:message>
+  <wsdl:message name="retrieveInvoiceSummariesResponse">
+    <wsdl:part name="parameters" element="eig:retrieveInvoiceSummariesResponse" />
+  </wsdl:message>
+  <wsdl:message name="viewInvoiceRequest">
+    <wsdl:part name="parameters" element="eig:viewInvoice" />
+  </wsdl:message>
+  <wsdl:message name="viewInvoiceResponse">
+    <wsdl:part name="parameters" element="eig:viewInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrievePastInvoicesRequest">
+    <wsdl:part name="parameters" element="eig:retrievePastInvoices" />
+  </wsdl:message>
+  <wsdl:message name="retrievePastInvoicesResponse">
+    <wsdl:part name="parameters" element="eig:retrievePastInvoicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="retrieveChargeHistoryRequest">
+    <wsdl:part name="parameters" element="eig:retrieveChargeHistory" />
+  </wsdl:message>
+  <wsdl:message name="retrieveChargeHistoryResponse">
+    <wsdl:part name="parameters" element="eig:retrieveChargeHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateInvoiceOutputPropertiesRequest">
+    <wsdl:part name="parameters" element="eig:updateInvoiceOutputProperties" />
+  </wsdl:message>
+  <wsdl:message name="updateInvoiceOutputPropertiesResponse">
+    <wsdl:part name="parameters" element="eig:updateInvoiceOutputPropertiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="setDisplayBillingInfoRequest">
+    <wsdl:part name="parameters" element="eig:setDisplayBillingInfo" />
+  </wsdl:message>
+  <wsdl:message name="setDisplayBillingInfoResponse">
+    <wsdl:part name="parameters" element="eig:setDisplayBillingInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="autoApplyToInvoiceRequest">
+    <wsdl:part name="parameters" element="eig:autoApplyToInvoice" />
+  </wsdl:message>
+  <wsdl:message name="autoApplyToInvoiceResponse">
+    <wsdl:part name="parameters" element="eig:autoApplyToInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateInvoiceBalanceRequest">
+    <wsdl:part name="parameters" element="eig:updateInvoiceBalance" />
+  </wsdl:message>
+  <wsdl:message name="updateInvoiceBalanceResponse">
+    <wsdl:part name="parameters" element="eig:updateInvoiceBalanceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="BillingCorePortType">
+    <wsdl:operation name="createReleaseAndPreviewInfo">
+      <wsdl:input message="eig:createReleaseAndPreviewInfoRequest" />
+      <wsdl:output message="eig:createReleaseAndPreviewInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelRelease">
+      <wsdl:input message="eig:cancelReleaseRequest" />
+      <wsdl:output message="eig:cancelReleaseResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createLetterAndPreview">
+      <wsdl:input message="eig:createLetterAndPreviewRequest" />
+      <wsdl:output message="eig:createLetterAndPreviewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelCoverLetter">
+      <wsdl:input message="eig:cancelCoverLetterRequest" />
+      <wsdl:output message="eig:cancelCoverLetterResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveReleaseHistoryList">
+      <wsdl:input message="eig:retrieveReleaseHistoryListRequest" />
+      <wsdl:output message="eig:retrieveReleaseHistoryListResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="createInvoiceOrPrebillAndPreview">
+      <wsdl:input message="eig:createInvoiceOrPrebillAndPreviewRequest" />
+      <wsdl:output message="eig:createInvoiceOrPrebillAndPreviewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelInvoiceOrPrebillAndPreview">
+      <wsdl:input message="eig:cancelInvoiceOrPrebillAndPreviewRequest" />
+      <wsdl:output message="eig:cancelInvoiceOrPrebillAndPreviewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveInvoiceSummaries">
+      <wsdl:input message="eig:retrieveInvoiceSummariesRequest" />
+      <wsdl:output message="eig:retrieveInvoiceSummariesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="viewInvoice">
+      <wsdl:input message="eig:viewInvoiceRequest" />
+      <wsdl:output message="eig:viewInvoiceResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrievePastInvoices">
+      <wsdl:input message="eig:retrievePastInvoicesRequest" />
+      <wsdl:output message="eig:retrievePastInvoicesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="retrieveChargeHistory">
+      <wsdl:input message="eig:retrieveChargeHistoryRequest" />
+      <wsdl:output message="eig:retrieveChargeHistoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateInvoiceOutputProperties">
+      <wsdl:input message="eig:updateInvoiceOutputPropertiesRequest" />
+      <wsdl:output message="eig:updateInvoiceOutputPropertiesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="setDisplayBillingInfo">
+      <wsdl:input message="eig:setDisplayBillingInfoRequest" />
+      <wsdl:output message="eig:setDisplayBillingInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="autoApplyToInvoice">
+      <wsdl:input message="eig:autoApplyToInvoiceRequest" />
+      <wsdl:output message="eig:autoApplyToInvoiceResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateInvoiceBalance">
+      <wsdl:input message="eig:updateInvoiceBalanceRequest" />
+      <wsdl:output message="eig:updateInvoiceBalanceResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ROIBillingCoreSoapBinding" type="eig:BillingCorePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="createReleaseAndPreviewInfo">
+      <soap:operation soapAction="urn:eig.mckesson.com/createReleaseAndPreviewInfo" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelRelease">
+      <soap:operation soapAction="urn:eig.mckesson.com/cancelRelease" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createLetterAndPreview">
+      <soap:operation soapAction="urn:eig.mckesson.com/createLetterAndPreview" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelCoverLetter">
+      <soap:operation soapAction="urn:eig.mckesson.com/cancelCoverLetter" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveReleaseHistoryList">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveReleaseHistoryList" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createInvoiceOrPrebillAndPreview">
+      <soap:operation soapAction="urn:eig.mckesson.com/createInvoiceOrPrebillAndPreview" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelInvoiceOrPrebillAndPreview">
+      <soap:operation soapAction="urn:eig.mckesson.com/cancelInvoiceOrPrebillAndPreview" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveInvoiceSummaries">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveInvoiceSummaries" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewInvoice">
+      <soap:operation soapAction="urn:eig.mckesson.com/viewInvoice" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrievePastInvoices">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrievePastInvoices" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateInvoiceOutputProperties">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateInvoiceOutputProperties" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveChargeHistory">
+      <soap:operation soapAction="urn:eig.mckesson.com/retrieveChargeHistory" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDisplayBillingInfo">
+      <soap:operation soapAction="urn:eig.mckesson.com/setDisplayBillingInfo" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="autoApplyToInvoice">
+      <soap:operation soapAction="urn:eig.mckesson.com/autoApplyToInvoice" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateInvoiceBalance">
+      <soap:operation soapAction="urn:eig.mckesson.com/updateInvoiceBalance" />
+      <wsdl:input>
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="wssHeader" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BillingCoreService">
+    <wsdl:documentation>
+
+			This service implements all ROI Billing, Invoice, Release Service Calls
+		  </wsdl:documentation>
+    <wsdl:port name="billingCorePort" binding="eig:ROIBillingCoreSoapBinding">
+      <soap:address location="http://127.0.0.1:8080/roi/services/BillingCoreService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
