@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified"
+      elementFormDefault="qualified"
+        targetNamespace="http://eig.mckesson.com/xsd/2009/01"
+        xmlns:as="http://eig.mckesson.com/xsd/2009/01"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:element name="application-settings" type="as:applicationsettings" />
+
+  <xsd:complexType name="applicationsettings">
+    <xsd:sequence>
+      <xsd:element name="item" type="as:item" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="item">
+    <xsd:sequence>
+      <xsd:element name="property" type="as:property" maxOccurs="unbounded" />
+      <xsd:element name="item" type="as:item" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="xsd:string" use="required"></xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="property">
+    <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+    <xsd:attribute name="value" type="xsd:string" use="required"></xsd:attribute>
+  </xsd:complexType>
+
+</xsd:schema>

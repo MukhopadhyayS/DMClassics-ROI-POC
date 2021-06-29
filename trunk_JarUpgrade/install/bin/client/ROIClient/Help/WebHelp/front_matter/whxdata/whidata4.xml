@@ -1,0 +1,181 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Billing Templates" >
+  <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+  <topic name="Maintain billing templates" url="admin/billing_maint/user_instruc/maintain_billing_templates.htm" />
+  <topic name="Billing Templates form" url="admin/billing_maint/form_descrip/billing_templates_form.htm" />
+  <key name="View" >
+    <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+  </key>
+</key>
+<key name="Billing Tiers" >
+  <topic name="Maintain billing tiers" url="admin/billing_maint/user_instruc/maintain_billing_tiers.htm" />
+  <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+  <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+  <key name="iconin" >
+    <topic name="Billing Tiers form" url="admin/billing_maint/form_descrip/billing_tiers_form.htm" />
+  </key>
+  <key name="View" >
+    <topic name="About Billing Maintenance" url="admin/billing_maint/about_billing_maintenance.htm" />
+  </key>
+</key>
+<key name="Billing Type" >
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+</key>
+<key name="Birth" >
+  <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <key name="Date" >
+    <topic name="Find a request" url="requests/user_instructions/find_a_request.htm" />
+  </key>
+</key>
+<key name="Birth AND Facility" >
+  <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <key name="Date" >
+    <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+</key>
+<key name="Birth box" >
+  <topic name="Date of Birth box" url="patients/form_descriptions/patient_records_form_items/date_of_birth_box.htm" />
+  <key name="Date" >
+    <topic name="Date of Birth box" url="patients/form_descriptions/patient_records_form_items/date_of_birth_box.htm" />
+  </key>
+</key>
+<key name="Birth OR Facility AND" >
+  <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <key name="Date" >
+    <topic name="Find Patient button" url="patients/form_descriptions/patient_records_form_items/find_patient_button.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  </key>
+</key>
+<key name="Both" >
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+  <key name="Request Type" >
+    <topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+  </key>
+</key>
+<key name="Browse" >
+  <topic name="Maintain letter templates" url="admin/other_maint/user_instruc/maintain_letter_templates.htm" />
+  <topic name="Letter Templates form" url="admin/other_maint/form_descrip/letter_templates_form.htm" />
+</key>
+<key name="calculates" >
+  <topic name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+  <key name="Balance Due" >
+    <topic name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+  </key>
+</key>
+<key name="can list the same" >
+  <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+</key>
+<key name="Cancel button" >
+  <topic name="Revert / Cancel button" url="patients/form_descriptions/find_patient_form_items/revert_cancel_button.htm" />
+</key>
+<key name="Cancel, pend" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Cancel, pend, or deny a request" url="requests/user_instructions/cancel,_pend,_or_deny_a_request.htm" />
+</key>
+<key name="Canceled" >
+  <topic name="Pre-bill a request" url="requests/user_instructions/pre-bill_a_request.htm" />
+  <topic name="Update Request Status dialog box" url="requests/dialog_box_descriptions/update_request_status_dialog_box.htm" />
+  <topic name="Monitor Jobs dialog box" url="requests/dialog_box_descriptions/monitor_jobs_dialog_box.htm" />
+  <topic name="Revert / Cancel button" url="patients/form_descriptions/find_patient_form_items/revert_cancel_button.htm" />
+  <topic name="Enter shipping information" url="requests/user_instructions/enter_shipping_information.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="About Reasons Maintenance" url="admin/reasons_maint/about_reasons_maintenance.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Cancel, pend, or deny a request" url="requests/user_instructions/cancel,_pend,_or_deny_a_request.htm" />
+  <topic name="Patients Request History form" url="patients/form_descriptions/pat_request_history_form.htm" />
+  <topic name="Letter Templates form" url="admin/other_maint/form_descrip/letter_templates_form.htm" />
+  <topic name="Request Status Reasons form" url="admin/reasons_maint/form_descrip/request_status_reasons_form.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="Request History form" url="requestors/form_descriptions/requestors_request_history_form.htm" />
+  <topic name="Manage output queues" url="requests/user_instructions/manage_output_queues.htm" />
+  <topic name="Monitor output jobs" url="requests/user_instructions/monitor_output_jobs.htm" />
+  <topic name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="Canceled    This" >
+  <topic name="About requests" url="requests/about_requests.htm" />
+</key>
+<key name="Cancellation" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+</key>
+<key name="Cancellation letter" >
+  <topic name="Generate a letter" url="requests/user_instructions/generate_a_letter.htm" />
+</key>
+<key name="CD" >
+  <topic name="Save as File dialog box" url="requests/dialog_box_descriptions/save_as_file_dialog_box.htm" />
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+</key>
+<key name="CD Size Limit" >
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+</key>
+<key name="Cease" >
+  <topic name="Configure save and retry options" url="admin/config_output/user_instruc/configure_save_retry_options.htm" />
+</key>
+<key name="Certification Letter" >
+  <topic name="About letters, invoices, and pre-bills" url="requests/about_letters_invoices_prebills.htm" />
+</key>
+<key name="Certification Letter Required" >
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+  <topic name="Create a request with patient requesting" url="requests/user_instructions/create_a_req_with_pat_requesting.htm" />
+</key>
+<key name="change" >
+  <topic name="Change your password" url="getting_started/logging_on_and_off/change_your_password.htm" />
+  <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+  <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+  <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  <topic name="Delivery Methods form" url="admin/billing_maint/form_descrip/delivery_methods_form.htm" />
+  <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  <key name="Denied" >
+    <topic name="About requests" url="requests/about_requests.htm" />
+  </key>
+  <key name="Description" >
+    <topic name="Configure the source for release documents" url="admin/config_output/user_instruc/config_source_for_release_docs.htm" />
+  </key>
+  <key name="Pended" >
+    <topic name="About requests" url="requests/about_requests.htm" />
+  </key>
+  <key name="Pending" >
+    <topic name="Pending Aging Summary form" url="reports/form_descrip/pending_aging_summary_form.htm" />
+  </key>
+  <key name="Queue Description" >
+    <topic name="Configure output queues" url="admin/config_output/user_instruc/configure_output_queues.htm" />
+  </key>
+  <key name="Record View" >
+    <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  </key>
+  <key name="ROI" >
+    <topic name="Requestor Types form" url="admin/billing_maint/form_descrip/requestor_type_form.htm" />
+  </key>
+  <key name="Sort By" >
+    <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  </key>
+  <key name="Status" >
+    <topic name="Event History form" url="requests/form_descriptions/event_history_form.htm" />
+    <topic name="View event history" url="requests/user_instructions/view_event_history.htm" />
+    <topic name="Request Information form" url="requests/form_descriptions/request_information_form.htm" />
+  </key>
+  <key name="URL" >
+    <topic name="Delivery Methods form" url="admin/billing_maint/form_descrip/delivery_methods_form.htm" />
+  </key>
+</key>
+
+</indexdata>

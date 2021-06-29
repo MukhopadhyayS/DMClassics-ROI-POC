@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<indexdata>
+<key name="Pages   The" >
+  <topic name="About output jobs and queues" url="requests/about_output_jobs_and_queues.htm" />
+</key>
+<key name="part" >
+  <topic name="MRN box" url="patients/form_descriptions/patient_records_form_items/mrn_box.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="MRN box" url="requests/form_descriptions/find_create_request_form_items/mrn_box.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <key name="MRN" >
+    <topic name="MRN box" url="patients/form_descriptions/patient_records_form_items/mrn_box.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+    <topic name="MRN box" url="requests/form_descriptions/find_create_request_form_items/mrn_box.htm" />
+    <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  </key>
+</key>
+<key name="Password Required" >
+  <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  <key name="PDF Files" >
+    <topic name="Create New Queue (or Edit Selected Queue) dialog box" url="admin/config_output/db_desc/create_or_edit_queue_db.htm" />
+  </key>
+</key>
+<key name="password voluntarily" >
+  <topic name="Change your password" url="getting_started/logging_on_and_off/change_your_password.htm" />
+</key>
+<key name="Patient" >
+  <key name="Accounting" >
+    <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  </key>
+  <key name="Select" >
+    <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+    <topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+    <topic name="Potential Patient Mismatch dialog box" url="patients/dbox_desc/potential_patient_mismatch_dialog_box.htm" />
+  </key>
+</key>
+<key name="Patient AND" >
+  <topic name="Find Requestor form" url="requestors/form_descriptions/find_requestor_form.htm" />
+  <topic name="Requestor Information form" url="requestors/form_descriptions/requestor_information_form.htm" />
+</key>
+<key name="Patient button" >
+  <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  <key name="Accounting" >
+    <topic name="Accounting of Disclosure form" url="reports/form_descrip/accounting_of_disclosure_form.htm" />
+  </key>
+</key>
+<key name="patient demographic" >
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+</key>
+<key name="Patient DOB" >
+  <topic name="Find/Create Request form" url="requests/form_descriptions/find_create_request_form.htm" />
+</key>
+<key name="Patient Encounter" >
+  <topic name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+</key>
+<key name="Patient Information" >
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+  <topic name="New Patient button" url="patients/form_descriptions/patient_records_form_items/new_patient_button.htm" />
+  <topic name="Release documents" url="requests/user_instructions/release_documents.htm" />
+  <topic name="Maintain non-MPF patient information" url="patients/user_instructions/maintain_nonhpf_patient_info.htm" />
+  <topic name="Enter shipping information" url="requests/user_instructions/enter_shipping_information.htm" />
+  <topic name="Create a request for a non-patient requestor" url="requests/user_instructions/create_a_req_for_non-pat_requestor.htm" />
+  <topic name="About this module" url="getting_started/about_this_module.htm" />
+  <topic name="Override a non-MPF billing tier" url="requests/user_instructions/override_a_billing_tier.htm" />
+  <topic name="Generate the Accounting of Disclosure report" url="reports/user_instruc/generate_accounting_of_disclosure_rpt.htm" />
+  <topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonhpf_doc_info.htm" />
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  <topic name="Add or edit non-MPF document information" url="requests/user_instructions/add_or_edit_non-hpf_doc_info.htm" />
+  <topic name="About requests" url="requests/about_requests.htm" />
+  <topic name="Create a non-MPF patient" url="patients/user_instructions/create_a_non-hpf_patient.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="Resend documents" url="requests/user_instructions/resend_documents.htm" />
+  <topic name="Modify Billing Tier dialog box" url="requests/dialog_box_descriptions/modify_billing_tier_dialog_box.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="View documents" url="requests/user_instructions/view_documents.htm" />
+  <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  <topic name="Add a patient to a request" url="requests/user_instructions/add_a_patient_to_a_request.htm" />
+  <topic name="About billing and shipping" url="requests/about_billing_and_shipping.htm" />
+  <topic name="Add documents to a request" url="requests/user_instructions/add_documents_to_a_request.htm" />
+  <topic name="Billing &amp; Payment form" url="requests/form_descriptions/billing_&amp;_payment_form.htm" />
+  <topic name="View / Edit Patient's Profile dialog box" url="requests/dialog_box_descriptions/view___edit_patient_s_profile_dialog_box.htm" />
+  <topic name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+  <topic name="Patient Information form" url="patients/form_descriptions/patient_information_form.htm" />
+  <key name="Bill button" >
+    <topic name="Enter shipping information" url="requests/user_instructions/enter_shipping_information.htm" />
+    <topic name="About billing and shipping" url="requests/about_billing_and_shipping.htm" />
+    <topic name="Enter billing information" url="requests/user_instructions/enter_billing_information.htm" />
+  </key>
+  <key name="Displays" >
+    <topic name="New Patient button" url="patients/form_descriptions/patient_records_form_items/new_patient_button.htm" />
+    <topic name="Create a non-MPF patient" url="patients/user_instructions/create_a_non-hpf_patient.htm" />
+    <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+    <topic name="Find a patient" url="patients/user_instructions/find_a_patient.htm" />
+  </key>
+  <key name="return" >
+    <topic name="Release documents" url="requests/user_instructions/release_documents.htm" />
+    <topic name="Add a patient to a request" url="requests/user_instructions/add_a_patient_to_a_request.htm" />
+  </key>
+  <key name="Save" >
+    <topic name="Add or edit non-MPF document information" url="requests/user_instructions/add_or_edit_non-hpf_doc_info.htm" />
+  </key>
+  <key name="See" >
+    <topic name="Add Patient dialog box" url="requests/dialog_box_descriptions/add_patient_dialog_box.htm" />
+  </key>
+  <key name="Select" >
+    <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+  </key>
+  <key name="View" >
+    <topic name="About requests" url="requests/about_requests.htm" />
+    <topic name="About patient records" url="patients/about_patient_records.htm" />
+  </key>
+</key>
+<key name="Patient list" >
+  <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  <key name="Enables" >
+    <topic name="Release History form" url="requests/form_descriptions/release_history_form.htm" />
+  </key>
+</key>
+<key name="patient may" >
+  <topic name="Patient Information form" url="requests/form_descriptions/patient_information_form.htm" />
+</key>
+<key name="Patient MRN" >
+  <topic name="About printing, faxing, or saving documents" url="requests/about_printing,_faxing,_or_saving_documents.htm" />
+</key>
+<key name="Patient Name" >
+  <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  <topic name="Find Patient form" url="patients/form_descriptions/find_patient_form.htm" />
+  <topic name="Select Patient dialog box" url="requests/dialog_box_descriptions/select_patient_dialog_box.htm" />
+  <topic name="Potential Patient Mismatch dialog box" url="patients/dbox_desc/potential_patient_mismatch_dialog_box.htm" />
+  <topic name="Create New Request with Patient Requesting dialog box" url="patients/dbox_desc/create_new_request_with_patient_requesting_dialog_box.htm" />
+  <topic name="Create New Patient Requestor dialog box" url="patients/dbox_desc/create_new_patient_requestor_dialog_box.htm" />
+  <key name="Displays" >
+    <topic name="Find Patient dialog box" url="reports/dialog_box/find_patient_dialog_box.htm" />
+  </key>
+</key>
+<key name="Patient Records" >
+  <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  <topic name="View deficiencies" url="patients/user_instructions/view_deficiencies.htm" />
+  <topic name="List of Deficiencies dialog box" url="patients/dbox_desc/list_of_deficiencies_dialog_box.htm" />
+  <topic name="About this module" url="getting_started/about_this_module.htm" />
+  <topic name="Encounter Details dialog box" url="patients/dbox_desc/encounter_details_dialog_box.htm" />
+  <topic name="Maintain non-MPF document information" url="patients/user_instructions/maintain_nonhpf_doc_info.htm" />
+  <topic name="Add or edit non-MPF document information" url="requests/user_instructions/add_or_edit_non-hpf_doc_info.htm" />
+  <topic name="About patient records" url="patients/about_patient_records.htm" />
+  <topic name="View encounter details" url="patients/user_instructions/view_encounter_details.htm" />
+  <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+  <topic name="View documents" url="requests/user_instructions/view_documents.htm" />
+  <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  <topic name="Patient Records form" url="patients/form_descriptions/patient_records_form.htm" />
+  <key name="Navigate" >
+    <topic name="View deficiencies" url="patients/user_instructions/view_deficiencies.htm" />
+    <topic name="View documents" url="requests/user_instructions/view_documents.htm" />
+  </key>
+  <key name="New Document" >
+    <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  </key>
+  <key name="returns" >
+    <topic name="Edit Non-MPF Document dialog box" url="patients/dbox_desc/edit_non-hpf_document_dialog_box.htm" />
+    <topic name="Create New Non-MPF Document dialog box" url="patients/dbox_desc/create_new_non-hpf_document_dialog_box.htm" />
+  </key>
+  <key name="Update button" >
+    <topic name="Set Encounter Filter dialog box" url="patients/dbox_desc/set_encounter_filter_dialog_box.htm" />
+  </key>
+  <key name="View" >
+    <topic name="About patient records" url="patients/about_patient_records.htm" />
+  </key>
+</key>
+
+</indexdata>

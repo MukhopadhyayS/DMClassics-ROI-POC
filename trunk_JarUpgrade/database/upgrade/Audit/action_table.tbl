@@ -1,0 +1,128 @@
+
+/* BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
+*
+* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Use of this software and related documentation is governed by a license agreement.
+* This material contains confidential, proprietary and trade secret information of
+* McKesson Information Solutions and is protected under United States
+* and international copyright and other intellectual property laws.
+* Use, disclosure, reproduction, modification, distribution, or storage
+* in a retrieval system in any form or by any means is prohibited without the
+* prior express written permission of McKesson Information Solutions.
+*
+END-COPYRIGHT-COMMENT  Do not remove or modify this line! */
+
+/**************************************************************************************************
+* Script Name: Action_Table.sql
+* Script Type: TBL (For purpose of CREATE, DROP, ALTER, GRANT to Table, Index or Constraint.)
+*
+* Description: Update Data In Action_Table To Reflect The New Action Codes
+*
+*		Name			Type		Description
+*		---------		-------		----------------
+* Params In:	N/A
+*				
+* Params Out: 	N/A
+*
+* Result Set: 	
+*
+* Database: Audit
+* Tables Used:	
+*
+* NOTES: 
+* Revision History:
+*	Name			Date		Changes/Version&Build/Track#
+*	---------		-------		----------------------------	
+*	Thomas Hart	    09/13/2013	Added New Action Code 'KS' - Keyword Search
+*	Thomas Hart	    09/25/2013	Added New Action Code 'RC' - ROI Write To Disc
+*
+\*************************************************************************************************/
+
+USE AUDIT
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [AUDIT].[DBO].[ACTION_TABLE] WHERE [ACTION] = 'KS' AND [FACILITY] = 'E_P_R_S')
+BEGIN
+INSERT INTO [AUDIT].[DBO].[ACTION_TABLE]
+           ([ACTION]
+           ,[ACTION_DESC]
+           ,[TRACK]
+           ,[DISPLAY]
+           ,[FACILITY])
+     VALUES
+           ('KS'
+           ,'Keyword Search'
+           ,'Y'
+           ,'Y'
+           ,'E_P_R_S')
+END
+GO
+
+
+IF NOT EXISTS (SELECT 1 FROM [AUDIT].[DBO].[ACTION_TABLE] WHERE [ACTION] = 'RC' AND [FACILITY] = 'E_P_R_S')
+BEGIN
+INSERT INTO [AUDIT].[DBO].[ACTION_TABLE]
+           ([ACTION]
+           ,[ACTION_DESC]
+           ,[TRACK]
+           ,[DISPLAY]
+           ,[FACILITY])
+     VALUES
+           ('RC'
+           ,'ROI Write To Disc'
+           ,'Y'
+           ,'Y'
+           ,'E_P_R_S')
+END
+GO
+
+--UPDATE ALL EXISTING TRACK AND DISPALY TO 'Y'--
+UPDATE DBO.ACTION_TABLE Set TRACK = 'Y', DISPLAY ='Y' WHERE TRACK = 'N' OR DISPLAY = 'N' 
+GO
+
+--ADD SQL BEFORE THE CURSOR--
+--DO NOT ADD SQL AFTER THE CURSOR--
+
+
+--IF THE AUDIT ACTION CODES ARE MISSING FROM SOME FACILITIES ADD THOSE TOO--
+Declare @Facility		VARCHAR(10),
+		@Action			VARCHAR(10),
+		@Action_Desc	VARCHAR(50)
+BEGIN
+
+declare facility_cursor cursor for Select Distinct Facility_Code from cabinet.dbo.Facility_File with(nolock)
+
+open facility_cursor
+fetch next from facility_cursor into @Facility
+
+while @@FETCH_STATUS =0 
+BEGIN
+
+	declare action_cursor cursor for
+	Select Distinct Action,Action_DESC from Action_Table with (nolock) 
+	where Facility = 'E_P_R_S' and Action not in(Select Distinct Action from Action_Table with(nolock) where Facility = @Facility)
+		
+	open action_cursor
+	fetch next from action_cursor into @Action,@Action_Desc
+      
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		Insert Into action_table([Action],ACTION_DESC,TRACK,DISPLAY,FACILITY) Values(@Action, @Action_Desc, 'Y', 'Y', @Facility)
+		fetch next from action_cursor into @Action,@Action_Desc
+	End
+	  
+	close action_cursor
+	deallocate action_cursor
+	fetch next from facility_cursor into @Facility
+ END
+close facility_cursor
+deallocate facility_cursor
+END
+GO
+
+
+--DO NOT ADD SQL AFTER THE CURSOR--
+--DO NOT ADD SQL AFTER THE CURSOR--
+
+
+

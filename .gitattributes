@@ -10,3 +10,8 @@
 /OC-113529/install/bin/client/ROIClient/DotNetFx462Client/NDP462-KB3151800-x86-x64-AllOS-ENU.exe filter=lfs diff=lfs merge=lfs -text
 /OC-113529/install/bin/server/jdk1.7.0_11-32/jre/lib/rt.jar filter=lfs diff=lfs merge=lfs -text
 /OC-113529/install/bin/server/jdk1.7.0_11-64/jre/lib/rt.jar filter=lfs diff=lfs merge=lfs -text
+/trunk_JarUpgrade/install/bin/client/ROIClient/Crystal[[:space:]]Reports[[:space:]]Deployment/CRRuntime_32bit_13_0_5.msi filter=lfs diff=lfs merge=lfs -text
+/trunk_JarUpgrade/install/bin/client/ROIClient/DotNetFX40/dotNetFx40_Full_x86_x64.exe filter=lfs diff=lfs merge=lfs -text
+/trunk_JarUpgrade/install/bin/client/ROIClient/DotNetFx462Client/NDP462-KB3151800-x86-x64-AllOS-ENU.exe filter=lfs diff=lfs merge=lfs -text
+/trunk_JarUpgrade/install/bin/server/jdk1.7.0_11-32/jre/lib/rt.jar filter=lfs diff=lfs merge=lfs -text
+/trunk_JarUpgrade/install/bin/server/jdk1.7.0_11-64/jre/lib/rt.jar filter=lfs diff=lfs merge=lfs -text

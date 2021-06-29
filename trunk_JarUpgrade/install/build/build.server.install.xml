@@ -1,0 +1,489 @@
+<!--
+    Copyright (C) 2008 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project default="build-server-install" basedir="../">
+
+    <property name="dir.src" value="../" />
+	<property name="dir.build" value="${basedir}\..\build" />
+	<property name="dir.database" value="${basedir}\..\database" />
+    <property file="${dir.build}/props/${build.config.file.name}" />
+	<property file="${dir.build}/props/base.properties" />
+	<property name="war.name" value="eig-output"/>
+	<property name="ear.name" value="eig-output.ear"/>
+
+	<import file="${dir.build}/starteam.xml" />
+	<import file="${dir.build}/cvs.xml" />
+	<import file="${dir.build}/svn.xml" />
+	
+	<property environment="env"/>
+	<path id="svnant.classpath">
+	  <pathelement location="${env.ANT_HOME}/lib/svnant.jar"/>
+	  <pathelement location="${env.ANT_HOME}/lib/svnClientAdapter.jar"/>
+	  <pathelement location="${env.ANT_HOME}/lib/svnkit.jar"/>
+	  <pathelement location="${env.ANT_HOME}/lib/svnjavahl.jar"/>
+	</path>
+	
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
+	<svnSetting javahl="false" svnkit="true"  username="${svn.username}"  password="${svn.password}"  id="svn.settings" />
+
+    <!-- **********************************************************************
+             *  Target : build.server.install
+             *  target to do all the server install build activities in sequence
+             ********************************************************************** -->
+    <target name="build-server-install">
+
+    	<!-- <antcall target="update-server-components"/>  -->
+    	<antcall target="copy-server-components"/>
+		<!--<antcall target="copy-PublicPrivateKeyGenerator-utility" /-->
+        <!--antcall target="copy-config-util"/-->
+        <antcall target="copy-config-files"/>
+    	<antcall target="update-set-up-bat"/>
+    	<antcall target="update-roi-install-bat"/>
+        <if>
+            <equals arg1="${build.install.kit}" arg2="true" />
+            <then>
+                <echo message="Preparing install kit..." />
+                <antcall target="build-install-kit"/>
+            </then>
+        </if>
+
+    </target>
+
+    <!-- **********************************************************************
+             *  Target : prepare-install-kit
+             *  target to prepare install kit by checkking out install scripts
+                this target is specifically to be invoked by hudson
+     ********************************************************************** -->
+
+    <target name="prepare-install-kit">
+
+        <antcall target="refresh-install-script" />
+
+    	<antcall target="display-properties" />
+
+        <property file="${dir.build}/props/roi.install.properties" />
+
+    	<!--antcall target="copy-raw-install-files-to-local" /-->
+
+        <antcall target="build-install-kit" />
+
+        <property file="${dir.build}/version.txt" />
+
+        <!-- calls email task to initiate an email for install -->
+        <ant antfile="${source.local.root.path}/build/send.email.xml" target="notify-install-build">
+             <property name="basedir" value="${source.local.root.path}" />
+        </ant>
+
+     </target>
+
+
+    <!-- **********************************************************************
+         *  Target : copy-server-components
+         *  target to copy the required server components to install area
+         ********************************************************************** -->
+    <target name="copy-server-components">
+
+        <!-- cleans the server components -->
+        <delete failonerror="false">
+            <fileset dir="${basedir}/bin/server/"/>
+        </delete>
+
+		<property file="${dir.build}/version.txt" />
+	    	
+        <!-- Copies to the install area -->
+        <copy todir="${basedir}/bin/MPFServer/webapps" preservelastmodified="true" includeEmptyDirs="false">
+            <fileset dir="${dir.src}/server/3rdparty" includes="alert.war"/>
+            <fileset dir="${dir.src}/server/bin" includes="roi.war"/>
+            <!--fileset dir="${dir.src}/server/3rdparty" includes="audit.war"/>
+            <fileset dir="${dir.src}/server/3rdparty" includes="inuse.war"/>
+            <fileset dir="${dir.src}/server/3rdparty" includes="eig-output.ear"/-->
+        </copy>
+    </target>
+	<target name="copy-PublicPrivateKeyGenerator-utility">
+			<echo message="**** Copying PublicPrivateKeyGenerator files to install area ****" />
+			<property file="${hpf.install.location}/InstallShieldSource/HPF/version.txt" />
+			<mkdir dir="${basedir}/bin/PublicPrivateKeyGenerator" />
+			<echo message="Copying Install Files to shared location..." />
+			<echo message="Copying Install Files ${hpf.install.location}/installs" />
+			<echo message="Copying build Files ${Major}.${Minor}.${ServicePack}.${Build}" />
+			<copy todir="${basedir}/bin/PublicPrivateKeyGenerator" preservelastmodified="true" includeEmptyDirs="false">
+		            <fileset dir="${hpf.install.location}/installs/${Major}.${Minor}.${ServicePack}.${Build}/HPF/Support/PublicPrivateKeyGenerator" />
+		    </copy>
+	    </target>
+
+	 <!-- **********************************************************************
+	         *  Target : update-server-components
+	         *  target to update-server-components the required server components to install area
+	         ********************************************************************** -->
+	    <target name="update-server-components">
+
+	    	<!-- copies the new roi-hpf auth jar files to install area -->
+	    	<echo message="**** Unzipping output files to install area ****" />
+	    	<unzip src="${dir.src}/server/3rdparty/eig-output.ear" dest="${dir.src}/server/3rdparty/eig-output" />
+	    	<unzip src="${dir.src}/server/3rdparty/eig-output/eig-output.war" dest="${dir.src}/server/3rdparty/eig-output/eig-output" />
+	    	<delete file="${dir.src}/server/3rdparty/eig-output/eig-output/WEB-INF/lib/roi-hpf-auth.jar" />
+	    	<copy todir="${dir.src}/server/3rdparty/eig-output/eig-output/WEB-INF/lib" preservelastmodified="true" includeEmptyDirs="false">
+	    	      <fileset dir="${dir.src}/server/lib" includes="roi-hpf-auth.jar"/>
+	    	</copy>
+	    	<antcall target="build-war" />
+	    	<antcall target="build-ear" />
+	    </target>
+
+    <!-- **********************************************************************
+             *  Target : copy-config-util
+             *  target to copy the roi.config.util to install area
+             ********************************************************************** -->
+    <target name="copy-config-util">
+
+        <delete failonerror="false">
+            <fileset dir="${basedir}/bin/server/roi.config.util" />
+        </delete>
+
+        <copy todir="${basedir}/bin/server/roi.config.util" preservelastmodified="true" includeEmptyDirs="false">
+            <fileset dir="${basedir}/roi.config.util/bin/roi.config.util"/>
+        </copy>
+    </target>
+
+	 <!-- **********************************************************************
+	             *  Target : build-war
+	             *  target to build-war
+	             ********************************************************************** -->
+	    <target name="build-war">
+	    	<property file="${dir.build}/version.txt" />
+	    	<delete file="${dir.src}/server/3rdparty/eig-output/eig-output.war" />
+	    	<war destfile="${dir.src}/server/3rdparty/eig-output/${war.name}.war" webxml="${dir.src}/server/3rdparty/eig-output/eig-output/WEB-INF/web.xml">
+				<manifest>
+					<attribute name="Implementation-Title" value="${Product} ${war.name}.war" />
+					<attribute name="Implementation-Version" value="${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+					<attribute name="Implementation-Build-Date" value="${build.date}" />
+					<attribute name="Implementation-Vendor" value="${Company}" />
+				</manifest>
+	    		 <fileset dir="${dir.src}/server/3rdparty/eig-output/eig-output"/>
+	    	</war>
+	    	<delete dir="${dir.src}/server/3rdparty/eig-output/eig-output" />
+	    </target>
+
+	 <!-- **********************************************************************
+	             *  Target : build-ear
+	             *  target to build-ear
+	             ********************************************************************** -->
+	    <target name="build-ear">
+	    	 <property file="${dir.build}/version.txt" />
+	    	<delete file="${dir.src}/server/3rdparty/eig-output.ear" />
+	    	<ear destfile="${dir.src}/server/3rdparty/${ear.name}" appxml="${dir.src}/server/3rdparty/eig-output/META-INF/application.xml">
+	    	      <manifest>
+	    	        <attribute name="Implementation-Title" value="${project.name} ${ear.name}" />
+	    	        <attribute name="Implementation-Version" value="${build.major}.${build.minor}.${build.servicePack}.${build.number}"/>
+	    	        <attribute name="Implementation-Build-Date" value="${build.date}" />
+	    	        <attribute name="Implementation-Vendor" value="${Company}" />
+	    	      </manifest>
+	    		 <fileset dir="${dir.src}/server/3rdparty/eig-output"/>
+	    	</ear>
+	    	<delete dir="${dir.src}/server/3rdparty/eig-output" />
+	    </target>
+
+
+    <!-- **********************************************************************
+             *  Target : copy-config-files
+             *  target to copy the config files to install area
+             ********************************************************************** -->
+    <target name="copy-config-files">
+
+        <!-- deletes the old config files from install area -->
+        <!--delete dir="${basedir}/bin/server/config/var" />
+        <delete dir="${basedir}/bin/server/output.config/var" /-->
+
+        <!-- copies the new config files to install area -->
+		<!-- CR# 381,475 - Copies the install Config files to Output alone -->
+        <!--echo message="**** Unzipping Alert config files to install area  ****" />
+		<property file="${dir.build}/version.txt" />
+        <unzip src="${dir.src}/server/3rdparty/alert-config.zip" dest="${basedir}/bin/MPFServer/mpfconfig"/-->
+		
+		<copy todir="${basedir}/bin/MPFServer/mpfconfig" preservelastmodified="true" includeEmptyDirs="false">
+            <fileset dir="${dir.src}/server/res">
+				<include name="**/oc*.properties"/>
+			</fileset>
+        </copy>
+        <!--echo message="**** Unzipping Audit config files to install area ****" />
+        <unzip src="${dir.src}/server/3rdparty/audit-config.zip" dest="${basedir}/bin/server/output.config"/>
+
+        <echo message="**** Unzipping In Use config files to install area  ****" />
+        <unzip src="${dir.src}/server/3rdparty/InUse-config.zip" dest="${basedir}/bin/server/config"/>
+
+        <echo message="**** Unzipping Output config files to install area  ****" />
+        <unzip src="${dir.src}/server/3rdparty/eig-output.zip" dest="${basedir}/bin/server/output.config"/>
+
+        <echo message="**** Unzipping ROI config files to install area  ****" />
+        <unzip src="${dir.src}/server/bin/eig.roi.config.zip" dest="${basedir}/bin/server/config"/-->
+
+    </target>
+
+    <!-- build the install shield project -->
+    <target name="build-install-kit">
+
+        <!--property name="executable" value="${dir.install.Shield}/IsCmdBld.exe"/>
+        <property name="startDir" value="${basedir}"/>
+        <property name="cmdLine" value='-p "roi.installer.ism" -r "ROI" -c COMP'/>
+
+        <echo message="Starting ${executable} ${cmdLine} in ${startDir} "/>
+
+        <exec
+            executable="${executable}"
+            dir="${startDir}"
+            resolveexecutable="true"
+            searchpath="true"
+            failifexecutionfails="true"
+            failonerror="true"
+        >
+            <arg line="${cmdLine}"/>
+        </exec-->
+		<property file="${dir.build}/version.txt" />
+		<zip destfile="${dir.bin}/ROI_${build.major}_${build.minor}_${build.servicePack}_${build.number}.zip" defaultexcludes="true">
+			<zipfileset dir="${installshield.project.local.input.folder}" >
+				<exclude name="*" />
+			</zipfileset>
+		</zip>
+    </target>
+
+    <!-- **********************************************************************
+             *  Target : update-set-up-bat
+             *  target to update UpdateSetUp2.bat client app folder with current version
+             ********************************************************************** -->
+    <target name="update-set-up-bat">
+    	<property file="${dir.build}/version.txt" />
+        <property name="client.config.version" value="Application Files/McK.EIG.ROI.Client.App_${build.major}_${build.minor}_${build.servicePack}_${build.number}" />
+        <property name="client.version" value="${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+        <replaceregexp file="bin/MPFServer/webapps/ROOT/ROIClient/UpdateSetUp2.bat"
+                       match="clientAppFolder=(.*)"
+                       replace="clientAppFolder=${client.config.version}"
+                       byline="true"/>
+
+        <replaceregexp file="bin/MPFServer/webapps/ROOT/ROIClient/UpdateSetUp2.bat"
+                       match="clientVersion=(.*)"
+                       replace="clientVersion=${client.version}"
+                       byline="true"/>
+
+    </target>
+	
+	<!-- **********************************************************************
+             *  Target : update-roi-install-bat 16_2_0_218
+             *  target to update install-ROI.bat client app folder with current version
+             ********************************************************************** -->
+    <target name="update-roi-install-bat">
+    	<property file="${dir.build}/version.txt" />
+        <property name="install.release.version" value="${build.major}_${build.minor}_${build.servicePack}_${build.number}" />
+        <property name="client.version" value="${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+        <replaceregexp file="bin/install-ROI.bat"
+                       match="set RELEASE=(.*)"
+                       replace="set RELEASE=${install.release.version}"
+                       byline="true"/>
+    </target>
+
+    <!-- **********************************************************************
+             *  Target : copy-raw-install-files-to-local
+             *  target to copy raw binary files from shared location to remoate
+             ********************************************************************** -->
+    <!--target name="copy-raw-install-files-to-local">
+
+        <echo message="*****************************************************"/>
+        <echo message="*  Executing Target copy-raw-install-files-to-local   *"/>
+        <echo message="*****************************************************"/>
+
+        <echo message="Copying files to local... ${installshield.project.local.input.folder}" />
+
+		<copy todir="${installshield.project.local.input.folder}">
+            <fileset dir="${raw.install.files.location}" includes="**/*" />
+        </copy-->
+		
+		<!-- copies the portal.war file into the server bin location-->
+		<!--mkdir dir="${installshield.project.local.input.folder}/server/hpfw.components"/>
+		<copy tofile="${installshield.project.local.input.folder}/server/hpfw.components/portal.tmp.war">
+            <fileset dir="${hpfw.portal.war.location}" includes="portal.war.zip" />
+        </copy-->
+		
+		<!-- unzip the portal war file to the portal war directory-->
+		<!--unzip dest="${installshield.project.local.input.folder}/server/hpfw.components">
+			<fileset dir="${installshield.project.local.input.folder}/server/hpfw.components">
+				<include name="portal.tmp.war"/>
+			</fileset>
+		</unzip-->
+		<!-- Deletes the temporary portal war file-->
+		<!--delete file="${installshield.project.local.input.folder}/server/hpfw.components/portal.tmp.war"/-->
+
+    <!--/target-->
+
+     <!-- **********************************************************************
+                 *  Target : clean-folder
+                 *  target to to clean a specified directory
+                 ********************************************************************** -->
+     <target name="clean-folder">
+            <echo message="Cleaning... ${dir.to.clean}" />
+            <delete failonerror="false" includeemptydirs="true">
+                <fileset dir="${dir.to.clean}" defaultexcludes="yes" includes="**/*">
+                    <include name="${include.name}" />
+                </fileset>
+            </delete>
+      </target>
+
+     <!-- **********************************************************************
+          *  Target : refresh-install-script
+          *  target to refresh-install-script
+          ********************************************************************** -->
+     <target name="refresh-install-script">
+		<if>
+			<equals arg1="${refresh.install.source}" arg2="true" />
+			<then>
+				<echo message="delete ROI install zip file in bin folder" />
+				<delete failonerror="false" includeemptydirs="true">
+					<fileset dir="${source.local.root.path}/install/bin" defaultexcludes="no">
+						<include name="ROI_${build.major}_${build.minor}_${build.servicePack}_${build.number}.zip" />
+					</fileset>
+				</delete>
+				
+				<echo message="Clears version.txt file" />
+				<delete file="${source.local.root.path}/${dir.roi.build}/version.txt" />
+				<echo message="Refresh Version.txt" />
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<echo message="refresh version.txt from svn... ${svn.branch.path}/build/version.txt" />
+						<ant antfile="${dir.src}/build/svn.xml" target="get-file-from-svn">
+							 <property name="svn.path" value="${svn.branch.path}/build/version.txt" />
+							 <property name="checkout.dest.path" value="${source.local.root.path}/${dir.roi.build}/version.txt" />
+							 <property name="svn.includes.pattern" value="version.txt" />
+							 <property name="svn.label" value="" />
+						 </ant> 
+						 
+					</then>
+				</if>
+			   <echo message="refresh version.txt complete." />
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<echo message="refresh version.txt from starteam..." />
+						<ant antfile="${dir.src}/build/starteam.xml" target="get">
+							 <property name="starteam.file.path" value="${dir.roi.build}" />
+							 <property name="starteam.local.file.path" value="${source.local.root.path}/${dir.roi.build}" />
+							 <property name="starteam.includes.pattern" value="version.txt" />
+							 <property name="starteam.label" value="" />
+						 </ant>
+					</then>
+			   </if>
+				<echo message="Clears ROI Build Properties" />
+				<antcall target="clean-folder">
+					 <param name="dir.to.clean" value="${source.local.root.path}/${install.properties.path}" />
+				</antcall>
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<echo message="Refreshing Build Properties from SVN... ${svn.branch.path}/${install.properties.path}" />
+						<antcall target="get-from-svn">
+							<param name="svn.path" value="${svn.branch.path}/${install.properties.path}" />
+							<param name="checkout.dest.path" value="${source.local.root.path}/${install.properties.path}" />
+							<param name="alias.name" value="${install.properties.path}" />
+							<param name="label.name" value="" />
+						</antcall>
+					</then>
+				</if>
+				<if>
+					<equals arg1="${checkout.source}" arg2="cvs" />
+					<then>
+						<echo message="Refreshing Build Properties from CVS..." />
+						<antcall target="get-from-cvs">
+							<param name="cvs.path" value="${cvs.branch.path}/${install.properties.path}" />
+							<param name="checkout.dest.path" value="${source.local.root.path}" />
+							<param name="alias.name" value="${install.properties.path}" />
+							<param name="label.name" value="" />
+						</antcall>
+					</then>
+				</if>
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<echo message="Refreshing Build Properties from starteam..." />
+						<ant antfile="${dir.src}/build/starteam.xml" target="get">
+							 <property name="starteam.file.path" value="${install.properties.path}" />
+							 <property name="starteam.local.file.path" value="${source.local.root.path}/${install.properties.path}" />
+							 <property name="starteam.includes.pattern" value="" />
+							 <property name="starteam.label" value="" />
+						 </ant>
+					</then>
+			   </if>
+			   
+			   <!-- 
+				<echo message="Clear Install files" />
+			   <antcall target="clean-folder">
+					 <param name="dir.to.clean" value="${source.local.root.path}/${svn.install.path}" />
+				</antcall>
+
+				<if>
+					<equals arg1="${checkout.source}" arg2="svn" />
+					<then>
+						<echo message="Clearing ROI Install files from svn..." />
+						<antcall target="get-from-svn">
+							<param name="svn.path" value="${svn.branch.path}/${svn.install.path}" />
+							<param name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}" />
+							<param name="alias.name" value="${svn.install.path}" />
+							<param name="label.name" value="" />
+					   </antcall>
+
+					</then>
+				</if>
+				
+				<if>
+					<equals arg1="${checkout.source}" arg2="cvs" />
+					<then>
+						<echo message="Clearing ROI Install files from cvs..." />
+						<antcall target="get-from-cvs">
+							<param name="cvs.path" value="${cvs.branch.path}/${cvs.install.path}" />
+							<param name="checkout.dest.path" value="${source.local.root.path}" />
+							<param name="alias.name" value="${cvs.install.path}" />
+							<param name="label.name" value="" />
+					   </antcall>
+
+					</then>
+				</if>
+				<if>
+					<equals arg1="${checkout.source}" arg2="starteam" />
+					<then>
+						<echo message="Refreshing Install Files from starteam..." />
+						<ant antfile="${dir.src}/build/starteam.xml" target="get">
+							<property name="starteam.file.path" value="${starteam.install.path}" />
+							<property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.install.path}" />
+							<property name="starteam.includes.pattern" value="" />
+							<property name="starteam.label" value="" />
+						</ant>
+					</then>
+				</if> -->
+			</then>
+        </if>
+     </target>
+
+	 <!-- **********************************************************************
+	      *  Target : display-properties
+	      *  target to display the current properties and the values the build uses
+	      ********************************************************************** -->
+	<target name="display-properties">
+
+			<echo message="increment.version               = ${increment.version}" />
+			<echo message="refresh.install.source          = ${refresh.install.source}" />
+			<echo message="copy.to.shared.location         = ${copy.to.shared.location}" />
+			<echo message="build.install                   = ${build.install}" />
+			<echo message="notify.build.status             = ${notify.build.status}" />
+	</target>
+
+</project>

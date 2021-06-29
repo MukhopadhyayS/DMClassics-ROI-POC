@@ -1,0 +1,42 @@
+USE [cabinet]
+GO
+
+/* BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
+*
+* Copyright © McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Use of this software and related documentation is governed by a license agreement.
+* This material contains confidential, proprietary and trade secret information of
+* McKesson Information Solutions and is protected under United States
+* and international copyright and other intellectual property laws.
+* Use, disclosure, reproduction, modification, distribution, or storage
+* in a retrieval system in any form or by any means is prohibited without the
+* prior express written permission of McKesson Information Solutions.
+*
+END-COPYRIGHT-COMMENT  Do not remove or modify this line! */
+
+/*
+* Script Name: Output_Service_Job.tbl
+* Description:  
+*
+*		Name			Type		Description
+*		---------		-------		----------------
+
+*
+* Params Out:	NONE	
+* Returns:		NONE 
+* Database: 	cabinet
+* Tables Used: 	Output_Service_Job 
+*
+* NOTES: 		
+* Revision History:
+*	Name			Date		Changes
+*	---------		-------		-------------   
+* 	
+*	Politykina		09/12/2013  add server status details column
+\*******************************************************************************/
+
+IF NOT EXISTS (SELECT * FROM sys.syscolumns WHERE id = object_Id(N'[dbo].[Output_Service_Job]') AND name = 'Osj_OutputServerStatus_Details')
+ALTER TABLE Output_Service_Job
+ADD Osj_OutputServerStatus_Details varchar(255) NULL
+go
+

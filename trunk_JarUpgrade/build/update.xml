@@ -1,0 +1,523 @@
+<!--
+    Copyright (C) 2007 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project default="update-build-scripts" basedir="../" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property file="build/props/${build.config.file.name}" />
+	<property file="build/props/base.properties" />
+	<property name="build.dir" location="build"/>
+	<property name="ivy.lib.dir" value="server/lib"/>
+	<property name="ivy.prototype.dir" value="prototype/src/repository"/>
+	<property name="ivy.roiclient.dir" value="client/McK.EIG.ROI.Client.App"/>
+	<property name="ivy.roiclient.debug.dir" value="client/McK.EIG.ROI.Client.App/bin/Debug"/>
+	<property name="ivy.roi.version" value="${roi.minor.version}"/>
+	
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+	<path id="svnant.classpath">
+		<pathelement location="${env.ANT_HOME}/lib/svnant.jar"/>
+		<pathelement location="${env.ANT_HOME}/lib/svnClientAdapter.jar"/>
+	</path>
+
+	<taskdef name="svn" className="org.tigris.subversion.svnant.SvnTask" classpathref="svnant.classpath"/>
+	<import file="svn.xml" />
+
+		
+    <!-- **********************************************************************
+             *  Target : update-build-scripts
+             *  target to update build scripts
+             ********************************************************************** -->
+	<target name="update-build-scripts">
+		<if>
+			<equals arg1="${update.build.scripts}" arg2="true" />
+			<then>
+		        <antcall target="verify-connection" />
+				
+				<if> <equals arg1="${checkout.source}" arg2="svn" /> <then>
+						<antcall target="update-build-scripts-from-svn" />
+					</then>
+				</if>
+				
+				<!-- If checkout.source is cvs, update build scripts from cvs -->
+				<if> <equals arg1="${checkout.source}" arg2="cvs" /> <then>
+						<antcall target="update-build-scripts-from-cvs" />
+					</then>
+				</if>
+				<!-- If checkout.source is starteam, update build scripts from starteam -->
+				<if> <equals arg1="${checkout.source}" arg2="starteam" /> <then>
+						<antcall target="update-build-scripts-from-starteam" />
+					</then>
+				</if>
+				<antcall target="update-dependent-jars" />
+			</then>
+			
+		</if>
+	</target>
+	
+	<!-- **********************************************************************
+             *  Target : update-build-scripts-from-svn
+             *  target to update build-scripts from svn
+             ********************************************************************** -->
+	<target name="update-build-scripts-from-svn">
+		<echo message="Updating Build Scripts from svn..." />
+
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${source.local.root.path}/build" defaultexcludes="no">
+                <exclude name="update.xml" />
+				<exclude name="svn.xml" />
+                <exclude name="env.bat" />
+            	<exclude name="Results.properties" />
+            	<exclude name="PreviousResults.properties" />
+            </fileset>
+        </delete>
+		<!-- To update main build scripts -->
+		<antcall target="get-from-svn">
+			<param name="svn.path" value="${svn.branch.path}/build" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/build" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="build" />
+		</antcall>
+		
+		<!-- To update server build scripts-->
+		<antcall target="clean-folder" >
+			<param name="dir.to.clean" value="${source.local.root.path}/server/build" />
+		</antcall>
+		
+		<antcall target="get-from-svn">
+			<param name="svn.path" value="${svn.branch.path}/server/build" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/server/build" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="build" />
+		</antcall>
+		
+		<!-- To update Client build scripts-->
+        <antcall target="clean-folder" >
+            <param name="dir.to.clean" value="${source.local.root.path}/client/build" />
+        </antcall>
+		<antcall target="get-from-svn">
+			<param name="svn.path" value="${svn.branch.path}/client/build" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/client/build" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="build" />
+		</antcall>
+		
+		<!-- To update Install build scripts-->
+        <antcall target="clean-folder" >
+            <param name="dir.to.clean" value="${source.local.root.path}/install/build" />
+        </antcall>
+		<antcall target="get-from-svn">
+			<param name="svn.path" value="${svn.branch.path}/install/build" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/install/build" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="build" />
+		</antcall>
+		
+		<!-- To update Client sub project specific build scripts-->
+		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client/build.xml" />
+		<antcall target="get-file-from-svn">
+			<param name="svn.path" value="${svn.branch.path}/client/McK.EIG.ROI.Client/build.xml" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/client" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="McK.EIG.ROI.Client" />
+		</antcall>
+
+		<!-- To update Client sub project specific build scripts-->
+		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client.App/build.xml" />
+		<antcall target="get-file-from-svn">
+			<param name="svn.path" value="${svn.branch.path}/client/McK.EIG.ROI.Client.App/build.xml" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/client" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="McK.EIG.ROI.Client.App" />
+		</antcall>
+		<echo message="Check point for Update.xml Ends.................." />
+	</target>
+	
+    <!-- **********************************************************************
+             *  Target : update-build-scripts-from-cvs
+             *  target to update build-scripts from cvs
+             ********************************************************************** -->
+	<target name="update-build-scripts-from-cvs">
+		<echo message="Updating Build Scripts from cvs..." />
+
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${source.local.root.path}/build" defaultexcludes="yes">
+                <exclude name="update.xml" />
+                <exclude name="env.bat" />
+            	<exclude name="Results.properties" />
+            	<exclude name="PreviousResults.properties" />
+            </fileset>
+        </delete>
+		<!-- To update main build scripts -->
+		<antcall target="get-from-cvs">
+			<param name="cvs.path" value="${cvs.branch.path}/build" />
+			<param name="checkout.dest.path" value="${source.local.root.path}" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="build" />
+		</antcall>
+
+		<!-- To update server build scripts-->
+		<antcall target="clean-folder" >
+			<param name="dir.to.clean" value="${source.local.root.path}/server/build" />
+		</antcall>
+		<antcall target="get-from-cvs">
+			<param name="cvs.path" value="${cvs.branch.path}/server/build" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/server" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="build" />
+		</antcall>
+
+		<!-- To update Client build scripts-->
+        <antcall target="clean-folder" >
+            <param name="dir.to.clean" value="${source.local.root.path}/client/build" />
+        </antcall>
+		<antcall target="get-from-cvs">
+			<param name="cvs.path" value="${cvs.branch.path}/client/build" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/client" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="build" />
+		</antcall>
+
+		<!-- To update Client sub project specific build scripts-->
+		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client/build.xml" />
+		<antcall target="get-from-cvs">
+			<param name="cvs.path" value="${cvs.branch.path}/client/McK.EIG.ROI.Client/build.xml" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/client" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="McK.EIG.ROI.Client" />
+		</antcall>
+
+		<!-- To update Client sub project specific build scripts-->
+		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client.App/build.xml" />
+		<antcall target="get-from-cvs">
+			<param name="cvs.path" value="${cvs.branch.path}/client/McK.EIG.ROI.Client.App/build.xml" />
+			<param name="checkout.dest.path" value="${source.local.root.path}/client" />
+			<param name="label.name" value="" />
+			<param name="alias.name" value="McK.EIG.ROI.Client.App" />
+		</antcall>
+
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : update-build-scripts-from-starteam
+             *  target to update build-scripts from starteam
+             ********************************************************************** -->
+	<target name="update-build-scripts-from-starteam">
+		<echo message="Updating Build Scripts from starteam..." />
+
+		<!-- To update main build scripts -->
+		<delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${source.local.root.path}/build" defaultexcludes="yes">
+                <exclude name="update.xml" />
+                <exclude name="env.bat" />
+            	<exclude name="Results.properties" />
+                <exclude name="PreviousResults.properties" />
+            </fileset>
+        </delete>
+		<antcall target="get">
+			<param name="starteam.file.path" value="build" />
+			<param name="starteam.local.file.path" value="${source.local.root.path}/build" />
+			<param name="starteam.includes.pattern" value="" />
+			<param name="starteam.label" value="" />
+		</antcall>
+
+		<!-- To update server build scripts-->
+        <antcall target="clean-folder" >
+            <param name="dir.to.clean" value="${source.local.root.path}/server/build" />
+        </antcall>
+		<antcall target="get">
+			<param name="starteam.file.path" value="server/build" />
+			<param name="starteam.local.file.path" value="${source.local.root.path}/server/build" />
+			<param name="starteam.includes.pattern" value="" />
+			<param name="starteam.label" value="" />
+		</antcall>
+
+		<!-- To update Client build scripts-->
+        <antcall target="clean-folder" >
+            <param name="dir.to.clean" value="${source.local.root.path}/client/build" />
+        </antcall>
+		<antcall target="get">
+			<param name="starteam.file.path" value="client/build" />
+			<param name="starteam.local.file.path" value="${source.local.root.path}/client/build" />
+			<param name="starteam.includes.pattern" value="" />
+			<param name="starteam.label" value="" />
+		</antcall>
+
+		<!-- To update Client sub project specific build scripts-->
+		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client/build.xml" />
+		<antcall target="get">
+			<param name="starteam.file.path" value="client/McK.EIG.ROI.Client" />
+			<param name="starteam.local.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client" />
+			<param name="starteam.includes.pattern" value="build.xml" />
+			<param name="starteam.label" value="" />
+		</antcall>
+
+		<!-- To update Client sub project specific build scripts-->
+		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client.App/build.xml" />
+		<antcall target="get">
+			<param name="starteam.file.path" value="client/McK.EIG.ROI.Client.App" />
+			<param name="starteam.local.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App" />
+			<param name="starteam.includes.pattern" value="build.xml" />
+			<param name="starteam.label" value="" />
+		</antcall>
+
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : clean-folder
+             *  target to clean a specified directory
+             ********************************************************************** -->
+	<target name="clean-folder">
+		<echo message="Cleaning... ${dir.to.clean}" />
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${dir.to.clean}" defaultexcludes="no" includes="**/*">
+				<include name="${include.name}" />
+			</fileset>
+		</delete>
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : get-file-from-svn
+             *  target to pull source from svn
+             ********************************************************************** -->
+	<target name="get-file-from-svn" >
+		<echo message="Checking out file....."/>
+		<if>
+ 		    <equals arg1="${label.name}" arg2="" trim="true" />
+    		<then>
+				<exec executable="svn" failonerror="true">
+					<arg value="--username" />
+					<arg value="${svn.username}" />
+					<arg value="--password" />
+					<arg value="${svn.password}" />
+					<arg value="--no-auth-cache" />
+					<arg value="--force" />
+					<arg value="export" />
+					<arg value="-r" />
+					<arg value="HEAD" />
+					<arg value="&quot;${svn.repository.path}/${svn.path}&quot;" />
+					<arg value="&quot;${checkout.dest.path}&quot;" />
+				</exec>
+    		</then>
+    		<else>
+                <exec executable="svn" failonerror="true">
+					<arg value="--username" />
+					<arg value="${svn.username}" />
+					<arg value="--password" />
+					<arg value="${svn.password}" />
+					<arg value="--no-auth-cache" />
+					<arg value="--force" />
+					<arg value="export" />
+					<arg value="-r" />
+					<arg value="HEAD" />
+					<arg value="&quot;${svn.repository.path}/${svn.path}&quot;" />
+					<arg value="&quot;${checkout.dest.path}&quot;" />
+				</exec>
+    		</else>
+		</if>
+	</target>
+	
+	<!-- **********************************************************************
+             *  Target : get-from-svn
+             *  target to pull source from svn
+             ********************************************************************** -->
+	<target name="get-from-svn" >
+		<echo message="Checking out folder....."/>
+		<if>
+ 		    <equals arg1="${label.name}" arg2="" trim="true" />
+    		<then>
+				<echo message="svn checkout: svn -r HEAD checkout --force ${svn.repository.path}/${svn.path} ${checkout.dest.path}" />
+				<exec executable="svn" failonerror="true">
+					<arg value="--username" />
+					<arg value="${svn.username}" />
+					<arg value="--password" />
+					<arg value="${svn.password}" />
+					<arg value="--no-auth-cache" />
+					<arg value="-r" />
+					<arg value="HEAD" />
+					<arg value="checkout" />
+					<arg value="--force" />
+					<arg value="&quot;${svn.repository.path}/${svn.path}&quot;" />
+					<arg value="&quot;${checkout.dest.path}&quot;" />
+				</exec>
+    		</then>
+    		<else>
+                <echo message="svn checkout: svn -r HEAD checkout --force ${svn.repository.path}/${svn.path} ${checkout.dest.path}" />
+				<exec executable="svn" failonerror="true">
+					<arg value="--username" />
+					<arg value="${svn.username}" />
+					<arg value="--password" />
+					<arg value="${svn.password}" />
+					<arg value="--no-auth-cache" />
+					<arg value="-r" />
+					<arg value="HEAD" />
+					<arg value="checkout" />
+					<arg value="--force" />
+					<arg value="&quot;${svn.repository.path}/${svn.path}&quot;" />
+					<arg value="&quot;${checkout.dest.path}&quot;" />
+				</exec>
+    		</else>
+		</if>
+	</target>
+	
+    <!-- **********************************************************************
+             *  Target : get-from-cvs
+             *  target to pull source from cvs
+             ********************************************************************** -->
+	<target name="get-from-cvs" >
+		<if>
+ 		    <equals arg1="${label.name}" arg2="" trim="true" />
+    		<then>
+                <cvs cvsRoot=":${cvs.connection.type}:${cvs.username}:${cvs.password}@${cvs.host}:${cvs.repository.path}"
+                    dest="${checkout.dest.path}"
+                    command="checkout -d ${alias.name} ${cvs.path}"
+                />
+    		</then>
+    		<else>
+                <cvs cvsRoot=":${cvs.connection.type}:${cvs.username}:${cvs.password}@${cvs.host}:${cvs.repository.path}"
+                    dest="${checkout.dest.path}"
+                    command="checkout -r ${label.name} -d ${alias.name} ${cvs.path}"
+                />
+    		</else>
+		</if>
+	</target>
+        
+  <target name="get">
+		<echo message="${starteam.file.path}"/>
+		<exec executable="${starteam.cp.client.dir}/bco.bat">
+			<arg line="-p '${starteam.username}:${starteam.password}@${starteam.servername}:${starteam.serverport}/${starteam.projectname}/${starteam.viewname}/${starteam.branch.path}/${starteam.file.path}' -useca starteamapp:49260 -is -vb -cmp -cwf -o -t" />
+		</exec>
+  </target>
+  
+
+    <!-- **********************************************************************
+      *   verify-connection
+      *
+      *   Target to check whether the connection to starteam or cvs exists
+      *   and if the connection does not exists, fails the build
+      *   This target checks the connection by checking out
+      *   version.txt file
+      ********************************************************************** -->
+    <target name="verify-connection" >
+        <delete file="${source.local.root.path}/build/version.txt" />
+
+        <echo message="Verifying connection to ${checkout.source}" />
+        <trycatch>
+            <try>
+                <if> <equals arg1="${checkout.source}" arg2="starteam" trim="true" /> <then>
+                <antcall target="get">
+                    <param name="starteam.file.path" value="build" />
+                    <param name="starteam.local.file.path" value="${source.local.root.path}/build" />
+                    <param name="starteam.includes.pattern" value="version.txt" />
+                    <param name="starteam.label" value="" />
+                </antcall>
+                <available file="${source.local.root.path}/build/version.txt" property="st.connection.available" />
+                <if> <not> <equals arg1="${st.connection.available}" arg2="true" /> </not><then>
+                    <fail message="Unable to connect to ${checkout.source}, build scripts cannot be updated" />
+                </then>
+                </if>
+                </then> </if>
+
+                <if> <equals arg1="${checkout.source}" arg2="cvs" trim="true" /> <then>
+                <antcall target="get-from-cvs">
+                    <param name="cvs.path" value="${cvs.branch.path}/build/version.txt" />
+                    <param name="checkout.dest.path" value="${source.local.root.path}" />
+                    <param name="label.name" value="" />
+                    <param name="alias.name" value="build" />
+                </antcall>
+                <available file="${source.local.root.path}/build/version.txt" property="cvs.connection.available" />
+                <if> <not> <equals arg1="${cvs.connection.available}" arg2="true" /> </not><then>
+                	<fail message="Unable to connect to ${checkout.source}, build scripts cannot be updated" />
+                </then>
+                </if>
+                </then> </if>
+            </try>
+            <catch>
+                <fail message="Unable to connect to ${checkout.source}, build scripts cannot be updated" />
+            </catch>
+        </trycatch>
+    </target>
+
+	<target name="download-files-from-nexus" depends="delete-files">
+		 <echo message="**************** No SVN Version attcahed to jar and dll IVY Cache need to be clear every time ********************************" />
+		<ivy:cleancache />
+	     <echo message="**************** copying artifacts to server  lib location ********************************" />
+		<ivy:retrieve pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]" conf="jars"/>
+		<echo message="**************** copying OCInternalComm jar to prototype location ********************************" />
+		<ivy:retrieve pattern="${ivy.prototype.dir}/OCInternalComm-[revision].[ext]" conf="jars"/>
+		<echo message="**************** copying OCSecurity dll  to ROI Clinet application location ********************************" />
+		<ivy:retrieve pattern="${ivy.roiclient.dir}/OCSecurity-21.0.dll" conf="dll"/>
+		<echo message="**************** copying OCSecurity dll  to ROI Clinet application debug folder ********************************" />
+		<ivy:retrieve pattern="${ivy.roiclient.debug.dir}/OCSecurity-21.0.dll" conf="dll"/>		
+	</target>
+
+	<target name="delete-files" >
+	<echo message="**************** Delete all files to copy new files latest files from Nexaus repository ********************************" />
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/server/lib" defaultexcludes="no">
+				<include name="OC*-*.jar" />
+			</fileset>
+	</delete>
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/prototype/src/repository" defaultexcludes="no">
+				<include name="OCInternalComm-*.jar" />
+			</fileset>
+	</delete>
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/client/McK.EIG.ROI.Client.App" defaultexcludes="no">
+				<include name="OCSecurity-21.0.dll" />
+			</fileset>
+	</delete>
+	<delete failonerror="false" includeEmptyDirs="true">
+		<fileset dir="${source.local.root.path}/client/McK.EIG.ROI.Client.App/bin/debug" defaultexcludes="no">
+				<include name="OCSecurity-21.0.dll" />
+			</fileset>
+	</delete>
+	</target>
+
+	<target name="update-dependent-jars" depends="download-files-from-nexus">
+				
+		<if>
+			<equals arg1="${checkout.source}" arg2="svn" />
+				<then>
+				<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/server/lib/OCUtilities-${roi.minor.version}.jar" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCUtilities-${roi.minor.version}.jar" />
+					</antcall>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/server/lib/OCInternalComm-${roi.minor.version}.jar" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCInternalComm-${roi.minor.version}.jar" />
+					</antcall>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/prototype/src/repository/OCInternalComm-${roi.minor.version}.jar" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCInternalComm-${roi.minor.version}.jar" />
+					</antcall>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/OCSecurity-21.0.dll" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCSecurity-21.0.dll" />
+					</antcall>
+					<antcall target="checkin-file-svn">
+						<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/bin/debug/OCSecurity-21.0.dll" />
+						<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
+						<param name="svn.file.name" value="OCSecurity-21.0.dll" />
+					</antcall>
+				</then>
+		</if>
+	</target>
+</project>

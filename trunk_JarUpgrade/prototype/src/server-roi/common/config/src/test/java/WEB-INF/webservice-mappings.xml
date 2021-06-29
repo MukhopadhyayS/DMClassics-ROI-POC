@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE databases PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+    "http://castor.exolab.org/mapping.dtd">
+
+<mapping xmlns:eig="urn:eig.mckesson.com">
+
+<!-- ****************************************************************
+    LOG CONFIGURATION
+  **************************************************************** -->
+
+  <class name="com.mckesson.eig.config.model.LogConfigurationInfoList">
+    <map-to xml="logConfigurationInfoList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+  
+    <field name="logConfigurationInfoList" type="com.mckesson.eig.config.model.LogConfigurationInfo" collection="arraylist">
+      <bind-xml name="eig:logConfigurationInfo"  node="element"/>
+    </field>                
+  
+  </class>
+    
+  <class name="com.mckesson.eig.config.model.LogConfigurationInfo">
+    <map-to xml="LogConfigurationInfo" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+    
+    <field name="maxLogSize" type="string">
+      <bind-xml name="eig:maxLogSize" node="element" />
+    </field>
+    
+    <field name="maxLogFiles" type="string">
+      <bind-xml name="eig:maxLogFiles" node="element" />
+    </field>      
+
+    <field name="loggingLevel" type="string">
+      <bind-xml name="eig:loggingLevel" node="element" />
+    </field> 
+      
+    <field name="componentName" type="string">
+      <bind-xml name="eig:componentName" node="element" />
+    </field>
+    
+    <field name="componentSeq" type="long">
+      <bind-xml name="eig:componentSeq" node="element" />
+    </field>
+    
+  </class>
+  
+  
+  <!-- ****************************************************************
+    ListViewLog
+  **************************************************************** -->
+
+  <class name="com.mckesson.eig.config.model.ListViewLogInfoList">
+    <map-to xml="listViewLogInfoList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+  
+    <field name="listViewLogInfoList" type="com.mckesson.eig.config.model.ListViewLogInfo" collection="arraylist">
+      <bind-xml name="eig:listViewLogInfo"  node="element"/>
+    </field>                
+  
+  </class>
+    
+  <class name="com.mckesson.eig.config.model.ListViewLogInfo">
+    <map-to xml="ListViewLogInfo" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+    
+    <field name="componentName" type="string">
+      <bind-xml name="eig:componentName" node="element" />
+    </field>
+    
+    <field name="logFileName" type="string">
+      <bind-xml name="eig:logFileName" node="element" />
+    </field>      
+
+    <field name="logFileDate" type="string">
+      <bind-xml name="eig:logFileDate" node="element" />
+    </field> 
+      
+    <field name="logFileSize" type="long">
+      <bind-xml name="eig:logFileSize" node="element" />
+    </field>
+    
+    <field name="componentPath" type="string">
+      <bind-xml name="eig:componentPath" node="element" />
+    </field>
+    
+    <field name="componentSequence" type="long">
+      <bind-xml name="eig:componentSequence" node="element" />
+    </field>
+    
+  </class>
+  
+  <class name="com.mckesson.eig.config.model.ListViewLogDetailList">
+    <map-to xml="listViewLogDetailList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+  
+    <field name="listViewLogDetailList" type="com.mckesson.eig.config.model.ListViewLogDetail" collection="arraylist">
+      <bind-xml name="eig:listViewLogDetail"  node="element"/>
+    </field>                
+  
+  </class>
+  
+  <class name="com.mckesson.eig.config.model.ListViewLogDetail">
+    <map-to xml="listViewLogDetail" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+    
+    <field name="componentName" type="string">
+      <bind-xml name="eig:componentName" node="element" />
+    </field>
+
+    <field name="componentSeq" type="long">
+      <bind-xml name="eig:componentSeq" node="element" />
+    </field>      
+  </class>
+  
+  <class name="com.mckesson.eig.config.model.InfoDetailList">
+    <map-to xml="infoDetailList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+    <field name="listViewLogInfoList" type="com.mckesson.eig.config.model.ListViewLogInfoList" collection="arraylist">
+      <bind-xml name="eig:listViewLogInfoList"  node="element"/>
+    </field>
+        
+  </class>
+  
+    <!-- ****************************************************************
+    * Component Info
+    ***************************************************************** -->
+    <class name="com.mckesson.eig.utility.components.model.ComponentInfo">
+        <map-to xml="componentInfo" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+        
+        <field name="componentID" type="string">
+            <bind-xml name="componentID" node="attribute" />
+        </field>
+        
+        <field name="componentDisplayName" type="string">
+            <bind-xml name="componentDisplayName" node="attribute" />
+        </field>
+        
+        <field name="componentName" type="string">
+            <bind-xml name="componentName" node="element" location="applicationInfo" />
+        </field>        
+    
+        <field name="productName" type="string">
+            <bind-xml name="productName" node="element" location="applicationInfo" />
+        </field>
+    
+        <field name="productType" type="string">
+            <bind-xml name="productType" node="element" location="applicationInfo" />
+        </field>
+        
+        <field name="version" type="string">
+            <bind-xml name="version" node="element" location="applicationInfo" />
+        </field>
+        
+        <field name="applicationPath" type="string">
+            <bind-xml name="path" node="element" location="applicationInfo" />
+        </field>
+        
+        <field name="configurationInfo" type="string">
+            <bind-xml name="configurationInfo" node="element" />
+        </field>
+        
+        <field name="updatedHistories" type="com.mckesson.eig.utility.components.model.UpdateHistory" collection="arraylist">
+            <bind-xml name="update" node="element" location="updateInfo"/>
+        </field>
+        
+        <field name="logFilePath" type="string">
+            <bind-xml name="file" node="element" location="logConfig" />
+        </field>
+        
+        <field name="appenders" type="string" collection="array">
+            <bind-xml name="appender" node="element" location="logConfig/appenders"/>
+        </field>
+        
+        <field name="categories" type="string" collection="array">
+            <bind-xml name="category" node="element" location="logConfig/categories"/>
+        </field>
+         
+    </class>
+    
+  <!-- ****************************************************************
+    * Update History
+    ***************************************************************** -->
+    <class name="com.mckesson.eig.utility.components.model.UpdateHistory">
+        <map-to xml="update" ns-prefix="eig" ns-uri="urn:eig.mckesson.com"/>
+        
+        <field name="updatedOn" type="date">
+            <bind-xml name="eig:date" node="element"/>
+        </field>
+        
+        <field name="comments" type="string">
+            <bind-xml name="eig:comments" node="element"/>
+        </field>
+        
+        <field name="version" type="string">
+            <bind-xml name="eig:version" node="element"/>
+        </field>       
+    </class>
+    
+  <!-- ****************************************************************
+    * ComponentList
+  ***************************************************************** -->
+  <class name="com.mckesson.eig.utility.components.model.ComponentList">
+    <map-to xml="componentList" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+
+    <field name="components"  type="com.mckesson.eig.utility.components.model.ComponentInfo"  collection="arraylist">
+      <bind-xml name="eig:componentInfo" node="element" />
+    </field>
+  </class>
+  
+</mapping>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.Security">
+		<map-to xml="security" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+		<field name="facility" type="string">
+			<bind-xml name="eig:facility" node="element" />
+		</field>
+		<field name="codes" type="int" collection="array">
+			<bind-xml name="eig:code" location="codes" node="element" />
+		</field>
+	</class>
+
+	<class name="com.mckesson.eig.User">
+		<map-to xml="user" ns-prefix="eig" ns-uri="urn:eig.mckesson.com" />
+		<field name="fullName" type="string">
+			<bind-xml name="eig:fullName" node="element" />
+		</field>
+		<field name="loginId" type="string">
+			<bind-xml name="eig:loginId" node="element" />
+		</field>
+		<field name="validateCode" type="int">
+			<bind-xml name="eig:validateCode" node="element" />
+		</field>
+		<field name="idle" type="int">
+			<bind-xml name="eig:idle" node="element" />
+		</field>
+		<field name="instanceId" type="int">
+			<bind-xml name="eig:instanceId" node="element" />
+		</field>
+		<field name="securities" type="com.mckesson.eig.Security"
+			collection="array">
+			<bind-xml name="eig:security" location="securities" node="element" />
+		</field>
+	</class>
+</mapping>

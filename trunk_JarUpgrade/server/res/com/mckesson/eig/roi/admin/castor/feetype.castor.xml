@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.roi.admin.model.FeeType">
+		<map-to xml="feeTypeDetails" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="id" type="long">
+			<bind-xml name="eig:feeTypeId" node="element" />
+		</field>
+
+		<field name="name" type="string">
+			<bind-xml name="eig:name" node="element" />
+		</field>
+
+		<field name="description" type="string">
+			<bind-xml name="eig:description" node="element" />
+		</field>
+
+		<field name="chargeAmount" type="double">
+			<bind-xml name="eig:chargeAmount" node="element" />
+		</field>
+
+		<field name="associated" type="boolean">
+			<bind-xml name="eig:isAssociated" node="element" />
+		</field>
+
+		<field name="salesTax" type="char">
+			<bind-xml name="eig:salesTax" node="element" />
+		</field>
+
+		<field name="recordVersion" type="int">
+			<bind-xml name="eig:recordVersion" node="element" />
+		</field>
+
+	</class>
+
+	<class name="com.mckesson.eig.roi.admin.model.FeeTypesList">
+		<map-to xml="feeTypes" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="feeTypesList"
+			type="com.mckesson.eig.roi.admin.model.FeeType"
+			collection="arraylist">
+			<bind-xml name="eig:feeTypes" node="element" />
+		</field>
+	</class>
+</mapping>

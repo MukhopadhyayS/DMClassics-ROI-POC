@@ -1,0 +1,275 @@
+<!--
+    Copyright (C) 2007 McKesson Corporation and/or one of its
+    subsidiaries. All Rights Reserved.
+
+    Use of this material is governed by a license agreement.
+    This material contains confidential, proprietary and trade
+    secret information of McKesson Information Solutions and is
+    protected under United States and international copyright and
+    other intellectual property laws. Use, disclosure,
+    reproduction, modification, distribution, or storage in a
+    retrieval system in any form or by any means is prohibited
+    without the prior express written permission of McKesson
+    Information Solutions.
+-->
+
+<project default="roi-server-build" basedir="../">
+
+	<property file="../build/props/${build.config.file.name}" />
+	<property file="../build/props/base.properties" />
+	<property file="../build/version.txt" />
+
+	<!-- Define the project specific properties here 	-->
+	<property name="current.project.name" value="${roi.project.name}" />
+
+	<property name="dir.java.test" value="${dir.java.test}" />
+	<property name="dir.build.test" value="${dir.build.test}" />
+
+	<property name="dir.java.src" value="${dir.java.src}" />
+	<property name="dir.bin" value="${dir.bin}" />
+
+	<property name="dir.lib" value="lib" />
+	<property name="dir.build.reports" value="${dir.build.reports}" />
+	<property name="dir.resources" value="${dir.resources}" />
+
+	<property name="checkstyle.report.name" value="${roi.checkstyle.report.name}" />
+	<property name="emma.report.name" value="${roi.emma.report.name}" />
+
+	<property name="jar.name" value="${roi.jar.name}" />
+	<property name="test.jar.name" value="${roi.test.jar.name}" />
+	<property name="war.name" value="${roi.war.name}" />
+	<property name="roi.config.zip.name" value="eig.roi.config" />
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+	<property name="dir.src" value="../" />
+	<property name="dir.src.build" value="${dir.src}/build" />
+
+	<property name="dir.3rdparty" value="3rdparty" />
+
+	<!-- set the class path to required libraries -->
+	<path id="classpath">
+		<!--fileset dir="${jboss.home}/common/lib">
+			<include name="jboss-javaee.jar" />
+			<include name="log4j-1.2.16.jar" />
+			<include name="hibernate-core.jar" />
+			<include name="commons-collections.jar" />
+			<include name="commons-logging.jar" />
+			<include name="servlet-api.jar" />
+			<include name="antlr.jar" />
+			<include name="jaxen.jar" />
+			<include name="slf4j-api.jar" />
+			<include name="slf4j-jboss-logging.jar" />
+			<include name="jbossws-native-jaxrpc.jar" />
+			<include name="quartz.jar" />
+		</fileset>
+		<fileset dir="${jboss.home}/lib">
+			<include name="dom4j.jar" />
+		</fileset>
+        <fileset dir="${jboss.home}/client">
+            <include name="jbossall-client.jar" />
+        </fileset-->
+		<fileset dir="${dir.3rdparty.jars}">
+			<include name="*.jar" />
+			<include name="*.lic" />
+			<exclude name="activemq-core-5.2.0.jar"/>
+			<exclude name="cxf-rt-ws-security-2.6.1.jar"/>
+			<!--exclude name="antlr*.jar"/>
+			<exclude name="dom4j*.jar"/>
+			<exclude name="jaxb*.jar"/>
+			<exclude name="jaxen*.jar"/>
+			<exclude name="slf4j*.jar"/>
+			<exclude name="geronimo*.jar"/>
+			<exclude name="hibernate*.jar"/>
+			<exclude name="xmlsec*.jar"/>
+			<exclude name="test*.jar"/-->
+		</fileset>
+		<fileset dir="${dir.lib}">
+			<include name="hpf.stub.config.jar" />
+			<include name="hpf-signIn-stub.jar" />
+			<include name="OCInternalComm-21.0.jar" />
+			<include name="OCUtilities-21.0.jar" />
+		</fileset>
+	</path>
+
+
+	<!--**********************************************************************
+        Sets the config path to the resources dir
+        **********************************************************************-->
+	<path id="config.classpath">
+		<pathelement location="${dir.resources}" />
+		<pathelement location="WEB-INF" />
+	</path>
+
+	<import file="server.build.common.xml" />
+
+	<!-- **********************************************************************
+             *  Target : roi-server-build
+             *  just compiles src and generates war file
+             *  does not runs server test cases
+             ********************************************************************** -->
+	<target name="roi-server-build">
+		<echo message="**** Started ROI Server Build*****" />
+
+		<antcall target="clean" />
+		
+		<!-- Compiles server source and runs check style -->
+		<antcall target="build-server-src">
+			<param name="compile.server.source.code" value="${compile.server.source.code}" />
+		</antcall>
+
+		<ant antfile="${basedir}/plug-in/ClinicalCcdPrivoder/build.xml">
+			<property name="basedir" value="${basedir}\plug-in\ClinicalCcdPrivoder" />
+		</ant>
+		<ant antfile="${basedir}/plug-in/ParagonCcdPrivoder/build.xml">
+			<property name="basedir" value="${basedir}\plug-in\ParagonCcdPrivoder" />
+		</ant>
+		<antcall target="build-war" />
+
+	</target>
+
+    <!-- **********************************************************************
+             *  Target : roi-server-build
+             *  target to build server test componets and runs server test cases
+             ********************************************************************** -->
+    <target name="build-server-test-components">
+        <echo message="**** Building Server side test componets *****" />
+
+        <antcall target="build-server-tests">
+             <param name="compile.server.source.code" value="${compile.server.source.code}" />
+         </antcall>
+
+        <!-- Calls database related tasks -->
+        <antcall target="build-database" />
+
+		<!-- stops server -->
+		<if>
+			<equals arg1="${stop.server}" arg2="true" />
+			<then>
+				<antcall target="hpfw-server-stop" />
+				<antcall target="hpfw-delete-data-folder" />
+			</then>
+		</if>
+
+		<!-- Stop open office -->
+		<antcall target="stop-open-office" />
+		
+		<!-- starts the hpfw server -->
+		<if>
+			<equals arg1="${start.server}" arg2="true" />
+			<then>
+				<antcall target="hpfw-server-start" />
+			</then>
+		</if>
+
+		<antcall target="wait-for-hpfw-server-to-start" />
+		
+        <!-- runs server test cases -->
+        <antcall target="run-server-test-cases">
+            <param name="run.server.test.cases" value="${run.server.test.cases}" />
+            <param name="exclude.test.cases" value="**/BaseROITestCase.java, **/UnitTestSpringInitialization.java, **/AbstractServiceTestCase.java, 
+            				**/AbstractMockServiceTestCase.java, **/ROITestClassRunner.java, **/ROITestSuite.java" />
+        </antcall>
+
+        <!-- To deploy server side components -->
+        <antcall target="deploy-server">
+            <param name="deploy.serverside.components" value="${deploy.serverside.components}" />
+        </antcall>
+
+        <antcall target="clean-up" />
+    </target>
+
+	<!-- **********************************************************************
+             *  Target : clean
+             *  target to clean the project specific files
+             ********************************************************************** -->
+	<target name="clean">
+		<echo message="Cleaning ${dir.build.reports} folder..." />
+		<delete dir="${dir.build.reports}" failonerror="false" includeemptydirs="true" />
+
+		<delete dir="${dir.emma.coverage}" failonerror="false" includeemptydirs="true" />
+		<delete dir="${dir.out.instr}" failonerror="false" includeemptydirs="true" />
+	</target>
+
+
+	<!-- **********************************************************************
+             *  Target : build-war
+             *  target to build war file
+             ********************************************************************** -->
+	<target name="build-war">
+
+		<!-- Zips the config file to be extracted in JBoss's var/config folder -->
+		<!--zip destfile="${dir.bin}/${roi.config.zip.name}.zip" defaultexcludes="true">
+			<zipfileset dir="${dir.resources}" prefix="var/config">
+				<exclude name="/WEB-INF/**" />
+			</zipfileset>
+			<zipfileset dir="${dir.java.src}" prefix="var/config" defaultexcludes="true">
+				<include name="**/*.properties" />
+			</zipfileset>
+		</zip-->
+
+		<war destfile="${dir.bin}/${war.name}.war" webxml="${basedir}/WEB-INF/web.xml">
+			<manifest>
+				<attribute name="Implementation-Title" value="${Product} ${war.name}.war" />
+				<attribute name="Implementation-Version" value="${build.major}.${build.minor}.${build.servicePack}.${build.number}" />
+				<attribute name="Implementation-Build-Date" value="${build.date}" />
+				<attribute name="Implementation-Vendor" value="${Company}" />
+			</manifest>
+			<zipfileset prefix="WEB-INF/lib" dir="${dir.bin}">
+				<include name="${jar.name}.jar" />
+			</zipfileset>
+			<zipfileset prefix="WEB-INF/lib" dir="${dir.lib}">
+				<include name="*.jar" />
+				<exclude name="roi-hpf-auth.jar"/>
+			</zipfileset>
+			<zipfileset prefix="WEB-INF/lib" dir="${dir.3rdparty.jars}">
+				<include name="*.jar" />
+				<include name="*.lic" />
+				<exclude name="servlet*.jar"/>
+				<exclude name="test*.jar"/>
+	            <!--exclude name="dom4j*.jar"/>
+	            <exclude name="jaxb*.jar"/>
+	            <exclude name="jaxen*.jar"/>
+	            <exclude name="slf4j*.jar"/>
+	            <exclude name="geronimo*.jar"/>
+				<exclude name="hibernate*.jar"/>
+			<exclude name="test*.jar"/-->
+			</zipfileset>
+			<zipfileset dir="${basedir}/WEB-INF" prefix="WEB-INF" defaultexcludes="true">
+				<exclude name="**/.sbas/*" />
+				<exclude name="/WEB-INF/web.xml" />
+			</zipfileset>
+		</war>
+
+	</target>
+
+
+	<!-- **********************************************************************
+             *  Target : clean-up
+             *  target to clean up temporary directories
+             ********************************************************************** -->
+	<target name="clean-up">
+		<delete dir="${dir.build.test}" />
+		<delete dir="${dir.out.instr}" />
+		<delete dir="${dir.emma.coverage}" />
+	</target>
+
+	<!-- **********************************************************************
+             *  Target : build-databse
+             *  target to refresh database and load datavault
+             ********************************************************************** -->
+	<target name="build-database">
+		<if>
+			<equals arg1="${run.server.test.cases}" arg2="true" />
+			<then>
+				<ant antfile="${dir.src}/database/build.xml">
+					<property name="refresh.database" value="${refresh.database}" />
+					<property name="load.datavault" value="${load.datavault}" />
+				</ant>
+			</then>
+		</if>
+	</target>
+
+	
+
+</project>

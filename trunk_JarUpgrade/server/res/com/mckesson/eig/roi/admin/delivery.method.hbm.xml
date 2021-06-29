@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mckesson.eig.roi.admin.model.DeliveryMethod"
+           table="ROI_DeliveryMethod"
+           dynamic-update="true"
+           optimistic-lock="version" >
+
+        <id name="id" >
+            <column name="ROI_DeliveryMethod_Seq" sql-type="int"/>
+            <generator class="identity"/>
+        </id>
+
+        <version name="recordVersion" column="Record_Version" type="integer" />
+
+        <property name="name" >
+            <column name="Name" sql-type="varchar(60)" not-null="true" />
+        </property>
+
+        <property name="desc" >
+            <column name="Description" sql-type="varchar(255)"/>
+        </property>
+
+        <property name="isDefault" >
+            <column name="IsDefault" sql-type="bit" not-null="true"/>
+        </property>
+
+        <property name="url" >
+            <column name="URL" sql-type="varchar(255)"/>
+        </property>
+
+        <property name="createdBy" >
+            <column name="Created_By_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+        <property name="modifiedDt" >
+            <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+        </property>
+
+        <property name="modifiedBy" >
+            <column name="Modified_By_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+        <property name="orgId" >
+            <column name="Organization_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+    </class>
+
+    <query name="getDeliveryMethodByName">
+      <![CDATA[
+        select d from com.mckesson.eig.roi.admin.model.DeliveryMethod d
+        where d.name = ?0
+      ]]>
+    </query>
+
+    <query name="retrieveAllDeliveryMethods">
+      <![CDATA[
+        select d from com.mckesson.eig.roi.admin.model.DeliveryMethod d
+        order by d.isDefault desc
+      ]]>
+    </query>
+
+    <query name="updateDefaultDelivery">
+      <![CDATA[
+        update DeliveryMethod as dm set dm.isDefault = false where dm.isDefault = ?0
+      ]]>
+    </query>
+
+    <query name="getIsDefaultAsTrue">
+      <![CDATA[
+        select d from com.mckesson.eig.roi.admin.model.DeliveryMethod d where d.isDefault = true
+      ]]>
+    </query>
+
+     <query name="retrieveAllDeliveryMethodNames">
+    <![CDATA[
+      select dm.id, dm.name, dm.desc, dm.url, dm.isDefault
+      from com.mckesson.eig.roi.admin.model.DeliveryMethod dm
+      order by dm.isDefault desc
+    ]]>
+  </query>
+
+</hibernate-mapping>

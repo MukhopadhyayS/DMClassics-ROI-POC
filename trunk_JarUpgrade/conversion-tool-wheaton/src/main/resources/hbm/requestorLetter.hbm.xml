@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-cascade="none" auto-import="true"
+	default-lazy="false" catalog="cabinet" schema="dbo">
+	
+	<sql-query name="drop_ROI_Conversion_RequestorLetter_SP">
+        <![CDATA[
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[cabinet].[dbo].[ROI_Conversion_RequestorLetter]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[ROI_Conversion_RequestorLetter]
+        ]]>
+	</sql-query>
+	
+	<sql-query name="create_ROI_Conversion_RequestorLetter_SP">
+        <![CDATA[
+CREATE procedure [dbo].[ROI_Conversion_RequestorLetter]
+	@ROI_RequestorLetter_Seq bigint
+as
+BEGIN
+			BEGIN TRY
+			-- declarations
+			declare @letterxml xml;
+			declare @ROI_Requestor_Seq int;
+			declare @ROI_LetterTemplateFile_Seq int;
+			declare @ROI_RequestorLetterCore_seq bigint;
+			
+			-- cleanup
+			if object_id('tempdb..#tmpROIConv1') is not null drop table #tmpROIConv1;
+			if object_id('tempdb..#tmpROIConv2') is not null drop table #tmpROIConv2;
+			
+			-- main
+			select @ROI_LetterTemplateFile_Seq = ROI_LetterTemplateFile_Seq, @ROI_Requestor_Seq = ROI_Requestor_Seq, @letterxml = ItemXML
+				from ROI_RequestorLetter where ROI_RequestorLetter_Seq = @ROI_RequestorLetter_Seq;
+			
+			-- insert into ROI_RequestorLetterCore
+			select * into #tmpROIConv1 from
+			(select 
+				@ROI_Requestor_Seq as ROI_Requestor_Seq,
+				p.value('(release-item[@type="requestorInfo"]/attribute[@name="requestorname"]/@value)[1]','varchar(256)') as RequestorName,
+				p.value('(release-item[@type="requestorInfo"]/attribute[@name="requestorphone"]/@value)[1]','varchar(25)') as RequestorPhone,
+				p.value('(release-item[@type="shipping-info"]/attribute[@name="address1"]/@value)[1]','varchar(256)') as RequestorAddress1,
+				p.value('(release-item[@type="shipping-info"]/attribute[@name="address2"]/@value)[1]','varchar(256)') as RequestorAddress2,
+				p.value('(release-item[@type="shipping-info"]/attribute[@name="address3"]/@value)[1]','varchar(256)') as RequestorAddress3,
+				p.value('(release-item[@type="shipping-info"]/attribute[@name="city"]/@value)[1]','varchar(256)') as RequestorCity,
+				p.value('(release-item[@type="shipping-info"]/attribute[@name="state"]/@value)[1]','varchar(256)') as RequestorState,
+				p.value('(release-item[@type="shipping-info"]/attribute[@name="postalcode"]/@value)[1]','varchar(256)') as RequestorPostalCode,
+				p.value('(attribute[@name="resend-dt"]/@value)[1]','smalldatetime') as ResendDate,
+				p.value('(attribute[@name="output-method"]/@value)[1]','varchar(25)') as OutputMethod,
+				p.value('(attribute[@name="queue-password"]/@value)[1]','varchar(256)') as QueuePassword,
+				p.value('(attribute[@name="lettertemplate-name"]/@value)[1]','varchar(256)') as TemplateName,
+				@ROI_LetterTemplateFile_Seq as ROI_LetterTemplateFile_Seq,
+				STUFF( (select '~'+p.value('@value','varchar(max)') from @letterxml.nodes('/release-item/release-item[@type="notes"]/release-item/attribute') as p(p) for xml path('')  ), 1, 1, '') as Notes
+			from @letterxml.nodes('/release-item') as p(p)) as mytable;
+			
+			insert into ROI_RequestorLetterCore(ROI_Requestor_Seq, RequestorName, RequestorPhone, RequestorAddress1, RequestorAddress2, RequestorAddress3, RequestorCity, RequestorState, RequestorPostalCode, ResendDate, OutputMethod, QueuePassword, TemplateName, ROI_LetterTemplateFile_Seq, Notes)
+			select ROI_Requestor_Seq, RequestorName, RequestorPhone, RequestorAddress1, RequestorAddress2, RequestorAddress3, RequestorCity, RequestorState, RequestorPostalCode, ResendDate, OutputMethod, QueuePassword, TemplateName, ROI_LetterTemplateFile_Seq, Notes from #tmpROIConv1;
+			select @ROI_RequestorLetterCore_seq = SCOPE_IDENTITY();
+			
+			
+			-- insert into dbo.ROI_RequestorLetterCoretoROI_RequestCoreDeliveryCharges
+			select * into #tmpROIConv2 from
+			(select 
+				cmi.ROI_RequestCoreDeliveryCharges_Seq as ROI_RequestCoreDeliveryCharges_Seq,
+				p.value('(attribute[@name="inv-overdue-days"]/@value)[1]','int') as OverdueDays,
+				p.value('(attribute[@name="inv-balance-due"]/@value)[1]','varchar(max)') as OverDueAmount
+			from @letterxml.nodes('/release-item/release-item[@type="invoices"]/release-item[@type="invoice-info"]') as p(p), ROI_ConversionMapping_Invoices cmi
+			where cmi.ROI_RequestDeliveryCharges_Seq = p.value('(attribute[@name="inv-id"]/@value)[1]','int')) as mytable;
+			
+			insert into ROI_RequestorLetterCoretoROI_RequestCoreDeliveryCharges(ROI_RequestorLetterCore_seq, ROI_RequestCoreDeliveryCharges_seq, OverdueDays, OverDueAmount)
+			select @ROI_RequestorLetterCore_seq, ROI_RequestCoreDeliveryCharges_Seq, OverdueDays, SUBSTRING(OverDueAmount,2,len(OverDueAmount)-1) from #tmpROIConv2;
+			
+			-- cleanup
+			if object_id('tempdb..#tmpROIConv1') is not null drop table #tmpROIConv1;
+			if object_id('tempdb..#tmpROIConv2') is not null drop table #tmpROIConv2;
+			
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrMsg nvarchar(4000), @ErrSeverity int, @ErrLine int;
+				SELECT
+				@ErrSeverity = ERROR_SEVERITY(),
+				@ErrLine = ERROR_LINE(),
+				@ErrMsg = ERROR_MESSAGE();
+				RAISERROR('Error Message: %s; Error Line: %d', @ErrSeverity, 1, @ErrMsg, @ErrLine)
+			END CATCH
+END
+		]]>
+	</sql-query>
+	
+	<sql-query name="execRequestorLetterSP">
+        <![CDATA[
+			exec cabinet.dbo.ROI_Conversion_RequestorLetter :requestorLetterId
+        ]]>
+	</sql-query>
+	
+	<sql-query name="getRequestorLettersToConvert">
+        <![CDATA[
+			SELECT t1.ROI_RequestorLetter_Seq
+			FROM cabinet.dbo.ROI_RequestorLetter t1 JOIN cabinet.dbo.ROI_ConversionStatus_RequestorLetter t2
+			on t1.ROI_RequestorLetter_Seq = t2.ROI_RequestorLetter_Seq and (t2.Status = 'Completed')
+			where t2.ROI_RequestorLetter_Seq IS NULL
+        ]]>
+	</sql-query>
+	
+	<sql-query name="requestorLetterStatusSaveOrUpdate">
+        <![CDATA[
+			if exists (select * from ROI_ConversionStatus_RequestorLetter where ROI_RequestorLetter_Seq = :requestorLetterId)
+			begin
+				UPDATE ROI_ConversionStatus_RequestorLetter SET Status = :status, Number_Of_Retries = Number_Of_Retries+1, ErrorMessage = :errorMessage, Conversion_Dt = GETDATE() WHERE ROI_RequestorLetter_Seq = :requestorLetterId;
+			end
+			else
+			begin
+				INSERT INTO ROI_ConversionStatus_RequestorLetter(ROI_RequestorLetter_Seq, Status, Number_Of_Retries, ErrorMessage, Conversion_Dt) values (:requestorLetterId,:status,:numRetries,:errorMessage, GETDATE());
+			end
+        ]]>
+	</sql-query>
+	
+	<sql-query name="requestorLettersToConvertCount">
+        <![CDATA[
+			SELECT COUNT(t1.ROI_RequestorLetter_Seq)
+			FROM cabinet.dbo.ROI_RequestorLetter t1 LEFT JOIN cabinet.dbo.ROI_ConversionStatus_RequestorLetter t2
+			on t1.ROI_RequestorLetter_Seq = t2.ROI_RequestorLetter_Seq and (t2.Status = 'Completed')
+			where t2.ROI_RequestorLetter_Seq IS NULL
+        ]]>
+	</sql-query>
+</hibernate-mapping>

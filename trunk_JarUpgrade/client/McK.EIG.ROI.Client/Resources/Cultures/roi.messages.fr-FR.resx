@@ -1,0 +1,2461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A01" xml:space="preserve">
+    <value>This media name is already in use, please enter a unique name.fr</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="A010" xml:space="preserve">
+    <value>This adjustment reason name is already in use, please enter a unique name.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A011" xml:space="preserve">
+    <value>This status reason name is already in use, please enter a unique name.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A012" xml:space="preserve">
+    <value> This display text is already in use, please enter a unique display text.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A013" xml:space="preserve">
+    <value>This request reason name is already in use, please enter a unique name.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A05" xml:space="preserve">
+    <value>This fee type name is already in use, please enter a unique name.fr</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="A06" xml:space="preserve">
+    <value>This billing template name is already in use, please enter a unique name.fr</value>
+    <comment>BillingTemplate</comment>
+  </data>
+  <data name="A07" xml:space="preserve">
+    <value>This requestor type is already in use, please enter a unique name.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="A08" xml:space="preserve">
+    <value>This delivery method name is already in use, please enter a unique name.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="A09" xml:space="preserve">
+    <value>This payment method name is already in use, please enter a unique name.fr</value>
+    <comment>Payment method </comment>
+  </data>
+  <data name="A100" xml:space="preserve">
+    <value>You have made changes that have not been saved. Click "Save &amp;&amp; Proceed" to save changes and continue navigating to your selection. Click "Don't Save &amp;&amp; Proceed" to discard your changes and continue navigating to your selection. Click "Cancel" to remain where you are and continue working.fr</value>
+  </data>
+  <data name="A102" xml:space="preserve">
+    <value>Proceed and no changes will be saved.fr</value>
+  </data>
+  <data name="A103" xml:space="preserve">
+    <value>Do not proceed and remain on the page.fr</value>
+  </data>
+  <data name="A104" xml:space="preserve">
+    <value>Unknown exception.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="A105" xml:space="preserve">
+    <value>Unable to load file.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="A106" xml:space="preserve">
+    <value>Unable to connect to the ROI server at {0}. Please contact your system administrator.fr</value>
+    <comment>Connection Failure</comment>
+  </data>
+  <data name="A107" xml:space="preserve">
+    <value>Server is busy.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="A108" xml:space="preserve">
+    <value>File not found.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="A109" xml:space="preserve">
+    <value>UI error occurred.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="A110" xml:space="preserve">
+    <value>Unsupported helper type.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="A111" xml:space="preserve">
+    <value>Argument is null.fr</value>
+  </data>
+  <data name="A112" xml:space="preserve">
+    <value>Are you sure you want to delete the selected media type?.fr</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="A113" xml:space="preserve">
+    <value>Object not listed in grid.fr</value>
+  </data>
+  <data name="A114" xml:space="preserve">
+    <value>Are you sure you want to delete the selected fee type?.fr</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="A115" xml:space="preserve">
+    <value>Are you sure you want to delete the selected delivery method?.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="A116" xml:space="preserve">
+    <value>Are you sure you want to delete the selected payment method?.fr</value>
+    <comment>Payment Method</comment>
+  </data>
+  <data name="A117" xml:space="preserve">
+    <value>Are you sure you want to delete the selected adjustment reason?.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A118" xml:space="preserve">
+    <value>Are you sure you want to delete the selected request reason?.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A119" xml:space="preserve">
+    <value>Are you sure you want to delete the selected request status reason?.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A121" xml:space="preserve">
+    <value>Are you sure you want to delete the selected billing template?.fr</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="A122" xml:space="preserve">
+    <value>The string is not a description or value of the specified Enum.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="A123" xml:space="preserve">
+    <value>Are you sure you want to delete the selected requestor type?.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="A130" xml:space="preserve">
+    <value>Are you sure you want to delete the selected clinical system instance?.fr</value>
+    <comment>Clinical Systems</comment>
+  </data>
+  <data name="ROI.0.0.01" xml:space="preserve">
+    <value>Seed data cannot be deleted.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.2.00" xml:space="preserve">
+    <value>This delivery method name is already in use, please enter a unique name.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.2.01" xml:space="preserve">
+    <value>Delivery method name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.2.02" xml:space="preserve">
+    <value>Delivery method operation failed.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.2.03" xml:space="preserve">
+    <value>Delivery method seed data name cannot be modified.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.2.04" xml:space="preserve">
+    <value>Delivery method name should not exceed 20 characters.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.2.05" xml:space="preserve">
+    <value>Delivery method URL should not exceed 256 characters.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.2.06" xml:space="preserve">
+    <value>Invalid URL.fr</value>
+    <comment>Delivery Method</comment>
+  </data>
+  <data name="ROI.1.3.00" xml:space="preserve">
+    <value>Seed data cannot be modified.fr</value>
+  </data>
+  <data name="ROI.1.3.01" xml:space="preserve">
+    <value>Media type name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="ROI.1.3.02" xml:space="preserve">
+    <value>Seed data cannot be deleted.fr</value>
+  </data>
+  <data name="ROI.1.3.03" xml:space="preserve">
+    <value>The selected media type cannot be deleted because it is assigned to a billing tier.fr</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="ROI.1.3.04" xml:space="preserve">
+    <value>Operation failed.fr</value>
+  </data>
+  <data name="ROI.1.3.05" xml:space="preserve">
+    <value>Media type name should not exceed 30 characters.fr</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="ROI.1.3.06" xml:space="preserve">
+    <value>Media type description should not exceed 256 characters.fr</value>
+    <comment>Media Type</comment>
+  </data>
+  <data name="ROI.1.4.01" xml:space="preserve">
+    <value>Fee type name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="ROI.1.4.02" xml:space="preserve">
+    <value>The selected fee type cannot be deleted because it is assigned to a billing template.fr</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="ROI.1.4.03" xml:space="preserve">
+    <value>Operation failed.fr</value>
+  </data>
+  <data name="ROI.1.4.04" xml:space="preserve">
+    <value>Fee type name should not exceed 256 characters.fr</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="ROI.1.4.05" xml:space="preserve">
+    <value>Amount format is invalid.fr</value>
+    <comment>Fee Type</comment>
+  </data>
+  <data name="ROI.1.5.00" xml:space="preserve">
+    <value>Payment method name is not unique.fr</value>
+    <comment>Payment method </comment>
+  </data>
+  <data name="ROI.1.5.01" xml:space="preserve">
+    <value>Payment method name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Payment method </comment>
+  </data>
+  <data name="ROI.1.5.02" xml:space="preserve">
+    <value>Payment method name should not exceed 20 characters.fr</value>
+    <comment>Payment method </comment>
+  </data>
+  <data name="ROI.1.5.05" xml:space="preserve">
+    <value>Payment method description should not exceed 256 characters.fr</value>
+    <comment>Payment method </comment>
+  </data>
+  <data name="ROI.1.6.00" xml:space="preserve">
+    <value>Billing template name should not exceed 256 characters.fr</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="ROI.1.6.01" xml:space="preserve">
+    <value>Billing template name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="ROI.1.6.02" xml:space="preserve">
+    <value>The selected billing template cannot be deleted because it is assigned to a requestor type.fr</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="ROI.1.6.03" xml:space="preserve">
+    <value>Billing template operation failed.fr</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="ROI.1.7.00" xml:space="preserve">
+    <value>Number of pages should be between 1-99.fr</value>
+    <comment>Page Weight</comment>
+  </data>
+  <data name="ROI.1.8.00" xml:space="preserve">
+    <value>Reason name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.8.01" xml:space="preserve">
+    <value>Reason display text cannot be blank.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.8.02" xml:space="preserve">
+    <value>This display text is already in use, please enter a unique display text.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.8.03" xml:space="preserve">
+    <value>Request reason attribute is blank.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.8.04" xml:space="preserve">
+    <value>Request status cannot be blank.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.8.05" xml:space="preserve">
+    <value>Reason name should not exceed 256 characters.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.8.06" xml:space="preserve">
+    <value>Reason display text should not exceed 40 characters.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.8.07" xml:space="preserve">
+    <value>Reason operation failed.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="ROI.1.9.01" xml:space="preserve">
+    <value>Requestor type name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.9.02" xml:space="preserve">
+    <value>Requestor type names should not exceed 256 characters.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.9.05" xml:space="preserve">
+    <value>Seed data cannot be modified.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.9.06" xml:space="preserve">
+    <value>Seed data cannot be deleted.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.9.08" xml:space="preserve">
+    <value>Requestor type operation failed.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="S001" xml:space="preserve">
+    <value>Authorization failed.fr</value>
+  </data>
+  <data name="T000" xml:space="preserve">
+    <value>Authentication failed.fr</value>
+  </data>
+  <data name="T031" xml:space="preserve">
+    <value>Id is invalid. Refresh the data and try again.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="T033" xml:space="preserve">
+    <value>Record already modified. Refresh the data and try again.fr</value>
+  </data>
+  <data name="A101" xml:space="preserve">
+    <value>Would you like to save changes made to Code Set &lt;{0}&gt; before accessing a new code set?.fr</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="A014" xml:space="preserve">
+    <value>This letter template name is already in use, please enter a unique name.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="A015" xml:space="preserve">
+    <value>The selected file is not a valid format for a letter template. Letter template file should be Word Document (*.docx).fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="A016" xml:space="preserve">
+    <value>The file path is not valid. Please verify that the path is correct or select another file.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.00" xml:space="preserve">
+    <value>Letter template of type "Other" cannot be set as default.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.01" xml:space="preserve">
+    <value>Letter template should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.02" xml:space="preserve">
+    <value>Letter template name exceeds maximum length.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.03" xml:space="preserve">
+    <value>Letter template uploaded file name length exceeds maximum length.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.04" xml:space="preserve">
+    <value>Letter template process failed.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.06" xml:space="preserve">
+    <value>Are you sure you want to delete the selected letter template?.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.07" xml:space="preserve">
+    <value>File path cannot be empty.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.08" xml:space="preserve">
+    <value>Letter template type cannot be blank.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.09" xml:space="preserve">
+    <value>The selected letter template does not have document. Please upload a document for the letter type.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.10.01" xml:space="preserve">
+    <value>Only a single doctype can be specified per code set.fr</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="ROI.1.10.02" xml:space="preserve">
+    <value>Invalid Document Types Id.fr</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="S002" xml:space="preserve">
+    <value>System Error.fr</value>
+    <comment>Error Dialog code</comment>
+  </data>
+  <data name="A02" xml:space="preserve">
+    <value>This billing tier name is already in use, please enter a unique name.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="A120" xml:space="preserve">
+    <value>Are you sure you want to delete the selected billing tier?.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.01" xml:space="preserve">
+    <value>Billing tier Name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.02" xml:space="preserve">
+    <value>Billing tier should have a valid media type.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.03" xml:space="preserve">
+    <value>Billing tier cannot be associated to Non-MPF media type.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.04" xml:space="preserve">
+    <value>Billing tier must have at least one page tier.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.05" xml:space="preserve">
+    <value>A base charge rate must be entered. The flat rate charge must be 0 or greater. Valid characters for this field include positive numbers, a decimal point, and precision of 2 decimal places. Ex: 9.98.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.06" xml:space="preserve">
+    <value>Billing tier associated to a requestor type is being deleted.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.07" xml:space="preserve">
+    <value>Seed data billing tier name cannot be modified.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.08" xml:space="preserve">
+    <value>Seed data billing tier's media type cannot be modified.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.10" xml:space="preserve">
+    <value>Amount format is invalid.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.09" xml:space="preserve">
+    <value>Billing tier name should not exceed 256 characters.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.12" xml:space="preserve">
+    <value>Billing tier base charge should not exceed 6 characters.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.13" xml:space="preserve">
+    <value>Amount format is invalid.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.14" xml:space="preserve">
+    <value>The page numbers entered are not sequential. Please enter a page number that is 1 more than the "through page" value entered on the previous tier.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="A04" xml:space="preserve">
+    <value>The billing tier entered already exists. Please edit the page numbers to create a valid billing tier or remove the tier.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.16" xml:space="preserve">
+    <value>The page number entered is not valid. Please enter a page that is equal to or greater than the starting page.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.18" xml:space="preserve">
+    <value>The page number entered is not valid.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.6.04" xml:space="preserve">
+    <value>Please select at least one fee type.fr</value>
+    <comment>Billing Template</comment>
+  </data>
+  <data name="ROI.1.11.10" xml:space="preserve">
+    <value>The file is in use, please close the file before proceeding.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.11" xml:space="preserve">
+    <value>Access to a file is denied.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="S003" xml:space="preserve">
+    <value>Unable to connect Alert server.fr</value>
+  </data>
+  <data name="ROI.1.1.11" xml:space="preserve">
+    <value>Billing tier operation failed.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.17" xml:space="preserve">
+    <value>Amount format is invalid.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.1.19" xml:space="preserve">
+    <value>Media type with electronic billing tier associated with a requestor type cannot be modified.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.10.00" xml:space="preserve">
+    <value>Disclosure document types operation failed.fr</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="ROI.1.11.05" xml:space="preserve">
+    <value>Letter template description exceeds maximum length of 256 characters.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.5.04" xml:space="preserve">
+    <value>Payment method operation failed.fr</value>
+    <comment>Payment method </comment>
+  </data>
+  <data name="ROI.1.7.01" xml:space="preserve">
+    <value>Page weight operation failed.fr</value>
+    <comment>PageWeight</comment>
+  </data>
+  <data name="ROI.1.9.03" xml:space="preserve">
+    <value>Requestor type must have one MPF electronic billing tier.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.9.04" xml:space="preserve">
+    <value>Please select default record view.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.9.10" xml:space="preserve">
+    <value>Record view operation failed.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="T034" xml:space="preserve">
+    <value>Data integrity violation.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.1.9.09" xml:space="preserve">
+    <value>Requestor type billing template has more than one default.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.11.12" xml:space="preserve">
+    <value>Invalid upload url.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.11.13" xml:space="preserve">
+    <value>Invalid download url.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.1.9.07" xml:space="preserve">
+    <value>Requestor type billing tier name is not electronic.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.1.15" xml:space="preserve">
+    <value>Invalid page number.fr</value>
+    <comment>Billing Tier</comment>
+  </data>
+  <data name="ROI.1.5.03" xml:space="preserve">
+    <value>Seed data payment method name cannot be modified.fr</value>
+    <comment>Payment method </comment>
+  </data>
+  <data name="ROI.1.8.08" xml:space="preserve">
+    <value>Reason type not mentioned.fr</value>
+    <comment>Reason</comment>
+  </data>
+  <data name="A201" xml:space="preserve">
+    <value>You have entered a patient name that matches an existing patient in the system.
+Do you want to continue and save this patient?.fr</value>
+    <comment>Non Unique Patient</comment>
+  </data>
+  <data name="A202" xml:space="preserve">
+    <value>Do you really want to delete this Non-MPF patient? This action cannot be undone.fr</value>
+    <comment>Delete Patient Dialog</comment>
+  </data>
+  <data name="ROI.3.1.02" xml:space="preserve">
+    <value>Patient Last Name cannot be empty.fr</value>
+  </data>
+  <data name="ROI.2.1.00" xml:space="preserve">
+    <value>Requestor Name should have at least two characters.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.2.1.01" xml:space="preserve">
+    <value>EPN requires 3 characters to perform the search.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.2.1.02" xml:space="preserve">
+    <value>Patient SSN field should have at least 3 characters.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.2.1.08" xml:space="preserve">
+    <value>Requestor search operation failed.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.2.1.09" xml:space="preserve">
+    <value>Requestor invalid search criteria.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.2.1.10" xml:space="preserve">
+    <value>Requestor operation failed.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.2.1.15" xml:space="preserve">
+    <value>Requestor contact name should not exceed 256 characters.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.2.1.16" xml:space="preserve">
+    <value>There are no Email phone types.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.3.1.01" xml:space="preserve">
+    <value>Invalid Search Criteria.fr</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="ROI.0.0.02" xml:space="preserve">
+    <value>File transfer process is failed.fr</value>
+    <comment>Common</comment>
+  </data>
+  <data name="ROI.0.0.03" xml:space="preserve">
+    <value>Unable to Initialize the server configuration.fr</value>
+    <comment>Common</comment>
+  </data>
+  <data name="ROI.3.1.03" xml:space="preserve">
+    <value>ROI supplemental operation failed.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.04" xml:space="preserve">
+    <value>Patient last name should not exceed 256 characters.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.12" xml:space="preserve">
+    <value>ROI supplemental details cannot be null.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.06" xml:space="preserve">
+    <value>Do you really want to delete this Non-MPF patient? This action cannot be undone.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="A301" xml:space="preserve">
+    <value>You have entered a requestor name that matches an existing requestor in the system.
+Do you want to continue and save this requestor?.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="A302" xml:space="preserve">
+    <value>Really delete this requestor? This action cannot be undone.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.1.11.14" xml:space="preserve">
+    <value>File Upload Failed.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="A401" xml:space="preserve">
+    <value>Really delete this Non-MPF Document? This action cannot be undone.fr</value>
+    <comment>Non Hpf document</comment>
+  </data>
+  <data name="ROI.3.3.00" xml:space="preserve">
+    <value>Select a Document Type.fr</value>
+    <comment>Non Hpf document</comment>
+  </data>
+  <data name="ROI.3.3.02" xml:space="preserve">
+    <value>Select a Facility.fr</value>
+    <comment>Non Hpf document</comment>
+  </data>
+  <data name="ROI.3.3.03" xml:space="preserve">
+    <value>You must enter a page count that is greater than zero.fr</value>
+    <comment>Non Hpf document</comment>
+  </data>
+  <data name="ROI.2.1.04" xml:space="preserve">
+    <value>Requestor name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.2.1.05" xml:space="preserve">
+    <value>Requestor type cannot be empty.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.2.5.1" xml:space="preserve">
+    <value>Requestor name search input can be empty or alphanumeric with white space and -_ characters.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.2.1.07" xml:space="preserve">
+    <value>You have requested to delete a requestor that has already been included on a request. This requestor cannot be deleted.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.3.3.01" xml:space="preserve">
+    <value>Date of Service cannot be empty.fr</value>
+    <comment>Non Hpf document</comment>
+  </data>
+  <data name="ROI.3.3.04" xml:space="preserve">
+    <value>NonMpf document has been Released.fr</value>
+    <comment>Patient Record</comment>
+  </data>
+  <data name="ROI.0.0.04" xml:space="preserve">
+    <value>Invalid EPN prefix.fr</value>
+    <comment>Common</comment>
+  </data>
+  <data name="ROI 3.3.00" xml:space="preserve">
+    <value>Non mpf dcoument name is blank.fr</value>
+    <comment>Non Hpf</comment>
+  </data>
+  <data name="ROI.2.1.06" xml:space="preserve">
+    <value>Requestor type cannot be edited.fr</value>
+  </data>
+  <data name="ROI.3.3.06" xml:space="preserve">
+    <value>NonMpf document process failed.fr</value>
+    <comment>Non Hpf</comment>
+  </data>
+  <data name="ROI.3.3.07" xml:space="preserve">
+    <value>Retrieve recordview details operation failed.fr</value>
+    <comment>Patient Record</comment>
+  </data>
+  <data name="A501" xml:space="preserve">
+    <value>You have selected to delete this request. Do you wish to continue?.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.5.0.01" xml:space="preserve">
+    <value>Create Request Event operation failed.fr</value>
+    <comment>Request Comment</comment>
+  </data>
+  <data name="ROI.5.0.02" xml:space="preserve">
+    <value>RequestId is empty.fr</value>
+    <comment>Request Comment</comment>
+  </data>
+  <data name="ROI.5.0.03" xml:space="preserve">
+    <value>Event Type is empty.fr</value>
+    <comment>Request Comment</comment>
+  </data>
+  <data name="ROI.5.0.04" xml:space="preserve">
+    <value>Request comment is empty.fr</value>
+    <comment>Request Comment</comment>
+  </data>
+  <data name="ROI.4.0.00" xml:space="preserve">
+    <value>Request model is empty.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.01" xml:space="preserve">
+    <value>Request cannot be created without a requestor.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.02" xml:space="preserve">
+    <value>Request reason cannot be empty.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.03" xml:space="preserve">
+    <value>Receipt Date cannot be empty.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.04" xml:space="preserve">
+    <value>Created date is not later than or equal to Receipt Date.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.05" xml:space="preserve">
+    <value>You have selected to delete this request, but this request has some released documents. So you cannot delete this request.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.06" xml:space="preserve">
+    <value>Request current reason should not be empty.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.10" xml:space="preserve">
+    <value>Search Request Operation Failed.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="ROI.4.0.11" xml:space="preserve">
+    <value>Invalid Search Criteria.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="ROI.4.0.12" xml:space="preserve">
+    <value>Invalid Pagination Data.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="ROI.4.0.13" xml:space="preserve">
+    <value>Invalid DOB in Search Criteria.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="ROI.4.0.14" xml:space="preserve">
+    <value>Invalid Facility in Search Criteria.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="ROI.4.0.15" xml:space="preserve">
+    <value>Invalid Receipt Date in Search Criteria.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="ROI.4.0.07" xml:space="preserve">
+    <value>Not a valid number.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="A502" xml:space="preserve">
+    <value>The entered date is invalid. Please select a date that is equal to or earlier than the "To" date.fr</value>
+    <comment>PresetDateRange</comment>
+  </data>
+  <data name="A503" xml:space="preserve">
+    <value>The selected date is invalid because it is in the future. Please select a date that is no later than the current date.fr</value>
+    <comment>PresetDateRange</comment>
+  </data>
+  <data name="ROI.4.1.03" xml:space="preserve">
+    <value>The status of the request cannot be changed unless the documents are released.fr</value>
+    <comment>Update Request Status</comment>
+  </data>
+  <data name="ROI.4.1.04" xml:space="preserve">
+    <value>Selected request status is not applicable for new request.fr</value>
+    <comment>Update Request Status</comment>
+  </data>
+  <data name="A303" xml:space="preserve">
+    <value>The record(s) have already been added to the request to be released and cannot be added again.fr</value>
+    <comment>Request - Patient information -DSRTreeView</comment>
+  </data>
+  <data name="A304" xml:space="preserve">
+    <value>Previously released documents cannot be removed.fr</value>
+    <comment>Request - Patient information -DSRTreeView</comment>
+  </data>
+  <data name="ROI.4.0.08" xml:space="preserve">
+    <value>Document is already released hence can not be deleted.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.16" xml:space="preserve">
+    <value>Get request count operation failed.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.1.00" xml:space="preserve">
+    <value>Invalid status id.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.1.01" xml:space="preserve">
+    <value>Status change has no reasons.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.1.02" xml:space="preserve">
+    <value>Invalid status change.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.1.05" xml:space="preserve">
+    <value>Request operation failed.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.1.06" xml:space="preserve">
+    <value>Request encounter name is not unique.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.1.12" xml:space="preserve">
+    <value>Documents are released requestor could not be changed.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.3.3.08" xml:space="preserve">
+    <value>Invalid non mpf document patient id.fr</value>
+  </data>
+  <data name="ROI.5.0.05" xml:space="preserve">
+    <value>Request comment exceeds maximum length.fr</value>
+    <comment>Request Comment</comment>
+  </data>
+  <data name="ROI.6.0.00" xml:space="preserve">
+    <value>Empty match criteria.fr</value>
+  </data>
+  <data name="ROI.6.0.01" xml:space="preserve">
+    <value>Empty match criteria list.fr</value>
+  </data>
+  <data name="ROI.6.0.02" xml:space="preserve">
+    <value>Match criteria list invalid.fr</value>
+  </data>
+  <data name="ROI.6.0.03" xml:space="preserve">
+    <value>Match criteria list contains empty match criteria.fr</value>
+  </data>
+  <data name="ROI.6.0.04" xml:space="preserve">
+    <value>Matching operation failed.fr</value>
+  </data>
+  <data name="ROI.5.1.01" xml:space="preserve">
+    <value>Release history retrieval failed.fr</value>
+  </data>
+  <data name="A124" xml:space="preserve">
+    <value>Are you sure you want to delete the selected note?.fr</value>
+    <comment>Configure Notes</comment>
+  </data>
+  <data name="ROI.1.12.00" xml:space="preserve">
+    <value>The note name must be unique. Please enter an unique name.fr</value>
+    <comment>Configure Notes</comment>
+  </data>
+  <data name="ROI.1.12.01" xml:space="preserve">
+    <value>Notes name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Configure Notes</comment>
+  </data>
+  <data name="ROI.1.12.02" xml:space="preserve">
+    <value>Configure notes operation failed.fr</value>
+    <comment>Configure Notes</comment>
+  </data>
+  <data name="ROI.1.12.03" xml:space="preserve">
+    <value>Notes display text cannot be empty.fr</value>
+    <comment>Configure Notes</comment>
+  </data>
+  <data name="ROI.1.12.04" xml:space="preserve">
+    <value>Notes name exceeds maximum length.fr</value>
+    <comment>Configure Notes</comment>
+  </data>
+  <data name="ROI.1.12.05" xml:space="preserve">
+    <value>Notes display text exceeds maximum length.fr</value>
+    <comment>Configure Notes</comment>
+  </data>
+  <data name="ROI.1.10.03" xml:space="preserve">
+    <value>Only a single Authorization can be specified per code set.fr</value>
+    <comment>Disclosure Document Types</comment>
+  </data>
+  <data name="ROI.4.0.17" xml:space="preserve">
+    <value>Request detail is null.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.18" xml:space="preserve">
+    <value>Document is already released hence can not be deleted.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.19" xml:space="preserve">
+    <value>Request LOV create operation failed.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="A504" xml:space="preserve">
+    <value>The entered date is invalid. Please select a date that is equal to or greater than the "From" date.fr</value>
+    <comment>Preset Date Range</comment>
+  </data>
+  <data name="ROI.0.0.05" xml:space="preserve">
+    <value>Main Address1 should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.06" xml:space="preserve">
+    <value>Main Address2 should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.07" xml:space="preserve">
+    <value>Main Address3 should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.08" xml:space="preserve">
+    <value>Main City should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.09" xml:space="preserve">
+    <value>Main State should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.10" xml:space="preserve">
+    <value>Main Zip code should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.11" xml:space="preserve">
+    <value>Alternate Address1 should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.12" xml:space="preserve">
+    <value>Alternate Address2 should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.13" xml:space="preserve">
+    <value>Alternate Address3 should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.14" xml:space="preserve">
+    <value>Alternate City should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.15" xml:space="preserve">
+    <value>Alternate State should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.0.0.16" xml:space="preserve">
+    <value>Alternate Zip code should not exceed 256 characters.fr</value>
+    <comment>Patient - Requestor</comment>
+  </data>
+  <data name="ROI.2.1.11" xml:space="preserve">
+    <value>Requestor name should not exceed 256 characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.12" xml:space="preserve">
+    <value>Patient EPN should not exceed 256 characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.13" xml:space="preserve">
+    <value>Patient SSN should not exceed 256 characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.3.1.05" xml:space="preserve">
+    <value>Patient name is not unique.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.10" xml:space="preserve">
+    <value>Patient EPN should not exceed 256 characters.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.07" xml:space="preserve">
+    <value>Patient SSN should not exceed 256 characters.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.08" xml:space="preserve">
+    <value>Patient MRN should not exceed 256 characters.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.09" xml:space="preserve">
+    <value>Patient Facility should not exceed 256 characters.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.3.09" xml:space="preserve">
+    <value>Document Facility should not exceed 256 characters.fr</value>
+    <comment>Patient Records - Non Hpf Document</comment>
+  </data>
+  <data name="ROI.3.3.10" xml:space="preserve">
+    <value>Document department should not exceed 256 characters.fr</value>
+    <comment>Patient Records - Non Hpf Document</comment>
+  </data>
+  <data name="ROI.2.1.14" xml:space="preserve">
+    <value>Patient DOB should not accept future date.fr</value>
+    <comment>Requestors</comment>
+  </data>
+  <data name="ROI.3.1.15" xml:space="preserve">
+    <value>Patient DOB should not accept future date.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.7.0.03" xml:space="preserve">
+    <value>Released request cannot be deleted.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.04" xml:space="preserve">
+    <value>Billing operation failed.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.2.01" xml:space="preserve">
+    <value>Amount entered is invalid. Please enter a number greater than or equal to 0.fr</value>
+    <comment>Billing - FeeCharge</comment>
+  </data>
+  <data name="ROI.7.1.01" xml:space="preserve">
+    <value>The value for pages must be greater than 0.fr</value>
+    <comment>Billing - Document Charge</comment>
+  </data>
+  <data name="ROI.7.1.02" xml:space="preserve">
+    <value>The value for copies must be greater than 0.fr</value>
+    <comment>Billing - Document Charge</comment>
+  </data>
+  <data name="ROI.7.3.01" xml:space="preserve">
+    <value>Amount entered is invalid. Please enter the amount format eg: 123456.78.fr</value>
+    <comment>Billing - Shipping Charge</comment>
+  </data>
+  <data name="ROI.7.4.01" xml:space="preserve">
+    <value>Adjustment amount entered is invalid. Please enter a number greater than 0.fr</value>
+    <comment>Billing - Adjustment</comment>
+  </data>
+  <data name="ROI.7.4.02" xml:space="preserve">
+    <value>Payment amount entered is invalid. Please enter a number greater than 0.fr</value>
+    <comment>Billing - Payment</comment>
+  </data>
+  <data name="SigninState.ChangePassword" xml:space="preserve">
+    <value>You have authenticated with a default password that is now required to be changed.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="SigninState.InvalidUser" xml:space="preserve">
+    <value>You do not have the required security to access this application. Please see your system administrator.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="SigninState.InvalidUserPassword" xml:space="preserve">
+    <value>The user ID and/or password submitted are invalid. Please retry. Password is case sensitive.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="SigninState.UserDisabled" xml:space="preserve">
+    <value>Unable to login. User Account is Disabled. Please contact your System Administrator.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="SigninState.UserLockedOut" xml:space="preserve">
+    <value>Maximum sign in attempts exceeded. User Account is Locked. Please contact your System Administrator.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="CurrentAndNewPasswordSame" xml:space="preserve">
+    <value>The new password cannot be the same as your current password.fr</value>
+    <comment>ChangePassword</comment>
+  </data>
+  <data name="NewAndConfirmPasswordNotSame" xml:space="preserve">
+    <value>The new passwords do not match, please re-enter.fr</value>
+    <comment>ChangePassword</comment>
+  </data>
+  <data name="ROI.7.0.00" xml:space="preserve">
+    <value>Request has invalid release details.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.01" xml:space="preserve">
+    <value>Request has invalid release charges.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.02" xml:space="preserve">
+    <value>Invalid release Id.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="changepasswordfailed.title" xml:space="preserve">
+    <value>Change Password Failed.fr</value>
+    <comment>ChangePassword</comment>
+  </data>
+  <data name="changepasswordsuccess.message" xml:space="preserve">
+    <value>Your password has been successfully updated.fr</value>
+    <comment>ChangePassword</comment>
+  </data>
+  <data name="changepasswordsuccess.title" xml:space="preserve">
+    <value>Password Updated.fr</value>
+    <comment>ChangePassword</comment>
+  </data>
+  <data name="fileNameEmpty" xml:space="preserve">
+    <value>File name cannot be empty and cannot contain any of the following characters  '\\', '/', '*', '"', '&lt;', '&gt;', '|'.fr</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="ROI.7.0.09" xml:space="preserve">
+    <value>Request is already released, cannot create a PreBill.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="CurrentPasswordDoNotMatch" xml:space="preserve">
+    <value>The current password is invalid.fr</value>
+    <comment>ChangePassword</comment>
+  </data>
+  <data name="AuthenticationFailedException" xml:space="preserve">
+    <value>AuthenticationFailedException: The system was unable to locate your account. Please verify your User name and Password and try again.fr</value>
+    <comment>Authentication Exception</comment>
+  </data>
+  <data name="A505" xml:space="preserve">
+    <value>The entered date is invalid. Please select a date that is equal to or greater than the start date.fr</value>
+    <comment>Reprots</comment>
+  </data>
+  <data name="ROI.0.0.17" xml:space="preserve">
+    <value>Data access exception.fr</value>
+  </data>
+  <data name="ROI.0.0.18" xml:space="preserve">
+    <value>Retrieving free form facilities operation failed.fr</value>
+    <comment>Common</comment>
+  </data>
+  <data name="ROI.3.1.11" xml:space="preserve">
+    <value>ROI supplemental cannot be null.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.13" xml:space="preserve">
+    <value>ROI supplemental has associated with request.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.3.1.14" xml:space="preserve">
+    <value>ROI LOV cannot be null.fr</value>
+    <comment>ROI LOV</comment>
+  </data>
+  <data name="ROI.3.1.16" xml:space="preserve">
+    <value>Supplemental search criteria cannot be null.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.7.0.07" xml:space="preserve">
+    <value>Request has no release item.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.08" xml:space="preserve">
+    <value>Unable to parse the release item.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.10" xml:space="preserve">
+    <value>Letter template identifier is zero.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.11" xml:space="preserve">
+    <value>Invalid release.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.12" xml:space="preserve">
+    <value>Unable to build a pdf template from the xml content.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.13" xml:space="preserve">
+    <value>Unable to generate pdf.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.14" xml:space="preserve">
+    <value>Generate letter operation failed.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.1.9.11" xml:space="preserve">
+    <value>Requestor type cannot be deleted, because it is associated with requestor.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.7.0.15" xml:space="preserve">
+    <value>Unable to build Rtf template data.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.16" xml:space="preserve">
+    <value>Unable to generate Rtf.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.17" xml:space="preserve">
+    <value>Unable to convert to Pdf.fr</value>
+    <comment>Biling</comment>
+  </data>
+  <data name="ROI.7.0.18" xml:space="preserve">
+    <value>Unable to concatenate Pdf.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.19" xml:space="preserve">
+    <value>Unable to encrypt Pdf.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.21" xml:space="preserve">
+    <value>Invoice creation failed.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.22" xml:space="preserve">
+    <value>Pre-Bill creation failed.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.7.0.23" xml:space="preserve">
+    <value>Cover Letter creation failed.fr</value>
+    <comment>Billing</comment>
+  </data>
+  <data name="ROI.1.9.12" xml:space="preserve">
+    <value>Requestor type must have one Non-MPF billing tier.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.7.4.03" xml:space="preserve">
+    <value>Balance due amount entered is invalid.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="ROI.0.0.20" xml:space="preserve">
+    <value>Alternate City accepts only AlphaNumeric and white space characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.0.0.21" xml:space="preserve">
+    <value>The data you entered in the ZIP code field is invalid.  United States ZIP codes may contain only numbers and must appear in one of the following formats: ##### or #####-####.  Canadian ZIP codes may contain letters or numbers and must appear in the following format: X#X #X#.</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.0.0.22" xml:space="preserve">
+    <value>Alternate State accepts only AlphaNumeric and white space characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.10.0.13" xml:space="preserve">
+    <value>Contact Email accepts only AlphaNumeric and ._-@ characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.18" xml:space="preserve">
+    <value>This field accepts only Numeric and hyphen characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.19" xml:space="preserve">
+    <value>This field accepts only Numeric and hyphen characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.20" xml:space="preserve">
+    <value>Home Phone accepts only Numeric, white space and ()-.+ characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.22" xml:space="preserve">
+    <value>Work Phone accepts only Numeric, white space and ()-.+ characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.23" xml:space="preserve">
+    <value>Cell Phone accepts only Numeric, white space and ()-.+ characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.24" xml:space="preserve">
+    <value>Email accepts only AlphaNumeric and ._-@ characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.26" xml:space="preserve">
+    <value>Fax accepts 2-36 Numeric, white space, and +()-.,#* characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.28" xml:space="preserve">
+    <value>Contact Name accepts only AlphaNumeric and -_ characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.30" xml:space="preserve">
+    <value>Contact Phone accepts only Numeric, white space and ()-.+ characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.10.0.14" xml:space="preserve">
+    <value>State accepts only AlphaNumeric and white space characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.10.0.15" xml:space="preserve">
+    <value>City accepts only AlphaNumeric and white space characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.10.0.16" xml:space="preserve">
+    <value>The data you entered in the ZIP code field is invalid.  United States ZIP codes may contain only numbers and must appear in one of the following formats: ##### or #####-####.  Canadian ZIP codes may contain letters or numbers and must appear in the following format: X#X #X#.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.10.0.17" xml:space="preserve">
+    <value>Last Name accepts only AlphaNumeric and -_ characters.fr</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="ROI.10.0.18" xml:space="preserve">
+    <value>First Name accepts only AlphaNumeric and -_ characters.fr</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="ROI.10.0.19" xml:space="preserve">
+    <value>This field accepts only Numeric and ,-/_ characters.fr</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="ROI.10.0.20" xml:space="preserve">
+    <value>This field accepts only Numeric and hyphen characters.fr</value>
+    <comment>Find Patient</comment>
+  </data>
+  <data name="ROI.10.0.21" xml:space="preserve">
+    <value>User Name cannot be empty.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="ROI.10.0.22" xml:space="preserve">
+    <value>Password cannot be empty.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="ROI.10.0.23" xml:space="preserve">
+    <value>Invalid User Id.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="ROI.10.0.24" xml:space="preserve">
+    <value>Invalid Password.fr</value>
+    <comment>LogOn</comment>
+  </data>
+  <data name="ROI.1.1.20" xml:space="preserve">
+    <value>Billing tier charge is blank.fr</value>
+  </data>
+  <data name="ROI.1.1.21" xml:space="preserve">
+    <value>Billing tier charge contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.1.22" xml:space="preserve">
+    <value>Billing tier charge length exceeds limit.fr</value>
+  </data>
+  <data name="ROI.1.12.06" xml:space="preserve">
+    <value>Note name contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.12.07" xml:space="preserve">
+    <value>Note display text contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.2.07" xml:space="preserve">
+    <value>Delivery method desc contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.2.08" xml:space="preserve">
+    <value>Delivery method desc length exceeds limit.fr</value>
+  </data>
+  <data name="ROI.1.2.09" xml:space="preserve">
+    <value>Delivery method url contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.3.07" xml:space="preserve">
+    <value>Media type name contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.3.08" xml:space="preserve">
+    <value>Media type desc contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.4.06" xml:space="preserve">
+    <value>Fee type name contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.4.07" xml:space="preserve">
+    <value>Fee type desc contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.4.08" xml:space="preserve">
+    <value>Fee type desc length exceeds limit.fr</value>
+  </data>
+  <data name="ROI.1.4.09" xml:space="preserve">
+    <value>Fee type amount contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.4.10" xml:space="preserve">
+    <value>Fee type amount length exceeds limit.fr</value>
+  </data>
+  <data name="ROI.1.5.06" xml:space="preserve">
+    <value>Payment method name contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.5.07" xml:space="preserve">
+    <value>Payment method desc contains invalid char.fr</value>
+  </data>
+  <data name="ROI.1.8.10" xml:space="preserve">
+    <value>Reason display text contains invalid char.fr</value>
+  </data>
+  <data name="ROI.2.1.17" xml:space="preserve">
+    <value>Requestor name contains invalid char .fr</value>
+  </data>
+  <data name="ROI.2.1.21" xml:space="preserve">
+    <value>Phone length exceeds limit .fr</value>
+  </data>
+  <data name="ROI.2.1.25" xml:space="preserve">
+    <value>Requestor email length exceeds limit .fr</value>
+  </data>
+  <data name="ROI.2.1.27" xml:space="preserve">
+    <value>Requestor fax length exceeds limit .fr</value>
+  </data>
+  <data name="ROI.2.1.31" xml:space="preserve">
+    <value>Contact phone length exceeds limit .fr</value>
+  </data>
+  <data name="ROI.2.1.32" xml:space="preserve">
+    <value>Contact email length exceeds limit .fr</value>
+  </data>
+  <data name="ROI.7.0.24" xml:space="preserve">
+    <value>Unable to instantiate rtf data builder.fr</value>
+  </data>
+  <data name="ROI.0.0.19" xml:space="preserve">
+    <value>Invalid address given.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.1.12.08" xml:space="preserve">
+    <value>Note operation failed.fr</value>
+  </data>
+  <data name="ROI.1.9.13" xml:space="preserve">
+    <value>Invalid billing tier association given for requestor type.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.1.9.14" xml:space="preserve">
+    <value>Requestor type must have one MPF and Non-MPF billing tier.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="ROI.0.0.23" xml:space="preserve">
+    <value>Data is invalid.fr</value>
+    <comment>Common</comment>
+  </data>
+  <data name="ROI.1.8.09" xml:space="preserve">
+    <value>Reason display text should not exceed 250 characters.fr</value>
+    <comment>Request Reason</comment>
+  </data>
+  <data name="ROI.1.11.15" xml:space="preserve">
+    <value>File size is zero.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.7.2.02" xml:space="preserve">
+    <value>Amount format entered is invalid. Please enter the amount format eg: 123.45.fr</value>
+    <comment>Billing - FeeCharge</comment>
+  </data>
+  <data name="ROI.4.0.09" xml:space="preserve">
+    <value>Fax Number cannot be empty.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.1.10.04" xml:space="preserve">
+    <value>You have not designated an Authorization Request document type for this code set.fr</value>
+    <comment>Disclosure DocumentTypes</comment>
+  </data>
+  <data name="A125" xml:space="preserve">
+    <value>Access is Denied.fr</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="ROI.2.1.29" xml:space="preserve">
+    <value>This field accepts only AlphaNumeric and -_ characters.fr</value>
+    <comment>Billing - Adjustment</comment>
+  </data>
+  <data name="ROI.4.0.20" xml:space="preserve">
+    <value>Invoice Chargelist should not be null.fr</value>
+    <comment>Adjustment and Payment</comment>
+  </data>
+  <data name="ROI.4.0.21" xml:space="preserve">
+    <value>Invoice Chargelist contains invalid Id.fr</value>
+    <comment>Adjustment and Payment</comment>
+  </data>
+  <data name="ROI.10.0.25" xml:space="preserve">
+    <value>Facility field will not accept comma (,).fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.10.0.26" xml:space="preserve">
+    <value>Password cannot be empty.fr</value>
+    <comment>Output</comment>
+  </data>
+  <data name="ROI.1.9.15" xml:space="preserve">
+    <value>Invalid billing template association given for requestor type.fr</value>
+    <comment>Requestor Type</comment>
+  </data>
+  <data name="fileAlreadyOpen" xml:space="preserve">
+    <value>The file is in use.fr</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="IN.USE.0.0.1" xml:space="preserve">
+    <value>Record Not Found.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="IN.USE.0.0.2" xml:space="preserve">
+    <value>Invalid application data.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="IN.USE.0.0.3" xml:space="preserve">
+    <value>Record already in use.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="IN.USE.0.0.4" xml:space="preserve">
+    <value>In use operation failed.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="IN.USE.0.0.8" xml:space="preserve">
+    <value>Invalid application id.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.3.01" xml:space="preserve">
+    <value>Patient does not exist.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.10.0.27" xml:space="preserve">
+    <value>Patient name accepts only AlphaNumeric and -_ characters.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="ROI.1.11.16" xml:space="preserve">
+    <value>Invalid Letter type.fr</value>
+    <comment>Letter Template</comment>
+  </data>
+  <data name="ROI.11.0.0" xml:space="preserve">
+    <value>Unable to retrieve the data from server.fr</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="ROI.11.0.1" xml:space="preserve">
+    <value>Unable to load the data. Access to the datasource is denied.fr</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="ROI.11.0.2" xml:space="preserve">
+    <value>Device is not in use.fr</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="ROI.4.0.22" xml:space="preserve">
+    <value>This field accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Find Request</comment>
+  </data>
+  <data name="DESTINATION_INVALID" xml:space="preserve">
+    <value>Selected job cannot be completed because one of the output queues has been disabled. Please contact your system administrator for assistance.fr</value>
+    <comment>Output</comment>
+  </data>
+  <data name="INVALID_DISC_DEVICE" xml:space="preserve">
+    <value>Cannot connect to specified Rimage device. Please contact your system administrator for assistance.fr</value>
+    <comment>Output</comment>
+  </data>
+  <data name="ROI.2.1.33" xml:space="preserve">
+    <value>Patient MRN field should have atleast 3 characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="ROI.2.1.34" xml:space="preserve">
+    <value>Patient Facility filed should have atleast 3 characters.fr</value>
+    <comment>Requestor</comment>
+  </data>
+  <data name="T271" xml:space="preserve">
+    <value>Invalid timestamp.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="ROI.4.0.23" xml:space="preserve">
+    <value>No action can be performed on request since it is been associated with inactive requestor. You have to make the requestor active in order to perform any action on the request.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="AU000" xml:space="preserve">
+    <value>Access to service denied.fr</value>
+    <comment>Output Client</comment>
+  </data>
+  <data name="ROI.2.0.00" xml:space="preserve">
+    <value>This Requestor record is currently in use by another user. Please refresh and try again to be able to make and save changes.fr</value>
+    <comment>Requestor Record in use</comment>
+  </data>
+  <data name="ROI.3.0.00" xml:space="preserve">
+    <value>This Patient record is currently in use by another user. Please refresh and try again to be able to make and save changes.fr</value>
+    <comment>Patient Record in use</comment>
+  </data>
+  <data name="ROI.4.0.24" xml:space="preserve">
+    <value>Completed Date cannot be empty.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.4.0.25" xml:space="preserve">
+    <value>Created date is not later than or equal to Completed Date.fr</value>
+    <comment>Request</comment>
+  </data>
+  <data name="ROI.2.1.35" xml:space="preserve">
+    <value>First 3 characters of SSN are required to perform search.fr</value>
+    <comment>Invalid SSN search</comment>
+  </data>
+  <data name="ROI.3.1.17" xml:space="preserve">
+    <value>Patient first name should not exceed 256 characters.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.3.1.18" xml:space="preserve">
+    <value>Patient Last Name cannot be empty.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.2.1.36" xml:space="preserve">
+    <value>Requestor Last name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.2.1.37" xml:space="preserve">
+    <value>Requestor First name should not be empty and accepts only alphanumeric, white space and -_ characters.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.2.1.38" xml:space="preserve">
+    <value>Requestor Last name should not exceed 256 characters.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.2.1.39" xml:space="preserve">
+    <value>Requestor First name should not exceed 256 characters.fr</value>
+    <comment>Requestor Information</comment>
+  </data>
+  <data name="ROI.10.0.28" xml:space="preserve">
+    <value>Date of bitrh is not later than today's date.fr</value>
+    <comment>DateField</comment>
+  </data>
+  <data name="ROI.10.0.29" xml:space="preserve">
+    <value>Please enter the valid date.fr</value>
+    <comment>DateField</comment>
+  </data>
+  <data name="SigninState.UseAlreadyMapped" xml:space="preserve">
+    <value>Mapping Failure - User already exists. Please try again.fr</value>
+    <comment>HPF User Logon</comment>
+  </data>
+  <data name="A4002" xml:space="preserve">
+    <value>Really delete this Attachment? This action cannot be undone.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.00" xml:space="preserve">
+    <value>Select an Attachment type.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.03" xml:space="preserve">
+    <value>You must enter a page count that is greater than zero.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.04" xml:space="preserve">
+    <value>Attachment has been Released.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.06" xml:space="preserve">
+    <value>You must enter a page count that is greater than zero.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.08" xml:space="preserve">
+    <value>Invalid file path.fr</value>
+    <comment>Attachmentd</comment>
+  </data>
+  <data name="ROI.13.3.02" xml:space="preserve">
+    <value>Select a Facility.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.01" xml:space="preserve">
+    <value>Date of Service cannot be empty.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.09" xml:space="preserve">
+    <value>Attachment does not exist on server.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.10" xml:space="preserve">
+    <value>Attachment does not have a filename.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.11" xml:space="preserve">
+    <value>The specified file name does not include an extension. Select a file that includes an extension and try the upload again.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.05" xml:space="preserve">
+    <value>You must enter a page count that is greater than zero.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.07" xml:space="preserve">
+    <value>Invalid file path.fr</value>
+    <comment>Attachmentd</comment>
+  </data>
+  <data name="ROI.13.3.12" xml:space="preserve">
+    <value>This field accepts only alphanumeric, white space and -_  characters.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.13" xml:space="preserve">
+    <value>This field accepts only alphanumeric, white space and -_ / characters.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.14" xml:space="preserve">
+    <value>The CCR/CCD attachment is invalid because it is an empty file. Select another CCR/CCD file to upload.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.15" xml:space="preserve">
+    <value>The specified CCR/CCD attachment is an invalid file type. The file must be an XML file. Please select another CCR/CCD file and try the upload again.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="INVALID_DIRECTORY" xml:space="preserve">
+    <value>The release to file cannot be completed as the system cannot create a PDF due to invalid directory location. Please contact your system administrator for assistance.fr</value>
+    <comment>Output</comment>
+  </data>
+  <data name="SOURCE_INVALID" xml:space="preserve">
+    <value>Selected job cannot be completed because one of the output queues has been disabled. Please contact your system administrator for assistance.fr</value>
+    <comment>Output</comment>
+  </data>
+  <data name="ROI.1.13.04" xml:space="preserve">
+    <value>The database is not configured to capture Attachment Location. Please contact your Database Administrator.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.2.1.40" xml:space="preserve">
+    <value>Patient First Name required a minimum of 3 characters to perform the search.fr</value>
+    <comment>Find Requestor</comment>
+  </data>
+  <data name="ROI.2.1.41" xml:space="preserve">
+    <value>Patient Last Name requires a minimum of 3 characters to perform the search.fr</value>
+    <comment>Find Requestor</comment>
+  </data>
+  <data name="ROI.2.1.42" xml:space="preserve">
+    <value>Patient name fields require a combination of 3 characters to perform the search.fr</value>
+    <comment>Find Requestor</comment>
+  </data>
+  <data name="ROI.2.1.43" xml:space="preserve">
+    <value>Patient name fields require a combination of 3 characters to perform the search.fr</value>
+    <comment>Find Requestor</comment>
+  </data>
+  <data name="ROI.10.0.34" xml:space="preserve">
+    <value>Select a Facility.fr</value>
+    <comment>Patient</comment>
+  </data>
+  <data name="A4003" xml:space="preserve">
+    <value>This attachment was previously released and cannot be deleted. However, from this point forward, it cannot be included in any future releases. This action cannot be undone.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.1.13.05" xml:space="preserve">
+    <value>File operation failed.fr</value>
+    <comment>Internal Error</comment>
+  </data>
+  <data name="ROI.13.3.16" xml:space="preserve">
+    <value>The attachment cannot be written to the temporary application folder. Contact your system administrator to allow write access to the temporary application folder at:.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.17" xml:space="preserve">
+    <value>The attachment cannot be displayed. Contact your system administrator.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.18" xml:space="preserve">
+    <value>The attachment cannot be created. Contact your system administrator.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.19" xml:space="preserve">
+    <value>The attachment cannot be edited. Contact your system administrator.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.20" xml:space="preserve">
+    <value>The attachment cannot be deleted. Contact your system administrator.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.13.3.21" xml:space="preserve">
+    <value>You must specify the facility to which this patient belongs before adding attachments.fr</value>
+    <comment>PatientInfo - Attachment</comment>
+  </data>
+  <data name="ROI.1.15.00" xml:space="preserve">
+    <value>Facility cannot be blank.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="A128" xml:space="preserve">
+    <value>You do not have the required security rights to access ROI Export to Email. Please contact your system administrator.fr</value>
+    <comment>ExportToEmailDenied</comment>
+  </data>
+  <data name="ROI.1.15.01" xml:space="preserve">
+    <value>Facility field will not accept comma (,).fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.02" xml:space="preserve">
+    <value>Facility value exceeds maximum length.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.03" xml:space="preserve">
+    <value>Tax rate description contains invalid characters.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.04" xml:space="preserve">
+    <value>Tax rate description exceeds maximum length of 256 characters.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.05" xml:space="preserve">
+    <value>Tax Percentage should not be empty.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.06" xml:space="preserve">
+    <value>Please enter a positive value 0-100 up to 2 decimal points. Ex: 9.98.fr</value>
+    <comment>Sales Tax Per Facilitye</comment>
+  </data>
+  <data name="ROI.1.15.07" xml:space="preserve">
+    <value>Tax Percentage exceeds maximum length.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.08" xml:space="preserve">
+    <value>Tax Rate Configuration operation failed.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.09" xml:space="preserve">
+    <value>This Facility is already configured, please select a different facility.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.1.15.10" xml:space="preserve">
+    <value>Are you sure you want to delete the selected facility tax rate?.fr</value>
+    <comment>Sales Tax Per Facility</comment>
+  </data>
+  <data name="ROI.4.0.26" xml:space="preserve">
+    <value>Updation of Adjustment/Payement operation failed.fr</value>
+    <comment>Adjustment and Payment</comment>
+  </data>
+  <data name="ROI.8.0.01" xml:space="preserve">
+    <value>Facility code should not be null.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.02" xml:space="preserve">
+    <value>OverDue days is invalid.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.03" xml:space="preserve">
+    <value>The minimum value of overdue days should not be larger than maximum value.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.04" xml:space="preserve">
+    <value>Requestor type should not be null.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.05" xml:space="preserve">
+    <value>Search past due invoice operation failed.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.06" xml:space="preserve">
+    <value>Regeneration of overdue invoices operation failed.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.07" xml:space="preserve">
+    <value>Requestor invoices is blank.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.23" xml:space="preserve">
+    <value>Template Id is blank.</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.09" xml:space="preserve">
+    <value>Search Criteria is invalid.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.14" xml:space="preserve">
+    <value>Requestor letter creation failed.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.15" xml:space="preserve">
+    <value>Currency type is invalid.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.16" xml:space="preserve">
+    <value>Invalid Requestor Id.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.17" xml:space="preserve">
+    <value>Requestor letter creation failed.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.18" xml:space="preserve">
+    <value>Properties should not be null while regenerate invoice.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.19" xml:space="preserve">
+    <value>Template Id should not be null in properties while regenerate invoice.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.8.0.22" xml:space="preserve">
+    <value>OverDue invoice creation failed.fr</value>
+    <comment>Past Due Invoice Generation</comment>
+  </data>
+  <data name="ROI.1.15.14" xml:space="preserve">
+    <value>User has no security rights.fr</value>
+    <comment>Configure Billing Location</comment>
+  </data>
+  <data name="ROI.1.15.15" xml:space="preserve">
+    <value>Custom fee description should not be empty.fr</value>
+    <comment>Billing and Payment</comment>
+  </data>
+  <data name="HPF.WinDSSNotFound" xml:space="preserve">
+    <value>Unable to open Windows Document Display Subsystem (WinDSS Viewer) to view the selected document(s). Please make sure that the correct version of WINDSS is installed and configured properly or contact your Administrator.fr</value>
+    <comment>WinDSS Not Found Exception</comment>
+  </data>
+  <data name="A11" xml:space="preserve">
+    <value>Output service is not running. You would be able to perform only ROI operations. Please contact system administrator to start the output service.fr</value>
+    <comment>Connect Failure</comment>
+  </data>
+  <data name="ROI.14.4.00" xml:space="preserve">
+    <value>ExternalSource Name is invalid.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.14.4.01" xml:space="preserve">
+    <value>Description is invalid.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.14.4.02" xml:space="preserve">
+    <value>Property Name is invalid.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.14.4.03" xml:space="preserve">
+    <value>Property value is invalid.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.36" xml:space="preserve">
+    <value>The ROI system cannot locate a clinical source. Contact your system administrator.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.25" xml:space="preserve">
+    <value>File Format is invalid.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.7.0.26" xml:space="preserve">
+    <value>Unable to convert to pdf.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.7.0.27" xml:space="preserve">
+    <value>Unable to get XSLT.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.7.0.28" xml:space="preserve">
+    <value>Unable to get XSLT from CCR.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.7.0.29" xml:space="preserve">
+    <value>Page count is invalid.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.7.0.31" xml:space="preserve">
+    <value>Retrieval of External Source Names Failed.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.32" xml:space="preserve">
+    <value>Updating Provider Details failed.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.33" xml:space="preserve">
+    <value>Updating Provider Configuration  Details failed.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.34" xml:space="preserve">
+    <value>Retrieval Failed.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.35" xml:space="preserve">
+    <value>Test Configuration Failed.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.37" xml:space="preserve">
+    <value>Connection Failed.Please check the connection properties.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.39" xml:space="preserve">
+    <value>Provider Name is empty.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.40" xml:space="preserve">
+    <value>Provider Display Name is empty.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.41" xml:space="preserve">
+    <value>Provider description is empty.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.42" xml:space="preserve">
+    <value>Provider Configuration Details is empty.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.43" xml:space="preserve">
+    <value>Provider does not exists.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.44" xml:space="preserve">
+    <value>Provider Configuration is not required.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.45" xml:space="preserve">
+    <value>Source name already exists.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.46" xml:space="preserve">
+    <value>Failed to create OutputStream.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.47" xml:space="preserve">
+    <value>Failed in Generating reportID for Clinical Provider.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.48" xml:space="preserve">
+    <value>The Clinicals system has returned an error when processing the CCD request.  Please check with your Clinicals system administrator to ensure the system is properly configured.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.49" xml:space="preserve">
+    <value>The CCD request to the Clinicals system has timed out.  For further assistance, please contact your Clinicals system administrator.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.7.0.50" xml:space="preserve">
+    <value>Source is mapped to the facility. Please unmap the selected source connection from the facility(s) and try again. Delete source failed.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.14.4.04" xml:space="preserve">
+    <value>Connection failed,please check the connection properties.fr</value>
+    <comment>External Source</comment>
+  </data>
+  <data name="ROI.8.0.3" xml:space="preserve">
+    <value>Updating configured days failed.fr</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="ROI.8.0.1" xml:space="preserve">
+    <value>Retrieving weekend days failed.fr</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="ROI.8.0.2" xml:space="preserve">
+    <value>Retrieving configured days failed.fr</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="ROI.8.0.4" xml:space="preserve">
+    <value>Day name is empty.fr</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="ROI.9.0.1" xml:space="preserve">
+    <value>Retrieval of MU Document Types failed.fr</value>
+    <comment>Document Types</comment>
+  </data>
+  <data name="ROI.9.0.3" xml:space="preserve">
+    <value>Failed to insert in to ROI_OUTBOUND_STATISTICS.fr</value>
+    <comment>MU Release Turn Around Times Report</comment>
+  </data>
+  <data name="ROI.9.0.5" xml:space="preserve">
+    <value>Failed in doing Batch insert in ROI_OUTBOUND_STATISTICS.fr</value>
+    <comment>MU Release Turn Around Times Report</comment>
+  </data>
+  <data name="ROI.9.0.6" xml:space="preserve">
+    <value>Updating the ROI_OUTBOUND_STATISTICS failed.fr</value>
+    <comment>MU Release Turn Around Times Report</comment>
+  </data>
+  <data name="ROI.15.5.00" xml:space="preserve">
+    <value>Name of day is invalid.fr</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="ROI.15.5.01" xml:space="preserve">
+    <value>Status of day is invalid.fr</value>
+    <comment>Turnaround Time Days</comment>
+  </data>
+  <data name="ROI.16.6.00" xml:space="preserve">
+    <value>Error occurred in subtitle creation.fr</value>
+    <comment>MU Release Turn Around Times Report</comment>
+  </data>
+  <data name="fileWritePermission" xml:space="preserve">
+    <value>You do not have permissions to access this directory. Please contact your system administrator.fr</value>
+    <comment>Reports</comment>
+  </data>
+  <data name="ROI.7.4.04" xml:space="preserve">
+    <value>Adjustment amount entered is invalid. Please enter the amount format eg: 123456.78.fr</value>
+    <comment>Billing - Adjustment</comment>
+  </data>
+  <data name="ROI.7.4.05" xml:space="preserve">
+    <value>Payment amount entered is invalid. Please enter the amount format eg: 123456.78.fr</value>
+    <comment>Billing - Payment</comment>
+  </data>
+  <data name="ROI.10.1.00" xml:space="preserve">
+    <value>Search Requestor failed.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="ROI.10.1.01" xml:space="preserve">
+    <value>Create Request Operation Failed.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="ROI.10.1.02" xml:space="preserve">
+    <value>Update request Operation Failed.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="ROI.10.1.03" xml:space="preserve">
+    <value>Unable To retrieve Request.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="ROI.10.2.00" xml:space="preserve">
+    <value>Unable to add patient to the Request.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.01" xml:space="preserve">
+    <value>Delete request Operation Failed.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.02" xml:space="preserve">
+    <value>Unable to move patient for release.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.03" xml:space="preserve">
+    <value>Unable to move Encounter.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.04" xml:space="preserve">
+    <value>Unable to move Document.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.05" xml:space="preserve">
+    <value>Unable to move Version.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.06" xml:space="preserve">
+    <value>Unable to add Page.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.07" xml:space="preserve">
+    <value>Retrieve patients associated to this request Operation failed.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.08" xml:space="preserve">
+    <value>Patient Id is invalid.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.09" xml:space="preserve">
+    <value>Encounter Id is invalid.fr</value>
+    <comment>Attachment</comment>
+  </data>
+  <data name="ROI.10.2.10" xml:space="preserve">
+    <value>Invalid patient.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.11" xml:space="preserve">
+    <value>Unable to modify patient.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.18" xml:space="preserve">
+    <value>Unable to Remove patient from DSR.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.19" xml:space="preserve">
+    <value>Create Operation Failed.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.20" xml:space="preserve">
+    <value>Retrieve Operatoin Failed.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.21" xml:space="preserve">
+    <value>Update Operation Failed.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.22" xml:space="preserve">
+    <value>Delete Operation Failed.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.23" xml:space="preserve">
+    <value>Mandatory Field Should not be Empty.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.2.24" xml:space="preserve">
+    <value>Field Length exceeded limit.fr</value>
+    <comment>Patient Information</comment>
+  </data>
+  <data name="ROI.10.3.01" xml:space="preserve">
+    <value>Create Request Operation Failed.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="ROI.10.3.02" xml:space="preserve">
+    <value>Update Request Operatoin Failed.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="ROI.10.3.03" xml:space="preserve">
+    <value>Retrive Request Operatoin Failed.fr</value>
+    <comment>Request Information</comment>
+  </data>
+  <data name="ROI.10.4.1" xml:space="preserve">
+    <value>Retrieve Request Operation Failed.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.4.2" xml:space="preserve">
+    <value>Retrieve Request Operation Failed.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.6.01" xml:space="preserve">
+    <value>Template Should not be empty.fr</value>
+    <comment>OverDue Invoice</comment>
+  </data>
+  <data name="ROI.10.6.02" xml:space="preserve">
+    <value>Generate Requestor Letter Operation Failed.fr</value>
+    <comment>OverDue Invoice</comment>
+  </data>
+  <data name="ROI.10.6.03" xml:space="preserve">
+    <value>Invalid Cover Letter Id.fr</value>
+    <comment>Cover Letter</comment>
+  </data>
+  <data name="ROI.10.6.04" xml:space="preserve">
+    <value>Unable to Create Cover Letter.fr</value>
+    <comment>Cover Letter</comment>
+  </data>
+  <data name="ROI.10.6.05" xml:space="preserve">
+    <value>Unable to Create Cover Letter.fr</value>
+    <comment>Cover Letter</comment>
+  </data>
+  <data name="ROI.10.6.06" xml:space="preserve">
+    <value>Unable to Retrieve Cover Letter.fr</value>
+    <comment>Cover Letter</comment>
+  </data>
+  <data name="ROI.10.6.07" xml:space="preserve">
+    <value>Invalid Cover Letter Id.fr</value>
+    <comment>Cover Letter</comment>
+  </data>
+  <data name="ROI.10.7.01" xml:space="preserve">
+    <value>Unable to Update Country.fr</value>
+    <comment>Admin - Conutry Configuration</comment>
+  </data>
+  <data name="ROI.10.7.02" xml:space="preserve">
+    <value>Unable to Retrieve Country Code Configurations.fr</value>
+    <comment>Admin - Conutry Configuration</comment>
+  </data>
+  <data name="ROI.10.7.03" xml:space="preserve">
+    <value>Unable to retrieve Billing Configurations.fr</value>
+    <comment>Billing - Conutry Configuration</comment>
+  </data>
+  <data name="ROI.10.8.01" xml:space="preserve">
+    <value>Unable to create Freeform facility.fr</value>
+    <comment>Patient Facility</comment>
+  </data>
+  <data name="ROI.10.8.02" xml:space="preserve">
+    <value>Unable to retrieve Freeform facility.fr</value>
+    <comment>Patient Facility</comment>
+  </data>
+  <data name="ROI.10.9.01" xml:space="preserve">
+    <value>Unable to save Request Charges.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.04" xml:space="preserve">
+    <value>Unable to Retrieve Biiling Informations.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.05" xml:space="preserve">
+    <value>Failed to cancel Release Operation.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.06" xml:space="preserve">
+    <value>Unable to create Invoice.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.07" xml:space="preserve">
+    <value>Unable to view Invoice.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.08" xml:space="preserve">
+    <value>Unable to Regenerate Invoice.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.09" xml:space="preserve">
+    <value>Retrieve Invoice History Operation Failed.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.10" xml:space="preserve">
+    <value>Unable to Retrieve Invoice.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.11" xml:space="preserve">
+    <value>Unable to Create Invoice.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.12" xml:space="preserve">
+    <value>Unable to Set Request As Released.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.13" xml:space="preserve">
+    <value>Unable to Create Audit And Event.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.14" xml:space="preserve">
+    <value>Unable to Set Request As Draft.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.15" xml:space="preserve">
+    <value>Unable to Retrieve Document Charges.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.10.9.16" xml:space="preserve">
+    <value>Invalid Invoice Id.fr</value>
+    <comment>Billing And Payment</comment>
+  </data>
+  <data name="ROI.11.1.01" xml:space="preserve">
+    <value>Unable to save payment.fr</value>
+    <comment>Requestor Payment</comment>
+  </data>
+  <data name="ROI.11.1.02" xml:space="preserve">
+    <value>Unable to update payment.fr</value>
+    <comment>Requestor Payment</comment>
+  </data>
+  <data name="ROI.11.1.03" xml:space="preserve">
+    <value>Payment to Invoices should not be empty.fr</value>
+    <comment>Requestor Payment</comment>
+  </data>
+  <data name="ROI.11.1.04" xml:space="preserve">
+    <value>Payment Id is Empty.fr</value>
+    <comment>Requestor Payment</comment>
+  </data>
+  <data name="ROI.11.1.05" xml:space="preserve">
+    <value>Unable to retrieve Requestor Invoices.fr</value>
+    <comment>Requestor Payment</comment>
+  </data>
+  <data name="Entry exists" xml:space="preserve">
+    <value>Fee Type already exists.fr</value>
+    <comment>AccountManagement- FeeUI</comment>
+  </data>
+  <data name="select reason" xml:space="preserve">
+    <value>Please select a valid Reason.fr</value>
+    <comment>AccountManagement- FeeUI</comment>
+  </data>
+  <data name="ROI.10.0.33" xml:space="preserve">
+    <value>Date of Service is later than today's date.fr</value>
+    <comment>Date Field</comment>
+  </data>
+  <data name="select facility" xml:space="preserve">
+    <value>Please Select the Billing Location.fr</value>
+    <comment>AdjustmentUI</comment>
+  </data>
+  <data name="Enter Notes" xml:space="preserve">
+    <value>Please Enter Notes</value>
+    <comment>AdjustmentsUI</comment>
+  </data>
+  <data name="ROI.11.1.06" xml:space="preserve">
+    <value>Retrieve Unapplied adjustment Failed.fr</value>
+    <comment>UnApplied Adjustment</comment>
+  </data>
+  <data name="ROI.11.1.07" xml:space="preserve">
+    <value>Retrieve Requestor History Operation Failed.fr</value>
+    <comment>Requestor History</comment>
+  </data>
+  <data name="ROI.11.1.08" xml:space="preserve">
+    <value>View Requestor History Operation Failed.fr</value>
+    <comment>Requestor History</comment>
+  </data>
+  <data name="ROI.11.1.09" xml:space="preserve">
+    <value>Retrieve UnApplied Amount Details Failed.fr</value>
+    <comment>UnApplied Adjustment</comment>
+  </data>
+  <data name="ROI.11.2.03" xml:space="preserve">
+    <value> Requestor Statement Creation Failed.fr</value>
+    <comment>Requestor Statement</comment>
+  </data>
+  <data name="ROI.11.2.04" xml:space="preserve">
+    <value>Generate Requestor Statement Operation Failed.fr</value>
+    <comment>Requestor Statement</comment>
+  </data>
+  <data name="ROI.11.2.05" xml:space="preserve">
+    <value>Refund is not valid on Adjustment.fr</value>
+    <comment>Requestor Refund</comment>
+  </data>
+  <data name="ROI.11.2.06" xml:space="preserve">
+    <value>Invalid Refund Details.fr</value>
+    <comment>Requestor Refund</comment>
+  </data>
+  <data name="ROI.11.2.07" xml:space="preserve">
+    <value>Invalid Refund Amount.fr</value>
+    <comment>Requestor Refund</comment>
+  </data>
+  <data name="ROI.11.2.08" xml:space="preserve">
+    <value>View Refund Operation Failed.fr</value>
+    <comment>Requestor Refund</comment>
+  </data>
+  <data name="ROI.17.0.01" xml:space="preserve">
+    <value>Payment date is later than today's date.fr</value>
+    <comment>Requestor Payment</comment>
+  </data>
+  <data name="ROI.17.0.02" xml:space="preserve">
+    <value>Please enter a valid note.fr</value>
+    <comment>PaymentUI</comment>
+  </data>
+  <data name="ROI.17.0.03" xml:space="preserve">
+    <value>Please select a valid method.fr</value>
+    <comment>PaymentUI</comment>
+  </data>
+  <data name="ROI.7.4.06" xml:space="preserve">
+    <value>Refund amount entered is invalid. Please enter the amount format eg: 123456.78</value>
+    <comment>Billing - Refund</comment>
+  </data>
+  <data name="ROI.17.0.05" xml:space="preserve">
+    <value>Please enter a valid note.fr</value>
+    <comment>Refund</comment>
+  </data>
+  <data name="ROI.17.0.06" xml:space="preserve">
+    <value>Refund Date is later than today's date. Please enter a valid date.fr</value>
+    <comment>Refund</comment>
+  </data>
+  <data name="InvalidOutputQueue" xml:space="preserve">
+    <value>Selected Output Queue is invalid. Please select a valid output Queue.fr</value>
+    <comment>output</comment>
+  </data>
+  <data name="A129" xml:space="preserve">
+    <value>Unable to connect to the ROI server at {0}. Please contact your system administrator..fr</value>
+    <comment>Connection Failure</comment>
+  </data>
+  <data name="A130" xml:space="preserve">
+    <value>Unable to connect to the ROI server at {0}. Please contact your system administrator..fr</value>
+    <comment>Connection Failure</comment>
+  </data>
+  <data name="ROI.13.3.23" xml:space="preserve">
+    <value>Already released documents cannot be deleted.fr</value>
+    <comment>PatientRecordsViewAttachment</comment>
+  </data>
+  <data name="ROI.13.3.24" xml:space="preserve">
+    <value>Already released attachmens cannot be deleted.fr</value>
+    <comment>PatientRecordsViewAttachment</comment>
+  </data>
+  <data name="ROI.1.13.06" xml:space="preserve">
+    <value>Generated letters of share location is not configured in Database.fr</value>
+    <comment>Release Screen</comment>
+  </data>
+  <data name="select adjustment type" xml:space="preserve">
+    <value>Please select a valid Adjustment Type..fr</value>
+    <comment>AccountManagement- FeeUI</comment>
+  </data>
+  <data name="ROI.12.1.03" xml:space="preserve">
+    <value>Failed to create audit and event for auto apply to invoice..fr</value>
+    <comment>Release and invoice</comment>
+  </data>
+  <data name="Self Pay Encounter" xml:space="preserve">
+    <value> (Self-Pay).fr</value>
+    <comment>Self Pay Encounter</comment>
+  </data>
+  <data name="Self Pay Message" xml:space="preserve">
+    <value>This request includes Self-Pay encounters. Regulations may limit this type of release. Are you sure you want to continue?.fr</value>
+    <comment>Self Pay Encounter</comment>
+  </data>
+</root>

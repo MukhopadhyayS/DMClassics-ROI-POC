@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.mckesson.eig.output.model.OutputJob"
+           table="Output_Service_Job"
+           dynamic-update="true"
+           optimistic-lock="version">
+
+		<id name="jobSeq">
+			<column name="Output_Service_Job_Seq" sql-type="int"/>
+			<generator class="identity"/>
+		</id>
+
+		<version name="recordVersion" column="osj_Record_Version" type="integer" />
+
+		<property name="orgSeq">
+            <column name="osj_Organization_Seq" sql-type="int" not-null="true" />
+        </property>
+
+		<property name="destID">
+            <column name="osj_queue_seq" sql-type="int" not-null="true" />
+        </property>
+
+		<property name="jobName">
+            <column name="osj_job_id" sql-type="char(64)" not-null="true"></column>
+        </property>
+
+        <property name="userName">
+            <column name="osj_submitted_by" sql-type="char(64)" not-null="true"></column>
+        </property>
+
+		<property name="createdBy">
+            <column name="osj_Created_By_Seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="createdDate">
+            <column name="osj_Created_Dt" sql-type="smalldatetime" not-null="true" />
+        </property>
+
+        <property name="modifiedDate">
+            <column name="osj_Modified_Dt" sql-type="smalldatetime" not-null="true" />
+        </property>
+
+        <property name="modifiedBy">
+            <column name="osj_Modified_By_Seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="statusID">
+            <column name="osj_status_seq" sql-type="int" not-null="true" />
+        </property>
+
+		<property name="pages">
+            <column name="osj_pages" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="requestXML">
+            <column name="osj_OutputServicerequest" sql-type="xml" not-null="true" />
+        </property>
+
+        <property name="resultsXML">
+            <column name="osj_Results" sql-type="xml" not-null="false" />
+        </property>
+        
+        <property name="processingServer">
+            <column name="Osj_ProcessingServer" sql-type="char(64)" not-null="false" />
+        </property>
+
+        <property name="statusDetail">
+            <column name="Osj_OutputServerStatus_Details" sql-type="varchar(255)" not-null="false" />
+        </property>
+
+         <list name="parts"  cascade="all-delete-orphan" lazy="false" fetch="join" >
+     		<key column="osjp_osj_seq" not-null="true"/>
+     		<list-index column="osjp_part_seq" />
+  			<one-to-many class="com.mckesson.eig.output.model.JobPart" />
+  		</list>
+	</class>
+
+	<query name="retrieveAllJobs"><![CDATA[
+		select job from com.mckesson.eig.output.model.OutputJob job
+	]]></query>
+
+	<query name="retrieveJobByID"><![CDATA[
+		select job from com.mckesson.eig.output.model.OutputJob job
+		where job.jobSeq = ?
+	]]></query>
+
+	<query name="retrieveJobsByStatus"><![CDATA[
+		select job from com.mckesson.eig.output.model.OutputJob job
+		where job.statusID = ?
+	]]></query>
+
+	<query name="retrieveJobsByStatusAndUpdatedTimePeriod"><![CDATA[
+		select job from com.mckesson.eig.output.model.OutputJob job
+		where job.statusID = ?
+		and   job.modifiedDate >= ?
+		and   job.modifiedDate <= ?
+	]]></query>
+
+    <query name="retrieveJobsByStatusAndUpdatedTime"><![CDATA[
+        select job from com.mckesson.eig.output.model.OutputJob job
+        where job.statusID = ?
+        and   job.modifiedDate <= ?
+    ]]></query>
+
+   	<query name="retrieveJobStatus"><![CDATA[
+        select statusID from com.mckesson.eig.output.model.OutputJob job
+        where job.jobSeq = ?
+    ]]></query>
+
+  	 <sql-query name="retrieveNextAvailableJobForOnePerQueues">
+        <return-scalar column="jobSeq" type="integer"/>
+	    <![CDATA[
+	        select top 1 job.Output_Service_Job_Seq AS jobSeq
+			FROM Output_Service_Job job 
+        	WITH (ROWLOCK,XLOCK,READPAST)
+			where job.osj_status_seq = :readyStatus 
+			and job.osj_queue_seq in (:destIds) 
+	        and job.osj_queue_seq not in (
+	        select osj_queue_seq from Output_Service_Job
+	        where osj_status_seq  = :processStatus
+	        and osj_queue_seq in (:destIds))
+	        order by job.osj_Modified_Dt asc
+ 	    ]]>
+    </sql-query>
+ 
+   	<sql-query name="retrieveNextJobQueue">
+        <return-scalar column="jobSeq" type="integer"/>
+	    <![CDATA[
+	        select top 1 job.Output_Service_Job_Seq AS jobSeq
+			FROM Output_Service_Job job 
+        	WITH (ROWLOCK,XLOCK,READPAST)
+			where job.osj_status_seq = :status 
+			and job.osj_queue_seq in (:destIds) 
+        	order by job.osj_Modified_Dt asc
+ 	    ]]>
+    </sql-query>
+   
+    <sql-query name="retrieveCurrentProcessingJob">
+        <return-scalar column="jobSeq" type="integer"/>
+	    <![CDATA[
+	        select top 1 job.Output_Service_Job_Seq AS jobSeq
+			FROM Output_Service_Job job 
+        	WITH (ROWLOCK,XLOCK,READPAST)
+			where job.osj_status_seq = :status 
+			and job.osj_queue_seq in (:destIds) 
+			and (job.Osj_ProcessingServer = :hostname or job.Osj_ProcessingServer is null)
+			order by job.osj_Modified_Dt asc
+	    ]]>
+    </sql-query>
+
+    <sql-query name="retrieveCurrentProcessingJobForServer">
+        <return-scalar column="jobSeq" type="integer"/>
+	    <![CDATA[
+	        select top 1 job.Output_Service_Job_Seq AS jobSeq
+			FROM Output_Service_Job job 
+        	WITH (ROWLOCK,XLOCK,READPAST)
+			where job.osj_status_seq = :status 
+			and job.osj_queue_seq in (:destIds) 
+			and job.Osj_ProcessingServer = :hostname
+			order by job.osj_Modified_Dt asc
+	    ]]>
+    </sql-query>
+    
+    <sql-query name="setJobStatusByJobIds">
+        <![CDATA[    
+            UPDATE
+            	Output_Service_Job
+            SET
+            	osj_status_seq = :status,
+            	osj_Modified_Dt = getDate(),
+            	Osj_ProcessingServer = :hostname
+             WHERE
+            	Output_Service_Job_Seq in (:jobIds) 
+        ]]>
+    </sql-query>
+    
+     <sql-query name="resetIdleJobToStatus">
+        <![CDATA[    
+            UPDATE
+            	Output_Service_Job
+            SET
+            	osj_status_seq = :setStatus,
+            	osj_Modified_Dt = getDate(),
+            	Osj_ProcessingServer = null,
+            	Osj_OutputServerStatus_Details = :statusDetail
+            WHERE
+            	Output_Service_Job_Seq in (
+		 	        Select  top 1 Output_Service_Job_Seq
+					FROM Output_Service_Job 
+					WHERE osj_status_seq = :checkStatus 
+						and osj_queue_seq in (:destIds) 
+			        	and osj_Modified_Dt < DATEADD(minute, :minute, getDate())
+            	)
+        ]]>
+    </sql-query>
+
+     <sql-query name="resetIdleJobToStatusByDay">
+        <![CDATA[    
+            UPDATE
+            	Output_Service_Job
+            SET
+            	osj_status_seq = :setStatus,
+           		osj_Modified_Dt = getDate(),
+            	Osj_ProcessingServer = null,
+            	Osj_OutputServerStatus_Details = :statusDetail
+            WHERE
+            	Output_Service_Job_Seq in (
+		 	        Select  top 1 Output_Service_Job_Seq
+					FROM Output_Service_Job 
+					WHERE osj_status_seq in (:checkStatus)  
+			        	and osj_Modified_Dt < DATEADD(day, :day, getDate())
+            	)
+        ]]>
+    </sql-query>
+
+     <sql-query name="resetIdleJobByRemoveServerName">
+        <![CDATA[    
+            UPDATE
+            	Output_Service_Job
+            SET
+            	osj_Modified_Dt = getDate(),
+            	Osj_ProcessingServer = null,
+            	Osj_OutputServerStatus_Details = :statusDetail
+            WHERE
+            	Output_Service_Job_Seq in (
+		 	        Select top 1 Output_Service_Job_Seq
+					FROM Output_Service_Job 
+					WHERE osj_status_seq = :checkStatus 
+						and osj_queue_seq in (:destIds) 
+			        	and osj_Modified_Dt < DATEADD(minute, :minute, getDate())
+            	)
+        ]]>
+    </sql-query>
+ 
+    <!-- the following query can be used as a standalone query 
+    and is also used as the select statement for a dynamic query -->
+    <sql-query name="retrieveAllJobsWithDetails">
+        <return-scalar column="jobSeq" type="integer"/>
+        <return-scalar column="createdDate" type="timestamp"/>
+        <return-scalar column="createdBy" type="integer"/>
+        <return-scalar column="modifiedDate" type="timestamp"/>
+        <return-scalar column="modifiedBy" type="integer"/>
+        <return-scalar column="recordVersion" type="integer"/>
+        <return-scalar column="orgSeq" type="integer"/>
+        <return-scalar column="jobName" type="string"/>
+        <return-scalar column="userName" type="string"/>
+        <return-scalar column="destID" type="integer"/>
+        <return-scalar column="statusID" type="integer"/>
+        <return-scalar column="pages" type="integer"/>
+        <return-scalar column="resultsXML" type="string"/>
+        <return-scalar column="jobDetails" type="string"/>
+        <return-scalar column="statusDetail" type="string"/>
+    <![CDATA[
+        select job.Output_Service_Job_Seq AS jobSeq,
+        job.osj_Created_Dt AS createdDate,
+        job.osj_Created_By_Seq AS createdBy,
+        job.osj_Modified_Dt AS modifiedDate,
+        job.osj_Modified_By_Seq AS modifiedBy,
+        job.osj_Record_Version AS recordVersion, 
+        job.osj_Organization_Seq AS orgSeq,  
+        job.osj_job_id AS jobName,           
+        job.osj_submitted_by AS userName,    
+        job.osj_queue_seq AS destID,         
+        job.osj_status_seq AS statusID,      
+        job.osj_pages AS pages,   
+        job.osj_results AS resultsXML,          
+        job.osj_OutputServicerequest.query('declare default element namespace "http://eig.mckesson.com/xsd/2009/01"; data(/outputRequest/properties/property[key="jobDetails"]/value)') as jobDetails,
+        job.Osj_OutputServerStatus_Details statusDetail
+        FROM Output_Service_Job job 
+    ]]></sql-query>
+    
+    <!-- the following query can be used as a standalone query 
+    and is also used as the select statement for a dynamic query 
+    returns jobs within date range-->
+
+    <sql-query name="retrieveJobsWithDetails">
+        <return-scalar column="jobSeq" type="integer"/>
+        <return-scalar column="createdDate" type="timestamp"/>
+        <return-scalar column="createdBy" type="integer"/>
+        <return-scalar column="modifiedDate" type="timestamp"/>
+        <return-scalar column="modifiedBy" type="integer"/>
+        <return-scalar column="recordVersion" type="integer"/>
+        <return-scalar column="orgSeq" type="integer"/>
+        <return-scalar column="jobName" type="string"/>
+        <return-scalar column="userName" type="string"/>
+        <return-scalar column="destID" type="integer"/>
+        <return-scalar column="statusID" type="integer"/>
+        <return-scalar column="pages" type="integer"/>
+        <return-scalar column="resultsXML" type="string"/>
+        <return-scalar column="jobDetails" type="string"/>
+        <return-scalar column="statusDetail" type="string"/>
+    <![CDATA[
+        select job.Output_Service_Job_Seq AS jobSeq,
+        job.osj_Created_Dt AS createdDate,
+        job.osj_Created_By_Seq AS createdBy,
+        job.osj_Modified_Dt AS modifiedDate,
+        job.osj_Modified_By_Seq AS modifiedBy,
+        job.osj_Record_Version AS recordVersion, 
+        job.osj_Organization_Seq AS orgSeq,  
+        job.osj_job_id AS jobName,           
+        job.osj_submitted_by AS userName,    
+        job.osj_queue_seq AS destID,         
+        job.osj_status_seq AS statusID,      
+        job.osj_pages AS pages,               
+        job.osj_results AS resultsXML,          
+        job.osj_OutputServicerequest.query('declare default element namespace "http://eig.mckesson.com/xsd/2009/01"; data(/outputRequest/properties/property[key="jobDetails"]/value)') as jobDetails,
+        job.Osj_OutputServerStatus_Details statusDetail
+        FROM Output_Service_Job job 
+        where osj_created_dt >= :T_FROM_DATE
+        and osj_created_dt <= :T_TO_DATE         
+    ]]></sql-query>
+
+</hibernate-mapping>

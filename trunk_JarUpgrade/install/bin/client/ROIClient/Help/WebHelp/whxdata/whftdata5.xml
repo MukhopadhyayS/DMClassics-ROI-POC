@@ -1,0 +1,94 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<!-- saved from url=(0014)about:internet -->
+<ftstdata>
+<topic name="Requestor Type" url="reports/form_descrip/_shared_report_items/requestor_type.htm" />
+<topic name="Reset" url="reports/form_descrip/_shared_report_items/reset.htm" />
+<topic name="&lt;Report title&gt; Report" url="reports/form_descrip/_shared_report_items/roi_-_report.htm" />
+<topic name="Run Report" url="reports/form_descrip/_shared_report_items/run_report.htm" />
+<topic name="User name and ID" url="reports/form_descrip/_shared_report_items/user_name_and_id.htm" />
+<topic name="View By" url="reports/form_descrip/_shared_report_items/view_by.htm" />
+<topic name="Account Receivable Aging form" url="reports/form_descrip/account_receivable_aging_report_form.htm" />
+<topic name="Accounting of Disclosure Report form" url="reports/form_descrip/accounting_of_disclosure_report_form.htm" />
+<topic name="Patient Information" url="reports/form_descrip/accounting_of_disclosure_report_items/patient_information.htm" />
+<topic name="Request Type" url="reports/form_descrip/accounting_of_disclosure_report_items/request_type.htm" />
+<topic name="Select a Patient" url="reports/form_descrip/accounting_of_disclosure_report_items/select_a_patient.htm" />
+<topic name="Billable/Unbillable Report form" url="reports/form_descrip/billable_unbillable_report_form.htm" />
+<topic name="Documents Released by MRN Report form" url="reports/form_descrip/documents_released_by_mrn_report_form.htm" />
+<topic name="MRN" url="reports/form_descrip/documents_released_by_mrn_report_items/mrn.htm" />
+<topic name="MU ReleaseTurn Around Time Report form" url="reports/form_descrip/mu_rel_turn_around_time_report_form.htm" />
+<topic name="Document Type" url="reports/form_descrip/mu_rel_turnaround_times_report_items/document_type.htm" />
+<topic name="Outstanding Invoice Balances Report form" url="reports/form_descrip/outstanding_invoice_balances_report_form.htm" />
+<topic name="Pending Aging Summary Report Form" url="reports/form_descrip/pending_aging_summary_report_form.htm" />
+<topic name="Posted Payments Report form" url="reports/form_descrip/posted_payments_report_form.htm" />
+<topic name="Pre-Bill Report form" url="reports/form_descrip/pre-bill_report_form.htm" />
+<topic name="Processed Request Summary Report form" url="reports/form_descrip/processed_request_summary_report_form.htm" />
+<topic name="Productivity Report form" url="reports/form_descrip/productivity_report_form.htm" />
+<topic name="Username" url="reports/form_descrip/productivity_report_items/username.htm" />
+<topic name="Request Detail Report form" url="reports/form_descrip/request_detail_report_form.htm" />
+<topic name="Request Status Summary Report form" url="reports/form_descrip/request_status_summary_report_form.htm" />
+<topic name="Requests with Logged Status Report form" url="reports/form_descrip/requests_with_logged_status_report_form.htm" />
+<topic name="ROI Billing Report form" url="reports/form_descrip/roi_billing_report_form.htm" />
+<topic name="Sales Tax Report form" url="reports/form_descrip/sales_tax_report_form.htm" />
+<topic name="Turn Around Times Report form" url="reports/form_descrip/turn_around_times_report_form.htm" />
+<topic name="Statuses From and To" url="reports/form_descrip/turn_around_times_report_items/statuses_from_and_to.htm" />
+<topic name="User Name &amp; ID" url="reports/form_descrip/turn_around_times_report_items/user_name_and_id.htm" />
+<topic name="Output Search Results" url="reports/output_search_results.htm" />
+<topic name="About account management" url="requestors/about_account_management.htm" />
+<topic name="About adjustments" url="requestors/about_adjustments.htm" />
+<topic name="About payments" url="requestors/about_payments.htm" />
+<topic name="About refunds" url="requestors/about_refunds.htm" />
+<topic name="About requestors" url="requestors/about_requestors.htm" />
+<topic name="About statements" url="requestors/about_statements.htm" />
+<topic name="Adjustments dialog box" url="requestors/dialog_box_descriptions/adjustments_dialog_box.htm" />
+<topic name="Adjustment Amount" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/adjustment_amount.htm" />
+<topic name="Amount" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/amount.htm" />
+<topic name="Applied" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/applied.htm" />
+<topic name="Apply Adjustment to" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/apply_adjustment_to.htm" />
+<topic name="Auto-Apply" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/auto-apply.htm" />
+<topic name="Cancel" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/cancel.htm" />
+<topic name="Date" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/date.htm" />
+<topic name="Note" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/note.htm" />
+<topic name="Reason" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/reason.htm" />
+<topic name="Refunded" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/refunded.htm" />
+<topic name="Remove adjustment" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/remove_adjustment.htm" />
+<topic name="Save" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/save.htm" />
+<topic name="Type" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/type.htm" />
+<topic name="Unapplied" url="requestors/dialog_box_descriptions/adjustments_dialog_box_items/unapplied.htm" />
+<topic name="Invoice dialog box" url="requestors/dialog_box_descriptions/invoice_dialog_box.htm" />
+<topic name="Details grid" url="requestors/dialog_box_descriptions/invoice_dialog_box_items/details_grid.htm" />
+<topic name="Invoice details" url="requestors/dialog_box_descriptions/invoice_dialog_box_items/invoice_details.htm" />
+<topic name="OK" url="requestors/dialog_box_descriptions/invoice_dialog_box_items/ok.htm" />
+<topic name="View Invoice" url="requestors/dialog_box_descriptions/invoice_dialog_box_items/view_invoice.htm" />
+<topic name="Output Letters and/or Statements dialog box" url="requestors/dialog_box_descriptions/output_letters_and_or_statements_dialog_box.htm" />
+<topic name="Cancel" url="requestors/dialog_box_descriptions/output_letters_statements_dialog_box_items/cancel.htm" />
+<topic name="Print" url="requestors/dialog_box_descriptions/output_letters_statements_dialog_box_items/print.htm" />
+<topic name="Refund Letter group box" url="requestors/dialog_box_descriptions/output_letters_statements_dialog_box_items/refund_letter_group_box.htm" />
+<topic name="Save" url="requestors/dialog_box_descriptions/output_letters_statements_dialog_box_items/save.htm" />
+<topic name="Statements group box" url="requestors/dialog_box_descriptions/output_letters_statements_dialog_box_items/statements_group_box.htm" />
+<topic name="Output Requestor Statement dialog box" url="requestors/dialog_box_descriptions/output_requestor_statement_dialog_box.htm" />
+<topic name="Cancel" url="requestors/dialog_box_descriptions/output_requestor_statement_dialog_box_items/cancel.htm" />
+<topic name="Continue" url="requestors/dialog_box_descriptions/output_requestor_statement_dialog_box_items/continue.htm" />
+<topic name="Past invoice group box" url="requestors/dialog_box_descriptions/output_requestor_statement_dialog_box_items/past_invoice_group_box.htm" />
+<topic name="Statements group box" url="requestors/dialog_box_descriptions/output_requestor_statement_dialog_box_items/statements_group_box.htm" />
+<topic name="Payments dialog box" url="requestors/dialog_box_descriptions/payments_dialog_box.htm" />
+<topic name="Amount" url="requestors/dialog_box_descriptions/payments_dialog_box_items/amount.htm" />
+<topic name="Applied" url="requestors/dialog_box_descriptions/payments_dialog_box_items/applied.htm" />
+<topic name="Apply Payment to" url="requestors/dialog_box_descriptions/payments_dialog_box_items/apply_payment_to.htm" />
+<topic name="Balance" url="requestors/dialog_box_descriptions/payments_dialog_box_items/balance.htm" />
+<topic name="Cancel" url="requestors/dialog_box_descriptions/payments_dialog_box_items/cancel.htm" />
+<topic name="Date" url="requestors/dialog_box_descriptions/payments_dialog_box_items/date.htm" />
+<topic name="Method" url="requestors/dialog_box_descriptions/payments_dialog_box_items/method.htm" />
+<topic name="Note" url="requestors/dialog_box_descriptions/payments_dialog_box_items/note.htm" />
+<topic name="Payment Amount" url="requestors/dialog_box_descriptions/payments_dialog_box_items/payment_amount.htm" />
+<topic name="Refunded" url="requestors/dialog_box_descriptions/payments_dialog_box_items/refunded.htm" />
+<topic name="Remove Payment" url="requestors/dialog_box_descriptions/payments_dialog_box_items/remove_payment.htm" />
+<topic name="Restricted facility permissions" url="requestors/dialog_box_descriptions/payments_dialog_box_items/restricted_facility_permissions.htm" />
+<topic name="Save" url="requestors/dialog_box_descriptions/payments_dialog_box_items/save.htm" />
+<topic name="Unapplied" url="requestors/dialog_box_descriptions/payments_dialog_box_items/unapplied.htm" />
+<topic name="Refund dialog box" url="requestors/dialog_box_descriptions/refund_dialog_box.htm" />
+<topic name="Amount" url="requestors/dialog_box_descriptions/refund_dialog_box_items/amount.htm" />
+<topic name="Cancel" url="requestors/dialog_box_descriptions/refund_dialog_box_items/cancel.htm" />
+<topic name="Date" url="requestors/dialog_box_descriptions/refund_dialog_box_items/date.htm" />
+<topic name="Note" url="requestors/dialog_box_descriptions/refund_dialog_box_items/note.htm" />
+
+</ftstdata>  
