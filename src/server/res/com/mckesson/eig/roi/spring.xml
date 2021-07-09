@@ -318,11 +318,11 @@
 			value="com/mckesson/eig/roi/webservice-authorization.properties" />
 	</bean>
 
-     <bean id="HPFAuthenticationServiceLoader"
-           class="com.mckesson.eig.roi.hpf.service.HPFAuthenticationServiceLoader"
-           lazy-init="false">
-           <constructor-arg value="${mpfw.core.server.protocol}://${mpfw.core.server.hostname}:${mpfw.core.server.port}/portal/eig/iservices/signin"/>
-     </bean>
+<!--     <bean id="HPFAuthenticationServiceLoader"-->
+<!--           class="com.mckesson.eig.roi.hpf.service.HPFAuthenticationServiceLoader"-->
+<!--           lazy-init="false">-->
+<!--           <constructor-arg value="${mpfw.core.server.protocol}://${mpfw.core.server.hostname}:${mpfw.core.server.port}/portal/eig/iservices/signin"/>-->
+<!--     </bean>-->
 
 	<bean id="authenticator.roi"
           class="com.mckesson.eig.roi.hpf.service.ROIAuthenticator">

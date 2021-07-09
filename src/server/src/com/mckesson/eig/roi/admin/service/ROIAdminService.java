@@ -18,7 +18,7 @@ package com.mckesson.eig.roi.admin.service;
 
 import java.util.List;
 
-import com.mckesson.eig.User;
+//import com.mckesson.eig.User;
 import com.mckesson.eig.roi.admin.model.AttachmentLocation;
 import com.mckesson.eig.roi.admin.model.Country;
 import com.mckesson.eig.roi.admin.model.DeliveryMethod;
@@ -321,7 +321,7 @@ public interface ROIAdminService {
      * @param userId
      * @return
      */
-    User getUser(String userId);
+//    User getUser(String userId);
 
     /**
      * This method is used to enable the output service form ROI application.
