@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -22,8 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
-//import com.mckesson.eig.Security;
-//import com.mckesson.eig.User;
+import com.mckesson.eig.Security;
+import com.mckesson.eig.User;
 import com.mckesson.eig.roi.admin.dao.AdminLoVDAO;
 import com.mckesson.eig.roi.admin.dao.AdminLoVDAOImpl;
 import com.mckesson.eig.roi.admin.dao.AttachmentDAO;
@@ -1553,41 +1553,40 @@ implements ROIAdminService {
    /**
     * @see com.mckesson.eig.roi.admin.service.ROIAdminService#getUser(java.lang.String)
     */
-//    @Override
-//    public User getUser(String userId) {
-//
-//        final String logsM = "getUser(userId)";
-//        if (DO_DEBUG) {
-//            LOG.debug(logsM + ">>Start:" + userId);
-//        }
-//
-//        try {
-//
-//            if (StringUtilities.isEmpty(userId)) {
-//                throw new ROIException(ROIClientErrorCodes.USER_ID_CANNOT_BE_EMPTY);
-//            }
-//
-//            String id = getUser().getLoginId();
-//
-//            UserSecurityHibernateDao userSecurityDao = getUserSecurityHibernateDao();
-//            com.mckesson.eig.roi.hpf.model.User retrievedUser = userSecurityDao.retrieveUser(id);
-//
-//            User user = new User();
-//            setUserDetails(retrievedUser, user);
-//
-//            // Retrieving user SecurityRights
-//            List<UserSecurity> userSecurities = userSecurityDao
-//                                                    .getSecurityRight(getUser().getInstanceId());
-//
-//            setUserSecurity(userSecurities, user);
-//
-//            return user;
-//        } catch (Throwable e) {
-//
-//            LOG.error(logsM + "Error :" + e);
-//            throw new ROIException(ROIClientErrorCodes.COULD_NOT_GET_USER);
-//        }
-//    }
+    public User getUser(String userId) {
+
+        final String logsM = "getUser(userId)";
+        if (DO_DEBUG) {
+            LOG.debug(logsM + ">>Start:" + userId);
+        }
+
+        try {
+
+            if (StringUtilities.isEmpty(userId)) {
+                throw new ROIException(ROIClientErrorCodes.USER_ID_CANNOT_BE_EMPTY);
+            }
+
+            String id = getUser().getLoginId();
+
+            UserSecurityHibernateDao userSecurityDao = getUserSecurityHibernateDao();
+            com.mckesson.eig.roi.hpf.model.User retrievedUser = userSecurityDao.retrieveUser(id);
+
+            User user = new User();
+            setUserDetails(retrievedUser, user);
+
+            // Retrieving user SecurityRights
+            List<UserSecurity> userSecurities = userSecurityDao
+                                                    .getSecurityRight(getUser().getInstanceId());
+
+            setUserSecurity(userSecurities, user);
+
+            return user;
+        } catch (Throwable e) {
+
+            LOG.error(logsM + "Error :" + e);
+            throw new ROIException(ROIClientErrorCodes.COULD_NOT_GET_USER);
+        }
+    }
 
     /**
      *
@@ -1687,24 +1686,24 @@ implements ROIAdminService {
 //
 //    }
 
-//    private void setUserSecurity(List<UserSecurity> userSecurities, User user) {
-//
-//        List<Integer> codeList = new ArrayList<Integer>();
-//        for (UserSecurity security : userSecurities) {
-//            if (security.getFacility().trim().equalsIgnoreCase(ENTERPRISE)) {
-//                codeList.add(security.getSecurityId());
-//            }
-//        }
-//        Security[] securities = new Security[1];
-//
-//        Security security = new Security();
-//        security.setFacility(ENTERPRISE);
-//        security.setCodes(getListAsArray(codeList));
-//
-//        securities[0] = security;
-//
-//        user.setSecurities(securities);
-//    }
+    private void setUserSecurity(List<UserSecurity> userSecurities, User user) {
+
+        List<Integer> codeList = new ArrayList<Integer>();
+        for (UserSecurity security : userSecurities) {
+            if (security.getFacility().trim().equalsIgnoreCase(ENTERPRISE)) {
+                codeList.add(security.getSecurityId());
+            }
+        }
+        Security[] securities = new Security[1];
+
+        Security security = new Security();
+        security.setFacility(ENTERPRISE);
+        security.setCodes(getListAsArray(codeList));
+
+        securities[0] = security;
+
+        user.setSecurities(securities);
+    }
 
     private int[] getListAsArray(List<Integer> codeList) {
 
@@ -1716,15 +1715,15 @@ implements ROIAdminService {
         return codes;
     }
 
-//    private void setUserDetails(com.mckesson.eig.roi.hpf.model.User src,
-//        User user) {
-//
-//        user.setFullName(src.getFullName().trim());
-//        user.setInstanceId(src.getInstanceId());
-//        user.setLoginId(src.getLoginId().trim());
-//        user.setIdle(src.getIdle());
-//        user.setValidateCode(src.getValidateCode());
-//    }
+    private void setUserDetails(com.mckesson.eig.roi.hpf.model.User src,
+        User user) {
+
+        user.setFullName(src.getFullName().trim());
+        user.setInstanceId(src.getInstanceId());
+        user.setLoginId(src.getLoginId().trim());
+        user.setIdle(src.getIdle());
+        user.setValidateCode(src.getValidateCode());
+    }
 
     private UserSecurityHibernateDao getUserSecurityHibernateDao() {
         return (UserSecurityHibernateDao) SpringUtilities.getInstance().getBeanFactory()
