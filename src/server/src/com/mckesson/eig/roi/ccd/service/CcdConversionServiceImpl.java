@@ -13,7 +13,8 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.BeanFactory;
 
-import com.lowagie.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfReader;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.audit.model.AuditEvent;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -33,7 +34,6 @@ import com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.roi.utils.DirectoryUtil;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.util.SpringUtilities;
 

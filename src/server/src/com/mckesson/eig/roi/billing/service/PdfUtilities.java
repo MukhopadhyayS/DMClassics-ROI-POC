@@ -20,12 +20,13 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lowagie.text.pdf.PdfCopy;
-import com.lowagie.text.pdf.PdfEncryptor;
-import com.lowagie.text.pdf.PdfImportedPage;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.pdf.SimpleBookmark;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfCopy;
+import com.itextpdf.text.pdf.PdfEncryptor;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.SimpleBookmark;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -53,7 +54,7 @@ public final class PdfUtilities {
             ArrayList bookmarkMasterList = new ArrayList();
 
             int f = 0;
-            com.lowagie.text.Document document = null;
+            Document document = null;
             PdfCopy writer = null;
             while (f < files.size()) {
                 PdfReader reader = new PdfReader(files.get(f));
@@ -77,7 +78,7 @@ public final class PdfUtilities {
                 pageOffset += n;
 
                 if (f == 0) {
-                    document = new com.lowagie.text.Document(reader.getPageSizeWithRotation(1));
+                    document = new Document(reader.getPageSizeWithRotation(1));
                     writer = new PdfCopy(document, AccessFileLoader.getFileOutputStream(outputFile));
                     document.open();
                 }

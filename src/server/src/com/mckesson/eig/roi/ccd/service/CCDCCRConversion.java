@@ -54,7 +54,7 @@ public class CCDCCRConversion {
 
 	private JAXBContext _ccdContext;
 	private JAXBContext _ccrContext;
-	private FopFactory _fopFactory = FopFactory.newInstance();
+	private FopFactory _fopFactory = FopFactory.newInstance(new File(".").toURI());
 	private FOUserAgent _foUserAgent = _fopFactory.newFOUserAgent();
 
 	private String _ccrXsltSrc = null;
