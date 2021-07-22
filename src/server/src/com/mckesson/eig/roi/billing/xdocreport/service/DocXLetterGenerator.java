@@ -19,8 +19,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.xwpf.converter.pdf.PdfConverter;
-import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import com.aspose.words.Document;
@@ -51,6 +49,8 @@ import com.mckesson.eig.roi.billing.xdocreport.model.XDocShippingInfo;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
+import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;

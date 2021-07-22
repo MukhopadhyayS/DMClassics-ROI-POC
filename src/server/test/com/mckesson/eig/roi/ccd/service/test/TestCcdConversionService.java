@@ -374,7 +374,7 @@ public class TestCcdConversionService extends BaseROITestCase {
 
         try {
 
-            FopFactory _fopFactory = FopFactory.newInstance();
+            FopFactory _fopFactory = FopFactory.newInstance(new File(".").toURI());
             FOUserAgent _foUserAgent = _fopFactory.newFOUserAgent();
             PdfEventHandler handler = new PdfEventHandler(_foUserAgent, AccessFileLoader.getFileOutputStream("ccd"));
 
