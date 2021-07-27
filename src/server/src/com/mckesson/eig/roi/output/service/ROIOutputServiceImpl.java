@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.output.model.DestInfo;
@@ -35,7 +35,6 @@ import com.mckesson.eig.roi.output.model.TaskAttributes;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.OutputQueueWebserviceInterface;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.OutputWebserviceInterface;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.ROIOutputWebServiceInterface;
-import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.webservice.proxy.BaseRestService;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.ObjectUtilities;

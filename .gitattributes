@@ -15,3 +15,4 @@
 /trunk_JarUpgrade/install/bin/client/ROIClient/DotNetFx462Client/NDP462-KB3151800-x86-x64-AllOS-ENU.exe filter=lfs diff=lfs merge=lfs -text
 /trunk_JarUpgrade/install/bin/server/jdk1.7.0_11-32/jre/lib/rt.jar filter=lfs diff=lfs merge=lfs -text
 /trunk_JarUpgrade/install/bin/server/jdk1.7.0_11-64/jre/lib/rt.jar filter=lfs diff=lfs merge=lfs -text
+/src/server/3rdparty/lib/aspose-pdf-21.4.jar filter=lfs diff=lfs merge=lfs -text
