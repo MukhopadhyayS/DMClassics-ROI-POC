@@ -44,11 +44,11 @@
 	<classpathentry kind="lib" path="3rdparty/lib/asm-1.5.3.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/aspectjweaver.jar"/>
 	
-	<classpathentry kind="lib" path="3rdparty/lib/aspose-pdf-11.9.0.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/aspose-words-16.4.0-jdk16.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/aspose-pdf-11.9.0.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/aspose-words-16.4.0-jdk16.jar"/> -->
 	
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/aspose-pdf-21.4.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/aspose-words-21.2-jdk16.jar"/> -->
+	<classpathentry kind="lib" path="3rdparty/lib/aspose-pdf-21.4.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/aspose-words-21.2-jdk16.jar"/>
 	
 	
 	<classpathentry kind="lib" path="3rdparty/lib/audit.jar"/>
@@ -103,9 +103,24 @@
 	<classpathentry kind="lib" path="3rdparty/lib/itextpdf-5.5.13.2.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/iws-ha.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-core-asl-1.9.6.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-1.9.6.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-mapper-asl-1.9.6.jar"/>
+	
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/jackson-core-asl-1.9.6.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-1.9.6.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/jackson-mapper-asl-1.9.6.jar"/> -->
+	
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-core-2.12.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-databind-2.12.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-annotations-2.12.3.jar"/>
+	
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-json-provider-2.12.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-base-2.12.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-module-jaxb-annotations-2.12.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jakarta.xml.bind-api-2.3.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jakarta.activation-api-1.2.1.jar"/>
+	
+	
+	
+	
 	<classpathentry kind="lib" path="3rdparty/lib/jai_codec.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jai_core.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jakarta-oro-2.0.8.jar"/>

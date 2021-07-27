@@ -3,7 +3,7 @@
  */
 package com.mckesson.eig.roi.output.model;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Karthik Easwaran(OFS)

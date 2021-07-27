@@ -384,8 +384,12 @@
 	
 	 <!--  Rest webservice related stuff Starts -->
     
-    <util:list id="webClientProviders">
+    <!-- <util:list id="webClientProviders">
         <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+    </util:list> -->
+    
+    <util:list id="webClientProviders">
+        <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
     </util:list>
     
     <bean id="WebClientPool" class="com.mckesson.eig.roi.webservice.util.rest.RestWebClientPool">
