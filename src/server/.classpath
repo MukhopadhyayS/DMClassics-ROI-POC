@@ -27,8 +27,8 @@
 	<classpathentry kind="lib" path="3rdparty/lib/hibernate-commons-annotations-5.1.2.Final.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jaxb-api-2.3.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jaxb-runtime-2.3.1.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/txw2-2.3.1.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/istack-commons-runtime-3.0.7.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/txw2-2.3.1.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/istack-commons-runtime-3.0.7.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/stax-ex-1.8.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/FastInfoset-1.2.15.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-collections-3.2.2.jar"/>
@@ -40,7 +40,14 @@
 	<classpathentry kind="src" path="plug-in/ParagonCcdPrivoder/src"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="3rdparty/lib/activation-1.1.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/ant.jar"/>
+	
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/ant.jar"/> -->
+	
+	<classpathentry kind="lib" path="3rdparty/lib/ant-1.10.10.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/ant-launcher-1.10.10.jar"/>
+	
+	
+	
 	<classpathentry kind="lib" path="3rdparty/lib/asm-1.5.3.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/aspectjweaver.jar"/>
 	
@@ -63,25 +70,46 @@
 	<classpathentry kind="lib" path="3rdparty/lib/castor-1.0.5-xml.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/ccdccr.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cglib.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/commons-beanutils-1.7.0.jar"/>
+	
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/commons-beanutils-1.7.0.jar"/> -->
+	<classpathentry kind="lib" path="3rdparty/lib/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/commons-digester3-3.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/commons-lang3-3.10.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/velocity-engine-core-2.3.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/velocity-tools-generic-3.1.jar"/> -->
+	
+	
+	
 	<classpathentry kind="lib" path="3rdparty/lib/commons-cli-1.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-configuration-1.8.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-dbcp-1.2.1.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/commons-digester-1.7.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/commons-digester-1.7.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/commons-discovery-0.2.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/commons-io-1.4.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/commons-logging.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/commons-pool-1.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/concurrent-1.3.4.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/cxf-core-3.1.11.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-frontend-jaxrs-3.1.11.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-rs-client-3.1.11.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-transports-http-3.1.11.jar"/>
+	
+	
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/cxf-core-3.1.11.jar"/> -->
+	
+	<classpathentry kind="lib" path="3rdparty/lib/cxf-core-3.4.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-frontend-jaxrs-3.4.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-rs-client-3.4.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-transports-http-3.4.3.jar"/>
+	
+	
+	
+	
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/cxf-rt-frontend-jaxrs-3.1.11.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/cxf-rt-rs-client-3.1.11.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/cxf-rt-transports-http-3.1.11.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/javax.annotation-api-1.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/javax.ws.rs-api-2.0.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/stax2-api-3.1.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/woodstox-core-asl-4.4.1.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/xmlschema-core-2.2.1.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlschema-core-2.2.1.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/dbunit-2.4.8.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/dom4j.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/eig-filetransfer.jar"/>
@@ -96,7 +124,19 @@
 	<classpathentry kind="lib" path="3rdparty/lib/geronimo-activation_1.1_spec-1.0.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/geronimo-ws-metadata_2.0_spec-1.1.2.jar"/>
+	
 	<classpathentry kind="lib" path="3rdparty/lib/guava-11.0.1.jar"/>
+	
+	
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/guava-30.1.1-jre.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/checker-qual-3.8.0.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/error_prone_annotations-2.5.1.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/failureaccess-1.0.1.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/j2objc-annotations-1.3.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/jsr305-3.0.2.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/> -->
+	
+	
 	<classpathentry kind="lib" path="3rdparty/lib/httpunit.jar"/>
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/itext-2.1.7.jar"/> -->
@@ -115,9 +155,20 @@
 	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-json-provider-2.12.3.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-base-2.12.3.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jackson-module-jaxb-annotations-2.12.3.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jakarta.xml.bind-api-2.3.2.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jakarta.activation-api-1.2.1.jar"/>
 	
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/jakarta.xml.bind-api-2.3.2.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/jakarta.activation-api-1.2.1.jar"/> -->
+	
+	<classpathentry kind="lib" path="3rdparty/lib/jakarta.activation-1.2.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jakarta.activation-api-1.2.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jakarta.xml.bind-api-2.3.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jakarta.ws.rs-api-2.1.6.jar"/>
+	
+	<classpathentry kind="lib" path="3rdparty/lib/istack-commons-runtime-3.0.11.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/txw2-2.3.3.jar"/>
+	
+	<classpathentry kind="lib" path="3rdparty/lib/xmlschema-core-2.2.5.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/stax2-api-4.2.1.jar"/> -->
 	
 	
 	
@@ -167,7 +218,7 @@
 	
 	<classpathentry kind="lib" path="3rdparty/lib/xmlgraphics-commons-2.6.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-io-1.4.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/commons-logging-1.0.4.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/commons-logging-1.0.4.jar"/> -->
 	
 	
 	
@@ -180,6 +231,9 @@
 	
 	<classpathentry kind="lib" path="3rdparty/lib/bcpkix-jdk15on-1.68.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/bcprov-jdk15on-1.68.jar"/>
+	
+	<classpathentry kind="lib" path="3rdparty/lib/xmlbeans-4.0.0.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.2.1.jar"/> -->
 	
 	
 	
@@ -211,12 +265,14 @@
 	<classpathentry kind="lib" path="3rdparty/lib/test-eig-utils.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/test-eig-wsfw.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/unoil-3.1.0.jar"/>
+	
 	<classpathentry kind="lib" path="3rdparty/lib/velocity-1.7-dep.jar"/>
+	
 	<classpathentry kind="lib" path="3rdparty/lib/wsdl4j-1.6.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/wss4j-1.5.0.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/xdocreport-2.0.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/xercesImpl-2.8.0.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/xmlbeans-2.3.0.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlbeans-2.3.0.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlgraphics-commons-1.4.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/xmlsec-1.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/hpf-signIn-stub.jar"/>

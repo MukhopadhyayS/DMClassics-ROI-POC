@@ -1,6 +1,6 @@
 package com.mckesson.eig.roi.utils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.identityconnectors.common.security.GuardedString;
 
 
