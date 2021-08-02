@@ -26,7 +26,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.axis.MessageContext;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.Client;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
