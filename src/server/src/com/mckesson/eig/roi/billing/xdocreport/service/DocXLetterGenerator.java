@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -54,8 +55,10 @@ import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
+import fr.opensagres.xdocreport.template.ITemplateEngine;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
+import fr.opensagres.xdocreport.template.velocity.internal.VelocityTemplateEngine;
 
 /**
  * This class is used to merge .docx template dynamically and 
@@ -81,8 +84,18 @@ implements LetterGenerator {
             
             //Loading the XdocReport through velocity template engine
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(templateStream, TemplateEngineKind.Velocity );
+            
+            Properties properties = new Properties();
+            properties.setProperty("resource.loader", "class");
+            properties.setProperty(
+                    "class.resource.loader.class",               "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+
+            ITemplateEngine templateEngine = new VelocityTemplateEngine(properties);
+            report.setTemplateEngine(templateEngine);
+            
             IContext context = report.createContext();
             FieldsMetadata fieldsMetadata = mapDataToContext(context, data);
+            fieldsMetadata.setTemplateEngineKind("Velocity");
             report.setFieldsMetadata(fieldsMetadata);
             
             final String mergedDocxFile = ouputFile.substring(0, ouputFile.lastIndexOf(".")) + ".docx";
