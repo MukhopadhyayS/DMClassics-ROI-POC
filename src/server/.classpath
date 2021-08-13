@@ -82,7 +82,9 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/batik-all-1.7.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/bcmail-jdk15-141.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/bcprov-jdk16-1.46.jar"/> -->
-	<classpathentry kind="lib" path="3rdparty/lib/bonecp-0.7.1.RELEASE.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/bonecp-0.7.1.RELEASE.jar"/> -->
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/bonecp-0.8.0.RELEASE.jar"/> -->
+	<classpathentry kind="lib" path="3rdparty/lib/bonecp-custom-0.8.1.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/castor-1.0.5-xml.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/castor-1.2.jar"/> -->
@@ -153,16 +155,16 @@
 	<classpathentry kind="lib" path="3rdparty/lib/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/geronimo-ws-metadata_2.0_spec-1.1.2.jar"/>
 	
-	<classpathentry kind="lib" path="3rdparty/lib/guava-11.0.1.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/guava-11.0.1.jar"/> -->
 	
 	
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/guava-30.1.1-jre.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/checker-qual-3.8.0.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/error_prone_annotations-2.5.1.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/failureaccess-1.0.1.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/j2objc-annotations-1.3.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/jsr305-3.0.2.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/> -->
+	<classpathentry kind="lib" path="3rdparty/lib/guava-30.1.1-jre.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/checker-qual-3.8.0.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/error_prone_annotations-2.5.1.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/failureaccess-1.0.1.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/j2objc-annotations-1.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jsr305-3.0.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"/>
 	
 	
 	<classpathentry kind="lib" path="3rdparty/lib/httpunit.jar"/>
@@ -210,7 +212,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/jdepend-2_2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/joda-time-2.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/json-20080701.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jsr311-api-1.1.1.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/jsr311-api-1.1.1.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/jta-1.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jtds-1.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/juh-3.1.0.jar"/>
