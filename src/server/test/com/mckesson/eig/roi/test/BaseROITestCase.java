@@ -50,6 +50,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.hpf.dao.UserSecurityHibernateDao;
@@ -59,9 +60,6 @@ import com.mckesson.eig.roi.hpf.model.UserTypeLOV;
 import com.mckesson.eig.roi.hpf.service.HPFAuthenticationStrategy;
 import com.mckesson.eig.roi.hpf.service.SOAPMessenger;
 import com.mckesson.eig.roi.utils.AccessFileLoader;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogContext;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
@@ -89,8 +87,7 @@ extends junit.framework.TestCase {
     /**
      * Initialize the logger.
      */
-    private static final Log LOG = LogFactory
-            .getLogger(BaseROITestCase.class);
+    private static final OCLogger LOG = new OCLogger(BaseROITestCase.class);
 
     protected static final String DEFAULT_TEST_USER = "roitester";
     protected static final String DEFAULT_TEST_PWD  = "roi";
@@ -152,7 +149,7 @@ extends junit.framework.TestCase {
 
         InetAddress localHost = Inet4Address.getLocalHost();
         TransactionId transactionId = new TransactionId(getUser().getDisplayName(), localHost.getHostAddress());
-        LogContext.put("transactionid", transactionId);
+        //LogContext.put("transactionid", transactionId);
 
         _initialized = true;
 

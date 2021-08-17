@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -34,12 +35,10 @@ import com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.utils.DSWrapper;
 import com.mckesson.eig.roi.utils.SpringUtil;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 public class ParagonProvider implements CcdProvider {
-	private static final Log LOG = LogFactory.getLogger(ParagonProvider.class);
+	private static final OCLogger LOG = new OCLogger(ParagonProvider.class);
 
 	private static final String DB_URL = "jdbc:jtds:sqlserver://{0};DatabaseName={1}";
 	private static final String QUERY = "{call dbo.usp_hpf_ccd_request(?,?,?,?,?,?,?,?,?,?,?)}";

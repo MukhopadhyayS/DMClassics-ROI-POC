@@ -18,3 +18,4 @@
 /src/server/3rdparty/lib/aspose-pdf-21.4.jar filter=lfs diff=lfs merge=lfs -text
 /src/server/3rdparty/alert.war filter=lfs diff=lfs merge=lfs -text
 /src/server/3rdparty/eig-output.ear filter=lfs diff=lfs merge=lfs -text
+/src/server/3rdparty/inuse.war filter=lfs diff=lfs merge=lfs -text

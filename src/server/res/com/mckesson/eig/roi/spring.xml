@@ -187,18 +187,18 @@
 	<import resource="service.spring.xml" />
 
 	<!-- Logging services-->
-	<bean id="log_initializer"
+	<!-- <bean id="log_initializer"
 		class="com.mckesson.eig.utility.log.log4j.Log4JInitializer">
 		<property name="byProperties">
 			<value>ocroi.properties</value>
 		</property>
-	</bean>
+	</bean> -->
 
-	<bean id="globalIDInitializer" class="com.mckesson.eig.utility.log.log4j.GlobalIDInitializer" init-method="initAppGlobalID">
+	<!-- <bean id="globalIDInitializer" class="com.mckesson.eig.utility.log.log4j.GlobalIDInitializer" init-method="initAppGlobalID">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="globalName" value="ROI Server"/>
 		<property name="serverPort" value="18080" />
-	</bean>
+	</bean> -->
 
 	<bean id="castor_context"
 		class="com.mckesson.eig.wsfw.axis.CastorContext" lazy-init="true">

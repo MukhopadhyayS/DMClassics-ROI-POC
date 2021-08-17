@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.ccd.provider.CcdProvider;
@@ -29,12 +30,10 @@ import com.mckesson.eig.roi.ccd.provider.model.CcdDocument;
 import com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.utils.DSWrapper;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 public class ClinicalProvider implements CcdProvider {
-    private static final Log LOG = LogFactory.getLogger(ClinicalProvider.class);
+    private static final OCLogger LOG = new OCLogger(ClinicalProvider.class);
     private static final String DB_URL = "jdbc:oracle:thin:@//{0}:1521/{1}";
     private static final String REPORT_ID_QUERY = "select CCDBA.req_report_seq.nextval from Dual";
     private static final String INSERT_REPORT_QUERY = "insert into CCDBA.REQ_REPORT " + 
