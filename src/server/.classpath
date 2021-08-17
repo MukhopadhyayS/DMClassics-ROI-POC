@@ -218,7 +218,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/juh-3.1.0.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/junit-4.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jurt-3.1.0.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/log4j-1.2.16.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/log4j-1.2.16.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/mail-1.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/mockejb-0.6.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/neethi-3.0.2.jar"/>
@@ -294,6 +294,10 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/slf4j-api-1.7.7.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/slf4j-api-1.7.30.jar"/>
 	
+	<classpathentry kind="lib" path="3rdparty/lib/logback-access-1.2.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/logback-classic-1.2.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/logback-core-1.2.3.jar"/>
+	
 	
 	
 	
@@ -301,7 +305,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/rtftemplate-1.0.1-b14.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/servlet-api.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/slf4j-api-1.7.6.jar"/> -->
-	<classpathentry kind="lib" path="3rdparty/lib/slf4j-log4j12-1.7.6.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/slf4j-log4j12-1.7.6.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/src/concurrent-1.3.4-src.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/src/junit-4.1-src.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/src/wss4j-1.5.0-src.jar"/>
@@ -324,6 +328,6 @@
 	<classpathentry kind="lib" path="lib/roi-hpf-auth.jar"/>
 	<classpathentry kind="lib" path="plug-in/ClinicalCcdPrivoder/lib/ojdbc5.jar"/>
 	<classpathentry kind="lib" path="lib/OCInternalComm-21.0.jar"/>
-	<classpathentry kind="lib" path="lib/OCUtilities-21.0.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/OCUtilities-21.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

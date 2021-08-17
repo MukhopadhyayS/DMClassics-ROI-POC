@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<contextName>ocroi</contextName>
+
+	<property scope="system" name="roi.log.level.other" value="ERROR" />
+	<property scope="system" name="roi.log.level.3rd.party" value="ERROR" />
+	<property scope="system" resource="ocroi.properties" />
+	<property scope="system" name="APP_LOG" value="roi" />
+	<property scope="system" name="LOG_EXT" value="log" />
+	<property scope="system" name="LOG_EXT_ROLLOVER" value="%i.log" />
+	<property scope="system" name="UMI_CORE_LOG" value="umi" />
+	
+	<property scope="system" name="LOG_PATTERN" 
+		value="%d{MM-dd HH:mm:ss:SSS} | [%thread] | %-5level | %X{ocLogId}| %X{tenant} | %X{ipaddress} | %X{userid} | %X{sessionid} | %c{1} | %replace(%msg){'\n|\r', '_'}%n" />
+	
+	<define scope="system" name="roiLogDirectory">
+		<propValue>${roi.log.directory}</propValue>
+	</define>
+
+	<appender name="SIFT_APP" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<!-- in the absence of the class attribute, it is assumed that the desired 
+			discriminator type is ch.qos.logback.classic.sift.MDCBasedDiscriminator -->
+		<discriminator>
+			<key>tenant</key>
+			<defaultValue>default</defaultValue>
+		</discriminator>
+		<sift>
+			<appender name="eig${tenant}LogAppender"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<append>true</append>
+				<encoder>
+					<pattern>${LOG_PATTERN}</pattern>
+					<outputPatternAsHeader>true</outputPatternAsHeader>
+				</encoder>
+				<file>${roiLogDirectory}/${tenant}.${APP_LOG}.${LOG_EXT}</file>
+				<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+					<fileNamePattern>${roiLogDirectory}/${tenant}.${APP_LOG}.${LOG_EXT_ROLLOVER}</fileNamePattern>
+      				<minIndex>1</minIndex>
+      				<maxIndex>9</maxIndex>
+    			</rollingPolicy>
+    			<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      				<maxFileSize>10MB</maxFileSize>
+    			</triggeringPolicy>
+				<prudent>false</prudent>
+			</appender>
+		</sift>
+	</appender>
+
+	<appender name="eigConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+	
+	<root level="${roi.log.level.other}">
+		<appender-ref ref="SIFT_APP" />
+		<appender-ref ref="eigConsoleAppender" />
+	</root>
+
+	<logger name="org.springframework" level="${roi.log.level.3rd.party}" additivity="false">
+		<appender-ref ref="SIFT_APP" />
+	</logger>
+
+	<logger name="org.springframework" level="${roi.log.level.3rd.party}" additivity="false">
+		<appender-ref ref="SIFT_APP" />
+	</logger>
+
+	<logger name="org.apache" level="${roi.log.level.3rd.party}" additivity="false">
+		<appender-ref ref="SIFT_APP" />
+	</logger>
+
+    <logger name="com.mckesson" level="${roi.log.level}" additivity="false">
+        <appender-ref ref="SIFT_APP" />
+        <appender-ref ref="eigConsoleAppender" />
+    </logger>
+
+
+</configuration>
+
