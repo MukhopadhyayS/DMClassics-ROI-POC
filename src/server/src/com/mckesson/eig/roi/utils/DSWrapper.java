@@ -8,36 +8,49 @@ import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
-import com.jolbox.bonecp.BoneCPDataSource;
 import com.mckesson.eig.roi.base.api.ROIConstants;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class DSWrapper implements DataSource {
 	private static final int DEFAULT_IDLE_AGE_MINUTE = 5;
-	private BoneCPDataSource _ds = new BoneCPDataSource();
-
+	//private BoneCPDataSource _ds = new BoneCPDataSource();
+	private HikariDataSource _ds = new HikariDataSource();
+	
 	public DSWrapper(String driverClass, String dbUrl) {
-		_ds.setDriverClass(driverClass);
+		//_ds.setDriverClass(driverClass);
+	    _ds.setDriverClassName(driverClass);
 		setDbURL(dbUrl);
 	}
 
-	public DSWrapper(String driverClass, String dbUrl, String username,
+	/*public DSWrapper(String driverClass, String dbUrl, String username,
 			String password, int min, int max) {
-		_ds.setDriverClass(driverClass);
+		//_ds.setDriverClass(driverClass);
+	    _ds.setDriverClassName(driverClass);
 		setDbURL(dbUrl);
 		setUserName(username);
 		setPassword(password);
 		setMinmumConnection(min);
 		setMaximumConnection(max);
 		setIdleMaxAge(DEFAULT_IDLE_AGE_MINUTE);
-	}
-
+	}*/
+	
 	public DSWrapper(String driverClass, String dbUrl, String username,
+            String password) {
+        //_ds.setDriverClass(driverClass);
+        _ds.setDriverClassName(driverClass);
+        setDbURL(dbUrl);
+        setUserName(username);
+        setPassword(password);
+        setIdleMaxAge(DEFAULT_IDLE_AGE_MINUTE);
+    }
+
+	/*public DSWrapper(String driverClass, String dbUrl, String username,
 			String password) {
 		this(driverClass, dbUrl, username, password,
 				ROIConstants.PLUGIN_MIN_DB_CONNECTION,
 				ROIConstants.PLUGIN_MAX_DB_CONNECTION);
 	}
-
+*/
 	public Connection getConnection() throws SQLException {
 		return _ds.getConnection();
 	}
@@ -65,16 +78,17 @@ public class DSWrapper implements DataSource {
 		_ds.setJdbcUrl(url);
 	}
 
-	public void setMinmumConnection(int connection) {
-		_ds.setMinConnectionsPerPartition(connection);
+	/*public void setMinmumConnection(int connection) {
+	    _ds.setMinConnectionsPerPartition(connection);
 	}
 
 	public void setMaximumConnection(int connection) {
 		_ds.setMaxConnectionsPerPartition(connection);
-	}
+	}*/
 
 	public void setIdleMaxAge(long minutes) {
-		_ds.setIdleMaxAgeInMinutes(minutes);
+		//_ds.setIdleMaxAgeInMinutes(minutes);
+		_ds.setIdleTimeout(minutes);
 	}
 
 	public PrintWriter getLogWriter() throws SQLException {

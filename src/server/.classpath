@@ -84,7 +84,7 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/bcprov-jdk16-1.46.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/bonecp-0.7.1.RELEASE.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/bonecp-0.8.0.RELEASE.jar"/> -->
-	<classpathentry kind="lib" path="3rdparty/lib/bonecp-custom-0.8.1.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/bonecp-custom-0.8.1.jar"/> -->
 	
 	<classpathentry kind="lib" path="3rdparty/lib/castor-1.0.5-xml.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/castor-1.2.jar"/> -->
@@ -287,9 +287,11 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/slf4j-api-1.7.7.jar"/> -->
 	
 	<classpathentry kind="lib" path="3rdparty/lib/c3p0-0.9.5.5.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/HikariCP-java7-2.4.13.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/HikariCP-java7-2.4.13.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/mchange-commons-java-0.2.15.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/quartz-2.3.2.jar"/>
+	
+	<classpathentry kind="lib" path="3rdparty/lib/HikariCP-4.0.3.jar"/>
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/slf4j-api-1.7.7.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/slf4j-api-1.7.30.jar"/>
