@@ -14,7 +14,7 @@
 	<property scope="system" name="LOG_PATTERN" 
 		value="%d{MM-dd HH:mm:ss:SSS} | [%thread] | %-5level | %X{ocLogId}| %X{tenant} | %X{ipaddress} | %X{userid} | %X{sessionid} | %c{1} | %replace(%msg){'\n|\r', '_'}%n" />
 	
-	<define scope="system" name="roiLogDirectory">
+	<define scope="system" name="roiLogDirectory" class="com.mckesson.eig.roi.utils.LogDirectoryDefiner">	
 		<propValue>${roi.log.directory}</propValue>
 	</define>
 
@@ -62,9 +62,9 @@
 		<appender-ref ref="SIFT_APP" />
 	</logger>
 
-	<logger name="org.springframework" level="${roi.log.level.3rd.party}" additivity="false">
-		<appender-ref ref="SIFT_APP" />
-	</logger>
+	<!-- <logger name="org.springframework" level="${roi.log.level.3rd.party}" additivity="false"> -->
+		<!-- <appender-ref ref="SIFT_APP" /> -->
+	<!-- </logger> -->
 
 	<logger name="org.apache" level="${roi.log.level.3rd.party}" additivity="false">
 		<appender-ref ref="SIFT_APP" />

@@ -71,7 +71,7 @@ extends TestCase {
         }
     }
 
-    public void testDSWrapper() throws FileNotFoundException {
+    /*public void testDSWrapper() throws FileNotFoundException {
         try {
             dsWrapper.setIdleMaxAge(5);
             dsWrapper.setLogWriter(new PrintWriter(AccessFileLoader.getFile("file")));
@@ -87,7 +87,7 @@ extends TestCase {
             assertTrue(e instanceof SQLException);
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void testGetConnectionWithDBURL() {
         try {
