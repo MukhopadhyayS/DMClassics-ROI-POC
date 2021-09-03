@@ -62,10 +62,6 @@
 		<appender-ref ref="SIFT_APP" />
 	</logger>
 
-	<!-- <logger name="org.springframework" level="${roi.log.level.3rd.party}" additivity="false"> -->
-		<!-- <appender-ref ref="SIFT_APP" /> -->
-	<!-- </logger> -->
-
 	<logger name="org.apache" level="${roi.log.level.3rd.party}" additivity="false">
 		<appender-ref ref="SIFT_APP" />
 	</logger>
