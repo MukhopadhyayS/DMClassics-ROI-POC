@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping  package="com.mckesson.eig.workflow.process.api">
+
+  <class name="ProcessActorACL"
+         table="WF_PROCESS_ASSIGN"
+         schema="HECM_WLIST">
+
+    <composite-id>
+        <key-property name="processId" column="PROCESS_ID" type="long"/>
+        <key-property name="permissionName" column="PERMISSION_NAME" type="string"/>
+        <key-many-to-one name="actor"
+                         column="ACTOR_ID"
+                         class="com.mckesson.eig.workflow.api.Actor"/>
+    </composite-id>
+
+<!--<version name="version"           column="RECORD_VERSION"  type="integer" />-->
+    <property name="createdTS" column="CREATE_DATETIME" type="timestamp" />
+    <property name="updatedTS" column="MODIFY_DATETIME" type="timestamp" />
+  </class>
+
+</hibernate-mapping>

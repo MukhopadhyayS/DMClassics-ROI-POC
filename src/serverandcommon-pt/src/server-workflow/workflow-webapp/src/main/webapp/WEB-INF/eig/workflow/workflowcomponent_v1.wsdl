@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions  name="workflowcomponent_v1"
+	targetNamespace="http://eig.mckesson.com/wsdl/workflowcomponent-v1"
+	xmlns:eig="http://eig.mckesson.com/wsdl/workflowcomponent-v1"
+	xmlns:eig1_0="http://eig.mckesson.com/wsdl/workflowcomponent-v1.0"
+	xmlns:wf_v1_0="http://eig.mckesson.com/xsd/2009/01"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>
+		<xsd:schema attributeFormDefault="unqualified"
+	               elementFormDefault="unqualified"
+	               targetNamespace="http://eig.mckesson.com/wsdl/workflowcomponent-v1.0"
+	               xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://eig.mckesson.com/xsd/2009/01" schemaLocation="./xsd/workflowcomponent_v1_0.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="getComponentDetails">
+		<wsdl:part name="parameters"
+			element="wf_v1_0:getComponentDetails">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getComponentDetailsResponse">
+		<wsdl:part name="parameters"
+			element="wf_v1_0:getComponentDetailsResponse">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="ComponentPortType_v1_0">
+		<wsdl:operation name="getComponentDetails">
+			<wsdl:input name="getComponentDetails"
+				message="eig:getComponentDetails">
+			</wsdl:input>
+			<wsdl:output name="getComponentDetailsResponse"
+				message="eig:getComponentDetailsResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="ComponentServiceServiceSoapBinding_v1_0"
+		type="eig:ComponentPortType_v1_0">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getComponentDetails">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/workflowcomponent-v1/getComponentDetails"
+				style="document" />
+			<wsdl:input name="getComponentDetails">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getComponentDetailsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="ComponentService_v1_0">
+		<wsdl:port name="ComponentServicePort_v1_0"
+			binding="eig:ComponentServiceServiceSoapBinding_v1_0">
+			<soap:address
+				location="http://host/context/services/component" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

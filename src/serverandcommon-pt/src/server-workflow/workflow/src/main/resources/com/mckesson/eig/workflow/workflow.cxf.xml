@@ -1,0 +1,254 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:cxf="http://cxf.apache.org/core"
+ 	xmlns:simple="http://cxf.apache.org/simple"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://cxf.apache.org/jaxws
+                    http://cxf.apache.org/schemas/jaxws.xsd
+                    http://cxf.apache.org/core
+                    http://cxf.apache.org/schemas/core.xsd
+                    http://www.springframework.org/schema/tx
+                    http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+                    http://www.springframework.org/schema/aop
+                    http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+					http://cxf.apache.org/simple
+					http://cxf.apache.org/schemas/simple.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-local.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<import resource="classpath:com/mckesson/eig/workflow/spring.xml" />
+
+	<bean id="HeaderParameterRemover" class="com.mckesson.eig.wsfw.cxf.HeaderParameterRemover" />
+
+	<bean id="EIGIn" class="com.mckesson.eig.wsfw.cxf.EIGSessionInitializer" />
+	<bean id="SAAJIn" class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
+	<bean id="AuthorizationIn"
+		class="com.mckesson.eig.wsfw.cxf.ExtendedAuthorizationInterceptor" />
+	<bean id="RouteOneWay" class="com.mckesson.eig.wsfw.cxf.RouteOneWay" />
+
+	<bean id="EIGSoap11FaultOut" class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+
+	<jaxws:endpoint id="worklist"
+		wsdlLocation="WEB-INF/eig/workflow/worklist_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.worklist.service.WorklistServiceImpl"
+		address="/services/worklist">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.worklist.service.WorklistServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+
+		<jaxws:inInterceptors>
+			<ref bean="SAAJIn" />
+			<ref bean="wss4jIn" />
+			<ref bean="AuthorizationIn" />
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="task" wsdlLocation="WEB-INF/eig/workflow/task_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.worklist.service.TaskServiceImpl"
+		address="/services/task">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref bean="com.mckesson.eig.workflow.worklist.service.TaskServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+
+		<jaxws:inInterceptors>
+			<ref bean="SAAJIn" />
+			<ref bean="wss4jIn" />
+			<ref bean="AuthorizationIn" />
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="component"
+		wsdlLocation="WEB-INF/eig/workflow/workflowcomponent_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.worklist.service.ComponentServiceImpl"
+		address="/services/component">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.worklist.service.ComponentServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+		<jaxws:inInterceptors>
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint id="processlist"
+		wsdlLocation="WEB-INF/eig/workflow/processlist_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.process.service.ProcessListServiceImpl"
+		address="/services/processlist">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.process.service.ProcessListServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+		<jaxws:inInterceptors>
+			<ref bean="SAAJIn" />
+			<ref bean="wss4jIn" />
+			<ref bean="AuthorizationIn" />
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<!-- Process Instance client facing and producer service -->
+	<jaxws:endpoint id="processinstance"
+		wsdlLocation="WEB-INF/eig/workflow/processinstance_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.processinstance.service.ProcessInstanceServiceImpl"
+		address="/services/processinstance">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.processinstance.service.ProcessInstanceServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+		<jaxws:inInterceptors>
+			<ref bean="SAAJIn" />
+			<ref bean="wss4jIn" />
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<!-- Process  client facing and producer service -->
+	<jaxws:endpoint id="process"
+		wsdlLocation="WEB-INF/eig/workflow/process_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.process.service.ProcessServiceImpl"
+		address="/services/process">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.process.service.ProcessServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+		<jaxws:inInterceptors>
+			<ref bean="SAAJIn" />
+			<ref bean="wss4jIn" />
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<!-- Security  client facing and producer service -->
+	<jaxws:endpoint id="security"
+		wsdlLocation="WEB-INF/eig/workflow/security_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.security.service.SecurityServiceImpl"
+		address="/services/security">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.security.service.SecurityServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+		<jaxws:inInterceptors>
+			<ref bean="SAAJIn" />
+			<ref bean="wss4jIn" />
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<!-- Process Instance JMS consumer service -->
+	<jaxws:endpoint name="processInstanceJmsConsumer"
+					address="local://message"
+					wsdlLocation="WEB-INF/eig/workflow/processinstance_v1.wsdl"
+					implementor="#com.mckesson.eig.workflow.engine.service.ProcessInstanceJmsConsumer">
+
+		<jaxws:inInterceptors>
+			<ref bean="RouteOneWay" />
+		</jaxws:inInterceptors>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.CXFDirectServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.engine.service.ProcessInstanceJmsConsumer" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+	</jaxws:endpoint>
+
+	<bean id="cxf" class="org.apache.cxf.bus.CXFBusImpl">
+		<property name="outFaultInterceptors">
+			<list>
+				<ref bean="EIGSoap11FaultOut" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="wss4jIn" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		<property name="properties">
+			<map>
+				<entry key="action" value="UsernameToken Timestamp" />
+				<entry key="passwordType" value="PasswordText" />
+				<entry key="passwordCallbackClass"
+					value="com.mckesson.eig.wsfw.security.webservice.AuthenticationHandler" />
+			</map>
+		</property>
+	</bean>
+
+</beans>

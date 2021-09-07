@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping  package="com.mckesson.eig.workflow.process.api">
+
+  <class name="ProcessAttribute"
+         table="WF_PROCESS_ATTRIBUTES"
+         schema="HECM_WLIST">
+
+     <composite-id>
+        <!-- <key-many-to-one name="processVersion"
+                         column="PROCESS_ID"
+                         class="com.mckesson.eig.workflow.process.api.Process"/>-->
+        <key-property name="processId"     column="PROCESS_ID"     type="long"/>
+        <key-property name="versionId"     column="VERSION_ID"     type="long"/>
+	 	<key-property name="attributeName" column="ATTRIBUTE_NAME" type="string"/>
+     </composite-id>
+
+     <property name="attributeValue" column="ATTRIBUTE_VALUE" type="string" />
+     <property name="attributeType"  column="ATTRIBUTE_TYPE"  type="string" />
+     <property name="createdTS"      column="CREATE_DATETIME" type="timestamp" />
+     <property name="updatedTS"      column="MODIFY_DATETIME" type="timestamp" />
+
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,98 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://cxf.apache.org/jaxws
+                    http://cxf.apache.org/schemas/jaxws.xsd
+                    http://cxf.apache.org/core
+                    http://cxf.apache.org/schemas/core.xsd
+                    http://www.springframework.org/schema/tx
+                    http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+                    http://www.springframework.org/schema/aop
+                    http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-local.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<import resource="classpath:com/mckesson/eig/workflow/spring.xml" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@127.0.0.1:1521:hecm</value>
+		</property>
+		<property name="username">
+			<value>hecm_wlist</value>
+		</property>
+		<property name="password">
+			<value>hecm_wlistpazz</value>
+		</property>
+	</bean>
+
+	<bean id="HeaderParameterRemover" class="com.mckesson.eig.wsfw.cxf.HeaderParameterRemover" />
+	<bean id="RouteOneWay" class="com.mckesson.eig.wsfw.cxf.RouteOneWay" />
+	<bean id="EIGIn" class="com.mckesson.eig.wsfw.cxf.EIGSessionInitializer" />
+	<bean id="SAAJIn" class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
+
+	<bean id="EIGSoap11FaultOut" class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+
+	<!-- Process Instance JMS consumer service -->
+	<jaxws:endpoint name="processInstanceJmsConsumer"
+		address="local://message"
+		implementor="#com.mckesson.eig.workflow.engine.service.ProcessInstanceJmsConsumer">
+
+		<jaxws:inInterceptors>
+			<ref bean="RouteOneWay" />
+		</jaxws:inInterceptors>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.CXFDirectServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.engine.service.ProcessInstanceJmsConsumer" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+	</jaxws:endpoint>
+
+	<!-- Process Instance client facing and producer service -->
+	<jaxws:endpoint id="processinstance"
+		wsdlLocation="WEB-INF/eig/workflow/processinstance_v1.wsdl"
+		implementor="#com.mckesson.eig.workflow.processinstance.service.ProcessInstanceServiceImpl"
+		address="/services/processinstance">
+
+		<jaxws:properties>
+			<entry key="forceInvalidateSession" value="false" />
+		</jaxws:properties>
+
+		<jaxws:invoker>
+			<bean class="com.mckesson.eig.wsfw.cxf.BusinessServiceInvoker">
+				<constructor-arg>
+					<ref
+						bean="com.mckesson.eig.workflow.processinstance.service.ProcessInstanceServiceImpl" />
+				</constructor-arg>
+			</bean>
+		</jaxws:invoker>
+		<jaxws:inInterceptors>
+			<ref bean="SAAJIn" />
+			<ref bean="HeaderParameterRemover" />
+			<ref bean="EIGIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+
+	<bean id="cxf" class="org.apache.cxf.bus.CXFBusImpl">
+		<property name="outFaultInterceptors">
+			<list>
+				<ref bean="EIGSoap11FaultOut" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

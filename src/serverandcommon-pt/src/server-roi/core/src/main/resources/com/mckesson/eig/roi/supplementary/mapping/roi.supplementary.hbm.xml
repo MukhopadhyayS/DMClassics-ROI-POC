@@ -1,0 +1,956 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class
+		name="com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient"
+		table="ROI_SupplementalPatients" dynamic-update="true"
+		optimistic-lock="version">
+
+		<id name="id">
+			<column name="ROI_SupplementalPatients_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDt">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDt">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="mrn">
+			<column name="mrn" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="facility">
+			<column name="facility" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="epn">
+			<column name="epn" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="lastName">
+			<column name="lastName" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="firstName">
+			<column name="firstName" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="gender">
+			<column name="gender" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="dateOfBirth">
+			<column name="dob" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="ssn">
+			<column name="ssn" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="address1">
+			<column name="address1" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="address2">
+			<column name="address2" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="address3">
+			<column name="address3" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="city">
+			<column name="city" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="state">
+			<column name="state" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="zip">
+			<column name="zip" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="homephone">
+			<column name="homephone" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="workphone">
+			<column name="workphone" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="vip">
+			<column name="vip" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="countryCode">
+			<column name="country" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="countryName" type="string"
+				  formula="(SELECT c.Country_Name FROM ROI_CountryLOV c 
+							WHERE c.Country_Code = country)">
+		</property>
+
+		<property name="hasRequest" 
+				  type="boolean"
+				  formula="(SELECT count(requestPatient.ROI_SupplementalPatients_Seq) FROM 
+								ROI_SupplementalPatientsCore requestPatient 
+								WHERE requestPatient.ROI_SupplementalPatients_Seq = ROI_SupplementalPatients_Seq)">
+		</property>
+		
+		<component name="freeformFacility" class="com.mckesson.eig.roi.request.model.FreeFormFacility">
+			<property name="id">
+				<column name="ROI_FreeFormFacilityLov_Seq" sql-type="int" not-null="false" />
+			</property>
+
+			<property name="freeFormFacilityName"
+					  formula="(SELECT freeform.FreeFormFACILITY
+								FROM cabinet..ROI_FreeFormFacilityLOV freeform
+								WHERE freeform.ROI_FreeFormFacilityLov_Seq = ROI_FreeFormFacilityLov_Seq) ">
+			</property>
+	    </component>
+    
+	</class>
+
+	<class
+		name="com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument"
+		table="ROI_SupplementalDocuments" dynamic-update="true"
+		optimistic-lock="version">
+
+		<id name="id">
+			<column name="ROI_SupplementalDocuments_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDt">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDt">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="patientId">
+			<column name="ROI_SupplementalPatients_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="docName">
+			<column name="docName" sql-type="varchar(256)" not-null="true" />
+		</property>
+
+		<property name="encounter">
+			<column name="encounter" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="docFacility">
+			<column name="Facility" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="department">
+			<column name="department" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="subtitle">
+			<column name="subtitle" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="pageCount">
+			<column name="pageCount" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="dateOfService">
+			<column name="dateOfService" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="comment">
+			<column name="comment" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<component name="freeformFacility">
+			<property name="id">
+				<column name="ROI_FreeFormFacilityLov_Seq" sql-type="int" not-null="false" />
+			</property>
+
+			<property name="freeFormFacilityName"
+					  formula="(SELECT freeform.FreeFormFACILITY
+								FROM cabinet..ROI_FreeFormFacilityLOV freeform
+								WHERE freeform.ROI_FreeFormFacilityLov_Seq = ROI_FreeFormFacilityLov_Seq) ">
+			</property>
+	    </component>
+		
+	</class>
+
+	<class
+		name="com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment"
+		table="ROI_SupplementalAttachments" dynamic-update="true"
+		optimistic-lock="version">
+
+		<id name="id">
+			<column name="ROI_SupplementalAttachments_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDt">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDt">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="patientId">
+			<column name="ROI_SupplementalPatients_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="type">
+			<column name="type" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="encounter">
+			<column name="encounter" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="docFacility">
+			<column name="docFacility" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="facility">
+			<column name="facility" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="subtitle">
+			<column name="subtitle" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="isDeleted">
+			<column name="isDeleted" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="pageCount">
+			<column name="pageCount" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="dateOfService">
+			<column name="dateOfService" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="attachmentDate">
+			<column name="attachmentDate" sql-type="varchar(256)"
+				not-null="false" />
+		</property>
+
+		<property name="uuid">
+			<column name="uuid" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="filename">
+			<column name="filename" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="volume">
+			<column name="volume" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="path">
+			<column name="path" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="filetype">
+			<column name="filetype" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="fileext">
+			<column name="fileext" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="printable">
+			<column name="printable_flag" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="submittedBy">
+			<column name="submittedBy" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="comment">
+			<column name="comment" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="externalSource">
+			<column name="Document_Source" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<component name="freeformFacility">
+			<property name="id">
+				<column name="ROI_FreeFormFacilityLov_Seq" sql-type="int" not-null="false" />
+			</property>
+
+			<property name="freeFormFacilityName"
+					  formula="(SELECT freeform.FreeFormFACILITY
+								FROM cabinet..ROI_FreeFormFacilityLOV freeform
+								WHERE freeform.ROI_FreeFormFacilityLov_Seq = ROI_FreeFormFacilityLov_Seq) ">
+			</property>
+	    </component>
+
+	</class>
+
+	<class
+		name="com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument"
+		table="ROI_SupplementarityDocuments" dynamic-update="true"
+		optimistic-lock="version">
+
+		<id name="id">
+			<column name="ROI_SupplementarityDocuments_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDt">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDt">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="mrn">
+			<column name="mrn" sql-type="varchar(256)" not-null="true" />
+		</property>
+
+		<property name="facility">
+			<column name="facility" sql-type="varchar(256)" not-null="true" />
+		</property>
+
+		<property name="docName">
+			<column name="docName" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="encounter">
+			<column name="encounter" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="docFacility">
+			<column name="docFacility" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="department">
+			<column name="department" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="subtitle">
+			<column name="subtitle" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="pageCount">
+			<column name="pageCount" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="dateOfService">
+			<column name="dateOfService" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="comment">
+			<column name="comment" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<component name="freeformFacility">
+			<property name="id">
+				<column name="ROI_FreeFormFacilityLov_Seq" sql-type="int" not-null="false" />
+			</property>
+
+			<property name="freeFormFacilityName"
+					  formula="(SELECT freeform.FreeFormFACILITY
+								FROM cabinet..ROI_FreeFormFacilityLOV freeform
+								WHERE freeform.ROI_FreeFormFacilityLov_Seq = ROI_FreeFormFacilityLov_Seq) ">
+			</property>
+	    </component>
+	    
+	</class>
+
+	<class
+		name="com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment"
+		table="ROI_SupplementarityAttachments" dynamic-update="true"
+		optimistic-lock="version">
+
+		<id name="id">
+			<column name="ROI_SupplementarityAttachments_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDt">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDt">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="mrn">
+			<column name="mrn" sql-type="varchar(256)" not-null="true" />
+		</property>
+
+		<property name="facility">
+			<column name="facility" sql-type="varchar(256)" not-null="true" />
+		</property>
+
+		<property name="type">
+			<column name="type" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="encounter">
+			<column name="encounter" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="docFacility">
+			<column name="docFacility" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="subtitle">
+			<column name="subtitle" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="isDeleted">
+			<column name="isDeleted" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="pageCount">
+			<column name="pageCount" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="dateOfService">
+			<column name="dateOfService" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="attachmentDate">
+			<column name="attachmentDate" sql-type="varchar(256)"
+				not-null="false" />
+		</property>
+
+		<property name="uuid">
+			<column name="uuid" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="filename">
+			<column name="filename" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="volume">
+			<column name="volume" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="path">
+			<column name="path" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="filetype">
+			<column name="filetype" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="fileext">
+			<column name="fileext" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="printable">
+			<column name="printable_flag" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="submittedBy">
+			<column name="submittedBy" sql-type="varchar(256)" not-null="false" />
+		</property>
+
+		<property name="comment">
+			<column name="comment" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+		<property name="externalSource">
+			<column name="Document_Source" sql-type="varchar(256)" not-null="false" />
+		</property>
+		
+	</class>
+
+	<query name="getROISupplementalPatientById">
+            <![CDATA[
+                SELECT p
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient p
+                WHERE p.id = ?0
+            ]]>
+	</query>
+
+	<query name="getROISupplementalDocumentsByPatientId">
+            <![CDATA[
+                SELECT d
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument d
+                WHERE d.patientId = ?0
+            ]]>
+	</query>
+
+	<query name="getROISupplementalAttachmentsByPatientId">
+            <![CDATA[
+                SELECT a
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment a
+                WHERE a.patientId = ?0
+            ]]>
+	</query>
+
+	<query name="getROISupplementarityDocumentsByMrnFacility">
+            <![CDATA[
+                SELECT d
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument d
+                WHERE d.mrn = ?0 and d.facility = ?1
+            ]]>
+	</query>
+
+	<query name="getROISupplementarityAttachmentsByMrnFacility">
+            <![CDATA[
+                SELECT a
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment a
+                WHERE a.mrn = ?0 and a.facility = ?1
+            ]]>
+	</query>
+
+	<query name="getROISupplementalDocumentById">
+            <![CDATA[
+                SELECT p
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalDocument p
+                WHERE p.id = ?0
+            ]]>
+	</query>
+
+	<query name="getROISupplementalAttachmentById">
+            <![CDATA[
+                SELECT p
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment p
+                WHERE p.id = ?0
+            ]]>
+	</query>
+	
+	<query name="getROISupplementarityDocumentById">
+            <![CDATA[
+                SELECT p
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument p
+                WHERE p.id = ?0
+            ]]>
+	</query>
+	
+	<query name="getROISupplementarityAttachmentById">
+            <![CDATA[
+                SELECT p
+                FROM com.mckesson.eig.roi.supplementary.model.ROISupplementarityAttachment p
+                WHERE p.id = ?0
+            ]]>
+	</query>
+	
+	 <sql-query name="checkDuplicate">
+        <![CDATA[
+            SELECT count(*)
+			FROM 
+                cabinet..ROI_SupplementalPatients
+            WHERE
+				 lastName = :lastName 
+				 AND firstName = :firstName
+				 AND ROI_SupplementalPatients_Seq != :supplementalId
+        ]]>
+    </sql-query> 
+
+	 <sql-query name="searchSupplmentalPatients">
+        <![CDATA[
+            SELECT 
+			  ROI_SupplementalPatients_Seq id,
+			  Created_By_Seq createdBy,
+		      Created_Dt createdDt,
+		      Modified_Dt modifiedDt,
+		      Modified_By_Seq modifiedBy,
+			  mrn mrn,
+		      facility facility,
+		      epn epn,
+		      lastName lastName,
+		      firstName firstName,
+		      gender gender,
+		      dob dateOfBirth,
+		      ssn ssn,
+		      address1 address1,
+		      address2 address2,
+		      address3 address3,
+		      city city,
+		      zip zip,
+		      homephone homephone,
+		      workphone workphone,
+		      vip vip,
+		      coalesce(ROI_FreeFormFacilityLov_Seq, 0) freeformFacilityId,
+		      (SELECT fac.FreeFormFACILITY FROM ROI_FreeFormFacilityLOV fac where fac.ROI_FreeFormFacilityLov_Seq = patient.ROI_FreeFormFacilityLov_Seq) freeformFacilityCode
+			FROM 
+                cabinet..ROI_SupplementalPatients patient
+        ]]>
+    </sql-query> 
+
+	 <sql-query name="searchMatchingSupplementals">
+        <![CDATA[
+            SELECT 
+			  ROI_SupplementalPatients_Seq id,
+			  Created_By_Seq createdBy,
+		      Created_Dt createdDt,
+		      Modified_Dt modifiedDt,
+		      Modified_By_Seq modifiedBy,
+			  mrn mrn,
+		      facility facility,
+		      epn epn,
+		      lastName lastName,
+		      firstName firstName,
+		      gender gender,
+		      dob dateOfBirth,
+		      ssn ssn,
+		      address1 address1,
+		      address2 address2,
+		      address3 address3,
+		      city city,
+		      zip zip,
+		      homephone homephone,
+		      workphone workphone,
+		      vip vip
+			FROM 
+                cabinet..ROI_SupplementalPatients patient
+        ]]>
+    </sql-query> 
+
+	 <sql-query name="searchSupplementaryForEncounter">
+        <![CDATA[
+            SELECT 
+			  ROI_SupplementalPatients_Seq id
+			FROM 
+                cabinet..ROI_SupplementalAttachments
+            where 
+            	encounter like (:encounter + '%')
+           UNION
+            SELECT 
+			  ROI_SupplementalPatients_Seq id
+			FROM 
+                cabinet..ROI_SupplementalDocuments
+            where 
+            	encounter like (:encounter + '%')
+        ]]>
+    </sql-query> 
+
+	 <sql-query name="searchSupplementaryForEncounterAndFreeformFacility">
+        <![CDATA[
+            SELECT patient.ROI_SupplementalPatients_Seq id
+			FROM cabinet..ROI_SupplementalPatients patient,
+				 cabinet..ROI_FreeFormFacilityLOV facility,
+				 cabinet..ROI_SupplementalAttachments attachment
+			WHERE patient.ROI_FreeFormFacilityLov_Seq = facility.ROI_FreeFormFacilityLov_Seq
+				  AND attachment.ROI_SupplementalPatients_Seq = patient.ROI_SupplementalPatients_Seq
+				  AND attachment.encounter like :encounter
+				  AND facility.FreeFormFACILITY like :freeformFacility
+			UNION
+			SELECT patient.ROI_SupplementalPatients_Seq id
+			FROM cabinet..ROI_SupplementalPatients patient,
+				 cabinet..ROI_FreeFormFacilityLOV facility,
+			 	 cabinet..ROI_SupplementalDocuments document
+			WHERE patient.ROI_FreeFormFacilityLov_Seq = facility.ROI_FreeFormFacilityLov_Seq
+				  AND document.ROI_SupplementalPatients_Seq = patient.ROI_SupplementalPatients_Seq
+				  AND document.encounter like :encounter
+			 	  AND facility.FreeFormFACILITY like :freeformFacility
+        ]]>
+    </sql-query> 
+
+	 <sql-query name="searchSupplementaryForFreeformFacility">
+        <![CDATA[
+            
+            SELECT patient.ROI_SupplementalPatients_Seq id
+            FROM cabinet..ROI_SupplementalPatients patient,
+				 cabinet..ROI_FreeFormFacilityLOV facility
+			WHERE patient.ROI_FreeFormFacilityLov_Seq = facility.ROI_FreeFormFacilityLov_Seq
+			AND facility.FreeFormFACILITY like (:freeformFacility + '%')
+            
+        ]]>
+    </sql-query> 
+
+	 <sql-query name="retrieveAttachment">
+        <![CDATA[
+            SELECT 
+			  VOLUME, PATH, UUID
+			FROM 
+                cabinet..ROI_SupplementalAttachments
+            where 
+            	uuid = :uuid
+           UNION
+            SELECT 
+			  VOLUME, PATH, UUID
+			FROM 
+                cabinet..ROI_SupplementarityAttachments
+            where 
+            	uuid = :uuid
+        ]]>
+    </sql-query> 
+
+	<sql-query name="retrieveSupplementarityAttachment">
+        <![CDATA[
+            SELECT attachment.ROI_SupplementarityAttachments_Seq as id,
+	            attachment.Record_Version as recordVersion,
+	            attachment.Created_By_Seq as createdBy,
+	            attachment.Created_Dt as createdDt,
+	            attachment.Modified_By_Seq as modifiedBy,
+	            attachment.Modified_Dt as modifiedDt,
+	            attachment.volume as volume,
+	            attachment.path as path,
+	            attachment.UUID as uuid,
+	            attachment.fileext as fileext
+		  	FROM
+                cabinet..ROI_SupplementarityAttachments attachment
+			WHERE 
+				attachment.ROI_SupplementarityAttachments_Seq in ( :attachmentIds )
+        ]]>
+	</sql-query>
+	
+	<sql-query name="retrieveAllSupplementarityAttachments">
+        <![CDATA[
+            SELECT attachment.ROI_SupplementarityAttachments_Seq as id,
+	            attachment.Record_Version as recordVersion,
+	            attachment.Created_By_Seq as createdBy,
+	            attachment.Created_Dt as createdDt,
+	            attachment.Modified_By_Seq as modifiedBy,
+	            attachment.Modified_Dt as modifiedDt,
+	            attachment.volume as volume,
+	            attachment.path as path,
+	            attachment.UUID as uuid,
+	            attachment.fileext as fileext
+		  	FROM
+                cabinet..ROI_SupplementarityAttachments attachment
+			WHERE 
+				attachment.mrn = :mrn
+				and attachment.facility = :facility
+        ]]>
+	</sql-query>
+	
+	<sql-query name="retrieveSupplementarityAttachmentInfos">
+        <![CDATA[
+            SELECT attachment.ROI_SupplementarityAttachments_Seq as id,
+	            attachment.Record_Version as recordVersion,
+	            attachment.Created_By_Seq as createdBy,
+	            attachment.Created_Dt as createdDt,
+	            attachment.Modified_By_Seq as modifiedBy,
+	            attachment.Modified_Dt as modifiedDt,
+	            attachment.volume as volume,
+	            attachment.path as path,
+	            attachment.UUID as uuid,
+	            attachment.fileext as fileext
+		  	FROM
+                cabinet..ROI_SupplementarityAttachments attachment
+			WHERE 
+				attachment.mrn = :mrn
+				and attachment.encounter = :encounter
+				and attachment.facility = :facility
+        ]]>
+	</sql-query>
+	
+	<sql-query name="retrievePatientCoreIdByPatientId">
+        <![CDATA[
+            SELECT ROI_SupplementalPatientsCore_Seq 
+		  	FROM
+                cabinet..ROI_SupplementalPatientsCore rrs
+			WHERE 
+				rrs.ROI_SupplementalPatients_Seq = :patientId
+        ]]>
+	</sql-query>
+
+	<sql-query name="getSupplementarityDocumentsCore">
+        <![CDATA[
+            SELECT 
+                ROI_SupplementarityDocumentsCore_Seq documentCoreSeq,
+                ROI_SupplementarityDocuments_Seq documentSeq,
+                ROI_Patients_Seq patientSeq,
+                ROI_BillingTier_Seq billingTierId,
+                DATEOFSERVICE dateOfService,
+                encounter encounter,
+                docname docname,
+                subtitle subtitle,
+                MRN mrn,
+                FACILITY facility,
+                DEPARTMENT department,
+                PAGECOUNT pageCount,
+                COMMENT comment,
+                DOCFACILITY docFacility,
+                null freeformfacility,
+                0 supplementalId,
+                0 id,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_SupplementarityDocumentsCore
+            WHERE ROI_Patients_Seq = :patientId
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="getSupplementarityAttachmentsCore">
+        <![CDATA[
+            SELECT 
+                ROI_SupplementarityAttachmentsCore_Seq attachmentCoreSeq,
+                ROI_SupplementarityAttachments_Seq attachmentSeq,
+                ROI_Patients_Seq patientSeq,
+                ROI_BillingTier_Seq billingTierId,
+                DATEOFSERVICE dateOfService,
+                ENCOUNTER encounter,
+                SUBTITLE subtitle,
+                MRN mrn,
+                FACILITY facility,
+                TYPE type,
+                PAGECOUNT pageCount,
+                COMMENT comment,
+                ISDELETED isDeleted,
+                UUID uuid,
+                FILENAME filename,
+                VOLUME volume,
+                PATH path,
+                FILETYPE filetype,
+                FILEEXT fileext,
+                SUBMITTEDBY submittedBy,
+                ATTACHMENTDATE attachmentDate,
+                printable_flag printable,
+                DOCFACILITY docFacility,
+                null freeformfacility,
+                0 supplementalId,
+                0 id,
+                Document_Source externalSource,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_SupplementarityAttachmentsCore
+            WHERE ROI_Patients_Seq = :patientId
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="getSupplementalAttachmentsCore">
+        <![CDATA[
+            SELECT 
+                ROI_SupplementalAttachmentsCore_Seq attachmentCoreSeq,
+                ROI_SupplementalAttachments_Seq attachmentSeq,
+                ROI_SupplementalPatientsCore_Seq patientSeq,
+                ROI_BillingTier_Seq billingTierId,
+                DATEOFSERVICE dateOfService,
+                ENCOUNTER encounter,
+                SUBTITLE subtitle,
+                null mrn,
+                FACILITY facility,
+                TYPE type,
+                PAGECOUNT pageCount,
+                COMMENT comment,
+                ISDELETED isDeleted,
+                UUID uuid,
+                FILENAME filename,
+                VOLUME volume,
+                PATH path,
+                FILETYPE filetype,
+                FILEEXT fileext,
+                SUBMITTEDBY submittedBy,
+                ATTACHMENTDATE attachmentDate,
+                printable_flag printable,
+                DOCFACILITY docFacility,
+                null freeformfacility,
+                0 supplementalId,
+                0 id,
+                Document_Source externalSource,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_SupplementalAttachmentsCore
+            WHERE ROI_SupplementalPatientsCore_Seq = :patientId
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="getSupplementalDocumentsCore">
+        <![CDATA[
+            SELECT 
+                ROI_SupplementalDocumentsCore_Seq documentCoreSeq,
+                ROI_SupplementalDocuments_Seq documentSeq,
+                ROI_SupplementalPatientsCore_Seq patientSeq,
+                ROI_BillingTier_Seq billingTierId,
+                DATEOFSERVICE dateOfService,
+                encounter encounter,
+                docname docname,
+                subtitle subtitle,
+                null mrn,
+                FACILITY facility,
+                DEPARTMENT department,
+                PAGECOUNT pageCount,
+                COMMENT comment,
+                DOCFACILITY docFacility,
+                null freeformfacility,
+                0 supplementalId,
+                0 id,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_SupplementalDocumentsCore
+            WHERE ROI_SupplementalPatientsCore_Seq = :patientId
+        ]]>
+    </sql-query> 
+
+</hibernate-mapping>
