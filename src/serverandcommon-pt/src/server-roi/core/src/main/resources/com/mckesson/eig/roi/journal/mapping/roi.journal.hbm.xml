@@ -1,0 +1,395 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<sql-query name="select_doc_charges_for_invoice_id">
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesDocument] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where b.Unbillable = 0 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_std_fees_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 0 
+			and  b.Unbillable = 0 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_custom_fees_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 1
+			and  b.Unbillable = 0 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_shipping_fees_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[ShippingCharge] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesShipping] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where b.Unbillable = 0 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_document_charges_sales_tax_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Salestax_Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesDocument] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where b.Unbillable = 0 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_std_fees_sales_tax_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Salestax_Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 0 
+			and  b.Unbillable = 0 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_custom_fees_sales_tax_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Salestax_Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 1
+			and  b.Unbillable = 0 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_unbillable_doc_charges_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesDocument] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where b.Unbillable = 1 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_unbillable_std_fees_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 0 
+			and  b.Unbillable = 1 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_unbillable_custom_fees_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 1
+			and  b.Unbillable = 1 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_unbillable_shipping_fees_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[ShippingCharge] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesShipping] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where b.Unbillable = 1 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_unbillable_doc_charges_sales_tax_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Salestax_Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesDocument] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where b.Unbillable = 1 
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_unbillable_std_fees_sales_tax_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Salestax_Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 0 
+			and  b.Unbillable = 1
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_unbillable_custom_fees_sales_tax_for_invoice_id">	
+		<![CDATA[
+			select b.[Created_Dt] as TransactionDate, a.[Salestax_Amount] AS AMOUNT 
+			from [ROI_RequestCoreDeliveryChargesFee] a 
+			join [ROI_RequestCoreDeliveryCharges] b 
+			on a.[ROI_RequestCoreDeliveryCharges_Seq] = b.[ROI_RequestCoreDeliveryCharges_Seq] 
+			where a.[IsCustomFee] = 1
+			and  b.Unbillable = 1
+			and a.[ROI_RequestCoreDeliveryCharges_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_payment_by_payment_id">	
+		<![CDATA[
+			select [Created_Dt] as TransactionDate, AMOUNT 
+			from [ROI_RequestorPayment]
+			where [ROI_RequestorPayment_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_voided_payment_by_payment_id">	
+		<![CDATA[
+			select [PaymentDate] as TransactionDate, AMOUNT 
+			from [ROI_RequestorPayment]
+			where [ROI_RequestorPayment_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="select_fee_for_billing_adjustment_id">     
+		<![CDATA[
+		      select [Created_Dt] as TransactionDate, [Amount] AS AMOUNT 
+		      FROM [ROI_requestorAdjustment]
+		      where [ROI_RequestorAdjustment_Seq] = :id 
+		]]>
+	</sql-query>
+
+	<sql-query name="select_bad_debt_amount_for_adjustment_id">  
+		<![CDATA[
+		      select [Created_Dt] as TransactionDate, [Amount] AS AMOUNT 
+		      FROM [ROI_requestorAdjustment]
+		      where [ROI_RequestorAdjustment_Seq] = :id 
+		]]>
+	</sql-query>
+
+	<sql-query name="select_customer_goodwill_amount_for_adjustment_id">     
+		<![CDATA[
+		      select [Created_Dt] as TransactionDate, [Amount] AS AMOUNT 
+		      FROM [ROI_requestorAdjustment]
+		      where [ROI_RequestorAdjustment_Seq] = :id 
+		]]>
+	</sql-query>
+
+	<sql-query name="select_applied_adjustment_amount">   
+			<![CDATA[
+			      select [Created_Dt] as TransactionDate, [Amount] AS AMOUNT 
+			      FROM [ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment]
+			      where [ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment_Seq] = :id 
+			]]>
+	</sql-query>
+
+	<sql-query name="select_applied_adjustment_tax_reduction">     
+            <![CDATA[
+			      select [Created_Dt] as TransactionDate, [SalesTaxReduction] AS AMOUNT 
+			      FROM [ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment]
+			      where [ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment_Seq] = :id 
+            ]]>
+	</sql-query>
+
+	<sql-query name="select_applied_payment_amount">   
+            <![CDATA[
+			      select [Created_Dt] as TransactionDate, [Amount] AS AMOUNT 
+			      FROM [ROI_RequestCoreDeliveryChargestoROI_RequestorPayment]
+			      where [ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq] = :id 
+            ]]>
+	</sql-query>
+
+	<sql-query name="select_refund_by_refund_id">	
+		<![CDATA[
+			select [Date] as TransactionDate, [Amount] AS AMOUNT 
+			from [ROI_RequestorRefund]
+			where [ROI_RequestorRefund_Seq] = :id
+		]]>
+	</sql-query>
+
+	<sql-query name="insertJournalDetail">
+         <![CDATA[
+                  
+                  INSERT INTO ROI_JournalDetail (
+                                    ROI_FinancialTxnEvent_Seq,
+                                    ROI_FinancialEntityLineItemType_Seq,
+                                    ROI_LedgerAccount_Seq,
+                                    ROI_JournalDetailTemplate_Seq,
+                                    CreditDebitSideFlag,
+                                    DecreaseIncreaseFlag,
+                                    ROI_RequestCoreDeliveryCharges_Seq,
+                                    ROI_RequestorAdjustment_Seq,
+                                    ROI_RequestorPayment_Seq,
+                                    ROI_RequestorRefund_Seq,
+                                    ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment_Seq,
+                                    ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq,
+                 					ROI_JournalEntry_Seq,
+                                    TxnOccurenceTimestamp,
+                                    Amount)
+                        VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ]]>
+	</sql-query>
+
+	<sql-query name="insertJournalEntry">
+         <![CDATA[
+                  INSERT INTO ROI_JournalEntry (
+                                    ROI_Requestor_Seq,
+                                    ROI_FinancialTxnEvent_Seq)
+                        VALUES (:requestorId, :txnEventId); SELECT SCOPE_IDENTITY(); 
+         ]]>
+	</sql-query>
+
+	<sql-query name="getRequestorIdByInvoice">
+         <![CDATA[
+                  SELECT b.ROI_Requestor_Seq FROM ROI_RequestCoreDeliveryCharges a 
+                  JOIN ROI_RequestCoreRequestor b on (a.ROI_RequestCore_Seq = b.ROI_RequestCore_Seq) 
+                  WHERE  a.ROI_RequestCoreDeliveryCharges_Seq = :transactionId
+         ]]>
+	</sql-query>
+
+	<sql-query name="getRequestorIdByPayment">
+         <![CDATA[
+                  SELECT ROI_Requestor_Seq FROM ROI_RequestorPayment 
+                  WHERE  ROI_RequestorPayment_Seq = :transactionId
+         ]]>
+	</sql-query>
+
+	<sql-query name="getRequestorIdByRefund">
+         <![CDATA[
+                  SELECT ROI_Requestor_Seq FROM ROI_RequestorRefund 
+                  WHERE  ROI_RequestorRefund_Seq = :transactionId
+         ]]>
+	</sql-query>
+
+	<sql-query name="getRequestorIdByAdjustment">
+         <![CDATA[
+                  SELECT ROI_Requestor_Seq FROM ROI_RequestorAdjustment 
+                  WHERE  ROI_RequestorAdjustment_Seq = :transactionId
+         ]]>
+	</sql-query>
+
+	<sql-query name="getRequestorIdByAdjustmentToInvoice">
+         <![CDATA[
+                  SELECT a.ROI_Requestor_Seq FROM ROI_RequestorAdjustment a 
+                  JOIN ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment b on (a.ROI_RequestorAdjustment_Seq = b.ROI_RequestorAdjustment_Seq) 
+                  WHERE  b.ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment_Seq = :transactionId
+         ]]>
+	</sql-query>
+
+	<sql-query name="getRequestorIdByPaymentToInvoice">
+         <![CDATA[
+                  SELECT a.ROI_Requestor_Seq FROM ROI_RequestorPayment a 
+                  JOIN ROI_RequestCoreDeliveryChargestoROI_RequestorPayment b on (a.ROI_RequestorPayment_Seq = b.ROI_RequestorPayment_Seq) 
+                  WHERE  b.ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_Seq = :transactionId
+         ]]>
+	</sql-query>
+
+	<sql-query name="select_all_from_Journal_Detail_Template">
+        <![CDATA[
+            SELECT 
+                    ROI_JournalDetailTemplate_Seq id,
+                    Created_By_Seq createdBy,
+					Created_Dt createdDt,
+					Modified_Dt modifiedDt,
+					Modified_By_Seq modifiedBy,
+                    ROI_FinancialTxnEvent_Seq txnTypeId,
+					ROI_FinancialEntityLineItemType_Seq lineItemTypeId,
+					ROI_LedgerAccount_Seq ledgerAccountId,
+					CreditDebitSideFlag credit,
+					DecreaseIncreaseFlag increase,
+					ActiveInactiveFlag active
+                FROM 
+                cabinet..ROI_JournalDetailTemplate
+        ]]>
+	</sql-query>
+
+	<sql-query name="select_all_from_FinancialEntity_LineItem_Type">
+        <![CDATA[
+            SELECT 
+                    ROI_FinancialEntityLineItemType_Seq id,
+                    Created_By_Seq createdBy,
+					Created_Dt createdDt,
+					Modified_Dt modifiedDt,
+					Modified_By_Seq modifiedBy,
+                    ROI_FinancialEntity_Seq entityId,
+					ROI_FinancialTxnEvent_Seq txnTypeId,
+					Name name,
+					Code code,
+					SummarizedAmountOnlyQuery query
+                FROM 
+                cabinet..ROI_FinancialEntityLineItemType
+        ]]>
+	</sql-query>
+
+	<sql-query name="select_all_from_Ledger_Account">
+        <![CDATA[
+            select A.ROI_LedgerAccountType_Seq balance,
+            A.ROI_LedgerAccountCategory_Seq id,
+            A.LiquidityOrder liquidityOrder, 
+            case when (A.name = 'Document Charges' OR
+            A.name = 'Standard Fees' OR
+            A.name = 'Custom Fees' OR 
+            A.Name = 'Shipping Fees') then 'Income(Revenue),Sales,' +  A.Name 
+            when (A.Name = 'Document Charges Discounts' OR
+            A.name = 'Standard Fees Discounts' OR
+            A.name = 'Custom Fees Discounts' OR 
+            A.Name = 'Shipping Fees Discounts') then 'Income(Revenue),Sales Discounts,' +  A.Name 
+            when (A.Name = 'Fees Reversals' OR
+            A.name = 'Customer Goodwill') then 'Income(Revenue),Sales Returns and Allowances,' +  A.Name 
+            when (A.Name = 'Bad Debt') then 'Expenses,"",' +  A.Name 
+            when (A.Name = 'Cash' OR
+            A.name = 'Accounts Receivables') then 'Asset,"",' +  A.Name 
+            when (A.Name = 'Sales Tax Payable' OR
+			A.name = 'Pre Payments' OR 
+			A.name = 'Unapplied Payments') then 'Liability,"",' +  A.Name
+            end as name,
+            A.Code code
+                        FROM 
+                        (
+                        select 
+                        ROI_LedgerAccountType_Seq ,
+                        ISNULL(ROI_LedgerAccountCategory_Seq,-3) as -- replacing null value with -3 since the expense account does not have category
+                        ROI_LedgerAccountCategory_Seq,
+                        LiquidityOrder,name,code 
+                        from ROI_LedgerAccount) A
+                        group by A.ROI_LedgerAccountType_Seq,
+                        ROI_LedgerAccountCategory_Seq,
+                        LiquidityOrder,name,code order by 
+                        ROI_LedgerAccountCategory_Seq desc,
+                        ROI_LedgerAccountType_Seq desc,
+                        LiquidityOrder asc;
+        ]]>
+	</sql-query>
+
+</hibernate-mapping>

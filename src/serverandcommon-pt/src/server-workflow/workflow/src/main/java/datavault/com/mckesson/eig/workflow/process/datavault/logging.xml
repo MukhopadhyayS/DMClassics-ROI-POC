@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+      <param name="File" 			value="process.datavault.log" />
+      <param name="Append" 			value="false" />
+      <param name="MaxFileSize" 	value="20MB" />
+      <param name="MaxBackupIndex" 	value="10" />
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+      </layout>
+    </appender>
+
+     <appender name="consoleAppender"  class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{DATE} | %t | %X{ipaddress} | %X{userid} | %X{transactionid} | %c{1} | %m%n " />
+        </layout>
+    </appender>
+
+  <category name="com.mckesson.eig.workflow" additivity="false">
+    <priority value="debug" />
+    <appender-ref ref="fileAppender" />
+  </category>
+
+  <category name="sop" additivity="false">
+    <priority value="all" />
+    <appender-ref ref="consoleAppender" />
+  </category>
+  
+  <category name="withoutdebug" additivity="false">
+    <priority value="warn" />
+    <appender-ref ref="fileAppender" />
+  </category>
+
+</log4j:configuration>

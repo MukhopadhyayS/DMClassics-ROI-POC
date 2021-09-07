@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.mckesson.eig.roi.request.model.RequestEvent"
+           table="ROI_RequestCoreEvent"
+           dynamic-update="true"
+           optimistic-lock="version" polymorphism="explicit">
+
+        <id name="id">
+            <column name="ROI_RequestCoreEvent_Seq" sql-type="int"/>
+            <generator class="identity"/>
+        </id>
+
+        <version name="recordVersion" column="Record_Version" type="integer" />
+
+        <property name="name">
+            <column name="Name" sql-type="varchar(60)" not-null="true" />
+        </property>
+
+        <property name="description">
+            <column name="Description" sql-type="varchar(255)" not-null="true" />
+        </property>
+
+        <property name="createdBy">
+            <column name="Created_By_Seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="modifiedDate">
+            <column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+        </property>
+
+        <property name="modifiedBy">
+            <column name="Modified_By_Seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="requestId">
+            <column name="ROI_RequestCore_Seq" sql-type="bigint" not-null="true" />
+        </property>
+
+        <property name="originator"
+                  formula="(select usr.fullname from users usr
+                            where usr.userinstanceId = Created_By_Seq)"
+                  lazy="true">
+        </property>
+    </class>
+
+      <query name="retrieveEventHistory">
+      <![CDATA[
+        SELECT event
+        FROM com.mckesson.eig.roi.request.model.RequestEvent event
+        WHERE event.requestId= ?0 and event.name like ?1 order by event.id desc
+        ]]>
+      </query>
+
+      <sql-query name="deleteInvoiceAutoAdjEvent">
+      <![CDATA[
+      
+        DELETE FROM ROI_RequestCoreEvent  
+        WHERE (Description LIKE :description1 
+        OR Description LIKE :description2)
+        AND Name = 'Auto Adjustment Posted'
+		AND ROI_RequestCore_Seq =  (SELECT TOP 1 inv.ROI_RequestCore_Seq  
+									FROM ROI_RequestCoreDeliveryCharges inv 
+									WHERE inv.ROI_RequestCoreDeliveryCharges_Seq = :invoiceId)
+
+        ]]>
+      </sql-query>
+      
+ 	<query name="checkDocumentRelease">
+		<![CDATA[
+	        SELECT event
+	        FROM com.mckesson.eig.roi.request.model.RequestEvent event
+	        WHERE event.requestId= ?0 
+	    ]]>
+    </query>
+        
+	<sql-query name="createRequestEvent">
+      <![CDATA[
+      
+        INSERT INTO ROI_RequestCoreEvent(Created_Dt,
+        							 Created_By_Seq,
+        							 Modified_Dt,
+        							 Modified_By_Seq,
+        							 Record_Version,
+        							 ROI_RequestCore_Seq,
+        							 Name,
+        							 Description) VALUES(:createdDate, :CreatedBy, :modifiedDate, :modifiedBy, :recordVersion, :requestCoreSeq, :name, :description) 
+        ]]>
+      </sql-query>
+
+	<sql-query name="deleteLatestRequestEventByRequestIdAndEvent">
+      <![CDATA[
+      		
+      		DELETE FROM ROI_RequestCoreEvent 
+      		WHERE ROI_RequestCoreEvent_Seq =  (SELECT TOP 1 ROI_RequestCoreEvent_Seq 
+      										FROM ROI_RequestCoreEvent
+											WHERE ROI_RequestCore_Seq = :requestId
+											AND Name = :eventType
+											ORDER BY Created_Dt desc)
+
+        ]]>
+      </sql-query>
+</hibernate-mapping>

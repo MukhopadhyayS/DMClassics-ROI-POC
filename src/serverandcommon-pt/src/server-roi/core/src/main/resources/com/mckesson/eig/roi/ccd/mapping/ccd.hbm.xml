@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel"
+		table="ROI_EXT_SOURCE" dynamic-update="true">
+
+		<id name="id">
+			<column name="ROI_EXT_SOURCE_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="providerName">
+			<column name="ProviderName" sql-type="varchar(50)" not-null="true" />
+		</property>
+
+		<property name="sourceName">
+			<column name="SourceName" sql-type="varchar(50)" />
+		</property>
+
+		<property name="description">
+			<column name="Description" sql-type="varchar(1024)" />
+		</property>
+
+		<property name="extType">
+			<column name="ExtType" sql-type="varchar(20)" />
+		</property>
+
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDate">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDate">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+	</class>
+
+	<class name="com.mckesson.eig.roi.ccd.provider.model.CcdSourceConfigModel"
+		table="ROI_EXT_SOURCE_CONFIG" dynamic-update="true">
+
+		<id name="id">
+			<column name="ROI_EXT_SOURCE_CONFIG_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="sourceId">
+			<column name="ROI_EXT_SOURCE_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="configKey">
+			<column name="ConfigName" sql-type="varchar(100)" not-null="true" />
+		</property>
+
+		<property name="configValue">
+			<column name="ConfigValue" sql-type="varchar(50)" />
+		</property>
+
+		<property name="description">
+			<column name="Description" sql-type="varchar(1024)" />
+		</property>
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDate">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDate">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+	</class>
+
+	<class
+		name="com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel"
+		table="ROI_EXT_FACILITY_MAPPING" dynamic-update="true">
+
+		<id name="id">
+			<column name="ROI_EXT_FACILITY_MAPPING_Seq" sql-type="int" />
+			<generator class="identity" />
+		</id>
+
+		<version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="facCode">
+			<column name="FACILITY_CODE" sql-type="char(10)" not-null="true" />
+		</property>
+
+		<property name="sourceId">
+			<column name="ROI_EXT_SOURCE_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="description">
+			<column name="Description" sql-type="varchar(1024)" />
+		</property>
+
+		<property name="createdBy">
+			<column name="Created_By_Seq" sql-type="int" not-null="true" />
+		</property>
+
+		<property name="createdDate">
+			<column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedDate">
+			<column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+		</property>
+
+		<property name="modifiedBy">
+			<column name="Modified_By_Seq" sql-type="int" not-null="true" />
+		</property>
+	</class>
+
+
+	<class
+		name="com.mckesson.eig.roi.ccd.provider.model.AssigningAuthorityModel"
+		table="ASSIGNING_AUTHORITY" dynamic-update="true">
+
+		<id name="facCode">
+			<column name="FACILITY_CODE" sql-type="char(10)" not-null="true" />
+		</id>
+
+		<property name="mrn">
+			<column name="MRN_AA" sql-type="char(20)" not-null="true" />
+		</property>
+
+		<property name="gpi">
+			<column name="GPI_AA" sql-type="char(20)" not-null="true" />
+		</property>
+
+		<property name="hostSendingSystem">
+			<column name="HOST_SENDINGSYSTEM" sql-type="char(20)"
+				not-null="true" />
+		</property>
+
+		<property name="hostFacilityCode">
+			<column name="HOST_FACILITYCODE" sql-type="char(10)" not-null="true" />
+		</property>
+	</class>
+
+	<query name="getExternalSources">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel a
+        ]]>
+	</query>
+
+	<query name="getExternalSourceNameByFacility">
+         <![CDATA[
+            SELECT source.sourceName 
+            FROM com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel source,
+            com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel mapping
+            where mapping.sourceId = source.id and mapping.facCode = ?0
+        ]]>
+	</query>
+
+	<query name="getExternalSourceIdForFacility">
+         <![CDATA[
+            SELECT mapping.sourceId 
+            FROM com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel mapping
+            where mapping.facCode = ?0
+        ]]>
+	</query>
+
+	<query name="getExternalSourceById">
+         <![CDATA[
+            SELECT mapping
+            FROM com.mckesson.eig.roi.ccd.provider.model.ExtFacilityMappingModel mapping
+            where mapping.sourceId = ?0
+        ]]>
+	</query>
+
+	<query name="getExternalSourceConfig">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.ccd.provider.model.CcdSourceConfigModel a
+            where a.sourceId = ?0
+        ]]>
+	</query>
+
+	<query name="getExternalFacilityFromAuthority">
+         <![CDATA[
+            SELECT a
+            FROM com.mckesson.eig.roi.ccd.provider.model.AssigningAuthorityModel a
+            where a.facCode = ?0
+        ]]>
+	</query>
+
+	<query name="getExternalSourcesByName">
+	     <![CDATA[
+	        SELECT a 
+	        FROM com.mckesson.eig.roi.ccd.provider.model.CcdSourceModel a
+	        where a.sourceName = ?0
+	    ]]>
+	</query>
+</hibernate-mapping>

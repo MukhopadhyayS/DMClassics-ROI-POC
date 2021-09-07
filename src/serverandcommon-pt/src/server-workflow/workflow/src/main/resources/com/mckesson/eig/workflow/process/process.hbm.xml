@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping  package="com.mckesson.eig.workflow.process.api">
+
+  <class name="Process"
+         table="WF_Process"
+         schema="HECM_WLIST"
+         dynamic-update="true" >
+
+    <id name="processId" column="PROCESS_ID">
+        <generator class="sequence">
+            <param name="sequence">WF_PROCESS_SEQ</param>
+        </generator>
+    </id>
+
+    <property name="modifiedUserId" column="MODIFIEDBY_USER_ID" type="long" />
+    <property name="modifiedDateTime" column="CREATE_DATETIME" type="timestamp" />
+    <property name="createDateTime"   column="MODIFY_DATETIME" type="timestamp" />
+
+    <set name="processVersions" table="WF_PROCESS_VERSION" schema="HECM_WLIST" inverse="true">
+		<key column="PROCESS_ID" not-null="true"/>
+        <one-to-many class="com.mckesson.eig.workflow.process.api.ProcessVersion"/>
+    </set>
+
+    <set name="ownerActors" cascade="all,delete-orphan" table="WF_PROCESS_OWNERS" schema="HECM_WLIST" inverse="true">
+        <key column="PROCESS_ID" not-null="true" update="false"/>
+        <many-to-many column="ACTOR_ID" class="com.mckesson.eig.workflow.api.Actor"/>
+    </set>
+
+    <set name="assignedActors" cascade="all,delete-orphan" table="WF_PROCESS_ACTOR_ACL" schema="HECM_WLIST">
+        <key column="PROCESS_ID" update="false"/>
+        <one-to-many class="com.mckesson.eig.workflow.process.api.ProcessActorACL"/>
+    </set>
+
+  </class>
+
+ 	<query name="retrieveProcessById">
+		<![CDATA[
+		select p from Process p where p.processId = ?
+		]]>
+	</query>
+</hibernate-mapping>

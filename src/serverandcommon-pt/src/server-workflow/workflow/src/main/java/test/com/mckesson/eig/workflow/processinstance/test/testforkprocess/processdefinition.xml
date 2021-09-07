@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns="urn:jbpm.org:jpdl-3.2"  name="testforkprocess">
+
+	<start-state name="start-state1">
+		<transition to="fork1"></transition>
+	</start-state>
+
+
+	<fork name="fork1">
+		<transition to="state1"></transition>
+		<transition to="state2"></transition>
+	</fork>
+
+	<join name="join1">
+		<transition to="end-state1"></transition>
+	</join>
+
+	<state name="state1">
+		<transition to="join1"></transition>
+	</state>
+
+	<state name="state2">
+		<transition to="join1"></transition>
+	</state>
+
+
+	<end-state name="end-state1"></end-state>
+
+
+</process-definition>

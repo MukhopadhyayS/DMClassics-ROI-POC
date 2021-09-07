@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping  package="com.mckesson.eig.workflow.api">
+
+  <class name="Actor"
+         table="WF_ACTOR"
+         optimistic-lock="version"
+         schema="HECM_WLIST">
+
+    <id name="actorID" column="ACTOR_ID">
+      <generator class="sequence">
+          <param name="sequence">WF_ACTOR_SEQ</param>
+      </generator>
+    </id>
+
+    <version name="version" column="RECORD_VERSION" type="integer" />
+
+    <property name="appID"      column="APP_ID"         />
+    <property name="entityType" column="ENTITY_TYPE_ID" />
+    <property name="entityID"   column="ENTITY_ID"      />
+
+  </class>
+
+  <query name="retrieveActor">
+        <![CDATA[
+        select ac from Actor ac
+        where ac.appID = ?
+        and   ac.entityType = ?
+        and   ac.entityID = ?
+        ]]>
+  </query>
+
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.roi.admin.model.SSNMask">
+		<map-to xml="maskDetails" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="applySSNMask" type="boolean">
+			<bind-xml name="eig:applySSNMask" node="element" />
+		</field>
+
+		<field name="recordVersion" type="int">
+			<bind-xml name="eig:recordVersion" node="element" />
+		</field>
+
+	</class>
+</mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="200">
+
+
+	<start-state name="start-state1">
+		<transition to="node1"></transition>
+	</start-state>
+
+
+	<node name="node1">
+		<action class="com.mckesson.eig.workflow.engine.api.database.DBActionHandler" name="TestDBPlainQuery">
+			<_jdbcConnectionURL>jdbc:oracle:thin:hecm/hecmpazz@127.0.0.1:1521:hecm</_jdbcConnectionURL>
+			<_jdbcDriverClassName>oracle.jdbc.OracleDriver</_jdbcDriverClassName>
+			<_operationTimeoutInSeconds>300</_operationTimeoutInSeconds>
+			<_operationType>0</_operationType>
+			<_resultSetNames>
+				  <element>invoicenumbers</element>
+			</_resultSetNames>
+			<_sqlString>SELECT OBJ_ID, OBJ_NAME, PARENT_OBJ_ID, TER_REV_NUM FROM OBJ_REVISION WHERE OBJ_ID = 5129</_sqlString>
+			<_statementType>0</_statementType>
+		</action>
+		<transition to="end-state1"></transition>
+	</node>
+
+
+	<end-state name="end-state1"></end-state>
+
+
+</process-definition>
