@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="task_v1"
+	targetNamespace="http://eig.mckesson.com/wsdl/task-v1"
+    xmlns:eig="http://eig.mckesson.com/wsdl/task-v1"
+    xmlns:eig1_0="http://eig.mckesson.com/wsdl/task-v1.0"
+    xmlns:task_v1_0="http://eig.mckesson.com/xsd/2009/01"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:ns1="http://cxf.apache.org/bindings/xformat"
+    xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:types>
+        <xsd:schema attributeFormDefault="unqualified"
+                    elementFormDefault="unqualified"
+                    targetNamespace="http://eig.mckesson.com/wsdl/task-v1.0"
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+                schemaLocation="xsd/default/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+            <xsd:import namespace="http://eig.mckesson.com/xsd/2009/01" schemaLocation="./xsd/task_v1_0.xsd" />
+        </xsd:schema>
+    </wsdl:types>
+
+	<wsdl:message name="header">
+        <wsdl:part element="wsse:Security"     name="wssHeader" />
+        <wsdl:part element="task_v1_0:transactionId" name="transIdHeader" />
+        <wsdl:part element="task_v1_0:applicationId" name="appIdHeader" />
+    </wsdl:message>
+
+	<wsdl:message name="generateWorklistReportResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:generateWorklistReportResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteTasksResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:deleteTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="generateWorklistReport">
+		<wsdl:part name="parameters"
+			element="task_v1_0:generateWorklistReport">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getWorklistsMasterData">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getWorklistsMasterData">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createTask">
+		<wsdl:part name="parameters" element="task_v1_0:createTask">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="releaseTasks">
+		<wsdl:part name="parameters" element="task_v1_0:releaseTasks">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getAssignedTasksCount">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getAssignedTasksCount">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ownTasks">
+		<wsdl:part name="parameters" element="task_v1_0:ownTasks"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getAssignedTasks">
+		<wsdl:part name="parameters" element="task_v1_0:getAssignedTasks">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="reassignTasksResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:reassignTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getCreatedTasksCountResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getCreatedTasksCountResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getTaskDetailsResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getTaskDetailsResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ownTasksResponse">
+		<wsdl:part name="parameters" element="task_v1_0:ownTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="releaseTasksResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:releaseTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="disownTasksResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:disownTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="makeTasksEditableResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:makeTasksEditableResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="completeTasks">
+		<wsdl:part name="parameters" element="task_v1_0:completeTasks">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getAssignedTasksResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getAssignedTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getCreatedTasksCount">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getCreatedTasksCount">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="updateTaskResponse">
+		<wsdl:part name="parameters" element="task_v1_0:updateTaskResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getWorklistsMasterDataResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getWorklistsMasterDataResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getCreatedTasks">
+		<wsdl:part name="parameters" element="task_v1_0:getCreatedTasks">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getTaskDetails">
+		<wsdl:part name="parameters" element="task_v1_0:getTaskDetails">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createTaskResponse">
+		<wsdl:part name="parameters" element="task_v1_0:createTaskResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="disownTasks">
+		<wsdl:part name="parameters" element="task_v1_0:disownTasks">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="completeTasksResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:completeTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteTasks">
+		<wsdl:part name="parameters" element="task_v1_0:deleteTasks">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="reassignTasks">
+		<wsdl:part name="parameters" element="task_v1_0:reassignTasks">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="makeTasksEditable">
+		<wsdl:part name="parameters" element="task_v1_0:makeTasksEditable">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getCreatedTasksResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getCreatedTasksResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="updateTask">
+		<wsdl:part name="parameters" element="task_v1_0:updateTask">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getAssignedTasksCountResponse">
+		<wsdl:part name="parameters"
+			element="task_v1_0:getAssignedTasksCountResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="TaskPortType_v1_0">
+		<wsdl:operation name="reassignTasks">
+			<wsdl:input name="reassignTasks"
+				message="eig:reassignTasks">
+			</wsdl:input>
+			<wsdl:output name="reassignTasksResponse"
+				message="eig:reassignTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAssignedTasks">
+			<wsdl:input name="getAssignedTasks"
+				message="eig:getAssignedTasks">
+			</wsdl:input>
+			<wsdl:output name="getAssignedTasksResponse"
+				message="eig:getAssignedTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="generateWorklistReport">
+			<wsdl:input name="generateWorklistReport"
+				message="eig:generateWorklistReport">
+			</wsdl:input>
+			<wsdl:output name="generateWorklistReportResponse"
+				message="eig:generateWorklistReportResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="releaseTasks">
+			<wsdl:input name="releaseTasks"
+				message="eig:releaseTasks">
+			</wsdl:input>
+			<wsdl:output name="releaseTasksResponse"
+				message="eig:releaseTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTaskDetails">
+			<wsdl:input name="getTaskDetails"
+				message="eig:getTaskDetails">
+			</wsdl:input>
+			<wsdl:output name="getTaskDetailsResponse"
+				message="eig:getTaskDetailsResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="makeTasksEditable">
+			<wsdl:input name="makeTasksEditable"
+				message="eig:makeTasksEditable">
+			</wsdl:input>
+			<wsdl:output name="makeTasksEditableResponse"
+				message="eig:makeTasksEditableResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getCreatedTasks">
+			<wsdl:input name="getCreatedTasks"
+				message="eig:getCreatedTasks">
+			</wsdl:input>
+			<wsdl:output name="getCreatedTasksResponse"
+				message="eig:getCreatedTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="disownTasks">
+			<wsdl:input name="disownTasks" message="eig:disownTasks">
+			</wsdl:input>
+			<wsdl:output name="disownTasksResponse"
+				message="eig:disownTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getWorklistsMasterData">
+			<wsdl:input name="getWorklistsMasterData"
+				message="eig:getWorklistsMasterData">
+			</wsdl:input>
+			<wsdl:output name="getWorklistsMasterDataResponse"
+				message="eig:getWorklistsMasterDataResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createTask">
+			<wsdl:input name="createTask" message="eig:createTask">
+			</wsdl:input>
+			<wsdl:output name="createTaskResponse"
+				message="eig:createTaskResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="completeTasks">
+			<wsdl:input name="completeTasks"
+				message="eig:completeTasks">
+			</wsdl:input>
+			<wsdl:output name="completeTasksResponse"
+				message="eig:completeTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getCreatedTasksCount">
+			<wsdl:input name="getCreatedTasksCount"
+				message="eig:getCreatedTasksCount">
+			</wsdl:input>
+			<wsdl:output name="getCreatedTasksCountResponse"
+				message="eig:getCreatedTasksCountResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAssignedTasksCount">
+			<wsdl:input name="getAssignedTasksCount"
+				message="eig:getAssignedTasksCount">
+			</wsdl:input>
+			<wsdl:output name="getAssignedTasksCountResponse"
+				message="eig:getAssignedTasksCountResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="updateTask">
+			<wsdl:input name="updateTask" message="eig:updateTask">
+			</wsdl:input>
+			<wsdl:output name="updateTaskResponse"
+				message="eig:updateTaskResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteTasks">
+			<wsdl:input name="deleteTasks" message="eig:deleteTasks">
+			</wsdl:input>
+			<wsdl:output name="deleteTasksResponse"
+				message="eig:deleteTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ownTasks">
+			<wsdl:input name="ownTasks" message="eig:ownTasks">
+			</wsdl:input>
+			<wsdl:output name="ownTasksResponse"
+				message="eig:ownTasksResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TaskService_v1_0SoapBinding"
+		type="eig:TaskPortType_v1_0">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getAssignedTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/getAssignedTasks"
+				style="document" />
+			<wsdl:input name="getAssignedTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getAssignedTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="reassignTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/reassignTasks"
+				style="document" />
+			<wsdl:input name="reassignTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="reassignTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="generateWorklistReport">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/generateWorklistReport"
+				style="document" />
+			<wsdl:input name="generateWorklistReport">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="generateWorklistReportResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="releaseTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/releaseTasks"
+				style="document" />
+			<wsdl:input name="releaseTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="releaseTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTaskDetails">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/getTaskDetails"
+				style="document" />
+			<wsdl:input name="getTaskDetails">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getTaskDetailsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getCreatedTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/getCreatedTasks"
+				style="document" />
+			<wsdl:input name="getCreatedTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getCreatedTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="makeTasksEditable">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/makeTasksEditable"
+				style="document" />
+			<wsdl:input name="makeTasksEditable">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="makeTasksEditableResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="disownTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/disownTasks"
+				style="document" />
+			<wsdl:input name="disownTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="disownTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getWorklistsMasterData">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/getWorklistsMasterData"
+				style="document" />
+			<wsdl:input name="getWorklistsMasterData">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getWorklistsMasterDataResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createTask">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/createTask"
+				style="document" />
+			<wsdl:input name="createTask">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="createTaskResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="completeTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/completeTasks"
+				style="document" />
+			<wsdl:input name="completeTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="completeTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAssignedTasksCount">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/getAssignedTasksCount"
+				style="document" />
+			<wsdl:input name="getAssignedTasksCount">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getAssignedTasksCountResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getCreatedTasksCount">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/getCreatedTasksCount"
+				style="document" />
+			<wsdl:input name="getCreatedTasksCount">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getCreatedTasksCountResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="updateTask">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/updateTask"
+				style="document" />
+			<wsdl:input name="updateTask">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="updateTaskResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/deleteTasks"
+				style="document" />
+			<wsdl:input name="deleteTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="deleteTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ownTasks">
+			<soap:operation
+				soapAction="http://eig.mckesson.com/wsdl/task-v1/ownTasks"
+				style="document" />
+			<wsdl:input name="ownTasks">
+				<soap:header message="eig:header" part="wssHeader"     use="literal" />
+                <soap:header message="eig:header" part="transIdHeader" use="literal" />
+                <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+                <soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="ownTasksResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TaskService_v1_0">
+		<wsdl:port name="task_v1_0"
+			binding="eig:TaskService_v1_0SoapBinding">
+			<soap:address location="http://host/context/cxfservices/task" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

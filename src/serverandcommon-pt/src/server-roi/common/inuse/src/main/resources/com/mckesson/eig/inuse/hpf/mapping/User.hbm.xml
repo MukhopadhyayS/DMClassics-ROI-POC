@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.mckesson.eig.inuse.hpf.model.User" table="Users"
+    dynamic-update="true" optimistic-lock="dirty" batch-size="128">
+
+    <id name="instanceId" >
+        <column name="userinstanceid" sql-type="int"/>
+        <generator class="native"/>
+    </id>
+
+    <property name="loginId" >
+        <column name="name" sql-type="char(20)" not-null="true" unique="true"/>
+    </property>
+
+    <property name="password" >
+        <column name="passwd" sql-type="char(33)" not-null="true"/>
+    </property>
+
+    <property name="pin" >
+        <column name="pin" sql-type="char(32)"/>
+    </property>
+
+    <property name="idle">
+        <column name="idle" sql-type="smallint"/>
+    </property>
+
+    <property name="administratorAsBoolean" >
+        <column name="administrator" sql-type="smallint"/>
+    </property>
+
+    <property name="textName" >
+        <column name="text_name" sql-type="char(40)"/>
+    </property>
+
+    <property name="fullName" >
+        <column name="fullname" sql-type="char(30)"/>
+    </property>
+
+    <property name="initial" >
+        <column name="audit" sql-type="char(5)"/>
+    </property>
+
+    <property name="accountDisabledAsInteger">
+        <column name="accountdisabled" sql-type="smallint"/>
+    </property>
+
+    <property name="invalidLogonCountAsInteger">
+        <column name="invalid_logon_count" sql-type="smallint"/>
+    </property>
+
+    <property name="overrideRestrictionLevelAsInteger">
+        <column name="override_type" sql-type="smallint"/>
+    </property>
+
+    <property name="changePasswordAsInteger">
+        <column name="change_password" sql-type="smallint"/>
+    </property>
+
+    <property name="restrictResultsAsInteger">
+        <column name="restrict_results" sql-type="int"/>
+    </property>
+
+    <property name="domainIdAsInteger">
+        <column name="DomainInstanceId" sql-type="int" not-null="false"/>
+    </property>
+
+ </class>
+	<query name="userByLoginId">
+	<![CDATA[
+		select u from User u
+		where u.loginId = ?
+	]]></query>
+</hibernate-mapping>

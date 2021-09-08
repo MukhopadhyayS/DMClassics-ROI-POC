@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+  <sql-query name="createRequestCoreCharges">
+     	<![CDATA[
+ 		 INSERT INTO ROI_RequestCoreCharges(
+				ROI_RequestCore_Seq	,
+				Created_Dt,
+				Created_By_Seq,
+				Modified_Dt,
+			    Modified_By_Seq,
+			    Release_Date,
+			    Release_Cost,
+			    Total_Pages,
+			    Total_Pages_Released,
+			    Salestax_Percentage,
+			    Billing_Type,
+			    Facility_Code,
+			    Facility_Name,
+			    Apply_SalesTax,
+			    Unbillable,
+			    DisplayBillingInfo)
+				VALUES(:requestCoreSeq,:createdDt,:createdBy,:modifiedDt,:modifiedBy,
+				:releaseDate,:releaseCost,:totalPages,:totalPagesReleased,
+				:salesTaxPercentage,:billingType,
+				:billingLocCode,
+				:billingLocName, :applySalesTax, :unbillable, :displayBillingInfo); SELECT SCOPE_IDENTITY();
+   		]]>
+    </sql-query>
+
+	<sql-query name="updateRequestCoreChargesAsReleased">
+     	<![CDATA[
+	 		 UPDATE ROI_RequestCoreCharges
+	 		 SET DisplayBillingInfo = 0
+	 		 WHERE ROI_RequestCore_Seq = :requestId
+   		]]>
+    </sql-query>
+
+	<sql-query name="updateRequestCoreChargesAsUnReleased">
+     	<![CDATA[
+	 		 UPDATE ROI_RequestCoreCharges
+	 		 SET DisplayBillingInfo = 1
+	 		 WHERE ROI_RequestCore_Seq = :requestId
+   		]]>
+    </sql-query>
+    
+    <sql-query name="createRequestCoreChargesDocument">
+        <![CDATA[
+  		INSERT INTO ROI_RequestCoreChargesDocument(
+				ROI_RequestCoreCharges_Seq,
+				Amount,
+				Copies,
+				BillingTierName,
+				TotalPages,
+				Pages,
+				BillingTierId,
+				ReleaseCount,
+				isElectronic,
+				RemoveBasecharge,
+				Created_Dt,
+				Created_By_Seq,Modified_Dt,
+			    Modified_By_Seq,
+			    Has_Salestax,
+			    Salestax_Amount)
+				VALUES(:requestCoreChargesSeq,:amount,:copies,
+				:billingTierName,:totalPages,:pages,:billingtierId,:releaseCount,:isElectronic,
+				:removeBaseCharge,:createdDt,:createdBy,:modifiedDt,:modifiedBy,:hasSalesTax,
+				:salesTaxAmount); SELECT SCOPE_IDENTITY();
+   		]]>
+   </sql-query>
+   
+   <sql-query name="createRequestCoreChargesFee">
+        <![CDATA[
+  		INSERT INTO ROI_RequestCoreChargesFee(
+				ROI_RequestCoreCharges_Seq	,
+				Amount,
+				IsCustomFee,
+				FeeType,
+				Created_Dt,
+				Created_By_Seq,Modified_Dt,
+			    Modified_By_Seq,
+			    Has_Salestax,
+			    Salestax_Amount)
+				VALUES(:requestCoreChargesSeq,:amount,:isCustomFee,:feeType,:createdDt,:createdBy,:modifiedDt,:modifiedBy,
+				:hasSalesTax,:salesTaxAmount); SELECT SCOPE_IDENTITY();
+  		]]>
+   </sql-query>
+   
+   <sql-query name="createRequestCoreChargesShipping">
+        <![CDATA[
+  		INSERT INTO ROI_RequestCoreChargesShipping(
+				ROI_RequestCoreCharges_Seq	,
+				ShippingCharge,
+				PostalCode,
+				AddressType,
+				State,
+				ShippingUrl,
+				Address1,
+				Address2,
+				ShippingWeight,
+				TrackingNumber,
+				Address3,
+				City,
+				WillReleaseShipped,
+				ShippingMethod,
+				OutputMethod,
+				ShippingMethodId,
+				Nonprintable_Attachment_Queue,
+				Created_Dt,
+				Created_By_Seq,Modified_Dt,
+			    Modified_By_Seq ,
+			    Country_Code,
+			    Country_Name)
+				VALUES(:requestCoreChargesSeq,:shippingCharge,:postalCode,:addressType,:state,:shippingUrl,:address1,
+				:address2,:shippingWeight,:trackingNumber,:address3,:city,:willReleaseShipped,
+				:shippingMethod,:outputMethod,:shippingMethodId,:nonPrintableAttachmentQueue,:createdDt,:createdBy,:modifiedDt,
+				:modifiedBy,:countryCode,:countryName); SELECT SCOPE_IDENTITY();
+   		]]>
+   </sql-query>
+  
+    <sql-query name="retrieveRequestCoreCharges">
+        <![CDATA[
+            SELECT TOP 1
+                charges.ROI_RequestCoreCharges_Seq id,
+                charges.ROI_RequestCore_Seq requestCoreSeq,
+                charges.Created_Dt createdDt,
+                charges.Created_By_Seq createdBy,
+                charges.Modified_Dt modifiedDt,
+                charges.Modified_By_Seq modifiedBy,
+                charges.Record_Version recordVersion,
+                COALESCE((SELECT SUM(inv.Base_Charge) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) previouslyReleasedCost,
+                charges.Release_Date releaseDate,
+                charges.Release_Cost releaseCost,
+                COALESCE((SELECT SUM(inv.Base_Charge) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) + 
+				charges.Release_Cost totalRequestCost,
+                charges.Total_Pages totalPages,
+                COALESCE((SELECT SUM(inv.Invoice_Balance_Due) FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) + COALESCE(charges.Release_Cost, 0) balanceDue,
+                charges.Total_Pages_Released totalPagesReleased,
+                
+                (case when (charges.DisplayBillingInfo = 1) then
+		                (COALESCE((SELECT SUM(inv.Invoice_Salestax) FROM ROI_RequestCoreDeliveryCharges inv WHERE inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0) +
+		                COALESCE((SELECT SUM(doc.Salestax_Amount) FROM ROI_RequestCoreChargesDocument doc WHERE doc.ROI_RequestCoreCharges_Seq = charges.ROI_requestCoreCharges_Seq), 0) +
+		                COALESCE((SELECT SUM(fee.Salestax_Amount) FROM ROI_RequestCoreChargesFee fee WHERE fee.ROI_RequestCoreCharges_Seq = charges.ROI_requestCoreCharges_Seq), 0)) 
+                	else 
+                		COALESCE((SELECT SUM(inv.Invoice_Salestax) FROM ROI_RequestCoreDeliveryCharges inv WHERE inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice'), 0)
+                end) salesTaxAmount,
+                
+                charges.Salestax_Percentage salesTaxPercentage,
+                RTRIM(charges.Billing_Type) billingType,
+			 	(COALESCE((SELECT SUM(invPay.Amount) FROM ROI_RequestCoreDeliveryChargestoROI_RequestorPayment invPay, ROI_RequestCoreDeliveryCharges inv WHERE inv.ROI_RequestCoreDeliveryCharges_Seq = invPay.ROI_RequestCoreDeliveryCharges_Seq AND inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq AND invPay.IsDeleted = 0), 0)) paymentAmount,
+			    (COALESCE((SELECT SUM(invAdj.Amount) FROM ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment invAdj, ROI_RequestCoreDeliveryCharges inv WHERE inv.ROI_RequestCoreDeliveryCharges_Seq = invAdj.ROI_RequestCoreDeliveryCharges_Seq AND inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq AND invAdj.IsDeleted = 0), 0)) creditAdjustmentAmount,
+			    0.00 debitAdjustmentAmount,
+			    RTRIM(charges.Facility_Code) billingLocCode,
+			    RTRIM(charges.Facility_Name) billingLocName,
+			    charges.Apply_SalesTax applySalesTax,
+			    charges.DisplayBillingInfo displayBillingPaymentInfo,
+			    charges.Unbillable unbillable,
+			    CAST((select COUNT(inv.ROI_RequestCoredeliveryCharges_seq) 
+						from ROI_RequestCoreDeliveryCharges inv						
+						where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq
+							AND inv.Type = 'Invoice') AS bit) hasInvoices,
+							
+				COALESCE((select SUM(inv.Invoice_Balance_Due) 
+						from ROI_RequestCoreDeliveryCharges inv						
+						where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq
+							AND inv.Type = 'Invoice'), 0) invoicesBalance,
+
+				COALESCE((select SUM(inv.Invoice_Salestax) 
+						from ROI_RequestCoreDeliveryCharges inv						
+						where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq
+							AND inv.Type = 'Invoice'), 0) invoicesSalesTaxAmount,
+						
+			    CAST((select COUNT(inv.ROI_RequestCoredeliveryCharges_seq) 
+						from ROI_RequestCoreDeliveryCharges inv						
+						where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq
+							AND inv.Is_Released = 0
+							AND inv.Type = 'Invoice') AS bit) hasUnReleasedInvoices,
+							
+				COALESCE((select SUM(payment.UnappliedAmount) 
+						from ROI_RequestorPayment payment,
+							 ROI_RequestCoreRequestor requestorCoreRequestor						
+						where payment.ROI_Requestor_Seq = requestorCoreRequestor.ROI_Requestor_Seq
+							AND requestorCoreRequestor.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq
+							 AND payment.IsDeleted = 0), 0) totalUnappliedPaymentAmount,
+						
+				COALESCE((select SUM(adjustment.UnappliedAmount) 
+						from ROI_RequestorAdjustment adjustment,
+							 ROI_RequestCoreRequestor requestorCoreRequestor							
+						where adjustment.ROI_Requestor_Seq = requestorCoreRequestor.ROI_Requestor_Seq
+							AND requestorCoreRequestor.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq
+							 AND adjustment.IsDeleted = 0), 0) totalUnappliedAdjustmentAmount,
+			    COALESCE((SELECT TOP 1 inv.Base_Charge FROM ROI_RequestCoreDeliveryCharges inv where inv.ROI_RequestCore_Seq = charges.ROI_RequestCore_Seq and inv.Type = 'Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc), 0) invoiceBaseCharge
+            FROM 
+                cabinet..ROI_RequestCoreCharges charges
+            WHERE charges.ROI_RequestCore_Seq = :requestCoreSeq 
+            ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query> 
+    <sql-query name="retrieveRequestCoreChargesDocument">
+        <![CDATA[
+            SELECT 
+                Amount amount,
+                Copies copies,
+                BillingTierName billingTierName,
+                TotalPages totalPages,
+                Pages pages,
+                BillingTierId billingtierId,
+                ReleaseCount releaseCount,
+                isElectronic isElectronic ,
+                RemoveBasecharge removeBaseCharge,
+                Has_Salestax hasSalesTax,
+                SalesTax_Amount salesTaxAmount,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+			FROM 
+                cabinet..ROI_RequestCoreChargesDocument
+            WHERE ROI_RequestCoreCharges_Seq = :requestCoreChargesSeq ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query> 
+    <sql-query name="retrieveRequestCoreChargesFee">
+        <![CDATA[
+            SELECT 
+            	Has_Salestax hasSalesTax,
+                SalesTax_Amount salesTaxAmount,
+                Amount amount,
+			    IsCustomFee isCustomFee,
+			    FeeType feeType,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion
+            FROM 
+                cabinet..ROI_RequestCoreChargesFee
+            WHERE ROI_RequestCoreCharges_Seq = :requestCoreChargesSeq ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query> 
+    <sql-query name="retrieveRequestCoreChargesShipping">
+        <![CDATA[
+            SELECT TOP 1
+                  ShippingCharge shippingCharge,
+                  PostalCode postalCode,
+                  AddressType addressType,
+                  State state,
+                  ShippingUrl shippingUrl,
+                  Address1 address1,
+                  Address2 address2,
+                  ShippingWeight shippingWeight,
+                  TrackingNumber trackingNumber,
+                  Address3 address3,
+                  City city,
+                  Country_Code countryCode,
+                  Country_Name countryName,
+                  WillReleaseShipped willReleaseShipped,
+                  ShippingMethod shippingMethod, 
+                  OutputMethod outputMethod,
+                  ShippingMethodId shippingMethodId,
+                  Nonprintable_Attachment_Queue nonPrintableAttachmentQueue,
+                  Created_Dt createdDt,
+                  Created_By_Seq createdBy,
+                  Modified_Dt modifiedDt,
+                  Modified_By_Seq modifiedBy,
+                  Record_Version recordVersion
+            FROM
+                cabinet..ROI_RequestCoreChargesShipping
+            WHERE ROI_RequestCoreCharges_Seq = :requestCoreChargesSeq ORDER BY Modified_Dt desc;
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteRequestCoreChargesDocument">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreChargesDocument 
+           WHERE 
+           	    ROI_RequestCoreCharges_Seq = :requestCoreChargesSeq
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="deleteRequestCoreChargesFee">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreChargesFee 
+           WHERE 
+           	    ROI_RequestCoreCharges_Seq = :requestCoreChargesSeq
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="deleteRequestCoreCharges">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreCharges 
+           WHERE 
+           	    ROI_RequestCore_Seq  = :requestCoreSeq
+        ]]>
+    </sql-query> 
+    
+     <sql-query name="deleteRequestCoreChargesShipping">
+        <![CDATA[
+           DELETE 
+           FROM 
+           		cabinet..ROI_RequestCoreChargesShipping 
+           WHERE 
+           	    ROI_RequestCoreCharges_Seq = :requestCoreChargesSeq
+        ]]>
+    </sql-query> 
+    <sql-query name="retrieveOutputType">
+        <![CDATA[
+           SELECT  shipping.OutputMethod outputMethod
+           FROM 
+                cabinet..ROI_RequestCoreCharges requestCoreCharges,
+           		cabinet..ROI_RequestCoreChargesShipping shipping
+           WHERE 
+           	    requestCoreCharges.ROI_RequestCore_Seq = :requestId
+           	    and requestCoreCharges.ROI_RequestCoreCharges_Seq = shipping.ROI_RequestCoreCharges_Seq
+        ]]>
+    </sql-query>
+
+    <sql-query name="deleteAllBillingPaymentShippingInfoByRequest">
+        <![CDATA[
+           DELETE shipping
+           FROM 
+                cabinet..ROI_RequestCoreCharges requestCoreCharges,
+           		cabinet..ROI_RequestCoreChargesShipping shipping
+           WHERE 
+           	    requestCoreCharges.ROI_RequestCore_Seq = :requestId
+           	    and requestCoreCharges.ROI_RequestCoreCharges_Seq = shipping.ROI_RequestCoreCharges_Seq
+        ]]>
+    </sql-query>
+    
+     <sql-query name="deleteAllBillingPaymentDocChargesInfoByRequest">
+        <![CDATA[
+           DELETE doc
+           FROM 
+           		cabinet..ROI_RequestCoreCharges requestCoreCharges,
+           		cabinet..ROI_RequestCoreChargesDocument doc
+           WHERE 
+           	    requestCoreCharges.ROI_RequestCore_Seq = :requestId
+           	    and requestCoreCharges.ROI_RequestCoreCharges_Seq = doc.ROI_RequestCoreCharges_Seq
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="deleteAllBillingPaymentFeeChargesInfoByRequest">
+        <![CDATA[
+           DELETE fee
+           FROM 
+           		cabinet..ROI_RequestCoreCharges requestCoreCharges,
+           		cabinet..ROI_RequestCoreChargesFee fee
+           WHERE 
+           		requestCoreCharges.ROI_RequestCore_Seq = :requestId
+           	    and requestCoreCharges.ROI_RequestCoreCharges_Seq = fee.ROI_RequestCoreCharges_Seq
+        ]]>
+    </sql-query> 
+
+    <sql-query name="deleteAllBillingPaymentsalesTaxInfoByRequest">
+        <![CDATA[
+           DELETE sales
+           FROM 
+           		cabinet..ROI_RequestCoreCharges requestCoreCharges,
+           		cabinet..ROI_RequestCoreChargesSalesTaxReason sales
+           WHERE 
+           	    requestCoreCharges.ROI_RequestCore_Seq = :requestId
+           	    and requestCoreCharges.ROI_RequestCoreCharges_Seq = sales.ROI_RequestCoreCharges_Seq
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="clearRequestReleaseCost">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreCharges
+		SET Release_Cost = 0
+		WHERE 
+			ROI_RequestCore_Seq = :requestId
+									
+   		]]>
+   </sql-query>
+   
+    
+    <sql-query name="revertRequestReleaseCost">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreCharges
+		SET Release_Cost = :releaseCost
+		WHERE 
+			ROI_RequestCore_Seq = :requestId
+									
+   		]]>
+   </sql-query>
+   
+   <sql-query name="updateRequestReleaseCost">
+  	 <![CDATA[
+			
+		UPDATE ROI_RequestCoreCharges
+		SET Release_Cost = :releaseCost,
+		Modified_Dt	= :modifiedDt,
+		Modified_By_Seq = :modifiedBySeq
+				
+		WHERE 
+			ROI_RequestCore_Seq = :requestId
+									
+   		]]>
+   </sql-query>
+   
+   <!-- sql-query name="updateRequestBalanceForAdjustments">
+        <![CDATA[
+			UPDATE ROI_RequestCoreCharges
+			SET Credit_Adjustment_Amount = :creditAdjAmt,
+				Balance_Due = :balanceDue,
+				Modified_Dt = :modifiedDt,
+				Modified_By_Seq = :modifiedBy	
+			WHERE ROI_RequestCore_Seq = :requestCoreId
+        ]]>
+    </sql-query-->
+   
+     
+</hibernate-mapping>

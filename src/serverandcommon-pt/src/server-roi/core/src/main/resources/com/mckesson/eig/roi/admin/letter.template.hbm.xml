@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class name="com.mckesson.eig.roi.admin.model.LetterTemplate"
+       table="ROI_LetterTemplate"
+       optimistic-lock="version" >
+
+    <id name="templateId" >
+        <column name="ROI_LetterTemplate_Seq" sql-type="int"/>
+        <generator class="identity"/>
+    </id>
+
+    <version name="recordVersion" column="Record_Version" type="integer" />
+
+
+   <many-to-one name="file"
+                lazy="false"
+                column="ROI_LetterTemplateFile_Seq"
+                not-null="true"/>
+
+    <property name="name" >
+        <column name="Name" sql-type="varchar(60)" not-null="true" />
+    </property>
+
+    <property name="desc" >
+        <column name="Description" sql-type="varchar(255)"/>
+    </property>
+
+     <property name="letterType" >
+        <column name="Type" sql-type="varchar(60)" not-null="true"/>
+    </property>
+
+    <property name="isDefault" >
+        <column name="IsDefault" sql-type="bit" not-null="true" />
+    </property>
+
+    <property name="active" >
+         <column name="Active" sql-type="bit" not-null="true" />
+    </property>
+
+    <property name="createdBy" >
+        <column name="Created_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="modifiedDate" >
+        <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+    </property>
+
+    <property name="modifiedBy" >
+        <column name="Modified_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="orgId" >
+        <column name="Organization_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+     <property name="hasNotes" >
+         <column name="HasNotes" sql-type="bit" not-null="true" />
+    </property>
+
+</class>
+
+    <query name="retrieveAllLetterTemplates">
+      <![CDATA[
+         SELECT lt
+        FROM com.mckesson.eig.roi.admin.model.LetterTemplate lt
+        ORDER BY lt.letterType asc
+     ]]>
+  </query>
+
+    <query name="retrieveLetterTempDocByTemplateId">
+      <![CDATA[
+      	SELECT ltdoc
+        FROM com.mckesson.eig.roi.admin.model.LetterTemplate lt,
+        	com.mckesson.eig.roi.admin.model.LetterTemplateDocument ltdoc
+        WHERE lt.templateId = ?0
+        AND ltdoc.id = lt.file
+        ORDER BY lt.letterType asc
+     ]]>
+  </query>
+
+    <query name="getLetterTemplateByName">
+      <![CDATA[
+        SELECT l
+        FROM com.mckesson.eig.roi.admin.model.LetterTemplate l
+        WHERE l.name = ?0 and l.letterType = ?1
+     ]]>
+  </query>
+
+   <query name="getLetterTemplateIsDefault">
+      <![CDATA[
+        SELECT letter
+        FROM com.mckesson.eig.roi.admin.model.LetterTemplate letter
+        WHERE letter.isDefault = true and letter.letterType = ?0
+      ]]>
+    </query>
+
+    <query name="getLetterTemplateByType">
+      <![CDATA[
+        SELECT count(l)
+        FROM com.mckesson.eig.roi.admin.model.LetterTemplate l
+        WHERE l.letterType = ?0
+     ]]>
+  </query>
+</hibernate-mapping>
