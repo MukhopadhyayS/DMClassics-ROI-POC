@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns="urn:jbpm.org:jpdl-3.2"  name="testdecisionprocess">
+
+	<start-state name="start-state1">
+		<transition to="decision1"></transition>
+	</start-state>
+
+
+	<state name="state1">
+		<transition to="end-state1"></transition>
+	</state>
+
+	<state name="state2">
+		<transition to="end-state1"></transition>
+	</state>
+
+	<decision name="decision1" expression="No">
+		<transition to="state1" name="Yes"></transition>
+		<transition to="state2" name="No"></transition>
+	</decision>
+
+
+	<end-state name="end-state1"></end-state>
+
+
+</process-definition>

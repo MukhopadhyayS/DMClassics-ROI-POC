@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.mckesson.eig.server</groupId>
+		<artifactId>roi-common</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<name>McKesson Patient Folder ROI Config</name>
+	<description>POM for building McKesson Patient Folder ROI Config</description>
+
+	<groupId>com.mckesson.eig.server.common.config</groupId>
+	<artifactId>roi-common-config</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.mckesson.eig.server.common.utils</groupId>
+			<artifactId>roi-common-utils</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mckesson.eig.server.common.ws</groupId>
+			<artifactId>roi-common-webservices</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mckesson.eig.server.common.filetransfer</groupId>
+			<artifactId>roi-common-filetransfer</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mckesson.eig.server.common.reports</groupId>
+			<artifactId>roi-common-reports</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mckesson.eig.server.common.audit</groupId>
+			<artifactId>roi-common-audit</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

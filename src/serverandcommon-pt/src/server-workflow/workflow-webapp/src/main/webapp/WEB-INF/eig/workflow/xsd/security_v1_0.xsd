@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified"
+	elementFormDefault="unqualified"
+	targetNamespace="http://eig.mckesson.com/xsd/2009/01"
+	xmlns:security_v1_0="http://eig.mckesson.com/xsd/2009/01"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:element name="transactionId" type="xsd:long" />
+	<xsd:element name="applicationId" type="xsd:string" />
+
+	<xsd:element name="logoff" type="security_v1_0:logoff"/>
+	<xsd:element name="logoffResponse" type="security_v1_0:logoffResponse"/>
+	<xsd:element name="logon" type="security_v1_0:logon"/>
+	<xsd:element name="logonResponse" type="security_v1_0:logonResponse"/>
+
+
+	<xsd:complexType name="logoff">
+		<xsd:sequence/>
+	</xsd:complexType>
+
+	<xsd:complexType name="logoffResponse">
+		<xsd:sequence/>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="logon">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="application" type="xsd:string"/>
+			<xsd:element minOccurs="0" name="environment" type="xsd:string"/>
+	    </xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="logonResponse">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" name="SecurityProperties" type="security_v1_0:SecurityProperties"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SecurityProperties">
+		<xsd:sequence>
+			<xsd:element name="autoLogOffTime" type="xsd:int"/>
+			<xsd:element name="autoLogOffWaitTime" type="xsd:int"/>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="securityRights" type="security_v1_0:securityRight"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="securityRight">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="DesignerApplicationAccess"/>
+			<xsd:enumeration value="ReviewProcessAccess"/>
+			<xsd:enumeration value="CreateUpdateProcessAccess"/>
+			<xsd:enumeration value="DeleteProcessAccess"/>
+			<xsd:enumeration value="DeployProcessAccess"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>
+

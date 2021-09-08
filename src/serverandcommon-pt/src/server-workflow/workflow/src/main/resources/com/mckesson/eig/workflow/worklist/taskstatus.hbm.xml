@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping  package="com.mckesson.eig.workflow.worklist.api">
+
+  <class name="TaskStatus"
+         table="WF_TASK_STATUS"
+         schema="HECM_WLIST">
+
+    <id name="statusID" type="string" column="STATUS_ID"/>
+
+    <property name="isActive" type="yes_no" column="IS_ACTIVE"/>
+    <property name="displayNameKey" type="string" column="DISPLAY_NAME" />
+    <property name="sortOrder" type="integer" column="SORT_ORDER"/>
+
+  </class>
+
+  <query name="getTaskStatusList">
+    <![CDATA[
+      select ts from TaskStatus ts
+    ]]>
+  </query>
+
+</hibernate-mapping>

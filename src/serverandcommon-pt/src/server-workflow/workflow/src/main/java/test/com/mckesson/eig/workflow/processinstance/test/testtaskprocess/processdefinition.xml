@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns="urn:jbpm.org:jpdl-3.2"  name="testtaskprocess">
+
+	<start-state name="start-state1">
+		<transition to="task-node1"></transition>
+	</start-state>
+
+
+	<state name="state1">
+		<transition to="end-state1"></transition>
+	</state>
+
+	<task-node name="task-node1">
+		<task name="testtask"></task>
+		<transition to="state1"></transition>
+	</task-node>
+
+
+	<end-state name="end-state1"></end-state>
+
+
+</process-definition>

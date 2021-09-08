@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping  package="com.mckesson.eig.workflow.worklist.api">
+
+  <class name="Worklist"
+         table="WF_WORKLIST"
+         schema="HECM_WLIST"
+         optimistic-lock="version"
+         dynamic-update="true">
+
+    <id name="worklistID" column="WORKLIST_ID">
+        <generator class="sequence">
+            <param name="sequence">WF_WORKLIST_SEQ</param>
+        </generator>
+    </id>
+
+    <version name="version" column="RECORD_VERSION" type="integer" />
+
+    <property name="name" />
+    <property name="desc" column="DESCRIPTION"/>
+
+    <set name="ownerActors" table="WF_WORKLIST_OWNER" schema="HECM_WLIST">
+        <key column="WORKLIST_ID"/>
+        <many-to-many column="ACTOR_ID" class="com.mckesson.eig.workflow.api.Actor"/>
+    </set>
+
+    <set name="acls" cascade="all,delete-orphan" schema="HECM_WLIST">
+         <key column="WORKLIST_ID" not-null="true"/>
+         <one-to-many class="com.mckesson.eig.workflow.worklist.api.TaskACL"/>
+    </set>
+
+    <set name="tasks" schema="HECM_JBPM">
+         <key column="ACTORID_" update="false" />
+         <one-to-many class="org.jbpm.taskmgmt.exe.PooledActor"/>
+    </set>
+
+  </class>
+
+  <query name="retrieveWorklist">
+    <![CDATA[
+    select wl from Worklist wl
+      left outer join wl.ownerActors as ownerActors
+      left outer join wl.acls as acls
+      left outer join acls.actor  as actor
+    where wl.worklistID = ?
+    ]]>
+  </query>
+
+  <query name="retrieveWorklistsCount">
+    <![CDATA[
+    select count(wl) from Worklist wl
+      left outer join wl.ownerActors as ownerActors
+      where ownerActors.actorID = ?
+    ]]>
+  </query>
+  
+  <query name="retrieveOwnedWorklists">
+    <![CDATA[
+    select wl.worklistID, wl.name from Worklist wl
+      inner join wl.ownerActors as ownerActors
+      inner join wl.acls as acls
+    where ownerActors.actorID = acls.actor.actorID
+      and ownerActors.actorID = ?
+    ]]>
+  </query>
+  
+  <query name="retreiveTasksCount">
+      <![CDATA[
+    select count(pa.actorId) from org.jbpm.taskmgmt.exe.PooledActor as pa
+      where pa.actorId = ?
+    ]]>
+  </query>
+  
+</hibernate-mapping>

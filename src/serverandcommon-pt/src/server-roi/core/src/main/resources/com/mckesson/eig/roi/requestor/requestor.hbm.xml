@@ -1,0 +1,1857 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.mckesson.eig.roi.requestor.model.Requestor"
+           table="ROI_Requestor"
+           dynamic-update="true"
+           optimistic-lock="version">
+
+        <id name="id">
+            <column name="ROI_Requestor_Seq"/>
+            <generator class="identity"/>
+        </id>
+
+        <version name="recordVersion" column="Record_Version" type="integer" />
+
+        <property name="lastName">
+            <column name="NameLast" sql-type="varchar(256)" not-null="true" />
+        </property>
+
+        <property name="firstName">
+            <column name="NameFirst" sql-type="varchar(256)" />
+        </property>
+
+        <property name="type">
+            <column name="ROI_RequestorType_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+        <property name="requestorType"
+                  formula="(select rt.Name from ROI_RequestorType rt
+                            where rt.ROI_RequestorType_Seq = ROI_RequestorType_Seq)">
+        </property>
+
+        <property name="prePayRequired">
+            <column name="PrePayRequired" sql-type="bit" not-null="true" />
+        </property>
+
+        <property name="certLetterRequired">
+            <column name="CertLetterRequired" sql-type="bit" not-null="true" />
+        </property>
+
+        <property name="epn"
+                  formula="(select TOP 1 rr.value from ROI_RequestorRestriction rr
+                            where rr.ROI_Requestor_Seq = ROI_Requestor_Seq
+                            and rr.SystemColumn = 'EPN' and rr.value is not null)"
+                  lazy="true">
+        </property>
+
+        <property name="ssn"
+                  formula="(select  TOP 1 rr.value from ROI_RequestorRestriction rr
+                            where rr.ROI_Requestor_Seq = ROI_Requestor_Seq
+                            and rr.SystemColumn = 'SSN' and rr.value is not null)"
+	              lazy="true">
+        </property>
+
+        <property name="dateOfBirth"
+                  formula="(select  TOP 1 rr.value from ROI_RequestorRestriction rr
+                            where rr.ROI_Requestor_Seq = ROI_Requestor_Seq
+                            and rr.SystemColumn = 'DOB' and rr.value is not null)"
+                  lazy="true">
+        </property>
+
+        <property name="facility"
+                  formula="(select  TOP 1 rr.value from ROI_RequestorRestriction rr
+                            where rr.ROI_Requestor_Seq = ROI_Requestor_Seq
+                            and rr.SystemColumn = 'FACILITY' and rr.value is not null)"
+                  lazy="true">
+        </property>
+
+        <property name="freeFormFacilityExists"
+                  formula="(select  TOP 1 rr.value from ROI_RequestorRestriction rr
+                            where rr.ROI_Requestor_Seq = ROI_Requestor_Seq
+                            and rr.SystemColumn = 'FREEFORM_FACILITY' and rr.value is not null)"
+                  lazy="true">
+        </property>
+
+        <property name="mrn"
+                  formula="(select  TOP 1 rr.value from ROI_RequestorRestriction rr
+                            where rr.ROI_Requestor_Seq = ROI_Requestor_Seq
+                            and rr.SystemColumn = 'MRN' and rr.value is not null)"
+                  lazy="true">
+        </property>
+
+        <property name="createdBy">
+            <column name="Created_By_Seq" sql-type="int" not-null="true" />
+        </property>
+
+        <property name="modifiedDate">
+            <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+        </property>
+
+        <property name="modifiedBy">
+            <column name="Modified_By_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+        <property name="active" >
+            <column name="Active" sql-type="bit" not-null="true"/>
+        </property>
+
+        <property name="frequent" >
+            <column name="Frequent" sql-type="bit" not-null="true"/>
+        </property>
+
+        <property name="patient" >
+            <column name="IsPatient" sql-type="bit" not-null="true"/>
+        </property>
+        
+        <property name="salesTax"
+                  formula="(select rt.SalesTaxEnable from ROI_RequestorType rt
+                            where rt.ROI_RequestorType_Seq = ROI_RequestorType_Seq)">
+        </property>
+
+        <set name="relatedAddress" cascade="all, delete-orphan" lazy="false">
+            <key column="ROI_Requestor_Seq" not-null="true" />
+            <one-to-many class="com.mckesson.eig.roi.requestor.model.RelatedAddress" />
+        </set>
+
+        <set name="relatedEmailPhones" cascade="all, delete-orphan" lazy="false">
+            <key column="ROI_Requestor_Seq" not-null="true" />
+            <one-to-many class="com.mckesson.eig.roi.requestor.model.RelatedEmailPhone" />
+        </set>
+
+        <set name="relatedContacts" cascade="all, delete-orphan" lazy="false">
+            <key column="ROI_Requestor_Seq" not-null="true" />
+            <one-to-many class="com.mckesson.eig.roi.requestor.model.RelatedContact" />
+        </set>
+
+         <set name="requestorDetails" cascade="all, delete-orphan" lazy="false">
+            <key column="ROI_Requestor_Seq" not-null="true" />
+            <one-to-many class="com.mckesson.eig.roi.requestor.model.RequestorDetail" />
+        </set>
+
+    </class>
+	
+	  <class name="com.mckesson.eig.roi.billing.model.RequestorLetter"
+           table="ROI_RequestorLetter"
+           dynamic-update="true"
+           optimistic-lock="version" >
+
+        <id name="requestorLetterId" >
+            <column name="ROI_RequestorLetter_Seq" sql-type="int"/>
+            <generator class="identity"/>
+        </id>
+
+        <version name="recordVersion" column="Record_Version" type="integer" />
+
+		<property name="createdDate">
+            <column name="Created_Dt" sql-type="smalldatetime" not-null="true" />
+        </property>
+        
+        <property name="createdBy" >
+            <column name="Created_By_Seq" sql-type="int" not-null="true"/>
+        </property>
+
+		<property name="modifiedDt">
+            <column name="Modified_Dt" sql-type="smalldatetime" not-null="true" />
+        </property>
+
+        <property name="modifiedBy">
+            <column name="Modified_By_Seq" sql-type="int" not-null="true" />
+        </property>
+        
+        <property name="requestTemplateId" >
+            <column name="ROI_LetterTemplateFile_Seq" sql-type="int" not-null="true"/>
+        </property>
+        
+        <property name="requestorId" >
+            <column name="ROI_Requestor_Seq" sql-type="int" not-null="true"/>
+        </property>
+  
+  </class>
+
+<!--<query name="getAllRecentRequestors">
+        <![CDATA[
+            SELECT distinct TRIM(lov.value)
+            FROM com.mckesson.eig.roi.request.model.Request as r,
+                 com.mckesson.eig.roi.base.model.ROILoV as lov
+            WHERE lov.parent = 1 and lov.key='requestor.id' and lov.child = r.id and
+             r.createdDate >= ?
+        ]]>
+        
+               
+    </query>
+ -->
+ 
+    <sql-query name="getAssociatedRequestCount">
+        <![CDATA[
+            SELECT count(r.ROI_RequestCoreRequestor_Seq) as count
+            FROM ROI_RequestCoreRequestor r 
+            WHERE r.ROI_Requestor_Seq = :id
+        ]]>
+    </sql-query>
+
+    <query name="retrieveRequestorByLastName">
+        <![CDATA[
+            SELECT r.id FROM com.mckesson.eig.roi.requestor.model.Requestor r
+            WHERE r.lastName = ?0
+        ]]>
+    </query>
+
+    <query name="retrieveRequestorByName">
+        <![CDATA[
+            SELECT r.id FROM com.mckesson.eig.roi.requestor.model.Requestor r
+            WHERE r.lastName = :lName and r.firstName = :fName
+        ]]>
+    </query>
+	
+  <query name="retrieveRequestorLetterDetails">
+         <![CDATA[
+             SELECT summaryLetter.createdDate, summaryLetter.requestTemplateId
+             FROM com.mckesson.eig.roi.billing.model.RequestorLetter AS summaryLetter
+             WHERE summaryLetter.requestorLetterId = ?0
+         ]]>
+    </query>
+
+	<!-- <sql-query name="retrieveRequestorInvoices"> -->
+         <!-- <![CDATA[ -->
+         <!-- SELECT TOP 1000 * from (SELECT  -->
+            	<!-- invoice.ROI_RequestCoreDeliveryCharges_Seq id, -->
+            	<!-- invoice.ROI_RequestCore_Seq requestId, -->
+            	<!-- 'Invoice-'+CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description, -->
+            	<!-- 'Invoice' invoiceType, -->
+			    <!-- invoice.Base_Charge charge, -->
+			    <!-- invoice.Invoice_Balance_Due as balance, -->
+			    <!-- COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount, -->
+			    <!-- COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) adjustmentAmount, -->
+			    <!-- 0 refundAmount, -->
+			    <!-- null paymentDescription, -->
+			    <!-- null paymentMethod, -->
+			    <!-- CAST((SELECT STUFF((SELECT '~@~' + RTRIM(LTRIM(invoiceFacility.FACILITY))  -->
+				  						<!-- FROM ((SELECT DISTINCT pat.FACILITY FACILITY -->
+												<!-- FROM cabinet..ROI_Patients pat, -->
+													<!-- cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core -->
+												 <!-- WHERE core.ROI_Patients_Seq = pat.ROI_Patients_Seq -->
+												 <!-- AND core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq) -->
+												 
+											<!-- UNION ALL -->
+												<!-- (SELECT pat.FACILITY FACILITY -->
+												<!-- FROM ROI_SupplementalPatientsCore pat, -->
+													 <!-- cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core -->
+												<!-- WHERE core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq -->
+													<!-- AND pat.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq -->
+													<!-- )) as invoiceFacility -->
+				  						 	<!-- FOR XML PATH('')), 1, 3, '')) AS VARCHAR(MAX)) facilityString, -->
+				<!-- invoice.FACILITY_CODE billingLocation, -->
+			    <!-- invoice.Created_Dt createdDt, -->
+				<!-- invoice.Created_By_Seq createdBy, -->
+				<!-- invoice.Modified_Dt modifiedDt, -->
+				<!-- invoice.Modified_By_Seq modifiedBy, -->
+				<!-- invoice.Record_Version recordVersion, -->
+				<!-- invoice.Unbillable_Amount unBillableAmount, -->
+				<!-- case(select invoice.Unbillable from ROI_RequestCore where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq) when 0 then 'NO' else 'YES'end AS unbillable -->
+            <!-- FROM  -->
+                <!-- cabinet..ROI_RequestCoreDeliveryCharges invoice -->
+            <!-- WHERE -->
+            	<!-- invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from  -->
+            	<!-- cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId) and Type = 'Invoice') as tmp -->
+	
+            <!-- UNION -->
+			<!-- ( -->
+			<!-- SELECT  -->
+            	<!-- adj.ROI_RequestorAdjustment_Seq id, -->
+            	<!-- 0 requestId, -->
+            	<!-- adj.Note as description, -->
+            	<!-- 'Unapplied Adjustment' invoiceType, -->
+			    <!-- 0.00 charge, -->
+			    <!-- adj.UnappliedAmount as balance, -->
+			    <!-- 0.00 paymentAmount, -->
+			    <!-- adj.UnappliedAmount as adjustmentAmount, -->
+			    <!-- 0 refundAmount, -->
+			    <!-- null paymentDescription, -->
+			    <!-- null paymentMethod, -->
+			    <!-- null facilityString, -->
+			    <!-- null billingLocation, -->
+			    <!-- adj.Created_Dt createdDt, -->
+				<!-- adj.Created_By_Seq createdBy, -->
+				<!-- adj.Modified_Dt modifiedDt, -->
+				<!-- adj.Modified_By_Seq modifiedBy, -->
+				<!-- adj.Record_Version recordVersion, -->
+				<!-- 0.00 unBillableAmount, -->
+				<!-- null unbillable -->
+            <!-- FROM  -->
+                <!-- cabinet..ROI_RequestorAdjustment adj -->
+            <!-- WHERE -->
+            	<!-- adj.ROI_Requestor_Seq = :requestorId -->
+            	<!-- and adj.UnappliedAmount is not null  -->
+            	<!-- and adj.UnappliedAmount > 0 -->
+            	<!-- and adj.IsDeleted = 0) -->
+            
+            <!-- UNION -->
+            <!-- ( -->
+            <!-- SELECT  -->
+            	<!-- pay.ROI_RequestorPayment_Seq id, -->
+            	<!-- 0 requestId, -->
+            	<!-- pay.Description as description, -->
+            	<!-- 'Unapplied Payment' invoiceType, -->
+			    <!-- 0.00 charge, -->
+			    <!-- pay.UnappliedAmount as balance, -->
+			    <!-- pay.Amount paymentAmount, -->
+			    <!-- 0.00 as adjustmentAmount, -->
+			    <!-- pay.RefundAmount refundAmount, -->
+			    <!-- pay.Description paymentDescription, -->
+			    <!-- pay.PaymentType paymentMethod, -->
+			    <!-- null facilityString, -->
+			    <!-- null billingLocation, -->
+			    <!-- pay.Created_Dt createdDt, -->
+				<!-- pay.Created_By_Seq createdBy, -->
+				<!-- pay.PaymentDate modifiedDt, -->
+				<!-- pay.Modified_By_Seq modifiedBy, -->
+				<!-- pay.Record_Version recordVersion, -->
+				<!-- 0.00 unBillableAmount, -->
+				<!-- null unbillable -->
+            <!-- FROM  -->
+                <!-- cabinet..ROI_RequestorPayment pay -->
+            <!-- WHERE -->
+            	<!-- pay.ROI_Requestor_Seq = :requestorId -->
+            	<!-- and pay.UnappliedAmount is not null  -->
+            	<!-- and pay.UnappliedAmount > 0 -->
+            	<!-- and pay.IsDeleted = 0) -->
+          <!-- UNION -->
+            <!-- ( -->
+            <!-- SELECT  -->
+            	<!-- refund.ROI_RequestorRefund_Seq id, -->
+            	<!-- 0 requestId, -->
+            	<!-- refund.Note as description, -->
+            	<!-- 'Refund' invoiceType, -->
+			    <!-- 0.00 charge, -->
+			    <!-- refund.Amount as balance, -->
+			    <!-- refund.Amount paymentAmount, -->
+			    <!-- 0.00 as adjustmentAmount, -->
+			    <!-- refund.Amount refundAmount, -->
+			    <!-- refund.Note paymentDescription, -->
+			    <!-- null paymentMethod, -->
+			    <!-- null facilityString, -->
+			    <!-- null billingLocation, -->
+			    <!-- refund.Created_Dt createdDt, -->
+			    <!-- refund.Created_By_Seq createdBy, -->
+			    <!-- refund.Date modifiedDt, -->
+			    <!-- refund.Modified_By_Seq modifiedBy, -->
+			    <!-- refund.Record_Version recordVersion, -->
+			    <!-- 0.00 unBillableAmount, -->
+			    <!-- null unbillable -->
+            <!-- FROM  -->
+                <!-- cabinet..ROI_RequestorRefund refund -->
+            <!-- WHERE -->
+            	<!-- refund.ROI_Requestor_Seq = :requestorId)  -->
+			<!-- UNION -->
+			
+			 <!-- SELECT TOP 1000 * from (SELECT TOP 1 -->
+            	<!-- invoice.ROI_RequestCoreDeliveryCharges_Seq id, -->
+            	<!-- invoice.ROI_RequestCore_Seq requestId, -->
+            	<!-- 'Prebill-'+CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description, -->
+            	<!-- 'Prebill' invoiceType, -->
+			    <!-- invoice.Base_Charge charge, -->
+			    <!-- invoice.Balance_Due as balance, -->
+			    <!-- COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount, -->
+			    <!-- COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) adjustmentAmount, -->
+			    <!-- 0 refundAmount, -->
+			    <!-- null paymentDescription, -->
+			    <!-- null paymentMethod, -->
+			    <!-- CAST((SELECT STUFF((SELECT '~@~' + RTRIM(LTRIM(invoiceFacility.FACILITY))  -->
+				  						<!-- FROM ((SELECT DISTINCT pat.FACILITY FACILITY -->
+												<!-- FROM cabinet..ROI_Patients pat, -->
+													<!-- cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core -->
+												 <!-- WHERE core.ROI_Patients_Seq = pat.ROI_Patients_Seq -->
+												 <!-- AND core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq) -->
+												 
+											<!-- UNION ALL -->
+												<!-- (SELECT pat.FACILITY FACILITY -->
+												<!-- FROM ROI_SupplementalPatientsCore pat, -->
+													 <!-- cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core -->
+												<!-- WHERE core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq -->
+													<!-- AND pat.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq -->
+													<!-- )) as invoiceFacility -->
+				  						 	<!-- FOR XML PATH('')), 1, 3, '')) AS VARCHAR(MAX)) facilityString, -->
+				<!-- invoice.FACILITY_CODE billingLocation, -->
+			    <!-- invoice.Created_Dt createdDt, -->
+				<!-- invoice.Created_By_Seq createdBy, -->
+				<!-- invoice.Modified_Dt modifiedDt, -->
+				<!-- invoice.Modified_By_Seq modifiedBy, -->
+				<!-- invoice.Record_Version recordVersion, -->
+				<!-- invoice.Unbillable_Amount unBillableAmount, -->
+				<!-- case(select invoice.Unbillable from ROI_RequestCore where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq) when 0 then 'NO' else 'YES'end AS unbillable -->
+            <!-- FROM  -->
+                <!-- cabinet..ROI_RequestCoreDeliveryCharges invoice, -->
+                <!-- cabinet..ROI_RequestCore requestCore -->
+             <!-- WHERE -->
+            	<!-- invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from  -->
+            	<!-- cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId) -->
+            	<!-- and invoice.Type = 'Prebill' and Balance_Due >= 0 and invoice.Prebill_Status = 'Active'  -->
+				<!-- and invoice.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq -->
+				<!-- and requestCore.RequestStatus <> 'Completed' order by ROI_RequestCoreDeliveryCharges_Seq desc) as tmp -->
+           <!-- ORDER BY modifiedDt desc, id desc  -->
+
+         <!-- ]]> -->
+    <!-- </sql-query> -->
+    
+	
+
+
+<sql-query name="retrieveRequestorInvoices">
+          <![CDATA[
+
+			 SELECT TOP 1000 * from (SELECT 
+            	invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+            	invoice.ROI_RequestCore_Seq requestId,
+            	'Invoice-'+CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
+            	'Invoice' invoiceType,
+				
+				case(select TOP 1 Base_Charge from cabinet..ROI_RequestCoreDeliveryCharges  where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq
+					AND Type = 'Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc) when null then 
+					(SELECT TOP 1 Base_Charge FROM cabinet..ROI_RequestCoreDeliveryCharges 
+				WHERE ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq AND Type = 'Invoice' order by ROI_RequestCoreDeliveryCharges_Seq desc) 
+					else 
+					(SELECT  TOP 1 Base_Charge FROM cabinet..ROI_RequestCoreDeliveryCharges 
+				WHERE ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq AND Type = 'Prebill' order by ROI_RequestCoreDeliveryCharges_Seq desc)
+				end AS charge,			 
+				
+			    invoice.Invoice_Balance_Due as balance,
+			    COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount,
+			    COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) adjustmentAmount,
+			    0 refundAmount,
+			    null paymentDescription,
+			    null paymentMethod,
+			    CAST((SELECT STUFF((SELECT '~@~' + RTRIM(LTRIM(invoiceFacility.FACILITY)) 
+				  						FROM ((SELECT DISTINCT pat.FACILITY FACILITY
+												FROM cabinet..ROI_Patients pat,
+													cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+												 WHERE core.ROI_Patients_Seq = pat.ROI_Patients_Seq
+												 AND core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq)
+												 
+											UNION ALL
+												(SELECT pat.FACILITY FACILITY
+												FROM ROI_SupplementalPatientsCore pat,
+													 cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+												WHERE core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq
+													AND pat.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq
+													)) as invoiceFacility
+				  						 	FOR XML PATH('')), 1, 3, '')) AS VARCHAR(MAX)) facilityString,
+				invoice.FACILITY_CODE billingLocation,
+			    invoice.Created_Dt createdDt,
+				invoice.Created_By_Seq createdBy,
+				invoice.Modified_Dt modifiedDt,
+				invoice.Modified_By_Seq modifiedBy,
+				invoice.Record_Version recordVersion,
+				invoice.Unbillable_Amount unBillableAmount,
+				case(select invoice.Unbillable from ROI_RequestCore where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq) when 0 then 'NO' else 'YES'end AS unbillable
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryCharges invoice
+            WHERE
+            	invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
+            	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId) and Type = 'Invoice') as tmp
+	
+            UNION
+			(
+			SELECT 
+            	adj.ROI_RequestorAdjustment_Seq id,
+            	0 requestId,
+            	adj.Note as description,
+            	'Unapplied Adjustment' invoiceType,
+			    0.00 charge,
+			    adj.UnappliedAmount as balance,
+			    0.00 paymentAmount,
+			    adj.UnappliedAmount as adjustmentAmount,
+			    0 refundAmount,
+			    null paymentDescription,
+			    null paymentMethod,
+			    null facilityString,
+			    null billingLocation,
+			    adj.Created_Dt createdDt,
+				adj.Created_By_Seq createdBy,
+				adj.Modified_Dt modifiedDt,
+				adj.Modified_By_Seq modifiedBy,
+				adj.Record_Version recordVersion,
+				0.00 unBillableAmount,
+				null unbillable
+            FROM 
+                cabinet..ROI_RequestorAdjustment adj
+            WHERE
+            	adj.ROI_Requestor_Seq = :requestorId
+            	and adj.UnappliedAmount is not null 
+            	and adj.UnappliedAmount > 0
+            	and adj.IsDeleted = 0)
+            
+            UNION
+            (
+            SELECT 
+            	pay.ROI_RequestorPayment_Seq id,
+            	0 requestId,
+            	pay.Description as description,
+            	'Unapplied Payment' invoiceType,
+			    0.00 charge,
+			    pay.UnappliedAmount as balance,
+			    pay.Amount paymentAmount,
+			    0.00 as adjustmentAmount,
+			    pay.RefundAmount refundAmount,
+			    pay.Description paymentDescription,
+			    pay.PaymentType paymentMethod,
+			    null facilityString,
+			    null billingLocation,
+			    pay.Created_Dt createdDt,
+				pay.Created_By_Seq createdBy,
+				pay.PaymentDate modifiedDt,
+				pay.Modified_By_Seq modifiedBy,
+				pay.Record_Version recordVersion,
+				0.00 unBillableAmount,
+				null unbillable
+            FROM 
+                cabinet..ROI_RequestorPayment pay
+            WHERE
+            	pay.ROI_Requestor_Seq = :requestorId
+            	and pay.UnappliedAmount is not null 
+            	and pay.UnappliedAmount > 0
+            	and pay.IsDeleted = 0)
+          UNION
+            (
+            SELECT 
+            	refund.ROI_RequestorRefund_Seq id,
+            	0 requestId,
+            	refund.Note as description,
+            	'Refund' invoiceType,
+			    0.00 charge,
+			    refund.Amount as balance,
+			    refund.Amount paymentAmount,
+			    0.00 as adjustmentAmount,
+			    refund.Amount refundAmount,
+			    refund.Note paymentDescription,
+			    null paymentMethod,
+			    null facilityString,
+			    null billingLocation,
+			    refund.Created_Dt createdDt,
+			    refund.Created_By_Seq createdBy,
+			    refund.Date modifiedDt,
+			    refund.Modified_By_Seq modifiedBy,
+			    refund.Record_Version recordVersion,
+			    0.00 unBillableAmount,
+			    null unbillable
+            FROM 
+                cabinet..ROI_RequestorRefund refund
+            WHERE
+            	refund.ROI_Requestor_Seq = :requestorId) 
+			UNION
+			
+			 SELECT TOP 1000 * from (SELECT TOP 1
+            	invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+            	invoice.ROI_RequestCore_Seq requestId,
+            	'Prebill-'+CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
+            	'Prebill' invoiceType,
+			    invoice.Base_Charge charge,
+			    invoice.Balance_Due as balance,
+			    COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount,
+			    COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) adjustmentAmount,
+			    0 refundAmount,
+			    null paymentDescription,
+			    null paymentMethod,
+			    CAST((SELECT STUFF((SELECT '~@~' + RTRIM(LTRIM(invoiceFacility.FACILITY)) 
+				  						FROM ((SELECT DISTINCT pat.FACILITY FACILITY
+												FROM cabinet..ROI_Patients pat,
+													cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+												 WHERE core.ROI_Patients_Seq = pat.ROI_Patients_Seq
+												 AND core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq)
+												 
+											UNION ALL
+												(SELECT pat.FACILITY FACILITY
+												FROM ROI_SupplementalPatientsCore pat,
+													 cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+												WHERE core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq
+													AND pat.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq
+													)) as invoiceFacility
+				  						 	FOR XML PATH('')), 1, 3, '')) AS VARCHAR(MAX)) facilityString,
+				invoice.FACILITY_CODE billingLocation,
+			    invoice.Created_Dt createdDt,
+				invoice.Created_By_Seq createdBy,
+				invoice.Modified_Dt modifiedDt,
+				invoice.Modified_By_Seq modifiedBy,
+				invoice.Record_Version recordVersion,
+				invoice.Unbillable_Amount unBillableAmount,
+				case(select invoice.Unbillable from ROI_RequestCore where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq) when 0 then 'NO' else 'YES'end AS unbillable
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryCharges invoice,
+                cabinet..ROI_RequestCore requestCore
+             WHERE
+            	invoice.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
+            	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId)
+            	and invoice.Type = 'Prebill' and Balance_Due >= 0 and invoice.Prebill_Status = 'Active' 
+				and invoice.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq
+				and requestCore.RequestStatus <> 'Completed' order by ROI_RequestCoreDeliveryCharges_Seq desc) as tmp
+           ORDER BY modifiedDt desc, id desc 
+
+]]>
+    </sql-query>
+
+
+
+	
+    <sql-query name="retrieveRequestorPrebills">
+         <![CDATA[
+          SELECT TOP 1000 * from (SELECT
+            	invoice.ROI_RequestCoreDeliveryCharges_Seq id,
+            	invoice.ROI_RequestCore_Seq requestId,
+            	'Prebill-'+CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
+            	'Prebill' invoiceType,
+			    invoice.Base_Charge charge,
+			    invoice.Balance_Due as balance,
+			    COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqPay.IsDeleted = 0), 0) paymentAmount,
+			    COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq AND reqAdj.IsDeleted = 0), 0) adjustmentAmount,
+			    0 refundAmount,
+			    null paymentDescription,
+			    null paymentMethod,
+			    CAST((SELECT STUFF((SELECT '~@~' + RTRIM(LTRIM(invoiceFacility.FACILITY)) 
+				  						FROM ((SELECT DISTINCT pat.FACILITY FACILITY
+												FROM cabinet..ROI_Patients pat,
+													cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+												 WHERE core.ROI_Patients_Seq = pat.ROI_Patients_Seq
+												 AND core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq)
+												 
+											UNION ALL
+												(SELECT pat.FACILITY FACILITY
+												FROM ROI_SupplementalPatientsCore pat,
+													 cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+												WHERE core.ROI_RequestCoreDeliveryCharges_Seq = invoice.ROI_RequestCoreDeliveryCharges_Seq
+													AND pat.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq
+													)) as invoiceFacility
+				  						 	FOR XML PATH('')), 1, 3, '')) AS VARCHAR(MAX)) facilityString,
+				invoice.FACILITY_CODE billingLocation,
+			    invoice.Created_Dt createdDt,
+				invoice.Created_By_Seq createdBy,
+				invoice.Modified_Dt modifiedDt,
+				invoice.Modified_By_Seq modifiedBy,
+				invoice.Record_Version recordVersion,
+				invoice.Unbillable_Amount unBillableAmount,
+				case(select invoice.Unbillable from ROI_RequestCore where ROI_RequestCore_Seq = invoice.ROI_RequestCore_Seq) when 0 then 'NO' else 'YES'end AS unbillable
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryCharges invoice,
+                cabinet..ROI_RequestCore requestCore
+             WHERE
+            	invoice.ROI_RequestCore_Seq = :requestCoreId
+            	and invoice.Type = 'Prebill' and Balance_Due >= 0 and invoice.Prebill_Status = 'Active' 
+				and invoice.ROI_RequestCore_Seq = requestCore.ROI_RequestCore_Seq
+				and requestCore.RequestStatus <> 'Completed') as tmp
+           ORDER BY modifiedDt desc, id desc 
+         
+         ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestorAdjustmentsPayments">
+         <![CDATA[
+         	SELECT 
+         		rcdAdj.ROI_RequestorAdjustment_Seq id,
+			    SUM(rcdAdj.Amount) appliedAmount,
+			    'Adjustment' txnType,
+			    adj.AdjustmentDate date,
+			    adj.UnappliedAmount unAppliedAmt,
+			    adj.Amount paymentAmount,
+			    0 refundAmount,
+			    adj.Note description,
+			    adj.AdjustmentType paymentMethod,
+			    adj.ROI_Requestor_Seq requestorId,
+			    rcdAdj.ROI_RequestCoreDeliveryCharges_Seq invoiceId
+			FROM 
+				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment rcdAdj,
+				cabinet..ROI_RequestorAdjustment adj
+			WHERE 
+				rcdAdj.ROI_RequestCoreDeliveryCharges_Seq in ( :invoiceIds )
+				AND rcdAdj.ROI_RequestorAdjustment_Seq = adj.ROI_RequestorAdjustment_Seq
+				AND rcdAdj.IsDeleted = 0
+			GROUP BY rcdAdj.ROI_RequestorAdjustment_Seq, rcdAdj.ROI_RequestCoreDeliveryCharges_Seq,
+					 adj.ROI_Requestor_Seq, adj.AdjustmentDate, adj.UnappliedAmount, adj.Amount, adj.Note, adj.AdjustmentType
+			UNION
+			(SELECT 
+				rcdPay.ROI_RequestorPayment_Seq id,
+			    SUM(rcdPay.Amount) appliedAmount,
+			    'Payment' txnType,
+			    pay.PaymentDate date,
+			    pay.UnappliedAmount unAppliedAmt,
+			    pay.Amount paymentAmount,
+			    pay.RefundAmount refundAmount,
+			    pay.Description description,
+			    pay.PaymentType paymentMethod,
+			    pay.ROI_Requestor_Seq requestorId,
+			    rcdPay.ROI_RequestCoreDeliveryCharges_Seq invoiceId
+			FROM 
+				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdPay,
+				cabinet..ROI_RequestorPayment pay
+			WHERE 
+				rcdPay.ROI_RequestCoreDeliveryCharges_Seq in ( :invoiceIds )
+				AND rcdPay.ROI_RequestorPayment_Seq = pay.ROI_RequestorPayment_Seq
+				AND rcdPay.IsDeleted = 0
+			GROUP BY rcdPay.ROI_RequestorPayment_Seq, rcdPay.ROI_RequestCoreDeliveryCharges_Seq,
+				pay.ROI_Requestor_Seq, pay.PaymentDate,pay.UnappliedAmount,pay.Amount,pay.RefundAmount,
+				pay.Description,pay.PaymentType)
+         ]]>
+    </sql-query>
+    
+     <!-- sql-query name="retrieveRequestorAdjustmentsFee">
+         <![CDATA[
+         	SELECT 
+                        adjFee.FeeName feeName,
+                        adjFee.Amount amount,
+                        adjFee.SalesTaxAmount salestaxAmount ,
+                        adjFee.FeeType feeType,
+                        adjFee.IsTaxable isTaxable,
+                        adjFee.Created_Dt createdDt,
+				        adjFee.Created_By_Seq createdBy,
+				        adjFee.Modified_Dt modifiedDt,
+				        adjFee.Modified_By_Seq modifiedBy,
+				        adjFee.Record_Version recordVersion
+                       
+                  FROM 
+                        cabinet..ROI_RequestorAdjustmentFee adjFee
+                        
+                  WHERE 
+                        adjFee.ROI_Requestor_Seq =:requestorId
+
+         ]]>
+    </sql-query-->
+    
+    
+   <sql-query name="retrieveOnlyRequestorInvoices">
+        <![CDATA[ 
+    	SELECT
+                ROI_RequestCoreDeliveryCharges_Seq id,
+                ROI_RequestCore_Seq requestId,
+                rdc.Type + ' ' + CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
+                rdc.Type invoiceType,
+                Base_Charge charge,
+                Invoice_Balance_Due as balance,
+                COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq and reqPay.IsDeleted = 0), 0) paymentAmount,
+                ISNULL((SELECT SUM(Amount) FROM ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment where ROI_RequestCoreDeliveryCharges_Seq =  rdc.ROI_RequestCoreDeliveryCharges_Seq and ROI_RequestorAdjustment_Seq = :adjustmentId and IsDeleted = '0'),'0.0') as appliedAmount,
+                0 as refundAmount,
+                COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq and reqAdj.IsDeleted = 0), 0) adjustmentAmount,
+                null paymentDescription,
+                null paymentMethod,
+                CAST((SELECT STUFF((SELECT '~@~' + RTRIM(LTRIM(invoiceFacility.FACILITY))
+                                          FROM ((SELECT DISTINCT pat.FACILITY FACILITY
+                                                FROM cabinet..ROI_Patients pat,
+                                                    cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+                                                 WHERE core.ROI_Patients_Seq = pat.ROI_Patients_Seq
+                                                 AND core.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq)
+                                                 
+                                            UNION ALL
+                                                (SELECT pat.FACILITY FACILITY
+                                                FROM ROI_SupplementalPatientsCore pat,
+                                                     cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+                                                WHERE core.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq
+                                                    AND pat.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq
+                                                    )) as invoiceFacility
+                                               FOR XML PATH('')), 1, 3, '')) AS VARCHAR(MAX)) facilityString,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion,
+                FACILITY_CODE billingLocation
+            FROM
+                cabinet..ROI_RequestCoreDeliveryCharges rdc
+            WHERE
+                ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from
+                cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId)
+                and rdc.Type = 'Invoice'  
+            
+            UNION 
+             
+                SELECT TOP 1
+                ROI_RequestCoreDeliveryCharges_Seq id,
+                ROI_RequestCore_Seq requestId,
+                rdc.Type + ' ' + CAST(ROI_RequestCoreDeliveryCharges_Seq as varchar) as description,
+                rdc.Type invoiceType,
+                Base_Charge charge,
+                Balance_Due as balance,
+                COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay WHERE reqPay.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq and reqPay.IsDeleted = 0), 0) paymentAmount,
+                ISNULL((SELECT SUM(Amount) FROM ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment where ROI_RequestCoreDeliveryCharges_Seq =  rdc.ROI_RequestCoreDeliveryCharges_Seq and ROI_RequestorAdjustment_Seq = :adjustmentId and IsDeleted = '0'),'0.0') as appliedAmount,
+                0 as refundAmount,
+                COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj WHERE reqAdj.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq and reqAdj.IsDeleted = 0), 0) adjustmentAmount,
+                null paymentDescription,
+                null paymentMethod,
+                CAST((SELECT STUFF((SELECT '~@~' + RTRIM(LTRIM(invoiceFacility.FACILITY))
+                                          FROM ((SELECT DISTINCT pat.FACILITY FACILITY
+                                                FROM cabinet..ROI_Patients pat,
+                                                    cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+                                                 WHERE core.ROI_Patients_Seq = pat.ROI_Patients_Seq
+                                                 AND core.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq)
+                                                 
+                                            UNION ALL
+                                                (SELECT pat.FACILITY FACILITY
+                                                FROM ROI_SupplementalPatientsCore pat,
+                                                     cabinet..ROI_RequestCoreDeliveryChargesInvoicePatients core
+                                                WHERE core.ROI_RequestCoreDeliveryCharges_Seq = rdc.ROI_RequestCoreDeliveryCharges_Seq
+                                                    AND pat.ROI_SupplementalPatientsCore_Seq = core.ROI_SupplementalPatientsCore_Seq
+                                                    )) as invoiceFacility
+                                               FOR XML PATH('')), 1, 3, '')) AS VARCHAR(MAX)) facilityString,
+                Created_Dt createdDt,
+                Created_By_Seq createdBy,
+                Modified_Dt modifiedDt,
+                Modified_By_Seq modifiedBy,
+                Record_Version recordVersion,
+                FACILITY_CODE billingLocation
+            FROM
+                cabinet..ROI_RequestCoreDeliveryCharges rdc
+            WHERE
+                ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from
+                cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId) 
+				and rdc.Type = 'Prebill' and rdc.Prebill_status = 'Active'
+      ]]>
+    </sql-query> 
+    
+    <sql-query name="createRequestCoreDeliveryChargesMapping">
+        <![CDATA[
+        INSERT INTO  cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment (	
+					ROI_RequestCoreDeliveryCharges_Seq,
+					ROI_RequestorAdjustment_Seq,
+					SalesTaxReduction,
+					Amount,
+					Created_Dt,
+					Created_By_Seq,
+					Modified_Dt,
+					Modified_By_Seq,
+					Record_Version,
+					IsPrebillAdjustment
+					) 
+					VALUES (:reqDelChargesSeq, 
+							:requestorAdjSeq, 
+							(SELECT 
+								(CASE when rdc.Apply_SalesTax = 1
+								then (((rdc.Invoice_Salestax)/(rdc.Base_Charge)) * (:amount))
+								else 0.00
+								end)
+								FROM ROI_RequestCoreDeliveryCharges rdc
+								WHERE rdc.ROI_RequestCoreDeliveryCharges_Seq = :reqDelChargesSeq),
+							:amount, 
+						    :createdDate, 
+						    :createdBy, 
+						    :modifiedDate, 
+						    :modifiedBy, 
+						    :recordVersion, :prebillAdjustment) ; SELECT SCOPE_IDENTITY();   
+      ]]> 
+   </sql-query>
+   
+   <sql-query name="saveAdjustmentInfo">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestorAdjustment (
+					ROI_Requestor_Seq,
+					Reason, 
+					Amount, 
+					UnappliedAmount, 
+					AdjustmentDate, 
+					AdjustmentType, 
+					Note, 
+					IsDeleted, 
+					Created_Dt,
+					Created_By_Seq,
+					Modified_Dt,
+					Modified_By_Seq,
+					Record_Version)
+			VALUES (:requestorSeq,:reason, :amount, :unappliedAmount, 
+					:adjustmentDate, :adjustmentType, :note, :isDeleted, 
+					:createdDate,:createdBy,:modifiedDate,:modifiedBy,:recordVersion) ; SELECT SCOPE_IDENTITY();   
+         ]]>
+    </sql-query>
+    
+    <!-- sql-query name="createAdjustmentFeeInfo">
+         <![CDATA[
+             INSERT INTO cabinet..ROI_RequestorAdjustmentFee
+                     (
+                     ROI_RequestorAdjustment_Seq,
+                     FeeName,
+                     Amount,
+                     SalesTaxAmount,
+                     FeeType,
+                     IsTaxable,
+                     Created_Dt,
+                     Created_By_Seq,
+					 Modified_Dt,
+					 Modified_By_Seq,
+                     Record_Version,
+                     ROI_Requestor_Seq)
+              VALUES ((SELECT TOP 1 ROI_RequestorAdjustment_Seq FROM
+					ROI_RequestorAdjustment where ROI_Requestor_Seq = :requestorSeq ORDER BY Modified_Dt desc),
+					:feeName, :amount, :salestaxAmount, :feeType, :isTaxableFlag, :createdDate, :createdBy, :modifiedDate, :modifiedBy, :recordVersion, :requestorSeq) ; SELECT SCOPE_IDENTITY(); 
+       ]]>
+    </sql-query-->  
+    
+        <sql-query name="createRequestorPayment">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestorPayment(
+				ROI_Requestor_Seq,
+				Created_Dt,
+				Created_By_Seq,
+				Modified_Dt,
+				Modified_By_Seq,
+				Record_Version,
+				Amount,
+				PaymentType,
+				PaymentDate,
+				Description,
+				UnappliedAmount
+				) VALUES (:requestorSeq, :createdDate, :createdBy, :modifiedDate, :modifiedBy, 
+						  :recordVersion, :amount, :paymentMode, :paymentDate, :description, 
+						  :unappliedAmount); SELECT SCOPE_IDENTITY(); 
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateRequestorPayment">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestorPayment
+				SET Modified_Dt = :modifiedDate,
+					Modified_By_Seq = :modifiedBy,
+					UnappliedAmount = :unappliedAmount
+				WHERE ROI_RequestorPayment_Seq = :requestorPaymentId 
+        ]]>
+    </sql-query>
+    
+ 	<sql-query name="retrieveInvoiceToPayment">
+        <![CDATA[
+        	SELECT paymentId,requestCoreDeliveryChargesId,SUM(appliedAmount) as totalAppliedAmount, prebillPayment FROM (
+				SELECT 	ROI_RequestCoreDeliveryCharges_Seq as requestCoreDeliveryChargesId,
+					ROI_RequestorPayment_Seq as paymentId,
+					Amount as appliedAmount, 
+					IsPrebillPayment as prebillPayment
+	   			FROM cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment	invoiceToPay
+				WHERE ROI_RequestorPayment_Seq = (:paymentId)
+				AND IsDeleted = 0) invoiceToPayment
+				group by requestCoreDeliveryChargesId,paymentId,prebillPayment
+        ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestorTypeIdByRequestorId">
+         <![CDATA[
+             SELECT ROI_RequestorType_Seq FROM ROI_Requestor where ROI_Requestor_Seq = :requestorId
+       ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveAdjustmentInfoByAdjustmentId">
+         <![CDATA[
+             SELECT 
+                adj.Reason reason, 
+				adj.Amount amount, 
+				adj.UnappliedAmount unappliedAmount, 
+				adj.AdjustmentDate adjustmentDate, 
+				adj.AdjustmentType adjustmentTypeByValue, 
+				adj.Note note 
+              FROM 
+                 cabinet..ROI_RequestorAdjustment adj  
+              WHERE 
+                 adj.ROI_RequestorAdjustment_Seq =:reqAdjId
+       ]]>
+    </sql-query>
+    
+     <sql-query name="updateRequestorAdjustment">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestorAdjustment
+				SET 
+				UnappliedAmount = :unappliedAmount,
+				Modified_Dt = :modifiedDt,
+				Modified_By_Seq = :modifiedBy
+				WHERE ROI_RequestorAdjustment_Seq = :adjustmentId
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="deleteMappedInvoicesByAdjustmentAndInvoiceId">
+        <![CDATA[
+           UPDATE cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
+           SET IsDeleted = 1
+           WHERE ROI_RequestorAdjustment_Seq = :adjustmentId
+           AND ROI_RequestCoreDeliveryCharges_Seq = :invoiceId 
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateMappedInvoiceByAdjustmentId">
+        <![CDATA[
+           UPDATE cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment 
+           SET 	
+					Amount = :amount,
+					Modified_Dt = :modifiedDt,
+					Modified_By_Seq = :modifiedBy
+					WHERE ROI_RequestorAdjustment_Seq = :adjustmentId
+      ]]> 
+   </sql-query>
+   
+     <sql-query name="retrieveMappedInvoicesByAdjustmentId">
+         <![CDATA[
+         	SELECT 
+         		rcdAdj.ROI_RequestCoreDeliveryCharges_Seq id,
+			   	COALESCE(SUM(rcdAdj.Amount), 0) appliedAmount			 
+			FROM 
+				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment rcdAdj
+			WHERE 
+				rcdAdj.ROI_RequestorAdjustment_Seq = :adjustmentId
+				AND IsDeleted = 0
+			GROUP BY ROI_RequestCoreDeliveryCharges_Seq
+       ]]> 
+   </sql-query>
+   
+   <sql-query name="retrieveRequestorPastInvoices">
+        <![CDATA[
+        
+           SELECT invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceId,
+        		  invoice.Created_Dt createdDate,
+        		  invoice.Balance_Due amount
+        	FROM 
+        		cabinet..ROI_RequestCoreDeliveryCharges invoice,
+        		cabinet..ROI_RequestCoreRequestor requestRequestor
+            WHERE 
+            	invoice.ROI_RequestCore_Seq = requestRequestor.ROI_RequestCore_Seq 
+            	AND invoice.Type = 'Invoice' 
+            	AND requestRequestor.ROI_Requestor_Seq = :requestorId
+            	ORDER BY invoice.Created_Dt desc;
+        ]]>
+    </sql-query>
+
+    <sql-query name="retrieveRequestorTransactions">
+        <![CDATA[
+        
+           SELECT 
+				requestorTransaction.date date,
+				requestorTransaction.invoiceId invoiceId,
+				CAST(requestorTransaction.type AS varchar) type,
+				CAST(requestorTransaction.description AS varchar) description,
+				COALESCE(requestorTransaction.charges, 0) charges,
+				COALESCE(requestorTransaction.balances, 0) balances,
+				--   DE1560/CR# 384,396 - Fix
+				COALESCE(requestorTransaction.unbillable, 0) unbillable,
+				COALESCE(requestorTransaction.adjustment, 0) adjustment,
+				COALESCE(requestorTransaction.payment, 0) payment,
+				COALESCE(requestorTransaction.invoiceAmount, 0) invoiceAmount,
+				COALESCE(requestorTransaction.refund, 0) refund
+				
+			FROM(
+				SELECT 
+					invoice.Created_Dt date,
+					invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceId,
+					'Invoice' type,
+					'invoice # ' + CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq AS varchar) description,
+					invoice.Base_Charge charges,
+					invoice.Balance_Due balances,
+					invoice.Unbillable unbillable,
+					0 adjustment,
+					0 payment,
+					invoice.Base_Charge invoiceAmount,
+					0 refund
+				FROM 
+					ROI_RequestCoreDeliveryCharges invoice,
+					ROI_RequestCoreRequestor requestor
+				WHERE
+					invoice.ROI_RequestCore_Seq = requestor.ROI_RequestCore_Seq
+					AND invoice.Type = 'Invoice'
+					AND requestor.ROI_Requestor_Seq = :requestorId
+					
+				UNION
+			
+				SELECT 
+					payment.Created_Dt date,
+					0 invoiceId,
+					'Payment' type,
+					payment.Description description,
+					payment.Amount charges,
+					0 balances,
+					0 unbillable,
+					0 adjustment,
+					payment.Amount payment,
+					0 invoiceAmount,
+					0 refund
+				FROM 
+					ROI_RequestorPayment payment
+				WHERE
+					payment.ROI_Requestor_Seq = :requestorId
+					and payment.IsDeleted <> '1'
+			
+				UNION
+			
+				SELECT 
+					adjustment.Created_Dt date,
+					0 invoiceId,
+					'Adjustment' type,
+					adjustment.Note description,
+					COALESCE(adjustment.Amount, 0) charges,
+					0 balances,
+					0 unbillable,
+					COALESCE(adjustment.Amount, 0) adjustment,
+					0 payment,
+					0 invoiceAmount,
+					0 refund
+				FROM 
+					ROI_RequestorAdjustment adjustment
+				WHERE
+					adjustment.ROI_Requestor_Seq = :requestorId
+					and adjustment.IsDeleted <> '1'
+				
+				UNION
+				
+				SELECT 
+					refund.Created_Dt date,
+					0 invoiceId,
+					'Refund' type,
+					refund.Note description,
+					(COALESCE(refund.Amount, 0)) charges,
+					0 balances,
+					0 unbillable,
+					(COALESCE(refund.Amount, 0)) adjustment,
+					0 payment,
+					0 invoiceAmount,
+					(COALESCE(refund.Amount, 0)) refund
+				FROM 
+					ROI_RequestorRefund refund
+				WHERE
+					refund.ROI_Requestor_Seq = :requestorId
+			) as requestorTransaction
+			WHERE 
+				DATEDIFF(day, requestorTransaction.date, getDate()) <= :dateRange
+			ORDER BY requestorTransaction.date
+        ]]>
+    </sql-query>
+
+	<sql-query name="retrieveAllRequestorTransactions">
+        <![CDATA[
+        
+           SELECT 
+				requestorTransaction.date date,
+				requestorTransaction.invoiceId invoiceId,
+				CAST(requestorTransaction.type AS varchar) type,
+				CAST(requestorTransaction.description AS varchar) description,
+				COALESCE(requestorTransaction.charges, 0) charges,
+				COALESCE(requestorTransaction.balances, 0) balances,
+				-- DE1560/CR# 384,396 - Fix
+				COALESCE(requestorTransaction.unbillable, 0) unbillable,
+				COALESCE(requestorTransaction.adjustment, 0) adjustment,
+				COALESCE(requestorTransaction.payment, 0) payment,
+				COALESCE(requestorTransaction.invoiceAmount, 0) invoiceAmount,
+				COALESCE(requestorTransaction.refund, 0) refund
+			FROM(
+				SELECT 
+					invoice.Created_Dt date,
+					invoice.ROI_RequestCoreDeliveryCharges_Seq invoiceId,
+					'Invoice' type,
+					'invoice # ' + CAST(invoice.ROI_RequestCoreDeliveryCharges_Seq AS varchar) description,
+					invoice.Base_Charge charges,
+					invoice.Balance_Due balances,
+					invoice.Unbillable unbillable,
+					0 adjustment,
+					0 payment,
+					invoice.Base_Charge invoiceAmount,
+					0 refund
+				FROM 
+					ROI_RequestCoreDeliveryCharges invoice,
+					ROI_RequestCoreRequestor requestor
+				WHERE
+					invoice.ROI_RequestCore_Seq = requestor.ROI_RequestCore_Seq
+					AND invoice.Type = 'Invoice'
+					AND requestor.ROI_Requestor_Seq = :requestorId
+					
+				UNION
+			
+				SELECT 
+					payment.Created_Dt date,
+					0 invoiceId,
+					'Payment' type,
+					payment.Description description,
+					payment.Amount charges,
+					0 balances,
+					0 unbillable,
+					0 adjustment,
+					payment.Amount payment,
+					0 invoiceAmount,
+					0 refund
+				FROM 
+					ROI_RequestorPayment payment
+				WHERE
+					payment.ROI_Requestor_Seq = :requestorId
+					and payment.IsDeleted <> '1'
+				UNION
+			
+				SELECT 
+					adjustment.Created_Dt date,
+					0 invoiceId,
+					'Adjustment' type,
+					adjustment.Note description,
+					COALESCE(adjustment.Amount, 0) charges,
+					0 balances,
+					0 unbillable,
+					COALESCE(adjustment.Amount, 0) adjustment,
+					0 payment,
+					0 invoiceAmount,
+					0 refund
+				FROM 
+					ROI_RequestorAdjustment adjustment
+				WHERE
+					adjustment.ROI_Requestor_Seq = :requestorId
+					and adjustment.IsDeleted <> '1'
+				
+				UNION
+				
+				SELECT 
+					refund.Created_Dt date,
+					0 invoiceId,
+					'Refund' type,
+					refund.Note description,
+					(COALESCE(refund.Amount, 0)) charges,
+					0 balances,
+					0 unbillable,
+					0 adjustment,
+					0 payment,
+					0 invoiceAmount,
+					(COALESCE(refund.Amount, 0)) refund
+				FROM 
+					ROI_RequestorRefund refund
+				WHERE
+					refund.ROI_Requestor_Seq = :requestorId
+			) as requestorTransaction
+			ORDER BY requestorTransaction.date
+        ]]>
+    </sql-query>
+    
+	<sql-query name="retrieveRequestorAccountBalanceAging">
+        <![CDATA[
+        
+			SELECT 
+				CAST(COALESCE(SUM(charge), 0) as float) charges,
+				aging 
+			FROM
+				(SELECT 
+					invoice.Invoice_Balance_Due charge,
+					aging = case
+							when  datediff (day, invoice.Created_Dt, getDate()) between 0 and 30 then 'Balance30'
+							when  datediff (day, invoice.Created_Dt, getDate()) between 31 and 60 then 'Balance60'
+							when  datediff (day, invoice.Created_Dt, getDate()) between 61 and 90 then 'Balance90'
+							else  'BalanceOther'
+					    	  END
+				FROM ROI_RequestCoreDeliveryCharges invoice,
+					ROI_RequestCoreRequestor requestor
+				WHERE
+					invoice.ROI_RequestCore_Seq = requestor.ROI_RequestCore_Seq
+					AND invoice.Type = 'Invoice'
+					AND invoice.UnBillable = 0
+					AND invoice.Invoice_Balance_due > 0
+					AND requestor.ROI_Requestor_Seq = :requestorId) accountBalanceAging
+			GROUP BY aging
+
+        ]]>
+    </sql-query>
+
+	<sql-query name="retrieveRequestorAccountDetails">
+        <![CDATA[
+        
+			SELECT 
+				COALESCE(SUM(invoice.Base_Charge), 0) charge,
+
+				COALESCE((SELECT SUM(reqPay.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorPayment reqPay, ROI_RequestCoreDeliveryCharges inv, ROI_RequestCoreRequestor requestRequestor
+							WHERE requestRequestor.ROI_RequestCore_Seq = inv.ROI_RequestCore_Seq
+								AND requestRequestor.ROI_Requestor_Seq = requestor.ROI_Requestor_Seq
+								AND reqPay.ROI_RequestCoreDeliveryCharges_Seq = inv.ROI_RequestCoreDeliveryCharges_Seq
+								AND reqPay.IsDeleted <> '1'), 0) paymentAmount,
+				
+				COALESCE((SELECT SUM(reqAdj.Amount) FROM ROI_RequestCoreDeliveryChargesToROI_RequestorAdjustment reqAdj, ROI_RequestCoreDeliveryCharges inv, ROI_RequestCoreRequestor requestRequestor
+							WHERE requestRequestor.ROI_RequestCore_Seq = inv.ROI_RequestCore_Seq
+								AND requestRequestor.ROI_Requestor_Seq = requestor.ROI_Requestor_Seq
+								AND reqAdj.ROI_RequestCoreDeliveryCharges_Seq = inv.ROI_RequestCoreDeliveryCharges_Seq
+								AND reqAdj.IsDeleted <> '1'), 0) creditAdjustmentAmount,
+
+				0.00 debitAdjustmentAmount,
+				COALESCE(SUM(invoice.Invoice_Balance_Due), 0) balances,
+				COALESCE((SELECT  SUM(payment.UnappliedAmount) FROM ROI_RequestorPayment payment
+					WHERE payment.ROI_Requestor_Seq = requestor.ROI_Requestor_Seq AND payment.IsDeleted <> '1'), 0) unAppliedPayment,
+				COALESCE((SELECT  SUM(adjustment.UnappliedAmount) FROM ROI_RequestorAdjustment adjustment
+					WHERE adjustment.ROI_Requestor_Seq = requestor.ROI_Requestor_Seq AND adjustment.IsDeleted <> '1'), 0) unAppliedAdjustment
+			FROM 
+				ROI_RequestCoreDeliveryCharges invoice,
+				ROI_RequestCoreRequestor requestor
+			WHERE
+				invoice.ROI_RequestCore_Seq = requestor.ROI_RequestCore_Seq
+				AND invoice.Type = 'Invoice'
+				AND invoice.UnBillable = 0
+				AND requestor.ROI_Requestor_Seq = :requestorId
+			GROUP BY requestor.ROI_Requestor_Seq
+
+        ]]>
+    </sql-query>
+
+	<sql-query name="retrieveRequestorDetails">
+        <![CDATA[
+        
+			SELECT
+				requestorDetail.ROI_Requestor_Seq id,
+				requestorDetail.Name name,
+				requestorDetail.Type  requestorTypeName,
+				requestorDetail.requestorTypeId  requestorTypeId,
+				requestorDetail.cellPhone cellPhone,
+				requestorDetail.homePhone homePhone,
+				requestorDetail.workPhone workPhone,
+				requestorAddress.AddressLine1 address1,
+				requestorAddress.AddressLine2 address2,
+				requestorAddress.AddressLine3 address3,
+				requestorAddress.City city,
+				requestorAddress.State state,
+				requestorAddress.PostalCode postalCode,
+				requestorAddress.Country_Name country,
+				requestorAddress.Country_Code countryCode
+			FROM
+			
+			(SELECT requestor.ROI_Requestor_Seq,
+				  requestor.NameLast Name,
+				  requestorType.Name type,
+				  requestorType.ROI_RequestorType_Seq requestorTypeId,
+				  (SELECT CAST(emailPhone.EmailPhone AS VARCHAR(512))
+					FROM ROI_RequestorToEmailPhone requestorEmailPhone,
+						ROI_EmailPhoneType type,
+						ROI_EmailPhone emailPhone
+					WHERE requestorEmailPhone.ROI_Requestor_Seq = requestor.ROI_Requestor_Seq
+						AND requestorEmailPhone.ROI_EmailPhoneType_Seq = type.ROI_EmailPhoneType_Seq
+						AND type.Name = 'Cell'
+						AND emailPhone.ROI_EmailPhone_Seq = requestorEmailPhone.ROI_EmailPhone_Seq) cellPhone,
+						
+				  (SELECT CAST(emailPhone.EmailPhone AS VARCHAR(512))
+					FROM ROI_RequestorToEmailPhone requestorEmailPhone,
+						ROI_EmailPhoneType type,
+						ROI_EmailPhone emailPhone
+					WHERE requestorEmailPhone.ROI_Requestor_Seq = requestor.ROI_Requestor_Seq
+						AND requestorEmailPhone.ROI_EmailPhoneType_Seq = type.ROI_EmailPhoneType_Seq
+						AND type.Name = 'Home'
+						AND emailPhone.ROI_EmailPhone_Seq = requestorEmailPhone.ROI_EmailPhone_Seq) homePhone,
+						
+				  (SELECT CAST(emailPhone.EmailPhone AS VARCHAR(512))
+					FROM ROI_RequestorToEmailPhone requestorEmailPhone,
+						ROI_EmailPhoneType type,
+						ROI_EmailPhone emailPhone
+					WHERE requestorEmailPhone.ROI_Requestor_Seq = requestor.ROI_Requestor_Seq
+						AND requestorEmailPhone.ROI_EmailPhoneType_Seq = type.ROI_EmailPhoneType_Seq
+						AND type.Name = 'Work'
+						AND emailPhone.ROI_EmailPhone_Seq = requestorEmailPhone.ROI_EmailPhone_Seq) workPhone
+				  
+			FROM 
+				ROI_Requestor requestor,
+				ROI_RequestorType requestorType
+			
+			WHERE
+				requestor.ROI_RequestorType_Seq = requestorType.ROI_RequestorType_Seq
+				AND requestor.ROI_Requestor_Seq = :requestorId) as requestorDetail
+				
+			Left JOIN
+			
+			(SELECT requestorAdd.ROI_Requestor_Seq,
+				  address.AddressLine1,
+				  address.AddressLine2,
+				  address.AddressLine3,
+				  address.City,
+				  address.State,
+				  address.PostalCode,
+				  countryCode.Country_Name,
+				  countryCode.Country_Code
+			FROM 	
+				ROI_RequestorToAddress requestorAdd,
+				ROI_Address address,
+				ROI_AddressType addressType,
+				ROI_CountryLov countryCode
+			WHERE
+				requestorAdd.ROI_Address_Seq = address.ROI_Address_Seq
+				AND requestorAdd.ROI_AddressType_Seq = addressType.ROI_AddressType_Seq
+				AND addressType.Name = 'Main'
+				AND countryCode.ROI_CountryLovID = address.ROI_CountryLovID
+				AND requestorAdd.ROI_Requestor_Seq = :requestorId) as requestorAddress
+			ON requestorDetail.ROI_Requestor_Seq = requestorAddress.ROI_Requestor_Seq
+
+        ]]>
+    </sql-query>
+
+    <sql-query name="retrieveRequestorSummaries">
+        <![CDATA[
+        
+        SELECT 
+            	ROI_RequestCoreDeliveryCharges_Seq id,
+			    Type type,
+			    Invoice_Due_Date invoiceDueDate, 
+			    Queue_Password queuePassword,
+			    Balance_Due balance,
+			    Invoice_Balance_Due invoiceBalance,
+			    (select NAME from cabinet..USERS where UserInstanceId = rdc.created_By_Seq) creatorName,
+			    Created_Dt createdDate,
+				Prebill_Status prebillStatus,
+				Letter_Template_Name template,
+				(SELECT
+					CASE WHEN  rdc.Invoice_Balance_Due != 0  
+				 		THEN 'Open'
+					ELSE 'Closed'
+					END)  as status, 
+				(select ReqPassword from ROI_RequestCore where ROI_RequestCore_Seq = rdc.ROI_RequestCore_Seq) requestPassword,
+				 DATEDIFF(d,rdc.Created_Dt,GETDATE()) as aging,
+				 rdc.ROI_RequestCore_Seq as requestId,
+				 0 migrated 
+				
+            FROM 
+                cabinet..ROI_RequestCoreDeliveryCharges rdc
+            WHERE 
+             rdc.ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
+            	cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId)
+            	
+            	UNION
+            	
+            	SELECT 
+            	ROI_StatementLetterCore_Seq id,
+			    'Statement' type,
+			    null invoiceDueDate, 
+			    null queuePassword,
+			    0.0 balance,
+			    0.0 invoiceBalance,
+			    (select NAME from cabinet..USERS where UserInstanceId = rlc.created_By_Seq) creatorName,
+			    Created_Dt createdDate,
+				null prebillStatus,
+				TemplateName template,
+				null status, 
+				null requestPassword,
+				null aging,
+				0 requestId,
+				0 migrated  
+				
+            FROM 
+                cabinet..ROI_StatementLetterCore rlc
+            WHERE 
+             rlc.ROI_Requestor_Seq = :requestorId
+
+             UNION
+
+select
+    ROI_RequestDeliveryCharges_Seq,
+    'Invoice' as type,
+    null as invoiceDueDate,
+    Queue_Password as queuePassword,
+    Balance_Due as balance,
+    Balance_Due as invoiceBalance,
+    (select name from cabinet.dbo.USERS where UserInstanceId = Created_By_Seq) as creatorName,
+    Created_Dt as createdDate,
+    null as prebillStatus,
+    'Invoice' as template,
+    (SELECT CASE WHEN  Balance_Due != 0 THEN 'Open' ELSE 'Closed' END)  as status,
+    Request_Password as requestPassword,
+    0 as aging,
+    ROI_RequestCore_Seq as requestId,
+    1 as migrated
+from ROI_RequestCoreDeliveryChargesMigrated
+WHERE 
+    ROI_RequestCore_Seq in (select distinct ROI_RequestCore_Seq from 
+    cabinet..ROI_RequestCoreRequestor where ROI_Requestor_Seq = :requestorId )
+            
+         ]]>
+    </sql-query>
+    
+    
+	<sql-query name="retrieveRequestorUnappliedAmountDetails">
+	   <![CDATA[
+	        SELECT 
+            	
+            	'Unapplied Adjustment' type,
+			    COALESCE(SUM(adj.UnappliedAmount),0.0) amount
+			    
+            FROM 
+                cabinet..ROI_RequestorAdjustment adj
+            WHERE
+            	adj.ROI_Requestor_Seq = (SELECT ROI_Requestor_Seq FROM
+            	ROI_RequestCoreRequestor where ROI_RequestCore_Seq = :requestId)
+            	and adj.UnappliedAmount is not null 
+            	and adj.UnappliedAmount > 0
+            	and adj.IsDeleted = 0
+            
+            UNION
+            
+            SELECT 
+	
+            	'Unapplied Payment' type,		   
+			    COALESCE(SUM(pay.UnappliedAmount),0.0) amount			   
+			     
+            FROM 
+                cabinet..ROI_RequestorPayment pay
+            WHERE
+            	pay.ROI_Requestor_Seq = (SELECT ROI_Requestor_Seq FROM
+            	ROI_RequestCoreRequestor where ROI_RequestCore_Seq = :requestId)
+            	and pay.UnappliedAmount is not null 
+            	and pay.UnappliedAmount > 0
+            	and pay.IsDeleted = 0
+	            
+	     ]]>
+	 </sql-query>
+	 
+	 <sql-query name="retrieveRequestorPaymentDetails">
+        <![CDATA[
+            SELECT
+                ROI_RequestorPayment_Seq id,
+                Amount paymentAmount,
+				PaymentType paymentMethod,
+				PaymentDate date,
+				Description description,
+				UnappliedAmount unAppliedAmt,
+				0 invoiceId,
+				null txnType,
+				0 appliedAmount,
+				ROI_Requestor_Seq requestorId
+				
+				FROM 
+				    cabinet..ROI_RequestorPayment pay
+			    WHERE
+					pay.ROI_Requestor_Seq = (SELECT ROI_Requestor_Seq FROM
+	            	ROI_RequestCoreRequestor where ROI_RequestCore_Seq = :requestId)
+	            	and pay.UnappliedAmount is not null 
+	            	and pay.UnappliedAmount > 0
+	            	and pay.IsDeleted = 0
+        ]]>
+	 </sql-query>
+	 
+	 <sql-query name="retrieveRequestorAdjustmentDetails">
+        <![CDATA[
+            SELECT
+                    ROI_RequestorAdjustment_Seq invoiceSeq,
+                    ROI_Requestor_Seq requestorSeq,
+			        Reason reason, 
+					Amount amount, 
+					UnappliedAmount unappliedAmount, 
+					AdjustmentDate adjustmentDate, 
+					adj.AdjustmentType adjustmentTypeByValue,
+					Note note
+				
+				FROM 
+				    cabinet..ROI_RequestorAdjustment adj
+			    WHERE
+					adj.ROI_Requestor_Seq = (SELECT ROI_Requestor_Seq FROM
+	            	ROI_RequestCoreRequestor where ROI_RequestCore_Seq = :requestId)
+	            	and adj.UnappliedAmount is not null 
+	            	and adj.UnappliedAmount > 0
+	            	and adj.IsDeleted = 0
+        ]]>
+	 </sql-query>
+	 
+	 <sql-query name="updateRequestorPaymentDetails">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestorPayment
+				SET Modified_Dt = :modifiedDate,
+					Modified_By_Seq = :modifiedBy,
+					UnappliedAmount = :unappliedAmount
+				WHERE ROI_RequestorPayment_Seq = :requestorPaymentId 
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateRequestorAdjustmentDetails">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestorAdjustment
+				SET Modified_Dt = :modifiedDate,
+					Modified_By_Seq = :modifiedBy,
+					UnappliedAmount = :unappliedAmount
+				WHERE ROI_RequestorAdjustment_Seq = :requestorAdjustmentId
+        ]]>
+    </sql-query>
+	 	 
+	 
+	 
+	
+	<sql-query name="updateRequestorInvoice">
+        <![CDATA[
+            if exists (select 1 from cabinet..ROI_RequestCoreDeliveryCharges where ROI_RequestCoreDeliveryCharges_Seq = ? and type = 'Invoice')
+			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+				SET Invoice_Balance_Due = ?,
+					Modified_Dt = ?,
+					Modified_By_Seq = ?
+				WHERE ROI_RequestCoreDeliveryCharges_Seq = ?
+			ELSE
+			UPDATE cabinet..ROI_RequestCoreDeliveryCharges
+				SET Balance_Due = ?,
+					Modified_Dt = ?,
+					Modified_By_Seq = ?
+				WHERE ROI_RequestCoreDeliveryCharges_Seq = ?
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="retrieveRequestorCharges">
+        <![CDATA[
+        		
+			SELECT coalesce((SELECT SUM(inv.Invoice_Balance_Due) 
+								FROM cabinet..ROI_RequestCoreDeliveryCharges inv, 
+									 cabinet..ROI_RequestCoreRequestor requestor 
+								where inv.ROI_RequestCore_Seq = requestor.ROI_RequestCore_Seq 
+									and requestor.ROI_Requestor_Seq = req.ROI_Requestor_Seq) ,0) invoiceBalance,
+									
+				coalesce((SELECT SUM(payment.UnappliedAmount) FROM cabinet..ROI_RequestorPayment payment 
+				 WHERE payment.ROI_Requestor_Seq = req.ROI_Requestor_Seq and payment.IsDeleted = 0),0) unAppliedPayment,
+				 
+				coalesce((SELECT SUM(adjustment.UnappliedAmount) FROM cabinet..ROI_RequestorAdjustment adjustment
+				 WHERE adjustment.ROI_Requestor_Seq = req.ROI_Requestor_Seq and adjustment.IsDeleted = 0),0) unAppliedAdjustment
+				 
+			FROM cabinet..ROI_Requestor req
+			WHERE req.ROI_Requestor_Seq = :requestorId
+			GROUP by req.ROI_Requestor_Seq
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updatePayment">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestorPayment
+				SET Modified_Dt = ?,
+					Modified_By_Seq = ?,
+					UnappliedAmount = ?
+				WHERE ROI_RequestorPayment_Seq = ? 
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateRefundPayment">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestorPayment
+				SET RefundAmount = ?,
+					Modified_Dt = ?,
+					Modified_By_Seq = ?,
+					UnappliedAmount = ?
+				WHERE ROI_RequestorPayment_Seq = ? 
+        ]]>
+    </sql-query>
+    
+    <sql-query name="updateUnappliedAdjustment">
+        <![CDATA[
+			UPDATE cabinet..ROI_RequestorAdjustment
+				SET UnappliedAmount = ?0,
+					Modified_Dt = ?1,
+					Modified_By_Seq = ?2
+				WHERE ROI_RequestorAdjustment_Seq = ?3
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="createRequestorRefund">
+        <![CDATA[
+			INSERT into cabinet..ROI_RequestorRefund(
+					ROI_Requestor_Seq,
+					Amount,
+					Date,
+					Note,
+					TemplateId,
+					TemplateName,
+					OutputMethod,
+					QueuePassword,
+					FREEFORM_NOTE,
+					Created_Dt,
+					Created_By_Seq,
+					Modified_Dt,
+					Modified_By_Seq,
+					Record_Version)
+					
+			VALUES(:requestorId,
+				   :refundAmount,
+				   :refundDate,
+				   :note,
+				   :templateId,
+				   :templateName,
+				   :outputMethod,
+				   :queuePassword,
+				   :freeformnote,
+				   :createdDate,
+				   :createdBy,
+				   :modifiedDate,
+				   :modifiedBy,
+				   :recordVersion); SELECT SCOPE_IDENTITY(); 
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="retrieveRequestorRefund">
+        <![CDATA[
+			SELECT 
+				refund.ROI_RequestorRefund_Seq id,
+				refund.ROI_Requestor_Seq requestorId,
+				refund.Amount refundAmount,
+				refund.Date refundDate,
+				case when refund.Freeform_note is not null 
+				then refund.Freeform_note
+				else 
+				refund.Note 
+				end note,
+				refund.TemplateId templateFileId,
+				refund.TemplateName templateName,
+				refund.OutputMethod outputMethod,
+				refund.QueuePassword queuePassword,
+				refund.Created_Dt createdDt,
+				refund.Created_By_Seq createdBy,
+				refund.Modified_Dt modifiedDt,
+				refund.Modified_By_Seq modifiedBy,
+				refund.Record_Version recordVersion,
+				(Select u.FullName from USERS u where u.UserInstanceId = refund.Created_By_Seq) userName
+				                       
+			FROM
+				cabinet..ROI_RequestorRefund refund
+			Where refund.ROI_RequestorRefund_Seq = :refundId
+        ]]>
+    </sql-query> 
+    
+    <sql-query name="retrieveRequestorUnappliedPayments">
+         <![CDATA[
+			SELECT 
+				pay.ROI_RequestorPayment_Seq paymentId,
+			    pay.Amount totalAppliedAmount,
+			    pay.UnappliedAmount unAppliedAmount,
+			    COALESCE(pay.RefundAmount, 0) refundAmount
+			FROM 
+				cabinet..ROI_RequestorPayment pay
+			WHERE 
+				pay.UnappliedAmount > 0
+				AND pay.ROI_Requestor_Seq = :requestorId
+				AND pay.IsDeleted = 0			
+         ]]>
+    </sql-query>
+    
+	 <sql-query name="retrieveRequestorAdjAndPayDetailsForCancelReq">
+        <![CDATA[
+          	 SELECT 
+				rcdAdj.ROI_RequestorAdjustment_Seq id,
+				adj.Amount amount,
+				CASE WHEN (adj.amount = rcdAdj.Amount) and (adj.UnappliedAmount = 0.00) and rcdAdj.IsPrebillAdjustment = 0 then rcdAdj.Amount
+				else (adj.Amount - rcdAdj.Amount) END unAppliedAmt,
+				rcdAdj.Amount appliedAmount,
+				'Adjustment' txnType,
+				rcdAdj.IsPrebillAdjustment prebillPaymentsAdjustments
+				
+			FROM 
+				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment rcdAdj,
+				cabinet..ROI_RequestorAdjustment adj
+			WHERE 
+				rcdAdj.ROI_RequestCoreDeliveryCharges_Seq in (:invoiceId)
+				AND rcdAdj.ROI_RequestorAdjustment_Seq = adj.ROI_RequestorAdjustment_Seq
+				AND rcdAdj.IsDeleted = 0 
+			UNION
+			(SELECT 
+				rcdPay.ROI_RequestorPayment_Seq id,
+				pay.Amount amount,
+				CASE WHEN (pay.amount = rcdPay.Amount) and (pay.UnappliedAmount = 0.00) and rcdPay.IsPrebillPayment = 0 then pay.Amount
+				else (pay.Amount - rcdPay.Amount) END unAppliedAmt,
+				rcdPay.Amount appliedAmount,
+				'Payment' txnType,
+				rcdPay.IsPrebillPayment prebillPaymentsAdjustments
+			FROM 
+				cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment rcdPay,
+				cabinet..ROI_RequestorPayment pay
+			WHERE 
+				rcdPay.ROI_RequestCoreDeliveryCharges_Seq in (:invoiceId)
+				AND rcdPay.ROI_RequestorPayment_Seq = pay.ROI_RequestorPayment_Seq
+				AND rcdPay.IsDeleted = 0)
+		]]>
+	 </sql-query>
+	 
+	 <sql-query name="retrieveRequestorPayment">
+         <![CDATA[
+             SELECT 
+				pay.ROI_RequestorPayment_Seq paymentId,
+				pay.ROI_Requestor_Seq requestorId,
+				pay.Created_Dt createdDt,
+				pay.Created_By_Seq createdBy,
+				pay.Modified_Dt modifiedDt,
+				pay.Modified_By_Seq modifiedBy,
+				pay.Record_Version recordVersion,
+				pay.Amount paymentAmount,
+				pay.PaymentType paymentMode,
+				pay.Description description,
+				pay.UnappliedAmount unAppliedAmount,
+				pay.PaymentDate paymentDate
+			FROM
+				cabinet..ROI_RequestorPayment pay
+			WHERE
+				pay.ROI_RequestorPayment_Seq = :paymentId
+				AND pay.IsDeleted = 0
+         ]]>
+    </sql-query>
+    
+    <sql-query name="retrieveRequestorAdjustment">
+         <![CDATA[
+             
+			SELECT 
+				adj.ROI_RequestorAdjustment_Seq id,
+				adj.Amount amount,
+				adj.Reason reason,
+				adj.UnappliedAmount unappliedAmount,
+				adj.AdjustmentDate adjustmentDate,
+				adj.AdjustmentType adjustmentTypeByValue,
+				adj.Note note
+			FROM
+				cabinet..ROI_RequestorAdjustment adj
+			WHERE
+				adj.ROI_RequestorAdjustment_Seq = :adjustmentId
+				AND adj.IsDeleted = 0
+         ]]>
+    </sql-query>
+    
+    <sql-query name="deleteRequestorPayment">
+        <![CDATA[
+           UPDATE ROI_RequestorPayment SET isDeleted ='1'
+           WHERE ROI_RequestorPayment_Seq = :paymentId
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteRequestorAdjustment">
+        <![CDATA[
+        	UPDATE ROI_RequestorAdjustment SET isDeleted ='1'
+			WHERE ROI_RequestorAdjustment_Seq = :adjustmentId
+        ]]>
+    </sql-query>  
+    
+    <sql-query name="retrieveMappedInvoicesByAdjustmentAndInvoiceId">
+        <![CDATA[
+           SELECT ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment_Seq mappingId
+           FROM cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorAdjustment
+           WHERE ROI_RequestorAdjustment_Seq = :adjustmentId
+           AND ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+           AND IsDeleted = 0 
+        ]]>
+    </sql-query>  
+    
+    <sql-query name="retrieveMappedInvoicesByPaymentAndInvoiceId">
+        <![CDATA[
+           SELECT ROI_RequestCoreDeliveryChargestoROI_RequestorPayment_seq mappingId
+           FROM cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
+           WHERE ROI_RequestorPayment_Seq = :paymentId
+           AND ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+           AND IsDeleted = 0 
+        ]]>
+    </sql-query>
+    
+    <sql-query name="createInvoiceToPayment">
+        <![CDATA[
+			INSERT INTO cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment(
+				ROI_RequestCoreDeliveryCharges_Seq,
+				ROI_RequestorPayment_Seq,
+				Created_Dt,
+				Created_By_Seq,
+				Modified_Dt,
+				Modified_By_Seq,
+				Record_Version,
+				Amount,
+				IsPrebillPayment
+				) VALUES (:invoiceId, :paymentId, :createdDate, :createdBy, 
+						  :modifiedDate, :modifiedBy, :recordVersion, :amount, :prebillPayment); 
+						  SELECT SCOPE_IDENTITY();
+        ]]>
+    </sql-query>
+    
+    <sql-query name="deleteMappedInvoices">
+        <![CDATA[
+           UPDATE cabinet..ROI_RequestCoreDeliveryChargestoROI_RequestorPayment
+           SET IsDeleted = 1
+           WHERE ROI_RequestCoreDeliveryCharges_Seq = :invoiceId
+           		 and ROI_RequestorPayment_Seq = :paymentId
+        ]]>
+    </sql-query>
+
+	 <sql-query name="retrieveRequestorAdjPaymentCount">
+        <![CDATA[
+           SELECT 
+				((SELECT COUNT(ROI_RequestorAdjustment_Seq)
+						FROM ROI_RequestorAdjustment 
+						WHERE ROI_Requestor_Seq = :requestorId) 
+					+
+				(SELECT COUNT(ROI_RequestorPayment_Seq)
+						FROM ROI_RequestorPayment 
+						WHERE ROI_Requestor_Seq = :requestorId)) adjPaymentCount
+        ]]>
+    </sql-query>    
+    
+</hibernate-mapping>

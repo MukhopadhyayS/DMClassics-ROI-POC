@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.mckesson.eig.roi.admin.model.FeeType"
+       table="ROI_FeeType"
+       dynamic-update="true"
+       optimistic-lock="version" >
+
+    <id name="id" >
+        <column name="ROI_FeeType_Seq" sql-type="int"/>
+        <generator class="identity"/>
+    </id>
+
+        <version name="recordVersion" column="Record_Version" type="integer" />
+
+    <property name="name" >
+        <column name="Name" sql-type="varchar(60)" not-null="true" />
+    </property>
+
+    <property name="chargeAmount" >
+        <column name="ChargeAmount" sql-type="money" not-null="true" />
+    </property>
+
+    <property name="description" >
+        <column name="Description" sql-type="varchar(255)"/>
+    </property>
+
+    <property name="createdBy" >
+        <column name="Created_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="modifiedDate" >
+        <column name="Modified_Dt" sql-type="smalldatetime" not-null="true"/>
+    </property>
+
+    <property name="modifiedBy" >
+        <column name="Modified_By_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+    <property name="orgId" >
+        <column name="Organization_Seq" sql-type="int" not-null="true"/>
+    </property>
+
+	<property name="salesTax" >
+        <column name="SalesTaxEnable" sql-type="char(1)" not-null="true"/>
+    </property>
+
+ </class>
+
+
+    <query name="getAssociatedBillingTemplateCount">
+    <![CDATA[
+        select count(b.id) from com.mckesson.eig.roi.admin.model.RelatedFeeType b
+        where b.feeTypeId = ?0
+    ]]>
+  </query>
+
+  <query name="retrieveAllFeeTypes">
+    <![CDATA[
+      select feetype.id, feetype.name, feetype.chargeAmount, feetype.description, feetype.salesTax
+      from com.mckesson.eig.roi.admin.model.FeeType feetype
+      order by feetype.name asc
+    ]]>
+  </query>
+
+  <query name="retrieveAllFeeTypeName">
+    <![CDATA[
+      select feetype.id, feetype.name
+      from com.mckesson.eig.roi.admin.model.FeeType feetype
+      order by feetype.name asc
+    ]]>
+  </query>
+
+  <query name="getFeeTypeByName">
+    <![CDATA[
+      select feetype from com.mckesson.eig.roi.admin.model.FeeType feetype
+      where feetype.name = ?0
+    ]]>
+  </query>
+
+  <sql-query name="getFeeTypesByRequestorId">
+    <![CDATA[
+     	SELECT DISTINCT feeType.ROI_FeeType_Seq id,
+     		feeType.Created_By_Seq createdBy,
+      		feeType.Modified_Dt modifiedDate,
+      	  	feeType.Modified_By_Seq modifiedBy,
+      		feeType.Record_Version recordVersion,
+      		feeType.Organization_Seq orgId,
+      		feeType.Name name,
+      		feeType.Description description,
+      		feeType.ChargeAmount chargeAmount,
+      		feeType.SalesTaxEnable salesTax
+      		
+  		FROM cabinet..ROI_FeeType feeType,
+  			 cabinet..ROI_RequestorTypeToBillingTemplate typeToTemplate,
+			 cabinet..ROI_BillingTemplateToFeeType billingTemplate
+			 
+		WHERE billingTemplate.ROI_BillingTemplate_Seq = typeToTemplate.ROI_BillingTemplate_Seq
+			AND billingTemplate.ROI_FeeType_Seq = feeType.ROI_FeeType_Seq
+			AND typeToTemplate.ROI_RequestorType_Seq = :requestorTypeId
+    ]]>
+  </sql-query>
+ 
+ </hibernate-mapping>

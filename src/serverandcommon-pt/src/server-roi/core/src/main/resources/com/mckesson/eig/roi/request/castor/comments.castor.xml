@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:eig="urn:eig.mckesson.com">
+	<class name="com.mckesson.eig.roi.request.model.Comment">
+		<map-to xml="comment" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="requestId" type="long">
+			<bind-xml name="eig:requestId" node="element" />
+		</field>
+		<field name="name" type="string">
+			<bind-xml name="eig:type" node="element" />
+		</field>
+
+		<field name="description" type="string">
+			<bind-xml name="eig:description" node="element" />
+		</field>
+
+        <field name="originator" type="string">
+            <bind-xml name="eig:originator" node="element" />
+        </field>
+
+		<field name="modifiedDate" type="date">
+			<bind-xml name="eig:createdDate" node="element" />
+		</field>
+
+	</class>
+
+	<class name="com.mckesson.eig.roi.request.model.Comments">
+		<map-to xml="comments" ns-prefix="eig"
+			ns-uri="urn:eig.mckesson.com" />
+
+		<field name="comments"
+			type="com.mckesson.eig.roi.request.model.Comment"
+			collection="arraylist">
+			<bind-xml name="eig:comment" node="element" />
+		</field>
+		<field name="count" type="int">
+			<bind-xml name="eig:commentsCount" node="element" />
+		</field>
+	</class>
+</mapping>

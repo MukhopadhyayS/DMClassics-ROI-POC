@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="process_v1"
+	targetNamespace="http://eig.mckesson.com/wsdl/process-v1"
+	xmlns:eig="http://eig.mckesson.com/wsdl/process-v1"
+	xmlns:eig1_0="http://eig.mckesson.com/wsdl/process-v1.0"
+	xmlns:process_v1_0="http://eig.mckesson.com/xsd/2009/01"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+    <wsdl:types>
+        <xsd:schema attributeFormDefault="unqualified"
+	               elementFormDefault="unqualified"
+	               targetNamespace="http://eig.mckesson.com/wsdl/process-v1.0"
+	               xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	        <xsd:import
+		        namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+		        schemaLocation="xsd/default/oasis-200401-wss-wssecurity-secext-1.0.xsd" />
+			<xsd:import namespace="http://eig.mckesson.com/xsd/2009/01" schemaLocation="./xsd/process_v1_0.xsd" />
+        </xsd:schema>
+    </wsdl:types>
+
+<wsdl:message name="header">
+	<wsdl:part element="process_v1_0:transactionId" name="transIdHeader" />
+    <wsdl:part element="process_v1_0:applicationId" name="appIdHeader" />
+    <wsdl:part element="wsse:Security"     name="wssHeader" />
+</wsdl:message>
+
+<wsdl:message name="createProcessResponse">
+    <wsdl:part name="parameters" element="process_v1_0:createProcessResponse">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="createProcess">
+    <wsdl:part name="parameters" element="process_v1_0:createProcess">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="deployProcessResponse">
+    <wsdl:part name="parameters" element="process_v1_0:deployProcessResponse">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="deployProcess">
+    <wsdl:part name="parameters" element="process_v1_0:deployProcess">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="saveProcessResponse">
+    <wsdl:part name="parameters" element="process_v1_0:saveProcessResponse">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="saveProcess">
+    <wsdl:part name="parameters" element="process_v1_0:saveProcess">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="validateProcessResponse">
+    <wsdl:part name="parameters" element="process_v1_0:validateProcessResponse">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="validateProcess">
+    <wsdl:part name="parameters" element="process_v1_0:validateProcess">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="getDomainsResponse">
+    <wsdl:part name="parameters" element="process_v1_0:getDomainsResponse">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="getDomains">
+    <wsdl:part name="parameters" element="process_v1_0:getDomains">
+    </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getProcessResponse">
+    <wsdl:part name="parameters" element="process_v1_0:getProcessResponse">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="getProcess">
+    <wsdl:part name="parameters" element="process_v1_0:getProcess">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="getActionHandlersResponse">
+    <wsdl:part name="parameters" element="process_v1_0:getActionHandlersResponse">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:message name="getActionHandlers">
+    <wsdl:part name="parameters" element="process_v1_0:getActionHandlers">
+    </wsdl:part>
+</wsdl:message>
+
+<wsdl:portType name="ProcessPortType_v1_0">
+	<wsdl:operation name="createProcess">
+		<wsdl:input name="createProcess" message="eig:createProcess">
+		</wsdl:input>
+		<wsdl:output name="createProcessResponse" message="eig:createProcessResponse">
+		</wsdl:output>
+	</wsdl:operation>
+	<wsdl:operation name="deployProcess">
+		<wsdl:input name="deployProcess" message="eig:deployProcess">
+		</wsdl:input>
+		<wsdl:output name="deployProcessResponse" message="eig:deployProcessResponse">
+		</wsdl:output>
+	</wsdl:operation>
+	<wsdl:operation name="saveProcess">
+		<wsdl:input name="saveProcess" message="eig:saveProcess">
+		</wsdl:input>
+		<wsdl:output name="saveProcessResponse" message="eig:saveProcessResponse">
+		</wsdl:output>
+	</wsdl:operation>
+	<wsdl:operation name="validateProcess">
+		<wsdl:input name="validateProcess" message="eig:validateProcess">
+		</wsdl:input>
+		<wsdl:output name="validateProcessResponse" message="eig:validateProcessResponse">
+		</wsdl:output>
+	</wsdl:operation>
+	<wsdl:operation name="getDomains">
+      	<wsdl:input name="getDomains" message="eig:getDomains">
+    	</wsdl:input>
+      	<wsdl:output name="getDomainsResponse" message="eig:getDomainsResponse">
+    	</wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getActionHandlers">
+      	<wsdl:input name="getActionHandlers" message="eig:getActionHandlers">
+    	</wsdl:input>
+      	<wsdl:output name="getActionHandlersResponse" message="eig:getActionHandlersResponse">
+    	</wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProcess">
+      	<wsdl:input name="getProcess" message="eig:getProcess">
+    	</wsdl:input>
+      	<wsdl:output name="getProcessResponse" message="eig:getProcessResponse">
+    	</wsdl:output>
+    </wsdl:operation>
+</wsdl:portType>
+
+  <wsdl:binding name="ProcessServiceServiceSoapBinding_v1_0"
+  	type="eig:ProcessPortType_v1_0">
+    <soap:binding style="document"
+    	transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createProcess">
+      <soap:operation soapAction="http://eig.mckesson.com/wsdl/process-v1/createProcess" style="document"/>
+      <wsdl:input name="createProcess">
+        <soap:header message="eig:header" part="wssHeader"     use="literal" />
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createProcessResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deployProcess">
+      <soap:operation soapAction="http://eig.mckesson.com/wsdl/process-v1/deployProcess" style="document"/>
+      <wsdl:input name="deployProcess">
+        <soap:header message="eig:header" part="wssHeader"     use="literal" />
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deployProcessResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveProcess">
+      <soap:operation soapAction="http://eig.mckesson.com/wsdl/process-v1/saveProcess" style="document"/>
+      <wsdl:input name="saveProcess">
+        <soap:header message="eig:header" part="wssHeader"     use="literal" />
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="saveProcessResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateProcess">
+      <soap:operation soapAction="http://eig.mckesson.com/wsdl/process-v1/validateProcess" style="document"/>
+      <wsdl:input name="validateProcess">
+        <soap:header message="eig:header" part="wssHeader"     use="literal" />
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="validateProcessResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="getDomains">
+      <soap:operation soapAction="http://eig.mckesson.com/wsdl/process-v1/getDomains" style="document"/>
+      <wsdl:input name="getDomains">
+        <soap:header message="eig:header" part="wssHeader"     use="literal" />
+        <soap:header message="eig:header" part="transIdHeader" use="literal" />
+        <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDomainsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="getProcess">
+       <soap:operation soapAction="http://eig.mckesson.com/wsdl/process-v1/getProcess" style="document"/>
+       <wsdl:input name="getProcess">
+         <soap:header message="eig:header" part="wssHeader"     use="literal" />
+         <soap:header message="eig:header" part="transIdHeader" use="literal" />
+         <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+         <soap:body use="literal"/>
+       </wsdl:input>
+       <wsdl:output name="getProcessResponse">
+          <soap:body use="literal"/>
+       </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="getActionHandlers">
+      <soap:operation soapAction="http://eig.mckesson.com/wsdl/process-v1/getActionHandlers" style="document"/>
+       <wsdl:input name="getActionHandlers">
+         <soap:header message="eig:header" part="wssHeader"     use="literal" />
+         <soap:header message="eig:header" part="transIdHeader" use="literal" />
+         <soap:header message="eig:header" part="appIdHeader"   use="literal" />
+         <soap:body use="literal"/>
+       </wsdl:input>
+       <wsdl:output name="getActionHandlersResponse">
+         <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+
+  </wsdl:binding>
+
+  <wsdl:service name="ProcessService_v1_0">
+    <wsdl:port name="process_v1_0"
+    binding="eig:ProcessServiceServiceSoapBinding_v1_0">
+      <soap:address location="http://host/context/services/process"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
