@@ -35,7 +35,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import com.mckesson.eig.utility.io.IOUtilities;
-import com.mckesson.eig.utility.log.Log;
+//import com.mckesson.eig.utility.log.Log;
 import com.mckesson.eig.utility.metric.TimedMetric;
 import com.mckesson.eig.utility.util.ConversionUtilities;
 import com.mckesson.dm.core.common.logging.OCLogger;

@@ -22,13 +22,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.api.Actors;
@@ -49,9 +48,9 @@ import com.mckesson.eig.workflow.process.api.ProcessVersionInfo;
 public class ProcessListDAO extends AbstractProcessDAO {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ProcessListDAO.class);
+    private static final OCLogger LOG = new OCLogger( ProcessListDAO.class);
 
     private static final String P_OWNER_ID 		= "P_OWNER_ID";
     private static final String P_ACTOR_ID      = "P_ACTOR_ID";

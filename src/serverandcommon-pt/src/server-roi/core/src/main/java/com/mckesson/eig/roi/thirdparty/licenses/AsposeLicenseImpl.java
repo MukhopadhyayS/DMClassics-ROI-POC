@@ -33,14 +33,14 @@ public class AsposeLicenseImpl implements ThirdPartyLicenses {
             e.printStackTrace();
             LOGGER.error("Aspose License for Word Failed", e);
         }
-//        try {
-//            com.aspose.pdf.License pdfLicense = new com.aspose.pdf.License();
-//            LOGGER.info("Setting Aspose License for PDF");
-//            pdfLicense.setLicense("Aspose.Total.Java.lic");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            LOGGER.error("Aspose License for PDF Failed", e);
-//        }
+        try {
+            com.aspose.pdf.License pdfLicense = new com.aspose.pdf.License();
+            LOGGER.info("Setting Aspose License for PDF");
+            pdfLicense.setLicense("Aspose.Total.Java.lic");
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("Aspose License for PDF Failed", e);
+        }
     }
 
 }

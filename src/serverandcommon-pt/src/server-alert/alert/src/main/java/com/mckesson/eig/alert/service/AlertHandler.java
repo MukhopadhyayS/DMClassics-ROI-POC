@@ -16,9 +16,7 @@ package com.mckesson.eig.alert.service;
 
 import java.io.StringReader;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogEvent;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
  * This is a POJO that will take a JMS Text message
@@ -27,9 +25,9 @@ import com.mckesson.eig.utility.log.LogFactory;
 public class AlertHandler {
 
     /**
-     * LOG - Instance of Logger used to log messages.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(AlertHandler.class);
+    private static final OCLogger LOG = new OCLogger( AlertHandler.class);
 
     /**
      * Webservice to log the message to the email appender
@@ -38,13 +36,13 @@ public class AlertHandler {
 
         String logEventXML = null;
         try {
-        	
-            LogEvent le = 
-            		(LogEvent) LogEvent.getJAXBContext().createUnmarshaller().unmarshal(
-            												new StringReader(message));
-
-            AlertHandler.LOG.fatal(le.toLog());
-            
+		//TODO: Find Alternative of Logevent
+            AlertHandler.LOG.error(message);
+//            LogEvent le =
+//            		(LogEvent) LogEvent.getJAXBContext().createUnmarshaller().unmarshal(
+//            												new StringReader(message));
+//
+//            AlertHandler.LOG.error(le.toLog());
         } catch (Throwable t) {
         	
             AlertHandler.LOG.debug("Service " + " failed.  Message received: "

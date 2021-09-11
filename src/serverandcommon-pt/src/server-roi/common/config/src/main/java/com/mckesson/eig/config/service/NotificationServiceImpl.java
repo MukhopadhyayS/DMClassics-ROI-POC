@@ -16,11 +16,10 @@ import java.util.HashMap;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.config.model.NotificationInfo;
 import com.mckesson.eig.config.utils.EmailSender;
 import com.mckesson.eig.config.validation.NotificationValidator;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 /**
@@ -37,17 +36,17 @@ import com.mckesson.eig.utility.util.SpringUtilities;
         endpointInterface = "com.mckesson.eig.config.service.NotificationService")
 public class NotificationServiceImpl implements NotificationService {
 
-    /**
-     * Object represents the Log4JWrapper object.
-     */
-    private static final Log LOG = LogFactory.getLogger(NotificationServiceImpl.class);
+	/**
+	 * Gets the logger for this class.
+	 */
+	private static final OCLogger LOG = new OCLogger( NotificationServiceImpl.class);
 
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
 	/** 
 	 * This method is used to notify information via E-Mail, Fax or SMS.
 	 * 
-	 * @see com.mckesson.eig.config.service.NotificationService
+	 * @see NotificationService
 	 * 	#notify(com.mckesson.eig.config.model.NotificationInfo, appId)
 	 */
 	public void notify(NotificationInfo notificationInfo, long appId) {

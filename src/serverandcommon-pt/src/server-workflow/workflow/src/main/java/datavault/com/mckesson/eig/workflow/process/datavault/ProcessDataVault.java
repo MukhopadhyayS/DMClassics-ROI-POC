@@ -26,8 +26,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.workflow.datavault.DVLogger;
 import com.mckesson.eig.workflow.datavault.DVUtil;
 import com.mckesson.eig.workflow.process.datavault.dao.ProcessDVDAO;
@@ -45,8 +44,8 @@ import com.mckesson.eig.workflow.process.datavault.model.ProcessVersionDVInfo;
  */
 public class ProcessDataVault {
 
-    private static Log _log;
-    private static Log _console;
+    private static OCLogger _log;
+    private static OCLogger _console;
 
     /**
      *
@@ -56,8 +55,8 @@ public class ProcessDataVault {
 
     	DOMConfigurator.configure(ProcessDataVault.class.getResource(
     				"/com/mckesson/eig/workflow/process/datavault/logging.xml"));
-    	_log = LogFactory.getLogger(ProcessDataVault.class);
-    	_console = LogFactory.getLogger("sop");
+    	_log = new OCLogger(ProcessDataVault.class);
+    	_console = new OCLogger("sop");
 
         if (DVUtil.isValidArugument(args)) {
             new ProcessDataVault().loadExcelData(args[0]);

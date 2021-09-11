@@ -2,7 +2,7 @@ package com.mckesson.eig.roi.ccd.service;
 
 import java.io.OutputStream;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.area.AreaTreeHandler;
@@ -90,6 +90,6 @@ public class PdfEventHandler extends AreaTreeHandler {
     }
     
     private String convertHtml(String s) {
-	return StringEscapeUtils.unescapeHtml(s);
+	return StringEscapeUtils.unescapeHtml4(s);
     }
 }

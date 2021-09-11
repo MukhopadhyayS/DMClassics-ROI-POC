@@ -14,10 +14,9 @@
 package com.mckesson.eig.audit.dao.hecm.hibernate;
 
 
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-
 import com.mckesson.eig.audit.dao.hecm.AuditTrailDetail;
 import com.mckesson.eig.audit.dao.hecm.AuditTrailDetailDao;
+import com.mckesson.eig.iws.orm.hibernate.HibernateDaoSupport;
 
 /**
  * AuditTrailDetailHibernateDao is a Hibernate implementation for
@@ -43,8 +42,7 @@ public class AuditTrailDetailHibernateDao extends HibernateDaoSupport
      *            AuditTrailDetail object to be deleted.
      */
     public void delete(AuditTrailDetail object) {
-    	getHibernateTemplate().delete(object);
-        //deleteObject(object);
+        deleteObject(object);
     }
 
     /**
@@ -54,8 +52,7 @@ public class AuditTrailDetailHibernateDao extends HibernateDaoSupport
      *            AuditTrailDetail object to be saved.
      */
     public void save(AuditTrailDetail object) {
-    	getHibernateTemplate().save(object);
-        //saveObject(object);
+        saveObject(object);
     }
 
     /**
@@ -69,8 +66,7 @@ public class AuditTrailDetailHibernateDao extends HibernateDaoSupport
      *         corresponds to the given auditTrailDetailSeq.
      */
     public AuditTrailDetail get(Long auditTrailDetailSeq) {
-    	return (AuditTrailDetail) getHibernateTemplate().get(com.mckesson.eig.audit.dao.hecm.AuditTrailDetail.class, auditTrailDetailSeq);    	
-       // return (AuditTrailDetail) getObject(auditTrailDetailSeq);
+        return (AuditTrailDetail) getObject(auditTrailDetailSeq);
     }
 
     /**
@@ -78,8 +74,8 @@ public class AuditTrailDetailHibernateDao extends HibernateDaoSupport
      *
      * @return Class
      */
-//    @Override
-//	public Class<?> getObjectType() {
-//        return DATA_CLASS;
-//    }
+    @Override
+	public Class<?> getObjectType() {
+        return DATA_CLASS;
+    }
 }

@@ -5,13 +5,12 @@ import java.io.FileReader;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.components.ComponentUtil;
 import com.mckesson.eig.utility.components.model.ComponentInfo;
 import com.mckesson.eig.utility.components.model.ComponentList;
 import com.mckesson.eig.utility.exception.ApplicationException;
 import com.mckesson.eig.utility.exception.ClientErrorCodes;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 /**
  * This class defines various methods that are used to fetch the details of the 
@@ -28,18 +27,18 @@ import com.mckesson.eig.utility.log.LogFactory;
         targetNamespace   = "http://eig.mckesson.com/wsdl/configservercomponents-v1",
         endpointInterface = "com.mckesson.eig.config.service.ComponentService")
 public class ComponentServiceImpl implements ComponentService {
-    
+
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ComponentServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger( ComponentServiceImpl.class);
     
     private static final String HECM_COMPONENT_INFO_PATH = 
         ComponentUtil.CONFIG_HOME + "\\com\\mckesson\\hecm\\components";
     
     /**
      * 
-     * @see com.mckesson.eig.config.service.ComponentService#getAllComponents()
+     * @see ComponentService#getAllComponents()
      */
     public ComponentList getAllComponents() {
         
@@ -61,14 +60,14 @@ public class ComponentServiceImpl implements ComponentService {
                                         .append(componentList.getComponents().size())
                                         .append(">>End").toString());
         } catch (Exception e) {
-            LOG.debug(e);
+            LOG.debug(e.getMessage ());
         }
         return componentList;
     }
     
     /**
      * 
-     * @see com.mckesson.eig.config.service.ComponentService#getComponent(java.lang.String)
+     * @see ComponentService#getComponent(String)
      */
     public ComponentInfo getComponent(String componentID) {
         
@@ -82,7 +81,7 @@ public class ComponentServiceImpl implements ComponentService {
             componentInfo = ComponentUtil.unMarshallObject(
                                         new FileReader(getComponentPath(componentID)));
         } catch (Exception e) {
-            LOG.debug(e);
+            LOG.debug(e.getMessage ());
         }
         LOG.debug(logSourceMethod + ">>End");
         return componentInfo;
@@ -138,7 +137,7 @@ public class ComponentServiceImpl implements ComponentService {
     private void validateComponentID(String componentID) {
         
         if (componentID == null) {
-            throw new ApplicationException("ComponentID null", ClientErrorCodes.NULL_COMPONENT_ID);
+            throw new ApplicationException ("ComponentID null", ClientErrorCodes.NULL_COMPONENT_ID);
         }
     }
 }

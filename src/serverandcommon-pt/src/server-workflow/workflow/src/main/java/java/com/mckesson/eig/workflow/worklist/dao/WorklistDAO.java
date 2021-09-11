@@ -20,15 +20,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.api.Actors;
@@ -64,9 +63,9 @@ public class WorklistDAO
 extends AbstractWorkflowDAO {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(WorklistDAO.class);
+    private static final OCLogger LOG = new OCLogger( WorklistDAO.class);
 
     private static final String T_OWNER_ID    = "T_OWNER_ID";
     private static final String T_ACTOR_ID    = "T_ACTOR_ID";
@@ -551,7 +550,9 @@ extends AbstractWorkflowDAO {
         if (CollectionUtilities.hasContent(result)) {
 
             List<TaskACLResolved> resolvedList = fetchTaskAclResolved(sessionId, result);
-            getHibernateTemplate().saveOrUpdateAll(resolvedList);
+            for(TaskACLResolved tar : resolvedList) {
+                getHibernateTemplate().saveOrUpdate(tar);
+            }
             //getHibernateTemplate().saveOrUpdateAll(result);
         }
         LOG.debug(logSourceMethod + "<<End");
@@ -1678,7 +1679,9 @@ extends AbstractWorkflowDAO {
         } else {
 
             List<TaskACLResolved> resolvedList = fetchTaskAclResolved(sessionId, result);
-            getHibernateTemplate().saveOrUpdateAll(resolvedList);
+            for(TaskACLResolved tar : resolvedList) {
+                getHibernateTemplate().saveOrUpdate(tar);
+            }
         }
     }
 

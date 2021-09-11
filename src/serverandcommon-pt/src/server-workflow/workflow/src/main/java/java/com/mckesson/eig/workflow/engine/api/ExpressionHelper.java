@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.workflow.api.ProcessVariable;
 import com.mckesson.eig.workflow.service.ProcessVariablePluginService;
@@ -36,9 +35,9 @@ import com.mckesson.eig.workflow.service.ProcessVariablePluginService;
 public class ExpressionHelper {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    protected static final Log LOG = LogFactory.getLogger(ExpressionHelper.class);
+    private static final OCLogger LOG = new OCLogger( ExpressionHelper.class);
 
     /**
      * Represents starting part of a variable

@@ -15,10 +15,11 @@ package com.mckesson.eig.inuse.hpf.dao;
 
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.inuse.base.dao.BaseInUseDAOImpl;
 import com.mckesson.eig.inuse.hpf.model.User;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+//import com.mckesson.eig.utility.log.Log;
+//import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 
@@ -30,7 +31,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
 public class UserSecurityHibernateDao
 extends BaseInUseDAOImpl {
 
-    private static final Log LOG = LogFactory.getLogger(UserSecurityHibernateDao.class);
+    private static final OCLogger LOG = new OCLogger(UserSecurityHibernateDao.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     public UserSecurityHibernateDao() {
@@ -50,11 +51,11 @@ extends BaseInUseDAOImpl {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List<User> list = (List<User>) getHibernateTemplate().findByNamedQuery("userByLoginId", loginId);
+        List list = getHibernateTemplate().findByNamedQuery("userByLoginId", loginId);
         if (CollectionUtilities.isEmpty(list)) {
             return null;
         }
-        User user = list.get(0);
+        User user = (User) list.get(0);
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End: User Name = " + user.getDisplayName());

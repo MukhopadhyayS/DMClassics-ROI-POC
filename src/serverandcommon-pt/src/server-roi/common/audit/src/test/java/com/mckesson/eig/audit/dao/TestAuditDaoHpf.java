@@ -7,14 +7,11 @@ import junit.framework.TestCase;
 import com.mckesson.eig.audit.UnitTestSpringInitialization;
 import com.mckesson.eig.audit.dao.hpf.AuditDao4Hpf;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 public class TestAuditDaoHpf extends TestCase {
 
     private AuditEvent _auditEvent = null;
     private AuditDao4Hpf _auditDao = null;
-    private static final Log LOG = LogFactory.getLogger(TestAuditDaoHpf.class);
     
     private static final Long USER = new Long(1);
     private static final String ACTION_CODE = "D";
@@ -44,7 +41,7 @@ public class TestAuditDaoHpf extends TestCase {
         try {
              assertTrue(_auditDao.insertEntry(_auditEvent));
         } catch (Exception e) {
-            LOG.error(e.getMessage());
+            //LOG.error(e.getMessage());
             fail(e.getMessage());
         }
     }
@@ -56,7 +53,7 @@ public class TestAuditDaoHpf extends TestCase {
             _auditEvent.setEventStart(now);
              assertTrue(_auditDao.insertEntry(_auditEvent));
         } catch (Exception e) {
-            LOG.error(e.getMessage());
+            //LOG.error(e.getMessage());
             fail(e.getMessage());
         }
     }

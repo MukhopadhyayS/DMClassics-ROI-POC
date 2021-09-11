@@ -15,13 +15,12 @@ package com.mckesson.eig.workflow.engine.api.database;
 
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.graph.exe.ExecutionContext;
 
 import com.mckesson.eig.utility.database.DBAccessDAO;
 import com.mckesson.eig.utility.database.DBParameter;
 import com.mckesson.eig.utility.database.DBResult;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.workflow.api.WorkflowEC;
 import com.mckesson.eig.workflow.api.WorkflowEngineException;
@@ -33,11 +32,11 @@ import com.mckesson.eig.workflow.engine.BaseActionHandler;
  * @author Ronnie Andrews, Jr + BP Stieffen.
  */
 public class DBActionHandler extends BaseActionHandler {
-	
+
 	/**
-     * Object represents the Log4JWrapper object.
-     */
-    protected static final Log LOG = LogFactory.getLogger(DBActionHandler.class);
+	 * Gets the logger for this class.
+	 */
+	private static final OCLogger LOG = new OCLogger( DBActionHandler.class);
     
     /**
      * Connection URL to desired DB including username + password.

@@ -23,7 +23,6 @@ import javax.xml.soap.MessageFactory;
 import javax.xml.soap.MimeHeaders;
 import javax.xml.soap.SOAPMessage;
 
-import org.apache.cxf.helpers.DOMUtils;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -52,15 +51,15 @@ public final class ResponseProcessor {
         SOAPMessage soapMsg = mf.createMessage(new MimeHeaders(), webResponse.getInputStream());
         Node nResponse = soapMsg.getSOAPBody().getChildNodes().item(0);
 
-        if (nResponse instanceof Fault1_1Impl) { // SOAPException        	
-            return DOMUtils.getContent(nResponse);
+        if (nResponse instanceof Fault1_1Impl) { // SOAPException
+            return nResponse.getTextContent();
         }
         NodeList nResult = nResponse.getChildNodes();
         if (nResult.getLength() == 0) { // for void return type
             return "";
         }
 
-        return DOMUtils.getContent(nResponse.getChildNodes().item(0));
+        return nResponse.getChildNodes().item(0).getTextContent();
     }
 
     public static Object unMarshallObject(String response, Class< ? > boundClass)

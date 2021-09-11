@@ -21,9 +21,9 @@ import java.util.Set;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.api.Actor;
@@ -54,7 +54,7 @@ public class ProcessListServiceImpl extends BaseProcessServiceImpl implements Pr
     /**
      * Object represents the Log4JWrapper object.
      */
-    private static final Log LOG = LogFactory.getLogger(ProcessListServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ProcessListServiceImpl.class);
 
     /**
      * Key used to store group actors of the logged in user actor

@@ -15,15 +15,12 @@ package com.mckesson.eig.wsfw.test.cxf;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.StringReader;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import com.mckesson.eig.wsfw.test.ResponseProcessor;
 import com.mckesson.eig.wsfw.test.SoapRequestBuilder;
@@ -115,11 +112,8 @@ public class TestSecuredCXFService extends TestCase {
                                                           "text/xml");
             request.setHeaderField("SOAPAction", "");
             WebResponse response = _client.getResponse(request);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(response.getText())));
             //Document doc         = XMLUtils.parse(response.getText());
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getText());
             NodeList nodeList    =
                 (doc.getElementsByTagName("detail").item(0)).getChildNodes();
             Node node            = nodeList.item(0).getFirstChild();

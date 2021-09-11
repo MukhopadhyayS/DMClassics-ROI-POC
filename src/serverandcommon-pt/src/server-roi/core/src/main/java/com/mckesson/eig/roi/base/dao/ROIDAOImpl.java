@@ -60,7 +60,9 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
  * @date   Sep 01, 2009
  * @since  HPF 13.1 [ROI]; Feb 14, 2008
  */
-public class ROIDAOImpl extends HibernateDaoSupport implements ROIDAO {
+public class ROIDAOImpl
+extends HibernateDaoSupport
+implements ROIDAO {
 
     private static final OCLogger LOG = new OCLogger(ROIDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();

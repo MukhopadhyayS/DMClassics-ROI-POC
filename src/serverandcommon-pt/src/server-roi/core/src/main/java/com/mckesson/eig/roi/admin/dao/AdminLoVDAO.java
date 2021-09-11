@@ -26,7 +26,8 @@ import com.mckesson.eig.roi.base.dao.ROIDAO;
  * @date   May 23, 2008
  * @since  HPF 13.1 [ROI]; Sep 12, 2008
  */
-public interface AdminLoVDAO extends ROIDAO {
+public interface AdminLoVDAO
+extends ROIDAO {
 
     /**
      * This method create new adminLoV

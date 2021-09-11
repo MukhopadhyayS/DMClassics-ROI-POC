@@ -17,15 +17,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.io.StringReader;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.xml.security.utils.XMLUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import com.mckesson.eig.wsfw.test.CXFBSTSoapRequestBuilder;
 import com.meterware.httpunit.PostMethodWebRequest;
@@ -90,7 +86,8 @@ public class TestBSTSecuredCXFService extends TestCase {
             _requestBuilder.addBSTSecurityHeader(doc, "wfprivkey", "wfpazz");
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            XMLUtils.outputDOM(doc, os, true);
+            //XMLUtils.writeTo(doc, os);
+            org.apache.xml.security.utils.XMLUtils.outputDOM(doc, os, true);            
             InputStream requestMessage = new ByteArrayInputStream(os.toString().getBytes());
 
             WebRequest request         =
@@ -100,11 +97,8 @@ public class TestBSTSecuredCXFService extends TestCase {
             request.setHeaderField("SOAPAction", "");
             WebResponse response = _client.getResponse(request);
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            builder = factory.newDocumentBuilder();
-            Document resDoc = builder.parse(new InputSource(new StringReader(response.getText())));
-           // Document resDoc         = XMLUtils.parse(response.getText());
+            //Document resDoc         = XMLUtils.parse(response.getText());
+            Document resDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getText());
             NodeList nodeList    =
                 (resDoc.getElementsByTagName("employee").item(0)).getChildNodes();
 
@@ -136,11 +130,8 @@ public class TestBSTSecuredCXFService extends TestCase {
             request.setHeaderField("SOAPAction", "");
             WebResponse response = _client.getResponse(request);
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(response.getText())));
             //Document doc         = XMLUtils.parse(response.getText());
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getText());
             NodeList nodeList    =
                 (doc.getElementsByTagName("employee").item(0)).getChildNodes();
 
@@ -171,11 +162,8 @@ public class TestBSTSecuredCXFService extends TestCase {
                                                           "text/xml");
             request.setHeaderField("SOAPAction", "");
             WebResponse response = _client.getResponse(request);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(response.getText())));
             //Document doc         = XMLUtils.parse(response.getText());
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getText());
             NodeList nodeList    =
                 (doc.getElementsByTagName("detail").item(0)).getChildNodes();
 

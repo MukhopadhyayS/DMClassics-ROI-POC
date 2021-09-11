@@ -15,8 +15,6 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 /**
@@ -44,8 +42,8 @@ public final class UnitTestSpringInitialization {
     private static final BeanFactory ROI_FACTORY = new XmlBeanFactory(
             new ClassPathResource(SPRING_CONFIG_FILE_ROI));
 
-    private static final Log LOG = LogFactory
-            .getLogger(UnitTestSpringInitialization.class);
+//    private static final Log LOG = LogFactory
+//            .getLogger(UnitTestSpringInitialization.class);
 
     /**
      * Hidden default constructor to support the use of this class a static only.
@@ -66,7 +64,7 @@ public final class UnitTestSpringInitialization {
             SpringUtilities.getInstance().setBeanFactory(FACTORY);
         } catch (Exception e) {
             e.printStackTrace();
-            LOG.error("Error while loading configuration using spring", e);
+            //LOG.error("Error while loading configuration using spring", e);
         }
     }
 
@@ -78,7 +76,7 @@ public final class UnitTestSpringInitialization {
             SpringUtilities.getInstance().setBeanFactory(ROI_FACTORY);
         } catch (Exception e) {
             e.printStackTrace();
-            LOG.error("Error while loading configuration using spring", e);
+            //LOG.error("Error while loading configuration using spring", e);
         }
     }
 }

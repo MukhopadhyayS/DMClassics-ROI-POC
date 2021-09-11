@@ -26,9 +26,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.ObjectUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.process.datavault.ProcessDVHelper;
@@ -44,7 +42,7 @@ public final class DVUtil {
     private DVUtil() {
     }
 
-    private static final Log CONSOLE = LogFactory.getLogger("sop");
+    private static final OCLogger CONSOLE = new OCLogger("sop");
 
     public static final String MSG_COMMAND_LINE_ARG_REQ
                                 = " Command line argument is missing ";

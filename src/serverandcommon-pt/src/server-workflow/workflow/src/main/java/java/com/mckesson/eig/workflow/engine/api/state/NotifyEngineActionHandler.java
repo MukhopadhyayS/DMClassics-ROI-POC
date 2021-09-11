@@ -16,10 +16,9 @@ package com.mckesson.eig.workflow.engine.api.state;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.graph.exe.ExecutionContext;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.workflow.engine.BaseActionHandler;
 import com.mckesson.eig.workflow.processinstance.api.ProcessInstanceHistory;
 import com.mckesson.eig.workflow.util.JAXBUtil;
@@ -48,9 +47,9 @@ public class NotifyEngineActionHandler extends BaseActionHandler {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    protected static final Log LOG = LogFactory.getLogger(NotifyEngineActionHandler.class);
+    private static final OCLogger LOG = new OCLogger( NotifyEngineActionHandler.class);
 
     /**
      * @see org.jbpm.graph.def.ActionHandler

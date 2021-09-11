@@ -14,12 +14,11 @@ package com.mckesson.eig.config.validation;
 
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.config.constants.ConfigurationEC;
 import com.mckesson.eig.config.exception.NotificationException;
 import com.mckesson.eig.config.model.MailInfo;
 import com.mckesson.eig.config.model.NotificationInfo;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.utility.util.net.MailValidationUtilities;
@@ -33,9 +32,10 @@ import com.mckesson.eig.utility.util.net.MailValidationUtilities;
 public class NotificationValidator extends BaseValidator {
 
     /**
-     * Initializes the logger.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ApplicationSettingValidator.class);
+    private static final OCLogger LOG = new OCLogger( NotificationValidator.class);
+
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
 	/**

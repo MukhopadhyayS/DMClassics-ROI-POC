@@ -29,8 +29,7 @@ import org.jbpm.jpdl.JpdlException;
 import org.jbpm.persistence.db.DbPersistenceServiceFactory;
 import org.jbpm.svc.Services;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.workflow.datavault.DVUtil;
 import com.mckesson.eig.workflow.process.datavault.ProcessDVHelper;
 import com.mckesson.eig.workflow.process.datavault.ProcessDataVault;
@@ -54,8 +53,8 @@ public class ProcessDVDAO {
 
     private static final int HECM_APP_ID 	= 1;
 
-    private static final Log LOG     = LogFactory.getLogger(ProcessDataVault.class);
-	private static final Log CONSOLE = LogFactory.getLogger("sop");
+    private static final OCLogger LOG     = new OCLogger(ProcessDataVault.class);
+	private static final OCLogger CONSOLE = new OCLogger("sop");
 
     static {
 

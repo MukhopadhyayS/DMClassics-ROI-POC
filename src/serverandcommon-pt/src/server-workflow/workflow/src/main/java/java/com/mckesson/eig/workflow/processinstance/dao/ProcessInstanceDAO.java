@@ -13,11 +13,10 @@
 
 package com.mckesson.eig.workflow.processinstance.dao;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.workflow.processinstance.api.ProcessInstanceHistory;
 
 /**
@@ -30,9 +29,9 @@ import com.mckesson.eig.workflow.processinstance.api.ProcessInstanceHistory;
 public class ProcessInstanceDAO extends AbstractProcessInstanceDAO {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ProcessInstanceDAO.class);
+    private static final OCLogger LOG = new OCLogger( ProcessInstanceDAO.class);
 
     /**
      * This method is used to create process instance history record.

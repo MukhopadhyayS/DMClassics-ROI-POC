@@ -17,14 +17,15 @@ package com.mckesson.eig.inuse.dao;
 import java.util.Calendar;
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate5.HibernateCallback;
 
 import com.mckesson.eig.inuse.base.dao.BaseInUseDAOImpl;
 import com.mckesson.eig.inuse.model.InUseRecord;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+//import com.mckesson.eig.utility.log.Log;
+//import com.mckesson.eig.utility.log.LogFactory;
 
 
 /**
@@ -36,11 +37,11 @@ public class InUseDAOImpl
 extends BaseInUseDAOImpl
 implements InUseDAO {
 
-    private static final Log LOG = LogFactory.getLogger(InUseDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger(InUseDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#createRecord(InUseRecord)
+     * @see InUseDAO#createRecord(InUseRecord)
      */
     public InUseRecord createRecord(InUseRecord inUseRecord) {
 
@@ -60,7 +61,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#updateRecord(InUseRecord)
+     * @see InUseDAO#updateRecord(InUseRecord)
      */
     public InUseRecord updateRecord(InUseRecord inUseRecord) {
 
@@ -78,7 +79,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#retrieveExpiredRecords()
+     * @see InUseDAO#retrieveExpiredRecords()
      */
     public List<InUseRecord> retrieveExpiredRecords(int gracePeriodMinutes) {
 
@@ -88,7 +89,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = (List <InUseRecord> ) getHibernateTemplate().findByNamedQuery(
                 "retrieveExpiredRecords",
                 new Object[] { gracePeriodMinutes, Calendar.getInstance().getTime() });
 
@@ -100,7 +101,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#deleteRecord(InUseRecord)
+     * @see InUseDAO#deleteRecord(InUseRecord)
      */
     public void deleteRecord(InUseRecord inUseRecord) {
 
@@ -117,7 +118,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#retrieveAll()
+     * @see InUseDAO#retrieveAll()
      */
     public List<InUseRecord> retrieveAll() {
 
@@ -127,7 +128,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery("retrieveAll");
+        List <InUseRecord> records = (List <InUseRecord> )getHibernateTemplate().findByNamedQuery("retrieveAll");
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End: count: " + records.size());
@@ -137,7 +138,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#retrieveAllByType(java.lang.String)
+     * @see InUseDAO#retrieveAllByType(String)
      */
     public List<InUseRecord> retrieveAllByType(String objectType) {
 
@@ -147,7 +148,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = (List <InUseRecord> )getHibernateTemplate().findByNamedQuery(
                 "retrieveAllForType",
                 new Object[] { objectType });
 
@@ -159,7 +160,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#retrieveByObjectTypeAndID(String, String)
+     * @see InUseDAO#retrieveByObjectTypeAndID(String, String)
      */
     public InUseRecord retrieveByObjectTypeAndID(String objectType, String objectID) {
 
@@ -169,7 +170,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = (List <InUseRecord> )getHibernateTemplate().findByNamedQuery(
                 "retrieveByObjectTypeAndID",
                 new Object[] { objectType, objectID });
 
@@ -184,7 +185,7 @@ implements InUseDAO {
 
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO#deleteRecords(java.util.List)
+     * @see InUseDAO#deleteRecords(List)
      */
     public void deleteRecords(List<InUseRecord> inUseRecords) {
 
@@ -201,7 +202,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO
+     * @see InUseDAO
      * #retrieveInUseRecordsByIds(java.lang.String,
      *                            java.lang.String, java.lang.String, java.lang.String)
      */
@@ -238,7 +239,7 @@ implements InUseDAO {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.dao.InUseDAO
+     * @see InUseDAO
      * #retrieveRecordByAppIdAndUserID(java.lang.String, java.lang.String)
      */
     public InUseRecord retrieveRecordByAppIdAndUserID(String appID, String userID) {
@@ -249,7 +250,7 @@ implements InUseDAO {
         }
 
         @SuppressWarnings("unchecked") // not supported by 3rdParty API
-        List <InUseRecord> records = (List<InUseRecord>) getHibernateTemplate().findByNamedQuery(
+        List <InUseRecord> records = (List <InUseRecord> )getHibernateTemplate().findByNamedQuery(
                                     "retrieveByAppIDAndUserID",
                                     new Object[] { appID, userID});
 

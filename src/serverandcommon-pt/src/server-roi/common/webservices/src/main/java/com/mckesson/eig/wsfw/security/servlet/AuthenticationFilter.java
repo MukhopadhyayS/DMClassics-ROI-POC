@@ -30,7 +30,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mckesson.eig.utility.exception.ApplicationException;
 import com.mckesson.eig.utility.exception.ClientErrorCodes;
-import com.mckesson.eig.utility.log.LogContext;
+//import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
@@ -121,7 +121,7 @@ public class AuthenticationFilter implements Filter {
             String transactionID = req.getParameter(Authenticator.KEY_TRANSACTION_ID);
             
             if (transactionID != null && transactionID.trim().length() > 0) {
-                LogContext.put("transactionid", new TransactionId(transactionID));
+//                LogContext.put("transactionid", new TransactionId(transactionID));
             }
 
             chain.doFilter(req, res);

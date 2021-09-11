@@ -11,7 +11,6 @@
  * without the prior express written permission of McKesson Corporation.
  */
 package com.mckesson.eig.utility.transaction;
-import com.mckesson.eig.utility.log.LogContext;
 
 /**
  * Provide methods to put the context value as identified by the key code
@@ -19,6 +18,7 @@ import com.mckesson.eig.utility.log.LogContext;
  * 
  */
 public final class TransactionSignature {
+    // TODO: implement MDC on OCLogger and use oclogger in all the methods here.
     /**
      * Sole constructor.
      */
@@ -43,9 +43,9 @@ public final class TransactionSignature {
      *            this transaction id.
      */
     public static void add(String loginId, String ipAddress, String transactionId) {
-        LogContext.put("ipaddress", ipAddress);
-        LogContext.put("userid", loginId);
-        LogContext.put("transactionid", new TransactionId(transactionId));
+//        LogContext.put("ipaddress", ipAddress);
+//        LogContext.put("userid", loginId);
+//        LogContext.put("transactionid", new TransactionId(transactionId));
     }
 
     /**
@@ -59,9 +59,9 @@ public final class TransactionSignature {
      *            Machines IpAddress.
      */
     public static void add(String loginId, String ipAddress) {
-        LogContext.put("ipaddress", ipAddress);
-        LogContext.put("userid", loginId);
-        LogContext.put("transactionid", new TransactionId(loginId, ipAddress));
+//        LogContext.put("ipaddress", ipAddress);
+//        LogContext.put("userid", loginId);
+//        LogContext.put("transactionid", new TransactionId(loginId, ipAddress));
     }
 
     /**
@@ -75,15 +75,15 @@ public final class TransactionSignature {
      */
     public static void add(String loginId) {
         TransactionId transId = new TransactionId(loginId);
-        LogContext.put("ipaddress", transId.getIpAddress());
-        LogContext.put("userid", loginId);
-        LogContext.put("transactionid", transId);
+//        LogContext.put("ipaddress", transId.getIpAddress());
+//        LogContext.put("userid", loginId);
+//        LogContext.put("transactionid", transId);
     }
 
     /**
      * Removes all mappings associated with this.
      */
     public static void clear() {
-        LogContext.clear();
+//        LogContext.clear();
     }
 }

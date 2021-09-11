@@ -60,25 +60,30 @@ implements AuthenticationStrategy {
             SigninServiceLocator loc = new SigninServiceLocator();
             loc.setsigninEndpointAddress(getUrl());
 
-			/*
-			 * SigninPortType service = loc.getsignin(); com.mckesson.eig.User usr =
-			 * service.signin(user, password);
-			 * 
-			 * AuthenticatedResult result = new AuthenticatedResult(); if
-			 * (usr.getValidateCode() != 0) { //check valid user
-			 * result.setState(AuthenticatedResult.AUTHENTICATION_FAILED); return result; }
-			 * //load Security rights in session for (Security sec : usr.getSecurities()) {
-			 * 
-			 * if (sec.getFacility().equalsIgnoreCase(ENTERPRISE)) {
-			 * WsSession.setSessionData(EIG_USER_SECURITY_RIGHTS, sec); break; } } //load
-			 * user object in session WsSession.setSessionData(AUTHENTICATED_USER, usr);
-			 * result.setState(AuthenticatedResult.AUTHENTICATED);
-			 * result.setTicket(Ticket.getTicket(usr.getLoginId()));
-			 */
+            SigninPortType service = loc.getsignin();
+            com.mckesson.eig.User usr = service.signin(user, password);
+
+            AuthenticatedResult result = new AuthenticatedResult();
+            if (usr.getValidateCode() != 0) { //check valid user
+                result.setState(AuthenticatedResult.AUTHENTICATION_FAILED);
+                return result;
+            }
+            //load Security rights in session
+            for (Security sec : usr.getSecurities()) {
+
+                if (sec.getFacility().equalsIgnoreCase(ENTERPRISE)) {
+                    WsSession.setSessionData(EIG_USER_SECURITY_RIGHTS, sec);
+                    break;
+                }
+            }
+            //load user object in session
+            WsSession.setSessionData(AUTHENTICATED_USER, usr);
+            result.setState(AuthenticatedResult.AUTHENTICATED);
+            result.setTicket(Ticket.getTicket(usr.getLoginId()));
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
-            return null;
+            return result;
         } catch (Throwable e) {
 
             LOG.error("Failed To Authenticate:" + e);

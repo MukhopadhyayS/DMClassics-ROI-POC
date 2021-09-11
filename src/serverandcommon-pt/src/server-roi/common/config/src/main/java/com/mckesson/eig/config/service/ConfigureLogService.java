@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.config.constants.ConfigurationConstants;
 import com.mckesson.eig.config.controller.ConfigureLogController;
 import com.mckesson.eig.config.exception.ConfigureLogException;
@@ -28,8 +29,6 @@ import com.mckesson.eig.config.model.LogConfigurationDetail;
 import com.mckesson.eig.config.model.LogConfigurationInfo;
 import com.mckesson.eig.config.model.LogConfigurationInfoList;
 import com.mckesson.eig.utility.exception.ClientErrorCodes;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 /**
@@ -46,9 +45,9 @@ import com.mckesson.eig.utility.util.SpringUtilities;
 public class ConfigureLogService implements ConfigureLog {
 
     /**
-     * Initializes the logger.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ConfigureLogService.class);
+    private static final OCLogger LOG = new OCLogger( ConfigureLogService.class);
 
     /**
      * The getAllServerComponentConfigInfo service retrieves all the installed
@@ -164,7 +163,7 @@ public class ConfigureLogService implements ConfigureLog {
     
     /**
      * 
-     * @see com.mckesson.eig.config.service.ListViewLog#getLogFilePath(long, java.lang.String)
+     * @see com.mckesson.eig.config.service.ListViewLog#getLogFilePath(long, String)
      */
     public String getLogFilePath(long componentSequence, String fileName) {
         

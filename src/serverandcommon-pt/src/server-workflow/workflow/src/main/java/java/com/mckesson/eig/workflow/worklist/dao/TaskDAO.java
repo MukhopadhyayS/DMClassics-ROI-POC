@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.Query;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
@@ -38,10 +39,8 @@ import org.jbpm.JbpmException;
 import org.jbpm.graph.exe.ProcessInstance;
 import org.jbpm.taskmgmt.exe.PooledActor;
 import org.jbpm.taskmgmt.exe.TaskInstance;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.api.Actor;
@@ -73,9 +72,9 @@ public class TaskDAO
 extends AbstractWorkflowDAO {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(TaskDAO.class);
+    private static final OCLogger LOG = new OCLogger( TaskDAO.class);
 
     private static final String T_STATUS_ID     = "T_STATUS_ID";
     private static final String T_WORKLIST_ID   = "T_WORKLIST_ID";

@@ -21,12 +21,11 @@ import java.util.Set;
 import javax.jws.WebService;
 import javax.xml.transform.TransformerException;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.graph.def.ProcessDefinition;
 import org.jbpm.jpdl.JpdlException;
 import org.springframework.beans.factory.BeanFactory;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.ObjectUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -65,10 +64,9 @@ public class ProcessServiceImpl extends BaseProcessServiceImpl
     private static final String PROCESS_DEFINITION_ERROR =
                                 "Process definition could not be deployed";
     /**
-     * Log object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory
-            .getLogger(ProcessServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger( ProcessServiceImpl.class);
 
     public ProcessServiceImpl() {
         super();

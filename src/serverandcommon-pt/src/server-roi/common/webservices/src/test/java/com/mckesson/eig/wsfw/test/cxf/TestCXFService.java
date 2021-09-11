@@ -15,18 +15,13 @@ package com.mckesson.eig.wsfw.test.cxf;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.StringReader;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import junit.framework.TestCase;
 
 import org.apache.cxf.service.invoker.SingletonFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import com.mckesson.eig.utility.util.ReflectionUtilities;
 import com.mckesson.eig.wsfw.cxf.AsynchronousServiceInvoker;
@@ -42,6 +37,8 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
+
+import junit.framework.TestCase;
 
 /**
  * @author sahuly
@@ -119,11 +116,8 @@ public class TestCXFService extends TestCase {
                                                           "text/xml");
             request.setHeaderField("SOAPAction", "");
             WebResponse response = _client.getResponse(request);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(response.getText())));
             //Document doc         = XMLUtils.parse(response.getText());
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getText());
             NodeList nodeList    =
                 (doc.getElementsByTagName("detail").item(0)).getChildNodes();
             Node node = nodeList.item(0).getFirstChild();
@@ -150,11 +144,8 @@ public class TestCXFService extends TestCase {
             WebResponse response = _client.getResponse(request);
 
             assertEquals("text/xml", response.getContentType());
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(response.getText())));
             //Document doc         = XMLUtils.parse(response.getText());
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getText());
             NodeList nodeList    =
                 (doc.getElementsByTagName("detail").item(0)).getChildNodes();
             Node node            = nodeList.item(0).getFirstChild();
@@ -185,11 +176,8 @@ public class TestCXFService extends TestCase {
             WebResponse response = _client.getResponse(request);
 
             assertEquals("text/xml", response.getContentType());
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
-            builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(response.getText())));
             //Document doc         = XMLUtils.parse(response.getText());
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getText());
             NodeList nodeList    =
                 (doc.getElementsByTagName("detail").item(0)).getChildNodes();
             Node node            = nodeList.item(0).getFirstChild();

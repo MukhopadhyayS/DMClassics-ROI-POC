@@ -24,7 +24,6 @@ import org.springframework.beans.factory.BeanFactory;
 import com.mckesson.eig.audit.UnitTestSpringInitialization;
 import com.mckesson.eig.audit.model.AuditEvent;
 import com.mckesson.eig.audit.model.AuditEventList;
-import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.wsfw.EIGConstants;
@@ -128,7 +127,7 @@ public class TestAuditLocalService extends TestCase {
 
         WsSession.setSessionData(WsSession.CLIENT_IP, "127.0.0.1");
         WsSession.setSessionData(WsSession.USER_NAME, USER_NAME);
-        LogContext.put("transactionid", transactionId);
+        //LogContext.put("transactionid", transactionId);
     }
 
     public void testClientAudit() {

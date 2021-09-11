@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.xml.bind.JAXBException;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.taskmgmt.exe.PooledActor;
 import org.jbpm.taskmgmt.exe.TaskInstance;
@@ -27,8 +28,6 @@ import com.mckesson.eig.config.exception.NotificationException;
 import com.mckesson.eig.config.model.MailInfo;
 import com.mckesson.eig.config.model.NotificationInfo;
 import com.mckesson.eig.config.service.NotificationService;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.workflow.api.Actor;
@@ -48,9 +47,9 @@ import com.mckesson.eig.workflow.worklist.service.WorklistServiceImpl;
 public class TaskEventNotifier extends BasicWorklistActionHandler {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(TaskEventNotifier.class);
+    private static final OCLogger LOG = new OCLogger( TaskEventNotifier.class);
 
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
@@ -58,7 +57,7 @@ public class TaskEventNotifier extends BasicWorklistActionHandler {
      *
      * @param ExecutionContext will have execution context details 
      *
-     * @see org.jbpm.graph.def.ActionHandler#execute(org.jbpm.graph.exe.ExecutionContext)
+     * @see org.jbpm.graph.def.ActionHandler#execute(ExecutionContext)
      */
     public void execute(ExecutionContext context) throws Exception {
 

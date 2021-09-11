@@ -12,12 +12,11 @@
  */
 package com.mckesson.eig.workflow.dao;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.JbpmConfiguration;
 import org.jbpm.persistence.db.DbPersistenceServiceFactory;
 import org.jbpm.svc.Services;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 /**
  * This is the jbpm scheduler which is configured and it keeps running as a low priority thread
@@ -38,9 +37,9 @@ extends AbstractWorkflowDAO {
     }
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(TaskScheduler.class);
+    private static final OCLogger LOG = new OCLogger( TaskScheduler.class);
 
     /**
      * This is the method which is scheduled at a particular interval of time as configured in the

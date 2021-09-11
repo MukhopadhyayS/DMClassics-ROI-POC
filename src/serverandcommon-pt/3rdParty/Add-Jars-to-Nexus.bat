@@ -1,5 +1,5 @@
 CALL mvn install:install-file -DgroupId=com.mckesson.eig.roi -DartifactId=testws -Dversion=1.0.0 -Dpackaging=jar -Dfile=jars/testws.jar
-CALL mvn install:install-file -DgroupId=com.mckesson.eig.roi -DartifactId=iws-ha -Dversion=1.0.0 -Dpackaging=jar -Dfile=jars/iws-ha.jar
+CALL mvn install:install-file -DgroupId=com.mckesson.eig.roi -DartifactId=iws-ha -Dversion=21.0 -Dpackaging=jar -Dfile=jars/iws-ha-21.0.jar
 CALL mvn install:install-file -DgroupId=com.mckesson.eig.roi -DartifactId=hpf.stub.config -Dversion=1.0.0 -Dpackaging=jar -Dfile=jars/hpf.stub.config.jar
 CALL mvn install:install-file -DgroupId=com.mckesson.eig.roi -DartifactId=hpf-signIn-stub -Dversion=1.0.0 -Dpackaging=jar -Dfile=jars/hpf-signIn-stub.jar
 REM CALL mvn install:install-file -DgroupId=com.mckesson.eig.roi -DartifactId=ha-security -Dversion=1.0.0 -Dpackaging=jar -Dfile=jars/ha-security.jar

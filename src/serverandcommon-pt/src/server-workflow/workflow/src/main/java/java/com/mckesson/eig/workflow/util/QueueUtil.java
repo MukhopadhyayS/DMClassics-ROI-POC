@@ -13,17 +13,16 @@
 
 package com.mckesson.eig.workflow.util;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.wsfw.jms.MessagePoster;
 
 public final class QueueUtil {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(QueueUtil.class);
+    private static final OCLogger LOG = new OCLogger( QueueUtil.class);
 
     private QueueUtil() {
 

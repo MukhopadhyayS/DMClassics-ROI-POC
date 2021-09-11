@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
+import org.hibernate.internal.SessionImpl;
 import org.jbpm.JbpmContext;
 import org.jbpm.JbpmException;
 import org.jbpm.command.CancelProcessInstanceCommand;
@@ -27,8 +29,6 @@ import org.jbpm.graph.exe.ProcessInstance;
 import org.jbpm.graph.exe.Token;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.api.WorkflowEC;
 import com.mckesson.eig.workflow.api.WorkflowEngineException;
@@ -64,9 +64,9 @@ public class ProcessInstanceEngineImpl  extends BaseWorkflowEngineImpl
 
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    protected static final Log LOG = LogFactory.getLogger(ProcessInstanceEngineImpl.class);
+    private static final OCLogger LOG = new OCLogger( ProcessInstanceEngineImpl.class);
 
 
     /**
@@ -398,7 +398,8 @@ public class ProcessInstanceEngineImpl  extends BaseWorkflowEngineImpl
                  * Atomicity requirement for activities/action handlers.
                  */
                 _jbpmContext.getSession().flush();
-                _jbpmContext.getSession().connection().commit();
+                _jbpmContext.getSession().getSessionFactory();
+                ((SessionImpl)_jbpmContext.getSession()).connection().commit();
 
                 //retrieve current node type
                 nodeType = token.getNode().getClass()
@@ -432,7 +433,7 @@ public class ProcessInstanceEngineImpl  extends BaseWorkflowEngineImpl
          */
         try {
             _jbpmContext.getSession().flush();
-            _jbpmContext.getSession().connection().commit();
+            ((SessionImpl)_jbpmContext.getSession()).connection().commit();
         } catch (SQLException e) {
             LOG.error("runProcessInstance>> SQLException: " + e.getMessage());
             LOG.debug("runProcessInstance>> suspending process instance " + _instance.getId());
@@ -666,7 +667,7 @@ public class ProcessInstanceEngineImpl  extends BaseWorkflowEngineImpl
                      * Atomicity requirement for activities/action handlers.
                      */
                     _jbpmContext.getSession().flush();
-                    _jbpmContext.getSession().connection().commit();
+                    ((SessionImpl)_jbpmContext.getSession()).connection().commit();
 
                     nodeType = childToken.getNode().getClass()
                             .getName();

@@ -16,14 +16,13 @@ package com.mckesson.eig.config.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.HibernateCallback;
 
 import com.mckesson.eig.config.model.ApplicationSetting;
 import com.mckesson.eig.config.model.ApplicationSettingList;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
 
@@ -38,14 +37,15 @@ extends AbstractConfigurationDAOImpl
 implements ApplicationSettingDAO {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ApplicationSettingDAOImpl.class);
+    private static final OCLogger LOG = new OCLogger( ApplicationSettingDAOImpl.class);
+
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**
      *
-     * @see com.mckesson.eig.config.dao.ApplicationSettingDAO#getApplicationSettings()
+     * @see ApplicationSettingDAO#getApplicationSettings()
      */
     public ApplicationSettingList getApplicationSettings() {
 
@@ -72,7 +72,7 @@ implements ApplicationSettingDAO {
 
     /**
      *
-     * @see com.mckesson.eig.config.dao.ApplicationSettingDAO#getApplicationSetting(long)
+     * @see ApplicationSettingDAO#getApplicationSetting(long)
      */
     public ApplicationSetting getApplicationSetting(final long appId) {
 
@@ -100,7 +100,7 @@ implements ApplicationSettingDAO {
 
     /**
      *
-     * @see com.mckesson.eig.config.dao.ApplicationSettingDAO
+     * @see ApplicationSettingDAO
      *              #updateApplicationSetting(com.mckesson.eig.config.model.ApplicationSetting)
      */
     public Boolean updateApplicationSetting(final ApplicationSetting applnSetting) {

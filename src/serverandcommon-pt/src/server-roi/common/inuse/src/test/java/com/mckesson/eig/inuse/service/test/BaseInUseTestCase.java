@@ -35,8 +35,6 @@ import com.mckesson.eig.inuse.base.api.InUseException;
 import com.mckesson.eig.inuse.hpf.dao.UserSecurityHibernateDao;
 import com.mckesson.eig.inuse.hpf.model.User;
 import com.mckesson.eig.inuse.hpf.service.SOAPMessenger;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.wsfw.axis.CastorContext;
 import com.mckesson.eig.wsfw.session.WsSession;
@@ -52,10 +50,6 @@ import com.meterware.servletunit.ServletUnitClient;
  */
 public abstract class  BaseInUseTestCase extends TestCase {
 
-    /**
-     * Initialize the logger.
-     */
-    private static final Log LOG = LogFactory.getLogger(BaseInUseTestCase.class);
 
     protected static final String DEFAULT_TEST_USER = "inusetester";
     protected static final String DEFAULT_TEST_PWD  = "inuse";
@@ -130,9 +124,11 @@ public abstract class  BaseInUseTestCase extends TestCase {
             ctx.rebind(props.getProperty("JNDI_INUSEDatasource"), dataSource);
 
         } catch (NamingException e) {
-            LOG.debug("Could not register Data Source" + e.getMessage());
+            //LOG.debug("Could not register Data Source" + e.getMessage());
+        	fail(e.getMessage());
         } catch (Exception e) {
-            LOG.debug(e.getMessage());
+            //LOG.debug(e.getMessage());
+        	fail(e.getMessage());
         }
     }
 

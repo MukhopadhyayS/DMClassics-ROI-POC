@@ -26,8 +26,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.mockejb.jndi.MockContextFactory;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+//import com.mckesson.eig.utility.log.Log;
+//import com.mckesson.eig.utility.log.LogFactory;
 
 public final class InitResources {
 
@@ -39,7 +39,7 @@ public final class InitResources {
     /**
      * Instance which holds the Logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(InitResources.class);
+    //private static final Log LOG = LogFactory.getLogger(InitResources.class);
 
     /**
      * Variable used for Oracle Connection.
@@ -119,8 +119,7 @@ public final class InitResources {
                 _ctx.rebind(ResourceData.getJndiQspDatasource(), dataSource);
             }
         } catch (Exception e) {
-            LOG.error("initialiseContainer(),Exception in setting Datasource["
-                    + e + "]");
+            //LOG.error("initialiseContainer(),Exception in setting Datasource["+ e + "]");
         }
     }
 
@@ -146,8 +145,7 @@ public final class InitResources {
             dataSource.setPassword(ResourceData.getRoiDatabasePassword());
             _ctx.rebind(ResourceData.getRoiDatasource(), dataSource);
         } catch (Exception e) {
-            LOG.error("initialiseContainer(),Exception in setting Datasource["
-                    + e + "]");
+            //LOG.error("initialiseContainer(),Exception in setting Datasource[" + e + "]");
         }
     }
 }

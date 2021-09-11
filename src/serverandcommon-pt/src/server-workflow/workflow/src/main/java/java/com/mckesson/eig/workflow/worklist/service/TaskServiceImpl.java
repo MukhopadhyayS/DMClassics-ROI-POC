@@ -19,9 +19,8 @@ import java.util.Set;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.api.SortOrder;
@@ -72,12 +71,12 @@ implements TaskService {
     
     private static final String TASK_STATUS_NEW        = "new";
     private static final String TASK_STATUS_INPROGRESS = "in progress";
-    
+
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(TaskServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger( TaskServiceImpl.class);
     
     /**
      * Instantiates this implementation of business service.
@@ -87,7 +86,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #getAssignedWorklistTasks(com.mckesson.eig.workflow.worklist.api.AssignedTasksCriteria,
      *                            long, long, com.mckesson.eig.workflow.api.SortOrder)
      */
@@ -124,7 +123,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #getCreatedTasks(com.mckesson.eig.workflow.worklist.api.CreatedTasksCriteria,
      *                long, long, com.mckesson.eig.workflow.api.SortOrder)
      */
@@ -161,7 +160,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #getWorklistsMasterData()
      */
     public WLMasterData getWorklistsMasterData() {
@@ -188,7 +187,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #getAssignedWorklistTasksCount(
      *      com.mckesson.eig.workflow.worklist.api.AssignedTasksCriteria)
      */
@@ -218,7 +217,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #getCreatedTasksCount(
      *      com.mckesson.eig.workflow.worklist.api.CreatedTasksCriteria)
      */
@@ -247,7 +246,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #createTask(com.mckesson.eig.workflow.worklist.api.Task)
      */
     public long createTask(Task taskDetails) {
@@ -291,7 +290,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #getTaskDetails(long)
      */
     public Task getTaskDetails(long taskID) {
@@ -319,7 +318,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #ownTasks(long, long[])
      */
     public TaskListResult ownTasks(long worklistID, long[] taskIDs) {
@@ -372,7 +371,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #disownTasks(long[])
      *
      */
@@ -435,7 +434,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #completeTasks(TaskList)
      *
      */
@@ -504,7 +503,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #deleteTasks(long, long[])
      */
     public TaskListResult deleteTasks(long worklistID, long[] taskIDs) {
@@ -558,7 +557,7 @@ implements TaskService {
     }
     
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #makeTasksEditable(long, long[])
      */
     public TaskListResult makeTasksEditable(long worklistID, long[] taskIDs) {
@@ -589,7 +588,7 @@ implements TaskService {
     }
     
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #updateTask(com.mckesson.eig.workflow.worklist.api.Task)
      */
     public void updateTask(Task taskDetails) {
@@ -632,7 +631,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #releaseTasks(TaskList)
      *
      */    
@@ -664,7 +663,7 @@ implements TaskService {
         }
     }    
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      * #reassignTasks(long, TaskList)
      *
      */
@@ -738,7 +737,7 @@ implements TaskService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.TaskService
+     * @see TaskService
      *  #generateWorklistReport(com.mckesson.eig.workflow.worklist.api.WorklistReportDO)
      */
     public void generateWorklistReport(WorklistReportDO worklistReportDO) {

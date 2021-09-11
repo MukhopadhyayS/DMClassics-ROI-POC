@@ -12,14 +12,15 @@ import com.mckesson.eig.audit.AuditException;
 import com.mckesson.eig.audit.Auditable;
 import com.mckesson.eig.audit.model.AuditEvent;
 import com.mckesson.eig.audit.model.AuditEventList;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogContext;
-import com.mckesson.eig.utility.log.LogFactory;
+//import com.mckesson.eig.utility.log.Log;
+//import com.mckesson.eig.utility.log.LogContext;
+//import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.wsfw.EIGConstants;
 import com.mckesson.eig.wsfw.jms.MessagePoster;
 import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 @WebService(
 name              = "AuditPortType_v1_0",
@@ -29,7 +30,7 @@ targetNamespace   = "http://eig.mckesson.com/wsdl/audit-v1",
 endpointInterface = "com.mckesson.eig.audit.Auditable")
 public class AuditLocalService implements Auditable {
 
-    private static final Log LOG = LogFactory.getLogger(AuditLocalService.class);
+    private static final OCLogger LOG = new OCLogger(AuditLocalService.class);
     
     private JAXBContext _jaxbContext;
     
@@ -68,7 +69,7 @@ public class AuditLocalService implements Auditable {
             return true;
         } catch (Exception e) {
 
-            LOG.fatal("Server side auditing has failed, please notify "
+            LOG.error("Server side auditing has failed, please notify "
                     + "you system administrator.", e);
             throw new AuditException(e);
         }
@@ -88,7 +89,7 @@ public class AuditLocalService implements Auditable {
 			 return true;
          } catch (Exception e) {
 
-            LOG.fatal("Server side auditing has failed, please notify "
+            LOG.error("Server side auditing has failed, please notify "
                     + "you system administrator.", e);
             throw new AuditException(e);
         }
@@ -100,7 +101,8 @@ public class AuditLocalService implements Auditable {
 
     protected String buildSoapEnvelope(AuditEvent auditEvent) throws Exception {
         
-        String transID = ((TransactionId) LogContext.get("transactionid")).getValue();
+        String transID = ""; //TODO: add MDC to OCLogger.
+                // ((TransactionId) LogContext.get("transactionid")).getValue();
         String userName = (String) WsSession.getSessionData(WsSession.USER_NAME);
         
         return SOAP_ENVELOPE_BEGIN + SOAP_HEADER_BEGIN + transID + SOAP_HEADER_USER 
@@ -141,7 +143,7 @@ public class AuditLocalService implements Auditable {
             _jaxbContext = JAXBContext.newInstance(AuditEvent.class);
         } catch (JAXBException e) {
 
-            LOG.fatal("JAXBContext Initialization Failed", e);
+            LOG.error("JAXBContext Initialization Failed", e);
             throw new AuditException(e);
         }
     }
