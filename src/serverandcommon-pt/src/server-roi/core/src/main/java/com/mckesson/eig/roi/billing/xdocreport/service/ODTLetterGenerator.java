@@ -17,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.odftoolkit.odfdom.doc.OdfTextDocument;
+
 import com.mckesson.eig.roi.admin.model.LetterTemplateDocument;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -25,7 +27,6 @@ import com.mckesson.eig.roi.utils.AccessFileLoader;
 
 import org.odftoolkit.odfdom.converter.pdf.PdfConverter;
 import org.odftoolkit.odfdom.converter.pdf.PdfOptions;
-import org.odftoolkit.odfdom.doc.OdfTextDocument;
 
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;

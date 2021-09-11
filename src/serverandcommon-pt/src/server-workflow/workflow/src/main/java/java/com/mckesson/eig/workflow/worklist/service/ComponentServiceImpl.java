@@ -18,10 +18,9 @@ import java.io.StringWriter;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.components.ComponentUtil;
 import com.mckesson.eig.utility.components.model.ComponentInfo;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 
 /**
@@ -39,17 +38,17 @@ import com.mckesson.eig.utility.log.LogFactory;
         targetNamespace   = "http://eig.mckesson.com/wsdl/workflowcomponent-v1",
         endpointInterface = "com.mckesson.eig.workflow.worklist.service.ComponentService")
 public class ComponentServiceImpl implements ComponentService {
-    
+
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ComponentServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger( ComponentServiceImpl.class);
     
     private static final String COMPONENT_PATH = 
         ComponentUtil.COMPONENT_INFO_PATH + "\\workflow.component-info-base.xml";
     
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.ComponentService
+     * @see ComponentService
      *  #getComponentDetails()
      */
     public String getComponentDetails() {

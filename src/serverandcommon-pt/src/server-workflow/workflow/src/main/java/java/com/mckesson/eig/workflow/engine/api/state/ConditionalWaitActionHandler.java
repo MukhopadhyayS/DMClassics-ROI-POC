@@ -13,11 +13,11 @@
 
 package com.mckesson.eig.workflow.engine.api.state;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.jpdl.el.impl.JbpmExpressionEvaluator;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.api.WorkflowEC;
 import com.mckesson.eig.workflow.api.WorkflowEngineException;
@@ -44,7 +44,7 @@ public class ConditionalWaitActionHandler extends BaseActionHandler {
     /**
      * Object represents the Log4JWrapper object.
      */
-    protected static final Log LOG = LogFactory.getLogger(ConditionalWaitActionHandler.class);
+    protected static final OCLogger LOG = new OCLogger(ConditionalWaitActionHandler.class);
 
     /**
      * Wait condition.

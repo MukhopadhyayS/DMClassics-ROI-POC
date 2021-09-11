@@ -1,9 +1,8 @@
 package com.mckesson.eig.workflow.process.service;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.springframework.beans.factory.BeanFactory;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.workflow.Utilities.ServiceNames;
 import com.mckesson.eig.workflow.api.Actor;
@@ -19,9 +18,9 @@ import com.mckesson.eig.workflow.service.AbstractWorkflowService;
 public class BaseProcessServiceImpl extends AbstractWorkflowService {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(BaseProcessServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger( BaseProcessServiceImpl.class);
 
     /**
      * Checks whether the application id passed is less than zero or not.

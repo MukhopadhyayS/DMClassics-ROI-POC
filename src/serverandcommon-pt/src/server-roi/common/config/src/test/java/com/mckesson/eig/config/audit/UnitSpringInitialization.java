@@ -11,11 +11,11 @@
  * the prior express written permission of McKesson Information Solutions.
  */
 package com.mckesson.eig.config.audit;
+import static org.junit.Assert.fail;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 /**
@@ -28,11 +28,6 @@ public final class UnitSpringInitialization {
      * Spring Config file.
      */
     private static final String SPRING_CONFIG_FILE = "/WEB-INF/testApplicationContext.xml";
-
-    /**
-     * Gets the Logger for this class.
-     */
-    private static final Log LOG = LogFactory.getLogger(UnitSpringInitialization.class);
     
     /**
      * BeanFactory that holds the instance of the beans loaded by Spring.
@@ -59,7 +54,8 @@ public final class UnitSpringInitialization {
             _wfBeanFactory.getBean("log_initializer");
             SpringUtilities.getInstance().setBeanFactory(_wfBeanFactory);
         } catch (Exception e) { 
-            LOG.error("Error while loading configuration using spring", e);
+        	fail(e.getMessage());
+            //LOG.error("Error while loading configuration using spring", e);
         }
     }
 }

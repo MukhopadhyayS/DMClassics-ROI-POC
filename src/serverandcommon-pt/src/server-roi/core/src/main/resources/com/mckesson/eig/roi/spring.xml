@@ -62,7 +62,7 @@
 	</bean-->
 	
 	 <!-- Database Configuration -->
-    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+    <!-- <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
     
         <property name="driverClass" value="${jdbc.driver}" />
         <property name="jdbcUrl" value="${jdbc.url}" />
@@ -77,6 +77,35 @@
         <property name="statementsCacheSize" value="100" />
         <property name="releaseHelperThreads" value="3" />
         <property name="disableConnectionTracking" value="true" />
+	</bean> -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	    <constructor-arg ref="hikariConfig" />
+	</bean>
+	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="poolName" value="springHikariCP" />
+		<property name="connectionTestQuery" value="SELECT 1" />
+		<property name="driverClassName">
+			<value>${jdbc.driver}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${db.user}</value>
+		</property>
+		<property name="password">
+			<value>${db.password}</value>
+		</property>
+		<property name="minimumIdle" value="30" />
+		<property name="maximumPoolSize" value="90" />
+		<!-- <property name="maxConnectionsPerPartition" value="30" />
+        <property name="minConnectionsPerPartition" value="10" /> -->
+
+
+		<!-- <property name="dataSourceProperties"> <props> <prop key="jdbcUrl">${startup.jdbc.url}</prop> 
+			<prop key="username">${startup.jdbc.username}</prop> <prop key="password">${startup.jdbc.password}</prop> 
+			</props> </property> -->
 	</bean>
 	
 	<!-- Audit Configuration starts -->
@@ -187,18 +216,18 @@
 	<import resource="service.spring.xml" />
 
 	<!-- Logging services-->
-	<bean id="log_initializer"
+	<!-- <bean id="log_initializer"
 		class="com.mckesson.eig.utility.log.log4j.Log4JInitializer">
 		<property name="byProperties">
 			<value>ocroi.properties</value>
 		</property>
-	</bean>
+	</bean> -->
 
-	<bean id="globalIDInitializer" class="com.mckesson.eig.utility.log.log4j.GlobalIDInitializer" init-method="initAppGlobalID">
+	<!-- <bean id="globalIDInitializer" class="com.mckesson.eig.utility.log.log4j.GlobalIDInitializer" init-method="initAppGlobalID">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="globalName" value="ROI Server"/>
 		<property name="serverPort" value="18080" />
-	</bean>
+	</bean> -->
 
 	<bean id="castor_context"
 		class="com.mckesson.eig.wsfw.axis.CastorContext" lazy-init="true">

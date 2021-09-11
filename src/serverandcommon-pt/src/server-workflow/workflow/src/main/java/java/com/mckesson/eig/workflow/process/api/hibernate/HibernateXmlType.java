@@ -26,7 +26,9 @@ import oracle.xdb.XMLType;
 import org.apache.commons.dbcp.DelegatingConnection;
 import org.apache.commons.dbcp.DelegatingResultSet;
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.jboss.resource.adapter.jdbc.WrappedConnection;
 import org.jboss.resource.adapter.jdbc.WrappedResultSet;
 import org.w3c.dom.Document;
@@ -37,6 +39,12 @@ public class HibernateXmlType implements UserType, Serializable {
     private static final Class RETURNED_CLASS = Document.class;
     private static final int[] SQL_TYPES = new int[]{oracle.xdb.XMLType._SQL_TYPECODE};
 
+    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
+        return null;
+    }
+
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
+    }
     public int[] sqlTypes() {
         return SQL_TYPES;
     }
@@ -47,6 +55,14 @@ public class HibernateXmlType implements UserType, Serializable {
 
     public int hashCode(Object obj) {
         return obj.hashCode();
+    }
+
+    public Object nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor sharedSessionContractImplementor, Object o) throws HibernateException, SQLException {
+        return null;
+    }
+
+    public void nullSafeSet(PreparedStatement preparedStatement, Object o, int i, SharedSessionContractImplementor sharedSessionContractImplementor) throws HibernateException, SQLException {
+
     }
 
     public Object assemble(Serializable cached, Object owner) {

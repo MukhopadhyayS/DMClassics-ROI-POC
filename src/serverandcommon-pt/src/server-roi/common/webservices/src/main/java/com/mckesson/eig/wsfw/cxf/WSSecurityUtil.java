@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.SOAPException;
 import javax.xml.ws.BindingProvider;
 
@@ -27,6 +28,7 @@ import org.apache.cxf.binding.soap.saaj.SAAJOutInterceptor;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.headers.Header;
+//import org.apache.cxf.helpers.XMLUtils;
 import org.apache.cxf.helpers.DOMUtils;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
@@ -116,7 +118,7 @@ public final class WSSecurityUtil {
         Document doc = null;
         try {
             doc = DOMUtils.newDocument();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new RuntimeException("DOM configuration problem", e);
         }
        
@@ -175,8 +177,9 @@ public final class WSSecurityUtil {
     private static Header createHeaderElement(Document doc, String name, String value) {
 
         QName qName = new QName(EIGConstants.TYPE_NS_V1, name, "eig");
-        Element ele = doc.createElement(name.toString());
-        //Element ele = XMLUtils.createElementNS(doc, qName);
+        // Element ele = XMLUtils.createElementNS(doc, qName);
+        // Replacing deprecated class with the implementation.
+        Element ele = doc.createElementNS(doc.getNamespaceURI(), qName.getLocalPart());
         ele.setTextContent(value);
 
         return new Header(qName, ele);

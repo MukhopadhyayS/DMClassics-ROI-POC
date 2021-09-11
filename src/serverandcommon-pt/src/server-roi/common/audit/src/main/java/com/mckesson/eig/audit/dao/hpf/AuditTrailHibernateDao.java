@@ -21,7 +21,8 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
+import com.mckesson.eig.iws.orm.hibernate.HibernateDaoSupport;
 
 public class AuditTrailHibernateDao extends HibernateDaoSupport {
 
@@ -33,10 +34,10 @@ public class AuditTrailHibernateDao extends HibernateDaoSupport {
 		_jdbcTemplate = new JdbcTemplate(_dataSource);
 	}
 
-//	@Override
-//    public Class<?> getObjectType() {
-//		return com.mckesson.eig.audit.dao.hpf.AuditTrail.class;
-//	}
+	@Override
+    public Class<?> getObjectType() {
+		return com.mckesson.eig.audit.dao.hpf.AuditTrail.class;
+	}
 
     public void save(AuditTrail object) {
     	insertTable(object);

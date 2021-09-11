@@ -36,7 +36,7 @@ extends CXFServlet {
      *      #loadBus(javax.servlet.ServletConfig)
      */
     @Override
-    public void loadBus(ServletConfig servletConfig) {
+    public void loadBus(ServletConfig servletConfig){
 
         super.loadBus(servletConfig);
 

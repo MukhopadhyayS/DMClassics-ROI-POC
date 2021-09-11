@@ -14,12 +14,11 @@ package com.mckesson.eig.config.validation;
 
 import java.util.ResourceBundle;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.config.constants.ConfigurationConstants;
 import com.mckesson.eig.config.exception.ConfigureLogException;
 import com.mckesson.eig.config.model.LogConfigurationInfo;
 import com.mckesson.eig.utility.exception.ClientErrorCodes;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.LongUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
@@ -30,10 +29,9 @@ import com.mckesson.eig.utility.util.StringUtilities;
 public class LogConfigurationValidator {
 
     /**
-     * Initializes the logger.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory
-            .getLogger(LogConfigurationValidator.class);
+    private static final OCLogger LOG = new OCLogger( LogConfigurationValidator.class);
 
     /**
      * Initialize the Resource Bundle.

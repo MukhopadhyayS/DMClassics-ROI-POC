@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.audit.model.AuditEvent;
 import com.mckesson.eig.config.audit.LogConfigurationAuditManager;
 import com.mckesson.eig.config.constants.ConfigurationConstants;
@@ -31,8 +32,6 @@ import com.mckesson.eig.config.model.LogConfigurationInfoList;
 import com.mckesson.eig.config.utils.LogConfigurationPersistence;
 import com.mckesson.eig.config.validation.LogConfigurationValidator;
 import com.mckesson.eig.utility.exception.ClientErrorCodes;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.DateUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -48,9 +47,9 @@ import com.mckesson.eig.utility.util.StringUtilities;
 public class ConfigureLogController {
 
     /**
-     * Initializes the logger. 
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ConfigureLogController.class);
+    private static final OCLogger LOG = new OCLogger( ConfigureLogController.class);
 
     /**
      * Audit entry <code>Comment</code> that needs to be persisted in the

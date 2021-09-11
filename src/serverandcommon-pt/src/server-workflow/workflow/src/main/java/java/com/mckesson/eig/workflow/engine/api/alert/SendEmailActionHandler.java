@@ -18,13 +18,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.graph.exe.ExecutionContext;
 
 import com.mckesson.eig.config.model.MailInfo;
 import com.mckesson.eig.config.model.NotificationInfo;
 import com.mckesson.eig.config.service.NotificationService;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.api.WorkflowEngineException;
@@ -35,9 +34,9 @@ import com.mckesson.eig.workflow.util.ProcessInstanceUtil;
 public class SendEmailActionHandler extends BaseActionHandler {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    protected static final Log LOG = LogFactory.getLogger(SendEmailActionHandler.class);
+    private static final OCLogger LOG = new OCLogger( SendEmailActionHandler.class);
 
     /**
      * Serial Version ID for this Serializable.

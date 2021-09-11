@@ -18,9 +18,8 @@ import java.util.Set;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.api.Actors;
@@ -60,9 +59,9 @@ implements WorklistService {
     private static final String WORKLIST_DAO_ID = "WorklistDAO";
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(WorklistServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger( WorklistServiceImpl.class);
 
     /**
      * Instantiates this implementation of business service.
@@ -88,7 +87,7 @@ implements WorklistService {
     }
     
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getWorklists(com.mckesson.eig.workflow.api.Actor,
      *                long, long, com.mckesson.eig.workflow.api.SortOrder)
      */
@@ -125,7 +124,7 @@ implements WorklistService {
     
     /**
      * 
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *      #getOwnedWorklists(com.mckesson.eig.workflow.api.Actor)
      */
     public ListWorklist getOwnedWorklists(Actor owner) {
@@ -152,7 +151,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getWorklists(long, long, com.mckesson.eig.workflow.api.SortOrder)
      */
     public ListWorklist getAllWorklists(int startIndex,
@@ -186,7 +185,7 @@ implements WorklistService {
     }
     
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #resolveTaskAclsByActors(createdBy)
      */
     public void resolveTaskAclsByActors(Actors actors) {
@@ -267,7 +266,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getWorklistsCount(com.mckesson.eig.workflow.api.Actor)
      */
     public long getWorklistsCount(Actor owner)  {
@@ -296,7 +295,7 @@ implements WorklistService {
 
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getAllWorklistsCount()
      */
     public long getAllWorklistsCount()  {
@@ -323,7 +322,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getAssignedWorklists(
      *      com.mckesson.eig.workflow.worklist.api.AssignedWLCriteria,
      *      long, long, com.mckesson.eig.workflow.api.SortOrder)
@@ -363,7 +362,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getAllAssignedWorklists(com.mckesson.eig.workflow.api.Actor,
      *      long, long, com.mckesson.eig.workflow.api.SortOrder)
      */
@@ -442,7 +441,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getAssignedWorklistsCount(
      *      com.mckesson.eig.workflow.worklist.api.AssignedWLCriteria)
      */
@@ -472,7 +471,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getAllAssignedWorklistsCount(com.mckesson.eig.workflow.api.Actor)
      */
     public long getAllAssignedWorklistsCount(Actor createdBy) {
@@ -500,7 +499,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #createWorklist(com.mckesson.eig.workflow.worklist.api.Worklist)
      */
     public long createWorklist(Worklist worklist)  {
@@ -538,7 +537,7 @@ implements WorklistService {
     }
     
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #createNewWorklist(com.mckesson.eig.workflow.worklist.api.Worklist)
      */
     public Worklist createNewWorklist(Worklist worklist)  {
@@ -634,7 +633,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getWorklist(long)
      */
     public Worklist getWorklist(long worklistID)  {
@@ -662,7 +661,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #updateWorklist(com.mckesson.eig.workflow.worklist.api.Worklist)
      */
     public void updateWorklist(Worklist worklist)  {
@@ -697,7 +696,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #updateExistingWorklist(com.mckesson.eig.workflow.worklist.api.Worklist)
      */
     public Worklist updateExistingWorklist(Worklist worklist)  {
@@ -733,7 +732,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #deleteWorklists(long[])
      */
     public IDListResult deleteWorklists(long[] ids) {
@@ -808,7 +807,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getCreatableWorklistsCount(com.mckesson.eig.workflow.worklist.api.CreateWLCriteria)
      */
     public long getCreatableWorklistsCount(CreateWLCriteria createWLCriteria) {
@@ -836,7 +835,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      *  #getCreatableWorklists(
      *      com.mckesson.eig.workflow.worklist.api.CreateWLCriteria,
      *      long, long, com.mckesson.eig.workflow.api.SortOrder)
@@ -877,7 +876,7 @@ implements WorklistService {
     }
 
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService
+     * @see WorklistService
      * #updateWorklistACLs(ListACLs, long[], Actor)
      *
      */
@@ -906,7 +905,7 @@ implements WorklistService {
     }
     
     /**
-     * @see com.mckesson.eig.workflow.worklist.service.WorklistService#getOwner(long)
+     * @see WorklistService#getOwner(long)
      */
     public Actor getOwner(long worklistId) {
 

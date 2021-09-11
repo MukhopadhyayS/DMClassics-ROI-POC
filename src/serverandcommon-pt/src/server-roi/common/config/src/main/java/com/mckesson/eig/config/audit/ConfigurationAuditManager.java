@@ -16,16 +16,14 @@ package com.mckesson.eig.config.audit;
 import java.util.Date;
 
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 
 public class ConfigurationAuditManager {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ConfigurationAuditManager.class);
-
+    private static final OCLogger LOG = new OCLogger( ConfigurationAuditManager.class);
 
     /**
      * It creates and initializes the audit event object

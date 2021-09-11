@@ -13,12 +13,11 @@ package com.mckesson.eig.config.audit;
 
 import java.util.Calendar;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.springframework.beans.factory.BeanFactory;
 
 import com.mckesson.eig.audit.local.AuditLocalService;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.wsfw.session.WsSession;
 
@@ -36,9 +35,9 @@ public final class LogConfigurationAuditManager {
     }
 
     /**
-     * Initialize the logger.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(LogConfigurationAuditManager.class);
+    private static final OCLogger LOG = new OCLogger( LogConfigurationAuditManager.class);
 
     /**
      * Creates and initialises the audit event object. It sets the Component id

@@ -14,10 +14,9 @@ package com.mckesson.eig.workflow.security.service;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.springframework.beans.factory.BeanFactory;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
 import com.mckesson.eig.workflow.api.WorkflowEC;
@@ -43,8 +42,7 @@ public class SecurityServiceImpl implements SecurityService {
     /**
      * Log object.
      */
-    private static final Log LOG = LogFactory
-            .getLogger(SecurityServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(SecurityServiceImpl.class);
 
     private static final String WORKFLOW_DESIGNER_MAP = "WorkflowDesignerMap";
     private static final String PLUGIN_SECURITY_BEAN = "PluginSecurityBean";

@@ -15,9 +15,6 @@ package com.mckesson.eig.config.exception;
 
 import junit.framework.TestCase;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
-
 /**
  * @author sahuly
  * @date   Mar 30, 2009
@@ -29,11 +26,6 @@ public class TestConfigurationException extends TestCase {
      * Reference of type <code>WorklistException</code>
      */
     private ConfigurationException _ce;
-
-    /**
-     * Instantiates the logger for the class.
-     */
-    private static final Log LOG = LogFactory.getLogger(TestConfigurationException.class);
 
     /**
      *
@@ -63,7 +55,7 @@ public class TestConfigurationException extends TestCase {
      */
     public void testWorklistException() {
 
-        LOG.debug("WorklistException: " + _ce.toString());
+        //LOG.debug("WorklistException: " + _ce.toString());
         assertNotNull(_ce);
     }
 

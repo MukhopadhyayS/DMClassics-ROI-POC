@@ -11,16 +11,14 @@
  * the prior express written permission of McKesson Information Solutions.
  */
 package com.mckesson.eig.workflow.datavault;
-
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.workflow.process.datavault.ProcessDVHelper;
 import com.mckesson.eig.workflow.process.datavault.ProcessDataVault;
 
 public final class DVLogger {
 
-	private static final Log LOG     = LogFactory.getLogger(ProcessDataVault.class);
-	private static final Log CONSOLE = LogFactory.getLogger("sop");
+	private static final OCLogger LOG     = new OCLogger(ProcessDataVault.class);
+	private static final OCLogger CONSOLE = new OCLogger("sop");
 
     private DVLogger() {
     }
@@ -36,7 +34,7 @@ public final class DVLogger {
             logMsg.append(" : Row - ").append(rowNum);
         }
         logMsg.append(ProcessDVHelper.ERROR_CODE_DESC_MAP.get(errorCode));
-        LOG.debug(logMsg);
-        CONSOLE.debug(logMsg);
+        LOG.debug(logMsg.toString());
+        CONSOLE.debug(logMsg.toString());
     }
 }

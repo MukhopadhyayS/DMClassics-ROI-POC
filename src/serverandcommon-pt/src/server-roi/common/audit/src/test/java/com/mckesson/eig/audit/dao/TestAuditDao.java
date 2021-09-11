@@ -22,8 +22,6 @@ import com.mckesson.eig.audit.dao.hecm.AuditDao4Hecm;
 import com.mckesson.eig.audit.dao.hecm.AuditTrail;
 import com.mckesson.eig.audit.dao.hecm.AuditTrailDetail;
 import com.mckesson.eig.audit.model.AuditEvent;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 /**
  * Testcase for AuditDAO Class.
@@ -37,10 +35,6 @@ public class TestAuditDao extends TestCase {
 	 * Reference of type <code>AuditDao</code> initialized.
 	 */
 	private AuditDao4Hecm _auditDao = null;
-	/**
-	 * Loading the Configuration file for Spring and Hibernate.
-	 */
-	private static final Log LOG = LogFactory.getLogger(TestAuditDao.class);
 	/**
 	 * object of type <code>long</code>.
 	 */
@@ -105,7 +99,7 @@ public class TestAuditDao extends TestCase {
 		try {
 			assertTrue(_auditDao.insertEntry(_auditEvent));
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			//LOG.error(e.getMessage());
 			fail(e.getMessage());
 		}
 	}
@@ -122,7 +116,7 @@ public class TestAuditDao extends TestCase {
 			_auditEvent.setWorkflowReason(WORKFLOWREASON);
 			assertTrue(_auditDao.insertEntry(_auditEvent));
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			//LOG.error(e.getMessage());
 			fail(e.getMessage());
 		}
 	}
@@ -141,7 +135,7 @@ public class TestAuditDao extends TestCase {
 			auditTrailDetail.setAuditTrailDetailSeq(new Long(1));
 			_auditDao.deleteDetailEntries(auditTrailDetail);
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			//LOG.error(e.getMessage());
 			fail(e.getMessage());
 		}
 	}

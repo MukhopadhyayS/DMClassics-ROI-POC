@@ -53,10 +53,11 @@
     </fileset>
 
     <fileset dir="${dir.3rdParty.jars}">
-      <include name="${jbpm-jpdl.jar}"/>
       <include name="${ojdbc14.jar}"/>
       <include name="${cglib.jar}" />
       <include name="poi-3.0.1-FINAL-20070705.jar"/>
+      <include name="OCUtilities-21.0.jar" />
+      <include name="jbpm-jpdl-3.2.1.jar" />
     </fileset>
 
     <fileset dir="${dir.bin}">

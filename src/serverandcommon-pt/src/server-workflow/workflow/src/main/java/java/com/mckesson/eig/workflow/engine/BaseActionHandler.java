@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.graph.def.Action;
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
@@ -30,8 +31,6 @@ import org.jbpm.svc.Services;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.jbpm.taskmgmt.exe.TaskMgmtInstance;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.metric.TimedMetric;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.workflow.processinstance.api.ProcessInstanceHistory;
@@ -79,9 +78,9 @@ implements ActionHandler {
                     }
                 };
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    protected static final Log LOG = LogFactory.getLogger(BaseActionHandler.class);
+    private static final OCLogger LOG = new OCLogger( BaseActionHandler.class);
 
      /**
      * This method must perform validation of the action handler prior to execution
@@ -94,7 +93,7 @@ implements ActionHandler {
     /**
      * Delegate method for subclassed action handlers.
      *
-     * @see org.jbpm.graph.def.ActionHandler
+     * @see ActionHandler
      * @param ExecutionContext will have execution context details
      *
      * #execute(org.jbpm.graph.exe.ExecutionContext)
@@ -102,7 +101,7 @@ implements ActionHandler {
     public abstract void executeAction(ExecutionContext context);
 
     /**
-     * @see org.jbpm.graph.def.ActionHandler
+     * @see ActionHandler
      * @param ExecutionContext will have execution context details
      *
      * #execute(org.jbpm.graph.exe.ExecutionContext)
@@ -297,10 +296,10 @@ implements ActionHandler {
         pih.setProcessInstanceId(context.getProcessInstance().getId());
         pih.setEventLevel("Action");
         pih.setEventName(name);
-        pih.setEventDatetime(new java.util.Date());
+        pih.setEventDatetime(new Date());
         pih.setEventOriginator(context.getToken().getNode().getName());
         pih.setEventComments(comment);
-        pih.setCreateDateTime(new java.util.Date());
+        pih.setCreateDateTime(new Date());
         pih.setEventStatus(status);
         return pih;
     }

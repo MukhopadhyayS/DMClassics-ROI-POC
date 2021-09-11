@@ -117,7 +117,7 @@
                     ((%simpleType; | %complexType;
                       | %element; | %attribute;
                       | %attributeGroup; | %group;
-                      | %annotation; ),
+                      | %notation; ),
                      (%annotation;)*)* )>
 <!ATTLIST %schema;
    targetNamespace      %URIref;               #IMPLIED

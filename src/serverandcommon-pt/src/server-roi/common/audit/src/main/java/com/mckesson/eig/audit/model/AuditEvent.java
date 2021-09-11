@@ -20,9 +20,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
-
+//import com.mckesson.eig.utility.log.Log;
+//import com.mckesson.eig.utility.log.LogFactory;
+import com.mckesson.dm.core.common.logging.OCLogger;
 /**
  * Transport class that contains the web service call data.
  *
@@ -36,13 +36,13 @@ public class AuditEvent {
     /**
      * Loading the Configuration file for Spring and Hibernate.
      */
-    private static final Log LOG = LogFactory.getLogger(AuditEvent.class
+    private static final OCLogger LOG = new OCLogger(AuditEvent.class
             .getName());
 
     /**
      * @return _log return reference of <code>config</code> file.
      */
-    protected static final Log getLogger() {
+    protected static final OCLogger  getLogger() {
         return LOG;
     }
     // Valid event ids

@@ -15,6 +15,7 @@ package com.mckesson.eig.inuse.service;
 
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
@@ -22,8 +23,6 @@ import org.quartz.JobExecutionException;
 
 import com.mckesson.eig.inuse.dao.InUseDAO;
 import com.mckesson.eig.inuse.model.InUseRecord;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 
 /**
  * @author OFS
@@ -32,7 +31,7 @@ import com.mckesson.eig.utility.log.LogFactory;
  */
 public class InUseQuartzJob implements Job {
 
-    private static final Log LOG = LogFactory.getLogger(InUseQuartzJob.class);
+    private static final OCLogger LOG = new OCLogger(InUseQuartzJob.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     public InUseQuartzJob() {
@@ -53,7 +52,7 @@ public class InUseQuartzJob implements Job {
         int gracePM = map.getInt("gracePeriodMin");
 
         if (DO_DEBUG) {
-            LOG.debug(inUseDAO != null ? inUseDAO : "service not found in context");
+            LOG.debug(inUseDAO != null ? inUseDAO.toString() : "service not found in context");
         }
 
         List<InUseRecord> records = inUseDAO.retrieveExpiredRecords(gracePM);

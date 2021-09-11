@@ -56,8 +56,8 @@ implements AuthenticationStrategy {
 
      /**
      *
-     * @see com.mckesson.eig.wsfw.security.AuthenticationStrategy#authenticate(java.lang.String,
-     * java.lang.String)
+     * @see AuthenticationStrategy#authenticate(String,
+     * String)
      */
     public AuthenticatedResult authenticate(String userId, String password) {
 
@@ -168,8 +168,8 @@ implements AuthenticationStrategy {
 
     /**
      *
-     * @see com.mckesson.eig.wsfw.security.AuthenticationStrategy#login(java.lang.String,
-     * java.lang.String)
+     * @see AuthenticationStrategy#login(String,
+     * String)
      */
     public AuthenticatedResult login(String userId, String password) {
         return authenticate(userId, password);
@@ -177,7 +177,7 @@ implements AuthenticationStrategy {
 
     /**
      *
-     * @see com.mckesson.eig.wsfw.security.AuthenticationStrategy#authenticate(java.lang.String)
+     * @see AuthenticationStrategy#authenticate(String)
      */
     public void authenticate(String userName) {
     }

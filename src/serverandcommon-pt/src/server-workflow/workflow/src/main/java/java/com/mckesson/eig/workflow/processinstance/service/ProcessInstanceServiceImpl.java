@@ -15,10 +15,9 @@ package com.mckesson.eig.workflow.processinstance.service;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.jbpm.JbpmContext;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.api.Actors;
 import com.mckesson.eig.workflow.api.VariableList;
@@ -50,7 +49,7 @@ public class ProcessInstanceServiceImpl extends AbstractWorkflowService
     /**
      * Object represents the Log4JWrapper object.
      */
-    private static final Log LOG = LogFactory.getLogger(ProcessInstanceServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(ProcessInstanceServiceImpl.class);
 
     //process states
     private static final String SUSPEND = "suspend";

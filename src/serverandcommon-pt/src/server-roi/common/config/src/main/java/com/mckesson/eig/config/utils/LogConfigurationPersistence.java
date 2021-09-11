@@ -1,5 +1,5 @@
 /**
- * Copyright © 2010 McKesson Corporation and/or one of its subsidiaries.
+ * Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries.
  * All rights reserved.
  *
  * Use of this material is governed by a license agreement. This material
@@ -30,6 +30,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.apache.log4j.xml.Log4jEntityResolver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -44,8 +45,6 @@ import com.mckesson.eig.config.model.LogConfigurationDetail;
 import com.mckesson.eig.config.model.LogConfigurationInfo;
 import com.mckesson.eig.utility.exception.ClientErrorCodes;
 import com.mckesson.eig.utility.io.IOUtilities;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 
 /**
@@ -57,9 +56,9 @@ import com.mckesson.eig.utility.util.StringUtilities;
 public class LogConfigurationPersistence {
 
     /**
-     * Initializes the logger.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(LogConfigurationPersistence.class);
+    private static final OCLogger LOG = new OCLogger( LogConfigurationPersistence.class);
 
     /**
      * Holding instance of Log Configuration files absolute path.
@@ -496,8 +495,8 @@ public class LogConfigurationPersistence {
      *            ,com.mckesson.hecm and so on)
      * @return Element Which is the desired nodename for the given category.
      */
-    private Element getloggingLevelElement(org.w3c.dom.NodeList nodeList,
-                                           String categoryName) {
+    private Element getloggingLevelElement( NodeList nodeList,
+                                            String categoryName) {
 
         Element element;
         int nodeListLength = nodeList.getLength();

@@ -13,8 +13,6 @@
 
 package com.mckesson.eig.inuse.service;
 
-import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -29,6 +27,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.springframework.util.ObjectUtils;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.inuse.base.api.InUseClientErrorCodes;
 import com.mckesson.eig.inuse.base.api.InUseException;
 import com.mckesson.eig.inuse.dao.InUseDAO;
@@ -36,9 +35,9 @@ import com.mckesson.eig.inuse.hpf.model.User;
 import com.mckesson.eig.inuse.model.InUseRecord;
 import com.mckesson.eig.inuse.model.InUseRecordList;
 import com.mckesson.eig.utility.exception.ApplicationException;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.wsfw.session.WsSession;
+
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 
 /**
  * @author OFS
@@ -47,7 +46,7 @@ import com.mckesson.eig.wsfw.session.WsSession;
  */
 public class InUseServiceImpl implements InUseService {
 
-    private static final Log LOG = LogFactory.getLogger(InUseServiceImpl.class);
+    private static final OCLogger LOG = new OCLogger(InUseServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final int MILLIS_IN_MINUTE = 60000;
     private static final int DEFAULT_GRACE_PERIOD = 5;
@@ -89,18 +88,25 @@ public class InUseServiceImpl implements InUseService {
             }
 
             try {
-            	
-            	
+
             	JobDetail job = JobBuilder.newJob(InUseQuartzJob.class)
                         .withIdentity(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
                         .usingJobData("gracePeriodMin", getGracePeriodMinutes())
                         .storeDurably(true)
                         .build();
                 job.getJobDataMap().put("InUseDAO", _inUseDAO);
-                
                 _scheduler.addJob(job, true);
+                
+//                JobDetail detail = new JobDetail();
+//                detail.setGroup(QUARTZ_GROUP_NAME);
+//                detail.setName(QUARTZ_JOB_NAME);
+//                detail.setJobClass(InUseQuartzJob.class);
+//                detail.setDurability(true);
+//                detail.getJobDataMap().put("InUseDAO", _inUseDAO);
+//                detail.getJobDataMap().put("gracePeriodMin", getGracePeriodMinutes());
+//                _scheduler.addJob(detail, true);
                 _scheduler.start();
-            	
+
                 records = _inUseDAO.retrieveAll();
                 Iterator<InUseRecord> recordsIterator = records.iterator();
                 while (recordsIterator.hasNext()) {
@@ -283,7 +289,7 @@ public class InUseServiceImpl implements InUseService {
     }
 
     /**
-     * @see InUseService#retrieveInUseRecordsByType(java.lang.String)
+     * @see InUseService#retrieveInUseRecordsByType(String)
      */
     public List<InUseRecord> retrieveInUseRecordsByType(String objectType) {
 
@@ -317,7 +323,7 @@ public class InUseServiceImpl implements InUseService {
 
     /**
      *
-     * @see com.mckesson.eig.inuse.service.InUseService#retrieveAllInUseRecords()
+     * @see InUseService#retrieveAllInUseRecords()
      */
     public List<InUseRecord> retrieveAllInUseRecords() {
 
@@ -404,7 +410,7 @@ public class InUseServiceImpl implements InUseService {
 
    /**
     *
-    * @see com.mckesson.eig.inuse.service.InUseService#clearExpiredRecords()
+    * @see InUseService#clearExpiredRecords()
     */
     public List<InUseRecord> clearExpiredRecords() {
 
@@ -424,7 +430,7 @@ public class InUseServiceImpl implements InUseService {
     }
 
     /**
-     * @see com.mckesson.eig.inuse.service.InUseService
+     * @see InUseService
      * #retrieveObjectIds(java.lang.String, java.lang.String)
      */
     public InUseRecordList retrieveInUseRecordsByIDs(String objectType,
@@ -462,7 +468,7 @@ public class InUseServiceImpl implements InUseService {
 
    /**
     *
-    * @see com.mckesson.eig.inuse.service.InUseService#getGracePeriodMinutes()
+    * @see InUseService#getGracePeriodMinutes()
     */
     public int getGracePeriodMinutes() {
         return _gracePeriodMinutes;
@@ -470,7 +476,7 @@ public class InUseServiceImpl implements InUseService {
 
     /**
      *
-     * @see com.mckesson.eig.inuse.service.InUseService#setGracePeriodMinutes(int)
+     * @see InUseService#setGracePeriodMinutes(int)
      */
     public void setGracePeriodMinutes(int gracePeriodMinutes) {
         _gracePeriodMinutes = gracePeriodMinutes;
@@ -493,29 +499,28 @@ public class InUseServiceImpl implements InUseService {
     private void cancelTimerForRecord(InUseRecord record) throws SchedulerException {
 
         if (DO_DEBUG) {
-            LOG.info("Cancel Timer Job:" + record != null ? record : "record argument was null");
+            LOG.info("Cancel Timer Job:" + record.toString() != null ? record.toString() : "record argument was null");
         }
-        String name = Long.toString(record.getRecordSequence());        
+        String name = Long.toString(record.getRecordSequence());
         TriggerKey triggerKey = TriggerKey.triggerKey(name, QUARTZ_GROUP_NAME);
         _scheduler.unscheduleJob(triggerKey);
+        //_scheduler.unscheduleJob(name, QUARTZ_GROUP_NAME);
     }
 
     private void createTimerForRecord(InUseRecord record) throws SchedulerException {
 
         if (DO_DEBUG) {
-            LOG.info("Create Timer Job:" + record != null ? record : "record argument was null");
+            LOG.info("Create Timer Job:" + record != null ? record.toString() : "record argument was null");
         }
         String name = Long.toString(record.getRecordSequence());
         long fireTime = record.getModifiedDate().getTime()
                         + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE);
-        
         SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder.newTrigger()
         		.forJob(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
                 .withIdentity(name, QUARTZ_GROUP_NAME)
                 .startAt(new Date(fireTime)) // some Date
                 .withSchedule(simpleSchedule().withRepeatCount(0))
                 .build();
-        
 //        SimpleTrigger trigger = new SimpleTrigger(name, QUARTZ_GROUP_NAME, new Date(fireTime));
 //        trigger.setJobGroup(QUARTZ_GROUP_NAME);
 //        trigger.setJobName(QUARTZ_JOB_NAME);
@@ -527,14 +532,12 @@ public class InUseServiceImpl implements InUseService {
     private void updateTimerForRecord(InUseRecord record) throws SchedulerException {
 
         if (DO_DEBUG) {
-            LOG.info("Update Timer Job:" + record != null ? record : "record argument was null");
+            LOG.info("Update Timer Job:" + record != null ? record.toString() : "record argument was null");
         }
 
         String name = Long.toString(record.getRecordSequence());
         long fireTime = record.getModifiedDate().getTime()
                         + ((record.getExpiresMinutes() + _gracePeriodMinutes) * MILLIS_IN_MINUTE);
-        
-        
         SimpleTrigger trigger = (SimpleTrigger) TriggerBuilder.newTrigger()
         		.forJob(QUARTZ_JOB_NAME, QUARTZ_GROUP_NAME)
                 .withIdentity(name, QUARTZ_GROUP_NAME)

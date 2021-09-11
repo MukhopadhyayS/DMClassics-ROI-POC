@@ -29,7 +29,9 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Mar 23, 2009
  * @since  HPF 13.1 [ROI]; Sep 12, 2008
  */
-public class AdminLoVDAOImpl extends ROIDAOImpl implements AdminLoVDAO {
+public class AdminLoVDAOImpl
+extends ROIDAOImpl
+implements AdminLoVDAO {
 
     private static final OCLogger LOG = new OCLogger(AdminLoVDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();

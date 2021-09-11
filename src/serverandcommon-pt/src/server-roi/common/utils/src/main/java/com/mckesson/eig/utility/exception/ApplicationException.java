@@ -1,5 +1,5 @@
 /**
- * Copyright © 2010 McKesson Corporation and/or one of its subsidiaries.
+ * Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries.
  * All rights reserved.
  *
  * Use of this material is governed by a license agreement. This material
@@ -16,7 +16,6 @@ package com.mckesson.eig.utility.exception;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import com.mckesson.eig.utility.log.LoggedRuntimeException;
 import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
@@ -26,8 +25,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @see ChainedException
  * @see RuntimeException
  */
-public class ApplicationException extends ChainedException
-        implements LoggedRuntimeException {
+public class ApplicationException extends ChainedException{
 
 	private static final long serialVersionUID = -4172990034455170158L;
 

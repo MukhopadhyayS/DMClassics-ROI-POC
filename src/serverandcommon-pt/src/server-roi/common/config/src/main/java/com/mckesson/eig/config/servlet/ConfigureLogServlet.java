@@ -18,11 +18,10 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.common.filetransfer.services.BaseFileTransferData;
 import com.mckesson.eig.config.constants.ConfigurationConstants;
 import com.mckesson.eig.config.service.ConfigureLogService;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.LongUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -49,11 +48,11 @@ extends com.mckesson.eig.reports.servlet.ReportServlet {
      * Parameter key for logged in user id which will be obtained from the client.
      */
     private static final String KEY_LOGGEDIN_ID = "UserName";
-    
+
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ConfigureLogServlet.class);
+    private static final OCLogger LOG = new OCLogger( ConfigureLogServlet.class);
 
     /**
      * @see com.mckesson.eig.reports.servlet.ReportServlet#initConfig()

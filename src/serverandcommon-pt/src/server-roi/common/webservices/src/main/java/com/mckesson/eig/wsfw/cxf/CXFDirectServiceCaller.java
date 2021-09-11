@@ -19,7 +19,6 @@ import java.io.InputStream;
 
 import javax.jms.TextMessage;
 
-import org.apache.cxf.BusFactory;
 import org.apache.cxf.binding.soap.Soap11;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.ExchangeImpl;
@@ -107,7 +106,7 @@ public class CXFDirectServiceCaller {
         EndpointInfo ei = new EndpointInfo();
         ei.setAddress("local://message");
 
-        Destination destination = obj.getDestination(ei, BusFactory.getDefaultBus(true));
+        Destination destination = obj.getDestination(ei, null);
         MessageImpl m = prepareMessage(messageXML, destination);
 
         SoapMessage sm = new SoapMessage(m);

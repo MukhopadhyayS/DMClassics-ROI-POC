@@ -25,9 +25,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import org.apache.axis.MessageContext;
-import org.apache.axis.transport.http.HTTPConstants;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.Client;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -85,9 +84,9 @@ extends BaseROIService {
      */
     protected <T> T getProxy(Class<T> webServiceInterface) {
         
-        MessageContext context = MessageContext.getCurrentContext();
+        MessageContext context = org.apache.axis.MessageContext.getCurrentContext();
         HttpServletRequest request =
-                (HttpServletRequest) context.getProperty(HTTPConstants.MC_HTTP_SERVLETREQUEST);
+                (HttpServletRequest) context.getProperty(org.apache.axis.transport.http.HTTPConstants.MC_HTTP_SERVLETREQUEST);
         
         T result = null;
         if (_webClientPool instanceof RestWebClientPool) {

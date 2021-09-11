@@ -27,14 +27,13 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.mckesson.eig.config.constants.ConfigurationEC;
 import com.mckesson.eig.config.model.ApplicationSetting;
 import com.mckesson.eig.config.service.ApplicationSettingServiceImpl;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.utility.util.XMLUtilities;
 import com.mckesson.eig.utility.util.net.MailValidationUtilities;
@@ -56,9 +55,10 @@ public final class ApplicationSettingValidator extends BaseValidator {
     private static final String APPLN_SETTING_SCHEMA  =
                                         "/com/mckesson/eig/config/xsd/applicationsetting.xsd";
     /**
-     * Initializes the logger.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(ApplicationSettingValidator.class);
+    private static final OCLogger LOG = new OCLogger( ApplicationSettingValidator.class);
+
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     private static final XPath XPATH = XPathFactory.newInstance().newXPath();

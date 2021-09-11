@@ -24,6 +24,7 @@ import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.SoapVersion;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.binding.soap.interceptor.Soap11FaultOutInterceptor;
+//import org.apache.cxf.helpers.XMLUtils;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.phase.Phase;
 import org.w3c.dom.Element;
@@ -153,9 +154,10 @@ public class EIGSoap11FaultOutInterceptor extends AbstractSoapInterceptor {
     }
 
     private static void addDetail(Element detail, QName name, String value) {
-    	
-        Element ele = detail.getOwnerDocument().createElement(name.toString());
-        		//XMLUtils.createElementNS(detail.getOwnerDocument(), name);
+
+        // Element ele = XMLUtils.createElementNS(detail.getOwnerDocument(), name);
+        // Replacing deprecated class with the implementation.// Replacing deprecated class with the implementation.
+        Element ele = detail.getOwnerDocument().createElementNS(detail.getNamespaceURI(), name.getLocalPart());
         ele.setTextContent(value);
         detail.appendChild(ele);
     }

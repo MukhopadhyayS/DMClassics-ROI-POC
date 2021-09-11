@@ -24,6 +24,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.config.constants.ConfigurationEC;
 import com.mckesson.eig.config.exception.ConfigurationException;
 import com.mckesson.eig.config.exception.NotificationException;
@@ -31,8 +32,6 @@ import com.mckesson.eig.config.model.MailInfo;
 import com.mckesson.eig.config.service.ApplicationSettingService;
 import com.mckesson.eig.config.service.ApplicationSettingServiceImpl;
 import com.mckesson.eig.config.validation.NotificationValidator;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
@@ -46,9 +45,9 @@ import com.mckesson.eig.utility.util.StringUtilities;
 public final class EmailSender {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(EmailSender.class);
+    private static final OCLogger LOG = new OCLogger( EmailSender.class);
 
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 

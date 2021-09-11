@@ -19,26 +19,24 @@ import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.process.api.Process;
 import com.mckesson.eig.workflow.process.api.ProcessAttribute;
 import com.mckesson.eig.workflow.process.api.ProcessOwner;
 import com.mckesson.eig.workflow.process.api.ProcessVersion;
-
+import com.mckesson.dm.core.common.logging.OCLogger;
 /**
  * Class for all ProcessDAO calls
  */
 public class ProcessDAO extends AbstractProcessDAO {
 
-	/**
-	 * Object represents the Log4JWrapper object.
-	 */
-	private static final Log LOG = LogFactory.getLogger(ProcessDAO.class);
+    /**
+     * Gets the logger for this class.
+     */
+    private static final OCLogger LOG = new OCLogger( ProcessDAO.class);
 
     public void createProcess(final Actor assignedTo, final Process processDetails) {
         LOG.debug("enter ProcessDao::createProcess()");

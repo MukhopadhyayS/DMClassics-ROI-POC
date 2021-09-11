@@ -32,7 +32,6 @@ import oracle.xdb.XMLType;
 import org.apache.commons.dbcp.DelegatingConnection;
 import org.apache.commons.dbcp.DelegatingResultSet;
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 import org.jboss.resource.adapter.jdbc.WrappedConnection;
@@ -53,6 +52,13 @@ public class HibernateXmlType implements UserType, Serializable {
 
     public int hashCode(Object obj) {
         return obj.hashCode();
+    }
+
+	public Object nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor sharedSessionContractImplementor, Object o) throws HibernateException, SQLException {
+		return null;
+	}
+
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
     }
 
     public Object assemble(Serializable cached, Object owner) {
@@ -167,19 +173,5 @@ public class HibernateXmlType implements UserType, Serializable {
     public boolean isMutable() {
         return false;
     }
-
-	@Override
-	public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner)
-			throws HibernateException, SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
-			throws HibernateException, SQLException {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

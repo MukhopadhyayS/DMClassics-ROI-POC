@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
 import com.mckesson.eig.iws.security.Ticket;
-import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.wsfw.security.service.Authenticator;
 import com.mckesson.eig.wsfw.security.servlet.AuthenticationFilter;
@@ -99,7 +98,7 @@ extends AuthenticationFilter {
             // Checkmarx: ROI - Java - Trust_Boundary_Violation - Sanitize the inputs with HTML encoding
             transactionID = EncoderUtilities.encodeForHTML(transactionID);
             if ((transactionID != null) && (transactionID.trim().length() > 0)) {
-                LogContext.put("transactionid", new TransactionId(transactionID));
+                //LogContext.put("transactionid", new TransactionId(transactionID));   Todo: Needs alternate implementation
             }
 
             chain.doFilter(req, res);

@@ -17,19 +17,18 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.Session;
 import org.jbpm.JbpmConfiguration;
 import org.jbpm.JbpmContext;
 import org.jbpm.persistence.db.DbPersistenceServiceFactory;
 import org.jbpm.svc.Services;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateOptimisticLockingFailureException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.mckesson.eig.utility.exception.ClientErrorCodes;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.workflow.api.Actor;
 import com.mckesson.eig.workflow.api.Actors;
 import com.mckesson.eig.workflow.api.WorkflowException;
@@ -50,9 +49,9 @@ extends HibernateDaoSupport
 implements WorkflowDAO {
 
     /**
-     * Object represents the Log4JWrapper object.
+     * Gets the logger for this class.
      */
-    private static final Log LOG = LogFactory.getLogger(AbstractWorkflowDAO.class);
+    private static final OCLogger LOG = new OCLogger( AbstractWorkflowDAO.class);
 
     public static final String WORKLIST_PROCESS_NAME = "eig.worklist";
 

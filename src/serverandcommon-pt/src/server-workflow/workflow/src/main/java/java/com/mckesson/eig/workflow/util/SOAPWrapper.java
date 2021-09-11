@@ -13,7 +13,6 @@
 
 package com.mckesson.eig.workflow.util;
 
-import com.mckesson.eig.utility.log.LogContext;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.wsfw.EIGConstants;
 import com.mckesson.eig.wsfw.session.WsSession;
@@ -47,8 +46,9 @@ public final class SOAPWrapper {
      * @throws Exception
      */
     public static String buildSoapEnvelope(String msg) {
-
-        TransactionId id = ((TransactionId) LogContext.get("transactionid"));
+        // TODO: Add MDC context data feature to OCLogger.
+        TransactionId id = new TransactionId("MockTransactionID");
+                // ((TransactionId) LogContext.get("transactionid"));
 
         String transID = (id == null ? "" : id.getValue());
 

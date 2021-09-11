@@ -18,15 +18,15 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
 import org.jbpm.JbpmConfiguration;
 import org.jbpm.JbpmContext;
 import org.jbpm.persistence.db.DbPersistenceServiceFactory;
 import org.jbpm.svc.Services;
 
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
+
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.workflow.Utilities.ServiceNames;
 import com.mckesson.eig.workflow.api.Actor;
@@ -58,7 +58,7 @@ public class ProcessInstanceJmsConsumer
 extends AbstractWorkflowService
 implements ProcessInstanceService {
 
-    private static final Log LOG = LogFactory.getLogger(ProcessInstanceJmsConsumer.class);
+    private static final OCLogger LOG = new OCLogger(ProcessInstanceJmsConsumer.class);
 
     private static final String KEY_PROCESSNAME = "Process";
     private static final String KEY_APPLICATION = "Application";

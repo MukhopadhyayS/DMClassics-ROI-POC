@@ -1,5 +1,5 @@
 /**
- * Copyright © 2010 McKesson Corporation and/or one of its subsidiaries.
+ * Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries.
  * All rights reserved.
  *
  * Use of this material is governed by a license agreement. This material
@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -31,8 +32,6 @@ import com.mckesson.eig.config.exception.ConfigurationException;
 import com.mckesson.eig.config.model.ApplicationSetting;
 import com.mckesson.eig.config.model.ApplicationSettingList;
 import com.mckesson.eig.config.validation.ApplicationSettingValidator;
-import com.mckesson.eig.utility.log.Log;
-import com.mckesson.eig.utility.log.LogFactory;
 import com.mckesson.eig.utility.util.XMLUtilities;
 import com.mckesson.eig.wsfw.session.WsSession;
 
@@ -51,14 +50,15 @@ extends AbstractConfigurationService implements ApplicationSettingService {
     private static final int GLOBAL_SETTING_ID = 0;
 
     /**
-    * Object represents the Log4JWrapper object.
-    */
-    private static final Log LOG = LogFactory.getLogger(ApplicationSettingServiceImpl.class);
+     * Gets the logger for this class.
+     */
+    private static final OCLogger LOG = new OCLogger( ApplicationSettingServiceImpl.class);
+
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
     /**
     *
-    * @see com.mckesson.eig.config.service.ApplicationSettingService
+    * @see ApplicationSettingService
     *      #getApplicationSettings()
     */
 
@@ -86,7 +86,7 @@ extends AbstractConfigurationService implements ApplicationSettingService {
 
     /**
     *
-    * @see com.mckesson.eig.config.service.ApplicationSettingService
+    * @see ApplicationSettingService
     *      #updateApplicationSetting(ApplicationSetting)
     */
     public ApplicationSetting updateApplicationSetting(ApplicationSetting applicationSetting) {
@@ -126,7 +126,7 @@ extends AbstractConfigurationService implements ApplicationSettingService {
 
     /**
     *
-    * @see com.mckesson.eig.config.service.ApplicationSettingService
+    * @see ApplicationSettingService
     *      #updateGlobalSetting(ApplicationSetting)
     */
     public ApplicationSetting updateGlobalSetting(ApplicationSetting globalSetting) {
@@ -168,7 +168,7 @@ extends AbstractConfigurationService implements ApplicationSettingService {
 
     /**
     *
-    * @see com.mckesson.eig.config.service.ApplicationSettingService
+    * @see ApplicationSettingService
     *      #getGlobalSetting()
     */
     public ApplicationSetting getGlobalSetting() {
