@@ -124,15 +124,15 @@
                     <exclude name="**TestData\**"/>
                 </items>
             </in>
-            <do>
-			<echo message="${subBuildDir}" />
-			<echo message="${string::get-length( subBuildDir )}" />
-			<echo message="${string::substring( subBuildDir, tmpDirNameLen, 8)}" />
-			<echo message="${string::substring( subBuildDir, tmpDirNameLen, 6)}" />
+            <do>			
             <!-- get the name of the sub-directory after ${dir.bin}/${outDir} -->
                 <property name="tmpDirName" value="${directory::get-parent-directory( subBuildDir )}"/>
                 <property name="tmpDirNameLen" value="${string::get-length( tmpDirName )}"/>          
       		    <property name="subDirNameLen" value="${string::get-length( subBuildDir )}"/>
+				<echo message="${subBuildDir}" />
+				<echo message="${tmpDirName}" />
+				<echo message="${string::get-length( subBuildDir )}" />
+				<echo message="${string::get-length( tmpDirName )}" />
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='55'}" >
 	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
