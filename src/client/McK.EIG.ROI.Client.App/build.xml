@@ -125,6 +125,8 @@
                 </items>
             </in>
             <do>
+			<echo message="${subBuildDir}" />
+			<echo message="${string::get-length( subBuildDir )}" />
             <!-- get the name of the sub-directory after ${dir.bin}/${outDir} -->
                 <property name="tmpDirName" value="${directory::get-parent-directory( subBuildDir )}"/>
                 <property name="tmpDirNameLen" value="${string::get-length( tmpDirName )}"/>          
