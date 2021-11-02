@@ -12,6 +12,7 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.service.BaseROIService;
 import com.mckesson.eig.roi.ccd.provider.CcdProviderFactory;
 import com.mckesson.eig.roi.ccd.provider.dao.CcdProviderDAO;
+import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAOImpl;
 import com.mckesson.eig.roi.muroioutbound.model.ExternalSourceDocument;
 import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
@@ -22,13 +23,27 @@ import com.mckesson.eig.utility.util.SpringUtilities;
 
 public class MUCreateROIOutboundServiceCoreImpl extends BaseROIService implements MUCreateROIOutboundServiceCore {
     
-    private static final BeanFactory BEAN_FACTORY = SpringUtilities
-            .getInstance().getBeanFactory();
-    private MUROIOutboundDAOImpl getDAO = (MUROIOutboundDAOImpl) BEAN_FACTORY
-            .getBean("MUROIOutboundDAO");
+    /*
+     * private static final BeanFactory BEAN_FACTORY = SpringUtilities
+     * .getInstance().getBeanFactory();
+     */
+    
+    /*
+     * private MUROIOutboundDAOImpl getDAO = (MUROIOutboundDAOImpl) BEAN_FACTORY
+     * .getBean("MUROIOutboundDAO");
+     */
 
     @Override
     public void createROIOutboundStatistics(RequestCore requestCore) {
+        // Bhaskar
+        // nitpick: I understand the reason for using the variable name as BEAN_FACTORY. But this should be avoided while naming local variables.
+        // Same thing applies for  - private void updateRequestStatusToCancel() method.
+        BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+        
+        MUROIOutboundDAO getDAO = (MUROIOutboundDAO) BEAN_FACTORY
+                .getBean("MUROIOutboundDAO");
+        
         List<MUROIOutboundStatistics> muroiOutboundStatisticsList = new ArrayList<MUROIOutboundStatistics>();
         Set<String> muDocNamesSet = new HashSet<String>();
         if (ROIConstants.CANCELED_STATUS
@@ -124,6 +139,12 @@ public class MUCreateROIOutboundServiceCoreImpl extends BaseROIService implement
      * @param requestId,requestStatus
      */
     private void updateRequestStatusToCancel(int requestId,String requestStatus) {
+        
+        BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+        MUROIOutboundDAO getDAO = (MUROIOutboundDAO) BEAN_FACTORY
+                .getBean("MUROIOutboundDAO");
+        
         List<MUROIOutboundStatistics> muList = getCcdProviderDAO()
                 .getOutboundStatistics(requestId);
         Timestamp t = getDAO.getDate();

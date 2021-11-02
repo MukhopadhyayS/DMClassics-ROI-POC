@@ -13,20 +13,51 @@
 
 package com.mckesson.eig.roi.output.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * This method holds the Output Features
- * @author Karthik Easwaran
- *
+ * <p>Java class for OutputFeature complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="OutputFeature">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="outputFeatureId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="attributes" type="{urn:eig.mckesson.com}map" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "OutputFeature", propOrder = {
+    "_outputFeatureId",
+    "_name",
+    "_description",
+    "_attributes"
+})
 public class OutputFeature
 extends AbstractOutputAttributes{
 
-	/** This holds the Output feature Id*/
+    @XmlElement(name="outputFeatureId")
 	private Long _outputFeatureId;
-	/** This holds the name of the feature*/
+	
+	@XmlElement(name="name", required = true)
 	private String _name;
-	/** This holds the description of the feature*/
+	
+	@XmlElement(name="description", required = true)
 	private String _description;
 	
 	

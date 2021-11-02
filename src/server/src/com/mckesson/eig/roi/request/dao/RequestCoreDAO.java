@@ -23,6 +23,7 @@ import java.util.List;
 import com.mckesson.eig.roi.base.dao.ROIDAO;
 import com.mckesson.eig.roi.billing.model.PostPaymentReportDetails;
 import com.mckesson.eig.roi.hpf.model.User;
+import com.mckesson.eig.roi.request.model.Comment;
 import com.mckesson.eig.roi.request.model.ProductivityReportDetails;
 import com.mckesson.eig.roi.request.model.RequestCore;
 import com.mckesson.eig.roi.request.model.RequestCoreChargesDocument;
@@ -169,5 +170,6 @@ extends ROIDAO {
      public List<ProductivityReportDetails> retriveProductivityReportDetails(
              String[] facility, List<String> username, String[] requestorType,
              Date fromDate, Date toDate,String resultType);
+
      
 }

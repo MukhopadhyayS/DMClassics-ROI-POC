@@ -1,7 +1,10 @@
 package com.mckesson.eig.roi.muroioutbound.dao;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -11,12 +14,19 @@ import com.mckesson.eig.roi.muroioutbound.model.MUROIOutboundStatistics;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.dm.core.common.logging.OCLogger;
 
+@Transactional
 public class MUROIOutboundDAOImpl extends ROIDAOImpl
         implements
             MUROIOutboundDAO {
 
     private static final OCLogger LOG = new OCLogger(MUROIOutboundDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
+
+    // Bhaskar
+    // Why static?
+    private static long _diff;
+    private static boolean _diffSet;
+    
     /**
      * Method to insert ROIOutbound Details
      *
@@ -303,6 +313,35 @@ public class MUROIOutboundDAOImpl extends ROIDAOImpl
         }
         return facilityModel.getFacilityName();
 
+    }
+    
+    /**
+     * This method sets the time difference in milliseconds b/w Database server and JVM
+     */
+    private void setDateDiff() {
+
+        // Bhaskar
+        // findByNamedQuery() is deprecated.
+        // Consider using anything that replaces the same functionality.
+        @SuppressWarnings("unchecked") // not supported by 3rdParty API
+        List<Timestamp> list = (List<Timestamp>) getHibernateTemplate().findByNamedQuery("getDBDate");
+        _diff = list.get(0).getTime() - System.currentTimeMillis();
+    }
+
+    /**
+     *
+     * @see com.mckesson.eig.roi.base.dao.ROIDAO#getDate()
+     */
+    // Bhaskar
+    // I think date and timestamp are two different things
+    public Timestamp getDate() {
+
+        if (!_diffSet) {
+            setDateDiff();
+            _diffSet = true;
+        }
+
+        return new Timestamp(System.currentTimeMillis() + _diff);
     }
 
 }

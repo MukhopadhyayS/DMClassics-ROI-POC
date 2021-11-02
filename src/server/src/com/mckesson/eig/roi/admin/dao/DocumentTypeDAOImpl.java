@@ -27,6 +27,7 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StringType;
 import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.Designation;
@@ -45,6 +46,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @date   Jan 5, 2009
  * @since  HPF 13.1 [ROI]; May 12, 2008
  */
+@Transactional
 public class DocumentTypeDAOImpl extends ROIDAOImpl implements DocumentTypeDAO {
 
     private static final OCLogger LOG = new OCLogger(DocumentTypeDAOImpl.class);

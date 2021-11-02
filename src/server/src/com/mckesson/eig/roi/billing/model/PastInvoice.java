@@ -15,20 +15,54 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.billing.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author rajeshkumarg
- * @date   Oct 21, 2011
- * @since  HPF 15.1 [ROI]; Oct 21, 2011
+ * <p>Java class for PastInvoice complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="PastInvoice">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="invoiceId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="createdDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="amount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PastInvoice", propOrder = {
+    "_invoiceId",
+    "_createdDate",
+    "_amount"
+})
 public class PastInvoice
 implements Serializable {
 
     private static final long serialVersionUID = 7442357003367239848L;
 
+    @XmlElement(name="invoiceId")
     private long _invoiceId;
+    
+    @XmlElement(name="createdDate", required = true)
     private String _createdDate;
+    
+    @XmlElement(name="amount")
     private Double _amount;
+    
+    
 
     public long getInvoiceId() { return _invoiceId; }
     public void setInvoiceId(long invoiceId) { _invoiceId = invoiceId; }

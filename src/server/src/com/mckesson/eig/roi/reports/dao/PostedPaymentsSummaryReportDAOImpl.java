@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl;
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
@@ -40,6 +41,7 @@ import com.mckesson.eig.roi.utils.SpringUtil;
  * @date   Dec 1, 2008
  * @since  HPF 13.1 [ROI]; Dec 1, 2008
  */
+@Transactional
 public class PostedPaymentsSummaryReportDAOImpl
 extends ROIReportDAOImpl {
 

@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.model.TaxPerFacility;
 import com.mckesson.eig.roi.admin.model.TaxPerFacilityList;
@@ -35,6 +36,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Sep 15, 2008
  * @since  HPF 13.1 [ROI]; Mar 26, 2008
  */
+@Transactional
 public class TaxPerFacilityDAOImpl
 extends ROIDAOImpl
 implements TaxPerFacilityDAO {

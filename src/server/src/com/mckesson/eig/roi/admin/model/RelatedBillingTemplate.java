@@ -18,23 +18,60 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author ranjithr
- * @date   May 08, 2008
- * @since  HPF 13.1 [ROI]
+ * <p>Java class for RelatedBillingTemplate complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RelatedBillingTemplate">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="relatedBillingTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="billingTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="isDefault" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RelatedBillingTemplate", propOrder = {
+    "_id",
+    "_billingTemplateId",
+    "_isDefault",
+    "_recordVersion"
+})
 public class RelatedBillingTemplate
 implements Serializable {
 
+    @XmlElement(name="relatedBillingTemplateId")
     private long    _id;
+    @XmlElement(name="billingTemplateId")
     private long    _billingTemplateId;
+    @XmlElement(name="isDefault")
     private boolean _isDefault;
-    private long    _createdBy;
-    private long    _modifiedBy;
-    private Date    _modifiedDate;
+    @XmlElement(name="recordVersion")
     private int     _recordVersion;
+    
+    @XmlTransient
+    private long    _createdBy;
+    @XmlTransient
+    private long    _modifiedBy;
+    @XmlTransient
+    private Date    _modifiedDate;
 
     public long getBillingTemplateId() { return _billingTemplateId; }
     public void setBillingTemplateId(long templateId) { _billingTemplateId = templateId; }

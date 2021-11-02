@@ -19,6 +19,7 @@ import java.io.Serializable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.inuse.base.api.InUseClientErrorCodes;
 import com.mckesson.eig.roi.inuse.base.api.InUseException;
@@ -29,6 +30,7 @@ import com.mckesson.eig.roi.inuse.base.api.InUseException;
  * @date   Nov 05, 2008
  * @since  HPF 13.1 [InUse]; Feb 14, 2008
  */
+@Transactional
 public class BaseInUseDAOImpl
 extends HibernateDaoSupport {
 

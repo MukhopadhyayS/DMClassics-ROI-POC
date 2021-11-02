@@ -19,6 +19,12 @@ package com.mckesson.eig.roi.admin.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
@@ -29,18 +35,37 @@ import com.mckesson.eig.roi.base.api.ValidationParams;
  * @date   Mar 16, 2009
  * @since  HPF 13.1 [ROI]; Apr 16, 2008
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PaymentMethod", propOrder = {
+    "_id",
+    "_name",
+    "_desc",
+    "_isDisplay",
+    "_recordVersion"
+})
 public class PaymentMethod
 implements Serializable {
 
+    @XmlElement(name="paymentMethodId")
     private long    _id;
+    @XmlElement(required = true, name="name")
     private String  _name;
+    @XmlElement(name="description")
     private String  _desc;
+    @XmlElement(name="display")
     private boolean _isDisplay;
+    @XmlTransient
     private long     _createdBy;
+    @XmlTransient
     private long    _modifiedBy;
+    @XmlTransient
     private Date    _modifiedDt;
+    @XmlTransient
     private long    _orgId;
+    @XmlElement(name="recordVersion")
     private int     _recordVersion;
+    @XmlTransient
     private boolean _active;
 
 

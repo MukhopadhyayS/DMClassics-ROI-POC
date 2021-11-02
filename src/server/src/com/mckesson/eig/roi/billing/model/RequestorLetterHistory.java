@@ -19,26 +19,83 @@ import java.util.Date;
 
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 
 /**
- * This class  is a persistent model used to view the requestor letter history for hibernate.
- * @author rajeshkumarg
- * @date   Oct 18, 2011
- * @since  HPF 15.2 [ROI]; Oct 18, 2011
+ * <p>Java class for RequestorLetterHistory complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorLetterHistory">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestorLetterId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="createdDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="resendDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="outputMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="createdBy" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="templateUsed" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestPassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorLetterHistory", propOrder = {
+    "_requestorLetterId",
+    "_createdDate",
+    "_resendDate",
+    "_outputMethod",
+    "_createdBy",
+    "_requestTemplateId",
+    "_templateUsed",
+    "_requestPassword",
+    "_queuePassword"
+})
 public class RequestorLetterHistory 
 implements Serializable {
     
     private static final long serialVersionUID = 9086690815566101758L;
     
+    @XmlElement(name="requestorLetterId")
     private long _requestorLetterId;
+    
+    @XmlElement(name="createdDate", required= true)
     private Date _createdDate;
+    
+    @XmlElement(name="resendDate", required= true)
     private String _resendDate;
+    
+    @XmlElement(name="outputMethod", required= true)
     private String _outputMethod;
+    
+    @XmlElement(name="createdBy", required= true)
     private String _createdBy;
+    
+    @XmlElement(name="requestTemplateId")
     private long _requestTemplateId;
+    
+    @XmlElement(name="templateUsed", required= true)
     private String _templateUsed;
+    
+    @XmlElement(name="requestPassword", required= true)
     private SecureStringAccessor _requestPassword;
+    
+    @XmlElement(name="queuePassword", required= true)
     private SecureStringAccessor _queuePassword;
     
     public long getRequestorLetterId() { return _requestorLetterId; }

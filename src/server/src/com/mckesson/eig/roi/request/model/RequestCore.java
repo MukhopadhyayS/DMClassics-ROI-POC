@@ -23,49 +23,174 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
 import com.mckesson.eig.roi.requestor.model.RequestorCore;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+
 /**
- * @author OFS
- * @date Jun 29, 2012
- * @since Jun 29, 2012
- *
+ * <p>Java class for Request complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="Request">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="receiptDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="completedDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="statusReason" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestReason" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestReasonAttribute" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="statusChangedDt" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="requestPassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="createdBy" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="modifiedBy" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="modifiedDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="modifiedByUser" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="createdDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="defaultFacility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="defaultFacilityCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorDetail" type="{urn:eig.mckesson.com}Requestor"/>
+ *         &lt;element name="releaseCount" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="hasDraftRelease" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="balanceDue" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="authDoc" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="authDocName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="authDocSubtitle" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="authDocDateTime" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="conversionSource" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Request", propOrder = {
+    "_id",
+    "_status",
+    "_receiptDate",
+    "_completedDate",
+    "_statusReason",
+    "_requestReason",
+    "_requestReasonAttribute",
+    "_statusChangedDt",
+    "_requestPassword",
+    "_createdBy",
+    "_modifiedBy",
+    "_modifiedDate",
+    "_modifiedByUser",
+    "_createdDate",
+    "_defaultFacility",
+    "_defaultFacilityCode",
+    "_requestorDetail",
+    "_releaseCount",
+    "_hasDraftRelease",
+    "_balanceDue",
+    "_authDoc",
+    "_authDocName",
+    "_authDocSubtitle",
+    "_authDocDateTime",
+    "_conversionSource"
+})
 public class RequestCore
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(name="id")
     private long    _id;
+    
+    @XmlElement(name="status", required = true)
     private String  _status;
+    
+    @XmlElement(name="receiptDate", required = true, nillable = true)
     private Date    _receiptDate;
+    
+    @XmlElement(name="completedDate", required = true, nillable = true)
+    private Date    _completedDate;
+    
+    @XmlElement(name="statusReason", required = true)
     private String  _statusReason;
+    
+    @XmlElement(name="requestReason", required = true)
     private String  _requestReason;
+    
+    @XmlElement(name="requestReasonAttribute", required = true)
     private String  _requestReasonAttribute;
 
+    @XmlElement(name="statusChangedDt", required = true, nillable = true)
     private Date  _statusChangedDt;
+    
+    @XmlElement(name="requestPassword", required = true)
     private String  _requestPassword;
+    
+    @XmlTransient
     private int     _recordVersion;
+    
+    @XmlElement(name="createdDate", required = true, nillable = true)
     private Date    _createdDate;
-    private Date    _completedDate;
+    
+    @XmlElement(name="modifiedDate", required = true, nillable = true)
     private Date    _modifiedDate;
+    
+    @XmlElement(name="modifiedBy")
     private int     _modifiedBy;
+    
+    @XmlElement(name="modifiedByUser", required = true, nillable = true)
     private String  _modifiedByUser;
+    
+    @XmlElement(name="createdBy")
     private int     _createdBy;
+    
+    @XmlElement(name="defaultFacility", required = true)
     private String _defaultFacility;
+    
+    @XmlElement(name="defaultFacilityCode", required = true)
     private String _defaultFacilityCode;
 
+    @XmlElement(name="releaseCount")
     private long _releaseCount;
+    
+    @XmlElement(name="hasDraftRelease")
     private boolean _hasDraftRelease;
+    
+    @XmlElement(name="balanceDue")
     private Double _balanceDue;
 
     // added for Authorization request
+    @XmlElement(name="authDoc", required = true)
     private String _authDoc;
+    
+    @XmlElement(name="authDocName", required = true)
     private String _authDocName;
+    
+    @XmlElement(name="authDocSubtitle", required = true)
     private String _authDocSubtitle;
+    
+    @XmlElement(name="authDocDateTime", required = true, nillable = true)
     private Date   _authDocDateTime;
+    
+    @XmlElement(name="conversionSource", required = true)
     private String _conversionSource;
 
+    @XmlElement(name="requestorDetail", required = true)
     private RequestorCore _requestorDetail;
+    
+    @XmlTransient
     private boolean _unbillable = true;
+    
+    
 
     public long getId() { return _id; }
     public void setId(long id) {  _id = id; }

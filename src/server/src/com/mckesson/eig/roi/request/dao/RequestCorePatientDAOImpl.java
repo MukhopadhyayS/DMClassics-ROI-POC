@@ -34,6 +34,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.CharMatcher;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -62,6 +63,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * @since Jun 29, 2012
  *
  */
+@Transactional
 public class RequestCorePatientDAOImpl
         extends ROIDAOImpl
         implements RequestCorePatientDAO {

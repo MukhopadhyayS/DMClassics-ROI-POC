@@ -20,33 +20,141 @@ import java.util.Date;
 
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+
+/**
+ * <p>Java class for ReleaseHistoryItem complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="ReleaseHistoryItem">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="datetime" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="patientName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="enctr" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="isSelfPay" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="documentVersionSubtitle" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="pages" type="{http://www.w3.org/2001/XMLSchema}integer"/>
+ *         &lt;element name="requestPassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="shippingMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="trackingNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="userName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="address1" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="address2" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="address3" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="zipcode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="outputMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ReleaseHistoryItem", propOrder = {
+    "datetime",
+    "patientName",
+    "patientSeq",
+    "enctr",
+    "selfPay",
+    "documentVersionSubtitle",
+    "pages",
+    "requestPassword",
+    "queuePassword",
+    "shippingMethod",
+    "trackingNumber",
+    "userName",
+    "userId",
+    "address1",
+    "address2",
+    "address3",
+    "city",
+    "state",
+    "zipcode",
+    "outputMethod"
+})
 @SuppressWarnings("serial")
 public class ReleaseHistoryItem
 implements Serializable {
 
     public ReleaseHistoryItem() {};
     
+    @XmlElement(required = true)
     private Date datetime;
+    
+    @XmlElement(required = true)
     private String patientName;
+    
     private Long patientSeq;
+    
+    @XmlElement(required = true)
     private String enctr;
+    
+    @XmlElement(name="isSelfPay")
     private boolean selfPay;
+    
+    @XmlElement(required = true)
     private String documentVersionSubtitle;
+    
+    @XmlElement(required = true)
     private int pages;
+    
+    @XmlElement(required = true)
     private SecureStringAccessor requestPassword;
+    
+    @XmlElement(required = true)
     private SecureStringAccessor queuePassword;
+    
+    @XmlElement(required = true)
     private String shippingMethod;
+    
+    @XmlElement(required = true)
     private String trackingNumber;
+    
+    @XmlElement(required = true)
     private String userName;
+    
     private Long userId;
+    
+    @XmlElement(required = true)
     private String address1; 
+    
+    @XmlElement(required = true)
     private String address2;
+    
+    @XmlElement(required = true)
     private String address3;
+    
+    @XmlElement(required = true)
     private String city;
+    
+    @XmlElement(required = true)
     private String state;
+    
+    @XmlElement(required = true)
     private String zipcode;
+    
+    @XmlElement(required = true)
     private String outputMethod;
+    
+    
     
     public Date getDatetime() {
         return datetime;

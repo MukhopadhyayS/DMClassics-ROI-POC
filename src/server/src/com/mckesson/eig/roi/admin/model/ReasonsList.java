@@ -16,21 +16,49 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 
+
 import java.util.List;
+import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author manikandans
- * @date   May 07, 2008
- * @since  HPF 13.1 [ROI]; Apr 28, 2008
+ * <p>Java class for ReasonsList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="ReasonsList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="reasons" type="{urn:eig.mckesson.com}Reason" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ReasonsList", propOrder = {
+    "reasons"
+})
 public class ReasonsList {
 
-    private List<Reason> _reasons;
+    private List<Reason> reasons;
 
     public ReasonsList() { };
     public ReasonsList(List<Reason> reasons) { setReasons(reasons); }
 
-    public List<Reason> getReasons() { return _reasons; }
-    public void setReasons(List<Reason> reasons) { _reasons = reasons; }
+    public List<Reason> getReasons() {
+        if (reasons == null) {
+            reasons = new ArrayList<Reason>();
+        }
+        return this.reasons;
+    }
+    public void setReasons(List<Reason> reasons) { this.reasons = reasons; }
 }

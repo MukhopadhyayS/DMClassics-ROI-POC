@@ -26,6 +26,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.model.BillingTier;
 import com.mckesson.eig.roi.admin.model.BillingTiersList;
@@ -40,6 +41,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Mar 25, 2009
  * @since  HPF 13.1 [ROI]; Apr 15, 2008
  */
+@Transactional
 public class BillingTierDAOImpl
 extends ROIDAOImpl
 implements BillingTierDAO {

@@ -1,0 +1,64 @@
+
+package com.mckesson.eig;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for anonymous complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="supplementarityAttachment" type="{urn:eig.mckesson.com}SupplementarityAttachment"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "supplementarityAttachment"
+})
+@XmlRootElement(name = "updateSupplementarityAttachment")
+public class UpdateSupplementarityAttachment {
+
+    @XmlElement(required = true)
+    protected SupplementarityAttachment supplementarityAttachment;
+
+    /**
+     * Gets the value of the supplementarityAttachment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SupplementarityAttachment }
+     *     
+     */
+    public SupplementarityAttachment getSupplementarityAttachment() {
+        return supplementarityAttachment;
+    }
+
+    /**
+     * Sets the value of the supplementarityAttachment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SupplementarityAttachment }
+     *     
+     */
+    public void setSupplementarityAttachment(SupplementarityAttachment value) {
+        this.supplementarityAttachment = value;
+    }
+
+}

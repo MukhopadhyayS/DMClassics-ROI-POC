@@ -15,26 +15,49 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 
 package com.mckesson.eig.roi.admin.model;
 
-
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author ranjithr
- * @date   Apr 8, 2008
- * @since  HPF 13.1 [ROI]
+ * <p>Java class for DeliveryMethodList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="DeliveryMethodList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="deliveryMethodList" type="{urn:eig.mckesson.com}DeliveryMethod" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DeliveryMethodList", propOrder = {
+    "deliveryMethods"
+})
 public class DeliveryMethodList {
 
-    private List<DeliveryMethod> _deliveryMethods;
+    @XmlElement(name="deliveryMethodList")
+    private List<DeliveryMethod> deliveryMethods;
 
     public DeliveryMethodList() { };
     public DeliveryMethodList(List<DeliveryMethod> deliveryMethods) {
         setDeliveryMethods(deliveryMethods);
     }
 
-    public List<DeliveryMethod> getDeliveryMethods() { return _deliveryMethods; }
+    public List<DeliveryMethod> getDeliveryMethods() { return deliveryMethods; }
     public void setDeliveryMethods(List<DeliveryMethod> deliveryMethodsList) {
-        _deliveryMethods = deliveryMethodsList;
+        this.deliveryMethods = deliveryMethodsList;
     }
 }

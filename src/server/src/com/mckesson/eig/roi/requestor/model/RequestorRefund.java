@@ -22,31 +22,99 @@ import java.util.List;
 import com.mckesson.dm.core.common.util.StringUtilities;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * @author OFS
- * @date   Jan 04, 2013
+ * <p>Java class for RequestorRefund complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorRefund">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestorId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="note" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="refundDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="refundAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="templateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="templateName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="outputMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="notes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="statementCriteria" type="{urn:eig.mckesson.com}RequestorStatementCriteria"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorRefund", propOrder = {
+    "_requestorId",
+    "_requestorName",
+    "_requestorType",
+    "_note",
+    "_refundDate",
+    "_refundAmount",
+    "_templateId",
+    "_templateName",
+    "_outputMethod",
+    "_queuePassword",
+    "_notes",
+    "_statementCriteria"
+})
 public class RequestorRefund
 extends BaseModel {
 
     private static final long serialVersionUID = 1L;
-
+    
+    @XmlElement(name="requestorId")
     private long _requestorId;
+    
+    @XmlElement(name="note", required = true)
     private String _note;
+    
+    @XmlElement(name="requestorName", required = true)
     private String _requestorName;
+    
+    @XmlElement(name="requestorType", required = true)
     private String _requestorType;
+    
+    @XmlElement(name="refundDate", required = true)
     private Date _refundDate;
+    
+    @XmlElement(name="refundAmount")
     private double _refundAmount;
 
+    
+    @XmlElement(name="statementCriteria", required = true)
     private RequestorStatementCriteria _statementCriteria;
 
+    @XmlElement(name="templateId")
     private long _templateId;
+    
+    @XmlElement(name="templateName", required = true)
     private String _templateName;
+    
+    @XmlElement(name="outputMethod", required = true)
     private String _outputMethod;
+    
+    @XmlElement(name="queuePassword", required = true)
     private SecureStringAccessor _queuePassword;
+    
+    @XmlElement(name="notes")
     private List<String> _notes;
 
     public long getRequestorId() { return _requestorId; }

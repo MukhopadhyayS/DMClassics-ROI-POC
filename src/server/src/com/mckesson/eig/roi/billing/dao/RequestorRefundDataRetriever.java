@@ -26,6 +26,7 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.dao.BaseLetterDataRetriever;
@@ -44,7 +45,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @author Elangovan Shanmugam
  * @date   Jan 16, 2013
  */
-
+@Transactional
 public class RequestorRefundDataRetriever
 extends BaseLetterDataRetriever {
 

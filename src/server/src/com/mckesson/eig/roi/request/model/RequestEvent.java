@@ -22,18 +22,57 @@ import java.util.Date;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * @author OFS
- * @date   Aug 31,2009
- * @since  HPF 13.1 [ROI]; Jul 17, 2008
+ * <p>Java class for RequestEvent complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestEvent">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="originator" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="modifiedDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestEvent", propOrder = {
+    "_requestId",
+    "_name",
+    "_type",
+    "_description",
+    "_originator",
+    "_modifiedDate"
+})
 public class RequestEvent
 implements Serializable {
 
     private static final long serialVersionUID = -1144313588595302858L;
 
+    @XmlType(name = "TYPE")
+    @XmlEnum
     public static enum TYPE {
 
         COMMENT_ADDED       ("Comment Added"),
@@ -69,16 +108,38 @@ implements Serializable {
         @Override
         public String toString() { return _type; }
    }
-    private long    _id;
+    
+    @XmlElement(name="requestId")
     private long    _requestId;
+    
+    @XmlElement(name="name")
     private String  _name;
+    
+    @XmlElement(name="type")
     private String  _type;
+    
+    @XmlElement(name="description")
     private String  _description;
-    private int     _createdBy;
-    private int     _modifiedBy;
-    private Date    _modifiedDate;
-    private int     _recordVersion;
+    
+    @XmlElement(name="originator")
     private String _originator;
+    
+    @XmlElement(name="modifiedDate")
+    private Date    _modifiedDate;
+    
+    @XmlTransient
+    private long    _id;
+    
+    @XmlTransient
+    private int     _createdBy;
+    
+    @XmlTransient
+    private int     _modifiedBy;
+    
+    @XmlTransient
+    private int     _recordVersion;
+    
+    
 
     public RequestEvent() { }
 

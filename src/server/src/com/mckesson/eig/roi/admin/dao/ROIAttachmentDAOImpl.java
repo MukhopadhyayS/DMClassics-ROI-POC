@@ -20,6 +20,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.type.StringType;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.service.ROIAdminServiceImpl;
@@ -33,6 +34,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @author OFS
  * @date Jun 22, 2012
  */
+@Transactional
 public class ROIAttachmentDAOImpl 
 extends ROIDAOImpl 
 implements ROIAttachmentDAO {

@@ -41,12 +41,14 @@ import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Karthik Easwaran
  * @date   Aug 28, 2012
  * @since  Aug 28, 2012
  */
+@Transactional
 public class OverDueInvoiceCoreDAOImpl
 extends ROIDAOImpl
 implements OverDueInvoiceCoreDAO {

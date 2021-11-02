@@ -16,23 +16,49 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- *
- * @author OFS
- * @date   Oct 9, 2008
- * @since  HPF 13.1 [ROI]; Oct 9, 2008
+ * <p>Java class for StatusReasons complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="StatusReasons">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="statusReason" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "StatusReasons", propOrder = {
+    "statusReasons"
+})
 public class Reasons
 implements Serializable {
 
-    private List<String> _statusReasons;
+    private List<String> statusReasons;
 
     public Reasons() { }
     public Reasons(List<String> reasons) { setStatusReasons(reasons); }
 
-    public List<String> getStatusReasons() { return _statusReasons; }
-    public void setStatusReasons(List<String> reasons) { _statusReasons = reasons; }
+    public List<String> getStatusReason() {
+        if (statusReasons == null) {
+            statusReasons = new ArrayList<String>();
+        }
+        return this.statusReasons;
+    }
+    public void setStatusReasons(List<String> reasons) { this.statusReasons = reasons; }
 }

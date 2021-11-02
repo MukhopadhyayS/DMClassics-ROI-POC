@@ -14,45 +14,113 @@
 package com.mckesson.eig.roi.output.model;
 
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
 /**
- * This class contains the Property Defintions
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for PropertyDef complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="PropertyDef">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="propertyName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="label" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="dataType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="defaultValue" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="required" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="bindingProperty" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="possibleValues" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="index" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="pairPropertyName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="rowCount" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="contextMenu" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="jsAction" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="size" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="maxLength" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PropertyDef", propOrder = {
+    "_propertyName",
+    "_label",
+    "_description",
+    "_dataType",
+    "_defaultValue",
+    "_required",
+    "_bindingProperty",
+    "_possibleValues",
+    "_index",
+    "_pairPropertyName",
+    "_rowCount",
+    "_contextMenu",
+    "_jsAction",
+    "_size",
+    "_maxLength"
+})
 public class PropertyDef {
 
-    /** This holds the property Name*/
+    
+    @XmlElement(name="propertyName", required = true)
     private String _propertyName;
-    /** This holds the label*/
+    
+    @XmlElement(name="label", required = true)
     private String _label;
-    /** This holds the description*/
+    
+    @XmlElement(name="description", required = true)
     private String _description;
-    /** This holds the data type*/
+    
+    @XmlElement(name="dataType", required = true)
     private String _dataType;
-    /** This holds the default value*/
+    
+    @XmlElement(name="defaultValue", required = true)
     private String _defaultValue;
-    /** This holds the required*/
+    
+    @XmlElement(name="required", required = true)
     private String _required;
-    /** This holds the binding property*/
+    
+    @XmlElement(name="bindingProperty", required = true)
     private String _bindingProperty;
-    /** This holds the possible values*/
+    
+    @XmlElement(name="possibleValues")
     private String[] _possibleValues;
-    /** This holds the index*/
+    
+    @XmlElement(name="index", required = true)
     private String _index;
-    /** This holds the pairPropertyName*/
+    
+    @XmlElement(name="pairPropertyName", required = true)
     private String _pairPropertyName;
-    /** This holds the row count*/
+    
+    @XmlElement(name="rowCount", required = true)
     private String _rowCount;
-    /** This holds the context menu*/
+    
+    @XmlElement(name="contextMenu")
     private String[] _contextMenu;
-    /** This holds the jsAction*/
+    
+    @XmlElement(name="jsAction", required = true)
     private String _jsAction;
-    /** This holds the size*/
+    
+    @XmlElement(name="size", required = true)
     private String _size;
-    /** This holds the max length*/
+    
+    @XmlElement(name="maxLength", required = true)
     private String _maxLength;
 
+    
+    
     public String getPropertyName() {
         return _propertyName;
     }

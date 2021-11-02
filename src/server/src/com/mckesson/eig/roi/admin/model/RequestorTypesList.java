@@ -16,19 +16,40 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author ranjithr
- * @date   May 08, 2008
- * @since  HPF 13.1 [ROI]; Apr 22, 2008
+ * <p>Java class for RequestorTypeList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorTypeList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestorTypes" type="{urn:eig.mckesson.com}RequestorType" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorTypeList", propOrder = {
+    "requestorTypes"
+})
 public class RequestorTypesList
 implements Serializable {
 
-    private List<RequestorType> _requestorTypes;
+    private List<RequestorType> requestorTypes;
 
     public RequestorTypesList() { }
 
@@ -36,7 +57,12 @@ implements Serializable {
         setRequestorTypes(requestorTypes);
     }
 
-    public List <RequestorType> getRequestorTypes() { return _requestorTypes; }
-    public void setRequestorTypes(List <RequestorType> types) {  _requestorTypes = types; }
+    public List<RequestorType> getRequestorTypes() {
+        if (requestorTypes == null) {
+            requestorTypes = new ArrayList<RequestorType>();
+        }
+        return this.requestorTypes;
+    }
+    public void setRequestorTypes(List <RequestorType> types) {  this.requestorTypes = types; }
 
 }

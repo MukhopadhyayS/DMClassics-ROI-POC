@@ -22,7 +22,9 @@ import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public class BillableAndUnBillableRequestReportDAOImpl
 extends ROIReportDAOImpl {
 

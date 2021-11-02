@@ -16,19 +16,50 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.billing.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author Karthik Easwaran
- * @date   Aug 5, 2013
- * @since  Aug 5, 2013
+ * <p>Java class for ROIPages complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="ROIPages">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="pageSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="selfPayEncounter" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ROIPages", propOrder = {
+    "_pageSeq",
+    "_selfPayEncounter"
+})
 public class ReleasePages
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    
+    @XmlElement(name="pageSeq")
     private long _pageSeq;
+    
+    @XmlElement(name="selfPayEncounter")
     private boolean _selfPayEncounter;
+    
+    
 
     public long getPageSeq() { return _pageSeq; }
     public void setPageSeq(long pageSeq) { _pageSeq = pageSeq; }

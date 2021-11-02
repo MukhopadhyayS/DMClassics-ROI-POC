@@ -13,6 +13,7 @@ import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.model.Country;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -21,6 +22,7 @@ import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.request.dao.RequestCoreChargesDAOImpl;
 import com.mckesson.dm.core.common.logging.OCLogger;
 
+@Transactional
 public class CountryCodeConfigurationDAOImpl 
 extends ROIDAOImpl 
 implements CountryCodeConfigurationDAO {

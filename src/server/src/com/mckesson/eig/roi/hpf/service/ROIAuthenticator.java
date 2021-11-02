@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -23,7 +23,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
 import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
 import com.mckesson.eig.wsfw.security.service.Authenticator;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 
 
 
@@ -56,8 +56,8 @@ implements Authenticator {
             if (DO_DEBUG) {
                 LOG.debug(logSM + ">>Start:");
             }
-            String userName = (String) WsSession.getSessionData(KEY_USERNAME);
-            String password = (String) WsSession.getSessionData(KEY_PASSWORD);
+            String userName = (String) CxfWsSession.getSessionData(KEY_USERNAME);
+            String password = (String) CxfWsSession.getSessionData(KEY_PASSWORD);
 
             if (StringUtilities.isEmpty(userName) || StringUtilities.isEmpty(password)) {
                 throw new Exception();
@@ -68,8 +68,8 @@ implements Authenticator {
                 throw new Exception();
             }
 
-            WsSession.setSessionData(WsSession.AUTHRESULT, result);
-            WsSession.setSessionData(WsSession.TICKET, result.getTicket());
+            CxfWsSession.setSessionData(CxfWsSession.AUTHRESULT, result);
+            CxfWsSession.setSessionData(CxfWsSession.TICKET, result.getTicket());
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }

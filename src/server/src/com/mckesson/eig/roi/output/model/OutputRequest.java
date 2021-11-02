@@ -14,33 +14,78 @@
 package com.mckesson.eig.roi.output.model;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * This method contains the Output Request object
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for OutputRequest complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="OutputRequest">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestParts" type="{urn:eig.mckesson.com}RequestPart" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="destId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="destName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="destType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="properties" type="{urn:eig.mckesson.com}MapModel" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="labels" type="{urn:eig.mckesson.com}MapModel" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="submitInfo" type="{urn:eig.mckesson.com}SubmitInfo"/>
+ *         &lt;element name="outputTransforms" type="{urn:eig.mckesson.com}OutputTransform" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "OutputRequest", propOrder = {
+    "_requestParts",
+    "_destId",
+    "_destName",
+    "_destType",
+    "_properties",
+    "_labels",
+    "_requestId",
+    "_submitInfo",
+    "_outputTransforms"
+})
 public class OutputRequest {
 
-   
-    /** This holds the list of Request Part objects*/
+    @XmlElement(name="requestParts")
     private List<RequestPart> _requestParts;
-    /** This holds  the destination Id*/
+
+    @XmlElement(name="destId")
     private int _destId;
-    /**  This holds the destination name*/
+    
+    @XmlElement(name="destName", required = true)
     private String _destName;
-    /** This holds the destination type*/
+
+    @XmlElement(name="destType", required = true)
     private String _destType;
-    /** This holds  the list of map models*/
+
+    @XmlElement(name="properties")
     private List<MapModel> _properties;
-    /** This holds  the list of map models*/
+
+    @XmlElement(name="labels")
     private List<MapModel> _labels;
-    /** This holds the request Id*/
+
+    @XmlElement(name="requestId", required = true)
     private String _requestId;
-    /** This holds the submit info */
+    
+    @XmlElement(name="submitInfo", required = true)
     private SubmitInfo _submitInfo;
-    /** This holds the list of OutputTransform*/
+    
+    @XmlElement(name="outputTransforms")
     private List<OutputTransform> _outputTransforms;
     
     public List<RequestPart> getRequestParts() {

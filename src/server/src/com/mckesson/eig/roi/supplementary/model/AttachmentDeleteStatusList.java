@@ -17,17 +17,41 @@ package com.mckesson.eig.roi.supplementary.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author Karthik Easwaran
- * @date   Jul 20, 2012
- * @since  Jul 20, 2012
+ * <p>Java class for AttachmentDeleteStatusList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="AttachmentDeleteStatusList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="deletedAttachmentList" type="{urn:eig.mckesson.com}AttachmentDeleteStatus" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "AttachmentDeleteStatusList", propOrder = {
+    "_deletedAttachmentList"
+})
 public class AttachmentDeleteStatusList
 implements Serializable {
     
     private static final long serialVersionUID = 1L;
+    
+    @XmlElement(name="deletedAttachmentList")
     private List<AttachmentDeleteStatus> _deletedAttachmentList;
     
     public AttachmentDeleteStatusList() { }

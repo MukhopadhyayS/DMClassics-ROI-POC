@@ -16,17 +16,40 @@ package com.mckesson.eig.roi.billing.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
-*
-* @author rajeshkumarg
-* @date   Oct 18, 2011
-* @since  HPF 15.2 [ROI]; Oct 18, 2011
-*/
+ * <p>Java class for RequestorLetterHistoryList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorLetterHistoryList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestorLetterHistory" type="{urn:eig.mckesson.com}RequestorLetterHistory" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorLetterHistoryList", propOrder = {
+    "_requestorLetterHistoryList"
+})
 public class RequestorLetterHistoryList implements Serializable {
     
     private static final long serialVersionUID = -1528321726194773744L;
     
+    @XmlElement(name="requestorLetterHistory")
     private List<RequestorLetterHistory> _requestorLetterHistoryList;
 
     public List<RequestorLetterHistory> getRequestorLetterHistoryList() {

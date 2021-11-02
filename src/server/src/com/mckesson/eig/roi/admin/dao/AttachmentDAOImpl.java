@@ -17,6 +17,8 @@ package com.mckesson.eig.roi.admin.dao;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.admin.model.AttachmentLocation;
 import com.mckesson.eig.roi.admin.model.SysParam;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -28,6 +30,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @date Dec 16, 2010
  * @since HPF 15.1 [ROI]; Dec 16, 2010
  */
+@Transactional
 public class AttachmentDAOImpl extends ROIDAOImpl implements AttachmentDAO {
 
     private static final OCLogger LOG = new OCLogger(AttachmentDAOImpl.class);

@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
 import com.mckesson.eig.roi.muroioutbound.service.MUROIOutboundServiceImpl;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
@@ -20,6 +22,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * Per facility
  * 
  */
+@Transactional
 public class MUROIOutboundReportDAOImpl extends ROIReportDAOImpl {
 
     private static final OCLogger LOG = new OCLogger(MUROIOutboundReportDAOImpl.class);

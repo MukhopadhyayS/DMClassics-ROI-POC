@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.jws.WebService;
+
 import com.mckesson.eig.roi.admin.dao.ROIAttachmentDAO;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -35,6 +37,8 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @author OFS
  * @date Jun 22, 2012
  */
+@WebService(serviceName="ROIAttachmentService", endpointInterface="com.mckesson.eig.roi.admin.service.ROIAttachmentService",
+targetNamespace="urn:eig.mckesson.com", portName="roiAttachmentPort", name="ROIAttachmentServiceImpl")
 public class ROIAttachmentServiceImpl 
 extends BaseROIService
 implements ROIAttachmentService {

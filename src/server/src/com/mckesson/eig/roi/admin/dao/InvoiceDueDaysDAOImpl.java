@@ -17,6 +17,9 @@ package com.mckesson.eig.roi.admin.dao;
 
 import com.mckesson.eig.roi.admin.model.InvoiceDueDays;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
@@ -24,6 +27,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Jul 5, 2011
  * @since  HPF 15.2 [ROI] Jul 5, 2011
  */
+@Transactional
 public class InvoiceDueDaysDAOImpl
 extends ROIDAOImpl
 implements InvoiceDueDaysDAO {

@@ -17,31 +17,100 @@ package com.mckesson.eig.roi.request.model;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
 
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+
 /**
- * @author OFS
- * @date JUL 03, 2012
+ * <p>Java class for RequestPage complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestPage">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="pageSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="versionSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="contentCount" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="imnetId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="isSelectedForRelease" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="isReleased" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="pageNumber" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="globalDocument" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="pageNumberRequested" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="deleted" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-public class RequestPage
-        extends BaseModel {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestPage", propOrder = {
+    "_pageSeq",
+    "_versionSeq",
+    "_contentCount",
+    "_imnetId",
+    "_isSelectedForRelease",
+    "_isReleased",
+    "_pageNumber",
+    "_globalDocument",
+    "_pageNumberRequested",
+    "_deleted"
+})
+public class RequestPage extends BaseModel  {
 
     private static final long serialVersionUID = 1L;
 
     // Page Details
+    @XmlElement(name="pageSeq")
     private long _pageSeq;
+    
+    @XmlElement(name="versionSeq")
     private long _versionSeq;
+    
+    @XmlElement(name="contentCount")
     private long _contentCount;
+    
+    @XmlElement(name="imnetId", required = true)
     private String _imnetId;
+    
+    @XmlElement(name="isSelectedForRelease")
     private boolean _isSelectedForRelease;
+    
+    @XmlElement(name="isReleased")
     private boolean _isReleased;
+    
+    @XmlElement(name="pageNumber")
     private int _pageNumber;
+    
+    @XmlTransient
     private long _versionNumber;
+    
+    @XmlTransient
     private long _docId;
+    
+    @XmlElement(name="pageNumberRequested")
     private int _pageNumberRequested;
+    
+    @XmlElement(name="deleted")
     private boolean _deleted;
 
     // used to identify whether this page belongs for global documents or not
+    @XmlElement(name="globalDocument")
     private boolean _globalDocument;
-
+    
+    
+    
     public long getVersionNumber() {
         return _versionNumber;
     }

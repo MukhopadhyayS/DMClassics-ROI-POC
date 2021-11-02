@@ -18,14 +18,25 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
  * @author Vidhya.C.S
  * @date   Apr 28, 2008
  * @since  HPF 13.1 [ROI]; Apr 28, 2008
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "BillingTemplateList", propOrder = {
+    "_billingTemplates"
+})
 public class BillingTemplatesList {
 
+    @XmlElement(name="billingTemplates")
     private List <BillingTemplate> _billingTemplates;
     public BillingTemplatesList() { };
 

@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -20,9 +20,11 @@ import java.sql.Timestamp;
 
 import javax.xml.bind.JAXBException;
 
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.model.OutputServerProperties;
 import com.mckesson.eig.roi.admin.model.ROIParameter;
@@ -30,13 +32,13 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.dm.core.common.logging.OCLogger;
-import com.mckesson.eig.wsfw.session.WsSession;
 
 /**
  * @author OFS
  * @date   Feb 24, 2010
  * @since  HPF 15.1 [ROI];
  */
+@Transactional
 public class OutputIntegrationDAOImpl
 extends ROIDAOImpl
 implements OutputIntegrationDAO {
@@ -158,6 +160,6 @@ implements OutputIntegrationDAO {
     }
 
     protected User getUser() {
-        return (User) WsSession.getSessionData(AUTHENTICATED_USER);
+        return (User) CxfWsSession.getSessionData(AUTHENTICATED_USER);
     }
 }

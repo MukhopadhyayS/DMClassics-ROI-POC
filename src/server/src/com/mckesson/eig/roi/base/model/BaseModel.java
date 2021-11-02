@@ -3,13 +3,28 @@ package com.mckesson.eig.roi.base.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlTransient
 public abstract class BaseModel implements Serializable {
+    
+    @XmlTransient
     private long _id;
+    @XmlTransient
     private long _createdBy;
+    @XmlTransient
     private long _modifiedBy;
+    @XmlTransient
     private Date _createdDt;
+    @XmlTransient
     private Date _modifiedDt;
+    @XmlTransient
     private int _recordVersion; 
+
 
     public long getId() {
         return _id;

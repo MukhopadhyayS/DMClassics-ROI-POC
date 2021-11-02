@@ -16,21 +16,74 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.billing.model;
 
 import java.util.Arrays;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author karthike
- * @date   Sep 22, 2011
- * @since  Sep 22, 2011
+ * <p>Java class for SearchPastDueInvoiceCriteria complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="SearchPastDueInvoiceCriteria">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="billingLocations" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+ *         &lt;element name="requestorTypes" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="requestorTypeNames" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+ *         &lt;element name="requestorName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="overDueFrom" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="overDueTo" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *         &lt;element name="overDueRestriction" type="{urn:eig.mckesson.com}OverDueRestriction"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SearchPastDueInvoiceCriteria", propOrder = {
+    "_billingLocations",
+    "_requestorTypes",
+    "_requestorTypeNames",
+    "_requestorName",
+    "_overDueFrom",
+    "_overDueTo",
+    "_overdueRestriction"
+})
 public class SearchPastDueInvoiceCriteria {
     
+    @XmlElement(name="billingLocations", required = true)
     private String[] _billingLocations;
+    
+    @XmlElement(name="requestorTypes")
     private Long[] _requestorTypes;
+    
+    @XmlElement(name="requestorTypeNames", required = true)
     private String[] _requestorTypeNames;
+    
+    @XmlElement(name="requestorName")
     private String _requestorName;
+    
+    @XmlElement(name="overDueFrom")
     private long _overDueFrom;
+    
+    @XmlElement(name="overDueTo")
     private long _overDueTo;
+    
+    @XmlElement(name="overDueRestriction", required = true)
+    @XmlSchemaType(name = "string")
     private OverDueRestriction _overdueRestriction;
+    
+    
+    
     
     public String[] getRequestorTypeNames() {
         return _requestorTypeNames;

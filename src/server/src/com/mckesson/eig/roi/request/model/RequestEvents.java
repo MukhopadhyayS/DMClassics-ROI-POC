@@ -17,18 +17,46 @@ package com.mckesson.eig.roi.request.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   Aug 7, 2008
- * @since  HPF 13.1 [ROI]; Aug 7, 2008
+ * <p>Java class for RequestEvents complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestEvents">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="events" type="{urn:eig.mckesson.com}RequestEvent" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="eventsCount" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestEvents", propOrder = {
+    "_events",
+    "_count"
+})
 public class RequestEvents
 implements Serializable {
 
-    private int _count;
+    @XmlElement(name="events")
     private List<RequestEvent> _events;
+    
+    @XmlElement(name="eventsCount")
+    private int _count;
+    
 
     public RequestEvents() { }
     public RequestEvents(List<RequestEvent> events) {

@@ -19,6 +19,8 @@ package com.mckesson.eig.roi.admin.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.admin.model.MediaType;
 import com.mckesson.eig.roi.admin.model.MediaTypesList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -30,6 +32,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Sep 15, 2008
  * @since  HPF 13.1 [ROI]; Mar 26, 2008
  */
+@Transactional
 public class MediaTypeDAOImpl
 extends ROIDAOImpl
 implements MediaTypeDAO {

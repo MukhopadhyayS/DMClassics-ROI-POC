@@ -264,8 +264,8 @@ namespace McK.EIG.ROI.Client.Base.View
                 {
                     System.Net.ServicePointManager.CertificatePolicy = new ROICertificatePolicy();
                     //To Checks the ROI server is alive or not
-                    Url = global::McK.EIG.ROI.Client.Properties.Settings.Default.McK_EIG_ROI_Client_Web_References_ROIAdminWS_ROIAdminService;
-                    HttpTimerRetriever.GetGmtString(new Uri(Url));
+                    //Url = global::McK.EIG.ROI.Client.Properties.Settings.Default.McK_EIG_ROI_Client_Web_References_ROIAdminWS_ROIAdminService;
+                    //HttpTimerRetriever.GetGmtString(new Uri(Url));
 
                     if ((userData.IsLdapEnabled) && (userData.UserId != ROIConstants.UserMappingRequired))
                     {

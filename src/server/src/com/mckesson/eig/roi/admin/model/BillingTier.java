@@ -21,6 +21,12 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
@@ -31,26 +37,75 @@ import com.mckesson.eig.roi.base.api.ValidationParams;
  * @date   Mar 16, 2009
  * @since  HPF 13.1 [ROI]; Apr 15, 2008
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "BillingTier", propOrder = {
+    "_id",
+    "_name",
+    "_description",
+    "_salesTax",
+    "_associated",
+    "_baseCharge",
+    "_defaultPageCharge",
+    "_recordVersion",
+    "_mediaType",
+    "_mediaTypeId",
+    "_mediaTypeName",
+    "_pageLevelTier"
+})
 public class BillingTier
 implements Serializable {
 
+    @XmlElement(name="billingTierId")
     private long       _id;
+    
+    @XmlElement(name="name", required = true)
     private String     _name;
+    
+    @XmlElement(name="description")
     private String     _description;
+    
+    @XmlTransient
     private long       _createdBy;
+    
+    @XmlTransient
     private long       _modifiedBy;
+    
+    @XmlTransient
     private Date       _modifiedDate;
+    
+    @XmlElement(name="associated")
     private boolean    _associated;
+    
+    @XmlElement(name="baseCharge")
     private float      _baseCharge;
+    
+    @XmlElement(name="defaultPageCharge")
     private float      _defaultPageCharge;
+    
+    @XmlTransient
     private boolean    _active;
+    
+    @XmlElement(name="recordVersion")
     private int        _recordVersion;
+    
+    @XmlTransient
     private long       _orgId;
+    
+    @XmlElement(name="pageLevelTier")
     private Set<PageLevelTier> _pageLevelTier;
+    
+    @XmlElement(name="mediaType")
     private MediaType _mediaType;
+    
+    @XmlElement(name="mediaTypeName")
     private String _mediaTypeName;
+    
+    @XmlElement(name="mediaTypeId")
     private long _mediaTypeId;
-    private char _salesTax = 'N';
+    
+    @XmlElement(name="salesTax")
+    private String _salesTax = "N";
 
     public long getId() { return _id; }
     public void setId(long id) { _id = id; }
@@ -116,11 +171,15 @@ implements Serializable {
     public MediaType getMediaType() { return _mediaType; }
     public void setMediaType(MediaType type) { _mediaType = type; }
 
-    public char getSalesTax() { return _salesTax; }
+    public char getSalesTax() { 
+        if(_salesTax!="" && _salesTax!=null) {
+            return _salesTax.charAt(0); 
+           } else return 'N';
+        }
     public void setSalesTax(char salesTax) {
 
-        _salesTax = (ROIConstants.Y == salesTax || ROIConstants.LY == salesTax)
-                        ? ROIConstants.Y : ROIConstants.N;
+        _salesTax = Character.toString((ROIConstants.Y == getSalesTax() || ROIConstants.LY == getSalesTax())
+                ? ROIConstants.Y : ROIConstants.N) ;
     }
 
     /**

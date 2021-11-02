@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.dao.BaseLetterDataRetriever;
 import com.mckesson.eig.roi.billing.letter.model.BillingInfo;
@@ -49,6 +51,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * @date   Mar 30, 2009
  * @since  HPF 13.1 [ROI]; Mar 30, 2009
  */
+@Transactional
 public class ROILetterDataRetriever
 extends BaseLetterDataRetriever {
     protected static final String BILL_DATE_FORMAT = "MM/dd/yyyy";

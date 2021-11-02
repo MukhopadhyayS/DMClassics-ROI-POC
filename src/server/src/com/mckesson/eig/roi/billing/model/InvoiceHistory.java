@@ -16,19 +16,45 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.billing.model;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   Nov 17, 2008
- * @since  HPF 13.1 [ROI]; Nov 11, 2008
+ * <p>Java class for InvoiceHistory complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="InvoiceHistory">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="invoice" type="{urn:eig.mckesson.com}Invoice" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "InvoiceHistory", propOrder = {
+    "_invoices"
+})
 public class InvoiceHistory {
+    
+    @XmlElement(name="invoice")
+    private List<Invoice> _invoices;
+    
 
     public InvoiceHistory() { };
     public InvoiceHistory(List<Invoice> list) { setInvoices(list); };
 
-    private List<Invoice> _invoices;
+    
 
     public List<Invoice> getInvoices() { return _invoices; }
     public void setInvoices(List<Invoice> invoices) { _invoices = invoices; }

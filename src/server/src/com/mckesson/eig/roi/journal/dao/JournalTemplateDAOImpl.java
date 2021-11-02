@@ -25,6 +25,7 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.type.BooleanType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -33,6 +34,7 @@ import com.mckesson.eig.roi.journal.model.FinancialLineItemType;
 import com.mckesson.eig.roi.journal.model.JournalTemplate;
 import com.mckesson.dm.core.common.logging.OCLogger;
 
+@Transactional
 public class JournalTemplateDAOImpl extends ROIDAOImpl implements JournalTemplateDAO {
     
     private static final OCLogger LOG = new OCLogger(JournalTemplateDAOImpl.class);

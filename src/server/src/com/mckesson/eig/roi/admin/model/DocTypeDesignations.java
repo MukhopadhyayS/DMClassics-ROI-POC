@@ -16,26 +16,53 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
-import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   Sep 10, 2008
- * @since  HPF 13.1 [ROI]; Sep 10, 2008
+ * <p>Java class for DocTypeDesignations complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="DocTypeDesignations">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="designation" type="{urn:eig.mckesson.com}Designation" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DocTypeDesignations", propOrder = {
+    "designation"
+})
 public class DocTypeDesignations
 implements Serializable {
 
-    private List<Designation> _designation;
+    private List<Designation> designation;
 
-    public List<Designation> getDesignation() { return _designation; }
-    public void setDesignation(List<Designation> designation) { _designation = designation; }
+    public List<Designation> getDesignation() {
+        if (designation == null) {
+            designation = new ArrayList<Designation>();
+        }
+        return this.designation;
+    }
+    public void setDesignation(List<Designation> designation) { this.designation = designation; }
 
     public Designation getDesignation(String type) {
 
-        for (Designation desig : _designation) {
+        for (Designation desig : designation) {
 
             if (type.equals(desig.getType())) {
                 return desig;

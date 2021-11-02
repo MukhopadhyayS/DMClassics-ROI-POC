@@ -1,7 +1,7 @@
 /* 
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -18,13 +18,13 @@ package com.mckesson.eig.roi.hpf.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 import org.springframework.beans.factory.BeanFactory;
 
 import com.mckesson.eig.roi.hpf.model.UserSecurity;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
-import com.mckesson.eig.wsfw.session.WsSession;
 
 /**
  * @author OFS
@@ -73,7 +73,7 @@ public class WebServiceSecurityManager {
     private boolean validateSecurity(List<Integer> requiredRights) {
 
         @SuppressWarnings("unchecked") // generics not supported by API
-        HashMap<String, HashMap<Integer, Boolean>> userRights = WsSession.getUserSecurityRights();
+        HashMap<String, HashMap<Integer, Boolean>> userRights = CxfWsSession.getUserSecurityRights();
 
         if (userRights == null) {
             throw new SecurityException("User security right not found.");

@@ -69,6 +69,12 @@ public final class SecureStringAccessor {
         // Lets go ahead and do that for them
         Arrays.fill(clearChars, '0');
     }
+    
+    public SecureStringAccessor() {
+        this.secretText=new GuardedString();
+    }
+
+
 
     /**
      * My (Dan) "wrapper" accessor, as you can see it just wraps the GuardedString accessor and provides a throwaway string that 

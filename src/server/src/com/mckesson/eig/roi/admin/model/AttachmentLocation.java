@@ -16,36 +16,63 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author Pranav Amarasekaran
- * @date   Dec 16, 2010
- * @since  HPF 15.1 [ROI]; Dec 16, 2010
+ * <p>Java class for attLocation complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="attLocation">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="attachmentID" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="attachmentLocation" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "attLocation", propOrder = {
+    "attachmentID",
+    "attachmentLocation"
+})
 public class AttachmentLocation implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    private long attachmentID;
+    @XmlElement(required = true)
+    private String attachmentLocation;
 
     public AttachmentLocation() {
         super();
     }
     
     public AttachmentLocation(long attachmentID, String attachmentLoc) {
-        _attachmentID = attachmentID;
-        _attachmentLocation = attachmentLoc;
+        this.attachmentID = attachmentID;
+        this.attachmentLocation = attachmentLoc;
     }
     
     public AttachmentLocation(String attachmentLoc) {
-          _attachmentLocation = attachmentLoc;
+          this.attachmentLocation = attachmentLoc;
     }
 
-    private long _attachmentID;
-    private String _attachmentLocation;
+   
     
-    public long getAttachmentID() { return _attachmentID; }
-    public void setAttachmentID(long attachmentID) { _attachmentID = attachmentID; }
+    public long getAttachmentID() { return attachmentID; }
+    public void setAttachmentID(long attachmentID) { this.attachmentID = attachmentID; }
     
-    public String getAttachmentLocation() { return _attachmentLocation; }
-    public void setAttachmentLocation(String location) { _attachmentLocation = location; }    
+    public String getAttachmentLocation() { return attachmentLocation; }
+    public void setAttachmentLocation(String location) { this.attachmentLocation = location; }    
 }

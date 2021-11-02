@@ -25,7 +25,7 @@ import com.mckesson.eig.roi.webservice.util.rest.RestWebClientPool;
 import com.mckesson.eig.roi.webservice.util.rest.security.SecurityConstants;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
 import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 
 /**
  * Authentication strategy used to authenticate the ROI with the OneContent
@@ -57,13 +57,13 @@ implements AuthenticationStrategy {
         
             // to retain user information from during business service calls
             MPFUserSession sessionData = 
-                    (MPFUserSession) WsSession.getSessionData(OneContentAuthenticationStrategy.AUTHENTICATED_MPF_USER_SESSION);
+                    (MPFUserSession) CxfWsSession.getSessionData(OneContentAuthenticationStrategy.AUTHENTICATED_MPF_USER_SESSION);
             
             if (sessionData == null) {
                 
                 SecurityWebserviceInterface serviceProxy = getSecurityServiceProxy(user, password);
                 MPFUserSession mpfUserSession = serviceProxy.login();
-                WsSession.setSessionData(OneContentAuthenticationStrategy.AUTHENTICATED_MPF_USER_SESSION, mpfUserSession);
+                CxfWsSession.setSessionData(OneContentAuthenticationStrategy.AUTHENTICATED_MPF_USER_SESSION, mpfUserSession);
                 
                 result.setState(AuthenticatedResult.AUTHENTICATED);
             }
@@ -96,8 +96,8 @@ implements AuthenticationStrategy {
         String authorization = HeaderUtils.getAuthorizationString(user, password);
         HeaderUtils.setClientHeaders(serviceProxy);
         
-        String mpfToken = (String) WsSession.getSessionData(WsSession.TICKET);
-        WebClient.client(serviceProxy).header("Cookie", "JSESSIONID=" + WsSession.getSessionId() + "; MPFTOKEN=" + mpfToken);
+        String mpfToken = (String) CxfWsSession.getSessionData(CxfWsSession.TICKET);
+        WebClient.client(serviceProxy).header("Cookie", "JSESSIONID=" + CxfWsSession.getSessionId() + "; MPFTOKEN=" + mpfToken);
         WebClient.client(serviceProxy).header(SecurityConstants.AUTHORIZATION, authorization);
         return serviceProxy;
     }

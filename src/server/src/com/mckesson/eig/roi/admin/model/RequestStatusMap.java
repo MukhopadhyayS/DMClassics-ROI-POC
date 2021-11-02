@@ -17,25 +17,50 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   May 29, 2008
- * @since  HPF 13.1 [ROI]
+ * <p>Java class for RequestStatusMap complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestStatusMap">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="statusMap" type="{urn:eig.mckesson.com}StatusMap" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="loggedStatus" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestStatusMap", propOrder = {
+    "statusMap",
+    "loggedStatus"
+})
 public class RequestStatusMap
 implements Serializable {
 
-    private Map<Integer, String>    _statusMap;
-    private int                     _loggedStatus;
+    private Map<Integer, String>    statusMap;
+    private int                     loggedStatus;
 
     public RequestStatusMap() { }
 
-    public Map<Integer, String> getStatusMap() { return _statusMap; }
-    public void setStatusMap(Map<Integer, String> name) { _statusMap = name; }
+    public Map<Integer, String> getStatusMap() { return statusMap; }
+    public void setStatusMap(Map<Integer, String> name) { this.statusMap = name; }
 
-    public int getLoggedStatus() { return _loggedStatus; }
-    public void setLoggedStatus(int status) { _loggedStatus = status; }
+    public int getLoggedStatus() { return loggedStatus; }
+    public void setLoggedStatus(int status) { this.loggedStatus = status; }
 
 }

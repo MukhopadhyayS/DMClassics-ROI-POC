@@ -47,6 +47,7 @@ import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.dao.RequestorTypeDAO;
 import com.mckesson.eig.roi.admin.model.RequestorType;
@@ -88,7 +89,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * @date   Jun 01, 2009
  * @since  HPF 13.1 [ROI]; Jun 17, 2008
  */
-
+@Transactional
 public class RequestorDAOImpl
 extends ROIDAOImpl
 implements RequestorDAO {

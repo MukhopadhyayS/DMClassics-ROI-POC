@@ -20,35 +20,111 @@ import java.util.Date;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 
 /**
- * @author OFS
- * @date   JUL 03, 2012
+ * <p>Java class for RequestEncounter complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestEncounter">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="encounterSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="patientSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="roiDocuments" type="{urn:eig.mckesson.com}RequestDocument" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="mrn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientService" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="isVip" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="isLocked" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="hasDeficiency" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="admitdate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="dischargeDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-public class RequestEncounter extends BaseModel
-implements Serializable {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestEncounter", propOrder = {
+    "_encounterSeq",
+    "_patientSeq",
+    "_roiDocuments",
+    "_name",
+    "_mrn",
+    "_facility",
+    "_patientType",
+    "_patientService",
+    "_isVip",
+    "_isLocked",
+    "_hasDeficiency",
+    "_admitdate",
+    "_dischargeDate"
+})
+public class RequestEncounter extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     //Encounter Details
+    
+    @XmlElement(name="encounterSeq")
     private long _encounterSeq;
+    
+    @XmlElement(name="patientSeq")
     private long _patientSeq;
+    
+    @XmlElement(name="roiDocuments")
     private List<RequestDocument> _roiDocuments;
     
+    @XmlElement(name="name", required = true)
     private String  _name;
+    
+    @XmlElement(name="facility", required = true)
     private String  _facility;
+    
+    @XmlElement(name="patientType", required = true)
     private String  _patientType;
+    
+    @XmlElement(name="patientService", required = true)
     private String  _patientService;
+    
+    @XmlElement(name="isVip")
     private boolean  _isVip;
     
+    @XmlElement(name="isLocked")
     private boolean  _isLocked;
+    
+    @XmlElement(name="hasDeficiency")
     private boolean  _hasDeficiency;
+    
+    @XmlElement(name="admitdate", required = true, nillable = true)
     private Date  _admitdate;
+    
+    @XmlElement(name="dischargeDate", required = true, nillable = true)
     private Date  _dischargeDate;
     
     // for patient insertion
+    @XmlElement(name="mrn", required = true)
     private String _mrn;
+    
+    @XmlTransient
     private String _patientFacility;
+    
     
     public long getEncounterSeq() { return _encounterSeq; }
     public void setEncounterSeq(long encounterSeq) { _encounterSeq = encounterSeq; }

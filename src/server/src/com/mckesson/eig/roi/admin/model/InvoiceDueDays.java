@@ -22,35 +22,70 @@ import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+
 /**
- * @author OFS
- * @date   Jul 5, 2011
- * @since  HPF 15.2 [ROI] Jul 5, 2011
+ * <p>Java class for InvoiceDue complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="InvoiceDue">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="invoiceDueDays" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="customDate" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "InvoiceDue", propOrder = {
+    "id",
+    "recordVersion",
+    "invoiceDueDays",
+    "isCustomDate"
+})
 public class InvoiceDueDays
 implements Serializable {
 
-    private long _id;
-    private Date _modifiedDate;
-    private int _modifiedBy;
-    private int _recordVersion;
-    private int _invoiceDueDays;
-    private String _description;
-    private boolean _isCustomDate;
+    private long id;
+    private int recordVersion;
+    private int invoiceDueDays;
+    @XmlElement(name="customDate")
+    private boolean isCustomDate;
+    @XmlTransient
+    private String description;
+    @XmlTransient
+    private Date modifiedDate;
+    @XmlTransient
+    private int modifiedBy;
 
-    public long getId() { return _id; }
-    public void setId(long id) { _id = id; }
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
-    public Date getModifiedDate() { return _modifiedDate; }
-    public void setModifiedDate(Date modifiedDate) { _modifiedDate = modifiedDate; }
+    public Date getModifiedDate() { return modifiedDate; }
+    public void setModifiedDate(Date modifiedDate) { this.modifiedDate = modifiedDate; }
 
-    public int getModifiedBy() { return _modifiedBy; }
-    public void setModifiedBy(int modifiedBy) { _modifiedBy = modifiedBy;  }
+    public int getModifiedBy() { return modifiedBy; }
+    public void setModifiedBy(int modifiedBy) { this.modifiedBy = modifiedBy;  }
 
-    public int getRecordVersion() { return _recordVersion; }
-    public void setRecordVersion(int recordVersion) { _recordVersion = recordVersion; }
+    public int getRecordVersion() { return recordVersion; }
+    public void setRecordVersion(int recordVersion) { this.recordVersion = recordVersion; }
 
-    public int getInvoiceDueDays() { return _invoiceDueDays; }
+    public int getInvoiceDueDays() { return invoiceDueDays; }
 
     @ValidationParams (isMandatory = true,
             isMandatoryErrCode = ROIClientErrorCodes.INVOICE_INVALID_DUE_DAYS_VALUE,
@@ -59,26 +94,26 @@ implements Serializable {
             maxLength = ROIConstants.INVOICE_DUE_MAX_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.INVOICE_INVALID_DUE_DAYS_VALUE)
     public void setInvoiceDueDays(int invoiceDue) {
-        this._invoiceDueDays = invoiceDue;
+        this.invoiceDueDays = invoiceDue;
     }
 
-    public String getDescription() { return _description; }
-    public void setDescription(String description) { _description = description; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     @Override
     public String toString() {
-        return "ID " + _id 
-               + "Invoice Due " + _invoiceDueDays;
+        return "ID " + id 
+               + "Invoice Due " + invoiceDueDays;
     }
 
     public String toUpdateAudit(InvoiceDueDays originalInvoiceDue) {
         return new StringBuffer().append("ROI Invoice Due Days Modified : Old Due Days ")
                                 .append(originalInvoiceDue.getInvoiceDueDays())
                                 .append(" to New Due Days ")
-                                .append(_invoiceDueDays)
+                                .append(invoiceDueDays)
                                 .append(".").toString();
     }
 
-    public void setCustomDate(boolean customDate) { _isCustomDate = customDate; }
-    public boolean isCustomDate() { return _isCustomDate; }
+    public void setCustomDate(boolean customDate) { this.isCustomDate = customDate; }
+    public boolean isCustomDate() { return isCustomDate; }
 }

@@ -18,14 +18,24 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
  * @author manikandans
  * @date   Apr 20, 2008
  * @since  HPF 13.1 [ROI]; Apr 16, 2008
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PaymentMethodList", propOrder = {
+    "_paymentMethods"
+})
 public class PaymentMethodList {
-
+    
+    @XmlElement(name="paymentMethods" )
     private List<PaymentMethod> _paymentMethods;
     public PaymentMethodList() { };
 

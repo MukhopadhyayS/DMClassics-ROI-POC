@@ -14,24 +14,58 @@
 package com.mckesson.eig.roi.output.model;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * This class contains the Request Part
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for RequestPart complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestPart">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="contentId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="contentSourceName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="contentSourceType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="properties" type="{urn:eig.mckesson.com}MapModel" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="outputTransforms" type="{urn:eig.mckesson.com}OutputTransform" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestPart", propOrder = {
+    "_contentId",
+    "_contentSourceName",
+    "_contentSourceType",
+    "_properties",
+    "_outputTransforms"
+})
 public class RequestPart {
 
-    /** This holds the contentId*/
+    @XmlElement(name="contentId", required = true)
     private String _contentId;
-    /** This holds the contentSourceName*/
+    
+    @XmlElement(name="contentSourceName", required = true)
     private String _contentSourceName;
-    /** This holds the contentSoureType*/
+    
+    @XmlElement(name="contentSourceType", required = true)
     private String _contentSourceType;
-    /** This holds the list of map models*/
+    
+    @XmlElement(name="properties")
     private List<MapModel> _properties;
-    /** This holds the list of output transforms*/
+    
+    @XmlElement(name="outputTransforms")
     private List<OutputTransform> _outputTransforms;
 
     public String getContentId() {

@@ -3,6 +3,8 @@ package com.mckesson.eig.roi.configuredays.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebService;
+
 import com.mckesson.eig.roi.admin.dao.SysParamDAO;
 import com.mckesson.eig.roi.admin.model.SysParam;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -14,13 +16,15 @@ import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
+@WebService(serviceName="ConfigureDaysService", endpointInterface="com.mckesson.eig.roi.configuredays.service.ConfigureDaysService",
+targetNamespace="urn:eig.mckesson.com", portName="configureDaysService", name="ConfigureDaysServiceImpl")
 public class ConfigureDaysServiceImpl extends BaseROIService
         implements
             ConfigureDaysService {
 
     private static final OCLogger LOG = new OCLogger(ConfigureDaysServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
-    SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
+    //SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
 
     /**
      * Method to Retrive Number of Week End Days
@@ -29,6 +33,7 @@ public class ConfigureDaysServiceImpl extends BaseROIService
      * @return int(Number of Weekend days)
      */
     public int retrieveWeekendDays() {
+        SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
         final String logSM = "retrieveWeekendDays()";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
@@ -53,6 +58,7 @@ public class ConfigureDaysServiceImpl extends BaseROIService
      * @return boolean
      */
     public boolean updateDaysStatus(ConfigureDaysDtoList configureDaysDtoList) {
+        SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
         final String logSM = "updateDayStatus(configureDaysDtoList)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
@@ -106,6 +112,7 @@ public class ConfigureDaysServiceImpl extends BaseROIService
         }
 
         try {
+            SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
             ConfigureDaysDtoList configureDaysDtoList = new ConfigureDaysDtoList();
             List<ConfigureDaysDto> configureDaysList = new ArrayList<ConfigureDaysDto>();
 

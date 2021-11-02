@@ -13,44 +13,66 @@
 
     <filter-mapping>
       <filter-name>AuthenticationFilter</filter-name>
-    <servlet-name>ReportConfigurationServlet</servlet-name>
+      <servlet-name>ReportConfigurationServlet</servlet-name>
     </filter-mapping>
 
     <filter-mapping>
       <filter-name>AuthenticationFilter</filter-name>
-    <servlet-name>ROIFileUploadServlet</servlet-name>
+      <servlet-name>ROIFileUploadServlet</servlet-name>
     </filter-mapping>
 	
     <filter-mapping>
       <filter-name>AuthenticationFilter</filter-name>
-    <servlet-name>FileUploadServlet</servlet-name>
+      <servlet-name>FileUploadServlet</servlet-name>
     </filter-mapping>
 
 	<listener>
         <listener-class>
-            org.apache.axis.transport.http.AxisHTTPSessionListener
+            com.mckesson.eig.wsfw.ConfigurationLoaderListener
+        </listener-class>
+        
+        <listener-class>
+        	org.springframework.web.context.ContextLoaderListener
         </listener-class>
         
          <listener-class>
 	   		ch.qos.logback.classic.selector.servlet.ContextDetachingSCL
 	   	</listener-class>
      </listener> 
+	 
+	  <!-- web context param -->
+     <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>WEB-INF/roi-services.xml</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>eig.SpringConfigFile</param-name>
+		<param-value>com/mckesson/eig/roi/spring.xml</param-value>
+	</context-param>
+
 	
     <!-- Servlets -->
+    <!-- <servlet> -->
+        <!-- <servlet-name>EIGConfigServlet</servlet-name> -->
+        <!-- <display-name>EIG Config Servlet</display-name> -->
+        <!-- <servlet-class> -->
+            <!-- com.mckesson.eig.wsfw.ConfigurationServlet -->
+        <!-- </servlet-class> -->
+        <!-- <init-param> -->
+            <!-- <param-name>eig.SpringConfigFile</param-name> -->
+            <!-- <param-value>com/mckesson/eig/roi/spring.xml</param-value> -->
+        <!-- </init-param> -->
+    <!-- </servlet> -->
+    
+    <!-- cxf servlet -->
     <servlet>
-        <servlet-name>EIGConfigServlet</servlet-name>
-        <display-name>EIG Config Servlet</display-name>
-        <servlet-class>
-            com.mckesson.eig.wsfw.ConfigurationServlet
-        </servlet-class>
-        <init-param>
-            <param-name>eig.SpringConfigFile</param-name>
-            <param-value>com/mckesson/eig/roi/spring.xml</param-value>
-        </init-param>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-    <servlet>
+   <!--  <servlet>
         <servlet-name>EIGAxisServlet</servlet-name>
         <display-name>EIG Axis Servlet</display-name>
         <servlet-class>
@@ -61,7 +83,7 @@
             <param-value>eig/roi/axis.wsdd</param-value>
         </init-param>
         <load-on-startup>4</load-on-startup>
-    </servlet>
+    </servlet> -->
 
         <!-- Reports Servlet -->
      <servlet>
@@ -73,11 +95,11 @@
         <servlet-class>
             com.mckesson.eig.roi.reports.servlet.ROIReportServlet
         </servlet-class>
-        <init-param>
-            <param-name>eig.Reports.SpringConfigFile</param-name>
-            <param-value>com/mckesson/eig/roi/spring.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
+        <!-- <init-param> -->
+            <!-- <param-name>eig.Reports.SpringConfigFile</param-name> -->
+            <!-- <param-value>com/mckesson/eig/roi/spring.xml</param-value> -->
+        <!-- </init-param> -->
+        <!-- <load-on-startup>1</load-on-startup> -->
      </servlet>
 
 
@@ -106,15 +128,22 @@
     </servlet>
 
     <!-- servlet mappings -->
-    <servlet-mapping>
-        <servlet-name>EIGConfigServlet</servlet-name>
-        <url-pattern>/config/*</url-pattern>
-    </servlet-mapping>
+    <!-- <servlet-mapping> -->
+        <!-- <servlet-name>EIGConfigServlet</servlet-name> -->
+        <!-- <url-pattern>/config/*</url-pattern> -->
+    <!-- </servlet-mapping> -->
 
-    <servlet-mapping>
+   <!--  <servlet-mapping>
         <servlet-name>EIGAxisServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
+    </servlet-mapping> -->
+    
+    <!-- cxf services v1 -->
+     <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
+    
 
      <servlet-mapping>
         <servlet-name>ROIFileUploadServlet</servlet-name>
@@ -135,7 +164,8 @@
         <servlet-name>ReportConfigurationServlet</servlet-name>
         <url-pattern>/reports/*</url-pattern>
     </servlet-mapping>
-
+    
+   
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

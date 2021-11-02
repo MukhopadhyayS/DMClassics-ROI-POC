@@ -16,6 +16,11 @@ package com.mckesson.eig.roi.output.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * This abstract class is to define output attributes.
  * Validate methods.
@@ -24,11 +29,15 @@ import java.util.Map;
  *
  *  @since 16.2
 */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlTransient
 public abstract class AbstractOutputAttributes {
 
+    @XmlElement(name="attributes", type=HashMap.class)
 	private Map<String, String> _attributes;
 
-	public Map<String, String> getAttributes() {
+
+    public Map<String, String> getAttributes() {
 		return _attributes;
 	}
 	

@@ -16,6 +16,16 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.requestor.service;
 
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.ws.RequestWrapper;
+import javax.xml.ws.ResponseWrapper;
+
+import org.oasis_open.docs.wss._2004._01.oasis_200401_wss_wssecurity_utility_1_0.ObjectFactory;
+
 import com.mckesson.eig.roi.base.model.MatchCriteriaList;
 import com.mckesson.eig.roi.billing.model.DocInfo;
 import com.mckesson.eig.roi.billing.model.DocInfoList;
@@ -42,194 +52,246 @@ import com.mckesson.eig.roi.requestor.model.RequestorUnappliedAmountDetailsList;
  * @date   Jun 24, 2008
  * @since  HPF 13.1 [ROI]; Jun 17, 2008
  */
+
+@WebService(targetNamespace = "urn:eig.mckesson.com", name = "RequestorService")
+@XmlSeeAlso({org.oasis_open.docs.wss._2004._01.oasis_200401_wss_wssecurity_secext_1_0.ObjectFactory.class, org.w3._2000._09.xmldsig_.ObjectFactory.class, org.oasis_open.docs.wss._2004._01.oasis_200401_wss_wssecurity_utility_1_0.ObjectFactory.class, ObjectFactory.class})
 public interface RequestorService {
 
-    /**
-     * This method is to find the requestors based on the given search criteria
-     * @param searchCriteria Requestor search criteria to be validated
-     * @return RequestorSearchResult
-     */
-    RequestorSearchResult findRequestor(RequestorSearchCriteria searchCriteria);
+    @WebMethod(action = "urn:eig.mckesson.com/viewRequestorLetter")
+    @RequestWrapper(localName = "viewRequestorLetter", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.ViewRequestorLetter")
+    @ResponseWrapper(localName = "viewRequestorLetterResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.ViewRequestorLetterResponse")
+    @WebResult(name = "docInfo", targetNamespace = "urn:eig.mckesson.com")
+    public DocInfo viewRequestorLetter(
+        @WebParam(name = "requestorLetterId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorLetterId,
+        @WebParam(name = "docType", targetNamespace = "urn:eig.mckesson.com")
+        String docType
+    );
 
-    /**
-     * This method creates new requestor
-     * @param requestor Requestor to be created
-     * @return id of the created requestor
-     */
-    long createRequestor(Requestor requestor);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveRequestorPastInvoices")
+    @RequestWrapper(localName = "retrieveRequestorPastInvoices", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveRequestorPastInvoices")
+    @ResponseWrapper(localName = "retrieveRequestorPastInvoicesResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveRequestorPastInvoicesResponse")
+    @WebResult(name = "PastInvoiceList", targetNamespace = "urn:eig.mckesson.com")
+    public PastInvoiceList retrieveRequestorPastInvoices(
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId
+    );
 
-    /**
-     * This method retrieves requestor based on the requestorId
-     * @param requestorId id of the requestor to be retrieved.
-     * @param isSearchRetrieve
-     * @return Requestor details
-     */
-    Requestor retrieveRequestor(long requestorId, boolean isSearchRetrieve);
+    @WebMethod(action = "urn:eig.mckesson.com/checkDuplicateRequestorName")
+    @RequestWrapper(localName = "checkDuplicateRequestorName", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.CheckDuplicateRequestorName")
+    @ResponseWrapper(localName = "checkDuplicateRequestorNameResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.CheckDuplicateRequestorNameResponse")
+    @WebResult(name = "available", targetNamespace = "urn:eig.mckesson.com")
+    public boolean checkDuplicateRequestorName(
+        @WebParam(name = "id", targetNamespace = "urn:eig.mckesson.com")
+        long id,
+        @WebParam(name = "lastName", targetNamespace = "urn:eig.mckesson.com")
+        String lastName
+    );
 
-    /**
-     * This method updates the requestor
-     * @param requestor Requestor to be updated
-     * @return Updated requestor
-     */
+    @WebMethod(action = "urn:eig.mckesson.com/viewRequestorDetails")
+    @RequestWrapper(localName = "viewRequestorDetails", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.ViewRequestorDetails")
+    @ResponseWrapper(localName = "viewRequestorDetailsResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.ViewRequestorDetailsResponse")
+    @WebResult(name = "docInfo", targetNamespace = "urn:eig.mckesson.com")
+    public DocInfo viewRequestorDetails(
+        @WebParam(name = "invoiceId", targetNamespace = "urn:eig.mckesson.com")
+        long invoiceId,
+        @WebParam(name = "requestId", targetNamespace = "urn:eig.mckesson.com")
+        long requestId,
+        @WebParam(name = "docType", targetNamespace = "urn:eig.mckesson.com")
+        String docType,
+        @WebParam(name = "retrieverType", targetNamespace = "urn:eig.mckesson.com")
+        String retrieverType,
+        @WebParam(name = "letterType", targetNamespace = "urn:eig.mckesson.com")
+        String letterType
+    );
 
-    Requestor updateRequestor(Requestor requestor);
+    @WebMethod(action = "urn:eig.mckesson.com/deleteRequestorPayment")
+    @RequestWrapper(localName = "deleteRequestorPayment", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.DeleteRequestorPayment")
+    @ResponseWrapper(localName = "deleteRequestorPaymentResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.DeleteRequestorPaymentResponse")
+    public void deleteRequestorPayment(
+        @WebParam(name = "paymentId", targetNamespace = "urn:eig.mckesson.com")
+        long paymentId,
+        @WebParam(name = "requestorName", targetNamespace = "urn:eig.mckesson.com")
+        String requestorName
+    );
 
-    /**
-     * This method deletes the requestor based on the requestorId
-     * @param requestorId id of requestor to be deleted.
-     */
-    void deleteRequestor(long requestorId);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveUnappliedAmountDetails")
+    @RequestWrapper(localName = "retrieveUnappliedAmountDetails", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveUnappliedAmountDetails")
+    @ResponseWrapper(localName = "retrieveUnappliedAmountDetailsResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveUnappliedAmountDetailsResponse")
+    @WebResult(name = "requestorUnappliedAmountDetailsList", targetNamespace = "urn:eig.mckesson.com")
+    public RequestorUnappliedAmountDetailsList retrieveUnappliedAmountDetails(
+        @WebParam(name = "requestId", targetNamespace = "urn:eig.mckesson.com")
+        long requestId
+    );
 
-    /**
-     * This method is to check the duplicate requestor name
-     * @param id Requestor id
-     * @param name Requestor name
-     * @return true if the name is duplicate else false
-     */
-    boolean checkDuplicateRequestorName(long id, String name);
+    @WebMethod(action = "urn:eig.mckesson.com/createRequestor")
+    @RequestWrapper(localName = "createRequestor", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.CreateRequestor")
+    @ResponseWrapper(localName = "createRequestorResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.CreateRequestorResponse")
+    @WebResult(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+    public long createRequestor(
+        @WebParam(name = "requestor", targetNamespace = "urn:eig.mckesson.com")
+        Requestor requestor
+    );
 
-    /**
-     * This method retrieves the matching requestors that matches with MatchCriteria
-     * @param mcl MatchCriteria list
-     * @return RequestorSearchResult
-     */
-    RequestorSearchResult searchMatchingRequestors(MatchCriteriaList mcl);
+    @WebMethod(action = "urn:eig.mckesson.com/updateRequestor")
+    @RequestWrapper(localName = "updateRequestor", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.UpdateRequestor")
+    @ResponseWrapper(localName = "updateRequestorResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.UpdateRequestorResponse")
+    @WebResult(name = "requestor", targetNamespace = "urn:eig.mckesson.com")
+    public Requestor updateRequestor(
+        @WebParam(name = "requestor", targetNamespace = "urn:eig.mckesson.com")
+        Requestor requestor
+    );
 
-    /**
-     * This method lists the letters for a requestor.
-     * @param requestorId
-     * @return RequestorLetterHistoryList
-     */
-    RequestorLetterHistoryList retrieveRequestorLetterHistory(long requestorId);
+    @WebMethod(action = "urn:eig.mckesson.com/createRequestorPayment")
+    @RequestWrapper(localName = "createRequestorPayment", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.CreateRequestorPayment")
+    @ResponseWrapper(localName = "createRequestorPaymentResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.CreateRequestorPaymentResponse")
+    public void createRequestorPayment(
+        @WebParam(name = "requestorPaymentList", targetNamespace = "urn:eig.mckesson.com")
+        RequestorPaymentList requestorPaymentList
+    );
 
-    /**
-     * This service can be used in case of viewing Invoice Summary Letter History
-     *
-     * @param invoiceSummaryLetterId
-     *            invoice id
-     * @param docType
-     * @return DocInfo details
-     */
-    DocInfo viewRequestorLetter(long invoiceSummaryLetterId, String docType);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveAdjustmentInfo")
+    @RequestWrapper(localName = "retrieveAdjustmentInfo", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveAdjustmentInfo")
+    @ResponseWrapper(localName = "retrieveAdjustmentInfoResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveAdjustmentInfoResponse")
+    @WebResult(name = "adjustmentInfo", targetNamespace = "urn:eig.mckesson.com")
+    public AdjustmentInfo retrieveAdjustmentInfo(
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId
+    );
 
-    /**
-     * This method update the requestor letter
-     * @param regeneratedInvoiceInfo
-     * @return RequestorLetterHistory
-     */
-    RequestorLetterHistory createRequestorLetterEntry(RegeneratedInvoiceInfo regInvoiceInfo);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveRequestorLetterHistory")
+    @RequestWrapper(localName = "retrieveRequestorLetterHistory", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveRequestorLetterHistory")
+    @ResponseWrapper(localName = "retrieveRequestorLetterHistoryResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveRequestorLetterHistoryResponse")
+    @WebResult(name = "requestorLetterHistoryList", targetNamespace = "urn:eig.mckesson.com")
+    public RequestorLetterHistoryList retrieveRequestorLetterHistory(
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId
+    );
 
-    /**
-     * This method retrieve the list of invoices for a requestor
-     * @param requestorId
-     * @return RequestorInvoicesList
-     */
-    RequestorInvoicesList retrieveRequestorInvoices(long requestorId);
+    @WebMethod(action = "urn:eig.mckesson.com/saveAdjustmentInfo")
+    @RequestWrapper(localName = "saveAdjustmentInfo", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.SaveAdjustmentInfo")
+    @ResponseWrapper(localName = "saveAdjustmentInfoResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.SaveAdjustmentInfoResponse")
+    public void saveAdjustmentInfo(
+        @WebParam(name = "adjustmentInfo", targetNamespace = "urn:eig.mckesson.com")
+        AdjustmentInfo adjustmentInfo
+    );
 
-    /**
-     * This method is used to retrieve the AdjustmentInfo
-     * @param requestorId
-     * @return AdjustmentInfo
-     */
-    AdjustmentInfo retrieveAdjustmentInfo(long requestorId);
+    @WebMethod(action = "urn:eig.mckesson.com/findRequestor")
+    @RequestWrapper(localName = "findRequestor", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.FindRequestor")
+    @ResponseWrapper(localName = "findRequestorResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.FindRequestorResponse")
+    @WebResult(name = "requestorSearchResult", targetNamespace = "urn:eig.mckesson.com")
+    public RequestorSearchResult findRequestor(
+        @WebParam(name = "requestorSearchCriteria", targetNamespace = "urn:eig.mckesson.com")
+        RequestorSearchCriteria requestorSearchCriteria
+    );
 
-    /**
-     * This method is used to insert AdjustmentInfo
-     * @param adjustmentInfo
-     * @return
-     */
-    void saveAdjustmentInfo(AdjustmentInfo adjustmentInfo);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveRequestorInvoices")
+    @RequestWrapper(localName = "retrieveRequestorInvoices", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveRequestorInvoices")
+    @ResponseWrapper(localName = "retrieveRequestorInvoicesResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveRequestorInvoicesResponse")
+    @WebResult(name = "requestorInvoicesList", targetNamespace = "urn:eig.mckesson.com")
+    public RequestorInvoicesList retrieveRequestorInvoices(
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId
+    );
 
-    /**
-     * This method creates an entries into RequestorPayment Table
-     * and apply for invoice.
-     * @param RequestorPaymentList paymentInfoList
-     */
-    void createRequestorPayment(RequestorPaymentList paymentInfoList);
+    @WebMethod(action = "urn:eig.mckesson.com/searchMatchingRequestors")
+    @RequestWrapper(localName = "searchMatchingRequestors", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.SearchMatchingRequestors")
+    @ResponseWrapper(localName = "searchMatchingRequestorsResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.SearchMatchingRequestorsResponse")
+    @WebResult(name = "requestorSearchResult", targetNamespace = "urn:eig.mckesson.com")
+    public RequestorSearchResult searchMatchingRequestors(
+        @WebParam(name = "matchCriteriaList", targetNamespace = "urn:eig.mckesson.com")
+        MatchCriteriaList matchCriteriaList
+    );
 
-    /**
-     * This method updates the invoice and payment details.
-     * @param RequestorPaymentList paymentInfoList
-     */
-    void updateRequestorPayment(RequestorPaymentList paymentInfoList);
+    @WebMethod(action = "urn:eig.mckesson.com/generateRequestorStatement")
+    @RequestWrapper(localName = "generateRequestorStatement", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.GenerateRequestorStatement")
+    @ResponseWrapper(localName = "generateRequestorStatementResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.GenerateRequestorStatementResponse")
+    @WebResult(name = "docInfoList", targetNamespace = "urn:eig.mckesson.com")
+    public DocInfoList generateRequestorStatement(
+        @WebParam(name = "RequestorStatementCriteria", targetNamespace = "urn:eig.mckesson.com")
+        RequestorStatementCriteria requestorStatementCriteria
+    );
 
-    /**
-     * This method retrieves all the fee information for a specific adjustment
-     * @param adjustmentId
-     * @param requestorId
-     * @return AdjustmentInfo
-     */
-    AdjustmentInfo retrieveAdjustmentInfoByAdjustmentId(long adjustmentId, long requestorId);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveAdjustmentInfoByAdjustmentId")
+    @RequestWrapper(localName = "retrieveAdjustmentInfoByAdjustmentId", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveAdjustmentInfoByAdjustmentId")
+    @ResponseWrapper(localName = "retrieveAdjustmentInfoByAdjustmentIdResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveAdjustmentInfoByAdjustmentIdResponse")
+    @WebResult(name = "adjustmentInfo", targetNamespace = "urn:eig.mckesson.com")
+    public AdjustmentInfo retrieveAdjustmentInfoByAdjustmentId(
+        @WebParam(name = "adjustmentId", targetNamespace = "urn:eig.mckesson.com")
+        long adjustmentId,
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId
+    );
 
-    /**
-     * Retrieves the list of all past invoices for the given requestor Id
-     *
-     * @param requestorId
-     * @return list of past invoices
-     */
-    PastInvoiceList retrieveRequestorPastInvoices(long requestorId);
+    @WebMethod(action = "urn:eig.mckesson.com/createRequestorLetterEntry")
+    @RequestWrapper(localName = "createRequestorLetterEntry", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.CreateRequestorLetterEntry")
+    @ResponseWrapper(localName = "createRequestorLetterEntryResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.CreateRequestorLetterEntryResponse")
+    @WebResult(name = "requestorLetterHistory", targetNamespace = "urn:eig.mckesson.com")
+    public RequestorLetterHistory createRequestorLetterEntry(
+        @WebParam(name = "regeneratedInvoiceInfo", targetNamespace = "urn:eig.mckesson.com")
+        RegeneratedInvoiceInfo regeneratedInvoiceInfo
+    );
 
-    /**
-     * This method will load the Requestor History
-     * @param requestorId
-     * @return RequestorHistory
-     */
-    RequestorHistoryList retrieveRequestorSummaries(long requestorId);
+    @WebMethod(action = "urn:eig.mckesson.com/deleteRequestor")
+    @RequestWrapper(localName = "deleteRequestor", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.DeleteRequestor")
+    @ResponseWrapper(localName = "deleteRequestorResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.DeleteRequestorResponse")
+    public void deleteRequestor(
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId
+    );
 
-    /**
-     * Retrieves the list of all past invoices for the given requestor Id
-     *
-     * @param statementCriteria
-     * @return DocInfoList
-     */
-    DocInfoList generateRequestorStatement(RequestorStatementCriteria statementCriteria);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveRequestorSummaries")
+    @RequestWrapper(localName = "retrieveRequestorSummaries", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveRequestorSummaries")
+    @ResponseWrapper(localName = "retrieveRequestorSummariesResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveRequestorSummariesResponse")
+    @WebResult(name = "requestorHistoryList", targetNamespace = "urn:eig.mckesson.com")
+    public RequestorHistoryList retrieveRequestorSummaries(
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId
+    );
 
-    /**
-     * creates requestor statements details entry in RequestorLetterCore table.
-     * @param statementCriteria RequestorStatementCriteria object.
-     */
-    long createRequestorStatement(RequestorStatementCriteria statementCriteria);
+    @WebMethod(action = "urn:eig.mckesson.com/createRequestorStatement")
+    @RequestWrapper(localName = "createRequestorStatement", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.CreateRequestorStatement")
+    @ResponseWrapper(localName = "createRequestorStatementResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.CreateRequestorStatementResponse")
+    @WebResult(name = "requestorStatementId", targetNamespace = "urn:eig.mckesson.com")
+    public long createRequestorStatement(
+        @WebParam(name = "RequestorStatementCriteria", targetNamespace = "urn:eig.mckesson.com")
+        RequestorStatementCriteria requestorStatementCriteria
+    );
 
-    /**
-     * This method creates an Invoice/PreBill/Letters with all the details persisted earlier
-     * This service can be used in case of viewing Requestor History
-     *
-     * @param invoiceId
-     * @param requestId
-     * @param docType
-     * @param retrieverType
-     * @param letterType
-     * @return DocInfo details
-     */
-    DocInfo viewRequestorDetails(long invoiceId, long requestId,
-                                 String docType, String retrieverType,
-                                 String letterType);
+    @WebMethod(action = "urn:eig.mckesson.com/updateRequestorPayment")
+    @RequestWrapper(localName = "updateRequestorPayment", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.UpdateRequestorPayment")
+    @ResponseWrapper(localName = "updateRequestorPaymentResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.UpdateRequestorPaymentResponse")
+    public void updateRequestorPayment(
+        @WebParam(name = "requestorPaymentList", targetNamespace = "urn:eig.mckesson.com")
+        RequestorPaymentList requestorPaymentList
+    );
 
-    /**
-     * Refunds amount to the requestor
-     * @param requestorRefund
-     * @return
-     */
-    DocInfoList createRequestorRefund(RequestorRefund requestorRefund);
+    @WebMethod(action = "urn:eig.mckesson.com/createRequestorRefund")
+    @RequestWrapper(localName = "createRequestorRefund", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.CreateRequestorRefund")
+    @ResponseWrapper(localName = "createRequestorRefundResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.CreateRequestorRefundResponse")
+    @WebResult(name = "docInfoList", targetNamespace = "urn:eig.mckesson.com")
+    public DocInfoList createRequestorRefund(
+        @WebParam(name = "requestorRefund", targetNamespace = "urn:eig.mckesson.com")
+        RequestorRefund requestorRefund
+    );
 
-    /**
-     * This methos is used to retrieve the unapplied amount details for a particular requestor
-     * @param requestId
-     * @return RequestorUnappliedAmountDetailsList
-     */
-    RequestorUnappliedAmountDetailsList retrieveUnappliedAmountDetails(long requestId);
+    @WebMethod(action = "urn:eig.mckesson.com/retrieveRequestor")
+    @RequestWrapper(localName = "retrieveRequestor", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.RetrieveRequestor")
+    @ResponseWrapper(localName = "retrieveRequestorResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.RetrieveRequestorResponse")
+    @WebResult(name = "requestor", targetNamespace = "urn:eig.mckesson.com")
+    public Requestor retrieveRequestor(
+        @WebParam(name = "requestorId", targetNamespace = "urn:eig.mckesson.com")
+        long requestorId,
+        @WebParam(name = "isSearchRetrieve", targetNamespace = "urn:eig.mckesson.com")
+        boolean isSearchRetrieve
+    );
 
-    /**
-     * This method view the requestor Refund details
-     * @param requestorRefund
-     * @return DocInfoList
-     */
-    DocInfoList viewRequestorRefund(RequestorRefund requestorRefund);
-    
-    /**
-     * This method delete the RequestorPayment.
-     * @param paymentId 
-     */
-    void deleteRequestorPayment(long paymentId, String requestorName);
-    
+    @WebMethod(action = "urn:eig.mckesson.com/viewRequestorRefund")
+    @RequestWrapper(localName = "viewRequestorRefund", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsRequestWrapper.ViewRequestorRefund")
+    @ResponseWrapper(localName = "viewRequestorRefundResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.requestorService.wsResponseWrapper.ViewRequestorRefundResponse")
+    @WebResult(name = "docInfoList", targetNamespace = "urn:eig.mckesson.com")
+    public DocInfoList viewRequestorRefund(
+        @WebParam(name = "requestorRefund", targetNamespace = "urn:eig.mckesson.com")
+        RequestorRefund requestorRefund
+    );
 }

@@ -1,64 +1,90 @@
-/*
- * Copyright 2009-2010 McKesson Corporation and/or one of its subsidiaries.
- * All Rights Reserved.
- *
- * Use of this material is governed by a license agreement. This material
- * contains confidential, proprietary and trade secret information of
- * McKesson Information Solutions and is protected under United States and
- * international copyright and other intellectual property laws. Use,
- * disclosure, reproduction, modification, distribution, or storage
- * in a retrieval system in any form or by any means is prohibited without
- * the prior express written permission of McKesson Information Solutions.
- */
 
 package com.mckesson.eig.roi.output.model;
 
-import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * This class contains  the map model
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for MapModel complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="MapModel">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-public class MapModel 
-implements Serializable {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "MapModel", propOrder = {
+    "key",
+    "value"
+})
+public class MapModel {
 
-    private static final long serialVersionUID = 1L;
-    /** This holds the key*/
-    private Object _key;
-    /** This holds the value*/
-    private Object _value;
+    @XmlElement(required = true)
+    protected String key;
+    @XmlElement(required = true)
+    protected String value;
 
-    public MapModel() {
+    /**
+     * Gets the value of the key property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getKey() {
+        return key;
     }
 
-    public MapModel(Object key, Object value) {
-        this._key = key;
-        this._value = value;
+    /**
+     * Sets the value of the key property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setKey(String value) {
+        this.key = value;
     }
 
-    public Object getKey() {
-        return _key;
+    /**
+     * Gets the value of the value property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getValue() {
+        return value;
     }
 
-    public void setKey(Object key) {
-        this._key = key;
+    /**
+     * Sets the value of the value property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public Object getName() {
-        return _key;
-    }
-
-    public void setName(Object key) {
-        this._key = key;
-    }
-
-    public Object getValue() {
-        return _value;
-    }
-
-    public void setValue(Object value) {
-        this._value = value;
-    }
 }

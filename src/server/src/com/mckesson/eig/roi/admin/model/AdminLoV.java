@@ -18,6 +18,8 @@ package com.mckesson.eig.roi.admin.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
@@ -49,17 +51,18 @@ implements Serializable {
     private String  _lovType;
     private String _name;
     private String _description;
-
+    
+    @XmlTransient
     public long getId() { return _id; }
     public void setId(long id) { _id = id; }
-
+    @XmlTransient
     public String getType() { return _type; }
     public void setType(Type type) {
 
         _type = type.toString();
         _lovType = _type;
     }
-
+    @XmlTransient
     public int getStatus() {
 
         _status = 1;
@@ -67,42 +70,43 @@ implements Serializable {
     }
     public void setStatus(int status) { _status = status; }
 
+    @XmlTransient
     public long getCreatedBy() { return _createdBy; }
     public void setCreatedBy(long by) { _createdBy = by; }
-
+    @XmlTransient
     public long getModifiedBy() { return _modifiedBy; }
     public void setModifiedBy(long by) { _modifiedBy = by; }
-
+    @XmlTransient
     public Date getModifiedDt() { return _modifiedDt; }
     public void setModifiedDt(Date dt) { _modifiedDt = dt; }
-
+    @XmlTransient
     public long getOrgId() { return _orgId; }
     public void setOrgId(long id) { _orgId = id; }
-
+    @XmlTransient
     public boolean getActive() {
 
         _active = true;
         return _active;
     }
     public void setActive(boolean active) { _active = active; }
-
+    @XmlTransient
     public boolean getTpo() {
 
         _tpo = false;
         return _tpo;
     }
     public void setTpo(boolean tpo) { _tpo = tpo; }
-
+    @XmlTransient
     public boolean getNonTpo() {
 
         _nonTpo = false;
         return _nonTpo;
     }
     public void setNonTpo(boolean nontpo) { _nonTpo = nontpo; }
-
+    @XmlTransient
     public int getRecordVersion() { return _recordVersion; }
     public void setRecordVersion(int version) { _recordVersion = version; }
-
+    @XmlTransient
     public String getLovType() { return _lovType; }
     public void setLovType(String type) { _lovType = type; }
 
@@ -115,6 +119,7 @@ implements Serializable {
                                  .append(_id)
                                  .toString();
     }
+    @XmlTransient
     public String getName() { return _name;  }
 
     @ValidationParams (
@@ -125,7 +130,7 @@ implements Serializable {
             maxLength = ROIConstants.NOTE_NAME_DEFAULT_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.NOTE_NAME_LENGTH_EXCEEDS_LIMIT)
     public void setName(String name) {  _name = name; }
-
+    @XmlTransient
     public String getDescription() { return _description; }
 
     @ValidationParams (

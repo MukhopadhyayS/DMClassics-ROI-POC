@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -29,10 +29,11 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
 import javax.swing.text.StyledEditorKit;
 
-import org.apache.axis.utils.ByteArrayOutputStream;
+import java.io.ByteArrayOutputStream;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
@@ -54,6 +55,7 @@ import com.mckesson.eig.roi.utils.DirectoryUtil;
  * @date   Jul 02, 2009
  * @since  HPF 13.1 [ROI]; May 16, 2008
  */
+@Transactional
 public class LetterTemplateDAOImpl
 extends ROIDAOImpl
 implements LetterTemplateDAO, FileTransferHelper {

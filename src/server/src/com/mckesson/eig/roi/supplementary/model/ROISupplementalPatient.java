@@ -1,231 +1,714 @@
+
 package com.mckesson.eig.roi.supplementary.model;
+
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.roi.request.model.FreeFormFacility;
+import com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient;
 
-public class ROISupplementalPatient
-extends BaseModel{
 
-    private static final long serialVersionUID = 1L;
+/**
+ * <p>Java class for SupplementalPatient complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="SupplementalPatient">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="address1" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="address2" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="address3" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="dateOfBirth" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="epn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="gender" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="homephone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="mrn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ssn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="vip" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="workphone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="zip" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="countryCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="countryName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="newCountry" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="hasRequest" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="freeformFacility" type="{urn:eig.mckesson.com}FreeFormFacility"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SupplementalPatient", propOrder = {
+    "_id",
+    "address1",
+    "address2",
+    "address3",
+    "city",
+    "dateOfBirth",
+    "epn",
+    "facility",
+    "firstName",
+    "gender",
+    "homephone",
+    "lastName",
+    "mrn",
+    "ssn",
+    "state",
+    "vip",
+    "workphone",
+    "zip",
+    "countryCode",
+    "countryName",
+    "newCountry",
+    "hasRequest",
+    "freeformFacility"
+})
+public class ROISupplementalPatient extends BaseModel {
 
-    private String _mrn;
-    private String _facility;
-    private String _epn;
-    private String _lastName;
-    private String _firstName;
-    private String _gender;
-    private String _dateOfBirth;
-    private String _ssn;
-    private String _address1;
-    private String _address2;
-    private String _address3;
-    private String _city;
-    private String _state;
-    private String _zip;
-    private String _homephone;
-    private String _workphone;
-    private Boolean _vip;
-    private String _countryCode;
-    private boolean _newCountry;
-    private String _countryName;
-    private boolean _hasRequest;
-    private FreeFormFacility _freeformFacility;
+    @XmlElement(required = true)
+    protected String address1;
+    @XmlElement(required = true)
+    protected String address2;
+    @XmlElement(required = true)
+    protected String address3;
+    @XmlElement(required = true)
+    protected String city;
+    @XmlElement(required = true)
+    protected String dateOfBirth;
+    @XmlElement(required = true)
+    protected String epn;
+    @XmlElement(required = true)
+    protected String facility;
+    @XmlElement(required = true)
+    protected String firstName;
+    @XmlElement(required = true)
+    protected String gender;
+    @XmlElement(required = true)
+    protected String homephone;
+    @XmlElement(required = true)
+    protected String lastName;
+    @XmlElement(required = true)
+    protected String mrn;
+    @XmlElement(required = true)
+    protected String ssn;
+    @XmlElement(required = true)
+    protected String state;
+    protected boolean vip;
+    @XmlElement(required = true)
+    protected String workphone;
+    @XmlElement(required = true)
+    protected String zip;
+    @XmlElement(required = true)
+    protected String countryCode;
+    @XmlElement(required = true)
+    protected String countryName;
+    protected boolean newCountry;
+    protected boolean hasRequest;
+    @XmlElement(required = true)
+    protected FreeFormFacility freeformFacility;
 
-    public String getMrn() {
-        return _mrn;
-    }
-
-    public void setMrn(String mrn) {
-        _mrn = mrn;
-    }
-
-    public String getLastName() {
-        return _lastName;
-    }
-
-    public void setLastName(String lastName) {
-        _lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return _firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        _firstName = firstName;
-    }
-
-    public String getGender() {
-        return _gender;
-    }
-
-    public void setGender(String gender) {
-        _gender = gender;
-    }
-
-    public String getDateOfBirth() {
-        return _dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        _dateOfBirth = dateOfBirth;
-    }
-
-    public String getSsn() {
-        return _ssn;
-    }
-
-    public void setSsn(String ssn) {
-        _ssn = ssn;
-    }
-
-    public String getEpn() {
-        return _epn;
-    }
-
-    public void setEpn(String epn) {
-        _epn = epn;
-    }
-
-    public String getFacility() {
-        return _facility;
-    }
-
-    public void setFacility(String facility) {
-        _facility = facility;
-    }
-
-    public String getAddress1() {
-        return _address1;
-    }
-
-    public void setAddress1(String address1) {
-        _address1 = address1;
-    }
-
-    public String getAddress2() {
-        return _address2;
-    }
-
-    public void setAddress2(String address2) {
-        _address2 = address2;
-    }
-
-    public String getAddress3() {
-        return _address3;
-    }
-
-    public void setAddress3(String address3) {
-        _address3 = address3;
-    }
-
-    public String getCity() {
-        return _city;
-    }
-
-    public void setCity(String city) {
-        _city = city;
-    }
-
-    public String getState() {
-        return _state;
-    }
-
-    public void setState(String state) {
-        _state = state;
-    }
-
-    public String getZip() {
-        return _zip;
-    }
-
-    public void setZip(String zip) {
-        _zip = zip;
-    }
-
-    public String getHomephone() {
-        return _homephone;
-    }
-
-    public void setHomephone(String homephone) {
-        _homephone = homephone;
-    }
-
-    public String getWorkphone() {
-        return _workphone;
-    }
-
-    public void setWorkphone(String workphone) {
-        _workphone = workphone;
-    }
 
     
+    @XmlElement(name="id")
+    private long _id;
+    @XmlTransient
+    private long _createdBy;
+    @XmlTransient
+    private long _modifiedBy;
+    @XmlTransient
+    private Date _createdDt;
+    @XmlTransient
+    private Date _modifiedDt;
+    @XmlTransient
+    private int _recordVersion; 
 
-    public void setVip(Boolean vip) {
-        _vip = vip;
+
+    public long getId() {
+        return _id;
     }
 
+    public void setId(long id) {
+        _id = id;
+    }
+
+    public long getCreatedBy() {
+        return _createdBy;
+    }
+
+    public void setCreatedBy(long createdBy) {
+        _createdBy = createdBy;
+    }
+
+    public long getModifiedBy() {
+        return _modifiedBy;
+    }
+
+    public void setModifiedBy(long modifiedBy) {
+        _modifiedBy = modifiedBy;
+    }
+
+    public Date getCreatedDt() {
+        return _createdDt;
+    }
+
+    public void setCreatedDt(Date createdDt) {
+        _createdDt = createdDt;
+    }
+
+    public Date getModifiedDt() {
+        return _modifiedDt;
+    }
+
+    public void setModifiedDt(Date modifiedDt) {
+        _modifiedDt = modifiedDt;
+    }
+
+    public int getRecordVersion() {
+        return _recordVersion;
+    }
+
+    public void setRecordVersion(int recordVersion) {
+        _recordVersion = recordVersion;
+    }
+    /**
+     * Gets the value of the address1 property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAddress1() {
+        return address1;
+    }
+
+    /**
+     * Sets the value of the address1 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAddress1(String value) {
+        this.address1 = value;
+    }
+
+    /**
+     * Gets the value of the address2 property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAddress2() {
+        return address2;
+    }
+
+    /**
+     * Sets the value of the address2 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAddress2(String value) {
+        this.address2 = value;
+    }
+
+    /**
+     * Gets the value of the address3 property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAddress3() {
+        return address3;
+    }
+
+    /**
+     * Sets the value of the address3 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAddress3(String value) {
+        this.address3 = value;
+    }
+
+    /**
+     * Gets the value of the city property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * Sets the value of the city property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCity(String value) {
+        this.city = value;
+    }
+
+    /**
+     * Gets the value of the dateOfBirth property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    /**
+     * Sets the value of the dateOfBirth property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDateOfBirth(String value) {
+        this.dateOfBirth = value;
+    }
+
+    /**
+     * Gets the value of the epn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEpn() {
+        return epn;
+    }
+
+    /**
+     * Sets the value of the epn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEpn(String value) {
+        this.epn = value;
+    }
+
+    /**
+     * Gets the value of the facility property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFacility() {
+        return facility;
+    }
+
+    /**
+     * Sets the value of the facility property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFacility(String value) {
+        this.facility = value;
+    }
+
+    /**
+     * Gets the value of the firstName property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * Sets the value of the firstName property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFirstName(String value) {
+        this.firstName = value;
+    }
+
+    /**
+     * Gets the value of the gender property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * Sets the value of the gender property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setGender(String value) {
+        this.gender = value;
+    }
+
+    /**
+     * Gets the value of the homephone property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getHomephone() {
+        return homephone;
+    }
+
+    /**
+     * Sets the value of the homephone property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setHomephone(String value) {
+        this.homephone = value;
+    }
+
+    /**
+     * Gets the value of the lastName property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Sets the value of the lastName property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLastName(String value) {
+        this.lastName = value;
+    }
+
+    /**
+     * Gets the value of the mrn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMrn() {
+        return mrn;
+    }
+
+    /**
+     * Sets the value of the mrn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMrn(String value) {
+        this.mrn = value;
+    }
+
+    /**
+     * Gets the value of the ssn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSsn() {
+        return ssn;
+    }
+
+    /**
+     * Sets the value of the ssn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSsn(String value) {
+        this.ssn = value;
+    }
+
+    /**
+     * Gets the value of the state property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * Sets the value of the state property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setState(String value) {
+        this.state = value;
+    }
+
+    /**
+     * Gets the value of the vip property.
+     * 
+     */
     public boolean isVip() {
-        if (null == _vip) {
-            return false;
-        }
-        return _vip.booleanValue();
+        return vip;
     }
 
+    /**
+     * Sets the value of the vip property.
+     * 
+     */
+    public void setVip(boolean value) {
+        this.vip = value;
+    }
+
+    /**
+     * Gets the value of the workphone property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getWorkphone() {
+        return workphone;
+    }
+
+    /**
+     * Sets the value of the workphone property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setWorkphone(String value) {
+        this.workphone = value;
+    }
+
+    /**
+     * Gets the value of the zip property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getZip() {
+        return zip;
+    }
+
+    /**
+     * Sets the value of the zip property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setZip(String value) {
+        this.zip = value;
+    }
+
+    /**
+     * Gets the value of the countryCode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
     public String getCountryCode() {
-        return _countryCode;
+        return countryCode;
     }
 
-    public void setCountryCode(String countryCode) {
-        _countryCode = countryCode;
+    /**
+     * Sets the value of the countryCode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCountryCode(String value) {
+        this.countryCode = value;
     }
 
-    public boolean isNewCountry() {
-        return _newCountry;
-    }
-
-    public void setNewCountry(boolean newCountry) {
-        _newCountry = newCountry;
-    }
-
+    /**
+     * Gets the value of the countryName property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
     public String getCountryName() {
-        return _countryName;
+        return countryName;
     }
 
-    public void setCountryName(String countryName) {
-        _countryName = countryName;
+    /**
+     * Sets the value of the countryName property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCountryName(String value) {
+        this.countryName = value;
     }
 
+    /**
+     * Gets the value of the newCountry property.
+     * 
+     */
+    public boolean isNewCountry() {
+        return newCountry;
+    }
+
+    /**
+     * Sets the value of the newCountry property.
+     * 
+     */
+    public void setNewCountry(boolean value) {
+        this.newCountry = value;
+    }
+
+    /**
+     * Gets the value of the hasRequest property.
+     * 
+     */
     public boolean isHasRequest() {
-        return _hasRequest;
+        return hasRequest;
     }
 
-    public void setHasRequest(boolean hasRequest) {
-        _hasRequest = hasRequest;
+    /**
+     * Sets the value of the hasRequest property.
+     * 
+     */
+    public void setHasRequest(boolean value) {
+        this.hasRequest = value;
     }
 
-    public FreeFormFacility getFreeformFacility() { return _freeformFacility; }
-    public void setFreeformFacility(FreeFormFacility freeformFacility) {
-        _freeformFacility = freeformFacility;
+    /**
+     * Gets the value of the freeformFacility property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link FreeFormFacility }
+     *     
+     */
+    public FreeFormFacility getFreeformFacility() {
+        return freeformFacility;
     }
 
+    /**
+     * Sets the value of the freeformFacility property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link FreeFormFacility }
+     *     
+     */
+    public void setFreeformFacility(FreeFormFacility value) {
+        this.freeformFacility = value;
+    }
+    
     public void setFreeformFacilityCode(String facilityCode) {
 
         if  (null == facilityCode) {
             return;
         }
-        if (null == _freeformFacility) {
-            _freeformFacility = new FreeFormFacility();
+        if (null == freeformFacility) {
+            freeformFacility = new FreeFormFacility();
         }
-        _freeformFacility.setFreeFormFacilityName(facilityCode);
+        freeformFacility.setFreeFormFacilityName(facilityCode);
 
     }
     public String getFreeformFacilityCode() {
 
-        if (null == _freeformFacility) {
+        if (null == freeformFacility) {
             return null;
         }
-        return _freeformFacility.getFreeFormFacilityName();
+        return freeformFacility.getFreeFormFacilityName();
     }
 
     public void setFreeformFacilityId(long facilityId) {
@@ -234,18 +717,18 @@ extends BaseModel{
             return;
         }
 
-        if (null == _freeformFacility) {
-            _freeformFacility = new FreeFormFacility();
+        if (null == freeformFacility) {
+            freeformFacility = new FreeFormFacility();
         }
-        _freeformFacility.setId(facilityId);
+        freeformFacility.setId(facilityId);
 
     }
     public long getFreeformFacilityId() {
 
-        if (null == _freeformFacility) {
+        if (null == freeformFacility) {
             return 0;
         }
-        return _freeformFacility.getId();
+        return freeformFacility.getId();
     }
 
     public void copy(ROISupplementalPatient p) {
@@ -281,11 +764,12 @@ extends BaseModel{
 
         return new StringBuffer().append("Application : ROI. ")
                 .append("The entry with \"")
-                .append(_lastName + ", ")
-                .append(_firstName)
+                .append(lastName + ", ")
+                .append(firstName)
                 .append("\" was selected from the search results")
                 .append(".")
                 .toString();
 
     }
+
 }

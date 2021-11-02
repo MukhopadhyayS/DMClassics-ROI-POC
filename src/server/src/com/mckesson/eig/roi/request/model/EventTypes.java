@@ -17,18 +17,41 @@ package com.mckesson.eig.roi.request.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- *
- * @author OFS
- * @date   Oct 17, 2008
- * @since  HPF 13.1 [ROI]; Oct 17, 2008
+ * <p>Java class for EventTypes complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="EventTypes">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="eventType" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "EventTypes", propOrder = {
+    "_eventTypes"
+})
 public class EventTypes
 implements Serializable {
 
+    @XmlElement(name="eventType")
     private List<String> _eventTypes;
+    
 
     public EventTypes() { }
     public EventTypes(List<String> types) { setEventTypes(types); }

@@ -15,26 +15,65 @@ package com.mckesson.eig.roi.output.model;
 
 import java.util.Date;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 
 /**
- * This class contains the Status Information
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for StatusInfo complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="StatusInfo">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="statusCode" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="detail" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="statusDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="statusSource" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="statusData" type="{urn:eig.mckesson.com}MapModel" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "StatusInfo", propOrder = {
+    "_statusCode",
+    "_status",
+    "_detail",
+    "_statusDate",
+    "_statusSource",
+    "_statusData"
+})
 public class StatusInfo {
     
-    /** This holds the status code*/
+    @XmlElement(name="statusCode")
     private int _statusCode;
-    /** This holds the status*/
+    
+    @XmlElement(name="status", required = true)
     private String _status;
-    /** This holds the detail*/
+    
+    @XmlElement(name="detail", required = true)
     private String _detail;
-    /** This holds the status date*/
+    
+    @XmlElement(name="statusDate", required = true)
     private Date _statusDate;
-    /** This holds the status source*/
+    
+    @XmlElement(name="statusSource", required = true)
     private String _statusSource;
-    /** This holds the list of status data*/
+    
+    @XmlElement(name="statusData")
     private List<MapModel> _statusData;
 
     public int getStatusCode() {

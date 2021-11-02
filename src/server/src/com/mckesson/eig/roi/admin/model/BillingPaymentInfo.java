@@ -18,22 +18,47 @@ package com.mckesson.eig.roi.admin.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * @author Karthik Easwaran
  * @date   Oct 19, 2012
  * @since  Oct 19, 2012
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "BillingPaymentInfo", propOrder = {
+    "_paymentMethods",
+    "_billingTemplates",
+    "_feeTypes",
+    "_deliveryMethods",
+    "_weight",
+    "_reasons",
+    "_requestorType",
+    "_countries"
+})
 public class BillingPaymentInfo
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @XmlElement(name="countries")
     private List<Country> _countries;
+    @XmlElement(name="weight", required = true)
     private Weight _weight;
+    @XmlElement(name="billingTemplateList", required = true)
     private BillingTemplatesList _billingTemplates;
+    @XmlElement(name="feeTypeList", required = true)
     private FeeTypesList _feeTypes;
+    @XmlElement(name="deliveryMethodList", required = true)
     private DeliveryMethodList _deliveryMethods;
+    @XmlElement(name="paymentMethodList", required = true)
     private PaymentMethodList _paymentMethods;
+    @XmlElement(name="requestorType", required = true)
     private RequestorType _requestorType;
+    @XmlElement(name="reasonsList", required = true)
     private ReasonsList _reasons;
 
     public List<Country> getCountries() { return _countries; }

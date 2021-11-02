@@ -16,22 +16,51 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   Sep 12, 2008
- * @since  HPF 13.1 [ROI]; Sep 12, 2008
+ * <p>Java class for NotesList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="NotesList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="noteDetails" type="{urn:eig.mckesson.com}Note" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "NotesList", propOrder = {
+    "notesList"
+})
 public class NotesList
 implements Serializable {
 
-    private List<Note> _notesList;
+    @XmlElement(name="noteDetails")
+    private List<Note> notesList;
 
     public NotesList() { }
     public NotesList(List<Note> note) { setNotesList(note); }
 
-    public List<Note> getNotesList() { return _notesList; }
-    public void setNotesList(List<Note> list) { _notesList = list; }
+    public List<Note> getNoteDetails() {
+        if (notesList == null) {
+            notesList = new ArrayList<Note>();
+        }
+        return this.notesList;
+    }
+    public void setNotesList(List<Note> list) { this.notesList = list; }
 }

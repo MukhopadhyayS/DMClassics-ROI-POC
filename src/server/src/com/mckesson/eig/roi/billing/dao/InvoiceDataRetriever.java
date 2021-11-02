@@ -22,6 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.dao.BaseLetterDataRetriever;
 import com.mckesson.eig.roi.billing.letter.model.BillingInfo;
@@ -50,6 +52,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * @date   Aug 31, 2009
  * @since  HPF 13.1 [ROI]; Nov 19, 2008
  */
+@Transactional
 public class InvoiceDataRetriever
 extends BaseLetterDataRetriever {
 

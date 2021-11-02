@@ -41,22 +41,50 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
 import com.mckesson.eig.wsfw.EIGConstants;
 
+
+
 /**
- * @author OFS
- * @date   Feb 24, 2010
- * @since  HPF 15.1 [ROI];
+ * <p>Java class for OutputServerProperties complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="OutputServerProperties">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="enabled" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="hostName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="port" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="protocol" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "OutputServerProperties", propOrder = {
+    "enabled",
+    "hostName",
+    "port",
+    "protocol"
+})
+/*@XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlRootElement(name = "output-server")
-@XmlType(name = "OutputServerProperties", namespace = EIGConstants.TYPE_NS_V1)
+@XmlType(name = "OutputServerProperties", namespace = EIGConstants.TYPE_NS_V1)*/
 public class OutputServerProperties {
 
-    private long _port;
+    private boolean enabled;
+    @XmlElement(required = true)
+    private String hostName;
+    private long port;
+    @XmlElement(required = true)
+    private String protocol; // http or https
 
-    private String _hostName;
-    private String _protocol; // http or https
-
-    private boolean _enabled;
+   
 
     private static JAXBContext _jaxbContext;
 
@@ -71,10 +99,10 @@ public class OutputServerProperties {
     }
 
     public long getPort() {
-        return _port;
+        return port;
     }
 
-    @XmlElement(name = "port")
+    //@XmlElement(name = "port")
     @ValidationParams (
             isMandatory = true,
             isMandatoryErrCode = ROIClientErrorCodes.OUTPUT_SERVER_PORT_EMPTY,
@@ -83,14 +111,14 @@ public class OutputServerProperties {
             maxLength = ROIConstants.OUTPUT_SERVER_PORT_MAX_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.OUTPUT_SERVER_PORT_LENGTH_EXCEEDS_LIMIT)
     public void setPort(long port) {
-        _port = port;
+        this.port = port;
     }
 
     public String getHostName() {
-        return _hostName;
+        return hostName;
     }
 
-    @XmlElement(name = "hostName")
+    //@XmlElement(name = "hostName")
     @ValidationParams (
             isMandatory = true,
             isMandatoryErrCode = ROIClientErrorCodes.OUTPUT_SERVER_HOSTNAME_EMPTY,
@@ -99,14 +127,14 @@ public class OutputServerProperties {
             maxLength = ROIConstants.OUTPUT_SERVER_NAME_MAX_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.OUTPUT_SERVER_HOSTNAME_LENGTH_EXCEEDS_LIMIT)
     public void setHostName(String hostName) {
-        _hostName = hostName;
+        this.hostName = hostName;
     }
 
     public String getProtocol() {
-        return _protocol;
+        return protocol;
     }
 
-    @XmlElement(name = "protocol")
+    //@XmlElement(name = "protocol")
     @ValidationParams (
             isMandatory = true,
             isMandatoryErrCode = ROIClientErrorCodes.OUTPUT_SERVER_PROTOCOL_EMPTY,
@@ -115,16 +143,16 @@ public class OutputServerProperties {
             maxLength = ROIConstants.OUTPUT_SERVER_PROTOCOL_MAX_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.OUTPUT_SERVER_PROTOCOL_LENGTH_EXCEEDS_LIMIT)
     public void setProtocol(String protocol) {
-        _protocol = protocol;
+        this.protocol = protocol;
     }
 
     public boolean getEnabled() {
-        return _enabled;
+        return enabled;
     }
 
-    @XmlAttribute(name = "enabled")
+    //@XmlAttribute(name = "enabled")
     public void setEnabled(boolean isEnabled) {
-        _enabled = isEnabled;
+        this.enabled = isEnabled;
     }
 
     /**

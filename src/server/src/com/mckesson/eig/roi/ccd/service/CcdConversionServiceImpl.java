@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import org.springframework.beans.factory.BeanFactory;
 
 import com.itextpdf.text.pdf.PdfReader;
@@ -37,6 +40,8 @@ import com.mckesson.eig.roi.utils.DirectoryUtil;
 import com.mckesson.eig.roi.utils.SpringUtil;
 import com.mckesson.eig.utility.util.SpringUtilities;
 
+@WebService(serviceName="CcdConversionService", endpointInterface="com.mckesson.eig.roi.ccd.service.CcdConversionService",
+targetNamespace="urn:eig.mckesson.com", portName="ccdConvert", name="CcdConversionServiceImpl")
 public class CcdConversionServiceImpl extends BaseROIService
         implements
             CcdConversionService {
@@ -44,11 +49,6 @@ public class CcdConversionServiceImpl extends BaseROIService
     private static final OCLogger LOG = new OCLogger(CcdConversionServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
 
-    private static final BeanFactory BEAN_FACTORY = SpringUtilities
-            .getInstance().getBeanFactory();
-
-    private CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
-            .getBean("ccdProviderFactory");
 
     /**
      * Method to get the Dao information
@@ -59,7 +59,8 @@ public class CcdConversionServiceImpl extends BaseROIService
         return (CcdProviderDAOImpl) SpringUtil
                 .getObjectFromSpring("CcdProviderDAO");
     }
-
+    
+    @Override
     public CcdConvertValue ccdConvert(String uuid) throws Exception {
         final String logSM = "ccdConvert(uuid)";
         if (DO_DEBUG) {
@@ -82,6 +83,8 @@ public class CcdConversionServiceImpl extends BaseROIService
         return value;
     }
 
+    @Override
+    @WebMethod(exclude = true)
     public CcdConvertValue ccdConvert(String style, String uuid) throws Exception {
         final String logSM = "ccdConvert(" + style + "," + uuid + ")";
         if (DO_DEBUG) {
@@ -111,6 +114,8 @@ public class CcdConversionServiceImpl extends BaseROIService
         return _ccdccrConversion;
     }
 
+    @WebMethod(exclude = true)
+    @Override
     public File getCachFile(String uuid) {
         final String logSM = "getCachFile(uuid)";
         if (DO_DEBUG) {
@@ -130,6 +135,8 @@ public class CcdConversionServiceImpl extends BaseROIService
         return f;
     }
 
+    @WebMethod(exclude = true)
+    @Override
     public int getPageCount(File f) {
         final String logSM = "getPageCount(f)";
         if (DO_DEBUG) {
@@ -169,12 +176,18 @@ public class CcdConversionServiceImpl extends BaseROIService
      * @param
      * @return CcdProviderDtoList Object
      */
+    @Override
     public CcdSourceDtoList getAvailableProviders() {
         final String logSM = "getAvailbleProviders()";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
         }
         try {
+            final BeanFactory BEAN_FACTORY = SpringUtilities
+                    .getInstance().getBeanFactory();
+
+            CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                    .getBean("ccdProviderFactory");
             List<CcdSourceDto> externalNamesList = new ArrayList<CcdSourceDto>();
             List<CcdProvider> providers = ccdproviderFactory
                     .getAvailableProviders();
@@ -217,12 +230,17 @@ public class CcdConversionServiceImpl extends BaseROIService
      * @param
      * @return CcdProviderDtoList Object
      */
+    @Override
     public CcdSourceDtoList getExternalSources() {
         final String logSM = "getExternalSources()";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
         }
         try {
+            final BeanFactory BEAN_FACTORY = SpringUtilities
+                    .getInstance().getBeanFactory();
+            CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                    .getBean("ccdProviderFactory");
             List<CcdSourceDto> externalNamesList = new ArrayList<CcdSourceDto>();
             Set<CcdSourceModel> models = ccdproviderFactory.getSourceModels();
             for (CcdSourceModel model : models) {
@@ -269,7 +287,12 @@ public class CcdConversionServiceImpl extends BaseROIService
      *            object
      * @return boolean
      */
+    @Override
     public boolean updateSource(CcdSourceDto dto) {
+       final BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+       CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                .getBean("ccdProviderFactory");
         final String logSM = "updateProvider(ccdProviderDto)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + dto);
@@ -297,7 +320,12 @@ public class CcdConversionServiceImpl extends BaseROIService
      *            Object
      * @return boolean
      */
+    @Override
     public boolean updateSourceConfig(CcdSourceDto dto) {
+        final BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+        CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                .getBean("ccdProviderFactory");
         final String logSM = "updateProviderConfig(providerName,ccdProviderConfigDto)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + dto);
@@ -325,7 +353,12 @@ public class CcdConversionServiceImpl extends BaseROIService
      * @return CcdDocument
      */
 
+    @Override
     public CcdDocumentList retrieveCCD(RetrieveCCDDtoList retrieveCCDDtoList) {
+        final BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+        CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                .getBean("ccdProviderFactory");
         final String logSM = "retrieveCCD(retrieveCCDDtoList)";
         try {
             List<RetrieveCCDDto> retrieveCcdList = retrieveCCDDtoList
@@ -368,7 +401,12 @@ public class CcdConversionServiceImpl extends BaseROIService
      * @param CcdSourceDto
      * @return boolean
      */
+    @Override
     public boolean testConfiguration(CcdSourceDto dto) {
+        BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+        CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                .getBean("ccdProviderFactory");
         final String logSM = "testConfiguration(ccdProviderDto)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + dto);
@@ -411,6 +449,7 @@ public class CcdConversionServiceImpl extends BaseROIService
      *            facility
      * @return String externalSourceName
      */
+    @Override
     public String getExternalSourceNameForFacility(String facility) {
         final String logSM = "getExternalSourceNameForFacility(facility)";
         if (DO_DEBUG) {
@@ -441,7 +480,12 @@ public class CcdConversionServiceImpl extends BaseROIService
 
     }
 
+    @Override
     public int createSource(CcdSourceDto dto) {
+        final BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+        CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                .getBean("ccdProviderFactory");
         String provider = dto.getProviderName();
         String source = dto.getSourceName();
         String description = dto.getDescription();
@@ -463,16 +507,23 @@ public class CcdConversionServiceImpl extends BaseROIService
         return sourceId;
     }
     
+    @Override
     public boolean deleteSource(int sourceId) {
+        final BeanFactory BEAN_FACTORY = SpringUtilities
+                .getInstance().getBeanFactory();
+        CcdProviderFactory ccdproviderFactory = (CcdProviderFactory) BEAN_FACTORY
+                .getBean("ccdProviderFactory");
         return ccdproviderFactory.deleteSource(sourceId);
     }
     
     @Override
+    @WebMethod(exclude = true)
     public User getUser() {
 	return super.getUser();
     }
 
     @Override
+    @WebMethod(exclude = true)
     public void audit(AuditEvent ae) {
 	getROIAuditManager().createAuditEntry(ae);
     }

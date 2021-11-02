@@ -21,6 +21,8 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.dm.core.common.logging.OCLogger;
 
@@ -30,6 +32,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Nov 13, 2008
  * @since  HPF 13.1 [ROI]; Nov 13, 2008
  */
+@Transactional
 public class RequestOutstandingInvBalanceReportDAOImpl
 extends ROIReportDAOImpl {
 

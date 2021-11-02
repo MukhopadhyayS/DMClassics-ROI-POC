@@ -1,39 +1,212 @@
 package com.mckesson.eig.roi.requestor.model;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+
+/**
+ * <p>Java class for RequestorInvoice complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorInvoice">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="invoiceType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="charge" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="adjustmentAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="paymentAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="adjustmentPaymentTotal" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="balance" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="invoiceStatus" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="unBillableAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="paymentDescription" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="paymentMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorAdjPay" type="{urn:eig.mckesson.com}RequestorAdjustmentsPayments" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="invoiceId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="createdBy" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="modifiedBy" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="createdDt" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="modifiedDt" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorInvoice", propOrder = {
+    "_requestId",
+    "_invoiceType",
+    "_description",
+    "_charge",
+    "_adjustmentAmount",
+    "_paymentAmount",
+    "_adjustmentPaymentTotal",
+    "_balance",
+    "_invoiceStatus",
+    "_unBillableAmount",
+    "_paymentDescription",
+    "_paymentMethod",
+    "_requestorAdjPay",
+    "_id",
+    "_createdBy",
+    "_modifiedBy",
+    "_createdDt",
+    "_modifiedDt",
+    "_recordVersion"
+})
 public class RequestorInvoice
 extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(name="requestId")
     private Long _requestId;
+    
+    @XmlElement(name="invoiceType", required = true)
     private String _invoiceType;
+    
+    @XmlElement(name="description", required = true)
     private String _description;
+    
+    @XmlElement(name="charge")
     private Double _charge;
+    
+    @XmlElement(name="adjustmentAmount")
     private Double _adjustmentAmount;
+    
+    @XmlElement(name="paymentAmount")
     private Double _paymentAmount;
+    
+    @XmlElement(name="adjustmentPaymentTotal")
     private Double _adjustmentPaymentTotal;
+    
+    @XmlElement(name="balance")
     private Double _balance;
+    
+    @XmlElement(name="invoiceStatus", required = true)
     private String _invoiceStatus;
+    
+    @XmlElement(name="unBillableAmount")
     private Double _unBillableAmount;
+    
+    @XmlTransient
     private Double _appliedAmount;
+    
+    @XmlTransient
     private Double _applyAmount;
+    
+    @XmlTransient
     private Double _refundAmount;
 
+    @XmlElement(name="paymentDescription", required = true)
     private String _paymentDescription;
+    
+    @XmlElement(name="paymentMethod", required = true)
     private String _paymentMethod;
 
+    @XmlTransient
     private List<String> _facility;
+    
+    @XmlTransient
     private String _unbillable;
+    
+    @XmlTransient
     private String _billingLocation;
-
+    
+    @XmlElement(name="requestorAdjPay")
     private List<RequestorAdjustmentsPayments> _requestorAdjPay;
+    
+    
+    
+    @XmlElement(name="invoiceId")
+    private long _id;
+    
+    @XmlElement(name="createdBy")
+    private long _createdBy;
+    
+    @XmlElement(name="modifiedBy")
+    private long _modifiedBy;
+    
+    @XmlElement(name="createdDt", required = true)
+    private Date _createdDt;
+    
+    @XmlElement(name="modifiedDt", required = true)
+    private Date _modifiedDt;
+    
+    @XmlElement(name="recordVersion")
+    private int _recordVersion; 
+
+
+    public long getId() {
+        return _id;
+    }
+
+    public void setId(long id) {
+        _id = id;
+    }
+
+    public long getCreatedBy() {
+        return _createdBy;
+    }
+
+    public void setCreatedBy(long createdBy) {
+        _createdBy = createdBy;
+    }
+
+    public long getModifiedBy() {
+        return _modifiedBy;
+    }
+
+    public void setModifiedBy(long modifiedBy) {
+        _modifiedBy = modifiedBy;
+    }
+
+    public Date getCreatedDt() {
+        return _createdDt;
+    }
+
+    public void setCreatedDt(Date createdDt) {
+        _createdDt = createdDt;
+    }
+
+    public Date getModifiedDt() {
+        return _modifiedDt;
+    }
+
+    public void setModifiedDt(Date modifiedDt) {
+        _modifiedDt = modifiedDt;
+    }
+
+    public int getRecordVersion() {
+        return _recordVersion;
+    }
+
+    public void setRecordVersion(int recordVersion) {
+        _recordVersion = recordVersion;
+    }
+    
+    
 
     public String getUnbillable() {
         return _unbillable;

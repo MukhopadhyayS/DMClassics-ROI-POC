@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.dm.core.common.logging.OCLogger;
 
@@ -31,6 +33,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Nov 4, 2011
  * @since  HPF 15.1.1 [ROI]; Nov 4, 2011
  */
+@Transactional
 public class SalesTaxReportDAOImpl
 extends ROIReportDAOImpl {
 

@@ -26,6 +26,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.model.RelatedBillingTier;
 import com.mckesson.eig.roi.admin.model.RequestorType;
@@ -39,6 +40,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Mar 30, 2009
  * @since  HPF 13.1 [ROI]; Apr 22, 2008
  */
+@Transactional
 public class RequestorTypeDAOImpl
 extends ROIDAOImpl
 implements RequestorTypeDAO {

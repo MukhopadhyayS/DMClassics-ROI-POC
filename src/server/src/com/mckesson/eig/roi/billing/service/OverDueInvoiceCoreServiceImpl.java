@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import com.mckesson.eig.roi.admin.model.LetterTemplateDocument;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -51,6 +54,8 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @date   Aug 28, 2012
  * @since  Aug 28, 2012
  */
+@WebService(serviceName="OverdueInvoiceCoreService", endpointInterface="com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreService",
+targetNamespace="urn:eig.mckesson.com", portName="OverDueInvoiceCore", name="OverDueInvoiceCoreServiceImpl")
 public class OverDueInvoiceCoreServiceImpl
 extends AbstractBillingService
 implements OverDueInvoiceCoreService {
@@ -532,7 +537,10 @@ implements OverDueInvoiceCoreService {
      * @param type
      * @return
      */
+    
+    
     @Override
+    @WebMethod(exclude = true)
     public String regenerateLetter(long id, String fileType, String type) {
 
         final String logSM = "regenerateLetter(lovId, fileType, file)";

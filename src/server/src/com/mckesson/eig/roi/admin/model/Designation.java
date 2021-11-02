@@ -16,25 +16,53 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.utility.util.StringUtilities;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   Dec 19, 2008
- * @since  HPF 13.1 [ROI]; Sep 10, 2008
+ * <p>Java class for Designation complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="Designation">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="docTypeIds" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="muDocTypes" type="{urn:eig.mckesson.com}MUDocTypeDto" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Designation", propOrder = {
+    "type",
+    "docTypeIds",
+    "muDocTypes"
+})
 public class Designation
 implements Serializable {
 
-    private String _type;
-    private List<Long> _docTypeIds;
+    @XmlElement(required = true)
+    private String type;
+    @XmlElement(type = Long.class)
+    private List<Long> docTypeIds;
     //changes for mu doc type
-    private List<MUDocTypeDto> _muDocTypes;
+    private List<MUDocTypeDto> muDocTypes;
     private static final String MU = "mu";
 
     public Designation() { }
@@ -45,11 +73,11 @@ implements Serializable {
         setDocTypeIds(docIds);
     }
 
-    public String getType() { return _type; }
-    public void setType(String type) { _type = type; }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    public List<Long> getDocTypeIds() { return _docTypeIds; }
-    public void setDocTypeIds(List<Long> docTypeIds) { _docTypeIds = docTypeIds; }
+    public List<Long> getDocTypeIds() { return docTypeIds; }
+    public void setDocTypeIds(List<Long> docTypeIds) { this.docTypeIds = docTypeIds; }
 
     /**
      * This method is to obtain the names of the document types
@@ -60,11 +88,11 @@ implements Serializable {
         boolean flag = false;
         StringBuffer stbuf = new StringBuffer();
 
-        if (_docTypeIds == null) {
+        if (docTypeIds == null) {
             return "";
         } else {
 
-            for (long docTypeId : _docTypeIds) {
+            for (long docTypeId : docTypeIds) {
                 if (flag) {
                     stbuf.append(", ");
                 }
@@ -77,10 +105,10 @@ implements Serializable {
     }
 
     public List<MUDocTypeDto> getMuDocTypes() {
-        return _muDocTypes;
+        return muDocTypes;
     }
 
     public void setMuDocTypes(List<MUDocTypeDto> docTypes) {
-        _muDocTypes = docTypes;
+        this.muDocTypes = docTypes;
     }
 }

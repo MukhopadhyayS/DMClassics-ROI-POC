@@ -16,19 +16,51 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.supplementary.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author karthik easawaran
- * @date   Jul 20, 2012
- * @since  Jul 20, 2012
+ * <p>Java class for AttachmentDeleteStatus complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="AttachmentDeleteStatus">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="attachmentId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="deleteLog" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="deleted" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "AttachmentDeleteStatus", propOrder = {
+    "_attachmentId",
+    "_deleteLog",
+    "_isDeleted"
+})
 public class AttachmentDeleteStatus 
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    @XmlElement(name="attachmentId")
     private long _attachmentId;
+    
+    @XmlElement(name="deleteLog", required = true)
     private String _deleteLog;
+    
+    @XmlElement(name="deleted")
     private boolean _isDeleted;
     
     /**
