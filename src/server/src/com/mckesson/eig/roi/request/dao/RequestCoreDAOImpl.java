@@ -31,6 +31,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -38,6 +39,7 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
+import com.mckesson.eig.roi.request.model.Comment;
 import com.mckesson.eig.roi.request.model.PaginationData;
 import com.mckesson.eig.roi.request.model.ProductivityReportDetails;
 import com.mckesson.eig.roi.request.model.RequestCore;
@@ -60,6 +62,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @since Jun 29, 2012
  *
  */
+@Transactional
 public class RequestCoreDAOImpl
 extends ROIDAOImpl
 implements RequestCoreDAO {
@@ -564,6 +567,12 @@ implements RequestCoreDAO {
         }
 
         try {
+            
+            if (event.getType() == null) {
+                event.setName(TYPE.NA.toString());
+            } else {
+                event.setName(Enum.valueOf(TYPE.class, event.getType()).toString());
+            }
 
             Session session = getSession();
             
@@ -737,7 +746,8 @@ implements RequestCoreDAO {
         }
         return eves;
     }
-
+    
+  
     /**
      * @see com.mckesson.eig.roi.request.dao.RequestDAO#createAllRequestEvent(java.util.List)
      */

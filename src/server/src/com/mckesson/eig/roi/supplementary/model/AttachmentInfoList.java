@@ -16,15 +16,39 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.supplementary.model;
 
 import java.util.List;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date Jun 22, 2012
+ * <p>Java class for AttachmentInfoList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="AttachmentInfoList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="attachment" type="{urn:eig.mckesson.com}ROIAttachment" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "AttachmentInfoList", propOrder = {
+    "_attachments"
+})
 public class AttachmentInfoList {
     
+    
+    @XmlElement(name="attachment")
     private List<ROISupplementarityAttachment> _attachments;
     
     public AttachmentInfoList() { }

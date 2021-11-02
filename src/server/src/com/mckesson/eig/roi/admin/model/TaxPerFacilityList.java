@@ -17,14 +17,24 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
  * @author Rethinamt
  * @date   Jul 29, 2011
  * @since  HPF 15.2 [ROI];
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "TaxPerFacilityList", propOrder = {
+    "_salesTaxFacilities"
+})
 public class TaxPerFacilityList {
 
+    @XmlElement(name = "TaxPerFacility")
     private List<TaxPerFacility> _salesTaxFacilities;
     
     public TaxPerFacilityList() { };

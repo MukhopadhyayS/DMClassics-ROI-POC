@@ -23,17 +23,84 @@ import java.util.List;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author Karthik Easwaran
- * @date   Dec 17, 2012
- * @since  Dec 17, 2012
+ * <p>Java class for RequestorStatementCriteria complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorStatementCriteria">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestorId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="templateFileId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="templateName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="outputMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="dateRange" type="{urn:eig.mckesson.com}DateRange"/>
+ *         &lt;element name="notes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="pastInvIds" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorStatementCriteria", propOrder = {
+    "_requestorId",
+    "_templateFileId",
+    "_templateName",
+    "_outputMethod",
+    "_queuePassword",
+    "_dateRange",
+    "_notes",
+    "_pastInvIds"
+})
 public class RequestorStatementCriteria
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(name="requestorId")
+    private long _requestorId;
+    
+    @XmlElement(name="templateFileId")
+    private long _templateFileId;
+    
+    @XmlElement(name="templateName", required = true)
+    private String _templateName;
+    
+    @XmlElement(name="outputMethod", required = true)
+    private String _outputMethod;
+    
+    @XmlElement(name="queuePassword", required = true)
+    private SecureStringAccessor _queuePassword;
+    
+    @XmlElement(name="dateRange", required = true, nillable = true)
+    private DateRange _dateRange;
+    
+    @XmlElement(name="notes")
+    private List<String> _notes;
+    
+    @XmlElement(name="pastInvIds")
+    private List<Long> _pastInvIds;
+    
+    
+    
+    @XmlType(name = "DateRange")
+    @XmlEnum
     public static enum DateRange {
 
         DAYS_30(30),
@@ -62,14 +129,7 @@ implements Serializable {
 
     }
 
-    private long _requestorId;
-    private long _templateFileId;
-    private String _templateName;
-    private String _outputMethod;
-    private SecureStringAccessor _queuePassword;
-    private DateRange _dateRange;
-    private List<String> _notes;
-    private List<Long> _pastInvIds;
+    
 
     public long getRequestorId() { return _requestorId; }
     public void setRequestorId(long requestorId) { _requestorId = requestorId; }

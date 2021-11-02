@@ -19,26 +19,79 @@ import java.io.Serializable;
 
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date Sep 25, 2012
- * @since Sep 25, 2012
- *
+ * <p>Java class for InvoiceAndLetterOutputProperties complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="InvoiceAndLetterOutputProperties">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="outputMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="forInvoice" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="forLetter" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="forRelease" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="invoiceId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="letterId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="releaseId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "InvoiceAndLetterOutputProperties", propOrder = {
+    "_queuePassword",
+    "_outputMethod",
+    "_forInvoice",
+    "_forLetter",
+    "_forRelease",
+    "_invoiceId",
+    "_letterId",
+    "_releaseId"
+})
 public class InvoiceAndLetterOutputProperties 
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    @XmlElement(name="queuePassword", required = true)
     private SecureStringAccessor _queuePassword;
+    
+    @XmlElement(name="outputMethod", required = true)
     private String _outputMethod;
+    
+    @XmlElement(name="forInvoice")
     private boolean _forInvoice;
+    
+    @XmlElement(name="forLetter")
     private boolean _forLetter;
+    
+    @XmlElement(name="forRelease")
     private boolean _forRelease;
+    
+    @XmlElement(name="invoiceId")
     private long _invoiceId;
+    
+    @XmlElement(name="letterId")
     private long _letterId;
+    
+    @XmlElement(name="releaseId")
     private long _releaseId;
+    
+    
     
     public String getQueuePassword() {
         if (_queuePassword == null) {

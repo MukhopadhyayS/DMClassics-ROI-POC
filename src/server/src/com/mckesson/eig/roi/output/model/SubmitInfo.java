@@ -14,24 +14,59 @@
 package com.mckesson.eig.roi.output.model;
 
 import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * This class contains the submit information
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for SubmitInfo complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="SubmitInfo">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="application" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="submitDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="submitMachine" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="submitterData" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SubmitInfo", propOrder = {
+    "_application",
+    "_submitDate",
+    "_submitMachine",
+    "_submitterData",
+    "_user"
+})
 public class SubmitInfo {
     
-    /** This holds the application*/
+    @XmlElement(name="application", required = true)
     private String _application;
-    /** This holds the submit date*/
+    
+    @XmlElement(name="submitDate", required = true)
     private Date _submitDate;
-    /** This holds the submit machine*/
+    
+    @XmlElement(name="submitMachine", required = true)
     private String _submitMachine;
-    /** This holds the submitter data*/
+    
+    @XmlElement(name="submitterData", required = true)
     private String _submitterData;
-    /** This holds the user*/
+    
+    @XmlElement(name="user", required = true)
     private String _user;
     
     public String getApplication() {

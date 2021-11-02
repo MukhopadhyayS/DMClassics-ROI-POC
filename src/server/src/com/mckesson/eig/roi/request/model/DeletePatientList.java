@@ -18,33 +18,100 @@ package com.mckesson.eig.roi.request.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date Jul 26, 2012
- * @since Jul 26, 2012
- *
+ * <p>Java class for DeletePatientList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="DeletePatientList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="pageSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="encounterSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="patientSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="docSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="versionSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="attachmentSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="documentSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supplementalAttachmentSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supplementalDocumentSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supplementalPatientSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="darPatientSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="darSuppPatientSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DeletePatientList", propOrder = {
+    "_pageSeq",
+    "_encounterSeq",
+    "_patientSeq",
+    "_docSeq",
+    "_versionSeq",
+    "_attachmentSeq",
+    "_documentSeq",
+    "_supplementalAttachmentSeq",
+    "_supplementalDocumentSeq",
+    "_supplementalPatientSeq",
+    "_darPatientSeq",
+    "_darSuppPatientSeq"
+})
 public class DeletePatientList 
 implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    @XmlElement(name="pageSeq")
     private List<Long> _pageSeq;
+    
+    @XmlElement(name="encounterSeq")
     private List<Long> _encounterSeq;
+    
+    @XmlElement(name="patientSeq")
     private List<Long> _patientSeq;
+    
+    @XmlElement(name="docSeq")
     private List<Long> _docSeq;
+    
+    @XmlElement(name="versionSeq")
     private List<Long> _versionSeq;
+    
+    @XmlElement(name="attachmentSeq")
     private List<Long> _attachmentSeq;
+    
+    @XmlElement(name="documentSeq")
     private List<Long> _documentSeq;
 
     // below are the sequence for the non hpf patients
+    @XmlElement(name="supplementalAttachmentSeq")
     private List<Long> _supplementalAttachmentSeq;
+    
+    @XmlElement(name="supplementalDocumentSeq")
     private List<Long> _supplementalDocumentSeq;
+    
+    @XmlElement(name="supplementalPatientSeq")
     private List<Long> _supplementalPatientSeq;
     
+    @XmlElement(name="darPatientSeq")
     private List<Long> _darPatientSeq;
+    
+    @XmlElement(name="darSuppPatientSeq")
     private List<Long> _darSuppPatientSeq;
+    
+    
     
     public List<Long> getPageSeq() { return _pageSeq; }
     public void setPageSeq(List<Long> pageSeq) { _pageSeq = pageSeq; }

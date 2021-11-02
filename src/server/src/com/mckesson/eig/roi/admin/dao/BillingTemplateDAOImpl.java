@@ -38,6 +38,7 @@ import com.mckesson.eig.roi.admin.model.BillingTemplate;
 import com.mckesson.eig.roi.admin.model.BillingTemplatesList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -45,6 +46,7 @@ import org.springframework.orm.hibernate5.HibernateCallback;
  * @date   Sep 15, 2008
  * @since  HPF 13.1 [ROI]; May 20, 2008
  */
+@Transactional
 public class BillingTemplateDAOImpl
 extends ROIDAOImpl
 implements BillingTemplateDAO {

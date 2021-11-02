@@ -28,6 +28,7 @@ import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -46,6 +47,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @date   Dec 20, 2012
  * @since  Dec 20, 2012
  */
+@Transactional
 public class RequestorStatementDAOImpl
 extends ROIDAOImpl
 implements RequestorStatementDAO {

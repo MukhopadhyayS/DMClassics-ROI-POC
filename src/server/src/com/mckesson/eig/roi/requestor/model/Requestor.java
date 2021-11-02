@@ -23,6 +23,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
@@ -32,52 +38,195 @@ import com.mckesson.eig.utility.util.StringUtilities;
 
 
 /**
- * @author OFS
- * @date   Dec 30, 2009
- * @since  HPF 13.1 [ROI]; Jun 17, 2008
+ * <p>Java class for Requestor complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="Requestor">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="epn" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="ssn" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="mrn" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="freeFormFacility" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="dob" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="prePayRequired" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="certLetterRequired" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="mainAddress" type="{urn:eig.mckesson.com}Address" minOccurs="0"/>
+ *         &lt;element name="altAddress" type="{urn:eig.mckesson.com}Address" minOccurs="0"/>
+ *         &lt;element name="homePhone" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="workPhone" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="cellPhone" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fax" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="contactName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="contactPhone" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="contactEmail" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="associated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="active" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="salesTax" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Requestor", propOrder = {
+    "_id",
+    "_lastName",
+    "_firstName",
+    "_type",
+    "_requestorType",
+    "_epn",
+    "_ssn",
+    "_mrn",
+    "_facility",
+    "_freeFormFacility",
+    "_dob",
+    "_prePayRequired",
+    "_certLetterRequired",
+    "_mainAddress",
+    "_altAddress",
+    "_homePhone",
+    "_workPhone",
+    "_cellPhone",
+    "_email",
+    "_fax",
+    "_contactName",
+    "_contactPhone",
+    "_contactEmail",
+    "_associated",
+    "_recordVersion",
+    "_active",
+    "_salesTax"
+})
 public class Requestor
 implements Serializable {
 
+    @XmlElement(name="id")
     private long _id;
+    
+    @XmlElement(name="lastName", required = true)
     private String _lastName;
+    
+    @XmlElement(name="firstName", required = true)
     private String _firstName;
+    
+    @XmlElement(name="type")
     private long _type;
+    
+    @XmlElement(name="requestorType")
     private String _requestorType;
+    
+    @XmlElement(name="epn")
     private String _epn;
+    
+    @XmlElement(name="ssn")
     private String _ssn;
+    
+    @XmlElement(name="dob")
     private Date _dob;
+    
+    @XmlElement(name="mrn")
     private String _mrn;
+    
+    @XmlElement(name="facility")
     private String _facility;
+    
+    @XmlElement(name="freeFormFacility")
     private boolean _freeFormFacility;
+    
+    @XmlTransient
     private String _freeFormFacilityExists;
+    
+    @XmlTransient
     private String _dateOfBirth;
+    
+    @XmlElement(name="prePayRequired")
     private boolean _prePayRequired;
+    
+    @XmlElement(name="certLetterRequired")
     private boolean _certLetterRequired;
+    
+    @XmlElement(name="mainAddress")
     private Address _mainAddress;
+    
+    @XmlElement(name="altAddress")
     private Address _altAddress;
+    
+    @XmlElement(name="homePhone")
     private String _homePhone;
+    
+    @XmlElement(name="workPhone")
     private String _workPhone;
+    
+    @XmlElement(name="cellPhone")
     private String _cellPhone;
+    
+    @XmlElement(name="email")
     private String _email;
+    
+    @XmlElement(name="fax")
     private String _fax;
+    
+    @XmlElement(name="contactName")
     private String _contactName;
+    
+    @XmlElement(name="contactPhone")
     private String _contactPhone;
+    
+    @XmlElement(name="contactEmail")
     private String _contactEmail;
+    
+    @XmlElement(name="associated")
     private boolean _associated;
+    
+    @XmlElement(name="active")
     private boolean _active;
+    
+    @XmlTransient
     private boolean _frequent;
+    
+    @XmlTransient
     private boolean _patient;
 
+    @XmlTransient
     private Set<RelatedContact> _relatedContacts;
+    
+    @XmlTransient
     private Set<RelatedAddress> _relatedAddress;
+    
+    @XmlTransient
     private Set<RelatedEmailPhone> _relatedEmailPhones;
+    
+    @XmlTransient
     private Set<RequestorDetail> _requestorDetails;
 
+    @XmlTransient
     private long _createdBy;
+    
+    @XmlTransient
     private long _modifiedBy;
+    
+    @XmlTransient
     private Date _modifiedDate;
+    
+    @XmlElement(name="recordVersion")
     private int _recordVersion;
+    
+    @XmlElement(name="salesTax")
     private String _salesTax;
 
     public Requestor() { }

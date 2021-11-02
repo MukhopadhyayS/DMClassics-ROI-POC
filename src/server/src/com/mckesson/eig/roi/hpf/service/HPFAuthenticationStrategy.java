@@ -17,6 +17,9 @@ package com.mckesson.eig.roi.hpf.service;
 
 import javax.sql.DataSource;
 
+import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
+import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 import org.springframework.beans.factory.BeanFactory;
 
 import com.mckesson.dm.security.util.OCSecurityFacilitator;
@@ -28,9 +31,6 @@ import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
-import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
-import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
-import com.mckesson.eig.wsfw.session.WsSession;
 
 /**
  * @author OFS
@@ -38,7 +38,7 @@ import com.mckesson.eig.wsfw.session.WsSession;
  * @since  HPF 13.1 [ROI]; Jun 19, 2008
  */
 public class HPFAuthenticationStrategy
-implements AuthenticationStrategy {
+implements AuthenticationStrategy{
 
     private static final BeanFactory BEAN_FACTORY = SpringUtilities.getInstance().getBeanFactory();
     private UserSecurityHibernateDao _userSecurityDao;
@@ -92,7 +92,7 @@ implements AuthenticationStrategy {
         
         // to retain user information from during business service calls
         User user = (User)
-                    WsSession.getSessionData(HPFAuthenticationStrategy.AUTHENTICATED_ROI_USER);
+                    CxfWsSession.getSessionData(HPFAuthenticationStrategy.AUTHENTICATED_ROI_USER);
 
         // user will be null during logon service call
         if (user == null) {
@@ -141,9 +141,9 @@ implements AuthenticationStrategy {
         result.setState(AuthenticatedResult.AUTHENTICATED);
         result.setTicket(Ticket.getTicket(userId));
 
-        WsSession.setSessionData(AUTHENTICATED_ROI_USER, user);
-        WsSession.setSessionData(WsSession.USER_NAME, userId);
-        WsSession.setSessionData(WsSession.TICKET, result.getTicket());
+        CxfWsSession.setSessionData(AUTHENTICATED_ROI_USER, user);
+        CxfWsSession.setSessionData(CxfWsSession.USER_NAME, userId);
+        CxfWsSession.setSessionData(CxfWsSession.TICKET, result.getTicket());
 
         return result;
     }

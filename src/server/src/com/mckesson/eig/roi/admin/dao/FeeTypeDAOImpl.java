@@ -28,6 +28,7 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.model.FeeType;
 import com.mckesson.eig.roi.admin.model.FeeTypesList;
@@ -43,6 +44,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
 * @date   Sep 15, 2008
 * @since  HPF 13.1 [ROI]; Apr 4, 2008
 */
+@Transactional
 public class FeeTypeDAOImpl
 extends ROIDAOImpl
 implements FeeTypeDAO {

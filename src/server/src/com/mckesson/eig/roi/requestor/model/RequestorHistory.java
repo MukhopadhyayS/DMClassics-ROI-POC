@@ -5,25 +5,105 @@ import java.util.Date;
 
 import com.mckesson.dm.core.common.util.StringUtilities;
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
+
+/**
+ * <p>Java class for RequestorHistory complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorHistory">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="creatorName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="createdDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="template" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestPassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="invoiceDueDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="balance" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="invoiceBalance" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="aging" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="prebillStatus" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="migrated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorHistory", propOrder = {
+    "id",
+    "type",
+    "creatorName",
+    "createdDate",
+    "template",
+    "requestPassword",
+    "queuePassword",
+    "invoiceDueDate",
+    "balance",
+    "invoiceBalance",
+    "aging",
+    "status",
+    "prebillStatus",
+    "requestId",
+    "migrated"
+})
 public class RequestorHistory implements Serializable{
     
    
     private static final long serialVersionUID = -5069710018550691164L;
     private long id;
+    
+    @XmlElement(required = true)
     private String type;
+    
+    @XmlElement(required = true)
     private String creatorName;
+    
+    @XmlElement(required = true)
     private String createdDate;
+    
+    @XmlElement(required = true)
     private String template;
+    
+    @XmlElement(required = true)
     private SecureStringAccessor requestPassword;
+    
+    @XmlElement(required = true)
     private SecureStringAccessor queuePassword;
+    
+    @XmlElement(required = true)
     private String invoiceDueDate;
+    
     private double balance;
+    
     private double invoiceBalance;
+    
+    @XmlElement(required = true)
     private String aging;
+    
+    @XmlElement(required = true)
     private String status;
+    
+    @XmlElement(required = true)
     private String prebillStatus;
+
     private long requestId;
+    
     private boolean migrated;
     
      

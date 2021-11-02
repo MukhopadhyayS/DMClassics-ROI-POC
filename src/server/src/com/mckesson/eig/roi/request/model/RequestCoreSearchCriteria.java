@@ -21,53 +21,173 @@ import java.util.Date;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 
 /**
- * @author Karthik Easwaran
- * @date   Aug 10, 2012
- * @since  Aug 10, 2012
+ * <p>Java class for RequestCoreSearchCriteria complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestCoreSearchCriteria">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="patientLastName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientFirstName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="mrn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientSsn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="encounter" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientEpn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="patientDob" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestStatus" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestReason" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="invoiceNumber" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="balanceDue" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="balanceDueOperator" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorTypeName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorType" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="completedDateFrom" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="completedDateTo" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="receiptDateFrom" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="receiptDateTo" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="paginationData" type="{urn:eig.mckesson.com}PaginationData"/>
+ *         &lt;element name="maxCount" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestCoreSearchCriteria", propOrder = {
+    "_requestId",
+    "_patientLastName",
+    "_patientFirstName",
+    "_mrn",
+    "_patientSsn",
+    "_encounter",
+    "_patientEpn",
+    "_patientId",
+    "_patientDob",
+    "_facility",
+    "_requestStatus",
+    "_requestReason",
+    "_invoiceNumber",
+    "_balanceDue",
+    "_balanceDueOperator",
+    "_requestorName",
+    "_requestorTypeName",
+    "_requestorType",
+    "_requestorId",
+    "_completedDateFrom",
+    "_completedDateTo",
+    "_receiptDateFrom",
+    "_receiptDateTo",
+    "_paginationData",
+    "_maxCount"
+})
 public class RequestCoreSearchCriteria
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     // patient based search criteria
+    @XmlElement(name="patientLastName", required = true)
     private String _patientLastName;
+    
+    @XmlElement(name="patientFirstName", required = true)
     private String _patientFirstName;
+    
+    @XmlElement(name="patientId")
     private long _patientId;
+    
+    @XmlElement(name="mrn", required = true)
     private String _mrn;
+    
+    @XmlElement(name="patientSsn", required = true)
     private String _patientSsn;
+    
+    @XmlElement(name="patientEpn", required = true)
     private String _patientEpn;
+    
+    @XmlElement(name="patientDob", required = true, nillable = true)
     private Date _patientDob;
+    
+    @XmlElement(name="facility", required = true)
     private String _facility;
 
     // documents encounter baed criteria
+    @XmlElement(name="encounter")
     private String _encounter;
 
     // request based search criteria
+    @XmlElement(name="requestId")
     private long _requestId;
+    
+    @XmlElement(name="requestStatus", required = true)
     private String _requestStatus;
+    
+    @XmlElement(name="requestReason", required = true)
     private String _requestReason;
+    
+    @XmlElement(name="completedDateFrom", required = true, nillable = true)
     private Date _completedDateFrom;
+    
+    @XmlElement(name="completedDateTo", required = true, nillable = true)
     private Date _completedDateTo;
+    
+    @XmlElement(name="receiptDateFrom", required = true, nillable = true)
     private Date _receiptDateFrom;
+    
+    @XmlElement(name="receiptDateTo", required = true, nillable = true)
     private Date _receiptDateTo;
 
     // request delivery based search criteria
+    @XmlElement(name="invoiceNumber")
     private long _invoiceNumber;
+    
+    @XmlElement(name="balanceDue")
     private double _balanceDue;
+    
+    @XmlElement(name="balanceDueOperator", required = true)
     private String _balanceDueOperator;
 
 
     // requestor based search criteria
+    @XmlElement(name="requestorName", required = true)
     private String _requestorName;
+    
+    @XmlElement(name="requestorTypeName", required = true)
     private String _requestorTypeName;
+    
+    @XmlElement(name="requestorType")
     private long _requestorType;
+    
+    @XmlElement(name="requestorId")
     private long _requestorId;
 
+    @XmlElement(name="paginationData", required = true)
     private PaginationData _paginationData;
+    
+    @XmlElement(name="maxCount")
     private long _maxCount;
+    
+    
+    
 
     public String getPatientLastName() { return _patientLastName; }
     public void setPatientLastName(String patientLastName) { _patientLastName = patientLastName; }

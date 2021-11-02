@@ -17,20 +17,49 @@ package com.mckesson.eig.roi.billing.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- *
- * @author OFS
- * @date   Apr 1, 2009
- * @since  HPF 13.1 [ROI]; Apr 1, 2009
+ * <p>Java class for DocInfoList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="DocInfoList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="docInfos" type="{urn:eig.mckesson.com}DocInfo" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DocInfoList", propOrder = {
+    "_docInfos",
+    "_name"
+})
 public class DocInfoList
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    @XmlElement(name="docInfos")
     private List<DocInfo> _docInfos;
+    
+    @XmlElement(name="name", required = true)
     private String _name;
+    
+    
 
     public DocInfoList() { }
 

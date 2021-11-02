@@ -13,12 +13,14 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryItem;
 import com.mckesson.eig.roi.billing.model.ReleaseHistoryPatient;
 
+@Transactional
 public class ReleaseHistoryDAOImpl
 extends ROIDAOImpl
 implements ReleaseHistoryDAO {

@@ -24,29 +24,49 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
 
 
-/**
- * @author Vidhya.C.S
- * @date Mar 16, 2009
- * @since HPF 13.1 [ROI]
- */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "BillingTemplate", propOrder = {
+    "_id",
+    "_name",
+    "_associated",
+    "_recordVersion",
+    "_feeTypeIds",
+    "_relatedFeeTypes"
+})
 public class BillingTemplate
 implements Serializable {
-
+    @XmlElement(name="id")
     private long _id;
+    @XmlElement(required = true, name="name")
     private String _name;
+    @XmlTransient
     private long _createdBy;
+    @XmlTransient
     private Date _modifiedDate;
+    @XmlTransient
     private long _modifiedBy;
+    @XmlElement(name="recordVersion")
     private int _recordVersion;
+    @XmlTransient
     private long _orgId;
+    @XmlTransient
     private boolean _active;
+    @XmlElement(name="associated")
     private boolean _associated;
+    @XmlElement(name="relatedFeeTypes")
     private Set<RelatedFeeType> _relatedFeeTypes;
+    @XmlElement(name="feeTypeIds")
     private List <Long> _feeTypeIds;
 
     public long getId() { return _id; }

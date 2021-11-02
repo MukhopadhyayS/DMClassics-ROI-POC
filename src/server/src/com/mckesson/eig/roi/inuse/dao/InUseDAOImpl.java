@@ -22,6 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -37,6 +38,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Nov 11, 2008
  * @since  ROI HPF 13.1
  */
+@Transactional
 public class InUseDAOImpl
 extends BaseInUseDAOImpl
 implements InUseDAO {

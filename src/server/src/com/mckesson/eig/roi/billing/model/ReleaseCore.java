@@ -7,32 +7,128 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- *
+ * <p>Java class for ReleaseCore complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="ReleaseCore">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="coverLetterFileId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="coverLetterRequired" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="invoiceDueDays" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="invoiceRequired" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="invoiceTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="roiPages" type="{urn:eig.mckesson.com}ROIPages" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supplementarityAttachmentsSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supplementarityDocumentsSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supplementalAttachmentsSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="supplementalDocumentsSeq" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="pastDueInvoices" type="{http://www.w3.org/2001/XMLSchema}long" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="notes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="coverLetterNotes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="statusChangeToComplete" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="invoiceOrPrebillAndPreviewInfo" type="{urn:eig.mckesson.com}InvoiceOrPrebillAndPreviewInfo"/>
+ *         &lt;element name="statementCriteria" type="{urn:eig.mckesson.com}RequestorStatementCriteria"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ReleaseCore", propOrder = {
+    "_coverLetterFileId",
+    "_coverLetterRequired",
+    "_invoiceDueDays",
+    "_invoiceRequired",
+    "_invoiceTemplateId",
+    "_roiPages",
+    "_supplementarityAttachmentsSeq",
+    "_supplementarityDocumentsSeq",
+    "_supplementalAttachmentsSeq",
+    "_supplementalDocumentsSeq",
+    "_pastDueInvoices",
+    "_notes",
+    "_coverLetterNotes",
+    "_requestId",
+    "_statusChangeToComplete",
+    "_invoiceOrPrebillAndPreviewInfo",
+    "_statementCriteria"
+})
 public class ReleaseCore implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private long _requestId;
-    private boolean _statusChangeToComplete;
-    private List<ReleasePages> _roiPages;
-    private List<Long> _supplementarityAttachmentsSeq;
-    private List<Long> _supplementarityDocumentsSeq;
-    private List<Long> _supplementalAttachmentsSeq;
-    private List<Long> _supplementalDocumentsSeq;
-    private List<Long> _pastDueInvoices;
-    private long _invoiceDueDays;
+	
+	@XmlElement(name="coverLetterFileId")
+	private long _coverLetterFileId;
+	
+	@XmlElement(name="coverLetterRequired")
     private boolean _coverLetterRequired;
-    private long _coverLetterFileId;
-    private boolean _invoiceRequired;
-    private long _invoiceTemplateId;
+	
+	@XmlElement(name="invoiceDueDays")
+	private long _invoiceDueDays;
+	
+	@XmlElement(name="invoiceRequired")
+	private boolean _invoiceRequired;
+	
+	@XmlElement(name="invoiceTemplateId")
+	private long _invoiceTemplateId;
+	
+	@XmlElement(name="roiPages", nillable = true)
+	private List<ReleasePages> _roiPages;
+	
+	@XmlElement(name="supplementarityAttachmentsSeq", nillable = true)
+	private List<Long> _supplementarityAttachmentsSeq;
+	
+	@XmlElement(name="supplementarityDocumentsSeq", nillable = true)
+    private List<Long> _supplementarityDocumentsSeq;
+	
+	@XmlElement(name="supplementalAttachmentsSeq", nillable = true)
+    private List<Long> _supplementalAttachmentsSeq;
+	
+	@XmlElement(name="supplementalDocumentsSeq", nillable = true)
+    private List<Long> _supplementalDocumentsSeq;
+	
+	@XmlElement(name="pastDueInvoices", nillable = true)
+    private List<Long> _pastDueInvoices;
+	
+	@XmlElement(name="notes", nillable = true)
     private List<String> _notes;
+	
+	@XmlElement(name="coverLetterNotes", nillable = true)
     private List<String> _coverLetterNotes;
+	
+	@XmlElement(name="requestId")
+	private long _requestId;
+	
+	@XmlElement(name="statusChangeToComplete")
+    private boolean _statusChangeToComplete;
+	
+	@XmlElement(name="invoiceOrPrebillAndPreviewInfo", required = true)
+    private InvoiceOrPrebillAndPreviewInfo _invoiceOrPrebillAndPreviewInfo;
+	
+	@XmlElement(name="statementCriteria", required = true)
     private RequestorStatementCriteria _statementCriteria;
 
-    private InvoiceOrPrebillAndPreviewInfo _invoiceOrPrebillAndPreviewInfo;
+    
+    
+    
+    
+    
     /**
      * @return the requestId
      */

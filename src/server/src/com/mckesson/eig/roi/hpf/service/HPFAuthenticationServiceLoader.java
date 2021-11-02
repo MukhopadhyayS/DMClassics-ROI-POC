@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -25,7 +25,7 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
 import com.mckesson.eig.wsfw.security.AuthenticationStrategy;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 
 public class HPFAuthenticationServiceLoader
 implements AuthenticationStrategy {
@@ -72,12 +72,12 @@ implements AuthenticationStrategy {
             for (Security sec : usr.getSecurities()) {
 
                 if (sec.getFacility().equalsIgnoreCase(ENTERPRISE)) {
-                    WsSession.setSessionData(EIG_USER_SECURITY_RIGHTS, sec);
+                    CxfWsSession.setSessionData(EIG_USER_SECURITY_RIGHTS, sec);
                     break;
                 }
             }
             //load user object in session
-            WsSession.setSessionData(AUTHENTICATED_USER, usr);
+            CxfWsSession.setSessionData(AUTHENTICATED_USER, usr);
             result.setState(AuthenticatedResult.AUTHENTICATED);
             result.setTicket(Ticket.getTicket(usr.getLoginId()));
             if (DO_DEBUG) {

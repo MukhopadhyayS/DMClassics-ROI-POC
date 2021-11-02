@@ -19,6 +19,12 @@ package com.mckesson.eig.roi.admin.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
@@ -30,22 +36,45 @@ import com.mckesson.eig.roi.base.api.ValidationParams;
 * @date   Mar 16, 2009
 * @since  HPF 13.1 [ROI]; Apr 4, 2008
 */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "FeeType", propOrder = {
+    "_id",
+    "_name",
+    "_description",
+    "_chargeAmount",
+    "_associated",
+    "_salesTax",
+    "_recordVersion"
+})
 public class FeeType
 implements Serializable {
-
+    
+    @XmlElement(name="feeTypeId")
     private long    _id;
+    @XmlElement(name="name", required = true)
     private String  _name;
+    @XmlElement(name="chargeAmount")
     private double  _chargeAmount;
+    @XmlElement(name="description")
     private String  _description;
+    @XmlElement(name="isAssociated")
     private boolean _associated;
+    @XmlTransient
     private long    _createdBy;
+    @XmlTransient
     private Date    _modifiedDate;
+    @XmlTransient
     private long    _modifiedBy;
+    @XmlElement(name="recordVersion")
     private int     _recordVersion;
+    @XmlTransient
     private long    _orgId;
-    private char _salesTax = 'N';
+    @XmlElement(name="salesTax")
+    private String _salesTax  = "N";
 
     // added new field to define the association
+    @XmlTransient
     private long    _billingTemplateId;
 
     public long getId() { return _id; }
@@ -98,11 +127,15 @@ implements Serializable {
     public long getOrgId() { return _orgId; }
     public void setOrgId(long id) { _orgId = id; }
 
-    public char getSalesTax() { return _salesTax; }
+    public char getSalesTax() { 
+        if(_salesTax!="" && _salesTax!=null) {
+            return _salesTax.charAt(0); 
+           } else return 'N';
+        }
     public void setSalesTax(char salesTax) {
 
-        _salesTax = (ROIConstants.Y == salesTax || ROIConstants.LY == salesTax)
-                        ? ROIConstants.Y : ROIConstants.N;
+        _salesTax = Character.toString((ROIConstants.Y == salesTax || ROIConstants.LY == salesTax)
+                ? ROIConstants.Y : ROIConstants.N);
     }
 
 
@@ -125,7 +158,7 @@ implements Serializable {
     public String toCreateAudit() {
 
         String salesTaxAudit = ".";
-        if (ROIConstants.Y == _salesTax || ROIConstants.LY == _salesTax) {
+        if (Character.toString(ROIConstants.Y) == _salesTax || Character.toString(ROIConstants.LY) == _salesTax) {
 
             salesTaxAudit = ", Sales Tax applied for the " + _name + ".";
         }
@@ -152,9 +185,9 @@ implements Serializable {
 
         String salesTaxAudit = "";
 
-        if (' ' == _salesTax) {
+        if ("" == _salesTax) {
             salesTaxAudit = ".";
-        } else if (ROIConstants.Y == _salesTax || ROIConstants.LY == _salesTax) {
+        } else if (Character.toString(ROIConstants.Y) == _salesTax || Character.toString(ROIConstants.LY) == _salesTax) {
             salesTaxAudit = ", Sales Tax applied for the " + _name + ".";
         } else {
             salesTaxAudit = ", Sales Tax removed for the " + _name + ".";

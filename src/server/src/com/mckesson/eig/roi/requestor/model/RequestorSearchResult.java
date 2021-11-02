@@ -18,18 +18,49 @@ package com.mckesson.eig.roi.requestor.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author ranjithr
- * @date   Jun 24, 2008
- * @since  HPF 13.1 [ROI]; Jun 17, 2008
+ * <p>Java class for RequestorSearchResult complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorSearchResult">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="searchResults" type="{urn:eig.mckesson.com}Requestor" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="requestorType" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="maxCountExceeded" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorSearchResult", propOrder = {
+    "_searchResults",
+    "_requestorType",
+    "_maxCountExceeded"
+})
 public class RequestorSearchResult
 implements Serializable {
-
+    
+    @XmlElement(name="searchResults")
     private List<Requestor> _searchResults;
+    
+    @XmlElement(name="maxCountExceeded")
     private boolean _maxCountExceeded;
+    
+    @XmlElement(name="requestorType")
     private long _requestorType;
 
     public List<Requestor> getSearchResults() { return _searchResults; }

@@ -22,35 +22,89 @@ import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author Vidhya.C.S
- * @date   Jul 28, 2009
- * @since  HPF 13.1 [ROI]; May 16, 2008
+ * <p>Java class for LetterTemplate complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="LetterTemplate">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="letterTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="isDefault" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="letterType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="uploadFile" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="docId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="hasNotes" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "LetterTemplate", propOrder = {
+    "templateId",
+    "name",
+    "desc",
+    "isDefault",
+    "letterType",
+    "uploadFile",
+    "docId",
+    "recordVersion",
+    "hasNotes"
+})
 public class LetterTemplate
 implements Serializable {
 
     public static enum LetterType { coverletter, prebill, invoice, requestorstatement, other };
+   
+    @XmlElement(name="letterTemplateId")
+    private long templateId;
+    @XmlElement(required = true)
+    private String name;
+    @XmlElement(name="description", required = true)
+    private String desc;
+    private boolean isDefault;
+    @XmlElement(required = true)
+    private String letterType;
+    @XmlElement(required = true)
+    private String uploadFile;
+    private long docId;
+    private int recordVersion;
+    private boolean hasNotes;
 
-    private long    _templateId;
-    private String  _name;
-    private String  _desc;
-    private String  _letterType;
-    private boolean _isDefault;
+    @XmlTransient
     private boolean _active;
+    @XmlTransient
     private long    _createdBy;
+    @XmlTransient
     private long    _modifiedBy;
+    @XmlTransient
     private Date    _modifiedDate;
+    @XmlTransient
     private long    _orgId;
-    private int     _recordVersion;
-    private boolean _hasNotes;
+    @XmlTransient
     private LetterTemplateFile _file;
 
-    public long getTemplateId() { return _templateId; }
-    public void setTemplateId(long id) { _templateId = id; }
+    public long getTemplateId() { return templateId; }
+    public void setTemplateId(long id) { this.templateId = id; }
 
-    public String getName() { return _name; }
+    public String getName() { return name; }
 
     @ValidationParams (
             isMandatory = true,
@@ -59,27 +113,27 @@ implements Serializable {
             misMatchErrCode = ROIClientErrorCodes.LETTER_TEMPLATE_NAME_CONTAINS_INVALID_CHAR,
             maxLength = ROIConstants.LETTER_TEMPLATE_NAME_MAX_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.LETTER_TEMPLATE_NAME_LENGTH_EXCEEDS_LIMIT)
-    public void setName(String name) { _name = name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getDesc() { return _desc; }
+    public String getDesc() { return desc; }
 
     @ValidationParams (
             pattern = ROIConstants.ALLOW_ALL,
             misMatchErrCode = ROIClientErrorCodes.LETTER_TEMPLATE_DESC_CONTAINS_INVALID_CHAR,
             maxLength = ROIConstants.DEFAULT_FIELD_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.LETTER_TEMPLATE_DESC_LENGTH_EXCEEDS_LIMIT)
-    public void setDesc(String desc) { _desc = desc; }
+    public void setDesc(String desc) { this.desc = desc; }
 
-    public String getLetterType() { return _letterType; }
+    public String getLetterType() { return letterType; }
     public void setLetterType(String type) {
-        _letterType = type;
+        this.letterType = type;
     }
 
     public LetterTemplateFile getFile() { return _file; }
     public void setFile(LetterTemplateFile file) { _file = file; }
 
-    public boolean getIsDefault() { return _isDefault; }
-    public void setIsDefault(boolean default1) { _isDefault = default1; }
+    public boolean getIsDefault() { return isDefault; }
+    public void setIsDefault(boolean default1) { this.isDefault = default1; }
 
     public boolean isActive() { return _active; }
     public void setActive(boolean active) { _active = active; }
@@ -96,7 +150,7 @@ implements Serializable {
     public long getOrgId() { return _orgId; }
     public void setOrgId(long id) { _orgId = id; }
 
-    public String getUploadFile() {
+   /* public String getUploadFile() {
 		return (_file != null) ? _file.getName() : "";
     }
 
@@ -118,13 +172,27 @@ implements Serializable {
         	_file = new LetterTemplateFile();
         }
         _file.setId(id);
+    }*/
+
+    public String getUploadFile() {
+        return uploadFile;
     }
+    public void setUploadFile(String uploadFile) {
+        this.uploadFile = uploadFile;
+    }
+    public long getDocId() {
+        return docId;
+    }
+    public void setDocId(long docId) {
+        this.docId = docId;
+    }
+    
+    
+    public int getRecordVersion() { return recordVersion; }
+    public void setRecordVersion(int version) { this.recordVersion = version; }
 
-    public int getRecordVersion() { return _recordVersion; }
-    public void setRecordVersion(int version) { _recordVersion = version; }
-
-    public boolean getHasNotes() { return _hasNotes; }
-    public void setHasNotes(boolean hasNotes) { _hasNotes = hasNotes; }
+    public boolean getHasNotes() { return hasNotes; }
+    public void setHasNotes(boolean hasNotes) { this.hasNotes = hasNotes; }
 
     /**
      * This method transfers the values of old letterTemplate to be persisted into
@@ -145,11 +213,11 @@ implements Serializable {
     public String toString() {
 
         return new StringBuffer().append(" LetterTemplateId = ")
-                                 .append(_templateId)
+                                 .append(templateId)
                                  .append(" LetterTemplateName ")
-                                 .append(_name)
+                                 .append(name)
                                  .append(" LetterType ")
-                                 .append(_letterType).toString();
+                                 .append(letterType).toString();
     }
 
     /**
@@ -157,7 +225,7 @@ implements Serializable {
      * @return audit comments for Letter Template creation
      */
     public String toCreateAudit() {
-        return "ROI Letter template " + _name + " was added.";
+        return "ROI Letter template " + name + " was added.";
     }
 
     /**
@@ -188,16 +256,16 @@ implements Serializable {
         .append(" - ")
         .append(old.getDesc())
         .append(" to ")
-        .append(_name)
+        .append(name)
         .append(" - ");
 
         if ((_file != null) && (_file.getName() != null)) {
             auditMsg.append(_file.getName());
         }
         auditMsg.append(" - ")
-                .append(_letterType)
+                .append(letterType)
                 .append(" - ")
-                .append(_desc);
+                .append(desc);
         return auditMsg.toString();
     }
 }

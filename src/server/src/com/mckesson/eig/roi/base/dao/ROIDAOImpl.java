@@ -25,6 +25,8 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
+import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
@@ -53,13 +55,16 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author OFS
  * @date   Sep 01, 2009
  * @since  HPF 13.1 [ROI]; Feb 14, 2008
  */
+@Transactional
 public class ROIDAOImpl
 extends HibernateDaoSupport
 implements ROIDAO {
@@ -102,7 +107,16 @@ implements ROIDAO {
     }
 
     public Session getSession() {
-        return getSessionFactory().getCurrentSession();
+        Session session = null;
+        try {
+            session =  getSessionFactory().getCurrentSession();
+            return session;
+        } catch (HibernateException mye) {
+            
+            session = getSessionFactory().openSession();
+            session.setHibernateFlushMode(FlushMode.COMMIT);
+            return session;
+        }
     }
 
     /**
@@ -115,7 +129,9 @@ implements ROIDAO {
     public Serializable create(Object object) {
 
         try {
-            return getHibernateTemplate().save(object);
+            HibernateTemplate template = getHibernateTemplate();
+            template.setCheckWriteOperations(false);
+            return template.save(object);
         } catch (DataIntegrityViolationException e) {
             throw new ROIException(ROIClientErrorCodes.DATA_INTEGRITY_VIOLATION, e.getMessage());
         }

@@ -19,34 +19,117 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 
 /**
- * @author Karthik Easwaran
- * @date   Aug 10, 2012
- * @since  Aug 10, 2012
+ * <p>Java class for RequestCoreSearchResult complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestCoreSearchResult">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="receiptDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="requestStatus" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorType" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorTypeName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="subtitle" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="lastUpdated" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="updatedBy" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="balance" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="patients" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="encounters" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientLocked" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="vip" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestCoreSearchResult", propOrder = {
+    "_requestId",
+    "_receiptDate",
+    "_requestStatus",
+    "_requestorName",
+    "_requestorType",
+    "_requestorTypeName",
+    "_subtitle",
+    "_lastUpdated",
+    "_updatedBy",
+    "_balance",
+    "_patients",
+    "_encounters",
+    "_facility",
+    "_patientLocked",
+    "_vip"
+})
 public class RequestCoreSearchResult 
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    @XmlElement(name="requestId")
     private long _requestId;
+    
+    @XmlElement(name="receiptDate", required = true, nillable = true)
     private Date _receiptDate;
+    
+    @XmlElement(name="requestStatus", required = true)
     private String _requestStatus;
+    
+    @XmlElement(name="requestorName", required = true)
     private String _requestorName;
+    
+    @XmlElement(name="requestorType")
     private long _requestorType;
+    
+    @XmlElement(name="requestorTypeName", required = true)
     private String _requestorTypeName;
+    
+    @XmlElement(name="lastUpdated", required = true, nillable = true)
     private Date _lastUpdated;
+    
+    @XmlElement(name="updatedBy", required = true)
     private String _updatedBy;
+    
+    @XmlElement(name="patients")
     private List<String> _patients;
+    
+    @XmlElement(name="subtitle", required = true)
     private String _subtitle;
+    
+    @XmlElement(name="balance")
     private Double _balance;
+    
+    @XmlElement(name="patientLocked")
     private boolean _patientLocked;
+    
+    @XmlElement(name="vip")
     private boolean _vip;
     
     // patient request history screen
+    @XmlElement(name="facility", required = true)
     private String _facility;
+    
+    @XmlElement(name="encounters")
     private List<String> _encounters;
+    
+    
     
     public long getRequestId() { return _requestId; }
     public void setRequestId(long requestId) { _requestId = requestId; }

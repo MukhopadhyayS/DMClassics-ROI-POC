@@ -14,7 +14,7 @@ import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
 import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
 import com.mckesson.eig.roi.webservice.util.rest.security.SecurityConstants;
 import com.mckesson.eig.utility.util.StringUtilities;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 
 public final class HeaderUtils {
     /** The Constant LOGGER. */
@@ -96,18 +96,18 @@ public final class HeaderUtils {
     public static void setClientHeaders(Object coreProxy) {
         
         //set transaction id to the header
-        String transactionId = (String) WsSession.getSessionData(WsSession.TXN_ID);
+        String transactionId = (String) CxfWsSession.getSessionData(CxfWsSession.TXN_ID);
         if (transactionId != null) {
             WebClient.client(coreProxy).header("TransactionId", transactionId);
         }
 
         // attempt to get client ip from header param.  If it is not passed, get it from request.
-        String clientIp = (String) WsSession.getSessionData(WsSession.CLIENT_IP);
+        String clientIp = (String) CxfWsSession.getSessionData(CxfWsSession.CLIENT_IP);
         if (clientIp != null) {
             WebClient.client(coreProxy).header(CLIENT_IP_KEY, clientIp);
         }
         
-        String securitytoken = (String) WsSession.getSessionData(WsSession.TICKET);
+        String securitytoken = (String) CxfWsSession.getSessionData(CxfWsSession.TICKET);
         if (securitytoken != null && !securitytoken.isEmpty()) {
             WebClient.client(coreProxy).header(SecurityConstants.SECURITY_TOKEN, securitytoken);
         }
@@ -141,9 +141,9 @@ public final class HeaderUtils {
         String mpfToken = null;
         if (request.getSession(false) != null) {
 
-            sessionId = WsSession.getSessionId();
+            sessionId = CxfWsSession.getSessionId();
             if (sessionId != null) {
-                mpfToken = (String) WsSession.getSessionData(WsSession.TICKET);
+                mpfToken = (String) CxfWsSession.getSessionData(CxfWsSession.TICKET);
             }
         }
         
@@ -290,8 +290,8 @@ public final class HeaderUtils {
         if (authHeader == null) {  
             
             String authorizationHeader = 
-                    getAuthorizationString((String) WsSession.getSessionData(WsSession.USER_NAME),
-                                           (String) WsSession.getSessionData(WsSession.PD));
+                    getAuthorizationString((String) CxfWsSession.getSessionData(CxfWsSession.USER_NAME),
+                                           (String) CxfWsSession.getSessionData(CxfWsSession.PD));
             
             WebClient.client(coreProxy).header(SecurityConstants.AUTHORIZATION, authorizationHeader.toString());
             WebClient.client(coreProxy).header(SecurityConstants.PD_ENCRYPTED, Boolean.TRUE);

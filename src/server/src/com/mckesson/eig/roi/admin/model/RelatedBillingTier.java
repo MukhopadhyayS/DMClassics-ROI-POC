@@ -17,27 +17,74 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- *
- * @author OFS
- * @date   Mar 30, 2009
- * @since  HPF 13.1 [ROI]; Mar 24, 2009
+ * <p>Java class for RelatedBillingTier complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RelatedBillingTier">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="relatedBillingTierId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="billingTierId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="isHPF" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="isHECM" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="isCEVA" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="isSupplemental" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RelatedBillingTier", propOrder = {
+    "_id",
+    "_billingTierId",
+    "_isHPF",
+    "_isHECM",
+    "_isCEVA",
+    "_recordVersion",
+    "_isSupplemental"
+})
 public class RelatedBillingTier
 implements Serializable {
 
+    @XmlElement(name="relatedBillingTierId")
     private long    _id;
+    @XmlElement(name="billingTierId")
     private long    _billingTierId;
-    private long    _createdBy;
-    private long    _modifiedBy;
-    private Date    _modifiedDate;
-    private int     _recordVersion;
+    @XmlElement(name="isHPF")
     private boolean _isHPF;
+    @XmlElement(name="isHECM")
     private boolean _isHECM;
+    @XmlElement(name="isCEVA")
     private boolean _isCEVA;
+    @XmlElement(name="recordVersion")
+    private int     _recordVersion;
+    @XmlElement(name="isSupplemental")
     private boolean _isSupplemental;
+    
+    @XmlTransient
+    private long    _createdBy;
+    @XmlTransient
+    private long    _modifiedBy;
+    @XmlTransient
+    private Date    _modifiedDate;
+    
+    
 
     public long getId() { return _id; }
     public void setId(long id) { _id = id; }

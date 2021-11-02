@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.dm.core.common.logging.OCLogger;
@@ -21,6 +23,7 @@ import com.mckesson.eig.roi.utils.SpringUtil;
  * Per facility
  * 
  */
+@Transactional
 public class PrebillReportDAOImpl extends ROIReportDAOImpl {
     
     private static final OCLogger LOG = new OCLogger(PrebillReportDAOImpl.class);

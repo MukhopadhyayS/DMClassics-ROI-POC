@@ -16,27 +16,50 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author Vidhya.C.S
- * @date   May 16, 2008
- * @since  HPF 13.1 [ROI]; May 16, 2008
+ * <p>Java class for LetterTemplateList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="LetterTemplateList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="letterTemplateList" type="{urn:eig.mckesson.com}LetterTemplate" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "LetterTemplateList", propOrder = {
+    "letterTemplates"
+})
 public class LetterTemplateList
 implements Serializable {
-
-    private List<LetterTemplate> _letterTemplates;
+    @XmlElement(name="letterTemplateList")
+    private List<LetterTemplate> letterTemplates;
     public LetterTemplateList() { }
 
     public LetterTemplateList(List<LetterTemplate> list) { setLetterTemplates(list); }
 
     public List <LetterTemplate> getLetterTemplates() {
-        return _letterTemplates;
+        return letterTemplates;
     }
 
     public void setLetterTemplates(List <LetterTemplate> templates) {
-        _letterTemplates = templates;
+        this.letterTemplates = templates;
     };
 }

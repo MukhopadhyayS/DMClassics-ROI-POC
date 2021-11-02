@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2012 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -36,7 +36,7 @@ import com.mckesson.eig.roi.request.dao.RequestCoreDAOImpl;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 
 
 /**
@@ -192,7 +192,7 @@ public class BaseROIService {
      * @return Authenticated user details
      */
     protected User getUser() {
-        return (User) WsSession.getSessionData(AUTHENTICATED_USER);
+        return (User) CxfWsSession.getSessionData(AUTHENTICATED_USER);
     }
 
     /**

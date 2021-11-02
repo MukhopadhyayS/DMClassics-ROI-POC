@@ -7,6 +7,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebMethod;
+
 import com.mckesson.eig.roi.admin.dao.AttachmentDAO;
 import com.mckesson.eig.roi.admin.model.AttachmentLocation;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -1436,6 +1438,7 @@ implements ROISupplementaryService {
      * #retrieveAttachmentPath(java.lang.String)
      */
     @Override
+    @WebMethod(exclude = true)
     public String retrieveAttachmentPath(String uuid) {
         final String logSM = "retrieveAttachment(uuid)";
         if (DO_DEBUG) {

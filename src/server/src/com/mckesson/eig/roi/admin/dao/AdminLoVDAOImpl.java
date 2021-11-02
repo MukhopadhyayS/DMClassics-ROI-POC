@@ -18,6 +18,8 @@ package com.mckesson.eig.roi.admin.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.admin.model.AdminLoV;
 import com.mckesson.eig.roi.admin.model.Note;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -29,6 +31,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Mar 23, 2009
  * @since  HPF 13.1 [ROI]; Sep 12, 2008
  */
+@Transactional
 public class AdminLoVDAOImpl
 extends ROIDAOImpl
 implements AdminLoVDAO {

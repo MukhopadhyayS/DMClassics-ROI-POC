@@ -21,45 +21,142 @@ import java.util.Date;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ValidationParams;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date Jul 3, 2012
- * @since Jul 3, 2012
- *
+ * <p>Java class for Requestor complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="Requestor">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestorId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorType" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorTypeName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="middleName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="workPhone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="homePhone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="cellPhone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="contactName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="contactPhone" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="fax" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Requestor", propOrder = {
+    "_requestorSeq",
+    "_requestorType",
+    "_requestorTypeName",
+    "_firstName",
+    "_middleName",
+    "_lastName",
+    "_workPhone",
+    "_homePhone",
+    "_cellPhone",
+    "_contactName",
+    "_contactPhone",
+    "_fax"
+})
 @SuppressWarnings("serial")
 public class RequestorCore
 implements Serializable {
 
-    private long    _id;
+    @XmlTransient
     private long    _requestId;
+    
+    @XmlElement(name="requestorId")
     private long    _requestorSeq;
-    private Date    _createdDate;
-    private Date    _modifiedDate;
-    private int     _modifiedBy;
-    private int     _createdBy;
+    
+    @XmlElement(name="requestorType")
     private Long    _requestorType;
+    
+    @XmlElement(name="firstName", required = true)
     private String  _firstName;
+    
+    @XmlElement(name="middleName", required = true)
     private String  _middleName;
+    
+    @XmlElement(name="lastName", required = true)
     private String  _lastName;
+    
+    @XmlElement(name="requestorTypeName", required = true)
     private String  _requestorTypeName;
+    
+    @XmlElement(name="workPhone", required = true)
     private String  _workPhone;
+    
+    @XmlElement(name="homePhone", required = true)
     private String  _homePhone;
+    
+    @XmlElement(name="cellPhone", required = true)
     private String  _cellPhone;
+    
+    @XmlElement(name="contactName", required = true)
     private String  _contactName;
+    
+    @XmlElement(name="contactPhone", required = true)
     private String  _contactPhone;
+    
+    @XmlElement(name="fax", required = true)
     private String  _fax;
+    
+    @XmlTransient
     private String  _suffix;
+    
+    @XmlTransient
     private String _mainAddress1;
+    
+    @XmlTransient
     private String _mainAddress2;
+    
+    @XmlTransient
     private String _mainAddress3;
+    
+    @XmlTransient
     private String _mainCity;
+    
+    @XmlTransient
     private String _mainPostalCode;
+    
+    @XmlTransient
     private String _mainState;
+    
+    @XmlTransient
     private String _mainCountryName;
+    
+    @XmlTransient
     private String _mainCountryCode;
 
+    @XmlTransient
+    private long    _id;
+    
+    @XmlTransient
+    private Date    _createdDate;
+    
+    @XmlTransient
+    private Date    _modifiedDate;
+    
+    @XmlTransient
+    private int     _modifiedBy;
+    
+    @XmlTransient
+    private int     _createdBy;
     
 
     public long getId() { return _id; }

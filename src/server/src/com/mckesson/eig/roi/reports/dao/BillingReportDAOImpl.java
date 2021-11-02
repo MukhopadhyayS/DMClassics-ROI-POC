@@ -18,6 +18,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -25,6 +26,7 @@ import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.journal.model.LedgerAccountDTO;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 
+@Transactional
 public class BillingReportDAOImpl extends ROIReportDAOImpl {
 
     private static final OCLogger LOG = new OCLogger(BillingReportDAOImpl.class);

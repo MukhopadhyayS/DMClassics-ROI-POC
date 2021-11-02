@@ -20,32 +20,86 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date Jul 26, 2012
- * @since Jul 26, 2012
- *
+ * <p>Java class for SaveRequestPatientList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="SaveRequestPatientList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="updatePatients" type="{urn:eig.mckesson.com}RequestPatient" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="updateEncounters" type="{urn:eig.mckesson.com}RequestEncounter" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="updateDocuments" type="{urn:eig.mckesson.com}RequestDocument" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="updatePages" type="{urn:eig.mckesson.com}RequestPage" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="updateVersions" type="{urn:eig.mckesson.com}RequestVersion" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="deletePatient" type="{urn:eig.mckesson.com}DeletePatientList"/>
+ *         &lt;element name="updateSupplementalDocument" type="{urn:eig.mckesson.com}RequestSupplementalDocument" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="updateSupplementalAttachement" type="{urn:eig.mckesson.com}RequestSupplementalAttachment" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SaveRequestPatientList", propOrder = {
+    "_requestId",
+    "_updatePatients",
+    "_updateEncounters",
+    "_updateDocuments",
+    "_updatePages",
+    "_updateVersions",
+    "_deletePatient",
+    "_updateSupplementalDocument",
+    "_updateSupplementalAttachement"
+})
 public class SaveRequestPatientsList 
 extends BaseModel {
     
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(name="requestId")
     private long _requestId;
     
-    private List<RequestPatient> _updatePatients = new ArrayList<RequestPatient>();
+    @XmlElement(name="updatePatients")
+    private List<RequestPatient> _updatePatients;
 
-    private List <RequestEncounter> _updateEncounters =  new ArrayList<RequestEncounter>();
-    private List <RequestDocument> _updateDocuments =  new ArrayList<RequestDocument>();
-    private List <RequestVersion> _updateVersions =  new ArrayList<RequestVersion>();
-    private List <RequestPage> _updatePages =  new ArrayList<RequestPage>();
-    private List <RequestSupplementalDocument> _updateSupplementalDocument =
-                                                       new ArrayList<RequestSupplementalDocument>();
-    private List <RequestSupplementalAttachment> _updateSupplementalAttachement =
-                                                     new ArrayList<RequestSupplementalAttachment>();
+    @XmlElement(name="updateEncounters")
+    private List <RequestEncounter> _updateEncounters;
     
+    @XmlElement(name="updateDocuments")
+    private List <RequestDocument> _updateDocuments;
+    
+    @XmlElement(name="updatePages")
+    private List <RequestPage> _updatePages;
+    
+    @XmlElement(name="updateVersions")
+    private List <RequestVersion> _updateVersions;
+    
+    @XmlElement(name="deletePatient", required = true)
     private DeletePatientList _deletePatient;
+    
+    @XmlElement(name="updateSupplementalDocument")
+    private List <RequestSupplementalDocument> _updateSupplementalDocument;
+    
+    @XmlElement(name="updateSupplementalAttachement")
+    private List <RequestSupplementalAttachment> _updateSupplementalAttachement;
+    
+    
+    
+    
     
     public List<RequestPatient> getUpdatePatients() {  return _updatePatients;   }
     public void setUpdatePatients(List<RequestPatient> updatePatients) {

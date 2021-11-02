@@ -3,8 +3,15 @@ package com.mckesson.eig.roi.supplementary.model;
 import java.io.File;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.mckesson.eig.roi.base.model.BaseModel;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlTransient
 public class ROIAttachmentCommon 
 extends BaseModel {
     
@@ -14,26 +21,67 @@ extends BaseModel {
     private static final int FIVE = 5;
     private static final int EIGHT = 8;
 
+    @XmlElement(name="type", required = true)
     private String _type;
+    
+    @XmlElement(name="encounter", required = true)
     private String _encounter;
+    
+    @XmlElement(name="docFacility", required = true)
     private String _docFacility;
+    
+    @XmlTransient
     private String _freeformfacility;
+    
+    @XmlElement(name="subtitle", required = true)
     private String _subtitle;
+    
+    @XmlElement(name="isDeleted", required = true)
     private String _isDeleted;
+    
+    @XmlElement(name="pageCount", required = true)
     private String _pageCount;
+    
+    @XmlElement(name="dateOfService", required = true, nillable = true)
     private Date _dateOfService;
+    
+    @XmlElement(name="attachmentDate", required = true, nillable = true)
     private Date _attachmentDate;
+    
+    @XmlElement(name="uuid", required = true)
     private String _uuid;
+    
+    @XmlElement(name="volume", required = true)
     private String _volume;
+    
+    @XmlElement(name="path", required = true)
     private String _path;
+    
+    @XmlElement(name="filename", required = true)
     private String _filename;
+    
+    @XmlElement(name="filetype", required = true)
     private String _filetype;
+    
+    @XmlElement(name="fileext", required = true)
     private String _fileext;
+    
+    @XmlElement(name="printable", required = true)
     private String _printable;
+    
+    @XmlElement(name="submittedBy", required = true)
     private String _submittedBy;
+    
+    @XmlElement(name="comment", required = true)
     private String _comment;
+    
+    @XmlElement(name="externalSource", required = true)
     private String _externalSource;
+    
+    @XmlTransient
     private String _facility;
+    
+    
 
     public String getType() {
         return _type;

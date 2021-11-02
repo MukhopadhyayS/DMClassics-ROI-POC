@@ -35,6 +35,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
@@ -50,6 +51,7 @@ import com.mckesson.eig.roi.request.model.RequestCoreChargesShipping;
  * @author Keane
  * @date July 24, 2012
  */
+@Transactional
 public class RequestCoreChargesDAOImpl
 extends ROIDAOImpl
 implements RequestCoreChargesDAO {

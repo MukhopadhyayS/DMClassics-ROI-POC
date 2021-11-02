@@ -21,36 +21,118 @@ import java.util.List;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+
 /**
- * @author OFS
- * @date   JUL 03, 2012
+ * <p>Java class for RequestDocument complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestDocument">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="documentSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="encounterSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="mrn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="encounter" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="subtitle" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="chartOrder" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="docId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="docTypeId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="dateTime" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="patientSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="globalDocument" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="roiVersions" type="{urn:eig.mckesson.com}RequestVersion" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-public class RequestDocument
-extends BaseModel
-implements Serializable {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestDocument", propOrder = {
+    "_documentSeq",
+    "_encounterSeq",
+    "_mrn",
+    "_encounter",
+    "_facility",
+    "_name",
+    "_subtitle",
+    "_chartOrder",
+    "_docId",
+    "_docTypeId",
+    "_dateTime",
+    "_patientSeq",
+    "_globalDocument",
+    "_roiVersions"
+})
+public class RequestDocument extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //Document Details
+    @XmlElement(name="documentSeq")
     private long    _documentSeq;
+    
+    @XmlElement(name="encounterSeq")
     private long    _encounterSeq;
+    
+    @XmlElement(name="patientSeq")
     private long    _patientSeq;
+    
+    @XmlElement(name="globalDocument")
     private boolean _globalDocument;
+    
+    @XmlElement(name="name", required = true)
     private String  _name;
+    
+    @XmlElement(name="subtitle", required = true)
     private String  _subtitle;
+    
+    @XmlElement(name="chartOrder", required = true)
     private String  _chartOrder;
+    
+    @XmlElement(name="docId")
     private long  _docId;
+    
+    @XmlElement(name="docTypeId")
     private long  _docTypeId;
+    
+    @XmlElement(name="dateTime", required = true, nillable = true)
     private Date    _dateTime;
 
     // For Insertion of Documents
+    
+    @XmlElement(name="facility", required = true)
     private String _facility;
+    
+    @XmlTransient
     private String _duid;
+    
+    @XmlElement(name="mrn", required = true)
     private String _mrn;
+    
+    @XmlElement(name="encounter", required = true)
     private String _encounter;
 
+    @XmlElement(name="roiVersions")
     private List<RequestVersion> _roiVersions;
 
+    
+    
     public long getDocumentSeq() { return _documentSeq; }
     public void setDocumentSeq(long documentSeq) { _documentSeq = documentSeq; }
 

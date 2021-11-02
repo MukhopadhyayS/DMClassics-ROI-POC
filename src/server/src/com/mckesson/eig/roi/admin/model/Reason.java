@@ -21,36 +21,84 @@ import java.util.Date;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author manikandans
- * @date   Mar 16, 2009
- * @since  HPF 13.1 [ROI]; Apr 28, 2008
+ * <p>Java class for Reason complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="Reason">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="displayText" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="tpo" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="nonTpo" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Reason", propOrder = {
+    "id",
+    "name",
+    "displayText",
+    "type",
+    "status",
+    "tpo",
+    "nonTpo",
+    "recordVersion"
+})
 public class Reason
 implements Serializable {
 
     public static enum ReasonType { adjustment, request, status; }
 
-    private long    _id;
-    private String  _name;
-    private String  _displayText;
-    private String  _type;
-    private int     _status;
+    private long    id;
+    @XmlElement(required = true)
+    private String  name;
+    @XmlElement(required = true)
+    private String  displayText;
+    @XmlElement(required = true)
+    private String  type;
+    private int     status;
+    private boolean tpo;
+    private boolean nonTpo;
+    private int     recordVersion;
+    
+    @XmlTransient
     private long    _createdBy;
+    @XmlTransient
     private long    _modifiedBy;
+    @XmlTransient
     private Date    _modifiedDt;
+    @XmlTransient
     private long    _orgId;
+    @XmlTransient
     private boolean _active;
-    private boolean _tpo;
-    private boolean _nonTpo;
-    private int     _recordVersion;
+    
+    
 
-    public long getId() { return _id; }
-    public void setId(long id) { _id = id; }
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
-    public String getName() { return _name; }
+    public String getName() { return name; }
 
     @ValidationParams (
             isMandatory = true,
@@ -59,9 +107,9 @@ implements Serializable {
             misMatchErrCode = ROIClientErrorCodes.REASON_NAME_CONTAINS_INVALID_CHAR,
             maxLength = ROIConstants.DEFAULT_FIELD_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.REASON_NAME_LENGTH_EXCEEDS)
-    public void setName(String name) { _name = name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getDisplayText() { return _displayText; }
+    public String getDisplayText() { return displayText; }
 
     @ValidationParams (
             isMandatory = true,
@@ -70,15 +118,15 @@ implements Serializable {
             misMatchErrCode = ROIClientErrorCodes.REASON_DISPLAY_TEXT_CONTAINS_INVALID_CHAR,
             maxLength = ROIConstants.REASON_DISPLAY_TEXT_MAX_LENGTH,
             maxLenErrCode = ROIClientErrorCodes.REASON_DISPLAY_TEXT_LENGTH_EXCEEDS)
-    public void setDisplayText(String text) { _displayText = text; }
+    public void setDisplayText(String text) { this.displayText = text; }
 
-    public String getType() { return _type; }
+    public String getType() { return type; }
     public void setType(String type) {
-        _type = Enum.valueOf(ReasonType.class, type.toLowerCase()).toString();
+        this.type = Enum.valueOf(ReasonType.class, type.toLowerCase()).toString();
     }
 
-    public int getStatus() { return _status; }
-    public void setStatus(int status) { _status = status; }
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
 
     public long getCreatedBy() { return _createdBy; }
     public void setCreatedBy(long by) { _createdBy = by; }
@@ -95,18 +143,17 @@ implements Serializable {
     public boolean getActive() { return _active; }
     public void setActive(boolean active) { _active = active; }
 
-    public boolean getTpo() { return _tpo; }
-    public void setTpo(boolean tpo) { _tpo = tpo; }
+    public boolean getTpo() { return tpo; }
+    public void setTpo(boolean tpo) { this.tpo = tpo; }
 
-    public boolean getNonTpo() { return _nonTpo; }
-    public void setNonTpo(boolean nontpo) { _nonTpo = nontpo; }
+    public boolean getNonTpo() { return nonTpo; }
+    public void setNonTpo(boolean nontpo) { this.nonTpo = nontpo; }
 
-    public int getRecordVersion() { return _recordVersion; }
-    public void setRecordVersion(int version) { _recordVersion = version; }
-
+    public int getRecordVersion() { return recordVersion; }
+    public void setRecordVersion(int version) { this.recordVersion = version; }
     @Override
     public String toString() {
-        return "Reason Id : " + _id + ", Name : " + _name + ", Type : " + _type;
+        return "Reason Id : " + id + ", Name : " + name + ", Type : " + type;
     }
 
     /**
@@ -115,7 +162,7 @@ implements Serializable {
      * @return the audit comments for reason creation
      */
     public String toCreateAudit() {
-        return "ROI " + _type + " reason " + _name + " was added.";
+        return "ROI " + type + " reason " + name + " was added.";
     }
 
     /**
@@ -124,7 +171,7 @@ implements Serializable {
      * @return the audit comments for reason deletion
      */
     public String toDeleteAudit() {
-        return "ROI " + _type + " reason " + _name + " was deleted.";
+        return "ROI " + type + " reason " + name + " was deleted.";
     }
 
     /**
@@ -147,11 +194,11 @@ implements Serializable {
                 .append(" - ")
                 .append(oldReason.getStatus())
                 .append(" to ")
-                .append(_name)
+                .append(name)
                 .append(" - ")
-                .append(_displayText)
+                .append(displayText)
                 .append(" - ")
-                .append(_status).toString();
+                .append(status).toString();
         }
 
         if (ReasonType.request.toString().equalsIgnoreCase(oldReason.getType())) {
@@ -166,9 +213,9 @@ implements Serializable {
                 .append(" - ")
                 .append(oldReason.getAttribute())
                 .append(" to ")
-                .append(_name)
+                .append(name)
                 .append(" - ")
-                .append(_displayText)
+                .append(displayText)
                 .append(" - ")
                 .append(getAttribute()).toString();
 
@@ -181,9 +228,9 @@ implements Serializable {
                 .append(" - ")
                 .append(oldReason.getDisplayText())
                 .append(" to ")
-                .append(_name)
+                .append(name)
                 .append(" - ")
-                .append(_displayText).toString();
+                .append(displayText).toString();
         }
     }
 
@@ -200,11 +247,11 @@ implements Serializable {
 
     private String getAttribute() {
 
-        if (_tpo && _nonTpo) {
+        if (tpo && nonTpo) {
             return "both";
         }
 
-        if (_tpo) {
+        if (tpo) {
             return "tpo";
         }
 

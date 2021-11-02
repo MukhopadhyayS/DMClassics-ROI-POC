@@ -14,20 +14,48 @@
 package com.mckesson.eig.roi.output.model;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * This class contains the output transforms 
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for OutputTransform complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="OutputTransform">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="properties" type="{urn:eig.mckesson.com}MapModel" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="transformName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="transformType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "OutputTransform", propOrder = {
+    "_properties",
+    "_transformName",
+    "_transformType"
+})
 public class OutputTransform {
     
-    /** This holds the list of map models*/
+    @XmlElement(name="properties")
     private List<MapModel> _properties;
-    /** This holds the transformName*/
+    
+    @XmlElement(name="transformName", required = true)
     private String _transformName;
-    /** This holds the transformType*/
+    
+    @XmlElement(name="transformType", required = true)
     private String _transformType;
     
     

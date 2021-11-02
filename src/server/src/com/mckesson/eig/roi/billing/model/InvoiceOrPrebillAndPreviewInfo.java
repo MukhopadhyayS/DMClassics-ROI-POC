@@ -6,51 +6,185 @@ import java.util.List;
 
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
+/**
+ * <p>Java class for InvoiceOrPrebillAndPreviewInfo complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="InvoiceOrPrebillAndPreviewInfo">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestCoreId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="invoiceDueDays" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="letterTemplateFileId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="letterTemplateName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestStatus" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="invoicePrebillDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="invoiceDueDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="resendDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="outputMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="overwriteDueDate" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="invoiceSalesTax" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="baseCharge" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="invoiceBillingLocCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="invoiceBillinglocName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="invoiceBalanceDue" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="amountpaid" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="notes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="letterType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="willInvoiceShipped" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="autoAdjustments" type="{urn:eig.mckesson.com}RequestCoreDeliveryChargesAdjustmentPayment" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "InvoiceOrPrebillAndPreviewInfo", propOrder = {
+    "_requestCoreId",
+    "_type",
+    "_invoiceDueDays",
+    "_letterTemplateFileId",
+    "_letterTemplateName",
+    "_requestStatus",
+    "_requestDate",
+    "_invoicePrebillDate",
+    "_invoiceDueDate",
+    "_resendDate",
+    "_outputMethod",
+    "_queuePassword",
+    "_overwriteDueDate",
+    "_invoiceSalesTax",
+    "_baseCharge",
+    "_invoiceBillingLocCode",
+    "_invoiceBillinglocName",
+    "_invoiceBalanceDue",
+    "_amountpaid",
+    "_notes",
+    "_letterType",
+    "_willInvoiceShipped",
+    "_autoAdjustments"
+})
 public class InvoiceOrPrebillAndPreviewInfo
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //request Id
+    @XmlElement(name="requestCoreId")
     private long _requestCoreId;
+    
+  //type RTF or PDF
+    @XmlElement(name="type", required = true)
+    private String _type;
 
     // invoiceduedays
+    @XmlElement(name="invoiceDueDays")
     private long _invoiceDueDays;
 
-    //type RTF or PDF
-    private String _type;
-    private String _letterTemplateName;
-    private String _requestStatus;
-    private Date _requestDate;
+    @XmlElement(name="letterTemplateFileId")
     private long _letterTemplateFileId;
+    
+    @XmlElement(name="letterTemplateName", required = true)
+    private String _letterTemplateName;
+    
+    @XmlElement(name="requestStatus", required = true)
+    private String _requestStatus;
+    
+    @XmlElement(name="requestDate", required = true)
+    private Date _requestDate;
+    
+    @XmlElement(name="invoicePrebillDate", required = true)
     private Date _invoicePrebillDate;
+    
+    @XmlElement(name="invoiceDueDate", required = true)
     private Date _invoiceDueDate;
+    
+    @XmlElement(name="resendDate", required = true)
     private Date _resendDate;
+    
+    @XmlElement(name="outputMethod", required = true)
     private String _outputMethod;
+    
+    @XmlElement(name="queuePassword", required = true)
     private SecureStringAccessor _queuePassword;
+    
+    @XmlElement(name="overwriteDueDate")
     private boolean _overwriteDueDate;
+    
+    @XmlElement(name="invoiceSalesTax")
     private double _invoiceSalesTax;
+    
+    @XmlElement(name="baseCharge")
     private double _baseCharge;
-    private double _paymentAmount;
-    private double _adjustmentAmount;
+    
+    @XmlElement(name="invoiceBillingLocCode", required = true)
     private String _invoiceBillingLocCode;
+    
+    @XmlElement(name="invoiceBillinglocName", required = true)
     private String _invoiceBillinglocName;
+    
+    @XmlElement(name="invoiceBalanceDue")
     private double _invoiceBalanceDue;
+    
+    @XmlElement(name="amountpaid")
     private double _amountpaid;
+    
+    @XmlElement(name="notes")
     private String[] _notes;
+    
+    @XmlElement(name="letterType", required = true)
     private String _letterType;
+    
+    @XmlTransient
     private String _prebillStatus;
+    
+    @XmlElement(name="willInvoiceShipped")
     private boolean _willInvoiceShipped;
+    
+    @XmlElement(name="autoAdjustments")
     private List<RequestCoreDeliveryChargesAdjustmentPayment> _autoAdjustments;
 
+    
+    
+    @XmlTransient
+    private double _paymentAmount;
+    
+    @XmlTransient
+    private double _adjustmentAmount;
+    
+    @XmlTransient
     private boolean _isReleased;
+    
+    @XmlTransient
     private Date _releasedDate;
 
     /*property defined for applying unapplied amount to the invoice */
+    @XmlTransient
     private boolean _applyUnappliedAmount;
+    
+    @XmlTransient
     private double _amountToApply;
+    
+    
+    
+    
 
     public String getLetterType() { return _letterType; }
     public void setLetterType(String letterType) { _letterType = letterType; }

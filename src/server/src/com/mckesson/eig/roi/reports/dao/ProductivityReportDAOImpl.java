@@ -9,12 +9,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.muroioutbound.dao.MUROIOutboundDAO;
 import com.mckesson.eig.roi.reports.service.ROIReportUtil;
 import com.mckesson.eig.roi.request.service.RequestCoreServiceImpl;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.utils.SpringUtil;
 
+@Transactional
 public class ProductivityReportDAOImpl extends ROIReportDAOImpl {
 
     private static final OCLogger LOG = new OCLogger(ProductivityReportDAOImpl.class);

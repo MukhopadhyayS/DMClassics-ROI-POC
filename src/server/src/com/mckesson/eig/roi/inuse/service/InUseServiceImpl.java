@@ -18,8 +18,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.quartz.JobBuilder;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
+import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -30,15 +32,19 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.springframework.util.ObjectUtils;
 
+import com.mckesson.dm.core.common.logging.OCLogger;
+import com.mckesson.eig.roi.base.dao.ROIDAO;
+import com.mckesson.eig.roi.base.service.BaseROIService;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.eig.roi.inuse.base.api.InUseClientErrorCodes;
 import com.mckesson.eig.roi.inuse.base.api.InUseException;
 import com.mckesson.eig.roi.inuse.dao.InUseDAO;
 import com.mckesson.eig.roi.inuse.model.InUseRecord;
 import com.mckesson.eig.roi.inuse.model.InUseRecordList;
-import com.mckesson.dm.core.common.logging.OCLogger;
+import com.mckesson.eig.roi.request.dao.RequestCoreDAO;
 import com.mckesson.eig.utility.exception.ApplicationException;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.utility.util.SpringUtilities;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 
 
 
@@ -47,6 +53,8 @@ import com.mckesson.eig.wsfw.session.WsSession;
  * @date   Nov 11, 2008
  * @since  ROI HPF 13.1
  */
+@WebService(serviceName="InUseService", endpointInterface="com.mckesson.eig.roi.inuse.service.InUseService",
+targetNamespace="urn:eig.mckesson.com", portName="InUsePort", name="InUseServiceImpl")
 public class InUseServiceImpl implements InUseService {
 
     private static final OCLogger LOG = new OCLogger(InUseServiceImpl.class);
@@ -58,7 +66,6 @@ public class InUseServiceImpl implements InUseService {
     private static final String AUTHENTICATED_USER = "authenticated_roi_user";
 
     private Scheduler _scheduler;
-    private InUseDAO _inUseDAO;
     private int _gracePeriodMinutes = DEFAULT_GRACE_PERIOD;
     private Object _sem = new Object();
     private boolean _initialized;
@@ -66,13 +73,18 @@ public class InUseServiceImpl implements InUseService {
     public InUseServiceImpl() {
         super();
     }
+    
+    private InUseDAO getDAO(String name) {
+        return (InUseDAO) SpringUtilities.getInstance().getBeanFactory().
+                                                          getBean(name);
+    }
 
-    /**
-     * Method to initialize the service and make sure we are set up correctly
-     * @throws SchedulerException
-     */
+  
+    @Override
+    @WebMethod(exclude = true)
     public void initService() throws SchedulerException {
-
+                
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         synchronized (_sem) {
             if (_initialized)  {
                 return;
@@ -121,11 +133,13 @@ public class InUseServiceImpl implements InUseService {
     /**
      * @see InUseService#releaseInUseRecord(String, String, String, String)
      */
+    @Override
     public void releaseInUseRecord(String objectType,
                                    String objectID,
                                    String applicationID,
                                    String userID) {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         final String logSM = "releaseInUseRecord(objectType, objectID, applicationID, userID)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:"
@@ -136,7 +150,8 @@ public class InUseServiceImpl implements InUseService {
         }
 
         try {
-
+            
+                 
             InUseServiceValidator validator = new InUseServiceValidator();
             if (!validator.validateFields(objectType, objectID, applicationID, userID)) {
                 throw validator.getException();
@@ -175,12 +190,14 @@ public class InUseServiceImpl implements InUseService {
     /**
      * @see InUseService#createInUseRecord(String, String, String, String, int)
      */
+    @Override
     public InUseRecord createInUseRecord(String objectType,
                                          String objectID,
                                          String applicationID,
                                          String userID,
                                          int expMin) {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         final String logSM = "createInUseRecord(objectType, "
                                                 + "objectID, "
                                                 + "applicationID, "
@@ -196,6 +213,7 @@ public class InUseServiceImpl implements InUseService {
 
         InUseRecord record = null;
         try {
+            
 
             InUseServiceValidator validator = new InUseServiceValidator();
             if (!validator.validateFields(objectType, objectID, applicationID, userID, expMin)) {
@@ -252,8 +270,10 @@ public class InUseServiceImpl implements InUseService {
     /**
      * @see InUseService#retrieveInUseRecord(String, String)
      */
+    @Override
     public InUseRecord retrieveInUseRecord(String objectType, String objectID) {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         final String logSM = "retrieveInUseRecord(objectType, objectID)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + objectType + ":" + objectID);
@@ -285,8 +305,10 @@ public class InUseServiceImpl implements InUseService {
     /**
      * @see InUseService#retrieveInUseRecordsByType(java.lang.String)
      */
-    public List<InUseRecord> retrieveInUseRecordsByType(String objectType) {
+    @Override
+    public InUseRecordList retrieveInUseRecordsByType(String objectType) {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         final String logSM = "retrieveInUseRecordsByType(objectType)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + objectType);
@@ -309,7 +331,7 @@ public class InUseServiceImpl implements InUseService {
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + list.size());
             }
-            return list;
+            return new InUseRecordList(list);
         } catch (InUseException ie) {
             throw ie;
         }
@@ -319,8 +341,10 @@ public class InUseServiceImpl implements InUseService {
      *
      * @see com.mckesson.eig.inuse.service.InUseService#retrieveAllInUseRecords()
      */
-    public List<InUseRecord> retrieveAllInUseRecords() {
+    @Override
+    public InUseRecordList retrieveAllInUseRecords() {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         final String logSM = "retrieveAllInUseRecords()";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
@@ -338,7 +362,7 @@ public class InUseServiceImpl implements InUseService {
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + list.size());
             }
-            return list;
+            return new InUseRecordList(list);
         } catch (InUseException ie) {
             throw ie;
         }
@@ -347,11 +371,13 @@ public class InUseServiceImpl implements InUseService {
     /**
      * @see InUseService#touchInUseRecord(String, String, String, String)
      */
+    @Override
     public InUseRecord touchInUseRecord(String objectType,
                                         String objectID,
                                         String applicationID,
                                         String userID) {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         final String logSM = "touchInUseRecord(objectType, objectID, applicationID, userID)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
@@ -406,8 +432,11 @@ public class InUseServiceImpl implements InUseService {
     *
     * @see com.mckesson.eig.inuse.service.InUseService#clearExpiredRecords()
     */
+    @WebMethod(exclude = true)
+    @Override
     public List<InUseRecord> clearExpiredRecords() {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         List<InUseRecord> records;
         synchronized (_sem) {
             if (!_initialized) {
@@ -427,11 +456,13 @@ public class InUseServiceImpl implements InUseService {
      * @see com.mckesson.eig.inuse.service.InUseService
      * #retrieveObjectIds(java.lang.String, java.lang.String)
      */
+    @Override
     public InUseRecordList retrieveInUseRecordsByIDs(String objectType,
                                                        String idsCSV,
                                                        String appId,
                                                        String userId) {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         final String logSM = "retrieveObjectIds(objectType, idsCSV, appId, userId)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + objectType + ":" + idsCSV + ":" + appId + ":" + userId);
@@ -464,6 +495,8 @@ public class InUseServiceImpl implements InUseService {
     *
     * @see com.mckesson.eig.inuse.service.InUseService#getGracePeriodMinutes()
     */
+    @WebMethod(exclude = true)
+    @Override
     public int getGracePeriodMinutes() {
         return _gracePeriodMinutes;
     }
@@ -472,6 +505,8 @@ public class InUseServiceImpl implements InUseService {
      *
      * @see com.mckesson.eig.inuse.service.InUseService#setGracePeriodMinutes(int)
      */
+    @WebMethod(exclude = true)
+    @Override
     public void setGracePeriodMinutes(int gracePeriodMinutes) {
         _gracePeriodMinutes = gracePeriodMinutes;
     }
@@ -479,6 +514,8 @@ public class InUseServiceImpl implements InUseService {
     /**
      * @param scheduler
      */
+    @WebMethod(exclude = true)
+    @Override
     public void setScheduler(Scheduler scheduler)  {
         _scheduler = scheduler;
     }
@@ -486,9 +523,11 @@ public class InUseServiceImpl implements InUseService {
     /**
      * @param dao for record persistence
      */
-    public void setInUseDAO(InUseDAO dao) {
-        _inUseDAO = dao;
-    }
+    /*
+     * @WebMethod(exclude = true)
+     * 
+     * @Override public void setInUseDAO(InUseDAO dao) { _inUseDAO = dao; }
+     */
 
     private void cancelTimerForRecord(InUseRecord record) throws SchedulerException {        
         if (DO_DEBUG) {
@@ -503,6 +542,7 @@ public class InUseServiceImpl implements InUseService {
 
     private void createTimerForRecord(InUseRecord record) throws SchedulerException {
 
+        InUseDAO _inUseDAO = (InUseDAO) getDAO("InUseDAO");
         if (DO_DEBUG) {
             if (null == record) {
                 LOG.info("Create Timer Job:record argument was null");
@@ -558,7 +598,7 @@ public class InUseServiceImpl implements InUseService {
      * @return Authenticated user details
      */
     private User getUser() {
-        return (User) WsSession.getSessionData(AUTHENTICATED_USER);
+        return (User) CxfWsSession.getSessionData(AUTHENTICATED_USER);
     }
 
 }

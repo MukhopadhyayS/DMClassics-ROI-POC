@@ -3,6 +3,8 @@ package com.mckesson.eig.roi.ccd.provider.dao;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.ccd.provider.CcdProvider;
@@ -17,6 +19,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.ConversionUtilities;
 
+@Transactional
 public class CcdProviderDAOImpl extends ROIDAOImpl implements CcdProviderDAO {
     private static final OCLogger LOG = new OCLogger(CcdProviderDAOImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();

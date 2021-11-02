@@ -18,18 +18,49 @@ package com.mckesson.eig.roi.billing.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date   Sep 08, 2011
- * @since  HPF 15.1 [ROI]
+ * <p>Java class for SearchPastDueInvoiceResult complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="SearchPastDueInvoiceResult">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="maxCountExceeded" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="PastDueInvoiceList" type="{urn:eig.mckesson.com}PastDueInvoices"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SearchPastDueInvoiceResult", propOrder = {
+    "_maxCountExceeded",
+    "_pastDueInvoices"
+})
 public class SearchPastDueInvoiceResult
 implements Serializable {
 
     private static final long serialVersionUID = 8301182555899423931L;
+    
+    @XmlElement(name="maxCountExceeded")
     private boolean _maxCountExceeded;
+    
+    @XmlElement(name = "PastDueInvoiceList", required = true)
     private List<PastDueInvoice> _pastDueInvoices;
+    
+    
 
     public List<PastDueInvoice> getPastDueInvoices() { return _pastDueInvoices; }
     public void setPastDueInvoices(List<PastDueInvoice> pastDueInvoices) {

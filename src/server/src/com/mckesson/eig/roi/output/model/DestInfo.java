@@ -13,34 +13,83 @@
 
 package com.mckesson.eig.roi.output.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * This method contains the destination information
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
+ * <p>Java class for DestInfo complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="DestInfo">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="serviceId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="statusInfo" type="{urn:eig.mckesson.com}StatusInfo"/>
+ *         &lt;element name="propertyDefs" type="{urn:eig.mckesson.com}PropertyDef" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="jobOptionDefs" type="{urn:eig.mckesson.com}PropertyDef" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="properties" type="{urn:eig.mckesson.com}propertyMap" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DestInfo", propOrder = {
+    "_serviceId",
+    "_statusInfo",
+    "_propertyDefs",
+    "_jobOptionDefs",
+    "_id",
+    "_name",
+    "_type",
+    "_description",
+    "properties"
+})
 public class DestInfo {
 
-    /** This contains the service Id*/
+    @XmlElement(name="serviceId", required = true)
     private String _serviceId;
-    /** This holds the status info Object*/
+    
+    @XmlElement(name="statusInfo", required = true)
     private StatusInfo _statusInfo;
-    /** This holds the arrays of property Definitions*/
+    
+    @XmlElement(name="propertyDefs")
     private PropertyDef[] _propertyDefs;
-    /** This holds the arrays of job option Definitions*/
+    
+    @XmlElement(name="jobOptionDefs")
     private PropertyDef[] _jobOptionDefs;
-    /** This holds the id*/
+    
+    @XmlElement(name="id")
     private int _id;
-    /** This holds the name*/
+    
+    @XmlElement(name="name", required = true)
     private String _name;
-    /** This holds the type*/
+    
+    @XmlElement(name="type", required = true)
     private String _type;
-    /** This holds the properties*/
-    private Map<String, ? extends Object> _properties;
-    /** This holds the description*/
+    
+    @XmlElement(name="description", required = true)
     private String _description;
+    
+    private List<PropertyMap> properties;
+    
     
     /*name
     type
@@ -73,12 +122,22 @@ public class DestInfo {
         _type = type;
     }
 
-    public Map<String, ? extends Object> getProperties() {
+    /*public Map<String, ? extends Object> getProperties() {
         return _properties;
     }
 
     public void setProperties(Map<String, ? extends Object> properties) {
         _properties = properties;
+    }*/
+    public List<PropertyMap> getProperties() {
+        if (this.properties == null) {
+            this.properties = new ArrayList<PropertyMap>();
+        }
+        return this.properties;
+    }
+    
+    public void setProperties(List<PropertyMap> properties) {
+        this.properties = properties;
     }
 
     public String getDescription() {

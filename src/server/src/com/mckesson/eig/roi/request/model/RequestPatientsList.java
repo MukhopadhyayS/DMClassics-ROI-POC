@@ -18,21 +18,48 @@ package com.mckesson.eig.roi.request.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date Jul 6, 2012
- * @since Jul 6, 2012
- *
+ * <p>Java class for RequestPatientsList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestPatientsList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestPatients" type="{urn:eig.mckesson.com}RequestPatient" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestPatientsList", propOrder = {
+    "_requestId",
+    "_requestPatients"
+})
 public class RequestPatientsList
 implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(name="requestId")
     private long _requestId;
 
+    @XmlElement(name="requestPatients")
     private List<RequestPatient> _requestPatients;
+    
     
     public RequestPatientsList() { }
     

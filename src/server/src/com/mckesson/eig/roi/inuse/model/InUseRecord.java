@@ -16,24 +16,58 @@ package com.mckesson.eig.roi.inuse.model;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- *
- * @author OFS
- * @date   Nov 11, 2008
- * @since  ROI HPF 13.1
- */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "InUseRecord", propOrder = {
+    "_recordSequence",
+    "_objectID",
+    "_objectType",
+    "_applicationID",
+    "_userID",
+    "_expiresMinutes",
+    "_recordVersion",
+    "_createdDate",
+    "_createdBy",
+    "_modifiedDate",
+    "_modifiedBy"
+})
 public class InUseRecord implements Serializable {
 
+    @XmlElement(name = "recordSequence")
     private long _recordSequence;
+    
+    @XmlElement(name="createdBy", required = true)
     private long _createdBy;
+    
+    @XmlElement(name="createdDate", required = true)
     private Date _createdDate;
+    
+    @XmlElement(name="modifiedBy", required = true)
     private long _modifiedBy;
+    
+    @XmlElement(name="modifiedDate", required = true)
     private Date _modifiedDate;
+    
+    @XmlElement(name="recordVersion", required = true)
     private int _recordVersion;
+    
+    @XmlElement(name="objectType", required = true)
     private String _objectType;
+    
+    @XmlElement(name="objectID", required = true)
     private String _objectID;
+    
+    @XmlElement(name="userID", required = true)
     private String _userID;
+    
+    @XmlElement(name="applicationID", required = true)
     private String _applicationID;
+    
+    @XmlElement(name = "expiresMinutes")
     private int _expiresMinutes;
 
     public long getRecordSequence() { return _recordSequence; }

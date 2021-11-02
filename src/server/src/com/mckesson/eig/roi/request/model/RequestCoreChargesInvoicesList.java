@@ -17,17 +17,46 @@ package com.mckesson.eig.roi.request.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author Karthik Easwaran
- * @date   Oct 12, 2012
- * @since  Oct 12, 2012
+ * <p>Java class for RequestCoreChargesInvoicesList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestCoreChargesInvoicesList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestCoreChargesInvoice" type="{urn:eig.mckesson.com}RequestCoreChargesInvoice" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="isInvoiced" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestCoreChargesInvoicesList", propOrder = {
+    "_invoicesList",
+    "_isInvoiced"
+})
 public class RequestCoreChargesInvoicesList
 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    @XmlElement(name="requestCoreChargesInvoice")
     private List<RequestCoreChargesInvoice> _invoicesList;
+    
+    @XmlElement(name="isInvoiced")
     private boolean _isInvoiced;
 
     public RequestCoreChargesInvoicesList() { }

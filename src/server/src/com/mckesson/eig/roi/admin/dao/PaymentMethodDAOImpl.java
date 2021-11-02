@@ -19,6 +19,8 @@ package com.mckesson.eig.roi.admin.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.admin.model.PaymentMethod;
 import com.mckesson.eig.roi.admin.model.PaymentMethodList;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
@@ -30,6 +32,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Mar 16, 2009
  * @since  HPF 13.1 [ROI]; Apr 16, 2008
  */
+@Transactional
 public class PaymentMethodDAOImpl
 extends ROIDAOImpl
 implements PaymentMethodDAO {

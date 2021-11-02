@@ -19,29 +19,99 @@ import java.io.Serializable;
 
 import com.mckesson.eig.roi.utils.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   Nov 17, 2008
- * @since  HPF 13.1 [ROI]; Nov 11, 2008
+ * <p>Java class for Invoice complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="Invoice">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="creatorName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="createdDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="queuePassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="resendDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="outputMethod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="invoiceDueDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="baseCharge" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="totalAdjustments" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="totalPayments" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="currentBalance" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Invoice", propOrder = {
+    "_id",
+    "_type",
+    "_creatorName",
+    "_createdDate",
+    "_queuePassword",
+    "_resendDate",
+    "_outputMethod",
+    "_invoiceDueDate",
+    "_baseCharge",
+    "_totalAdjustments",
+    "_totalPayments",
+    "_currentBalance"
+})
 public class Invoice
 implements Serializable {
 
     private static final long serialVersionUID = 8865820133570176997L;
+    
+    @XmlElement(name="id")
     private long _id;
+    
+    @XmlElement(name="type", required = true)
     private String _type;
+    
+    @XmlElement(name="creatorName", required = true)
     private String _creatorName;
+    
+    @XmlElement(name="createdDate", required = true)
     private String _createdDate;
+    
+    @XmlElement(name="queuePassword", required = true)
     private SecureStringAccessor _queuePassword;
+    
+    @XmlElement(name="resendDate", required = true)
     private String _resendDate;
+    
+    @XmlElement(name="outputMethod", required = true)
     private String _outputMethod;
+    
+    @XmlElement(name="invoiceDueDate", required = true)
     private String _invoiceDueDate;
+    
+    @XmlElement(name="baseCharge")
     private double _baseCharge;
+    
+    @XmlElement(name="totalAdjustments")
     private double _totalAdjustments;
+    
+    @XmlElement(name="totalPayments")
     private double _totalPayments;
+    
+    @XmlElement(name="currentBalance")
     private double _currentBalance;
+    
+    
 
     public long getId() { return _id; }
     public void setId(long id) { _id = id; }

@@ -18,22 +18,62 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 /**
- * @author ranjithr
- * @date   Apr 15, 2008
- * @since  HPF 13.1 [ROI]; Apr 15, 2008
- */
+* <p>Java class for PageLevelTier complex type.
+*
+* <p>The following schema fragment specifies the expected content contained within this class.
+*
+* <pre>
+* &lt;complexType name="PageLevelTier">
+* &lt;complexContent>
+* &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+* &lt;sequence>
+* &lt;element name="pageLevelTierId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+* &lt;element name="page" type="{http://www.w3.org/2001/XMLSchema}int"/>
+* &lt;element name="pageCharge" type="{http://www.w3.org/2001/XMLSchema}float"/>
+* &lt;element name="recordVersion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+* &lt;/sequence>
+* &lt;/restriction>
+* &lt;/complexContent>
+* &lt;/complexType>
+* </pre>
+*
+*
+*/
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PageLevelTier", propOrder = {
+"_id",
+"_page",
+"_pageCharge",
+"_recordVersion"
+})
 public class PageLevelTier
 implements Serializable {
 
+    @XmlElement(name="pageLevelTierId")
     private long    _id;
+    
+    @XmlElement(name="recordVersion")
     private int     _recordVersion;
+    
+    @XmlElement(name="page")
     private int    _page;
+    
+    @XmlElement(name="pageCharge")
     private float   _pageCharge;
+    
+    @XmlTransient
     private long    _createdBy;
+    
+    @XmlTransient
     private long    _modifiedBy;
+    
+    @XmlTransient
     private Date    _modifiedDate;
 
 

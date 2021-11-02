@@ -21,6 +21,7 @@ import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -38,6 +39,7 @@ import com.mckesson.eig.roi.supplementary.model.ROISupplementarityDocument;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
+@Transactional
 public class ROISupplementaryDAOImpl extends ROIDAOImpl implements ROISupplementaryDAO {
 
     private static final OCLogger LOG = new OCLogger(ROISupplementaryDAOImpl.class);

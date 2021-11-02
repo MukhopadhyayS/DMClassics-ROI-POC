@@ -19,32 +19,102 @@ package com.mckesson.eig.roi.requestor.model;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.model.BaseModel;
 
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date Nov 16, 2012
- * @since HPF 16.0 [ROI]; Nov 16, 2012
- *
+ * <p>Java class for RequestorPayment complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorPayment">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestCoreDeliveryChargesId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="paymentId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="totalAppliedAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="lastAppliedAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="invoicedBaseCharge" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="invoiceBalance" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="invoiceAmountPaid" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="invoicePaymentTotal" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="prebillPayment" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-public class RequestorPayment
-extends BaseModel {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorPayment", propOrder = {
+    "_requestCoreDeliveryChargesId",
+    "_paymentId",
+    "_requestId",
+    "_totalAppliedAmount",
+    "_lastAppliedAmount",
+    "_invoicedBaseCharge",
+    "_invoiceBalance",
+    "_invoiceAmountPaid",
+    "_invoicePaymentTotal",
+    "_facility",
+    "_prebillPayment"
+})
+public class RequestorPayment extends BaseModel{
 
 
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(name="requestCoreDeliveryChargesId")
     private long _requestCoreDeliveryChargesId;
+    
+    @XmlElement(name="paymentId")
     private long _paymentId;
+    
+    @XmlElement(name="requestId")
     private long _requestId;
+    
+    @XmlElement(name="totalAppliedAmount")
     private double _totalAppliedAmount;
+    
+    @XmlElement(name="lastAppliedAmount")
     private double _lastAppliedAmount;
+    
+    @XmlElement(name="invoicedBaseCharge")
     private double _invoicedBaseCharge;
+    
+    @XmlElement(name="invoiceBalance")
     private double _invoiceBalance;
+    
+    @XmlElement(name="invoiceAmountPaid")
     private double _invoiceAmountPaid;
+    
+    @XmlElement(name="invoicePaymentTotal")
     private double _invoicePaymentTotal;
+    
+    @XmlTransient
     private double _unAppliedAmount;
+    
+    @XmlTransient
     private double _refundAmount;
+    
+    @XmlElement(name="facility", required = true)
     private String _facility;
+    
+    @XmlElement(name="prebillPayment")
     private boolean _prebillPayment;
+    
     
     public long getRequestCoreDeliveryChargesId() { return _requestCoreDeliveryChargesId; }
     public void setRequestCoreDeliveryChargesId(long requestCoreDeliveryChargesId) {

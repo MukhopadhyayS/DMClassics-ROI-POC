@@ -16,7 +16,14 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.admin.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -24,23 +31,106 @@ import java.util.List;
  * @date   Aug 12, 2008
  * @since  HPF 13.5 [ROI]; Aug 12, 2008
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ROIAppData", propOrder = {
+    "hasSSNMasking",
+    "freeFormFacilities",
+    "invoiceDueDays"
+})
 public class ROIAppData
 implements Serializable {
 
-    private boolean _hasSSNMasking;
-    private List<String> _freeFormFacilities;
-    private List<Integer> _invoiceDueDays;
+    private boolean hasSSNMasking;
+    //@XmlElementRef(name = "freeFormFacilities", namespace = "urn:eig.mckesson.com", type = JAXBElement.class, required = false)
+    //private List<JAXBElement<List<String>>> freeFormFacilities;
+    //@XmlElement(type = String.class, required = false)
+    private List<String> freeFormFacilities;
+    //@XmlElement(type = Integer.class)
+    private List<Integer> invoiceDueDays;
 
-    public boolean getHasSSNMasking() {  return _hasSSNMasking; }
-    public void setHasSSNMasking(boolean mask) { _hasSSNMasking = mask; }
+    /**
+     * Gets the value of the hasSSNMasking property.
+     * 
+     */
+    public boolean getHasSSNMasking() {
+        return hasSSNMasking;
+    }
 
-    public List <String> getFreeFormFacilities() { return _freeFormFacilities; }
-    public void setFreeFormFacilities(List <String> freeFormFacilities) {
-        _freeFormFacilities = freeFormFacilities;
+    /**
+     * Sets the value of the hasSSNMasking property.
+     * 
+     */
+    public void setHasSSNMasking(boolean value) {
+        this.hasSSNMasking = value;
+    }
+
+    /**
+     * Gets the value of the freeFormFacilities property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the freeFormFacilities property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getFreeFormFacilities().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link JAXBElement }{@code <}{@link List }{@code <}{@link String }{@code >}{@code >}
+     * 
+     * 
+     */
+    public List<String> getFreeFormFacilities() {
+        if (freeFormFacilities == null) {
+            freeFormFacilities = new ArrayList<String>();
+        }
+        return this.freeFormFacilities;
+    }
+
+    /**
+     * Gets the value of the invoiceDueDays property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the invoiceDueDays property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getInvoiceDueDays().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Integer }
+     * 
+     * 
+     */
+    public List<Integer> getInvoiceDueDays() {
+        if (invoiceDueDays == null) {
+            invoiceDueDays = new ArrayList<Integer>();
+        }
+        return this.invoiceDueDays;
+    }
+
+    public void setFreeFormFacilities(
+            List<String> formFacilities) {
+        this.freeFormFacilities = formFacilities;
+    }
+
+    public void setInvoiceDueDays(List<Integer> invoiceDueDays) {
+        this.invoiceDueDays = invoiceDueDays;
     }
     
-    public List<Integer> getInvoiceDueDays() { return _invoiceDueDays; }
-    public void setInvoiceDueDays(List<Integer> invoiceDueDays) { 
-        _invoiceDueDays = invoiceDueDays;
-    }
+    
+
 }

@@ -16,28 +16,76 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.request.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.mckesson.eig.roi.base.model.BaseModel;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date   JUL 03, 2012
+ * <p>Java class for RequestVersion complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestVersion">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="versionSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="documentSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="docId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="versionNumber" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="globalDocument" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="roiPages" type="{urn:eig.mckesson.com}RequestPage" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-public class RequestVersion extends BaseModel
-implements Serializable {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestVersion", propOrder = {
+    "_versionSeq",
+    "_documentSeq",
+    "_docId",
+    "_versionNumber",
+    "_globalDocument",
+    "_roiPages"
+})
+public class RequestVersion extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //Version Details
+    
+    @XmlElement(name="versionSeq")
     private long  _versionSeq;
+    
+    @XmlElement(name="documentSeq")
     private long  _documentSeq;
-    private long  _versionNumber;
+    
+    @XmlElement(name="docId")
     private long _docId;
+    
+    @XmlElement(name="versionNumber")
+    private long  _versionNumber;
+    
+ // used to identify whether this page belongs for global documents or not
+    @XmlElement(name="globalDocument")
+    private boolean _globalDocument;
+    
+    @XmlElement(name="roiPages")
     private List<RequestPage> _roiPages;
 
-    // used to identify whether this page belongs for global documents or not
-    private boolean _globalDocument;
+    
 
     public long getDocId() { return _docId; }
     public void setDocId(long docId) { _docId = docId; }

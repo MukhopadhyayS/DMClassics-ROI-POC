@@ -18,14 +18,25 @@ package com.mckesson.eig.roi.admin.model;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
  * @author manikandans
  * @date   Feb 15, 2008
  * @since  HPF 13.1 [ROI]; Feb 15, 2008
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "MediaTypeList", propOrder = {
+    "_mediaTypes"
+})
 public class MediaTypesList {
 
+    @XmlElement(name="mediaTypeList")
     private List<MediaType> _mediaTypes;
     public MediaTypesList() { };
 

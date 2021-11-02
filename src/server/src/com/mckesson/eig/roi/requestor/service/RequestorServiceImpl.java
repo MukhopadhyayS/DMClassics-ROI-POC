@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.jws.WebService;
+
 import com.mckesson.eig.roi.admin.dao.ReasonDAO;
 import com.mckesson.eig.roi.admin.dao.RequestorTypeDAO;
 import com.mckesson.eig.roi.admin.model.LetterTemplateDocument;
@@ -86,6 +88,9 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * @date   Nov 03, 2008
  * @since  HPF 13.1 [ROI]; Jun 17, 2008
  */
+
+@WebService(serviceName="InUseService", endpointInterface="com.mckesson.eig.roi.requestor.service.RequestorService",
+targetNamespace="urn:eig.mckesson.com", portName="requestorPort", name="RequestorServiceImpl")
 public class RequestorServiceImpl
 extends AbstractBillingService
 implements RequestorService {

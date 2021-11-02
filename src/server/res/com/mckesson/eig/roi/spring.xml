@@ -2,17 +2,46 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                        http://www.springframework.org/schema/context
+    					http://www.springframework.org/schema/context/spring-context-4.3.xsd
                         http://www.springframework.org/schema/tx
                         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
                         http://www.springframework.org/schema/aop
                         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
                         http://www.springframework.org/schema/util
 						http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+						
+	<context:annotation-config />
+	
+	<!-- scans packages to find and register beans within the application context -->
+    <context:component-scan base-package="com.mckesson.eig.roi.*" />
 
+<!-- turn on spring transaction annotation -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- Common  Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref ="dataSource" />
+		
+		<property name="configLocation"
+			value="classpath:com/mckesson/eig/roi/hibernate.xml" />
+	</bean>
+	
+	
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -38,14 +67,7 @@
 	</bean>
 
     
-	<!-- Common  Hibernate SessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref ="dataSource" />
-		
-		<property name="configLocation"
-			value="classpath:com/mckesson/eig/roi/hibernate.xml" />
-	</bean>
+	
 	
 	
 	<!-- DAO-hibernate configuration starts here-->
@@ -127,17 +149,11 @@
 
 	<!-- Audit Configuration Ends -->
 	
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	
 
 	<!--  Common transactionContext . Please do not remove  -->
 
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 		    <tx:method name="retrieve*" read-only="true"/>
             <tx:method name="search*" read-only="true"/>
@@ -211,7 +227,10 @@
         <aop:advisor pointcut="execution(* com.mckesson.eig.roi.inuse.service.InUseServiceImpl.*(..))" 
         advice-ref="txAdvice" />
     </aop:config>
-    
+ -->    
+ 
+ 
+ 
 	<import resource="dao.spring.xml" />
 	<import resource="service.spring.xml" />
 
@@ -229,7 +248,7 @@
 		<property name="serverPort" value="18080" />
 	</bean> -->
 
-	<bean id="castor_context"
+<!-- 	<bean id="castor_context"
 		class="com.mckesson.eig.wsfw.axis.CastorContext" lazy-init="true">
 		<property name="mappingFile"
 			value="com/mckesson/eig/roi/castor.xml" />
@@ -239,7 +258,7 @@
 		class="com.mckesson.eig.wsfw.axis.CastorContext" lazy-init="true">
 		<property name="mappingFile"
 			value="com/mckesson/eig/audit/webservices/webservice-mappings.xml" />
-	</bean>
+	</bean> -->
 <!--
 	<bean id="eig_auditq_config"
 		class="com.mckesson.eig.utility.jms.JmsConfig">
@@ -421,9 +440,9 @@
         <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
     </util:list>
     
-    <bean id="WebClientPool" class="com.mckesson.eig.roi.webservice.util.rest.RestWebClientPool">
+    <!-- <bean id="WebClientPool" class="com.mckesson.eig.roi.webservice.util.rest.RestWebClientPool">
         <property name="providers" ref="webClientProviders" />
-    </bean>
+    </bean> -->
     
     <!--  Rest webservice related stuff Ends -->
     
@@ -433,10 +452,10 @@
 		<property name="providers" ref="webClientProviders" />
     </bean>
     
-    <bean name="InUseScheduler"
+    <!-- <bean id="InUseScheduler"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
 		<property name="autoStartup" value="false" />
 		<property name="quartzProperties" value="com/mckesson/eig/roi/quartz.properties" />
-	</bean>
+	</bean> -->
     
 </beans>

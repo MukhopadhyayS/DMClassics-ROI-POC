@@ -15,32 +15,108 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 
 package com.mckesson.eig.roi.billing.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.mckesson.eig.roi.requestor.model.RequestorStatementCriteria;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date   Sep 26, 2011
- * @since  Sep 26, 2011
+ * <p>Java class for InvoiceAndLetterInfo complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="InvoiceAndLetterInfo">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="invoices" type="{urn:eig.mckesson.com}RequestorInvoices" maxOccurs="unbounded"/>
+ *         &lt;element name="invoiceTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorLetterTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="reqLetterNotes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="invoiceNotes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="pastInvIds" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *         &lt;element name="isLetter" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="isNewInvoice" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="isPastInvoice" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="outputInvoice" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="statementCriteria" type="{urn:eig.mckesson.com}RequestorStatementCriteria"/>
+ *         &lt;element name="properties" type="{urn:eig.mckesson.com}propertiesMap" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "InvoiceAndLetterInfo", propOrder = {
+    "_invoices",
+    "_invoiceTemplateId",
+    "_requestorLetterTemplateId",
+    "_reqLetterNotes",
+    "_invoiceNotes",
+    "_pastInvIds",
+    "_isLetter",
+    "_isNewInvoice",
+    "_isPastInvoice",
+    "_isOutputInvoice",
+    "_statementCriteria",
+    "_properties"
+})
 public class InvoiceAndLetterInfo {
 
+    
+    @XmlElement(name="invoices", required = true)
     private List<RequestorInvoices> _invoices;
+    
+    @XmlElement(name="invoiceTemplateId")
     private long _invoiceTemplateId;
+    
+    @XmlElement(name="requestorLetterTemplateId")
     private long _requestorLetterTemplateId;
-    private long _letterTemplateId;
+    
+    @XmlElement(name="reqLetterNotes")
     private List<String> _reqLetterNotes;
+    
+    @XmlElement(name="invoiceNotes")
     private List<String> _invoiceNotes;
+    
+    @XmlElement(name="pastInvIds")
     private long[] _pastInvIds;
+    
+    @XmlElement(name="isLetter")
     private boolean _isLetter;
+    
+    @XmlElement(name="isNewInvoice")
     private boolean _isNewInvoice;
+    
+    @XmlElement(name="isPastInvoice")
     private boolean _isPastInvoice;
-	// CR# 375,961
+    
+    @XmlElement(name="outputInvoice")
     private boolean _isOutputInvoice;
-    private Map<String, String> _properties;
+    
+    @XmlElement(name="statementCriteria", required = true)
     private RequestorStatementCriteria _statementCriteria;
+    
+    @XmlElement(name="properties", type = HashMap.class)
+    private Map<String, String> _properties;
+    
+    @XmlTransient
+    private long _letterTemplateId;
+   
+    
+    
+   
 
     public List<String> getReqLetterNotes() { return _reqLetterNotes; }
     public void setReqLetterNotes(List<String> reqNotes) { _reqLetterNotes = reqNotes; }

@@ -1,3 +1,4 @@
+
 package com.mckesson.eig.roi.base.model;
 
 import java.io.Serializable;
@@ -6,37 +7,97 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+import com.mckesson.eig.roi.base.model.SearchCondition;
 import com.mckesson.eig.utility.util.StringUtilities;
 
-public class SearchCriteria implements Serializable {
+
+/**
+ * <p>Java class for SearchCriteria complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="SearchCriteria">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="maxCount" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="conditions" type="{urn:eig.mckesson.com}SearchCondition" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SearchCriteria", propOrder = {
+    "maxCount",
+    "conditions"
+})
+public class SearchCriteria implements Serializable{
     
     private static final String WHERE_CLAUSE = " where ";
     private static final String AND_CLAUSE = " and ";
-    
-    private int _maxCount;
-    private List<SearchCondition> _conditions;
 
+    protected int maxCount;
+    protected List<SearchCondition> conditions;
+
+    /**
+     * Gets the value of the maxCount property.
+     * 
+     */
     public int getMaxCount() {
-        return _maxCount;
-    }
-    
-    public void setMaxCount(int maxCount) {
-        _maxCount = maxCount; 
+        return maxCount;
     }
 
-    public List<SearchCondition> getConditions() { 
-        return _conditions;
+    /**
+     * Sets the value of the maxCount property.
+     * 
+     */
+    public void setMaxCount(int value) {
+        this.maxCount = value;
     }
-    
-    public void setConditions(List<SearchCondition> conditions) { 
-        _conditions = conditions; 
+
+    /**
+     * Gets the value of the conditions property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the conditions property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getConditions().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link SearchCondition }
+     * 
+     * 
+     */
+    public List<SearchCondition> getConditions() {
+        if (conditions == null) {
+            conditions = new ArrayList<SearchCondition>();
+        }
+        return this.conditions;
     }
     
     public void addCondition(SearchCondition condition) { 
-        if(_conditions == null) {
-            _conditions = new ArrayList<SearchCondition>();
+        if(conditions == null) {
+            conditions = new ArrayList<SearchCondition>();
         }
-        _conditions.add(condition); 
+        conditions.add(condition); 
     }
 
 

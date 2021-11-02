@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ? 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement. 
 * This material contains confidential, proprietary and trade secret information of 
 * McKesson Information Solutions and is protected under United States
@@ -15,15 +15,14 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 
 package com.mckesson.eig.roi.admin.service;
 
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.jws.WebService;
+
 import com.mckesson.dm.core.common.logging.OCLogger;
-import com.mckesson.eig.Security;
-import com.mckesson.eig.User;
 import com.mckesson.eig.roi.admin.dao.AdminLoVDAO;
 import com.mckesson.eig.roi.admin.dao.AdminLoVDAOImpl;
 import com.mckesson.eig.roi.admin.dao.AttachmentDAO;
@@ -66,6 +65,8 @@ import com.mckesson.eig.roi.admin.model.RequestStatusMap;
 import com.mckesson.eig.roi.admin.model.RequestorType;
 import com.mckesson.eig.roi.admin.model.RequestorTypesList;
 import com.mckesson.eig.roi.admin.model.SSNMask;
+import com.mckesson.eig.roi.admin.model.Security;
+import com.mckesson.eig.roi.admin.model.User;
 import com.mckesson.eig.roi.admin.model.Weight;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -77,7 +78,6 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
-
 /**
  * This class implements all ROI Admin services
  *
@@ -85,9 +85,10 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * @date Jul 02, 2009
  * @since HPF 13.1 [ROI]; Apr 04,2008
  */
-public class ROIAdminServiceImpl
-extends BaseROIService
-implements ROIAdminService {
+@WebService(serviceName = "ROIAdminService", endpointInterface = "com.mckesson.eig.roi.admin.service.ROIAdminService", targetNamespace = "urn:eig.mckesson.com", portName = "roiAdminPort", name = "ROIAdminServiceImpl")
+public class ROIAdminServiceImpl extends BaseROIService
+        implements
+            ROIAdminService {
 
     private static final OCLogger LOG = new OCLogger(ROIAdminServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
@@ -106,7 +107,8 @@ implements ROIAdminService {
 
         try {
 
-            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(DAOName.DELIVERY_METHOD_DAO);
+            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(
+                    DAOName.DELIVERY_METHOD_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
 
             if (!validator.validateDeliveryMethod(dm, dao, true)) {
@@ -124,7 +126,8 @@ implements ROIAdminService {
             setDeliveryMethodDetails(dm, date, true);
             long deliveryMethodId = dao.createDeliveryMethod(dm);
 
-            auditAdmin(dm.toCreateAudit(getUser().getFullName()), getUser().getInstanceId(), date);
+            auditAdmin(dm.toCreateAudit(getUser().getFullName()),
+                    getUser().getInstanceId(), date);
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End: Delivery Method : " + dm);
@@ -133,16 +136,18 @@ implements ROIAdminService {
             return deliveryMethodId;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in createDeliveryMethod",e);
+            LOG.error("ROIException occured in createDeliveryMethod", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in createDeliveryMethod",e);
-            throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
+            LOG.error("Exception occured in createDeliveryMethod", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
     }
 
     /**
-     * @see com.mckesson.eig.roi.admin.service.ROIAdminService #retrieveDeliveryMethod(long)
+     * @see com.mckesson.eig.roi.admin.service.ROIAdminService
+     *      #retrieveDeliveryMethod(long)
      */
     public DeliveryMethod retrieveDeliveryMethod(long id) {
 
@@ -151,11 +156,12 @@ implements ROIAdminService {
             LOG.debug(logSM + ">>Start:" + id);
         }
 
-        DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(DAOName.DELIVERY_METHOD_DAO);
+        DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(
+                DAOName.DELIVERY_METHOD_DAO);
         DeliveryMethod deliveryMethod = dao.retrieveDeliveryMethod(id);
 
         if (DO_DEBUG) {
-            LOG.debug(logSM + "<<End:"  + deliveryMethod);
+            LOG.debug(logSM + "<<End:" + deliveryMethod);
         }
 
         return deliveryMethod;
@@ -173,15 +179,17 @@ implements ROIAdminService {
 
         try {
 
-            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(DAOName.DELIVERY_METHOD_DAO);
+            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(
+                    DAOName.DELIVERY_METHOD_DAO);
             if (fetchDetails) {
-             return dao.retrieveAllDeliveryMethods();
+                return dao.retrieveAllDeliveryMethods();
             }
-             return dao.retrieveAllDeliveryMethodNames();
-            } catch (Throwable e) {
-                LOG.error("Exception occured in retrieveAllDeliveryMethods",e);
-                
-                throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
+            return dao.retrieveAllDeliveryMethodNames();
+        } catch (Throwable e) {
+            LOG.error("Exception occured in retrieveAllDeliveryMethods", e);
+
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
     }
 
@@ -196,7 +204,8 @@ implements ROIAdminService {
 
         try {
 
-            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(DAOName.DELIVERY_METHOD_DAO);
+            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(
+                    DAOName.DELIVERY_METHOD_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
 
             if (!validator.validateDeliveryMethod(deliveryMethod, dao, false)) {
@@ -207,7 +216,8 @@ implements ROIAdminService {
             if (deliveryMethod.getIsDefault()) {
 
                 defaultDm = dao.getDefaultDeliveryMethod();
-                if ((defaultDm != null) && (deliveryMethod.getId() != defaultDm.getId())) {
+                if ((defaultDm != null)
+                        && (deliveryMethod.getId() != defaultDm.getId())) {
                     dao.clearDefaultDeliveryMethod(defaultDm);
                 }
             }
@@ -227,8 +237,10 @@ implements ROIAdminService {
                 originalDM = retrieveDeliveryMethod(deliveryMethod.getId());
             }
 
-            String comment = deliveryMethod.toUpdateAudit(getUser().getFullName(), originalDM);
-            DeliveryMethod newDM = dao.updateDeliveryMethod(deliveryMethod, originalDM);
+            String comment = deliveryMethod
+                    .toUpdateAudit(getUser().getFullName(), originalDM);
+            DeliveryMethod newDM = dao.updateDeliveryMethod(deliveryMethod,
+                    originalDM);
 
             auditAdmin(comment, getUser().getInstanceId(), date);
             LOG.debug(logSM + "<<End: Updated Delivery Method " + newDM);
@@ -236,11 +248,12 @@ implements ROIAdminService {
             return newDM;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateDeliveryMethod",e);
+            LOG.error("ROIException occured in updateDeliveryMethod", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateDeliveryMethod",e);
-            throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
+            LOG.error("Exception occured in updateDeliveryMethod", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
     }
 
@@ -256,24 +269,27 @@ implements ROIAdminService {
 
         try {
 
-            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(DAOName.DELIVERY_METHOD_DAO);
+            DeliveryMethodDAO dao = (DeliveryMethodDAO) getDAO(
+                    DAOName.DELIVERY_METHOD_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
 
             DeliveryMethod dm = dao.deleteDeliveryMethod(deliveryMethodId);
 
             Timestamp date = dao.getDate();
-            auditAdmin(dm.toDeleteAudit(getUser().getFullName()), getUser().getInstanceId(), date);
+            auditAdmin(dm.toDeleteAudit(getUser().getFullName()),
+                    getUser().getInstanceId(), date);
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in deleteDeliveryMethod",e);
+            LOG.error("ROIException occured in deleteDeliveryMethod", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in deleteDeliveryMethod",e);
-            throw new ROIException(e, ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
+            LOG.error("Exception occured in deleteDeliveryMethod", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DELIVERY_METHOD_OPERATION_FAILED);
         }
     }
 
@@ -319,8 +335,9 @@ implements ROIAdminService {
             return wt;
 
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveWeight",e);
-            throw new ROIException(e, ROIClientErrorCodes.WEIGHT_METHOD_OPERATION_FAILED);
+            LOG.error("Exception occured in retrieveWeight", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.WEIGHT_METHOD_OPERATION_FAILED);
         }
     }
 
@@ -360,19 +377,22 @@ implements ROIAdminService {
             return updatedWt;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateWeight",e);
+            LOG.error("ROIException occured in updateWeight", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateWeight",e);
-            throw new ROIException(e, ROIClientErrorCodes.WEIGHT_METHOD_OPERATION_FAILED);
+            LOG.error("Exception occured in updateWeight", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.WEIGHT_METHOD_OPERATION_FAILED);
         }
     }
 
     /**
      * This method sets the non-UI values for the updated weight
      *
-     * @param Weight updated weight to be set
-     * @param dao WeightDAO to access database
+     * @param Weight
+     *            updated weight to be set
+     * @param dao
+     *            WeightDAO to access database
      *
      */
     private void setWeightDetails(Weight wt, WeightDAO dao) {
@@ -384,7 +404,7 @@ implements ROIAdminService {
 
     /**
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #createReason(com.mckesson.eig.roi.admin.model.Reason)
+     *      #createReason(com.mckesson.eig.roi.admin.model.Reason)
      */
     public long createReason(Reason reason) {
 
@@ -414,17 +434,18 @@ implements ROIAdminService {
             return reasonId;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in createReason",e);
+            LOG.error("ROIException occured in createReason", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in createReason",e);
-            throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
+            LOG.error("Exception occured in createReason", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
 
     /**
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #retrieveAllReasonsByType(java.lang.String)
+     *      #retrieveAllReasonsByType(java.lang.String)
      */
     public ReasonsList retrieveAllReasonsByType(String reasonType) {
 
@@ -445,8 +466,9 @@ implements ROIAdminService {
             return reasons;
 
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveAllReasonsByType",e);
-            throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
+            LOG.error("Exception occured in retrieveAllReasonsByType", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
 
@@ -454,7 +476,7 @@ implements ROIAdminService {
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService#retrieveReason(long)
      */
 
-    public  Reason retrieveReason(long reasonId) {
+    public Reason retrieveReason(long reasonId) {
 
         final String logSM = "retrieveReason(reasonId)";
         if (DO_DEBUG) {
@@ -471,15 +493,18 @@ implements ROIAdminService {
         return retrievedReason;
     }
 
-
     /**
      * This method sets the default values while creating/updating a Reason
      *
-     * @param reason details to be set
-     * @param dao used to get the database date
-     * @param isNew decides to set values for creation/modification
+     * @param reason
+     *            details to be set
+     * @param dao
+     *            used to get the database date
+     * @param isNew
+     *            decides to set values for creation/modification
      */
-    private void setDefaultReasonDetails(Reason reason, Timestamp date, boolean isNew) {
+    private void setDefaultReasonDetails(Reason reason, Timestamp date,
+            boolean isNew) {
 
         if (isNew) {
 
@@ -489,8 +514,10 @@ implements ROIAdminService {
             reason.setModifiedBy(getUser().getInstanceId());
         }
 
-        if (Reason.ReasonType.request.toString().equalsIgnoreCase(reason.getType())
-                || Reason.ReasonType.adjustment.toString().equalsIgnoreCase(reason.getType())) {
+        if (Reason.ReasonType.request.toString()
+                .equalsIgnoreCase(reason.getType())
+                || Reason.ReasonType.adjustment.toString()
+                        .equalsIgnoreCase(reason.getType())) {
 
             reason.setStatus(ROIConstants.STATUS_NOT_APPLICABLE_ID);
         }
@@ -514,24 +541,29 @@ implements ROIAdminService {
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
 
             Reason reason = dao.deleteReason(reasonId);
-            auditAdmin(reason.toDeleteAudit(), getUser().getInstanceId(), dao.getDate());
+            auditAdmin(reason.toDeleteAudit(), getUser().getInstanceId(),
+                    dao.getDate());
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in deleteReason",e);
-            throw e;
+			// Bhaskar
+            // Logging the entire exception object is a very bad idea.
+            // I know this is not done as a part of this change. But I couldn't ignore it after I saw this.
+            // You will find similar things in other places as well and some of them are changed as a part of the cxf change.
+            LOG.error("ROIException occured in deleteReason", e);            throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in deleteReason",e);
-            throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
+            LOG.error("Exception occured in deleteReason", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
 
     /**
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #updateReason(com.mckesson.eig.roi.admin.model.Reason)
+     *      #updateReason(com.mckesson.eig.roi.admin.model.Reason)
      */
     public Reason updateReason(Reason reason) {
 
@@ -565,17 +597,18 @@ implements ROIAdminService {
             return updatedReason;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateReason",e);
+            LOG.error("ROIException occured in updateReason", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateReason",e);
-            throw new ROIException(e, ROIClientErrorCodes.REASON_OPERATION_FAILED);
+            LOG.error("Exception occured in updateReason", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REASON_OPERATION_FAILED);
         }
     }
 
     /**
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #createRequestorType(com.mckesson.eig.roi.admin.model.RequestorType)
+     *      #createRequestorType(com.mckesson.eig.roi.admin.model.RequestorType)
      */
     public RequestorType createRequestorType(RequestorType requestorType) {
 
@@ -586,12 +619,16 @@ implements ROIAdminService {
 
         try {
 
-            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(DAOName.REQUESTOR_TYPE_DAO);
-            BillingTierDAO  btDAO = (BillingTierDAO) getDAO(DAOName.BILLING_TIER_DAO);
-            BillingTemplateDAO  btmpDAO = (BillingTemplateDAO) getDAO(DAOName.BILLING_TEMPLATE_DAO);
+            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(
+                    DAOName.REQUESTOR_TYPE_DAO);
+            BillingTierDAO btDAO = (BillingTierDAO) getDAO(
+                    DAOName.BILLING_TIER_DAO);
+            BillingTemplateDAO btmpDAO = (BillingTemplateDAO) getDAO(
+                    DAOName.BILLING_TEMPLATE_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
 
-            if (!validator.validateRequestorType(dao, btDAO, btmpDAO, requestorType, true)) {
+            if (!validator.validateRequestorType(dao, btDAO, btmpDAO,
+                    requestorType, true)) {
                 throw validator.getException();
             }
 
@@ -599,7 +636,8 @@ implements ROIAdminService {
             setDefaultRequestorTypeDetails(requestorType, date, true);
             RequestorType rt = dao.createRequestorType(requestorType);
 
-            auditAdmin(requestorType.toCreateAudit(), getUser().getInstanceId(), date);
+            auditAdmin(requestorType.toCreateAudit(), getUser().getInstanceId(),
+                    date);
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End: New RequestorTypeId == " + rt);
@@ -608,44 +646,58 @@ implements ROIAdminService {
             return rt;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in createRequestorType",e);
+            LOG.error("ROIException occured in createRequestorType", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in createRequestorType",e);
-            throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
+            LOG.error("Exception occured in createRequestorType", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
 
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #retrieveRequestorType(long)
+     *      #retrieveRequestorType(long)
      */
     public RequestorType retrieveRequestorType(long requestorTypeId) {
 
-        final String logSM = "retrieveRequestorType(requestorTypeId)";
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start:" + requestorTypeId);
+        try {
+            final String logSM = "retrieveRequestorType(requestorTypeId)";
+            if (DO_DEBUG) {
+                LOG.debug(logSM + ">>Start:" + requestorTypeId);
+            }
+
+            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(
+                    DAOName.REQUESTOR_TYPE_DAO);
+            RequestorType requestorType = dao
+                    .retrieveRequestorType(requestorTypeId);
+            long count = dao.getAssociatedRequestorCount(requestorTypeId);
+            requestorType.setIsAssociated(count > 0);
+
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End:" + requestorType);
+            }
+
+            return requestorType;
+        } catch (ROIException e) {
+            LOG.error("ROIException occured in createRequestorType", e);
+            throw e;
+        } catch (Throwable e) {
+            LOG.error("Exception occured in createRequestorType", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
 
-        RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(DAOName.REQUESTOR_TYPE_DAO);
-        RequestorType requestorType = dao.retrieveRequestorType(requestorTypeId);
-        long count = dao.getAssociatedRequestorCount(requestorTypeId);
-        requestorType.setIsAssociated(count > 0);
-
-        if (DO_DEBUG) {
-            LOG.debug(logSM + "<<End:" + requestorType);
-        }
-
-        return requestorType;
     }
 
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #retrieveAllRequestorTypes(boolean)
+     *      #retrieveAllRequestorTypes(boolean)
      */
-    public RequestorTypesList retrieveAllRequestorTypes(boolean loadAssociations) {
+    public RequestorTypesList retrieveAllRequestorTypes(
+            boolean loadAssociations) {
 
         final String logSM = "retrieveAllRequestorTypes()";
         if (DO_DEBUG) {
@@ -654,7 +706,8 @@ implements ROIAdminService {
 
         try {
 
-            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(DAOName.REQUESTOR_TYPE_DAO);
+            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(
+                    DAOName.REQUESTOR_TYPE_DAO);
             RequestorTypesList rTypes = new RequestorTypesList();
 
             if (loadAssociations) {
@@ -663,20 +716,22 @@ implements ROIAdminService {
                 rTypes = dao.retrieveAllRequestorTypeNames();
             }
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End: No of records " + rTypes.getRequestorTypes().size());
+                LOG.debug(logSM + "<<End: No of records "
+                        + rTypes.getRequestorTypes().size());
             }
 
             return rTypes;
 
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveAllRequestorTypes",e);
-            throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
+            LOG.error("Exception occured in retrieveAllRequestorTypes", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
 
     /**
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #updateRequestorType(com.mckesson.eig.roi.admin.model.RequestorType)
+     *      #updateRequestorType(com.mckesson.eig.roi.admin.model.RequestorType)
      */
     public RequestorType updateRequestorType(RequestorType requestorType) {
 
@@ -687,12 +742,16 @@ implements ROIAdminService {
 
         try {
 
-            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(DAOName.REQUESTOR_TYPE_DAO);
-            BillingTierDAO  btDAO = (BillingTierDAO) getDAO(DAOName.BILLING_TIER_DAO);
-            BillingTemplateDAO bDAO = (BillingTemplateDAO) getDAO(DAOName.BILLING_TEMPLATE_DAO);
+            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(
+                    DAOName.REQUESTOR_TYPE_DAO);
+            BillingTierDAO btDAO = (BillingTierDAO) getDAO(
+                    DAOName.BILLING_TIER_DAO);
+            BillingTemplateDAO bDAO = (BillingTemplateDAO) getDAO(
+                    DAOName.BILLING_TEMPLATE_DAO);
 
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
-            if (!validator.validateRequestorType(dao, btDAO, bDAO, requestorType, false)) {
+            if (!validator.validateRequestorType(dao, btDAO, bDAO,
+                    requestorType, false)) {
                 throw validator.getException();
             }
 
@@ -705,7 +764,8 @@ implements ROIAdminService {
             requestorType.copyFrom(rt);
             String oldBTierNames = getRelatedBillingTierNames(rt);
             String newBTierNames = getRelatedBillingTierNames(requestorType);
-            String comment = requestorType.toUpdateAudit(rt, bt, oldBTierNames, newBTierNames);
+            String comment = requestorType.toUpdateAudit(rt, bt, oldBTierNames,
+                    newBTierNames);
 
             RequestorType updatedRT = dao.updateRequestorType(requestorType);
 
@@ -717,18 +777,19 @@ implements ROIAdminService {
             return updatedRT;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateRequestorType",e);
+            LOG.error("ROIException occured in updateRequestorType", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateRequestorType",e);
-            throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
+            LOG.error("Exception occured in updateRequestorType", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
 
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #deleteRequestorType(long)
+     *      #deleteRequestorType(long)
      */
     public void deleteRequestorType(long requestorTypeId) {
 
@@ -739,36 +800,45 @@ implements ROIAdminService {
 
         try {
 
-            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(DAOName.REQUESTOR_TYPE_DAO);
+            RequestorTypeDAO dao = (RequestorTypeDAO) getDAO(
+                    DAOName.REQUESTOR_TYPE_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
 
-            if (!validator.validateRequestorTypeDeletion(requestorTypeId, dao)) {
+            if (!validator.validateRequestorTypeDeletion(requestorTypeId,
+                    dao)) {
                 throw validator.getException();
             }
 
             RequestorType rt = dao.deleteRequestorType(requestorTypeId);
-            auditAdmin(rt.toDeleteAudit(rt.getName()), getUser().getInstanceId(), dao.getDate());
+            auditAdmin(rt.toDeleteAudit(rt.getName()),
+                    getUser().getInstanceId(), dao.getDate());
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
         } catch (ROIException e) {
-            LOG.error("ROIException occured in deleteRequestorType",e);
+            LOG.error("ROIException occured in deleteRequestorType", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in deleteRequestorType",e);
-            throw new ROIException(e, ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
+            LOG.error("Exception occured in deleteRequestorType", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.REQUESTOR_TYPE_OPERATION_FAILED);
         }
     }
 
     /**
-     * This method sets the default values while creating/updating a requestorType
+     * This method sets the default values while creating/updating a
+     * requestorType
      *
-     * @param rt RequestorType details to be set
-     * @param dao used to get the database date
-     * @param isNew decides to set the values
+     * @param rt
+     *            RequestorType details to be set
+     * @param dao
+     *            used to get the database date
+     * @param isNew
+     *            decides to set the values
      */
-    private void setDefaultRequestorTypeDetails(RequestorType rt, Timestamp date, boolean isNew) {
+    private void setDefaultRequestorTypeDetails(RequestorType rt,
+            Timestamp date, boolean isNew) {
 
         if (isNew) {
 
@@ -780,11 +850,13 @@ implements ROIAdminService {
         }
         rt.setModifiedDate(date);
 
-        //In case if there is no billing template associated with a RequestorType
+        // In case if there is no billing template associated with a
+        // RequestorType
         if (rt.getRelatedBillingTemplate() == null) {
-            rt.setRelatedBillingTemplate(new HashSet <RelatedBillingTemplate>());
+            rt.setRelatedBillingTemplate(new HashSet<RelatedBillingTemplate>());
         }
-        for (RelatedBillingTemplate rtBillingtemplate : rt.getRelatedBillingTemplate()) {
+        for (RelatedBillingTemplate rtBillingtemplate : rt
+                .getRelatedBillingTemplate()) {
 
             if (isNew) {
                 rtBillingtemplate.setCreatedBy(getUser().getInstanceId());
@@ -809,9 +881,10 @@ implements ROIAdminService {
     }
 
     /**
-     * This method will get the Billing Tier Name for the input
-     * Billing Tier Id
-     * @param id Billing Tier Id
+     * This method will get the Billing Tier Name for the input Billing Tier Id
+     * 
+     * @param id
+     *            Billing Tier Id
      * @return Name of the Billing Tier
      */
     private String getBillingTierName(long id) {
@@ -834,18 +907,22 @@ implements ROIAdminService {
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #designateDocumentTypes(long, com.mckesson.eig.roi.hpf.model.DocTypeList, java.lang.String)
+     *      #designateDocumentTypes(long,
+     *      com.mckesson.eig.roi.hpf.model.DocTypeList, java.lang.String)
      */
-    public void designateDocumentTypes(long codeSetId, DocTypeDesignations newDesig,DocTypeAuditList docTypeAuditList) {
+    public void designateDocumentTypes(long codeSetId,
+            DocTypeDesignations newDesig, DocTypeAuditList docTypeAuditList) {
 
         final String logSM = "designateDocumentTypes(codeSetId, newDesig,docTypeAuditList)";
         if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start: codeSetId:" + codeSetId + newDesig + docTypeAuditList);
+            LOG.debug(logSM + ">>Start: codeSetId:" + codeSetId + newDesig
+                    + docTypeAuditList);
         }
 
         try {
 
-            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(
+                    DAOName.DOCUMENT_TYPE_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
             if (!validator.validateDocType(newDesig)) {
                 throw validator.getException();
@@ -854,15 +931,16 @@ implements ROIAdminService {
             com.mckesson.eig.roi.hpf.model.User user = getUser();
             DocTypeDesignations oldDesig = dao.retrieveDesignations(codeSetId);
             dao.designateDocumentTypes(codeSetId, newDesig, oldDesig, user);
-   
-            if(CollectionUtilities.hasContent(docTypeAuditList.getDocTypeAudit()))
-            {
-               for(DocTypeAudit docTypeAudit : docTypeAuditList.getDocTypeAudit())
-               {
-                   String comment = docTypeAudit.createAuditComment(docTypeAudit);
-                   Timestamp date = dao.getDate();
-                   auditAdmin(comment, user.getInstanceId(), date);
-               }
+
+            if (CollectionUtilities
+                    .hasContent(docTypeAuditList.getDocTypeAudit())) {
+                for (DocTypeAudit docTypeAudit : docTypeAuditList
+                        .getDocTypeAudit()) {
+                    String comment = docTypeAudit
+                            .createAuditComment(docTypeAudit);
+                    Timestamp date = dao.getDate();
+                    auditAdmin(comment, user.getInstanceId(), date);
+                }
             }
 
             if (DO_DEBUG) {
@@ -870,12 +948,13 @@ implements ROIAdminService {
             }
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in designateDocumentTypes",e);
+            LOG.error("ROIException occured in designateDocumentTypes", e);
             throw e;
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(e, ROIClientErrorCodes.DISCLOSURE_DOCUMENT_OPERATION_FAILED);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DISCLOSURE_DOCUMENT_OPERATION_FAILED);
         }
     }
 
@@ -892,7 +971,8 @@ implements ROIAdminService {
 
         try {
 
-            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(
+                    DAOName.DOCUMENT_TYPE_DAO);
             DocTypeDesignations desi = dao.retrieveDesignations(codeSetId);
 
             if (DO_DEBUG) {
@@ -904,14 +984,15 @@ implements ROIAdminService {
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(e, ROIClientErrorCodes.DISCLOSURE_DOCUMENT_OPERATION_FAILED);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.DISCLOSURE_DOCUMENT_OPERATION_FAILED);
         }
     }
 
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #createLetterTemplate(com.mckesson.eig.roi.admin.model.LetterTemplate)
+     *      #createLetterTemplate(com.mckesson.eig.roi.admin.model.LetterTemplate)
      */
     public long createLetterTemplate(LetterTemplate lt) {
 
@@ -922,7 +1003,8 @@ implements ROIAdminService {
 
         try {
 
-            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(DAOName.LETTER_TEMPLATE_DAO);
+            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(
+                    DAOName.LETTER_TEMPLATE_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
 
             if (!validator.validateLetterTemplate(lt, dao, true)) {
@@ -932,8 +1014,10 @@ implements ROIAdminService {
 
             if (lt.getIsDefault()) {
 
-                LetterTemplate lTemplate = dao.getDefaultLetterTemplate(lt.getLetterType());
-                if ((lTemplate != null) && (lt.getTemplateId() != lTemplate.getTemplateId())) {
+                LetterTemplate lTemplate = dao
+                        .getDefaultLetterTemplate(lt.getLetterType());
+                if ((lTemplate != null)
+                        && (lt.getTemplateId() != lTemplate.getTemplateId())) {
                     dao.clearDefault(lTemplate);
                 }
             }
@@ -950,17 +1034,18 @@ implements ROIAdminService {
             return id;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in createLetterTemplate",e);
+            LOG.error("ROIException occured in createLetterTemplate", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in createLetterTemplate",e);
-            throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
+            LOG.error("Exception occured in createLetterTemplate", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
 
     /**
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #retrieveLetterTemplate(long)
+     *      #retrieveLetterTemplate(long)
      */
     public LetterTemplate retrieveLetterTemplate(long id) {
 
@@ -969,8 +1054,12 @@ implements ROIAdminService {
             LOG.debug(logSM + ">>Start:" + id);
         }
 
-        LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(DAOName.LETTER_TEMPLATE_DAO);
+        LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(
+                DAOName.LETTER_TEMPLATE_DAO);
         LetterTemplate lt = dao.retrieveLetterTemplate(id);
+        
+        lt.setDocId(lt.getFile().getId());
+        lt.setUploadFile(lt.getFile().getName());
 
         if (DO_DEBUG) {
             LOG.debug(logSM + "<<End:" + lt);
@@ -982,7 +1071,7 @@ implements ROIAdminService {
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #retrieveAllLetterTemplates()
+     *      #retrieveAllLetterTemplates()
      */
     public LetterTemplateList retrieveAllLetterTemplates() {
 
@@ -993,25 +1082,37 @@ implements ROIAdminService {
 
         try {
 
-            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(DAOName.LETTER_TEMPLATE_DAO);
+            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(
+                    DAOName.LETTER_TEMPLATE_DAO);
             LetterTemplateList ltList = dao.retrieveAllLetterTemplates();
+            
+            List<LetterTemplate> letterTemplates = ltList.getLetterTemplates();
 
+            for(LetterTemplate lt : letterTemplates) {
+                lt.setDocId(lt.getFile().getId());
+                lt.setUploadFile(lt.getFile().getName());
+            }
+            
+            ltList.setLetterTemplates(letterTemplates);
+            
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End No of records:" + ltList.getLetterTemplates().size());
+                LOG.debug(logSM + "<<End No of records:"
+                        + ltList.getLetterTemplates().size());
             }
 
             return ltList;
 
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveAllLetterTemplates",e);
-            throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
+            LOG.error("Exception occured in retrieveAllLetterTemplates", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
 
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #deleteLetterTemplate(long)
+     *      #deleteLetterTemplate(long)
      */
     public void deleteLetterTemplate(long id) {
 
@@ -1022,29 +1123,32 @@ implements ROIAdminService {
 
         try {
 
-            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(DAOName.LETTER_TEMPLATE_DAO);
+            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(
+                    DAOName.LETTER_TEMPLATE_DAO);
             LetterTemplate lt = dao.deleteLetterTemplate(id);
 
             String name = lt.toDeleteAudit(lt.getName());
-            auditAdmin(lt.toDeleteAudit(lt.getName()), getUser().getInstanceId(), dao.getDate());
+            auditAdmin(lt.toDeleteAudit(lt.getName()),
+                    getUser().getInstanceId(), dao.getDate());
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in deleteLetterTemplate",e);
+            LOG.error("ROIException occured in deleteLetterTemplate", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in deleteLetterTemplate",e);
-            throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
+            LOG.error("Exception occured in deleteLetterTemplate", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
 
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #updateLetterTemplate(com.mckesson.eig.roi.admin.model.LetterTemplate)
+     *      #updateLetterTemplate(com.mckesson.eig.roi.admin.model.LetterTemplate)
      */
     public LetterTemplate updateLetterTemplate(LetterTemplate lt) {
 
@@ -1055,7 +1159,8 @@ implements ROIAdminService {
 
         try {
 
-            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(DAOName.LETTER_TEMPLATE_DAO);
+            LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(
+                    DAOName.LETTER_TEMPLATE_DAO);
 
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
             if (!validator.validateLetterTemplate(lt, dao, false)) {
@@ -1064,19 +1169,22 @@ implements ROIAdminService {
 
             if (lt.getIsDefault()) {
 
-                LetterTemplate lTemplate = dao.getDefaultLetterTemplate(lt.getLetterType());
-                if ((lTemplate != null) && (lTemplate.getTemplateId() != lt.getTemplateId())) {
+                LetterTemplate lTemplate = dao
+                        .getDefaultLetterTemplate(lt.getLetterType());
+                if ((lTemplate != null)
+                        && (lTemplate.getTemplateId() != lt.getTemplateId())) {
                     dao.clearDefault(lTemplate);
                 }
             }
 
             Timestamp date = dao.getDate();
             setDefaultLetterTemplateDetails(lt, date, false);
-            LetterTemplate orig = dao.retrieveLetterTemplate(lt.getTemplateId());
+            LetterTemplate orig = dao
+                    .retrieveLetterTemplate(lt.getTemplateId());
             lt.copyFrom(orig);
 
-            String  comment = lt.toUpdateAudit(orig);
-            LetterTemplate updated =  dao.updateLetterTemplate(lt);
+            String comment = lt.toUpdateAudit(orig);
+            LetterTemplate updated = dao.updateLetterTemplate(lt);
 
             auditAdmin(comment, getUser().getInstanceId(), date);
 
@@ -1087,11 +1195,12 @@ implements ROIAdminService {
             return updated;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateLetterTemplate",e);
+            LOG.error("ROIException occured in updateLetterTemplate", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateLetterTemplate",e);
-            throw new ROIException(e, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
+            LOG.error("Exception occured in updateLetterTemplate", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
 
@@ -1116,13 +1225,18 @@ implements ROIAdminService {
     }
 
     /**
-     * This method sets the default values while creating/updating a letterTemplate
+     * This method sets the default values while creating/updating a
+     * letterTemplate
      *
-     * @param lt LetterTEmplate details to be set
-     * @param dao used to get the database date
-     * @param isNew decides to set the values
+     * @param lt
+     *            LetterTEmplate details to be set
+     * @param dao
+     *            used to get the database date
+     * @param isNew
+     *            decides to set the values
      */
-    private void setDefaultLetterTemplateDetails(LetterTemplate lt, Timestamp date, boolean isNew) {
+    private void setDefaultLetterTemplateDetails(LetterTemplate lt,
+            Timestamp date, boolean isNew) {
 
         if (isNew) {
 
@@ -1163,7 +1277,7 @@ implements ROIAdminService {
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #createNote(com.mckesson.eig.roi.admin.model.Note)
+     *      #createNote(com.mckesson.eig.roi.admin.model.Note)
      */
     public long createNote(Note note) {
 
@@ -1181,10 +1295,11 @@ implements ROIAdminService {
                 throw validator.getException();
             }
 
-            setDefaultNoteDetails(note, dao,  true);
+            setDefaultNoteDetails(note, dao, true);
             Long id = dao.createNote(note);
 
-            auditAdmin(note.toCreateAudit(), getUser().getInstanceId(), dao.getDate());
+            auditAdmin(note.toCreateAudit(), getUser().getInstanceId(),
+                    dao.getDate());
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + id);
@@ -1193,12 +1308,13 @@ implements ROIAdminService {
             return id;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in createNote",e);
+            LOG.error("ROIException occured in createNote", e);
             throw e;
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(e, ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
         }
     }
 
@@ -1225,12 +1341,13 @@ implements ROIAdminService {
             return note;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in retrieveNote",e);
+            LOG.error("ROIException occured in retrieveNote", e);
             throw e;
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(e, ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
         }
     }
 
@@ -1259,7 +1376,8 @@ implements ROIAdminService {
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(e, ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
         }
     }
 
@@ -1276,29 +1394,32 @@ implements ROIAdminService {
 
         try {
 
-            AdminLoVDAOImpl dao = (AdminLoVDAOImpl) getDAO(DAOName.ADMINLOV_DAO);
+            AdminLoVDAO dao = (AdminLoVDAO) getDAO(
+                    DAOName.ADMINLOV_DAO);
             Note nte = (Note) dao.deleteNote(noteId);
 
-            auditAdmin(nte.toDeleteAudit(nte.getName()), getUser().getInstanceId(), dao.getDate());
+            auditAdmin(nte.toDeleteAudit(nte.getName()),
+                    getUser().getInstanceId(), dao.getDate());
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in deleteNote",e);
+            LOG.error("ROIException occured in deleteNote", e);
             throw e;
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(e, ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
         }
     }
 
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #updateNote(com.mckesson.eig.roi.admin.model.Note)
+     *      #updateNote(com.mckesson.eig.roi.admin.model.Note)
      */
     public Note updateNote(Note note) {
 
@@ -1319,7 +1440,8 @@ implements ROIAdminService {
             setDefaultNoteDetails(note, dao, false);
             Note nte = (Note) dao.updateNote(note);
 
-            auditAdmin(note.toUpdateAudit(nte.getName()), getUser().getInstanceId(), dao.getDate());
+            auditAdmin(note.toUpdateAudit(nte.getName()),
+                    getUser().getInstanceId(), dao.getDate());
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + nte);
@@ -1328,16 +1450,18 @@ implements ROIAdminService {
             return nte;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateNote",e);
+            LOG.error("ROIException occured in updateNote", e);
             throw e;
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(e, ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
         }
     }
 
-    private void setDefaultNoteDetails(Note note, AdminLoVDAO dao, boolean isNew) {
+    private void setDefaultNoteDetails(Note note, AdminLoVDAO dao,
+            boolean isNew) {
 
         if (isNew) {
             note.setCreatedBy(getUser().getInstanceId());
@@ -1365,7 +1489,8 @@ implements ROIAdminService {
 
             AdminLoVDAO dao = (AdminLoVDAO) getDAO(DAOName.ADMINLOV_DAO);
             SSNMask mask = (SSNMask) dao.retrieveLoV(ROIConstants.SSN_MASK_SEQ);
-            mask.setApplySSNMask(SSNMask.SSN_MASK_TRUE.equals(mask.getDescription()));
+            mask.setApplySSNMask(
+                    SSNMask.SSN_MASK_TRUE.equals(mask.getDescription()));
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + mask);
             }
@@ -1375,7 +1500,8 @@ implements ROIAdminService {
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+            throw new ROIException(
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
         }
     }
 
@@ -1393,11 +1519,14 @@ implements ROIAdminService {
         try {
 
             AdminLoVDAO dao = (AdminLoVDAO) getDAO(DAOName.ADMINLOV_DAO);
-            SSNMask oldSSNMask = (SSNMask) dao.retrieveLoV(ROIConstants.SSN_MASK_SEQ);
-            ssnMask.setSSNMaskDetails(oldSSNMask, getUser().getInstanceId(), dao.getDate());
+            SSNMask oldSSNMask = (SSNMask) dao
+                    .retrieveLoV(ROIConstants.SSN_MASK_SEQ);
+            ssnMask.setSSNMaskDetails(oldSSNMask, getUser().getInstanceId(),
+                    dao.getDate());
             String comment = ssnMask.toUpdateAudit();
-            SSNMask mask =  (SSNMask) dao.updateNote(ssnMask);
-            mask.setApplySSNMask(SSNMask.SSN_MASK_TRUE.equals(mask.getDescription()));
+            SSNMask mask = (SSNMask) dao.updateNote(ssnMask);
+            mask.setApplySSNMask(
+                    SSNMask.SSN_MASK_TRUE.equals(mask.getDescription()));
             auditAdmin(comment, getUser().getInstanceId(), dao.getDate());
 
             if (DO_DEBUG) {
@@ -1407,12 +1536,13 @@ implements ROIAdminService {
             return mask;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateSSNMask",e);
+            LOG.error("ROIException occured in updateSSNMask", e);
             throw e;
         } catch (Throwable e) {
 
             LOG.error(logSM + "Error :" + e);
-            throw new ROIException(ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+            throw new ROIException(
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
         }
     }
 
@@ -1420,16 +1550,17 @@ implements ROIAdminService {
 
         String billingTierNames = "";
         if ((rt.getRelatedBillingTier() != null)
-            && (rt.getRelatedBillingTier().size() != 0)) {
+                && (rt.getRelatedBillingTier().size() != 0)) {
 
             for (RelatedBillingTier bTier : rt.getRelatedBillingTier()) {
                 billingTierNames = billingTierNames
-                                   + getBillingTierName(bTier.getBillingTierId())
-                                   + ",";
+                        + getBillingTierName(bTier.getBillingTierId()) + ",";
             }
         }
-        if ((billingTierNames != null) && (billingTierNames.lastIndexOf(',') != -1)) {
-            billingTierNames = billingTierNames.substring(0, billingTierNames.lastIndexOf(','));
+        if ((billingTierNames != null)
+                && (billingTierNames.lastIndexOf(',') != -1)) {
+            billingTierNames = billingTierNames.substring(0,
+                    billingTierNames.lastIndexOf(','));
         }
 
         return billingTierNames;
@@ -1438,7 +1569,7 @@ implements ROIAdminService {
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #retrieveDocTypeIdsByDesignation(java.lang.String)
+     *      #retrieveDocTypeIdsByDesignation(java.lang.String)
      */
     public Designation retrieveDocTypeIdsByDesignation(String designation) {
 
@@ -1446,29 +1577,36 @@ implements ROIAdminService {
 
             final String logSM = "retrieveDocTypeIdsByDesignation(designation)";
             if (DO_DEBUG) {
-                LOG.debug(logSM + ">>Start:Designation of documents to be retrieved : "
-                                + designation);
+                LOG.debug(logSM
+                        + ">>Start:Designation of documents to be retrieved : "
+                        + designation);
             }
 
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
-            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(
+                    DAOName.DOCUMENT_TYPE_DAO);
 
             if (!validator.validateDesignationType(designation)) {
                 throw validator.getException();
             }
 
-            List<Long> docIds = dao.retrieveDocTypeIdsByDesignation(designation);
+            List<Long> docIds = dao
+                    .retrieveDocTypeIdsByDesignation(designation);
 
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:Size of retrieved documents: " + docIds.size());
+                LOG.debug(logSM + "<<End:Size of retrieved documents: "
+                        + docIds.size());
             }
             return new Designation(designation, docIds);
         } catch (ROIException e) {
-            LOG.error("ROIException occured in retrieveDocTypeIdsByDesignation",e);
+            LOG.error("ROIException occured in retrieveDocTypeIdsByDesignation",
+                    e);
             throw e;
         } catch (Throwable exe) {
-            LOG.error("Exception occured in retrieveDocTypeIdsByDesignation",exe);
-            throw new ROIException(exe, ROIClientErrorCodes.DISCLOSURE_DOCUMENT_OPERATION_FAILED);
+            LOG.error("Exception occured in retrieveDocTypeIdsByDesignation",
+                    exe);
+            throw new ROIException(exe,
+                    ROIClientErrorCodes.DISCLOSURE_DOCUMENT_OPERATION_FAILED);
         }
     }
 
@@ -1486,8 +1624,8 @@ implements ROIAdminService {
         try {
 
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
-            LetterTemplateDAO letterTemplateDAO = (LetterTemplateDAO)
-                                                       getDAO(DAOName.LETTER_TEMPLATE_DAO);
+            LetterTemplateDAO letterTemplateDAO = (LetterTemplateDAO) getDAO(
+                    DAOName.LETTER_TEMPLATE_DAO);
 
             if (!validator.validateLetterTemplateType(letterType)) {
                 throw validator.getException();
@@ -1497,62 +1635,65 @@ implements ROIAdminService {
                 LOG.debug(logSM + "<<End:");
             }
 
-           return letterTemplateDAO.hasLetterTemplate(letterType);
+            return letterTemplateDAO.hasLetterTemplate(letterType);
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in hasLetterTemplate",e);
+            LOG.error("ROIException occured in hasLetterTemplate", e);
             throw e;
         } catch (Throwable exe) {
-            LOG.error("Exception occured in hasLetterTemplate",exe);
-            throw new ROIException(exe, ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
+            LOG.error("Exception occured in hasLetterTemplate", exe);
+            throw new ROIException(exe,
+                    ROIClientErrorCodes.LETTER_TEMPLATE_PROCESS_FAILED);
         }
     }
     /**
-    *
-    * @see com.mckesson.eig.roi.admin.service.ROIAdminService#retrieveSSNMask()
-    */
-   public ROIAppData retrieveROIAppData() {
+     *
+     * @see com.mckesson.eig.roi.admin.service.ROIAdminService#retrieveSSNMask()
+     */
+    public ROIAppData retrieveROIAppData() {
 
-       final String logSM = "retrieveROIAppData()";
-       if (DO_DEBUG) {
-           LOG.debug(logSM + ">>Start");
-       }
+        final String logSM = "retrieveROIAppData()";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start");
+        }
 
-       try {
+        try {
 
-           AdminLoVDAO dao = (AdminLoVDAO) getDAO(DAOName.ADMINLOV_DAO);
-           SSNMask mask = (SSNMask) dao.retrieveLoV(ROIConstants.SSN_MASK_SEQ);
+            AdminLoVDAO dao = (AdminLoVDAO) getDAO(DAOName.ADMINLOV_DAO);
+            SSNMask mask = (SSNMask) dao.retrieveLoV(ROIConstants.SSN_MASK_SEQ);
 
-           ROIAppData appData = new ROIAppData();
-           appData.setHasSSNMasking(SSNMask.SSN_MASK_TRUE.equals(mask.getDescription()));
-           appData.setInvoiceDueDays(dao.retrieveGlobalInvoiceDueDays());
-           
-           Integer userId = getUser().getInstanceId();
-           List<String> formFacilities = dao.retrieveFreeFormFacilitiesByUser(userId);
-           appData.setFreeFormFacilities(formFacilities);
-           
-           if (DO_DEBUG) {
+            ROIAppData appData = new ROIAppData();
+            appData.setHasSSNMasking(
+                    SSNMask.SSN_MASK_TRUE.equals(mask.getDescription()));
+            appData.setInvoiceDueDays(dao.retrieveGlobalInvoiceDueDays());
 
-               StringBuffer info
-               = new StringBuffer().append("SSN Masking = ")
-                                   .append(appData.getHasSSNMasking() + " \n")
-                                   .append(" Total No. of FreeFormFacilities = ")
-                                   .append(appData.getFreeFormFacilities().size());
+            Integer userId = getUser().getInstanceId();
+            List<String> formFacilities = dao
+                    .retrieveFreeFormFacilitiesByUser(userId);
+            appData.setFreeFormFacilities(formFacilities);
 
-               LOG.debug(logSM + "<<End:" + info.toString());
-           }
+            if (DO_DEBUG) {
 
-           return appData;
-       } catch (Throwable e) {
+                StringBuffer info = new StringBuffer().append("SSN Masking = ")
+                        .append(appData.getHasSSNMasking() + " \n")
+                        .append(" Total No. of FreeFormFacilities = ")
+                        .append(appData.getFreeFormFacilities().size());
 
-           LOG.error(logSM + "Error :" + e);
-           throw new ROIException(ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
-       }
-   }
+                LOG.debug(logSM + "<<End:" + info.toString());
+            }
 
-   /**
-    * @see com.mckesson.eig.roi.admin.service.ROIAdminService#getUser(java.lang.String)
-    */
+            return appData;
+        } catch (Throwable e) {
+
+            LOG.error(logSM + "Error :" + e);
+            throw new ROIException(
+                    ROIClientErrorCodes.ADMINLOV_OPERATION_FAILED);
+        }
+    }
+
+    /**
+     * @see com.mckesson.eig.roi.admin.service.ROIAdminService#getUser(java.lang.String)
+     */
     public User getUser(String userId) {
 
         final String logsM = "getUser(userId)";
@@ -1563,20 +1704,22 @@ implements ROIAdminService {
         try {
 
             if (StringUtilities.isEmpty(userId)) {
-                throw new ROIException(ROIClientErrorCodes.USER_ID_CANNOT_BE_EMPTY);
+                throw new ROIException(
+                        ROIClientErrorCodes.USER_ID_CANNOT_BE_EMPTY);
             }
 
             String id = getUser().getLoginId();
 
             UserSecurityHibernateDao userSecurityDao = getUserSecurityHibernateDao();
-            com.mckesson.eig.roi.hpf.model.User retrievedUser = userSecurityDao.retrieveUser(id);
+            com.mckesson.eig.roi.hpf.model.User retrievedUser = userSecurityDao
+                    .retrieveUser(id);
 
             User user = new User();
             setUserDetails(retrievedUser, user);
 
             // Retrieving user SecurityRights
             List<UserSecurity> userSecurities = userSecurityDao
-                                                    .getSecurityRight(getUser().getInstanceId());
+                    .getSecurityRight(getUser().getInstanceId());
 
             setUserSecurity(userSecurities, user);
 
@@ -1601,8 +1744,8 @@ implements ROIAdminService {
 
         try {
 
-            OutputIntegrationDAO dao = (OutputIntegrationDAO)
-                                                getDAO(DAOName.OUTPUT_INTEGRATION_DAO);
+            OutputIntegrationDAO dao = (OutputIntegrationDAO) getDAO(
+                    DAOName.OUTPUT_INTEGRATION_DAO);
             dao.enableOutputService(doEnable);
         } catch (Throwable e) {
 
@@ -1624,8 +1767,8 @@ implements ROIAdminService {
 
         try {
 
-            OutputIntegrationDAO dao = (OutputIntegrationDAO)
-                                                getDAO(DAOName.OUTPUT_INTEGRATION_DAO);
+            OutputIntegrationDAO dao = (OutputIntegrationDAO) getDAO(
+                    DAOName.OUTPUT_INTEGRATION_DAO);
             return dao.retrieveOutputServerProperties();
 
         } catch (Throwable e) {
@@ -1638,9 +1781,10 @@ implements ROIAdminService {
     /**
      *
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService
-     * #saveOutputServerProperties(com.mckesson.eig.roi.admin.model.OutputServerProperties)
+     *      #saveOutputServerProperties(com.mckesson.eig.roi.admin.model.OutputServerProperties)
      */
-    public void saveOutputServerProperties(OutputServerProperties outputServerProperties) {
+    public void saveOutputServerProperties(
+            OutputServerProperties outputServerProperties) {
 
         final String logsM = "saveOutputServerProperties(outputServerProperties)";
         if (DO_DEBUG) {
@@ -1650,16 +1794,17 @@ implements ROIAdminService {
         try {
 
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
-            if (!validator.validateOutputServerProperties(outputServerProperties)) {
+            if (!validator
+                    .validateOutputServerProperties(outputServerProperties)) {
                 throw validator.getException();
             }
 
-            OutputIntegrationDAO dao = (OutputIntegrationDAO)
-                                            getDAO(DAOName.OUTPUT_INTEGRATION_DAO);
+            OutputIntegrationDAO dao = (OutputIntegrationDAO) getDAO(
+                    DAOName.OUTPUT_INTEGRATION_DAO);
 
             dao.saveOutputServerProperties(outputServerProperties);
         } catch (ROIException e) {
-            LOG.error("ROIException occured in saveOutputServerProperties",e);
+            LOG.error("ROIException occured in saveOutputServerProperties", e);
             throw e;
         } catch (Throwable e) {
 
@@ -1696,6 +1841,8 @@ implements ROIAdminService {
         }
         Security[] securities = new Security[1];
 
+        // Security security = new Security(); //Security class in
+        // com.mckesson.eig.Security package previously used.
         Security security = new Security();
         security.setFacility(ENTERPRISE);
         security.setCodes(getListAsArray(codeList));
@@ -1716,7 +1863,7 @@ implements ROIAdminService {
     }
 
     private void setUserDetails(com.mckesson.eig.roi.hpf.model.User src,
-        User user) {
+            User user) {
 
         user.setFullName(src.getFullName().trim());
         user.setInstanceId(src.getInstanceId());
@@ -1726,44 +1873,47 @@ implements ROIAdminService {
     }
 
     private UserSecurityHibernateDao getUserSecurityHibernateDao() {
-        return (UserSecurityHibernateDao) SpringUtilities.getInstance().getBeanFactory()
-                    .getBean(UserSecurityHibernateDao.class.getName());
+        return (UserSecurityHibernateDao) SpringUtilities.getInstance()
+                .getBeanFactory()
+                .getBean(UserSecurityHibernateDao.class.getName());
     }
 
     @Override
     public AttachmentLocation retrieveAttachmentLocation() {
-        
+
         final String logSM = "retrieveAttachmentLocation()";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:");
         }
 
         try {
-            
+
             AttachmentDAO dao = (AttachmentDAO) getDAO(DAOName.ATTACHMENT_DAO);
             AttachmentLocation location = dao.retrieveAttachmentLocation();
-          
+
             if (location == null) {
-                throw new ROIException(ROIClientErrorCodes.DATABASE_ATTACHMENT_CONFIG_MISSING);
+                throw new ROIException(
+                        ROIClientErrorCodes.DATABASE_ATTACHMENT_CONFIG_MISSING);
             }
-            
+
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
 
             return location;
         } catch (ROIException e) {
-            LOG.error("ROIException occured in retrieveAttachmentLocation",e);
+            LOG.error("ROIException occured in retrieveAttachmentLocation", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveAttachmentLocation",e);
-            throw new ROIException(e, ROIClientErrorCodes.ATTACHMENT_OPERATION_FAILED);
-        }  
+            LOG.error("Exception occured in retrieveAttachmentLocation", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.ATTACHMENT_OPERATION_FAILED);
+        }
     }
 
     @Override
     public void updateAttachmentLocation(AttachmentLocation attachmentLoc) {
-        
+
         final String logSM = "updateAttachmentLocation(attachmentLoc)";
         if (DO_DEBUG) {
             LOG.debug(logSM + ">>Start:" + attachmentLoc);
@@ -1778,31 +1928,31 @@ implements ROIAdminService {
             if (!validator.validateAttachmentLocation(location)) {
                 throw validator.getException();
             }
-            
+
             int modifiedBy = getUser().getInstanceId();
 
             // Retrieving the previous Attachment location for Audit
             AttachmentLocation loc = dao.retrieveAttachmentLocation();
             String prevLoc = loc.getAttachmentLocation();
-            
+
             dao.updateAttachmentLocation(location, modifiedBy);
 
             Timestamp date = dao.getDate();
-            auditAdmin(toAuditUpdateAttachmentLoc(prevLoc, location), 
-                       modifiedBy, date);
+            auditAdmin(toAuditUpdateAttachmentLoc(prevLoc, location),
+                    modifiedBy, date);
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:");
             }
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateAttachmentLocation",e);
+            LOG.error("ROIException occured in updateAttachmentLocation", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateAttachmentLocation",e);
-            throw new ROIException(e, ROIClientErrorCodes.ATTACHMENT_OPERATION_FAILED);
-        }       
+            LOG.error("Exception occured in updateAttachmentLocation", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.ATTACHMENT_OPERATION_FAILED);
+        }
     }
-
 
     /**
      * @see com.mckesson.eig.roi.admin.service.ROIAdminService#retrieveInvoiceDueDays()
@@ -1816,7 +1966,8 @@ implements ROIAdminService {
 
         try {
 
-            InvoiceDueDaysDAO dao = (InvoiceDueDaysDAO) getDAO(DAOName.INVOICEDUEDAYS_DAO);
+            InvoiceDueDaysDAO dao = (InvoiceDueDaysDAO) getDAO(
+                    DAOName.INVOICEDUEDAYS_DAO);
             InvoiceDueDays invoiceDue = dao.retrieveInvoiceDueDays(1);
 
             if (DO_DEBUG) {
@@ -1826,8 +1977,9 @@ implements ROIAdminService {
             return invoiceDue;
 
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveInvoiceDueDays",e);
-            throw new ROIException(e, ROIClientErrorCodes.INVOICE_DUE_DAYS_METHOD_OPERATION_FAILED);
+            LOG.error("Exception occured in retrieveInvoiceDueDays", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.INVOICE_DUE_DAYS_METHOD_OPERATION_FAILED);
         }
     }
 
@@ -1844,10 +1996,12 @@ implements ROIAdminService {
 
         try {
 
-            InvoiceDueDaysDAO dao = (InvoiceDueDaysDAO) getDAO(DAOName.INVOICEDUEDAYS_DAO);
+            InvoiceDueDaysDAO dao = (InvoiceDueDaysDAO) getDAO(
+                    DAOName.INVOICEDUEDAYS_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
-            
-            if (!validator.validateInvoiceDueDays(invoiceDate, getUser().getLoginId(), dao)) {
+
+            if (!validator.validateInvoiceDueDays(invoiceDate,
+                    getUser().getLoginId(), dao)) {
                 throw validator.getException();
             }
 
@@ -1856,7 +2010,8 @@ implements ROIAdminService {
             setInvoiceDetails(invoiceDate, dao);
             String comment = invoiceDate.toUpdateAudit(originalInvoiceDue);
 
-            InvoiceDueDays updatedInvoiceDue = dao.updateInvoiceDue(invoiceDate);
+            InvoiceDueDays updatedInvoiceDue = dao
+                    .updateInvoiceDue(invoiceDate);
 
             auditAdmin(comment, getUser().getInstanceId(), dao.getDate());
 
@@ -1867,16 +2022,17 @@ implements ROIAdminService {
             return updatedInvoiceDue;
 
         } catch (ROIException e) {
-            LOG.error("ROIException occured in updateInvoiceDueDays",e);
+            LOG.error("ROIException occured in updateInvoiceDueDays", e);
             throw e;
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateInvoiceDueDays",e);
-            throw new ROIException(e, ROIClientErrorCodes.INVOICE_DUE_DAYS_METHOD_OPERATION_FAILED);
+            LOG.error("Exception occured in updateInvoiceDueDays", e);
+            throw new ROIException(e,
+                    ROIClientErrorCodes.INVOICE_DUE_DAYS_METHOD_OPERATION_FAILED);
         }
     }
 
     private void setInvoiceDetails(InvoiceDueDays invoiceDue,
-                                    InvoiceDueDaysDAO dao) {
+            InvoiceDueDaysDAO dao) {
 
         invoiceDue.setModifiedBy(getUser().getInstanceId());
         Timestamp date = dao.getDate();
@@ -1886,16 +2042,19 @@ implements ROIAdminService {
     /**
      * This method creates the audit comments to update Attachment
      *
-     * @param prevLoc Previous attachment location
-     * @param attachmentLoc Full path of the attachment location
+     * @param prevLoc
+     *            Previous attachment location
+     * @param attachmentLoc
+     *            Full path of the attachment location
      * @return the audit comments for attachment location update
      */
-    public String toAuditUpdateAttachmentLoc(String prevLoc, String attachmentLoc) {
-        return "Updated the Attachment location from " + prevLoc + " to " + attachmentLoc;
-    }  
-	
-	
-	/**
+    public String toAuditUpdateAttachmentLoc(String prevLoc,
+            String attachmentLoc) {
+        return "Updated the Attachment location from " + prevLoc + " to "
+                + attachmentLoc;
+    }
+
+    /**
      * This method is to retrieve the MU document types ids
      * 
      * @param
@@ -1910,7 +2069,8 @@ implements ROIAdminService {
 
         try {
 
-            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(
+                    DAOName.DOCUMENT_TYPE_DAO);
             List<String> muDocList = dao.retrieveMUDocTypes();
 
             if (DO_DEBUG) {
@@ -1920,12 +2080,12 @@ implements ROIAdminService {
             return muDocList;
 
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveMUDocTypes",e);
-          throw new ROIException(ROIClientErrorCodes.RETRIEVAL_MUDOCTYPES);
+            LOG.error("Exception occured in retrieveMUDocTypes", e);
+            throw new ROIException(ROIClientErrorCodes.RETRIEVAL_MUDOCTYPES);
         }
-    }  
+    }
 
-    /** 
+    /**
      * This method is used to update the country code details
      * 
      * @param country
@@ -1938,22 +2098,26 @@ implements ROIAdminService {
         }
 
         try {
-            CountryCodeConfigurationDAO dao = (CountryCodeConfigurationDAO) getDAO(DAOName.ROI_COUNTRYCODECONFIG_DAO);            
+            CountryCodeConfigurationDAO dao = (CountryCodeConfigurationDAO) getDAO(
+                    DAOName.ROI_COUNTRYCODECONFIG_DAO);
             dao.updateCountryCode(country);
-            String remark = "Country Code-Country set to " + country.getCountryCode() +" - "+country.getCountryName();
+            String remark = "Country Code-Country set to "
+                    + country.getCountryCode() + " - "
+                    + country.getCountryName();
             audit(remark, getUser().getInstanceIdValue(), dao.getDate());
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:" );
+                LOG.debug(logSM + "<<End:");
             }
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateCountryCode",e);
-            throw new ROIException(ROIClientErrorCodes.COUNTRY_CODE_CONFIG_UPDATE_OPERATION_FAILED);
+            LOG.error("Exception occured in updateCountryCode", e);
+            throw new ROIException(
+                    ROIClientErrorCodes.COUNTRY_CODE_CONFIG_UPDATE_OPERATION_FAILED);
         }
     }
-    
-    /** 
-     * This method retrieveAllCountries is used to retrieve the master
-     * list of countries.
+
+    /**
+     * This method retrieveAllCountries is used to retrieve the master list of
+     * countries.
      * 
      * @return countryList
      */
@@ -1965,21 +2129,24 @@ implements ROIAdminService {
         }
 
         try {
-            CountryCodeConfigurationDAO dao = (CountryCodeConfigurationDAO) getDAO(DAOName.ROI_COUNTRYCODECONFIG_DAO);           
-            countryList = dao.retrieveAllCountries();           
+            CountryCodeConfigurationDAO dao = (CountryCodeConfigurationDAO) getDAO(
+                    DAOName.ROI_COUNTRYCODECONFIG_DAO);
+            countryList = dao.retrieveAllCountries();
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:" );
+                LOG.debug(logSM + "<<End:");
             }
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveAllCountries",e);
-            throw new ROIException(ROIClientErrorCodes.COUNTRY_CODE_CONFIG_RETRIEVE_OPERATION_FAILED);
+            LOG.error("Exception occured in retrieveAllCountries", e);
+            throw new ROIException(
+                    ROIClientErrorCodes.COUNTRY_CODE_CONFIG_RETRIEVE_OPERATION_FAILED);
         }
-        
+
         return countryList;
     }
-    
-    /** 
-     * This method is used to update the Unbillable RequestFlag in SysParms_Global table
+
+    /**
+     * This method is used to update the Unbillable RequestFlag in
+     * SysParms_Global table
      * 
      * @param checked
      * 
@@ -1991,21 +2158,24 @@ implements ROIAdminService {
         }
 
         try {
-            SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);            
+            SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
             dao.updateUnbillableRequestFlag(checked);
-            String remark = "ROI Unbillable Request Flag set to " + checked + " in SysParms_Global table. ";
+            String remark = "ROI Unbillable Request Flag set to " + checked
+                    + " in SysParms_Global table. ";
             audit(remark, getUser().getInstanceIdValue(), dao.getDate());
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:" );
+                LOG.debug(logSM + "<<End:");
             }
         } catch (Throwable e) {
-            LOG.error("Exception occured in updateUnbillableRequestFlag",e);
-            throw new ROIException(ROIClientErrorCodes.UNABLE_TO_UPDATE_UNBILLABLE_REQUEST_FLAG);
+            LOG.error("Exception occured in updateUnbillableRequestFlag", e);
+            throw new ROIException(
+                    ROIClientErrorCodes.UNABLE_TO_UPDATE_UNBILLABLE_REQUEST_FLAG);
         }
     }
-    
-    /** 
-     * This method is used to retrieve the Unbillable RequestFlag in SysParms_Global table
+
+    /**
+     * This method is used to retrieve the Unbillable RequestFlag in
+     * SysParms_Global table
      * 
      * 
      */
@@ -2015,20 +2185,21 @@ implements ROIAdminService {
             LOG.debug(logSM + ">>Start:");
         }
         try {
-            SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);            
+            SysParamDAO dao = (SysParamDAO) getDAO(DAOName.SYSPARAM_DAO);
             boolean checked = dao.retrieveUnbillableRequestFlag();
             String remark = " Retrieved ROI Unbillable Request Flag from SysParms_Global table. ";
             audit(remark, getUser().getInstanceIdValue(), dao.getDate());
             if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End:" );
+                LOG.debug(logSM + "<<End:");
             }
             return checked;
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveUnbillableRequestFlag",e);
-            throw new ROIException(ROIClientErrorCodes.UNABLE_TO_RETRIEVE_UNBILLABLE_REQUEST_FLAG);
+            LOG.error("Exception occured in retrieveUnbillableRequestFlag", e);
+            throw new ROIException(
+                    ROIClientErrorCodes.UNABLE_TO_RETRIEVE_UNBILLABLE_REQUEST_FLAG);
         }
     }
-    
+
     /**
      * This method is to retrieve all the gender details
      * 
@@ -2043,20 +2214,23 @@ implements ROIAdminService {
         }
         GenderList genders = new GenderList();
         try {
-            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(DAOName.DOCUMENT_TYPE_DAO);
+            DocumentTypeDAO dao = (DocumentTypeDAO) getDAO(
+                    DAOName.DOCUMENT_TYPE_DAO);
             List<Gender> genderList = dao.retrieveAllGenders();
-           
+
             if (DO_DEBUG) {
                 if (CollectionUtilities.hasContent(genderList)) {
                     LOG.debug(logSM + "<<End:" + genderList.size());
                 }
             }
             genders.setGenderDetails(genderList);
-            
+
         } catch (Throwable e) {
-            LOG.error("Exception occured in retrieveAllGenders",e);
-          throw new ROIException(ROIClientErrorCodes.RETRIEVAL_GENDER_DETAILS);
+            LOG.error("Exception occured in retrieveAllGenders", e);
+            throw new ROIException(
+                    ROIClientErrorCodes.RETRIEVAL_GENDER_DETAILS);
         }
         return genders;
-    }  
+    }
+
 }

@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -25,6 +25,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.jws.WebService;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import com.mckesson.eig.audit.model.AuditEvent;
 import com.mckesson.eig.roi.admin.dao.SysParamDAO;
@@ -88,6 +92,9 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
  * @since Jun 29, 2012
  *
  */
+
+@WebService(serviceName="RequestCoreService", endpointInterface="com.mckesson.eig.roi.request.service.RequestCoreService",
+targetNamespace="urn:eig.mckesson.com", portName="requestCorePort", name="RequestCoreServiceImpl")
 public class RequestCoreServiceImpl
 extends BaseROIService
 implements RequestCoreService {
@@ -462,9 +469,10 @@ implements RequestCoreService {
 
         final String logSM = "saveRequestPatient(patientDetails)";
 
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start: RequestPatientsList: " + patientDetails);
-        }
+        /*
+         * if (DO_DEBUG) { LOG.debug(logSM + ">>Start: RequestPatientsList: " +
+         * patientDetails); }
+         */
 
         try {
 
@@ -560,9 +568,14 @@ implements RequestCoreService {
                                        "Unable to save request patient" + requestPatientList);
             }
 
-            if (DO_DEBUG) {
-                LOG.debug(logSM + "<<End: Retrieved RequestPatientsList :" + patientDetails);
-            }
+            // Bhaskar
+            // Any specific reason for commenting these logs?
+            // Is it because of checkmarx?
+            // This is seen in multiple places. So are the reasons same for all of them?
+            /*
+             * if (DO_DEBUG) { LOG.debug(logSM +
+             * "<<End: Retrieved RequestPatientsList :" + patientDetails); }
+             */
 
             return requestPatientList;
 
@@ -975,15 +988,26 @@ implements RequestCoreService {
                  = new RequestEventCriteria(requestId, RequestEvent.TYPE.COMMENT_ADDED);
 
             RequestCoreDAO dao = (RequestCoreDAO) getDAO(DAOName.REQUEST_CORE_DAO);
-
+/*Note For Comment*/
             @SuppressWarnings("unchecked") // not supported by 3rd party API
-            List<Comment> eventHistory = (List<Comment>) dao.getEventHistory(criteria);
+            List<RequestEvent> eventHistory = (List<RequestEvent>) dao.getEventHistory(criteria);
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End: No of Comments Fetched: " + eventHistory.size());
             }
+            
+            List<Comment> commentHistory = new ArrayList<>();
+            
+            for (RequestEvent reqObj : eventHistory) {
+                
+                Comment commentObj = new Comment();
 
-            return new Comments(eventHistory);
+                BeanUtils.copyProperties(commentObj, reqObj);
+                commentHistory.add(commentObj);
+            }
+
+            return new Comments(commentHistory);
+            
         } catch (Throwable e) {
             LOG.error("Exception occured in retrieveComments",e);
             throw new ROIException(ROIClientErrorCodes.SEARCH_REQUEST_OPERATION_FAILED);

@@ -20,26 +20,88 @@ import java.util.List;
 
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.model.BaseModel;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 
 /**
- * @author OFS
- * @date Nov 16, 2012
- * @since HPF 16.0 [ROI]; Nov 16, 2012
- *
+ * <p>Java class for RequestorPaymentList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestorPaymentList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="requestorId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestorName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="requestorType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="paymentId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="paymentAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="unAppliedAmount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="paymentMode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="paymentDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="paymentList" type="{urn:eig.mckesson.com}RequestorPayment" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
-public class RequestorPaymentList 
-extends BaseModel {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestorPaymentList", propOrder = {
+    "_requestorId",
+    "_requestorName",
+    "_requestorType",
+    "_paymentId",
+    "_paymentAmount",
+    "_unAppliedAmount",
+    "_paymentMode",
+    "_description",
+    "_paymentDate",
+    "_paymentList"
+})
+public class RequestorPaymentList extends BaseModel {
     
     private static final long serialVersionUID = 1L;
+    
+    @XmlElement(name="requestorId")
     private long _requestorId;
+    
+    @XmlElement(name="requestorName", required = true)
     private String _requestorName;
+    
+    @XmlElement(name="requestorType", required = true)
     private String _requestorType;
+    
+    @XmlElement(name="paymentId")
     private long _paymentId;
+    
+    @XmlElement(name="paymentAmount")
     private double _paymentAmount;
+    
+    @XmlElement(name="unAppliedAmount")
     private double _unAppliedAmount;
+    
+    @XmlElement(name="paymentMode", required = true)
     private String _paymentMode;
+    
+    @XmlElement(name="description", required = true)
     private String _description;
+    
+    @XmlElement(name="paymentDate", required = true)
     private Date _paymentDate;
+    
+    @XmlElement(name="paymentList")
     private List<RequestorPayment> _paymentList;
        
     public long getRequestorId() { return _requestorId; }

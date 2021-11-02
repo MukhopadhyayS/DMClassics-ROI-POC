@@ -15,14 +15,38 @@ package com.mckesson.eig.roi.inuse.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author OFS
- * @date   Dec 8, 2008
- * @since  ROI HPF 13.1
+ * <p>Java class for InUseRecordList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="InUseRecordList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="inUseRecordList" type="{urn:eig.mckesson.com}InUseRecord" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "InUseRecordList", propOrder = {
+    "_list"
+})
 public class InUseRecordList implements Serializable {
 
+    @XmlElement(name="inUseRecordList")
     private List<InUseRecord> _list;
 
     public InUseRecordList() { }

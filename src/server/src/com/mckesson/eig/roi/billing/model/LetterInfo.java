@@ -4,18 +4,60 @@
 package com.mckesson.eig.roi.billing.model;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * @author ais
- *
+ * <p>Java class for LetterInfo complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="LetterInfo">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="letterTemplateId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="notes" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "LetterInfo", propOrder = {
+    "_letterTemplateId",
+    "_requestId",
+    "_notes",
+    "_type"
+})
 public class LetterInfo implements Serializable {
+    
 	private static final long serialVersionUID = 1L;
 	
+	
+	@XmlElement(name="letterTemplateId")
 	private long _letterTemplateId;
+	
+	@XmlElement(name="requestId")
 	private long _requestId;
+	
+	@XmlElement(name="notes")
 	private String[] _notes;
+	
+	@XmlElement(name="type", required = true)
 	private String _type;
+	
+	
+	
 	/**
 	 * @param _letterTemplateId the _letterTemplateId to set
 	 */

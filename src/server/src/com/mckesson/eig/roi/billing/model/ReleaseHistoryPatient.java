@@ -17,22 +17,91 @@ package com.mckesson.eig.roi.billing.model;
         
 import java.io.Serializable;
 import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+
+/**
+ * <p>Java class for ReleaseHistoryPatient complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="ReleaseHistoryPatient">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="patientSeq" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="gender" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="dob" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="ssn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="facility" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="mrn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="epn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="patientLocked" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="encounterLocked" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="vip" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ReleaseHistoryPatient", propOrder = {
+    "patientSeq",
+    "name",
+    "gender",
+    "dob",
+    "ssn",
+    "facility",
+    "mrn",
+    "epn",
+    "patientLocked",
+    "encounterLocked",
+    "vip"
+})
 @SuppressWarnings("serial")
 public class ReleaseHistoryPatient
 implements Serializable {
     
     private Long patientSeq;
+    
+    @XmlElement(required = true)
     private String name;
+    
+    @XmlElement(required = true)
     private String gender;
+    
+    @XmlElement(required = true)
     private Date dob;
+    
+    @XmlElement(required = true)
     private String ssn;
+    
+    @XmlElement(required = true)
     private String facility;
+    
+    @XmlElement(required = true)
     private String mrn;
+    
+    @XmlElement(required = true)
     private String epn;
     
+    @XmlElement(required = true)
     private boolean  patientLocked;
+    
+    @XmlElement(required = true)
     private boolean  encounterLocked;
+    
+    @XmlElement(required = true)
     private String  vip;
  
         

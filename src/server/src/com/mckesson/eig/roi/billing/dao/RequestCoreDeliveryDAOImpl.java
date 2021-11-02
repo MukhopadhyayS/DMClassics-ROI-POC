@@ -52,8 +52,9 @@ import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
-
+@Transactional
 public class RequestCoreDeliveryDAOImpl
 extends ROIDAOImpl
 implements RequestCoreDeliveryDAO {

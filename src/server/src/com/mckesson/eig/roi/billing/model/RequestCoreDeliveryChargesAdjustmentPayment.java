@@ -6,22 +6,94 @@ import java.util.Date;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.model.BaseModel;
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
-public class RequestCoreDeliveryChargesAdjustmentPayment extends BaseModel {
+
+/**
+ * <p>Java class for RequestCoreDeliveryChargesAdjustmentPayment complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="RequestCoreDeliveryChargesAdjustmentPayment">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="requestCoreDeliveryChargesId" type="{http://www.w3.org/2001/XMLSchema}long"/>
+ *         &lt;element name="amount" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="paymentMode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="paymentDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="transactionType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="isDebit" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="newlyAdded" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "RequestCoreDeliveryChargesAdjustmentPayment", propOrder = {
+    "_requestorId",
+    "_requestCoreDeliveryChargesId",
+    "_baseAmount",
+    "_paymentMode",
+    "_description",
+    "_paymentDate",
+    "_transactionType",
+    "_isDebit",
+    "_isNewlyAdded"
+})
+public class RequestCoreDeliveryChargesAdjustmentPayment extends BaseModel  {
    
     private static final long serialVersionUID = 1L;
+    
+    @XmlElement(name="id")
     private long _requestorId;
+    
+    @XmlElement(name="requestCoreDeliveryChargesId")
     private long _requestCoreDeliveryChargesId;
-    private double _invoiceAppliedAmount;
+    
+    @XmlElement(name="amount")
     private double _baseAmount;
-    private double _totalUnappliedAmount;
+    
+    @XmlElement(name="paymentMode", required = true)
     private String _paymentMode;
+    
+    @XmlElement(name="description", required = true)
     private String _description;
+    
+    @XmlElement(name="paymentDate", required = true, nillable = true)
     private Date _paymentDate;
+    
+    @XmlElement(name="transactionType", required = true)
     private String _transactionType;
+    
+    @XmlElement(name="isDebit")
     private boolean _isDebit;
+    
+    @XmlElement(name="newlyAdded")
     private boolean _isNewlyAdded;
     
+    
+    @XmlTransient
+    private double _invoiceAppliedAmount;
+    
+    @XmlTransient
+    private double _totalUnappliedAmount;
+    
+    
+
     private static final NumberFormat CURRENCY_FORMAT_US = NumberFormat
             .getCurrencyInstance(ROIConstants.INVOICE_LOCALE);
     

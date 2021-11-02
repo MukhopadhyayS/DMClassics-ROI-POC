@@ -19,6 +19,12 @@ package com.mckesson.eig.roi.admin.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ValidationParams;
@@ -29,17 +35,35 @@ import com.mckesson.eig.roi.base.api.ValidationParams;
  * @date   Mar 16, 2009
  * @since  HPF 13.1 [ROI]; Feb 14, 2008
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "MediaType", propOrder = {
+    "_id",
+    "_name",
+    "_description",
+    "_isAssociated",
+    "_recordVersion"
+})
 public class MediaType
 implements Serializable {
 
+    @XmlElement(name="id")
     private long    _id;
+    @XmlElement(name="name", required = true)
     private String  _name;
+    @XmlElement(name="description")
     private String  _description;
+    @XmlTransient
     private long    _createdBy;
+    @XmlTransient
     private long    _modifiedBy;
+    @XmlTransient
     private Date    _modifiedDate;
+    @XmlTransient
     private long    _orgId;
+    @XmlElement(name="isAssociated")
     private boolean _isAssociated;
+    @XmlElement(name="recordVersion")
     private int     _recordVersion;
 
     public long getCreatedBy() { return _createdBy; }

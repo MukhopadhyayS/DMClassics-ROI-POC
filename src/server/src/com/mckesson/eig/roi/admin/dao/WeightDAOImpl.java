@@ -17,6 +17,8 @@ package com.mckesson.eig.roi.admin.dao;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.admin.model.Weight;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.dm.core.common.logging.OCLogger;
@@ -26,6 +28,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date Sep 15, 2008
  * @since HPF 13.1 [ROI]; Mar 26, 2008
  */
+@Transactional
 public class WeightDAOImpl
 extends ROIDAOImpl
 implements WeightDAO {

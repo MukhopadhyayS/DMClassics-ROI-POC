@@ -24,6 +24,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.admin.model.Reason;
 import com.mckesson.eig.roi.admin.model.ReasonsList;
@@ -36,6 +37,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   June 08, 2009
  * @since  HPF 13.1 [ROI]; Apr 28, 2008
  */
+@Transactional
 public class ReasonDAOImpl
 extends ROIDAOImpl
 implements ReasonDAO {

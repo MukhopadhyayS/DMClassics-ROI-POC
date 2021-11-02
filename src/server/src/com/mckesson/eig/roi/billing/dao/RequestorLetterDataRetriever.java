@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
@@ -41,6 +43,7 @@ import com.mckesson.eig.utility.util.CollectionUtilities;
 * @date   Nov 10, 2011
 * @since  HPF 15.1 [ROI]; Nov 10, 2011
 */
+@Transactional
 public class RequestorLetterDataRetriever
 extends BaseLetterDataRetriever {
 

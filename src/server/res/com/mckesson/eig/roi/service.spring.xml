@@ -83,9 +83,10 @@
 	<bean id="com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreServiceImpl"
           class="com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreServiceImpl">
     </bean>
+    
     <bean id="com.mckesson.eig.roi.muroioutbound.service.MUCreateROIOutboundServiceCoreImpl"
           class="com.mckesson.eig.roi.muroioutbound.service.MUCreateROIOutboundServiceCoreImpl"
-    lazy-init="true" />
+    lazy-init="false" />
     
 	<bean id="com.mckesson.eig.roi.journal.service.JournalServiceImpl"
           class="com.mckesson.eig.roi.journal.service.JournalServiceImpl">
@@ -98,17 +99,17 @@
     	class="com.mckesson.eig.roi.muroioutbound.service.MUUpdateROIOutboundServiceCoreImpl"
 	lazy-init="true" />
 	
-	 <bean id="com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
+	 <!-- <bean id="com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
     	 class="com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
     	 lazy-init="true">
         <property name="webClientPool" ref="WebClientPool"/>
-    </bean>
+    </bean> -->
     
-    <bean id="com.mckesson.eig.roi.inuse.service.InUseService"
+    <!-- <bean id="com.mckesson.eig.roi.inuse.service.InUseService"
         class="com.mckesson.eig.roi.inuse.service.InUseServiceImpl"
-        lazy-init="false"
-        init-method="initService" >
+        lazy-init="false" 
+        init-method="initService">
         <property name="scheduler" ref="InUseScheduler" />
         <property name="inUseDAO" ref="InUseDAO" />
-    </bean>
+    </bean> -->
 </beans>

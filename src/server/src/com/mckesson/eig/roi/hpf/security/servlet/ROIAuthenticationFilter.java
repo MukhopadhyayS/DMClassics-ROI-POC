@@ -1,7 +1,7 @@
 /*
 BEGIN-COPYRIGHT-COMMENT Do not remove or modify this line!
 
-* Copyright © 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
+* Copyright ï¿½ 2010 McKesson Corporation and/or one of its subsidiaries. All Rights Reserved.
 * Use of this software and related documentation is governed by a license agreement.
 * This material contains confidential, proprietary and trade secret information of
 * McKesson Information Solutions and is protected under United States
@@ -30,7 +30,7 @@ import com.mckesson.eig.iws.security.Ticket;
 import com.mckesson.eig.utility.transaction.TransactionId;
 import com.mckesson.eig.wsfw.security.service.Authenticator;
 import com.mckesson.eig.wsfw.security.servlet.AuthenticationFilter;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
 
 /**
  * <code>HPFAuthenticationFilter</code> validates the user by checking
@@ -46,7 +46,7 @@ extends AuthenticationFilter {
 
     private static final OCLogger LOG = new OCLogger(ROIAuthenticationFilter.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
-    private static final String EIG_WS_SESSION = "eig.wsSession";
+    private static final String EIG_WS_SESSION = "eig.CxfWsSession";
 
     /**
      *
@@ -75,20 +75,20 @@ extends AuthenticationFilter {
         HttpServletResponse httpRes = (HttpServletResponse) res;
 
         try {
-            WsSession session = (WsSession) httpReq.getSession().getAttribute(EIG_WS_SESSION);
+            CxfWsSession session = (CxfWsSession) httpReq.getSession().getAttribute(EIG_WS_SESSION);
             if(session == null) {
-                WsSession.initializeSession(httpReq.getSession());
+                CxfWsSession.initializeSession(httpReq.getSession());
     
-                String ticket   = (String) WsSession.getSessionData(httpReq.getSession(), Authenticator.KEY_TICKET);
-                String userName = (String) WsSession.getSessionData(httpReq.getSession(), Authenticator.KEY_USERNAME);
+                String ticket   = (String) CxfWsSession.getSessionData(httpReq.getSession(), Authenticator.KEY_TICKET);
+                String userName = (String) CxfWsSession.getSessionData(httpReq.getSession(), Authenticator.KEY_USERNAME);
     
                 if (null != ticket && null != userName && !isTicketValid(ticket, userName)) {
     
                     setSessionData(httpReq, Authenticator.KEY_USERNAME);
                     setSessionData(httpReq, Authenticator.KEY_PASSWORD);
                     setSessionData(httpReq, Authenticator.KEY_TIMESTAMP);
-                    WsSession.setSessionData(Authenticator.KEY_PASSWORD, decryptPassword());
-                    WsSession.setSessionData(WsSession.APP_ID, httpReq.getParameter("AppId"));
+                    CxfWsSession.setSessionData(Authenticator.KEY_PASSWORD, decryptPassword());
+                    CxfWsSession.setSessionData(CxfWsSession.APP_ID, httpReq.getParameter("AppId"));
     
                     Authenticator authenticator = getAuthenticator();
                     authenticator.validate();
@@ -108,7 +108,7 @@ extends AuthenticationFilter {
          } catch (Exception e) {
 
             LOG.error("Authentication Failed for User:" +
-                                WsSession.getSessionData(Authenticator.KEY_USERNAME));
+                                CxfWsSession.getSessionData(Authenticator.KEY_USERNAME));
             httpRes.sendError(HttpServletResponse.SC_BAD_REQUEST, EncoderUtilities.encodeForHTML(e.getMessage()));
         }
     }
@@ -147,6 +147,6 @@ extends AuthenticationFilter {
      *          Key used to store the parameter value in the session
      */
     private void setSessionData(HttpServletRequest httpReq, String key) {
-        WsSession.setSessionData(key, httpReq.getParameter(key));
+        CxfWsSession.setSessionData(key, httpReq.getParameter(key));
     }
 }

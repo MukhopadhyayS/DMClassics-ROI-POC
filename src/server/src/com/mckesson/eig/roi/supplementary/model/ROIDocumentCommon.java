@@ -2,18 +2,44 @@ package com.mckesson.eig.roi.supplementary.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.mckesson.eig.roi.base.model.BaseModel;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlTransient
 public class ROIDocumentCommon extends BaseModel {
+    
+    @XmlElement(name="docName")
     private String _docName;
+   
+    @XmlElement(name="encounter")
     private String _encounter;
+    
+    @XmlElement(name="docFacility")
     private String _docFacility;
+    
+    @XmlTransient
     private String _freeformfacility;
+    
+    @XmlElement(name="department")
     private String _department;
+    
+    @XmlElement(name="subtitle")
     private String _subtitle;
+    
+    @XmlElement(name="pageCount")
     private String _pageCount;
+    
+    @XmlElement(name="dateOfService")
     private Date _dateOfService;
+    
+    @XmlElement(name="comment")
     private String _comment;
+    
 
     public String getDocName() {
         return _docName;

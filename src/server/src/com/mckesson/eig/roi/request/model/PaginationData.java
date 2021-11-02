@@ -18,13 +18,44 @@ package com.mckesson.eig.roi.request.model;
 import java.io.Serializable;
 
 import com.mckesson.eig.utility.util.StringUtilities;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * @author OFS
- * @date   May 07, 2009
- * @since  HPF 13.1 [ROI]; Jul 23, 2008
+ * <p>Java class for PaginationData complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="PaginationData">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="startIndex" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="count" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="isDesc" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="domainType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="sortBy" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "PaginationData", propOrder = {
+    "_startIndex",
+    "_count",
+    "_isDesc",
+    "_domainType",
+    "_sortBy"
+})
 public class PaginationData
 implements Serializable {
 
@@ -43,12 +74,25 @@ implements Serializable {
         public String toString() { return _sortColumn; }
     }
 
+    @XmlElement(name="startIndex")
     private int      _startIndex;
+    
+    @XmlElement(name="count")
     private int      _count;
+    
+    @XmlElement(name="domainType", required = true)
     private String   _domainType;
+    
+    @XmlElement(name="isDesc")
     private boolean  _isDesc;
+    
+    @XmlElement(name="sortBy", required = true)
     private String   _sortBy;
+    
+    @XmlTransient
     private boolean _isSortByLov;
+    
+    
 
     public int getStartIndex() { return _startIndex; }
     public void setStartIndex(int index) { _startIndex = index; }

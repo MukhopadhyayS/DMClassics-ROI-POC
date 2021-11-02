@@ -16,6 +16,9 @@ package com.mckesson.eig.roi.output.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.jws.WebService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mckesson.dm.core.common.logging.OCLogger;
@@ -30,6 +33,7 @@ import com.mckesson.eig.roi.output.model.OutputQueue;
 import com.mckesson.eig.roi.output.model.OutputRequest;
 import com.mckesson.eig.roi.output.model.OutputTransform;
 import com.mckesson.eig.roi.output.model.PropertyDef;
+import com.mckesson.eig.roi.output.model.PropertyMap;
 import com.mckesson.eig.roi.output.model.RequestPart;
 import com.mckesson.eig.roi.output.model.TaskAttributes;
 import com.mckesson.eig.roi.output.rest.webservice.proxy.OutputQueueWebserviceInterface;
@@ -47,6 +51,8 @@ import com.mckesson.eig.utility.util.ObjectUtilities;
  * @author Shahm Nattarshah.
  *
  */
+@WebService(serviceName="ROIOutputService", endpointInterface="com.mckesson.eig.roi.output.service.ROIOutputService",
+targetNamespace="urn:eig.mckesson.com", portName="ROIOutput", name="ROIOutputServiceImpl")
 public class ROIOutputServiceImpl
 extends BaseRestService
 implements ROIOutputService {
@@ -196,9 +202,21 @@ implements ROIOutputService {
 					dest.setType(queue.getQueueType());
 					dest.setDescription(queue.getDescription());
 					
-					HashMap<String, Object> attributeMap = new HashMap<String, Object>();
+					/*HashMap<String, Object> attributeMap = new HashMap<String, Object>();
 					attributeMap.putAll(queue.getAttributes());
-					dest.setProperties(attributeMap);
+					dest.setProperties(attributeMap);*/
+					
+					List<PropertyMap> properties = new ArrayList<>();
+					
+					for (Map.Entry<String, String> entry : queue.getAttributes().entrySet()) {
+					    PropertyMap pm = new PropertyMap();
+	                    pm.setKey(entry.getKey());
+	                    pm.setValue(entry.getValue());
+	                    properties.add(pm);
+					}
+					
+					dest.setProperties(properties);
+					
 					
 					//populate disc labels list
 					if ("DISC".equalsIgnoreCase(typeName)) {

@@ -1,5 +1,6 @@
 package com.mckesson.eig.roi.muroioutbound.dao;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -87,5 +88,15 @@ public interface MUROIOutboundDAO {
      * @return
      */
     public String getFacilityName(String facilityCode);
+    
+    /**
+     * This method processes the date to set the time
+     * difference in milliseconds b/w Database server and JVM
+     *
+     * @return Database server date
+     */
+    // Bhaskar
+    // I think date and timestamp are two different things
+    Timestamp getDate();
 
 }

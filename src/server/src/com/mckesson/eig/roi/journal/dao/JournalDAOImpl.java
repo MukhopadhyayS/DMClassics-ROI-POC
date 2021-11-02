@@ -32,6 +32,7 @@ import org.hibernate.type.LongType;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIConstants;
@@ -47,6 +48,7 @@ import com.mckesson.eig.roi.journal.model.JournalTransaction;
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 
+@Transactional
 public class JournalDAOImpl extends ROIDAOImpl implements JournalDAO {
 
     private static final OCLogger LOG = new OCLogger(JournalDAOImpl.class);

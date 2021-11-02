@@ -13,6 +13,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.HibernateOptimisticLockingFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.roi.admin.model.SysParam;
@@ -26,6 +27,7 @@ import com.mckesson.eig.utility.util.StringUtilities;
  * @author Shah Mohamed.N
  *
  */
+@Transactional
 public class SysParamDAOImpl extends ROIDAOImpl implements SysParamDAO {
 
     private static final OCLogger LOG = new OCLogger(AttachmentDAOImpl.class);

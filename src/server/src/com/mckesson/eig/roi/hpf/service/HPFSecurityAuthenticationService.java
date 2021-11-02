@@ -16,6 +16,9 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 package com.mckesson.eig.roi.hpf.service;
 
 import com.mckesson.eig.roi.base.service.BaseROIService;
+
+import javax.jws.WebService;
+
 import com.mckesson.dm.core.common.logging.OCLogger;
 
 /**
@@ -23,8 +26,10 @@ import com.mckesson.dm.core.common.logging.OCLogger;
  * @date   Sep 02, 2008
  * @since  HPF 13.1 [ROI]; Jun 17, 2008
  */
+@WebService(serviceName="SecurityLogoffService", endpointInterface="com.mckesson.eig.roi.hpf.service.SecurityLogoffService",
+targetNamespace="urn:eig.mckesson.com", portName="SecurityLogoff", name="HPFSecurityAuthenticationService")
 public class HPFSecurityAuthenticationService
-extends BaseROIService {
+extends BaseROIService implements SecurityLogoffService {
 
    /**
      * Initialize the logger.

@@ -15,17 +15,39 @@ package com.mckesson.eig.roi.output.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 
 /**
- * This class contains destination information list
- * @author Karthik Easwaran(OFS)
- * @author Shahm Nattarshah.
- *
+ * <p>Java class for DestInfoList complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="DestInfoList">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="destInfoList" type="{urn:eig.mckesson.com}DestInfo" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "DestInfoList", propOrder = {
+    "_destInfoList"
+})
 public class DestInfoList {
 
-    /** This holds the list of destination information list*/
-    private List<DestInfo> _destInfoList = new ArrayList<DestInfo>();
+    @XmlElement(name="destInfoList")
+    private List<DestInfo> _destInfoList;
 
     public List<DestInfo> getDestInfoList() {
         return _destInfoList;

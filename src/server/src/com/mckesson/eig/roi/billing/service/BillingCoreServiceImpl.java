@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import org.apache.commons.collections.CollectionUtils;
 
 import com.mckesson.eig.roi.admin.dao.LetterTemplateDAO;
@@ -68,6 +71,8 @@ import com.mckesson.dm.core.common.logging.OCLogger;
 import com.mckesson.eig.utility.util.CollectionUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 
+@WebService(serviceName="BillingCoreService", endpointInterface="com.mckesson.eig.roi.billing.service.BillingCoreService",
+targetNamespace="urn:eig.mckesson.com", portName="billingCorePort", name="BillingCoreServiceImpl")
 public class BillingCoreServiceImpl
 extends AbstractBillingService
 implements BillingCoreService {
@@ -984,6 +989,7 @@ implements BillingCoreService {
      *
      */
     @Override
+    @WebMethod(exclude = true)
     public List<RequestCoreDeliveryCharges> retrieveAllInvoicesByIds(List<Long> invoiceIds) {
 
         final String logSM = "retrieveInvoicesByIds(List<Long> invoiceIds)";
@@ -1052,6 +1058,7 @@ implements BillingCoreService {
      * @return generated FileName
      */
     @Override
+    @WebMethod(exclude = true)
     public String regenerateLetter(long id, String fileType, String type) {
 
         final String logSM = "regenerateLetter(lovId, fileType, file)";
@@ -1240,6 +1247,7 @@ implements BillingCoreService {
      *  @return list
      */
     @Override
+    @WebMethod(exclude = true)
     public List<Object[]> retrievePrebillReportDetailsWithRequestorName(String[] facList,String[] reqType,String reqName,String[] reqStatus,String fromDt,String toDt,String balance,String balanceCriterion,String resultType)
     {
         final String logSM = "retrievePrebillReportDetailsWithRequestorName()";
@@ -1287,6 +1295,7 @@ implements BillingCoreService {
      *  @return list
      */
     @Override
+    @WebMethod(exclude = true)
     public List<Object[]> retrievePrebillReportDetailsWithoutRequestorName(String[] facList,String[] reqType,String[] reqStatus,String fromDt,String toDt,String balance,String balanceCriterion,String resultType)
     {
         final String logSM = "retrievePrebillReportDetailsWithoutRequestorName()";
@@ -1334,6 +1343,7 @@ implements BillingCoreService {
      *  @return list
      */
     @Override
+    @WebMethod(exclude = true)
     public List<Object[]> retrievePostPaymentReportDetails(String[] facList,List<String> userName,String[] reqType,Date  fromDt,Date toDt,String resultType)
     {
         final String logSM = "retrievePostPaymentReportDetails()";

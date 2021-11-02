@@ -18,6 +18,8 @@ package com.mckesson.eig.roi.reports.dao;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.hpf.model.User;
 import com.mckesson.dm.core.common.logging.OCLogger;
@@ -28,6 +30,7 @@ import com.mckesson.dm.core.common.logging.OCLogger;
 * @date   Oct 14, 2008
 * @since  HPF 13.1 [ROI]; Oct 14, 2008
 */
+@Transactional
 public abstract class ROIReportDAOImpl
 extends ROIDAOImpl
 implements ROIReportDAO {

@@ -24,9 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import org.apache.axis.MessageContext;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+
 import org.apache.cxf.jaxrs.client.Client;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -37,7 +37,10 @@ import com.mckesson.eig.roi.webservice.util.WebClientPool;
 import com.mckesson.eig.roi.webservice.util.rest.RestWebClientPool;
 import com.mckesson.eig.utility.util.ObjectUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
-import com.mckesson.eig.wsfw.session.WsSession;
+import com.mckesson.eig.wsfw.session.CxfWsSession;
+import org.apache.cxf.message.Message;
+import org.apache.cxf.phase.PhaseInterceptorChain;
+import org.apache.cxf.transport.http.AbstractHTTPDestination;
 
 /**
  * This class extracts common instance members for all services, like the
@@ -83,10 +86,9 @@ extends BaseROIService {
      * @return
      */
     protected <T> T getProxy(Class<T> webServiceInterface) {
-        
-        MessageContext context = org.apache.axis.MessageContext.getCurrentContext();
+        Message message = PhaseInterceptorChain.getCurrentMessage();
         HttpServletRequest request =
-                (HttpServletRequest) context.getProperty(org.apache.axis.transport.http.HTTPConstants.MC_HTTP_SERVLETREQUEST);
+                (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
         
         T result = null;
         if (_webClientPool instanceof RestWebClientPool) {
@@ -111,12 +113,12 @@ extends BaseROIService {
     private void copyUserNamePinCookies() {
         
         
-        String userName = ObjectUtilities.toString(WsSession.getSessionData(WsSession.USER_NAME));
+        String userName = ObjectUtilities.toString(CxfWsSession.getSessionData(CxfWsSession.USER_NAME));
 		if (StringUtilities.hasContent(userName)) {
 			_webClient.cookie(new javax.ws.rs.core.Cookie(USER_NAME_COOKIE, userName));
 		}
 
-		String password = ObjectUtilities.toString(WsSession.getSessionData(WsSession.PD));
+		String password = ObjectUtilities.toString(CxfWsSession.getSessionData(CxfWsSession.PD));
 		if (StringUtilities.hasContent(password)) {
 		    _webClient.cookie(new javax.ws.rs.core.Cookie(IS_VALID_PIN_COOKIES, password));
 		}
