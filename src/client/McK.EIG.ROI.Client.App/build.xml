@@ -124,26 +124,19 @@
                     <exclude name="**TestData\**"/>
                 </items>
             </in>
-            <do>			
+            <do>
             <!-- get the name of the sub-directory after ${dir.bin}/${outDir} -->
                 <property name="tmpDirName" value="${directory::get-parent-directory( subBuildDir )}"/>
                 <property name="tmpDirNameLen" value="${string::get-length( tmpDirName )}"/>          
       		    <property name="subDirNameLen" value="${string::get-length( subBuildDir )}"/>
-				<echo message="${subBuildDir}" />
-				<echo message="${tmpDirName}" />
-				<echo message="${string::get-length( subBuildDir )}" />
-				<echo message="${string::get-length( tmpDirName )}" />
-	    		        <!-- <choose> -->
-	    		           <!-- <when test="${subDirNameLen =='57}" > -->
-	    		           	<!-- <property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/> -->
-	    		           <!-- </when> -->
-	    		           <!-- <otherwise> -->
-	          				<!-- <property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/> -->
-	    		           <!-- </otherwise> -->
-				<!-- </choose> -->
-				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
-				
-				
+	    		        <choose>
+	    		           <when test="${subDirNameLen =='57'}" >
+	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
+	    		           </when>
+	    		           <otherwise>
+	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
+	    		           </otherwise>
+				</choose>
                 <property name="baseDir" value="${tmpDirName}${subBuildDir}"/>
                 <property name="toDir" value="bin/${outDir}${subBuildDir}"/>
                 <copy todir="${toDir}">
