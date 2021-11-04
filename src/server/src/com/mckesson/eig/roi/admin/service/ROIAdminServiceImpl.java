@@ -51,6 +51,7 @@ import com.mckesson.eig.roi.admin.model.Gender;
 import com.mckesson.eig.roi.admin.model.GenderList;
 import com.mckesson.eig.roi.admin.model.InvoiceDueDays;
 import com.mckesson.eig.roi.admin.model.LetterTemplate;
+import com.mckesson.eig.roi.admin.model.LetterTemplateFile;
 import com.mckesson.eig.roi.admin.model.LetterTemplateList;
 import com.mckesson.eig.roi.admin.model.Note;
 import com.mckesson.eig.roi.admin.model.NotesList;
@@ -1003,6 +1004,13 @@ public class ROIAdminServiceImpl extends BaseROIService
 
         try {
 
+            LetterTemplateFile ltf = new LetterTemplateFile();
+            
+            ltf.setId(lt.getDocId());
+            ltf.setName(lt.getUploadFile());
+            
+            lt.setFile(ltf);
+
             LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(
                     DAOName.LETTER_TEMPLATE_DAO);
             ROIAdminServiceValidator validator = new ROIAdminServiceValidator();
@@ -1158,7 +1166,14 @@ public class ROIAdminServiceImpl extends BaseROIService
         }
 
         try {
-
+            
+            LetterTemplateFile ltf = new LetterTemplateFile();
+            
+            ltf.setId(lt.getDocId());
+            ltf.setName(lt.getUploadFile());
+            
+            lt.setFile(ltf);
+            
             LetterTemplateDAO dao = (LetterTemplateDAO) getDAO(
                     DAOName.LETTER_TEMPLATE_DAO);
 
@@ -1182,11 +1197,17 @@ public class ROIAdminServiceImpl extends BaseROIService
             LetterTemplate orig = dao
                     .retrieveLetterTemplate(lt.getTemplateId());
             lt.copyFrom(orig);
-
+            
+            lt.setDocId(0);
+            lt.setUploadFile(null);
+            
             String comment = lt.toUpdateAudit(orig);
             LetterTemplate updated = dao.updateLetterTemplate(lt);
 
             auditAdmin(comment, getUser().getInstanceId(), date);
+            
+            updated.setDocId(lt.getFile().getId());
+            updated.setUploadFile(lt.getFile().getName());
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:" + updated);
