@@ -1003,6 +1003,7 @@ implements RequestCoreService {
                 Comment commentObj = new Comment();
 
                 BeanUtils.copyProperties(commentObj, reqObj);
+                commentObj.setCreatedDate(reqObj.getModifiedDate());
                 commentHistory.add(commentObj);
             }
 
