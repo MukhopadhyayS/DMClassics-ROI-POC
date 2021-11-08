@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -43,22 +44,21 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "StatusReasons", propOrder = {
-    "statusReasons"
+@XmlType(name = "Reasons", propOrder = {
+    "_statusReasons"
 })
 public class Reasons
 implements Serializable {
-
-    private List<String> statusReasons;
+    
+    @XmlElement(name="statusReason")
+    private List<String> _statusReasons;
 
     public Reasons() { }
     public Reasons(List<String> reasons) { setStatusReasons(reasons); }
 
-    public List<String> getStatusReason() {
-        if (statusReasons == null) {
-            statusReasons = new ArrayList<String>();
-        }
-        return this.statusReasons;
-    }
-    public void setStatusReasons(List<String> reasons) { this.statusReasons = reasons; }
+
+
+    public List<String> getStatusReasons() { return _statusReasons; }
+    public void setStatusReasons(List<String> reasons) { _statusReasons = reasons; }
 }
+
