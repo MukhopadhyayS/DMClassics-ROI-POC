@@ -1,238 +1,279 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:cxf="http://cxf.apache.org/core"
-  xmlns:jaxws="http://cxf.apache.org/jaxws"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:cxf="http://cxf.apache.org/core"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
-	xmlns:util="http://www.springframework.org/schema/util">
+	   xmlns:util="http://www.springframework.org/schema/util">
 
 
-	
+
 	<bean id="AuthenticationInterceptor" class="com.mckesson.eig.wsfw.security.authentication.AuthenticationInterceptor">
 		<constructor-arg>
-		  <map>
-		    <entry key="action"                value="UsernameToken Timestamp"/>
-		    <entry key="passwordType"          value="PasswordText" />
-		    <entry key="isBSPCompliant" value="false"/>
-		  </map>
+			<map>
+				<entry key="action"                value="UsernameToken Timestamp"/>
+				<entry key="passwordType"          value="PasswordText" />
+				<entry key="isBSPCompliant" value="false"/>
+			</map>
 		</constructor-arg>
 	</bean>
-	
+
 	<bean id="AuthorizationInterceptor" class="com.mckesson.eig.wsfw.security.authorization.AuthorizationInterceptor">
 	</bean>
-	
+
+	<bean id="EIGSoap11FaultOut" class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+
 	<bean id="com.mckesson.eig.roi.inuse.service.InUseService"
-        class="com.mckesson.eig.roi.inuse.service.InUseServiceImpl"
-        lazy-init="false" 
-        init-method="initService">
-        <property name="scheduler" ref="InUseScheduler" />
-    </bean>
-    
-    <bean id="InUseScheduler"
-		class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
+		  class="com.mckesson.eig.roi.inuse.service.InUseServiceImpl"
+		  lazy-init="false"
+		  init-method="initService">
+		<property name="scheduler" ref="InUseScheduler" />
+	</bean>
+
+	<bean id="InUseScheduler"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
 		<property name="autoStartup" value="false" />
 		<property name="quartzProperties" value="com/mckesson/eig/roi/quartz.properties" />
 	</bean>
-	
+
 	<bean id="com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
-    	 class="com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
-    	 lazy-init="true">
-        <property name="webClientPool" ref="WebClientPool"/>
-    </bean>
-	
+		  class="com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
+		  lazy-init="true">
+		<property name="webClientPool" ref="WebClientPool"/>
+	</bean>
+
 	<bean id="WebClientPool" class="com.mckesson.eig.roi.webservice.util.rest.RestWebClientPool">
-        <property name="providers" ref="webClientProviderCollection" />
-    </bean>
-    
-    <util:list id="webClientProviderCollection">
-        <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
-    </util:list>
-	
+		<property name="providers" ref="webClientProviderCollection" />
+	</bean>
+
+	<util:list id="webClientProviderCollection">
+		<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+	</util:list>
+
 	<jaxws:endpoint id="SupplementaryService"
-		implementor="com.mckesson.eig.roi.supplementary.service.ROISupplementaryServiceImpl"
-		address="/SupplementaryService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.supplementary.service.ROISupplementaryServiceImpl"
+					address="/SupplementaryService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="BillingAdminService"
-		implementor="com.mckesson.eig.roi.admin.service.BillingAdminServiceImpl"
-		address="/BillingAdminService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.admin.service.BillingAdminServiceImpl"
+					address="/BillingAdminService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="ROIAdminService"
-		implementor="com.mckesson.eig.roi.admin.service.ROIAdminServiceImpl"
-		address="/ROIAdminService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.admin.service.ROIAdminServiceImpl"
+					address="/ROIAdminService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="CcdConversionService"
-		implementor="com.mckesson.eig.roi.ccd.service.CcdConversionServiceImpl"
-		address="/CcdConversionService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.ccd.service.CcdConversionServiceImpl"
+					address="/CcdConversionService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="ROIOutputService"
-		implementor="#com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
-		address="/ROIOutputService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="#com.mckesson.eig.roi.output.service.ROIOutputServiceImpl"
+					address="/ROIOutputService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="ConfigureDaysService"
-		implementor="com.mckesson.eig.roi.configuredays.service.ConfigureDaysServiceImpl"
-		address="/ConfigureDaysService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.configuredays.service.ConfigureDaysServiceImpl"
+					address="/ConfigureDaysService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="OverdueInvoiceCoreService"
-		implementor="com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreServiceImpl"
-		address="/OverdueInvoiceCoreService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.billing.service.OverDueInvoiceCoreServiceImpl"
+					address="/OverdueInvoiceCoreService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="InUseService"
-		implementor="#com.mckesson.eig.roi.inuse.service.InUseService"
-		address="/InUseService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="#com.mckesson.eig.roi.inuse.service.InUseService"
+					address="/InUseService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="ROIAttachmentService"
-		implementor="com.mckesson.eig.roi.admin.service.ROIAttachmentServiceImpl"
-		address="/ROIAttachmentService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.admin.service.ROIAttachmentServiceImpl"
+					address="/ROIAttachmentService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="BillingCoreService"
-		implementor="com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl"
-		address="/BillingCoreService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.billing.service.BillingCoreServiceImpl"
+					address="/BillingCoreService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="RequestCoreService"
-		implementor="com.mckesson.eig.roi.request.service.RequestCoreServiceImpl"
-		address="/RequestCoreService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.request.service.RequestCoreServiceImpl"
+					address="/RequestCoreService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="SecurityLogoffService"
-		implementor="com.mckesson.eig.roi.hpf.service.HPFSecurityAuthenticationService"
-		address="/securitylogoff">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.hpf.service.HPFSecurityAuthenticationService"
+					address="/securitylogoff">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
+
 	<jaxws:endpoint id="RequestorService"
-		implementor="com.mckesson.eig.roi.requestor.service.RequestorServiceImpl"
-		address="/RequestorService">
-        <jaxws:inInterceptors>
-	          <ref bean="AuthenticationInterceptor"/>
-	          <ref bean="AuthorizationInterceptor"/>
-	    </jaxws:inInterceptors>
-	    <jaxws:properties>
-    		<entry key="ws-security.ut.validator">
-        		<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
-    		</entry>
-  		</jaxws:properties>
+					implementor="com.mckesson.eig.roi.requestor.service.RequestorServiceImpl"
+					address="/RequestorService">
+		<jaxws:inInterceptors>
+			<ref bean="AuthenticationInterceptor"/>
+			<ref bean="AuthorizationInterceptor"/>
+		</jaxws:inInterceptors>
+		<jaxws:outFaultInterceptors>
+			<bean class="com.mckesson.eig.wsfw.cxf.EIGSoap11FaultOutInterceptor" />
+		</jaxws:outFaultInterceptors>
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.mckesson.eig.wsfw.security.authentication.WssUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
 	</jaxws:endpoint>
-	
-	
-	
+
+
+
 </beans>
