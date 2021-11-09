@@ -92,6 +92,7 @@ extends ROIAttachmentCommon {
     @XmlElement(name="freeformFacility", required = true)
     private FreeFormFacility _freeformFacility;
     
+    @XmlElement(nillable = true)
     private Date dateReceived;
     
 

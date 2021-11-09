@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
+
 
 
 /**
@@ -64,6 +64,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "_facility",
     "_attachmentDate",
     "dateReceived",
+    "documentSource",
     "_comment",
     "_dateOfService",
     "_docFacility",
@@ -91,10 +92,21 @@ public class ROISupplementarityAttachment extends ROIAttachmentCommon {
     @XmlElement(name="mrn", required = true)
     private String _mrn;
 
+    @XmlElement(nillable = true)
     private Date dateReceived;
     
+    private String  documentSource;
     
     
+    
+    public String getDocumentSource() {
+        return documentSource;
+    }
+
+    public void setDocumentSource(String documentSource) {
+        this.documentSource = documentSource;
+    }
+
     @XmlElement(name="id")
     private long _id;
     @XmlTransient
