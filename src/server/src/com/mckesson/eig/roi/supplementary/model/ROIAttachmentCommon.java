@@ -21,61 +21,61 @@ extends BaseModel {
     private static final int FIVE = 5;
     private static final int EIGHT = 8;
 
-    @XmlElement(name="type", required = true)
+    @XmlElement(name="type")
     private String _type;
     
-    @XmlElement(name="encounter", required = true)
+    @XmlElement(name="encounter")
     private String _encounter;
     
-    @XmlElement(name="docFacility", required = true)
+    @XmlElement(name="docFacility")
     private String _docFacility;
     
     @XmlTransient
     private String _freeformfacility;
     
-    @XmlElement(name="subtitle", required = true)
+    @XmlElement(name="subtitle")
     private String _subtitle;
     
-    @XmlElement(name="isDeleted", required = true)
+    @XmlElement(name="isDeleted")
     private String _isDeleted;
     
-    @XmlElement(name="pageCount", required = true)
+    @XmlElement(name="pageCount")
     private String _pageCount;
     
-    @XmlElement(name="dateOfService", required = true, nillable = true)
+    @XmlElement(name="dateOfService",nillable = true)
     private Date _dateOfService;
     
-    @XmlElement(name="attachmentDate", required = true, nillable = true)
+    @XmlElement(name="attachmentDate",nillable = true)
     private Date _attachmentDate;
     
-    @XmlElement(name="uuid", required = true)
+    @XmlElement(name="uuid")
     private String _uuid;
     
-    @XmlElement(name="volume", required = true)
+    @XmlElement(name="volume")
     private String _volume;
     
-    @XmlElement(name="path", required = true)
+    @XmlElement(name="path")
     private String _path;
     
-    @XmlElement(name="filename", required = true)
+    @XmlElement(name="filename")
     private String _filename;
     
-    @XmlElement(name="filetype", required = true)
+    @XmlElement(name="filetype")
     private String _filetype;
     
-    @XmlElement(name="fileext", required = true)
+    @XmlElement(name="fileext")
     private String _fileext;
     
-    @XmlElement(name="printable", required = true)
+    @XmlElement(name="printable")
     private String _printable;
     
-    @XmlElement(name="submittedBy", required = true)
+    @XmlElement(name="submittedBy")
     private String _submittedBy;
     
-    @XmlElement(name="comment", required = true)
+    @XmlElement(name="comment")
     private String _comment;
     
-    @XmlElement(name="externalSource", required = true)
+    @XmlElement(name="externalSource")
     private String _externalSource;
     
     @XmlTransient

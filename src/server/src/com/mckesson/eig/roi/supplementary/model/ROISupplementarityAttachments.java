@@ -33,8 +33,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ROISupplementarityAttachments {
     
-    @XmlElement(name="supplementarityAttachment")
-    private List<ROISupplementarityAttachment> _attachments;
+    @XmlElement(name="supplementarityAttachmentResult")
+    private ROISupplementarityAttachmentResult _attachments;
 
     public ROISupplementarityAttachments() {
         super();
@@ -46,17 +46,18 @@ public class ROISupplementarityAttachments {
     }
     
     public List<ROISupplementarityAttachment> getAttachments() {
-        return _attachments;
+        return _attachments.getAttachments();
     }
 
     public void setAttachments(List<ROISupplementarityAttachment> attachments) {
-        _attachments = attachments;
+        _attachments = new ROISupplementarityAttachmentResult(attachments);
     }
 
-    public void add(ROISupplementarityAttachment attachment) {
-        if(_attachments == null) {
-            _attachments = new ArrayList<ROISupplementarityAttachment>();
-        }
-        _attachments.add(attachment);
-    }
+    /*
+     * public void add(ROISupplementarityAttachment attachment) {
+     * if(_attachments == null) { _attachments = new
+     * ROISupplementarityAttachmentResult(new
+     * ArrayList<ROISupplementarityAttachment>()); }
+     * _attachments.add(attachment); }
+     */
 }

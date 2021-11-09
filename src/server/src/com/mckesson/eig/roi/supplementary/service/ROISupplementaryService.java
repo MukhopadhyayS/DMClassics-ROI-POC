@@ -60,7 +60,7 @@ public interface ROISupplementaryService {
     @WebMethod(action = "urn:eig.mckesson.com/createSupplementarityAttachment")
     @RequestWrapper(localName = "createSupplementarityAttachment", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.roiSupplementaryService.wsRequestWrapper.CreateSupplementarityAttachment")
     @ResponseWrapper(localName = "createSupplementarityAttachmentResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.roiSupplementaryService.wsResponseWrapper.CreateSupplementarityAttachmentResponse")
-    @WebResult(name = "result", targetNamespace = "urn:eig.mckesson.com")
+    @WebResult(name = "supplementarityAttachmentsResult", targetNamespace = "urn:eig.mckesson.com")
     public ROISupplementarityAttachments createSupplementarityAttachment(
         @WebParam(name = "supplementarityAttachment", targetNamespace = "urn:eig.mckesson.com")
         ROISupplementarityAttachment supplementarityAttachment
@@ -138,7 +138,7 @@ public interface ROISupplementaryService {
     @WebMethod(action = "urn:eig.mckesson.com/updateSupplementarityAttachment")
     @RequestWrapper(localName = "updateSupplementarityAttachment", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.roiSupplementaryService.wsRequestWrapper.UpdateSupplementarityAttachment")
     @ResponseWrapper(localName = "updateSupplementarityAttachmentResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.roiSupplementaryService.wsResponseWrapper.UpdateSupplementarityAttachmentResponse")
-    @WebResult(name = "result", targetNamespace = "urn:eig.mckesson.com")
+    @WebResult(name = "supplementarityAttachmentsResult", targetNamespace = "urn:eig.mckesson.com")
     public ROISupplementarityAttachments updateSupplementarityAttachment(
         @WebParam(name = "supplementarityAttachment", targetNamespace = "urn:eig.mckesson.com")
         ROISupplementarityAttachment supplementarityAttachment
@@ -147,7 +147,7 @@ public interface ROISupplementaryService {
     @WebMethod(action = "urn:eig.mckesson.com/createSupplementalAttachment")
     @RequestWrapper(localName = "createSupplementalAttachment", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.roiSupplementaryService.wsRequestWrapper.CreateSupplementalAttachment")
     @ResponseWrapper(localName = "createSupplementalAttachmentResponse", targetNamespace = "urn:eig.mckesson.com", className = "com.mckesson.eig.roi.cxfWrapperClasses.roiSupplementaryService.wsResponseWrapper.CreateSupplementalAttachmentResponse")
-    @WebResult(name = "result", targetNamespace = "urn:eig.mckesson.com")
+    @WebResult(name = "supplementalAttachmentsResult", targetNamespace = "urn:eig.mckesson.com")
     public ROISupplementalAttachments createSupplementalAttachment(
         @WebParam(name = "supplementalAttachment", targetNamespace = "urn:eig.mckesson.com")
         ROISupplementalAttachment supplementalAttachment
