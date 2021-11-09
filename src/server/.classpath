@@ -77,7 +77,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/audit.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/avalon-framework-4.2.0.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/axis-1.4.jar"/> -->
-	<classpathentry kind="lib" path="3rdparty/lib/axis-jaxrpc-1.4.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/axis-jaxrpc-1.4.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/backport-util-concurrent-2.1.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/batik-all-1.7.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/bcmail-jdk15-141.jar"/>
