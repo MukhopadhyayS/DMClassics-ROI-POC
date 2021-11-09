@@ -41,6 +41,7 @@ import com.mckesson.eig.roi.request.model.RequestCoreChargesBillingInfo;
 import com.mckesson.eig.roi.request.model.RequestDocument;
 import com.mckesson.eig.roi.request.model.RequestEncounter;
 import com.mckesson.eig.roi.request.model.RequestEvent;
+import com.mckesson.eig.roi.request.model.RequestEvent.TYPE;
 import com.mckesson.eig.roi.request.model.RequestPage;
 import com.mckesson.eig.roi.request.model.RequestPatient;
 import com.mckesson.eig.roi.request.model.RequestSupplementalAttachment;
@@ -106,6 +107,7 @@ extends BaseROIService {
             event.setRequestId(request.getId());
             event.setStatusChange(oldStatus, newStatus);
             setDefaultDetails(event, date, true);
+            event.setType(TYPE.CHANGE_OF_STATUS.name());
             dao.createRequestEvent(event);
             // to audit status change event
             auditStatusChange(request, oldStatus, newStatus, date);
@@ -117,6 +119,7 @@ extends BaseROIService {
             event.setRequestId(request.getId());
             event.setStatusReasonsChange(newStatus, request.getStatusReason());
             setDefaultDetails(event, date, true);
+            event.setType(TYPE.REASON_ADDED.name());
             dao.createRequestEvent(event);
         }
     }

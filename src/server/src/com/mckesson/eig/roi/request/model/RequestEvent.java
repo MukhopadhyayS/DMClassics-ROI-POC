@@ -169,12 +169,13 @@ implements Serializable {
 
     public String getType() { return _type; }
     public void setType(String type) {
+        this._type=type;
 
-        if (type == null) {
+     /*   if (type == null) {
             _name = TYPE.NA.toString();
         } else {
             _name =  Enum.valueOf(TYPE.class, type).toString();
-        }
+        }*/
     }
 
     public String getOriginator() { return _originator; }
