@@ -86,7 +86,7 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/bonecp-0.8.0.RELEASE.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/bonecp-custom-0.8.1.jar"/> -->
 	
-	<classpathentry kind="lib" path="3rdparty/lib/castor-1.0.5-xml.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/castor-1.0.5-xml.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/castor-1.2.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/castor-core-1.4.1.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/castor-xml-1.4.1.jar"/> -->
@@ -304,8 +304,8 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.1.4.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-1.4.8.jar"/> -->
 	
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.2.2.jar"/> -->
-	<classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.2.1.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.2.3.jar"/>
+	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.2.1.jar"/> -->
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/c3p0-0.9.5.2.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/HikariCP-java6-2.3.13.jar"/> -->
