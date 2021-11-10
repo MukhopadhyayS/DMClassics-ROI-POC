@@ -33,6 +33,7 @@ import com.mckesson.eig.roi.base.api.ROIConstants;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.eig.roi.base.dao.ROIDAOImpl;
 import com.mckesson.eig.roi.billing.model.PastDueInvoice;
+import com.mckesson.eig.roi.billing.model.PastDueInvoices;
 import com.mckesson.eig.roi.billing.model.RequestorLetter;
 import com.mckesson.eig.roi.billing.model.RequestorLetterInvoice;
 import com.mckesson.eig.roi.billing.model.SearchPastDueInvoiceCriteria;
@@ -124,7 +125,10 @@ implements OverDueInvoiceCoreDAO {
 
             // constructs the result object from the obtained query
             SearchPastDueInvoiceResult pastInvoicesResult = new SearchPastDueInvoiceResult();
-            pastInvoicesResult.setPastDueInvoices(result);
+            
+            PastDueInvoices pdi = new PastDueInvoices();
+            pdi.setPastDueInvoice(result);
+            pastInvoicesResult.setPastDueInvoiceList(pdi);
             pastInvoicesResult.setMaxCountExceeded(result.size()
                                                     > ROIConstants.PASTDUE_INVOICES_MAX_COUNT);
 
