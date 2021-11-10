@@ -33,8 +33,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ROISupplementalDocuments {
     
-    @XmlElement(name="supplementalDocument")
-    private List<ROISupplementalDocument> _documents;
+    @XmlElement(name="supplementalDocumentResult")
+    private ROISupplementalDocumentResult _documents;
 
     public ROISupplementalDocuments() {
         super();
@@ -46,17 +46,16 @@ public class ROISupplementalDocuments {
     }
     
     public List<ROISupplementalDocument> getDocuments() {
-        return _documents;
+        return _documents.getDocuments();
     }
 
     public void setDocuments(List<ROISupplementalDocument> documents) {
-        _documents = documents;
+        _documents = new ROISupplementalDocumentResult(documents) ;
     }
 
-    public void add(ROISupplementalDocument document) {
-        if(_documents == null) {
-            _documents = new ArrayList<ROISupplementalDocument>();
-        }
-        _documents.add(document);
-    }
+    /*
+     * public void add(ROISupplementalDocument document) { if(_documents ==
+     * null) { _documents = new ArrayList<ROISupplementalDocument>(); }
+     * _documents.add(document); }
+     */
 }

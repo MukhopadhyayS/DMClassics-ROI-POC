@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment;
+import com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachments;
 
 
 /**
@@ -37,7 +38,7 @@ import com.mckesson.eig.roi.supplementary.model.ROISupplementalAttachment;
 public class CreateSupplementalAttachmentResponse {
 
     @XmlElement(required = true)
-    protected ROISupplementalAttachment supplementalAttachmentsResult;
+    protected ROISupplementalAttachments supplementalAttachmentsResult;
 
     /**
      * Gets the value of the supplementalAttachmentsResult property.
@@ -47,7 +48,7 @@ public class CreateSupplementalAttachmentResponse {
      *     {@link SupplementalAttachmentResult }
      *     
      */
-    public ROISupplementalAttachment getSupplementalAttachmentsResult() {
+    public ROISupplementalAttachments getSupplementalAttachmentsResult() {
         return supplementalAttachmentsResult;
     }
 
@@ -59,7 +60,7 @@ public class CreateSupplementalAttachmentResponse {
      *     {@link SupplementalAttachmentResult }
      *     
      */
-    public void setSupplementalAttachmentsResult(ROISupplementalAttachment value) {
+    public void setSupplementalAttachmentsResult(ROISupplementalAttachments value) {
         this.supplementalAttachmentsResult = value;
     }
 
