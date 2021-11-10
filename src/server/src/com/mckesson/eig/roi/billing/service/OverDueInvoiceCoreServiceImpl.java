@@ -114,7 +114,7 @@ implements OverDueInvoiceCoreService {
 
             if (DO_DEBUG) {
                 LOG.debug(logSM + "<<End:No. Of Overdue Invoices: "
-                                + result.getPastDueInvoices().size());
+                                + result.getPastDueInvoiceList().getPastDueInvoice().size());
             }
 
             return result;

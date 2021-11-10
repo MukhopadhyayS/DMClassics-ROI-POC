@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SearchPastDueInvoiceResult", propOrder = {
     "_maxCountExceeded",
-    "_pastDueInvoices"
+    "pastDueInvoiceList"
 })
 public class SearchPastDueInvoiceResult
 implements Serializable {
@@ -57,14 +57,25 @@ implements Serializable {
     @XmlElement(name="maxCountExceeded")
     private boolean _maxCountExceeded;
     
+    /*@XmlElement(name = "PastDueInvoiceList", required = true)
+    private List<PastDueInvoice> _pastDueInvoices;*/
+    
     @XmlElement(name = "PastDueInvoiceList", required = true)
-    private List<PastDueInvoice> _pastDueInvoices;
+    protected PastDueInvoices pastDueInvoiceList;
     
     
 
-    public List<PastDueInvoice> getPastDueInvoices() { return _pastDueInvoices; }
+    /*public List<PastDueInvoice> getPastDueInvoices() { return _pastDueInvoices; }
     public void setPastDueInvoices(List<PastDueInvoice> pastDueInvoices) {
         _pastDueInvoices = pastDueInvoices;
+    }*/
+    
+    public PastDueInvoices getPastDueInvoiceList() {
+        return pastDueInvoiceList;
+    }
+
+    public void setPastDueInvoiceList(PastDueInvoices value) {
+        this.pastDueInvoiceList = value;
     }
 
     public boolean getMaxCountExceeded() { return _maxCountExceeded; }
@@ -76,7 +87,8 @@ implements Serializable {
     public String toString() {
 
         return new StringBuffer().append(" Size of SearchPastDueInvoice List:")
-                                 .append(_pastDueInvoices.size())
+                                 //.append(_pastDueInvoices.size())
+                                 .append(pastDueInvoiceList)
                                  .toString();
     }
 }
