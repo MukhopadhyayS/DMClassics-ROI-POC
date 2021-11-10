@@ -65,6 +65,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "_balance",
     "_invoiceStatus",
     "_unBillableAmount",
+    "_unbillable",
     "_paymentDescription",
     "_paymentMethod",
     "_requestorAdjPay",
@@ -128,7 +129,7 @@ extends BaseModel {
     @XmlTransient
     private List<String> _facility;
     
-    @XmlTransient
+    @XmlElement(name="unbillable")
     private String _unbillable;
     
     @XmlTransient
