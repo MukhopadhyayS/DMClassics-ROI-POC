@@ -630,7 +630,10 @@ implements RequestCoreService {
                 LOG.debug(logSM + "<<End:");
             }
 
-            return requestCoreCharges;
+            /*
+             * This fix pertains to the functionality during save and release-invoice. JIRA ID - HC-163533
+             */
+            return (requestCoreCharges!=null)? requestCoreCharges : new RequestCoreCharges();
 
         } catch (ROIException e) {
             throw e;
