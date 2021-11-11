@@ -18,6 +18,7 @@ package com.mckesson.eig.roi.billing.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +39,7 @@ import com.mckesson.eig.roi.billing.letter.model.LetterData;
 import com.mckesson.eig.roi.billing.model.InvoiceAndLetterInfo;
 import com.mckesson.eig.roi.billing.model.OverDueDocInfo;
 import com.mckesson.eig.roi.billing.model.OverDueDocInfoList;
+import com.mckesson.eig.roi.billing.model.PropertiesMap;
 import com.mckesson.eig.roi.billing.model.RequestCoreDeliveryCharges;
 import com.mckesson.eig.roi.billing.model.RequestorInvoices;
 import com.mckesson.eig.roi.billing.model.RequestorLetter;
@@ -486,7 +488,14 @@ implements OverDueInvoiceCoreService {
         RequestorStatementInfo requestorInfo = retrieveRequestorStatementInfo(statementCriteria);
         RequestorLetter reqLetter = constructRequestorLetterFromStatementInfo(requestorInfo);
 
-        Map<String, String> prop = invLetterInfo.getProperties();
+        List<PropertiesMap> properties = invLetterInfo.getProperties();
+        
+        Map<String, String> prop = new HashMap<>();
+        
+        for(PropertiesMap p : properties) {
+            prop.put(p.getName(), p.getValue());
+        }
+        
         if (null != prop && !prop.isEmpty()) { // if the property is null, then it is forPreview
 
             reqLetter.setQueuePassword(prop.get(ROIConstants.QUEUE_PD));
