@@ -15,6 +15,7 @@ END-COPYRIGHT-COMMENT  Do not remove or modify this line!
 
 package com.mckesson.eig.roi.billing.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +71,7 @@ import javax.xml.bind.annotation.XmlType;
     "_isPastInvoice",
     "_isOutputInvoice",
     "_statementCriteria",
-    "_properties"
+    "properties"
 })
 public class InvoiceAndLetterInfo {
 
@@ -108,8 +109,7 @@ public class InvoiceAndLetterInfo {
     @XmlElement(name="statementCriteria", required = true)
     private RequestorStatementCriteria _statementCriteria;
     
-    @XmlElement(name="properties", type = HashMap.class)
-    private Map<String, String> _properties;
+    protected List<PropertiesMap> properties;
     
     @XmlTransient
     private long _letterTemplateId;
@@ -136,9 +136,21 @@ public class InvoiceAndLetterInfo {
     public void setRequestorLetterTemplateId(long requestorLetterTemplateId) {
         _requestorLetterTemplateId = requestorLetterTemplateId;
     }
-    public Map<String, String> getProperties() { return _properties; }
-    public void setProperties(Map<String, String> properties) { _properties = properties; }
-
+    /*public Map<String, String> getProperties() { return _properties; }
+    public void setProperties(Map<String, String> properties) { _properties = properties; }*/
+    
+    public List<PropertiesMap> getProperties() {
+        if (properties == null) {
+            properties = new ArrayList<PropertiesMap>();
+        }
+        return this.properties;
+    }
+    
+    public void setProperties(List<PropertiesMap> properties) {
+        this.properties = properties;
+    }
+    
+    
     public void setIsLetter(boolean isLetter) { _isLetter = isLetter; }
     public boolean getIsLetter() { return _isLetter; }
 
