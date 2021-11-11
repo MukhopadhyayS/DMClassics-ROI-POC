@@ -158,10 +158,6 @@ implements OverDueInvoiceCoreDAO {
 
         final String logSM = "createRequestorLetter(reqLetter)";
 
-        if (DO_DEBUG) {
-            LOG.debug(logSM + ">>Start: " + reqLetter);
-        }
-
         if (CollectionUtilities.isEmpty(reqLetter)) {
             return reqLetter;
         }
