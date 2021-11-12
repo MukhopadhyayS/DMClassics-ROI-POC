@@ -157,7 +157,7 @@ implements ROIAttachmentService {
     private List<AttachmentDeleteStatus> deletePhysicalAttachment(
                                                     List<ROISupplementarityAttachment> attachments) {
         
-        if (null == attachments || attachments.size() <= 0) {
+        if (null == attachments || attachments.size() <= 0 || attachments.size() > 1000) {
             throw new ROIException(ROIClientErrorCodes.INVALID_ROI_ATTACHMENT,
                                    "Attachments is empty");
         }
