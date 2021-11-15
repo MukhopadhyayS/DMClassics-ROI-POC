@@ -74,7 +74,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "_modifiedBy",
     "_createdDt",
     "_modifiedDt",
-    "_recordVersion"
+    "_recordVersion",
+    "_billingLocation",
+    "_appliedAmount",
+    "_applyAmount",
+    "_refundAmount"
 })
 public class RequestorInvoice
 extends BaseModel {
@@ -111,13 +115,13 @@ extends BaseModel {
     @XmlElement(name="unBillableAmount")
     private Double _unBillableAmount;
     
-    @XmlTransient
+    @XmlElement(name="appliedAmount")
     private Double _appliedAmount;
     
-    @XmlTransient
+    @XmlElement(name="applyAmount")
     private Double _applyAmount;
     
-    @XmlTransient
+    @XmlElement(name="refundAmount")
     private Double _refundAmount;
 
     @XmlElement(name="paymentDescription", required = true)
@@ -132,7 +136,7 @@ extends BaseModel {
     @XmlElement(name="unbillable")
     private String _unbillable;
     
-    @XmlTransient
+    @XmlElement(name="billingLocation")
     private String _billingLocation;
     
     @XmlElement(name="requestorAdjPay")
