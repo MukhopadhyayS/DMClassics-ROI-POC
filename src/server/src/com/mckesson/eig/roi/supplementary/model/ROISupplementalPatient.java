@@ -56,7 +56,7 @@ import com.mckesson.eig.roi.supplementary.model.ROISupplementalPatient;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SupplementalPatient", propOrder = {
+@XmlType(name = "ROISupplementalPatient", propOrder = {
     "_id",
     "address1",
     "address2",
@@ -129,16 +129,6 @@ public class ROISupplementalPatient extends BaseModel {
     
     @XmlElement(name="id")
     private long _id;
-    @XmlTransient
-    private long _createdBy;
-    @XmlTransient
-    private long _modifiedBy;
-    @XmlTransient
-    private Date _createdDt;
-    @XmlTransient
-    private Date _modifiedDt;
-    @XmlTransient
-    private int _recordVersion; 
 
 
     public long getId() {
@@ -149,45 +139,6 @@ public class ROISupplementalPatient extends BaseModel {
         _id = id;
     }
 
-    public long getCreatedBy() {
-        return _createdBy;
-    }
-
-    public void setCreatedBy(long createdBy) {
-        _createdBy = createdBy;
-    }
-
-    public long getModifiedBy() {
-        return _modifiedBy;
-    }
-
-    public void setModifiedBy(long modifiedBy) {
-        _modifiedBy = modifiedBy;
-    }
-
-    public Date getCreatedDt() {
-        return _createdDt;
-    }
-
-    public void setCreatedDt(Date createdDt) {
-        _createdDt = createdDt;
-    }
-
-    public Date getModifiedDt() {
-        return _modifiedDt;
-    }
-
-    public void setModifiedDt(Date modifiedDt) {
-        _modifiedDt = modifiedDt;
-    }
-
-    public int getRecordVersion() {
-        return _recordVersion;
-    }
-
-    public void setRecordVersion(int recordVersion) {
-        _recordVersion = recordVersion;
-    }
     /**
      * Gets the value of the address1 property.
      * 
