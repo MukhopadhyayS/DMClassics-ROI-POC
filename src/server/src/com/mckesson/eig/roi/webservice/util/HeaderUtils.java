@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.mckesson.dm.core.common.util.sanitize.EncoderUtilities;
 import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
 import com.mckesson.eig.roi.webservice.util.rest.security.SecurityConstants;
+import com.mckesson.eig.utility.util.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.session.CxfWsSession;
 
@@ -289,9 +290,18 @@ public final class HeaderUtils {
         
         if (authHeader == null) {  
             
+            SecureStringAccessor securedPassword = (SecureStringAccessor)CxfWsSession.getSessionData(CxfWsSession.PD);
+            
+            StringBuilder builder = new StringBuilder();
+             securedPassword.DoHylandAccess((chars, tempStr) -> {
+                 builder.append(chars);
+             });
+             
+             String password = builder.toString();
+            
             String authorizationHeader = 
                     getAuthorizationString((String) CxfWsSession.getSessionData(CxfWsSession.USER_NAME),
-                                           (String) CxfWsSession.getSessionData(CxfWsSession.PD));
+                                           password);
             
             WebClient.client(coreProxy).header(SecurityConstants.AUTHORIZATION, authorizationHeader.toString());
             WebClient.client(coreProxy).header(SecurityConstants.PD_ENCRYPTED, Boolean.TRUE);
