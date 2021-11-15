@@ -36,7 +36,9 @@ import com.mckesson.eig.roi.webservice.util.HeaderUtils;
 import com.mckesson.eig.roi.webservice.util.WebClientPool;
 import com.mckesson.eig.roi.webservice.util.rest.RestWebClientPool;
 import com.mckesson.eig.utility.util.ObjectUtilities;
+import com.mckesson.eig.utility.util.SecureStringAccessor;
 import com.mckesson.eig.utility.util.StringUtilities;
+import com.mckesson.eig.wsfw.security.service.Authenticator;
 import com.mckesson.eig.wsfw.session.CxfWsSession;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
@@ -118,7 +120,15 @@ extends BaseROIService {
 			_webClient.cookie(new javax.ws.rs.core.Cookie(USER_NAME_COOKIE, userName));
 		}
 
-		String password = ObjectUtilities.toString(CxfWsSession.getSessionData(CxfWsSession.PD));
+		SecureStringAccessor securedPassword = (SecureStringAccessor)CxfWsSession.getSessionData(CxfWsSession.PD);
+		          
+         StringBuilder builder = new StringBuilder();
+          securedPassword.DoHylandAccess((chars, tempStr) -> {
+              builder.append(chars);
+          });
+          
+          String password = builder.toString();
+		
 		if (StringUtilities.hasContent(password)) {
 		    _webClient.cookie(new javax.ws.rs.core.Cookie(IS_VALID_PIN_COOKIES, password));
 		}
