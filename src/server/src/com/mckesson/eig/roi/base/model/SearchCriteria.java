@@ -104,6 +104,9 @@ public class SearchCriteria implements Serializable{
     private void putConditionClause(SearchCondition condition, StringBuffer clause, HashMap<String, String> parameters) {
         
         clause.append(condition.getKey());
+        
+        condition.setOperation(condition.getOperation());
+        
         clause.append(" " + condition.getOperation());
         
         if (SearchCondition.OPERATION.In.toString().equalsIgnoreCase(condition.getOperation())) {
