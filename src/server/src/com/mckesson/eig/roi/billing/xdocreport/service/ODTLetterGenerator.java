@@ -58,11 +58,11 @@ implements LetterGenerator {
             
             //Loading the XdocReport through velocity template engine
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(templateStream, TemplateEngineKind.Velocity );
-            IContext context = report.createContext();
-            context.put("letter", data );
+            IContext ctx = report.createContext();
+            ctx.put("letter", data );
             
             OutputStream out = AccessFileLoader.getFileOutputStream(mergedOdtFile);
-            report.process(context, out);
+            report.process(ctx, out);
             
             //Converting the changed .odt file to the .pdf file using iText and and xdocReport
             FileInputStream mergedFileStream = AccessFileLoader.getFileInputStream(mergedOdtFile);

@@ -149,64 +149,64 @@ implements LetterGenerator {
      * @param context
      * @param data
      */
-    private FieldsMetadata mapDataToContext(IContext context, Object data) {
+    private FieldsMetadata mapDataToContext(IContext ctx, Object data) {
 
-        context.put("letter", data);
+        ctx.put("letter", data);
         LetterData letter = (LetterData) data;         
 
         FieldsMetadata metadata = new FieldsMetadata();
         
         RequestorInfo letterRequestor = letter.getRequestor();
-        context.put("letterRequestor", new XDocRequestorInfo(letterRequestor));
-        context.put("letterRequestorAging", getRequestorAgingBalance(letterRequestor));
-        context.put("letterRequestorAccount", getRequestorAccountBalance(letterRequestor));
-        context.put("letterInvoiceCharge", new XDocInvoiceCharge(letter.getInvoiceCharge()));
-        context.put("letterShippingInfo", new XDocShippingInfo(letter.getBillingInfo() == null
+        ctx.put("letterRequestor", new XDocRequestorInfo(letterRequestor));
+        ctx.put("letterRequestorAging", getRequestorAgingBalance(letterRequestor));
+        ctx.put("letterRequestorAccount", getRequestorAccountBalance(letterRequestor));
+        ctx.put("letterInvoiceCharge", new XDocInvoiceCharge(letter.getInvoiceCharge()));
+        ctx.put("letterShippingInfo", new XDocShippingInfo(letter.getBillingInfo() == null
                                         ? null : letter.getBillingInfo().getShippingInfo()));
         
-        context.put("letterRequestorTxns", getRequestorTransactions(letterRequestor));
+        ctx.put("letterRequestorTxns", getRequestorTransactions(letterRequestor));
         metadata.addFieldAsList("letterRequestorTxns");
         
-        context.put("letterReleases", getReleaseInfo(letter));
+        ctx.put("letterReleases", getReleaseInfo(letter));
         metadata.addFieldAsList("letterReleases");
         
-        context.put("letterDocChargeDetails", getXDocChargeItems(letter.getDocChargeDetails()));
+        ctx.put("letterDocChargeDetails", getXDocChargeItems(letter.getDocChargeDetails()));
         metadata.addFieldAsList("letterDocChargeDetails");
         
-        context.put("letterFeeChargeDetails", getXDocChargeItems(letter.getFeeChargeDetails()));
+        ctx.put("letterFeeChargeDetails", getXDocChargeItems(letter.getFeeChargeDetails()));
         metadata.addFieldAsList("letterFeeChargeDetails");
         
-        context.put("letterShipCharges", getXDocCharges(letter.getShipCharges()));
+        ctx.put("letterShipCharges", getXDocCharges(letter.getShipCharges()));
         metadata.addFieldAsList("letterShipCharges");
         
-        context.put("letterTxnCharges", getXDocCharges(letter.getTxnCharges()));
+        ctx.put("letterTxnCharges", getXDocCharges(letter.getTxnCharges()));
         metadata.addFieldAsList("letterTxnCharges");
         
-        context.put("letterTxns", getXDocChargeItems(letter.getTxns()));
+        ctx.put("letterTxns", getXDocChargeItems(letter.getTxns()));
         metadata.addFieldAsList("letterTxns");
 
-        context.put("letterPayment", getXDocChargeItems(letter.getPayment()));
+        ctx.put("letterPayment", getXDocChargeItems(letter.getPayment()));
         metadata.addFieldAsList("letterPayment");
         
-        context.put("letterCreditAdjustment", getXDocChargeItems(letter.getCreditAdjustment()));
+        ctx.put("letterCreditAdjustment", getXDocChargeItems(letter.getCreditAdjustment()));
         metadata.addFieldAsList("letterCreditAdjustment");
 
-        context.put("letterDebitAdjustment", getXDocChargeItems(letter.getDebitAdjustment()));
+        ctx.put("letterDebitAdjustment", getXDocChargeItems(letter.getDebitAdjustment()));
         metadata.addFieldAsList("letterDebitAdjustment");
         
-        context.put("letterDocCharges", getXDocCharges(letter.getDocCharges()));
+        ctx.put("letterDocCharges", getXDocCharges(letter.getDocCharges()));
         metadata.addFieldAsList("letterDocCharges");
         
-        context.put("letterFeeCharges", getXDocCharges(letter.getFeeCharges()));
+        ctx.put("letterFeeCharges", getXDocCharges(letter.getFeeCharges()));
         metadata.addFieldAsList("letterFeeCharges");
         
-        context.put("letterPatients", getPatients(letter));
+        ctx.put("letterPatients", getPatients(letter));
         metadata.addFieldAsList("letterPatients");
         
-        context.put("letterNotes", getXDocNotes(letter.getNotes()));
+        ctx.put("letterNotes", getXDocNotes(letter.getNotes()));
         metadata.addFieldAsList("letterNotes");
         
-        context.put("letterReasons", getXDocNotes(letter.getReasons()));
+        ctx.put("letterReasons", getXDocNotes(letter.getReasons()));
         metadata.addFieldAsList("letterReasons");
         
         return metadata;

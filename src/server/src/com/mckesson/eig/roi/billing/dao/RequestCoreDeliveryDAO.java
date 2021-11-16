@@ -379,6 +379,14 @@ extends ROIDAO {
     long retrieveRequestIdForRequestCoreDelivery(long requestCoreDeliveryId);
 
     /**
+     * retrieves the Number of facilities
+     *
+     * @return count of facilities present
+     */
+    int getFacilityCount();
+
+
+    /**
      * retrieves the list of past invoices i.e regenerated invoices
      *
      * @param requestId
