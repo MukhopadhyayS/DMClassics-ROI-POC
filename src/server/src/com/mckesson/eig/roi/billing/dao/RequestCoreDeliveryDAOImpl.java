@@ -157,6 +157,31 @@ implements RequestCoreDeliveryDAO {
             throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
         }
     }
+    
+    @Override
+    public int getFacilityCount() {
+
+        final String logSM = "getFacilityCount)";
+        if (DO_DEBUG) {
+            LOG.debug(logSM + ">>Start:");
+        }
+        try {
+            Session session = getSession();
+            String queryString = session.getNamedQuery("getFacilityCount")
+                    .getQueryString();
+
+            NativeQuery query = session.createSQLQuery(queryString);
+
+            @SuppressWarnings("unchecked")
+            int facilityCount = (int) query.uniqueResult();
+            if (DO_DEBUG) {
+                LOG.debug(logSM + "<<End");
+            }
+            return facilityCount;
+        } catch (Exception e) {
+            throw new ROIException(e.getCause(), ROIClientErrorCodes.DATABASE_OPERATION_FAILED, e.getMessage());
+        }
+    }
 
     /**
      * @see com.mckesson.eig.roi.billing.dao.RequestCoreDeliveryDAO#createRequestCoreDeliveryToPages(long, java.lang.Long)

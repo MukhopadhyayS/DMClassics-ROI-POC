@@ -29,6 +29,13 @@
 			WHERE ROI_RequestCoreDelivery_Seq = :requestCoreDeliveryId
         ]]>
     </sql-query>
+
+    <sql-query name="getFacilityCount">
+        <return-scalar column="facility_count" type="int" />
+        <![CDATA[
+			select count(FACILITY_code) as facility_count from cabinet.dbo.FACILITY_FILE
+        ]]>
+    </sql-query>
     
     <sql-query name="createRequestCoreDeliveryCharges">
         <![CDATA[
@@ -2477,6 +2484,6 @@
 									
    		]]>
     </sql-query>
-   
+
         
 </hibernate-mapping>

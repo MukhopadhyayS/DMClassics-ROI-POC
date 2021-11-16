@@ -1356,6 +1356,14 @@ implements BillingCoreService {
                     (RequestCoreDeliveryDAO) getDAO(DAOName.REQUEST_CORE_DELIVERY_DAO);
             List<Object[]> results = new ArrayList<Object[]>();
             int flag = 0;
+
+            if(!isFacilityListValid ( facList )){
+                if(DO_DEBUG){
+                    LOG.debug(logSM + ">>Invalid facility list");
+                }
+                throw new ROIException ();
+            }
+
             List<PostPaymentReportDetails> rptList =
                     requestCoreDeliveryDao.retrievePostPaymentReportDetails(facList,userName,reqType,fromDt,toDt,resultType);
             if (rptList != null && rptList.size() > 0){
@@ -1812,5 +1820,14 @@ implements BillingCoreService {
             }
             
         }
+    }
+
+    private boolean isFacilityListValid(String[] facList){
+        RequestCoreDeliveryDAO requestCoreDeliveryDao =
+                (RequestCoreDeliveryDAO) getDAO(DAOName.REQUEST_CORE_DELIVERY_DAO);
+        int facilityCount = requestCoreDeliveryDao.getFacilityCount ();
+        boolean isValid = (facList.length <= facilityCount);
+        return isValid;
+
     }
 }
