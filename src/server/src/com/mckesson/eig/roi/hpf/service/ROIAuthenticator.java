@@ -18,6 +18,7 @@ package com.mckesson.eig.roi.hpf.service;
 import com.mckesson.eig.roi.base.api.ROIClientErrorCodes;
 import com.mckesson.eig.roi.base.api.ROIException;
 import com.mckesson.dm.core.common.logging.OCLogger;
+import com.mckesson.eig.utility.util.SecureStringAccessor;
 import com.mckesson.eig.utility.util.SpringUtilities;
 import com.mckesson.eig.utility.util.StringUtilities;
 import com.mckesson.eig.wsfw.model.authentication.AuthenticatedResult;
@@ -57,7 +58,14 @@ implements Authenticator {
                 LOG.debug(logSM + ">>Start:");
             }
             String userName = (String) CxfWsSession.getSessionData(KEY_USERNAME);
-            String password = (String) CxfWsSession.getSessionData(KEY_PASSWORD);
+            
+            SecureStringAccessor securedPassword = (SecureStringAccessor) CxfWsSession
+                    .getSessionData(KEY_PASSWORD);     
+            StringBuilder builder = new StringBuilder();
+            securedPassword.DoHylandAccess((chars, tempStr) -> {
+                builder.append(chars);
+            });
+            String password = builder.toString();
 
             if (StringUtilities.isEmpty(userName) || StringUtilities.isEmpty(password)) {
                 throw new Exception();
