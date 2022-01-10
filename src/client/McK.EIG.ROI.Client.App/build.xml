@@ -129,6 +129,11 @@
                 <property name="tmpDirName" value="${directory::get-parent-directory( subBuildDir )}"/>
                 <property name="tmpDirNameLen" value="${string::get-length( tmpDirName )}"/>          
       		    <property name="subDirNameLen" value="${string::get-length( subBuildDir )}"/>
+				<echo message="Printing variables details..." />
+				<echo message="tmpDirName"/>
+				<echo message="tmpDirNameLen"/>
+				<echo message="tmpDirNameLen"/>
+				<echo message="Done Printing variables details..." />
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='59'}" >
 	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
