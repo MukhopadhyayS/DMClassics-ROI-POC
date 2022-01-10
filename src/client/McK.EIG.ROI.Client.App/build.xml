@@ -130,7 +130,7 @@
                 <property name="tmpDirNameLen" value="${string::get-length( tmpDirName )}"/>          
       		    <property name="subDirNameLen" value="${string::get-length( subBuildDir )}"/>
 	    		        <choose>
-	    		           <when test="${subDirNameLen =='57'}" >
+	    		           <when test="${subDirNameLen =='59'}" >
 	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 	    		           </when>
 	    		           <otherwise>
