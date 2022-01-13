@@ -135,7 +135,7 @@
 				<echo message="${string::get-length( subBuildDir )}"/>
 				<echo message="Done Printing variables details..." />
 	    		        <choose>
-	    		           <when test="${subDirNameLen =='63'}" >
+	    		           <when test="${subDirNameLen =='57'}" >
 	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 	    		           </when>
 	    		           <otherwise>
