@@ -356,7 +356,7 @@
 	<classpathentry kind="lib" path="lib/hpf.stub.config.jar"/>
 	<classpathentry kind="lib" path="lib/roi-hpf-auth.jar"/>
 	<classpathentry kind="lib" path="plug-in/ClinicalCcdPrivoder/lib/ojdbc5.jar"/>
-	<classpathentry kind="lib" path="lib/OCInternalComm-21.0.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/OCUtilities-21.0.jar"/>
+	<classpathentry kind="lib" path="lib/OCInternalComm-21.1.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/OCUtilities-21.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
