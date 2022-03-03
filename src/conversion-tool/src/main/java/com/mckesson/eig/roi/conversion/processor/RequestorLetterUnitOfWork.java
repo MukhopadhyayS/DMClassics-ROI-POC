@@ -12,11 +12,11 @@
  */
 package com.mckesson.eig.roi.conversion.processor;
 
-import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import com.mckesson.eig.roi.conversion.config.Constants;
 import com.mckesson.eig.roi.conversion.util.HibernateUtil;
 
@@ -25,7 +25,7 @@ import com.mckesson.eig.roi.conversion.util.HibernateUtil;
  * 
  */
 public class RequestorLetterUnitOfWork extends UnitOfWork {
-	private static final Logger logger = Logger.getLogger(RequestorLetterUnitOfWork.class);
+	private static final Logger logger = LogManager.getLogger(RequestorLetterUnitOfWork.class);
 	private Integer requestorLetterId;
 
 	public RequestorLetterUnitOfWork(Integer requestorLetterId) {

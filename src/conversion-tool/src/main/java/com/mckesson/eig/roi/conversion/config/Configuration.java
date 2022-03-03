@@ -19,9 +19,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
-
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import com.mckesson.eig.roi.conversion.exceptions.InitializationException;
 import com.mckesson.eig.roi.conversion.exceptions.ValidationException;
 
@@ -31,7 +30,7 @@ import com.mckesson.eig.roi.conversion.exceptions.ValidationException;
  */
 public class Configuration {
 
-	private static final Logger logger = Logger.getLogger(Configuration.class);
+	private static final Logger logger = LogManager.getLogger(Configuration.class);
 	private static Properties props;
 	
 	/**

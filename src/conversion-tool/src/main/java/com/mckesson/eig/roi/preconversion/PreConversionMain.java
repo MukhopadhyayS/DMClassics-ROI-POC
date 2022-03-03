@@ -15,8 +15,8 @@ package com.mckesson.eig.roi.preconversion;
 import java.io.File;
 import java.net.MalformedURLException;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.RollingFileAppender;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -38,11 +38,10 @@ import com.mckesson.eig.roi.conversion.util.StringUtil;
  */
 public class PreConversionMain {
 	
-	private static final Logger LOGGER = Logger.getLogger(PreConversionMain.class);
+	private static final Logger LOGGER = LogManager.getLogger(PreConversionMain.class);
 	private static final String CMD_ARGS_FOR_USER_BL_MAPPING = "blfm";
 	private static final String CMD_ARGS_FOR_FACILITY_BL_MAPPING = "fblm";
 	
-	private static final RollingFileAppender PreConversionAppender = (RollingFileAppender) Logger.getRootLogger().getAppender("preConversionAppender");
 	
 	private PreConversionProcessor processor;
 	
@@ -118,7 +117,6 @@ public class PreConversionMain {
 			ValidationException, HibernateException, MalformedURLException {
 		
 		// Log file initialization
-		rollLogFile();
 		
 		// Initialize and load the configuration, conversion.properties
 		try {
@@ -180,15 +178,7 @@ public class PreConversionMain {
 		return salestaxFacilityCount;
 	}
 	
-	private static void rollLogFile() {
-		
-		LOGGER.debug("\nRolling log file");
-		File file = new File(PreConversionAppender.getFile());
-		if (file.length() > 0) {
-			PreConversionAppender.rollOver();
-		}
-		LOGGER.debug("Conversion log file is located at: " + file.getAbsolutePath());
-	}
+	
 	
 	private PreConversionProcessor getPreConversionProcessor() {
 		if (null == processor) {

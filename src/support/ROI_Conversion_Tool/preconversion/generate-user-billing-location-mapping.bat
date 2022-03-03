@@ -11,6 +11,6 @@ IF EXIST "..\jre\bin\java.exe" (
 		set JAVA_EXE="%JAVA_HOME%\bin\java.exe"
 	)
 )
-%JAVA_EXE% -cp ..\common\roi-conversion-tool.jar -Dlog4j.configuration=log4j-preconversion.properties com.mckesson.eig.roi.preconversion.PreConversionMain ublm
+%JAVA_EXE% -cp ..\common\roi-conversion-tool.jar -Dlog4j2.configurationFile=log4j-preconversion.properties com.mckesson.eig.roi.preconversion.PreConversionMain ublm
 
 :END

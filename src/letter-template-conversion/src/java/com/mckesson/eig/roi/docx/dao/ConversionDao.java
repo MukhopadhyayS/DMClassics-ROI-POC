@@ -16,8 +16,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -31,8 +31,7 @@ import com.mckesson.eig.roi.docx.utils.HibernateUtil;
  *
  */
 public class ConversionDao {
-	private static final Logger logger = Logger.getLogger(ConversionDao.class);
-
+	private static final Logger logger = LogManager.getLogger(ConversionDao.class);
 	public LetterTemplate getLetterTempplate(long id) {
 	    Session session = null;
 		Transaction tx = null;

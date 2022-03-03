@@ -12,7 +12,8 @@
  */
 package com.mckesson.eig.roi.conversion.processor;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,7 +27,7 @@ import com.mckesson.eig.roi.conversion.util.HibernateUtil;
  */
 public class SupplementalUnitOfWork extends UnitOfWork {
 
-	private static final Logger logger = Logger.getLogger(SupplementalUnitOfWork.class);
+	private static final Logger logger = LogManager.getLogger(SupplementalUnitOfWork.class);
 	private Integer supplementalId;
 
 	public SupplementalUnitOfWork(Integer supplementalId) {

@@ -12,7 +12,8 @@
  */
 package com.mckesson.eig.roi.conversion.processor;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * @author bhanu
@@ -20,7 +21,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class UnitOfWork implements Runnable {
 
-	private static final Logger logger = Logger.getLogger(UnitOfWork.class);
+	private static final Logger logger = LogManager.getLogger(UnitOfWork.class);
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
