@@ -12,11 +12,11 @@
  */
 package com.mckesson.eig.roi.conversion.processor;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import com.mckesson.eig.roi.conversion.util.HibernateUtil;
 
 /**
@@ -25,7 +25,7 @@ import com.mckesson.eig.roi.conversion.util.HibernateUtil;
  */
 public class FreeFormFacilityUnitOfWork extends UnitOfWork {
 
-	private static final Logger logger = Logger.getLogger(FreeFormFacilityUnitOfWork.class);
+	private static final Logger logger = LogManager.getLogger(FreeFormFacilityUnitOfWork.class);
 	
 	/* (non-Javadoc)
 	 * @see com.mckesson.eig.roi.conversion.processor.impl.UnitOfWork#execute()

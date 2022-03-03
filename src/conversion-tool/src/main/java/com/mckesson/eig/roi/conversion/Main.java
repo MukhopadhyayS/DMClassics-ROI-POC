@@ -19,8 +19,10 @@ import java.net.MalformedURLException;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.RollingFileAppender;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.hibernate.HibernateException;
 
 import com.mckesson.eig.roi.conversion.billinglocation.BillingLocation;
@@ -43,8 +45,10 @@ import com.mckesson.eig.roi.conversion.util.StringUtil;
  */
 public class Main {
 
-	private static final Logger logger = Logger.getLogger(Main.class);
-	private static final RollingFileAppender fileAppender = (RollingFileAppender) Logger.getRootLogger().getAppender("fileAppender");
+	private static final Logger logger = LogManager.getLogger(Main.class);
+	private static final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+	private static final org.apache.logging.log4j.core.config.Configuration config = ctx.getConfiguration();
+	private static final RollingFileAppender fileAppender =  config.getAppender("fileLogger");
 	private static ConversionProcessor processor;
 
 	/**
@@ -64,7 +68,7 @@ public class Main {
 		System.out.print("Open conversion log file (Y/N)? ");
 		String openLogFile = new java.util.Scanner(System.in).nextLine();
 		if (openLogFile.equalsIgnoreCase("Y")) {
-			ProcessBuilder pb = new ProcessBuilder("notepad.exe", new File(fileAppender.getFile()).getAbsolutePath());
+			ProcessBuilder pb = new ProcessBuilder("notepad.exe", new File(fileAppender.getFileName()).getAbsolutePath());
 			try {
 				pb.start();
 			} catch (IOException e) {
@@ -77,7 +81,6 @@ public class Main {
 
 	private static void initialize() throws InitializationException, ValidationException, 
 		HibernateException, MalformedURLException, FileNotFoundException {
-		Main.rollLogFile();
 		try {
 			Configuration.initialize();
 			Configuration.validate();
@@ -218,13 +221,6 @@ public class Main {
 		HibernateUtil.destroy();
 	}
 	
-	private static void rollLogFile() {
-		System.out.println("\nRolling log file");
-		File file = new File(fileAppender.getFile());
-		if (file.length() > 0) {
-			fileAppender.rollOver();
-		}
-		System.out.println("Conversion log file is at: " + file.getAbsolutePath());
-	}
+	
 
 }

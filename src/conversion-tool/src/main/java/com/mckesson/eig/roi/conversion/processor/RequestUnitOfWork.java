@@ -15,8 +15,8 @@ package com.mckesson.eig.roi.conversion.processor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -33,7 +33,7 @@ import com.mckesson.eig.roi.conversion.util.HibernateUtil;
  * 
  */
 public class RequestUnitOfWork extends UnitOfWork {
-	private static final Logger logger = Logger.getLogger(RequestUnitOfWork.class);
+	private static final Logger logger = LogManager.getLogger(RequestUnitOfWork.class);
 	private Integer requestId;
 	private Map<String, BillingLocation> _facilityMapper;
 	private Map<String, BillingLocation> _userMapper;
