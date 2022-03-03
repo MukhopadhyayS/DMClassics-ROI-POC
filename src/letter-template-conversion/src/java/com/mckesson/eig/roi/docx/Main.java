@@ -18,9 +18,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.RollingFileAppender;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.hibernate.HibernateException;
 
 import com.mckesson.eig.roi.docx.dao.ConversionDao;
@@ -39,9 +40,11 @@ import com.mckesson.eig.roi.docx.utils.HibernateUtil;
  */
 public class Main {
 
-	private static final Logger logger = Logger.getLogger(Main.class);
-	private static final RollingFileAppender fileAppender = (RollingFileAppender) Logger.getRootLogger().getAppender("fileAppender");
-
+	private static final Logger logger = LogManager.getLogger(Main.class);
+	private static final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+	private static final org.apache.logging.log4j.core.config.Configuration config = ctx.getConfiguration();
+	private static final RollingFileAppender fileAppender =  config.getAppender("fileLogger");
+	
 	/**
 	 * @param args
 	 */
@@ -63,7 +66,7 @@ public class Main {
 		System.out.print("Open conversion log file (Y/N)? ");
 		String openLogFile = new java.util.Scanner(System.in).nextLine();
 		if (openLogFile.equalsIgnoreCase("Y")) {
-			ProcessBuilder pb = new ProcessBuilder("notepad.exe", new File(fileAppender.getFile()).getAbsolutePath());
+			ProcessBuilder pb = new ProcessBuilder("notepad.exe", new File(fileAppender.getFileName()).getAbsolutePath());
 			try {
 				pb.start();
 			} catch (IOException e) {
@@ -79,7 +82,6 @@ public class Main {
 		System.out.print("which are stored in rtf format to docx format.\n");
 		System.out.print("It is required the work station that run the tool can access the database server ");
 		System.out.print("and with Microsoft Word installed.\n");
-		rollLogFile();
 		String dbServer = ConsoleUtil.readLine("Enter Database server name: ");
 		String dbUsername = ConsoleUtil.readPassword("Enter database user : ");
 		String dbPassword = ConsoleUtil.readPassword("Enter password for "+ dbUsername + " user: ");
@@ -167,13 +169,6 @@ public class Main {
 		HibernateUtil.destroy();
 	}
 	
-	private void rollLogFile() {
-		System.out.println("\nRolling log file");
-		File file = new File(fileAppender.getFile());
-		if (file.length() > 0) {
-			fileAppender.rollOver();
-		}
-		System.out.println("Conversion log file is at: " + file.getAbsolutePath());
-	}
+	
 
 }

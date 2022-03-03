@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -15,7 +16,7 @@ import com.mckesson.eig.roi.conversion.exceptions.ValidationException;
 import com.mckesson.eig.roi.conversion.util.HibernateUtil;
 
 public class BillingLocationUtil {
-	private static final Logger logger = Logger.getLogger(BillingLocationUtil.class);
+	private static final Logger logger = LogManager.getLogger(BillingLocationUtil.class);
 
 	public BillingLocation getBillingLocation(long requestId, Map<String, BillingLocation> userMap, Map<String, 
 			BillingLocation> facilityMap)  throws ValidationException {

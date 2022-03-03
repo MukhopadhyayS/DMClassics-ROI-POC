@@ -11,6 +11,6 @@ IF EXIST ".\jre\bin\java.exe" (
 		set JAVA_EXE="%JAVA_HOME%\bin\java.exe"
 	)
 )
-%JAVA_EXE% -cp lib\docx-conversion-tool.jar -Dlog4j.configuration=log4j-conversion.properties com.mckesson.eig.roi.docx.Main
+%JAVA_EXE% -cp lib\docx-conversion-tool.jar -Dlog4j2.configurationFile=log4j-conversion.properties com.mckesson.eig.roi.docx.Main
 
 :END

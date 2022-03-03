@@ -1,9 +1,9 @@
 package com.mckesson.eig.roi.conversion.util;
 
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public final class Worker extends Thread {
-    private static final Logger LOGGER = Logger.getLogger(Worker.class);
+	private static final Logger LOGGER = LogManager.getLogger(Worker.class);
 	private Runnable _workload;
 	private volatile boolean _finish;
 	private final int _sleeptime;

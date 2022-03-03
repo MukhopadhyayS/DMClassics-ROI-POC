@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -41,7 +42,7 @@ import com.mckesson.eig.roi.conversion.util.StringUtil;
  */
 public class PreConversionProcessor {
 	
-	private static final Logger LOGGER = Logger.getLogger(PreConversionProcessor.class);
+	private static final Logger LOGGER = LogManager.getLogger(PreConversionProcessor.class);
 	
 	public static final String FILE_DELIM  = "|";
     private static final int FACILITY = 0;

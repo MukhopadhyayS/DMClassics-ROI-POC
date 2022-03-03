@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.regex.Matcher;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -40,7 +40,7 @@ import com.mckesson.eig.roi.conversion.util.WorkerPool;
  * 
  */
 public class ConversionProcessor implements Runnable {
-	private static final Logger logger = Logger.getLogger(ConversionProcessor.class);
+	private static final Logger logger = LogManager.getLogger(ConversionProcessor.class);
     private static final int SLEEP_TIME = 100;
     private static Map<String, BillingLocation> _facilityMapper;
     private static Map<String, BillingLocation> _userMapper;
