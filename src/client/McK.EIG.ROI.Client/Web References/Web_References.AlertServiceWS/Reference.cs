@@ -99,12 +99,13 @@ namespace McK.EIG.ROI.Client.Web_References.AlertServiceWS {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("transactionId")]
         [System.Web.Services.Protocols.SoapHeaderAttribute("Security")]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:eig.mckesson.com/alert", RequestNamespace="urn:eig.mckesson.com", ResponseNamespace="urn:eig.mckesson.com", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void alert(string message) {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:eig.mckesson.com/alert", RequestNamespace = "urn:eig.mckesson.com", ResponseNamespace = "urn:eig.mckesson.com", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void alert([System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)] string message)
+        {
             this.Invoke("alert", new object[] {
                         message});
         }
-        
+
         /// <remarks/>
         public void alertAsync(string message) {
             this.alertAsync(message, null);
