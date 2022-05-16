@@ -13,34 +13,13 @@
 
 package com.mckesson.eig.roi.output.model;
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
-/**
- * <p>Java class for OutputFeature complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="OutputFeature">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="outputFeatureId" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="attributes" type="{urn:eig.mckesson.com}map" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OutputFeature", propOrder = {
     "_outputFeatureId",
@@ -48,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
     "_description",
     "_attributes"
 })
-public class OutputFeature
+public class OutputFeatureProxyModel extends AbstractOutputAttributes
 {
 
     @XmlElement(name="outputFeatureId")
@@ -67,17 +46,6 @@ public class OutputFeature
 
     public void setOutputFeatureId(Long outputFeatureId) {
         _outputFeatureId = outputFeatureId;
-    }
-    
-    private java.util.List<Map> attributes;
-    
-    public void setAttributes(java.util.List<Map> attributes) {
-        this.attributes = attributes;
-    }
-    
-    
-    public java.util.List<Map> getAttributes(){
-        return this.attributes;
     }
 
     public String getName() {
