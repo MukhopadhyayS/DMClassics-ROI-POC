@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
     "_outputFeatureId",
     "_name",
     "_description",
-    "_attributes"
+    "attributes"
 })
 public class OutputFeature
 {
