@@ -29,6 +29,7 @@ import com.mckesson.eig.roi.output.model.DestInfoList;
 import com.mckesson.eig.roi.output.model.MapModel;
 import com.mckesson.eig.roi.output.model.OutputContent;
 import com.mckesson.eig.roi.output.model.OutputFeature;
+import com.mckesson.eig.roi.output.model.OutputFeatureProxyModel;
 import com.mckesson.eig.roi.output.model.OutputQueue;
 import com.mckesson.eig.roi.output.model.OutputRequest;
 import com.mckesson.eig.roi.output.model.OutputTransform;
@@ -140,16 +141,26 @@ implements ROIOutputService {
 
     /**
      * This method is used to get Service properties
-     */
+     */    
     @Override
     public OutputFeature getServiceProperties() {
 
         try {
 
         OutputWebserviceInterface proxy = getProxy(OutputWebserviceInterface.class);
-        OutputFeature outputServiceProperty = proxy.getServiceProperties("ROI");
-        return outputServiceProperty;
-
+        OutputFeatureProxyModel outputServiceProperty = proxy.getServiceProperties("ROI");
+        OutputFeature result = new OutputFeature();
+        result.setOutputFeatureId(outputServiceProperty.getOutputFeatureId());
+        result.setDescription(outputServiceProperty.getDescription());
+        result.setName(outputServiceProperty.getName());
+        java.util.ArrayList<com.mckesson.eig.roi.output.model.Map> attributes = 
+                new java.util.ArrayList<com.mckesson.eig.roi.output.model.Map>();
+        for (Map.Entry<String,String> entry : outputServiceProperty.getAttributes().entrySet()) {
+            attributes.add(new com.mckesson.eig.roi.output.model.Map(entry.getKey(),entry.getValue()));
+        }
+        
+        result.setAttributes(attributes);
+        return result;
         } catch (Exception e) {
 
             LOG.error("Get service properties failed", e);
