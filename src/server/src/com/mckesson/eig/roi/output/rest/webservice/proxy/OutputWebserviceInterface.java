@@ -52,5 +52,5 @@ public interface OutputWebserviceInterface {
     @GET
     @Path("/getServiceProperties/{featureName}")
     @Produces("application/json")
-    public OutputFeature getServiceProperties(@PathParam("featureName") String name);
+    public com.mckesson.eig.roi.output.model.OutputFeatureProxyModel getServiceProperties(@PathParam("featureName") String name);
 }
