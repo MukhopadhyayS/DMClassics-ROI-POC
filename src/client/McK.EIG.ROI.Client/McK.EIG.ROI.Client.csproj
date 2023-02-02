@@ -90,8 +90,9 @@
       <HintPath>..\3rdparty\lib\Interop.SHDocVw.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="McK.EIG.Common.Audit, Version=17.0.0.140, Culture=neutral, PublicKeyToken=ee69d9bc131b57c3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
