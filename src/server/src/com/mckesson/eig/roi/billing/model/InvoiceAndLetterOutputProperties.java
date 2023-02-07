@@ -68,7 +68,7 @@ implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @XmlElement(name="queuePassword", required = true)
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     
     @XmlElement(name="outputMethod", required = true)
     private String _outputMethod;
@@ -98,15 +98,41 @@ implements Serializable {
             return null;
         }
 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+     //  StringBuilder builder = new StringBuilder();
+      /*  _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
-        });
-        return builder.toString();
+        });*/
+        
+        /*_queuePassword.DoHylandAccess(new SecureStringAccessor.HylandAccessor() {
+            
+            @Override
+            public void access(char[] passwdChars, String tempString) {
+                
+                // This is the best way to use it, never a string
+                System.out.print("\nThe secure string reported as an char array" +
+                " within the accessor is ");
+                for (int i = 0; i < passwdChars.length;i++) {
+                    System.out.print(passwdChars[i]);
+                }
+           
+                // Utilizing the temp string here, it will be auto replaced with XXXXXXXXXXXXXXX after usage
+                // This should help, but does not eliminate heap leakage
+                tempString = new String(passwdChars);
+                System.out.println("\nMaking a string of the array also gives " + tempString);
+                
+                builder.append(passwdChars);
+            }
+         });
+        
+        return builder.toString();*/
+        
+        return _queuePassword;
     }
     public void setQueuePassword(String queuePassword) {
         queuePassword = StringUtilities.safe(queuePassword);
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+        /* _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());*/
+        
+        _queuePassword = queuePassword;
     }
     
     public String getOutputMethod() { return _outputMethod; }
