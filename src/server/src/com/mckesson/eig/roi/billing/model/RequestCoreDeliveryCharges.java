@@ -43,7 +43,7 @@ extends BaseModel {
     private Date _invoiceDueDate;
     private Date _resendDate;
     private String _outputMethod;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private boolean _overwriteDueDate;
     private double _invoiceSalesTax;
     private double _baseCharge;
@@ -198,15 +198,17 @@ extends BaseModel {
             return null;
         }
 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+        //StringBuilder builder = new StringBuilder();
+        /*_queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
-        });
-        return builder.toString();
+        });*/
+        return _queuePassword;//builder.toString();
     }
     public void setQueuePassword(String queuePassword) {
-        queuePassword = StringUtilities.safe(queuePassword);
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+    	
+    	_queuePassword = queuePassword;
+      //  queuePassword = StringUtilities.safe(queuePassword);
+       // _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
     }
 public double getPreviouslyReleasedCost() { return _previouslyReleasedCost; }
     public void setPreviouslyReleasedCost(double previouslyReleasedCost) {

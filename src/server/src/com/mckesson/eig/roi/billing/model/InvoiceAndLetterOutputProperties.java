@@ -68,7 +68,7 @@ implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @XmlElement(name="queuePassword", required = true)
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     
     @XmlElement(name="outputMethod", required = true)
     private String _outputMethod;
@@ -98,15 +98,20 @@ implements Serializable {
             return null;
         }
 
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
+      /*  StringBuilder builder = new StringBuilder();
+       _queuePassword.DoHylandAccess((chars, tempStr) -> {
             builder.append(chars);
-        });
-        return builder.toString();
+        });       
+        
+        return builder.toString();*/
+        
+        return _queuePassword;
     }
     public void setQueuePassword(String queuePassword) {
         queuePassword = StringUtilities.safe(queuePassword);
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+        /* _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());*/
+        
+        _queuePassword = queuePassword;
     }
     
     public String getOutputMethod() { return _outputMethod; }
