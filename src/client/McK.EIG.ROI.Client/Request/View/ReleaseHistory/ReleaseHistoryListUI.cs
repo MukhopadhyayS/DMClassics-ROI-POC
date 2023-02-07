@@ -98,8 +98,8 @@ namespace McK.EIG.ROI.Client.Request.View.ReleaseHistory
             grid.AddTextBoxColumn(EncounterColumn, "Encounter", "Encounter", 80);
             grid.AddTextBoxColumn(DocDetailColumn, "Document - Version Subtitle", "DocumentVersionSubtitle", ColumnWidth);
             grid.AddTextBoxColumn(PagesColumn, "Pages", "Pages", 50);
-            grid.AddTextBoxColumn(RequestSecureColumn, "Request Password", "PlainRequestPassword", 100);
-            grid.AddTextBoxColumn(QueueSecureColumn, "Queue Password", "PlainQueuePassword", 100);         
+            grid.AddTextBoxColumn(RequestSecureColumn, "Request Password", "PlainRequestSecretWord", 100);
+            grid.AddTextBoxColumn(QueueSecureColumn, "Queue Password", "PlainQueueSecretWord", 100);         
             DataGridViewTextBoxColumn addressColumn = grid.AddTextBoxColumn(ShippingAddressColumn, "Shipping Address", "ShippingAddress", 140);
             //addressColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             addressColumn.DefaultCellStyle.WrapMode  = DataGridViewTriState.False;            
