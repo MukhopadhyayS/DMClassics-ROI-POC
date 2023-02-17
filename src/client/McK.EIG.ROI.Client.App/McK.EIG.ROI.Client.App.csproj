@@ -36,7 +36,7 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>http://127.0.0.1:8080/ROIClient/</InstallUrl>
-    <SupportUrl>http://www.mckesson.com</SupportUrl>
+    <SupportUrl>http://www.hyland.com</SupportUrl>
     <ProductName>OneContent Release of Information Foundation EP2</ProductName>
     <PublisherName>ROI</PublisherName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
