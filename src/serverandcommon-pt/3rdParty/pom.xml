@@ -22,8 +22,8 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://ocsvn114.eigqclab.mckesson.com/svn/DM-Classics/trunk/ROI/src</connection>
-		<url>http://ocsvn114.eigqclab.mckesson.com/svn/DM-Classics/trunk/ROI/src</url>
+		<connection>scm:svn:http://ocsvn114.hylandqa.net/svn/DM-Classics/trunk/ROI/src</connection>
+		<url>http://ocsvn114.hylandqa.net/svn/DM-Classics/trunk/ROI/src</url>
 	</scm>
 	
 	<build>
