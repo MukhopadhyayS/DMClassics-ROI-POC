@@ -291,9 +291,9 @@
 	
 	
 	
-	<classpathentry kind="lib" path="3rdparty/lib/poi-5.0.0.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/poi-ooxml-5.0.0.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/poi-ooxml-lite-5.0.0.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/poi-5.2.1.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/poi-ooxml-5.2.1.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/poi-ooxml-lite-5.2.1.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/batik-all-1.14.jar"/>
 	
