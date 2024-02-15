@@ -196,7 +196,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/httpunit.jar"/>
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/itext-2.1.7.jar"/> -->
-	<classpathentry kind="lib" path="3rdparty/lib/itextpdf-5.5.13.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/itextpdf-5.5.13.3.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/iws-ha.jar"/>
 	
