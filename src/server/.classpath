@@ -285,7 +285,7 @@
 	
 	
 	<classpathentry kind="lib" path="3rdparty/lib/xmlgraphics-commons-2.6.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/commons-io-2.15.1.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/commons-logging-1.0.4.jar"/> -->
 	
 	
