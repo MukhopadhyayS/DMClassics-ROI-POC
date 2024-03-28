@@ -348,6 +348,7 @@ public class CCDCCRConversion {
 			Fop fop = _fopFactory.newFop(MimeConstants.MIME_PDF, _foUserAgent, out);
 			// Setup XSLT
 			TransformerFactory factory = TransformerFactory.newInstance();
+			factory.setFeature("http://javax.xml.XMLConstants/feature/secure-processing", true);
 			Transformer transformer = factory.newTransformer(xsltSource);
 			transformer.setParameter("versionParam", "2.0");
 
