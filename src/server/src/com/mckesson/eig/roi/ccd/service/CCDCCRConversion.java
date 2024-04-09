@@ -96,6 +96,8 @@ public class CCDCCRConversion {
 		spf.setFeature(FEATURE1, false);
 		spf.setFeature(FEATURE2, false);
 		spf.setFeature(FEATURE3, false);
+		spf.setFeature("http://javax.xml.XMLConstants/feature/secure-processing", true);
+		spf.setXIncludeAware(false);
 		return spf;
 	}
 
