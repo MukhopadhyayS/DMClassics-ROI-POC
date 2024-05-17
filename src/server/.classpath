@@ -184,7 +184,7 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/guava-11.0.1.jar"/> -->
 	
 	
-	<classpathentry kind="lib" path="3rdparty/lib/guava-30.1.1-jre.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/guava-33.0.0-jre.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/checker-qual-3.8.0.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/error_prone_annotations-2.5.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/failureaccess-1.0.1.jar"/>
@@ -237,7 +237,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/jaxen-1.1-beta-5.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jdepend-2_2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/joda-time-2.2.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/json-20080701.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/json-20231013.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/jsr311-api-1.1.1.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/jta-1.1.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jtds-1.2.jar"/>
