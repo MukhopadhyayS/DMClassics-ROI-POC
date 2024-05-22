@@ -136,7 +136,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/wss4j-ws-security-common-2.3.2.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-ws-addr-3.4.4.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-wsdl-3.4.4.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-wsdl-4.0.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-ws-policy-3.4.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-frontend-simple-3.4.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-databinding-jaxb-3.4.4.jar"/>
