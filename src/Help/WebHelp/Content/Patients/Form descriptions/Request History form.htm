@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" xml:lang="en-us" lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Help.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Requestors|Form descriptions">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Request History form</title>
+        <link href="../../Resources/Stylesheets/LocalFormat.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" defer="defer" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../../Help.htm#Patients/Form descriptions/Request History form.htm">Open topic with navigation</a>
+        </p>
+        <h3 class="Heading3">Request History form</h3>
+        <p>The Request History form allows you to</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">View a list of requests and select one to view request information. </li>
+            <li class="li_1" value="2">Add, change, or delete request information, if you have the required permissions.</li>
+        </ul>
+        <p class="Subhead1">To open the form</p>
+        <ol start="1" class="ol_1">
+            <li class="li_1" value="1">Select <span class="span_3" style="font-weight: bold;">Patients</span><b> &gt; </b><span class="span_3" style="font-weight: bold;">Find Patient</span>.</li>
+            <li class="li_1" value="2">Search for and select a patient. Then click <span class="span_3"><b>View/Edit Patient</b>.</span></li>
+            <li class="li_1" value="3">Select <span class="span_3" style="font-weight: bold;">Request History</span> in the left pane.</li>
+        </ol>
+        <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>You can access this form at any time while viewing and/or editing requestor information after a patient has been selected or created.</p>
+        <p class="Subhead1">Item descriptions</p>
+        <p class="ItemName">Patient information box</p>
+        <p>Displays the patient's name, gender, date of birth, the facility where care occurred, Social Security Number (masked, when enabled), EPN, and MRN. Also contains "VIP" if the patient has VIP status.</p>
+        <p class="ItemName">Filter By Encounter flag</p>
+        <p>Displays On if the system is currently set to filter the patient's records by a subset of encounters. Otherwise, displays Off. </p>
+        <p class="ItemName">Set/Update button</p>
+        <p>Allows you to set or change a filter to display only information related to a set of selected encounters.</p>
+        <p>Not available for non-OneContent patients or records. Enabled only for OneContent patients.</p>
+        <p>Launches the <a href="../Dialog box descriptions/Set Encounter Filter dialog box.htm"><span class="SecondaryLink">Set Encounter Filter dialog box</span></a><span class="SecondaryLink">.</span></p>
+        <p class="ItemName">Requests grid</p>
+        <p>Displays requests for the patient selected on the Find Patient form and allows you to a select request.</p>
+        <p>Can be sorted on all columns. The default sort order is ascending Receipt Date and then ascending Facility.</p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>If a request contains records from facilities that you are not allowed to access, the detail pane lists the request in red text and masks data in the following columns: Requestor Name and Requestor Type. If you select the request, the system disables the <span class="span_3">View/Edit Request </span>button.</p>
+        <p>Contains the following information:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">Last Updated</span> <br />Used as the default sort in most recent to oldest order; format is mm/dd/yyyy.<br />The date when the request was last updated.</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">Facility</span>
+                <br />The facility where patient care occurred.<br />Used as the default secondary sort in ascending alphabetical order.</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">Updated By</span>
+                <br />The user who last updated the request. Initial sort order is alphanumeric ascending.<br />Format is: LastName, FirstName MiddleInitial</li>
+            <li class="li_1" value="4"><span class="span_3" style="font-weight: bold;">Status</span>
+                <br />The status of the request: Auth-Received, Canceled, Completed, Denied, Logged, Pended, Pre-Billed.</li>
+            <li class="li_1" value="5"><span class="span_3" style="font-weight: bold;">Requestor Name</span>
+                <br />Displays the requestor name for the request. Initial sort is alphanumeric ascending.</li>
+            <li class="li_1" value="6"><span class="span_3" style="font-weight: bold;">Requestor Type</span>
+                <br />Displays the requestor's type. Requestor Types are maintained in the ROI application and identify the category of requester, such as attorneys, employers, or insurance. Initial sort is alphanumeric ascending.</li>
+            <li class="li_1" value="7"><span class="span_3" style="font-weight: bold;">Request Id</span>
+                <br />Displays the ID of the request. Initial sort order is alphanumeric ascending.</li>
+            <li class="li_1" value="8"><span class="span_3" style="font-weight: bold;">Receipt Date</span>
+                <br />Displays the date the request was received; format is mm/dd/yyyy.<br />Initial sort order is oldest to most recent date.</li>
+            <li class="li_1" value="9"><span class="span_3" style="font-weight: bold;">Balance</span>
+                <br />Displays the total charges (in dollars) for the request. Initial sort order is numeric ascending.</li>
+        </ul>
+        <p class="ItemName">View/Edit Request button</p>
+        <p>Allows you to view and/or edit a selected request.</p>
+        <p>Enabled after you select a request. (Remains disabled if you select a restricted request.)</p>
+        <p>Launches the <a href="../../Requests/Form descriptions/Request Information form.htm#requests_form_descriptions_reque_922"><span class="SecondaryLink">Request Information form</span></a> and inserts the selected request into the form.</p>
+        <p class="ItemName">Patient Requesting button</p>
+        <p>Allows you to create a new request for the selected patient, with the patient as the requestor. </p>
+        <p>Displays only if you have Create Request permissions.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">For a new patient, enabled only after you save information to create the new patient</li>
+            <li class="li_1" value="2">For existing patients, enabled when:</li>
+        </ul>
+        <ul class="ul_5">
+            <li class="li_2" value="1">EPN is not configured and you have selected at least one patient</li>
+            <li class="li_2" value="2">EPN is configured and you have selected only one patient</li>
+        </ul>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Launches the <a href="../Dialog box descriptions/Create New Request with Patient Requesting dialog box.htm" class="SecondaryLink">Create New Request with Patient Requesting dialog box</a></li>
+        </ul>
+        <p class="ItemName">Create Request button</p>
+        <p>Allows you to create a new request for the selected patient. </p>
+        <p>Displays only if you have Create Request permissions.</p>
+        <p>Launches the <a href="../../Requests/Form descriptions/Request Information form.htm"><span class="SecondaryLink">Request Information form</span></a> and adds the current patient as a patient on the new request.</p>
+    </body>
+</html>

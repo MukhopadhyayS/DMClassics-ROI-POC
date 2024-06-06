@@ -1,0 +1,377 @@
+/*<meta />*/
+
+/* Copyright � 2011 McKesson Corporation and/or one of its subsidiaries. */
+/* All Rights Reserved. */
+/* This version is for Paragon Release Notes */
+
+@import url('McK_Styles.css');
+
+/* Enable the toolbar formatting options */
+
+b
+{
+	mc-disabled: false;
+}
+
+i
+{
+	mc-disabled: false;
+}
+
+sub
+{
+	mc-disabled: false;
+}
+
+sup
+{
+	mc-disabled: false;
+}
+
+u
+{
+	mc-disabled: false;
+}
+
+strike
+{
+	mc-disabled: false;
+}
+
+p
+{
+	margin-bottom: 12pt;
+	font-family: Helvetica;
+	margin-top: 0pt;
+	font-size: 10pt;
+}
+
+ol
+{
+	margin-bottom: 12pt;
+	font-family: Helvetica;
+	margin-top: 0pt;
+	font-size: 10pt;
+}
+
+ul
+{
+	margin-bottom: 12pt;
+	font-family: Helvetica;
+	margin-top: 0pt;
+	font-size: 10pt;
+}
+
+li
+{
+	margin-bottom: 12pt;
+	font-family: Helvetica;
+	margin-top: 0pt;
+	font-size: 10pt;
+}
+
+td
+{
+	margin-bottom: 12pt;
+	font-family: Helvetica;
+	vertical-align: top;
+}
+
+h1.MT1MapTitle1
+{
+	page-break-after: avoid;
+	margin-top: 27pt;
+	margin-bottom: 18pt;
+	margin-left: 0pt;
+	mc-heading-level: 2;
+	font-family: Helvetica;
+	font-weight: bold;
+	font-size: 16pt;
+}
+
+p.BTBlockText
+{
+	margin-top: 6pt;
+	margin-bottom: 6pt;
+	font-family: Helvetica;
+	font-size: 11pt;
+}
+
+p.MT2MapTitle2
+{
+	page-break-after: avoid;
+	margin-left: 0pt;
+	font-weight: bold;
+	margin-top: 24pt;
+	margin-bottom: 16pt;
+	mc-heading-level: 3;
+	font-family: Helvetica;
+	font-size: 14pt;
+}
+
+li.S1Step1
+{
+	margin-top: 6pt;
+	margin-bottom: 6pt;
+	font-size: 11pt;
+	font-family: Helvetica;
+}
+
+p.btblocktext_1
+{
+	margin-top: 7pt;
+	margin-bottom: 7pt;
+	font-family: Helvetica;
+	font-size: 11pt;
+}
+
+p.command
+{
+	margin-top: 7pt;
+	margin-bottom: 7pt;
+	margin-left: 8pt;
+	font-family: 'Courier New';
+}
+
+p.PCIPictureIndent
+{
+	margin-top: 7pt;
+	margin-bottom: 7pt;
+	font-size: 11pt;
+	margin-left: 18pt;
+	font-family: Helvetica;
+}
+
+p.CPCaption
+{
+	margin-bottom: 11pt;
+	font-family: Helvetica;
+	font-style: italic;
+	font-size: 9pt;
+}
+
+span.Hyperlink
+{
+	color: #0000FF;
+	text-decoration: underline;
+}
+
+p.THTableHeaderText
+{
+	font-size: 11pt;
+	page-break-after: avoid;
+	margin-top: 2pt;
+	margin-bottom: 2pt;
+	margin-left: 0pt;
+	font-family: Helvetica;
+	font-weight: bold;
+}
+
+p.TTTableText
+{
+	font-size: 11pt;
+	margin-top: 4pt;
+	margin-bottom: 4pt;
+	margin-left: 4pt;
+	font-family: Helvetica;
+}
+
+li.ListParagraph
+{
+	margin-bottom: 12pt;
+	margin-left: 36pt;
+	font-family: Helvetica;
+}
+
+p.MT2MapTitle2_1
+{
+	page-break-after: avoid;
+	margin-left: 0pt;
+	font-weight: bold;
+	mc-heading-level: 3;
+	font-family: Helvetica;
+	font-size: 14pt;
+	margin-top: 18pt;
+	margin-bottom: 12pt;
+}
+
+span.span_1
+{
+	font-weight: bold;
+}
+
+img.img_1
+{
+	visibility: visible;
+	mso-wrap-style: square;
+}
+
+ol.ol_1
+{
+	list-style-type: decimal;
+	margin-left: 18pt;
+}
+
+span.span_2
+{
+	font-family: 'Courier New';
+}
+
+p.CPCaption_1
+{
+	margin-bottom: 11pt;
+	font-family: Helvetica;
+	font-style: italic;
+	font-size: 9pt;
+	margin-left: 18pt;
+}
+
+li.S1Step1_1
+{
+	margin-top: 6pt;
+	margin-bottom: 6pt;
+	font-size: 11pt;
+	font-family: Helvetica;
+	page-break-after: avoid;
+}
+
+span.span_3
+{
+	font-style: italic;
+}
+
+p.command_1
+{
+	margin-top: 7pt;
+	margin-bottom: 7pt;
+	font-family: 'Courier New';
+	margin-left: 18pt;
+}
+
+p.MT2MapTitle2_2
+{
+	page-break-after: avoid;
+	margin-left: 0pt;
+	font-weight: bold;
+	margin-top: 24pt;
+	margin-bottom: 16pt;
+	mc-heading-level: 3;
+	font-family: Helvetica;
+	font-size: 14pt;
+	page-break-before: always;
+}
+
+td.td_1
+{
+	border-bottom-style: double;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	vertical-align: middle;
+	border-top-style: solid;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-left-style: solid;
+	border-left-width: 1pt;
+	border-left-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+}
+
+td.td_2
+{
+	border-bottom-style: double;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	vertical-align: middle;
+	border-top-style: solid;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+}
+
+sup.sup_1
+{
+	font-style: italic;
+}
+
+td.td_3
+{
+	border-top-style: double;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-left-style: solid;
+	border-left-width: 1pt;
+	border-left-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+}
+
+td.td_4
+{
+	border-top-style: double;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+}
+
+td.td_5
+{
+	border-top-style: solid;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-left-style: solid;
+	border-left-width: 1pt;
+	border-left-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+}
+
+td.td_6
+{
+	border-top-style: solid;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+}
+
+table.table_1
+{
+	margin-left: 0pt;
+	border-collapse: collapse;
+}
+
+li.ListParagraph_1
+{
+	margin-bottom: 12pt;
+	margin-left: 36pt;
+	font-family: Helvetica;
+	list-style-type: disc;
+}
+
+ul.ul_1
+{
+	list-style-type: disc;
+	margin-left: 36pt;
+}
+
