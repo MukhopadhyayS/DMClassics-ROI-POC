@@ -528,10 +528,10 @@ namespace McK.EIG.ROI.Client.Base.View
                 sMapId = GetHelpMapId(ctrl);
             }
             string hlpurl = helpUrl;
-            //if (!string.IsNullOrEmpty(sMapId))
-            //{
+            if (!string.IsNullOrEmpty(sMapId))
+            {
                 hlpurl += "#<id=" + sMapId;
-            //}
+            }
             Uri url = new Uri(hlpurl);
             ShowROIAboutHelpDialog(url.OriginalString);
         }
