@@ -1,0 +1,208 @@
+﻿	/*<meta />*/
+
+/* Copyright © 2017 Allscripts Healthcare, LLC and/or its affiliates. */
+/* All Rights Reserved. */
+/* This version is for projects that do not use any of the auto-numbered styles and rely exclusively on HTML lists */
+
+@import url('McK_Styles.css');
+
+
+/* Disable all of the indented and list styles */
+
+
+p.AlphaStep1
+{
+	mc-disabled: true;
+}
+p.AlphaStepNext
+{
+	mc-disabled: true;
+}
+p.BulletList
+{
+	mc-disabled: true;
+}
+p.BulletListIndent
+{
+	mc-disabled: true;
+}
+p.DashList
+{
+	mc-disabled: true;
+}
+p.DashListIndent
+{
+	mc-disabled: true;
+}
+p.Step1
+{
+	mc-disabled: true;
+}
+p.StepNext
+{
+	mc-disabled: true;
+}
+p.TableStep1
+{
+	mc-disabled: true;
+}
+p.TableStepNext
+{
+	mc-disabled: true;
+}
+p.AddendumIndent1
+{
+	mc-disabled: true;
+}
+p.AddendumIndent2
+{
+	mc-disabled: true;
+}
+p.AddendumIndent3
+{
+	mc-disabled: true;
+}
+p.BeforeYouBeginIndent1
+{
+	mc-disabled: true;
+}
+p.BeforeYouBeginIndent2
+{
+	mc-disabled: true;
+}
+p.BeforeYouBeginIndent3
+{
+	mc-disabled: true;
+}
+p.CautionIndent1
+{
+	mc-disabled: true;
+}
+p.CautionIndent2
+{
+	mc-disabled: true;
+}
+p.CautionIndent3
+{
+	mc-disabled: true;
+}
+p.CodeIndent1
+{
+	mc-disabled: true;
+}
+p.CodeIndent2
+{
+	mc-disabled: true;
+}
+p.CodeIndent3
+{
+	mc-disabled: true;
+}
+p.ImageIndent1
+{
+	mc-disabled: true;
+}
+p.ImageIndent2
+{
+	mc-disabled: true;
+}
+p.ImageIndent3
+{
+	mc-disabled: true;
+}
+p.ImportantIndent1
+{
+	mc-disabled: true;
+}
+p.ImportantIndent2
+{
+	mc-disabled: true;
+}
+p.ImportantIndent3
+{
+	mc-disabled: true;
+}
+p.MessageIndent1
+{
+	mc-disabled: true;
+}
+p.MessageIndent2
+{
+	mc-disabled: true;
+}
+p.MessageIndent3
+{
+	mc-disabled: true;
+}
+p.NormalIndent1
+{
+	mc-disabled: true;
+}
+p.NormalIndent2
+{
+	mc-disabled: true;
+}
+p.NormalIndent3
+{
+	mc-disabled: true;
+}
+p.NoteIndent1
+{
+	mc-disabled: true;
+}
+p.NoteIndent2
+{
+	mc-disabled: true;
+}
+p.NoteIndent3
+{
+	mc-disabled: true;
+}
+p.NotesIndent1
+{
+	mc-disabled: true;
+}
+p.NotesIndent2
+{
+	mc-disabled: true;
+}
+p.NotesIndent3
+{
+	mc-disabled: true;
+}
+p.ResultIndent1
+{
+	mc-disabled: true;
+}
+p.ResultIndent2
+{
+	mc-disabled: true;
+}
+p.ResultIndent3
+{
+	mc-disabled: true;
+}
+p.TipIndent1
+{
+	mc-disabled: true;
+}
+p.TipIndent2
+{
+	mc-disabled: true;
+}
+p.TipIndent3
+{
+	mc-disabled: true;
+}
+p.WarningIndent1
+{
+	mc-disabled: true;
+}
+p.WarningIndent2
+{
+	mc-disabled: true;
+}
+p.WarningIndent3
+{
+	mc-disabled: true;
+}

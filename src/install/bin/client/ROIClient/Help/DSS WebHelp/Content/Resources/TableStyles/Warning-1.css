@@ -1,0 +1,428 @@
+/* MadCap Table Style: */
+
+/*<meta Version="9" />*/
+
+mcTableStyle
+{
+	name: Warning-1;
+	border-spacing-x: 0;
+	border-spacing-y: 0;
+	border-collapse: separate;
+	max-id: 7;
+	cell-padding-left: 50px;
+	cell-padding-right: 0px;
+	cell-padding-top: 0px;
+	cell-padding-bottom: 10px;
+	background-color: #efd3d7;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0.29in;
+	page-break-inside: avoid;
+	margin-right: 0px;
+	background-image: url('../Images/WarningIcon.png');
+	background-repeat: no-repeat;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #404040;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #404040;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #404040;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #404040;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+}
+
+
+/* Cell Styles: */
+ 
+.TableStyle-Warning-1
+{
+	border-collapse: separate;
+	overflow: hidden;
+	background-color: #efd3d7;
+	background-image: url('../Images/WarningIcon.png');
+	background-repeat: no-repeat;
+	border-left-style: solid;
+	border-left-color: #404040;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-right-color: #404040;
+	border-right-width: 1px;
+	border-top-style: solid;
+	border-top-color: #404040;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #404040;
+	border-bottom-width: 1px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	margin-left: 0.29in;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	page-break-inside: avoid;
+	border-spacing: 0px 0px;
+}
+
+.TableStyle-Warning-1-HeadI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadI-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadE-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadF-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadH-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadD-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadC-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadB-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadA-- p
+{
+	
+}
+
+.TableStyle-Warning-1-HeadG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-HeadG-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootI-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootE-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootF-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootH-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootD-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootC-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootB-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootA-- p
+{
+	
+}
+
+.TableStyle-Warning-1-FootG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-FootG-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyI-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyE-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyF-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyH-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyD-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyC-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyB-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyA-- p
+{
+	
+}
+
+.TableStyle-Warning-1-BodyG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Warning-1-BodyG-- p
+{
+	
+}
+
+
