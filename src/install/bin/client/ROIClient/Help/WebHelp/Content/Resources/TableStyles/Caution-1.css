@@ -1,0 +1,428 @@
+/* MadCap Table Style: */
+
+/*<meta Version="9" />*/
+
+mcTableStyle
+{
+	name: Caution-1;
+	border-spacing-x: 0;
+	border-spacing-y: 0;
+	border-collapse: separate;
+	border-left-color: #404040;
+	border-right-color: #404040;
+	border-top-color: #404040;
+	border-bottom-color: #404040;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	cell-padding-top: 0px;
+	cell-padding-left: 50px;
+	cell-padding-right: 0px;
+	cell-padding-bottom: 10px;
+	max-id: 4;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: #f8dca1;
+	border-left-width: 1px;
+	border-right-width: 1px;
+	margin-left: 0.29in;
+	page-break-inside: avoid;
+	margin-right: 0px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	background-image: url('../Images/CautionIcon.png');
+	background-repeat: no-repeat;
+}
+
+
+/* Cell Styles: */
+ 
+.TableStyle-Caution-1
+{
+	border-collapse: separate;
+	overflow: hidden;
+	background-color: #f8dca1;
+	background-image: url('../Images/CautionIcon.png');
+	background-repeat: no-repeat;
+	border-left-style: solid;
+	border-left-color: #404040;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-right-color: #404040;
+	border-right-width: 1px;
+	border-top-style: solid;
+	border-top-color: #404040;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #404040;
+	border-bottom-width: 1px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	margin-left: 0.29in;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	page-break-inside: avoid;
+	border-spacing: 0px 0px;
+}
+
+.TableStyle-Caution-1-HeadI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadI-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadE-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadF-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadH-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadD-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadC-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadB-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadA-- p
+{
+	
+}
+
+.TableStyle-Caution-1-HeadG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-HeadG-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootI-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootE-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootF-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootH-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootD-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootC-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootB-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootA-- p
+{
+	
+}
+
+.TableStyle-Caution-1-FootG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-FootG-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyI-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyE-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyF-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyH-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyD-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyC-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyB-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyA-- p
+{
+	
+}
+
+.TableStyle-Caution-1-BodyG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Caution-1-BodyG-- p
+{
+	
+}
+
+

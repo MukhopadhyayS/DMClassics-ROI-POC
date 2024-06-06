@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CatapultAliasFile>
+    <Map Name="ABOUT_THIS_DOCUMENT__USER_AND_ADMIN" Link="About this document - admin/About this document -user and admin.htm" ResolvedId="100" />
+    <Map Name="GLOSSARY" Link="About this document - admin/Glossary.htm" ResolvedId="101" />
+    <Map Name="ADMIN___TOC" Link="Admin/Admin - TOC.htm" ResolvedId="102" />
+    <Map Name="ABOUT_BILLLING_MAINTENANCE" Link="Admin/Billing Maintenance/About Billling Maintenance.htm" ResolvedId="103" />
+    <Map Name="BILLING_LOCATION_FORM" Link="Admin/Billing Maintenance/Billing Location form.htm" ResolvedId="104" />
+    <Map Name="BILLING_MAINTENANCE___TOC" Link="Admin/Billing Maintenance/Billing Maintenance - TOC.htm" ResolvedId="105" />
+    <Map Name="BILLING_TEMPLATES_FORM" Link="Admin/Billing Maintenance/Billing Templates form.htm" ResolvedId="106" />
+    <Map Name="BILLING_TIERS_FORM" Link="Admin/Billing Maintenance/Billing Tiers form.htm" ResolvedId="107" />
+    <Map Name="CONFIGURE_INVOICE_DUE_DAYS_FORM" Link="Admin/Billing Maintenance/Configure Invoice Due Days form.htm" ResolvedId="108" />
+    <Map Name="CONFIGURE_INVOICE_DUE_DAYS" Link="Admin/Billing Maintenance/Configure invoice due days.htm" ResolvedId="109" />
+    <Map Name="DELIVERY_METHODS_FORM" Link="Admin/Billing Maintenance/Delivery Methods form.htm" ResolvedId="110" />
+    <Map Name="FEE_TYPES_FORM" Link="Admin/Billing Maintenance/Fee Types form.htm" ResolvedId="111" />
+    <Map Name="FORM_DESCRIPTIONS___TOC" Link="Admin/Billing Maintenance/Form descriptions - TOC.htm" ResolvedId="112" />
+    <Map Name="MAINTAIN_BILLING_LOCATION" Link="Admin/Billing Maintenance/Maintain billing location.htm" ResolvedId="113" />
+    <Map Name="MAINTAIN_BILLING_TEMPLATES" Link="Admin/Billing Maintenance/Maintain billing templates.htm" ResolvedId="114" />
+    <Map Name="MAINTAIN_BILLING_TIERS" Link="Admin/Billing Maintenance/Maintain billing tiers.htm" ResolvedId="115" />
+    <Map Name="MAINTAIN_DELIVERY_METHODS" Link="Admin/Billing Maintenance/Maintain delivery methods.htm" ResolvedId="116" />
+    <Map Name="MAINTAIN_FEE_TYPES" Link="Admin/Billing Maintenance/Maintain fee types.htm" ResolvedId="117" />
+    <Map Name="MAINTAIN_MEDIA_TYPES" Link="Admin/Billing Maintenance/Maintain media types.htm" ResolvedId="118" />
+    <Map Name="MAINTAIN_PAGE_WEIGHT" Link="Admin/Billing Maintenance/Maintain page weight.htm" ResolvedId="119" />
+    <Map Name="MAINTAIN_PAYMENT_METHODS" Link="Admin/Billing Maintenance/Maintain payment methods.htm" ResolvedId="120" />
+    <Map Name="MAINTAIN_REQUESTOR_TYPES" Link="Admin/Billing Maintenance/Maintain requestor types.htm" ResolvedId="121" />
+    <Map Name="MEDIA_TYPES_FORM" Link="Admin/Billing Maintenance/Media types form.htm" ResolvedId="122" />
+    <Map Name="PAGE_WEIGHT_FORM" Link="Admin/Billing Maintenance/Page Weight form.htm" ResolvedId="123" />
+    <Map Name="PAYMENT_METHODS_FORM" Link="Admin/Billing Maintenance/Payment Methods form.htm" ResolvedId="124" />
+    <Map Name="REQUESTOR_TYPES_FORM" Link="Admin/Billing Maintenance/Requestor Types form.htm" ResolvedId="125" />
+    <Map Name="USER_INSTRUCTIONS___TOC" Link="Admin/Billing Maintenance/User instructions - TOC.htm" ResolvedId="126" />
+    <Map Name="ABOUT_CLINICAL_SYSTEMS" Link="Admin/Other Maintenance/About clinical systems.htm" ResolvedId="127" />
+    <Map Name="ABOUT_OTHER_MAINTENANCE" Link="Admin/Other Maintenance/About Other Maintenance.htm" ResolvedId="128" />
+    <Map Name="CONFIGURE_CLINICAL_SYSTEMS_FORM" Link="Admin/Other Maintenance/Configure Clinical Systems form.htm" ResolvedId="129" />
+    <Map Name="CONFIGURE_CLINICAL_SYSTEMS" Link="Admin/Other Maintenance/Configure clinical systems.htm" ResolvedId="130" />
+    <Map Name="CONFIGURE_DEFAULT_UNBILLABLE_FORM" Link="Admin/Other Maintenance/Configure default unbillable form.htm" ResolvedId="131" />
+    <Map Name="CONFIGURE_LOCATION_FORM" Link="Admin/Other Maintenance/Configure location form.htm" ResolvedId="132" />
+    <Map Name="CONFIGURE_LOCATION" Link="Admin/Other Maintenance/Configure location.htm" ResolvedId="133" />
+    <Map Name="CONFIGURE_MASKING" Link="Admin/Other Maintenance/Configure masking.htm" ResolvedId="134" />
+    <Map Name="CONFIGURE_NOTES_FORM" Link="Admin/Other Maintenance/Configure Notes form.htm" ResolvedId="135" />
+    <Map Name="CONFIGURE_NOTES" Link="Admin/Other Maintenance/Configure notes.htm" ResolvedId="136" />
+    <Map Name="CONFIGURE_UNBILLABLE_SET" Link="Admin/Other Maintenance/Configure unbillable set.htm" ResolvedId="137" />
+    <Map Name="DOCUMENT_TYPES_FORM" Link="Admin/Other Maintenance/Document Types form.htm" ResolvedId="138" />
+    <Map Name="FIELDS_FOR_LETTER_TEMPLATES" Link="Admin/Other Maintenance/Fields for letter templates.htm" ResolvedId="139" />
+    <Map Name="FORM_DESCRIPTIONS___TOC1" Link="Admin/Other Maintenance/Form descriptions - TOC.htm" ResolvedId="140" />
+    <Map Name="LETTER_TEMPLATES_FORM" Link="Admin/Other Maintenance/Letter Templates form.htm" ResolvedId="141" />
+    <Map Name="MAINTAIN_AUTHORIZATION_REQUEST" Link="Admin/Other Maintenance/Maintain authorization request.htm" ResolvedId="142" />
+    <Map Name="MAINTAIN_DISCLOSURE_DOCUMENTS" Link="Admin/Other Maintenance/Maintain disclosure documents.htm" ResolvedId="143" />
+    <Map Name="MAINTAIN_LETTER_TEMPLATES" Link="Admin/Other Maintenance/Maintain letter templates.htm" ResolvedId="144" />
+    <Map Name="MAINTAIN_MEANINGFUL_USE_DOCUMENTS" Link="Admin/Other Maintenance/Maintain meaningful use documents.htm" ResolvedId="145" />
+    <Map Name="MASKING_FORM" Link="Admin/Other Maintenance/Masking form.htm" ResolvedId="146" />
+    <Map Name="OTHER_MAINTENANCE___TOC" Link="Admin/Other Maintenance/Other Maintenance - TOC.htm" ResolvedId="147" />
+    <Map Name="USER_INSTRUCTIONS___TOC1" Link="Admin/Other Maintenance/User instructions - TOC.htm" ResolvedId="148" />
+    <Map Name="ABOUT_REASONS_MAINTENANCE" Link="Admin/Reasons Maintenance/About Reasons Maintenance.htm" ResolvedId="149" />
+    <Map Name="ADJUSTMENT_REASONS_FORM" Link="Admin/Reasons Maintenance/Adjustment Reasons form.htm" ResolvedId="150" />
+    <Map Name="FORM_DESCRIPTIONS___TOC2" Link="Admin/Reasons Maintenance/Form descriptions - TOC.htm" ResolvedId="151" />
+    <Map Name="MAINTAIN_ADJUSTMENT_REASONS" Link="Admin/Reasons Maintenance/Maintain adjustment reasons.htm" ResolvedId="152" />
+    <Map Name="MAINTAIN_REQUEST_REASONS" Link="Admin/Reasons Maintenance/Maintain request reasons.htm" ResolvedId="153" />
+    <Map Name="MAINTAIN_REQUEST_STATUS_REASONS" Link="Admin/Reasons Maintenance/Maintain request status reasons.htm" ResolvedId="154" />
+    <Map Name="REASONS_MAINTENANCE___TOC" Link="Admin/Reasons Maintenance/Reasons Maintenance - TOC.htm" ResolvedId="155" />
+    <Map Name="REQUEST_REASONS_FORM" Link="Admin/Reasons Maintenance/Request Reasons form.htm" ResolvedId="156" />
+    <Map Name="REQUEST_STATUS_REASONS_FORM" Link="Admin/Reasons Maintenance/Request Status Reasons form.htm" ResolvedId="157" />
+    <Map Name="USER_INSTRUCTIONS___TOC2" Link="Admin/Reasons Maintenance/User instructions - TOC.htm" ResolvedId="158" />
+    <Map Name="INDEX" Link="Back_matter/index.htm" ResolvedId="159" />
+    <Map Name="COPYRIGHT_PAGE_HYLAND" Link="Front_matter/copyright_page-Hyland.htm" ResolvedId="160" />
+    <Map Name="LIST_OF_FIGURES" Link="Front_matter/list_of_figures.htm" ResolvedId="161" />
+    <Map Name="PRODUCT_DOCUMENTATION" Link="Front_matter/product-documentation.htm" ResolvedId="162" />
+    <Map Name="TABLE_OF_CONTENTS" Link="Front_matter/table_of_contents.htm" ResolvedId="163" />
+    <Map Name="TITLE_PAGE_HYLAND" Link="Front_matter/title_page-Hyland.htm" ResolvedId="164" />
+    <Map Name="TITLE_PAGE" Link="Front_matter/title_page.htm" ResolvedId="165" />
+    <Map Name="ABOUT_THIS_MODULE___USER_AND_ADMIN" Link="Getting Started/About this module - user and admin.htm" ResolvedId="166" />
+    <Map Name="GETTING_STARTED" Link="Getting Started/Getting Started.htm" ResolvedId="167" />
+    <Map Name="USER_PERMISSIONS" Link="Getting Started/User Permissions.htm" ResolvedId="168" />
+    <Map Name="AUTO_LOGOFF" Link="Getting Started/Logging on and off/Auto logoff.htm" ResolvedId="169" />
+    <Map Name="DIRECTORY_SERVICES_AUTHENTICATION" Link="Getting Started/Logging on and off/Directory Services authentication.htm" ResolvedId="170" />
+    <Map Name="LOGGING_OFF" Link="Getting Started/Logging on and off/Logging off.htm" ResolvedId="171" />
+    <Map Name="LOGGING_ON_AND_OFF___TOC" Link="Getting Started/Logging on and off/Logging on and off - TOC.htm" ResolvedId="172" />
+    <Map Name="LOGGING_ON" Link="Getting Started/Logging on and off/Logging on.htm" ResolvedId="173" />
+    <Map Name="PASSWORDS" Link="Getting Started/Logging on and off/Passwords.htm" ResolvedId="174" />
+    <Map Name="SECURITY" Link="Getting Started/Logging on and off/Security.htm" ResolvedId="175" />
+    <Map Name="STANDARD_AUTHENTICATION" Link="Getting Started/Logging on and off/Standard authentication.htm" ResolvedId="176" />
+    <Map Name="MENU_DESCRIPTIONS" Link="Getting Started/Workspace/Menu descriptions.htm" ResolvedId="177" />
+    <Map Name="WINDOWS_AND_DIALOG_BOXES" Link="Getting Started/Workspace/Windows and dialog boxes.htm" ResolvedId="178" />
+    <Map Name="YOUR_WORKSPACE" Link="Getting Started/Workspace/Your workspace.htm" ResolvedId="179" />
+    <Map Name="ABOUT_OVERDUE_INVOICES" Link="Overdue Invoices/About Overdue Invoices.htm" ResolvedId="180" />
+    <Map Name="OVERDUE_INVOICES_TOC" Link="Overdue Invoices/Overdue Invoices TOC.htm" ResolvedId="181" />
+    <Map Name="FIND_OVERDUE_INVOICES_FORM" Link="Overdue Invoices/Form descriptions/Find Overdue Invoices form.htm" ResolvedId="182" />
+    <Map Name="FORM_DESCRIPTIONS___TOC3" Link="Overdue Invoices/Form descriptions/Form descriptions - TOC.htm" ResolvedId="183" />
+    <Map Name="OUTPUT_STATEMENTS_AND_OR_INVOICES_FORM" Link="Overdue Invoices/Form descriptions/Output Statements and or Invoices form.htm" ResolvedId="184" />
+    <Map Name="FIND_AN_OVERDUE_INVOICE" Link="Overdue Invoices/User instructions/Find an overdue invoice.htm" ResolvedId="185" />
+    <Map Name="OUTPUT_STATEMENTS_AND_OR_INVOICES" Link="Overdue Invoices/User instructions/Output statements and-or invoices.htm" ResolvedId="186" />
+    <Map Name="USER_INSTRUCTIONS___TOC3" Link="Overdue Invoices/User instructions/User instructions - TOC.htm" ResolvedId="187" />
+    <Map Name="ABOUT_ATTACHMENTS" Link="Patients/About attachments.htm" ResolvedId="188" />
+    <Map Name="ABOUT_PATIENT_RECORDS" Link="Patients/About Patient Records.htm" ResolvedId="189" />
+    <Map Name="PATIENTS___TOC" Link="Patients/Patients - TOC.htm" ResolvedId="190" />
+    <Map Name="CREATE_NEW_ATTACHMENT_DIALOG_BOX" Link="Patients/Dialog box descriptions/Create New Attachment dialog box.htm" ResolvedId="191" />
+    <Map Name="CREATE_NEW_NON_MPF_DOCUMENT_DIALOG_BOX" Link="Patients/Dialog box descriptions/Create New Non MPF document dialog box.htm" ResolvedId="192" />
+    <Map Name="CREATE_NEW_PATIENT_REQUESTOR_DIALOG_BOX" Link="Patients/Dialog box descriptions/Create New Patient Requestor dialog box.htm" ResolvedId="193" />
+    <Map Name="CREATE_NEW_REQUEST_WITH_PATIENT_REQUESTING_DIALOG_BOX" Link="Patients/Dialog box descriptions/Create New Request with Patient Requesting dialog box.htm" ResolvedId="194" />
+    <Map Name="DIALOG_BOX_DESCRIPTIONS___TOC" Link="Patients/Dialog box descriptions/Dialog box descriptions - TOC.htm" ResolvedId="195" />
+    <Map Name="EDIT_ATTACHMENT_DIALOG_BOX" Link="Patients/Dialog box descriptions/Edit Attachment dialog box.htm" ResolvedId="196" />
+    <Map Name="EDIT_NON_MPF_DOCUMENT_DIALOG" Link="Patients/Dialog box descriptions/Edit Non MPF document dialog.htm" ResolvedId="197" />
+    <Map Name="ENCOUNTER_DETAILS_DIALOG_BOX" Link="Patients/Dialog box descriptions/Encounter Details dialog box.htm" ResolvedId="198" />
+    <Map Name="FIND_PATIENT_DIALOG_BOX" Link="Patients/Dialog box descriptions/Find Patient dialog box.htm" ResolvedId="199" />
+    <Map Name="LIST_OF_DEFICIENCIES_DIALOG_BOX" Link="Patients/Dialog box descriptions/List of Deficiencies dialog box.htm" ResolvedId="200" />
+    <Map Name="POTENTIAL_PATIENT_MISMATCH_DIALOG_BOX" Link="Patients/Dialog box descriptions/Potential Patient Mismatch dialog box.htm" ResolvedId="201" />
+    <Map Name="SAVE_NEW_PATIENT_REQUESTOR_DIALOG_BOX___PATIENTS" Link="Patients/Dialog box descriptions/Save New Patient Requestor dialog box - Patients.htm" ResolvedId="202" />
+    <Map Name="SET_ENCOUNTER_FILTER_DIALOG_BOX" Link="Patients/Dialog box descriptions/Set Encounter Filter dialog box.htm" ResolvedId="203" />
+    <Map Name="FIND_PATIENT_FORM" Link="Patients/Form descriptions/Find Patient form.htm" ResolvedId="204" />
+    <Map Name="FORM_INSTRUCTIONS___TOC" Link="Patients/Form descriptions/Form instructions - TOC.htm" ResolvedId="205" />
+    <Map Name="PATIENT_INFORMATION_FORM___PATIENTS" Link="Patients/Form descriptions/Patient Information form - Patients.htm" ResolvedId="206" />
+    <Map Name="PATIENT_RECORDS_FORM" Link="Patients/Form descriptions/Patient Records form.htm" ResolvedId="207" />
+    <Map Name="REQUEST_HISTORY_FORM" Link="Patients/Form descriptions/Request History form.htm" ResolvedId="208" />
+    <Map Name="ADD_ATTACHMENTS_TO_A_PATIENT_RECORD" Link="Patients/User Instructions/Add attachments to a patient record.htm" ResolvedId="209" />
+    <Map Name="CREATE_A_NON_ONECONTENT_PATIENT_FOLDER_PATIENT" Link="Patients/User Instructions/Create a non-OneContent Patient Folder patient.htm" ResolvedId="210" />
+    <Map Name="DELETE_ATTACHMENTS_FROM_PATIENT_RECORD" Link="Patients/User Instructions/Delete attachments from patient record.htm" ResolvedId="211" />
+    <Map Name="FIND_A_PATIENT" Link="Patients/User Instructions/Find a patient.htm" ResolvedId="212" />
+    <Map Name="MAINTAIN_ATTACHMENT_INFORMATION" Link="Patients/User Instructions/Maintain attachment information.htm" ResolvedId="213" />
+    <Map Name="MAINTAIN_NON_SYSTEM_DOCUMENT_INFORMATION" Link="Patients/User Instructions/Maintain non system document information.htm" ResolvedId="214" />
+    <Map Name="MAINTAIN_NON_SYSTEM_PATIENT_INFORMATION" Link="Patients/User Instructions/Maintain non system patient information.htm" ResolvedId="215" />
+    <Map Name="USER_INSTRUCTIONS___TOC4" Link="Patients/User Instructions/User instructions - TOC.htm" ResolvedId="216" />
+    <Map Name="VIEW_ATTACHMENTS" Link="Patients/User Instructions/View attachments.htm" ResolvedId="217" />
+    <Map Name="VIEW_DEFICIENCIES" Link="Patients/User Instructions/View deficiencies.htm" ResolvedId="218" />
+    <Map Name="VIEW_ENCOUNTER_DETAILS" Link="Patients/User Instructions/View encounter details.htm" ResolvedId="219" />
+    <Map Name="VIEW_REQUEST_HISTORY_BY_PATIENT" Link="Patients/User Instructions/View request history by patient.htm" ResolvedId="220" />
+    <Map Name="ADMIN" Link="Quick Start Guide/Admin.htm" ResolvedId="221" />
+    <Map Name="CLERK__TOC" Link="Quick Start Guide/Clerk -TOC.htm" ResolvedId="222" />
+    <Map Name="MANAGER__TOC" Link="Quick Start Guide/Manager -TOC.htm" ResolvedId="223" />
+    <Map Name="ISSUE_A_REFUND" Link="Quick Start Guide/Clerk/Issue a refund.htm" ResolvedId="224" />
+    <Map Name="MAINTAIN_ADJUSTMENTS" Link="Quick Start Guide/Clerk/Maintain adjustments.htm" ResolvedId="225" />
+    <Map Name="MAINTAIN_PAYMENTS" Link="Quick Start Guide/Clerk/Maintain payments.htm" ResolvedId="226" />
+    <Map Name="COMPLETE_A_REQUEST" Link="Quick Start Guide/Clerk/Requests/Complete a request.htm" ResolvedId="227" />
+    <Map Name="CREATE_A_REQUEST_FOR_A_NON_PATIENT_REQUESTOR" Link="Quick Start Guide/Clerk/Requests/Create a request for a non-patient requestor.htm" ResolvedId="228" />
+    <Map Name="CREATE_A_REQUEST_FROM_THE_REQUESTOR_TAB" Link="Quick Start Guide/Clerk/Requests/Create a request from the Requestor tab.htm" ResolvedId="229" />
+    <Map Name="CREATE_A_REQUEST_FROM_THE_REQUESTS_TAB" Link="Quick Start Guide/Clerk/Requests/Create a request from the Requests tab.htm" ResolvedId="230" />
+    <Map Name="CREATE_A_REQUEST_WITH_PATIENT_REQUESTING" Link="Quick Start Guide/Clerk/Requests/Create a request with patient requesting.htm" ResolvedId="231" />
+    <Map Name="CREATE_A_REQUESTOR" Link="Quick Start Guide/Clerk/Requests/Create a requestor.htm" ResolvedId="232" />
+    <Map Name="FIND_A_REQUEST" Link="Quick Start Guide/Clerk/Requests/Find a request.htm" ResolvedId="233" />
+    <Map Name="FIND_AN_OVERDUE_INVOICE1" Link="Quick Start Guide/Manager/Find an overdue invoice.htm" ResolvedId="234" />
+    <Map Name="GENERATE_A_REPORT" Link="Quick Start Guide/Manager/Generate a report.htm" ResolvedId="235" />
+    <Map Name="ABOUT_GENERATING_REPORTS" Link="Reports/About generating reports.htm" ResolvedId="236" />
+    <Map Name="ABOUT_PRINTING_OR_EXPORTING" Link="Reports/About printing or exporting.htm" ResolvedId="237" />
+    <Map Name="OUTPUT_SEARCH_RESULTS" Link="Reports/Output Search Results.htm" ResolvedId="238" />
+    <Map Name="REPORTS___TOC" Link="Reports/Reports - TOC.htm" ResolvedId="239" />
+    <Map Name="ACCOUNT_RECEIVABLE_AGING_REPORT_FORM" Link="Reports/Form descriptions/Account Receivable Aging Report form.htm" ResolvedId="240" />
+    <Map Name="ACCOUNTING_OF_DISCLOSURE_REPORT" Link="Reports/Form descriptions/Accounting of Disclosure Report.htm" ResolvedId="241" />
+    <Map Name="BILLABLE_UNBILLABLE_REPORT_FORM" Link="Reports/Form descriptions/Billable Unbillable Report form.htm" ResolvedId="242" />
+    <Map Name="DOCUMENTS_RELEASED_BY_MRN" Link="Reports/Form descriptions/Documents Released by MRN.htm" ResolvedId="243" />
+    <Map Name="FORM_DESCRIPTIONS___TOC4" Link="Reports/Form descriptions/Form descriptions - TOC.htm" ResolvedId="244" />
+    <Map Name="MU_RELEASE_TURN_AROUND_TIME_REPORT_FORM" Link="Reports/Form descriptions/MU Release Turn Around Time Report form.htm" ResolvedId="245" />
+    <Map Name="OUTSTANDING_INVOICE_BALANCES_FORM" Link="Reports/Form descriptions/Outstanding Invoice Balances form.htm" ResolvedId="246" />
+    <Map Name="PENDING_AGING_SUMMARY_FORM" Link="Reports/Form descriptions/Pending Aging Summary form.htm" ResolvedId="247" />
+    <Map Name="POSTED_PAYMENTS_FORM" Link="Reports/Form descriptions/Posted Payments form.htm" ResolvedId="248" />
+    <Map Name="PRE_BILL_REPORT_FORM" Link="Reports/Form descriptions/Pre Bill Report form.htm" ResolvedId="249" />
+    <Map Name="PROCESSED_REQUEST_SUMMARY_FORM" Link="Reports/Form descriptions/Processed Request Summary form.htm" ResolvedId="250" />
+    <Map Name="PRODUCTIVITY_REPORT_FORM" Link="Reports/Form descriptions/Productivity Report form.htm" ResolvedId="251" />
+    <Map Name="REQUEST_DETAIL_REPORT_FORM" Link="Reports/Form descriptions/Request Detail Report form.htm" ResolvedId="252" />
+    <Map Name="REQUEST_STATUS_SUMMARY_FORM" Link="Reports/Form descriptions/Request Status Summary form.htm" ResolvedId="253" />
+    <Map Name="REQUESTS_WITH_LOGGED_STATUS_FORM" Link="Reports/Form descriptions/Requests with Logged Status form.htm" ResolvedId="254" />
+    <Map Name="ROI_BILLING_REPORT_FORM" Link="Reports/Form descriptions/ROI Billing Report form.htm" ResolvedId="255" />
+    <Map Name="SALES_TAX_REPORT_FORM" Link="Reports/Form descriptions/Sales Tax Report form.htm" ResolvedId="256" />
+    <Map Name="TURN_AROUND_TIMES_FORM" Link="Reports/Form descriptions/Turn Around Times form.htm" ResolvedId="257" />
+    <Map Name="ABOUT_ACCOUNT_MANAGEMENT" Link="Requestors/About account management.htm" ResolvedId="258" />
+    <Map Name="ABOUT_ADJUSTMENTS" Link="Requestors/About adjustments.htm" ResolvedId="259" />
+    <Map Name="ABOUT_PAYMENTS" Link="Requestors/About payments.htm" ResolvedId="260" />
+    <Map Name="ABOUT_REFUNDS" Link="Requestors/About refunds.htm" ResolvedId="261" />
+    <Map Name="ABOUT_REQUESTORS" Link="Requestors/About Requestors.htm" ResolvedId="262" />
+    <Map Name="ABOUT_STATEMENTS" Link="Requestors/About statements.htm" ResolvedId="263" />
+    <Map Name="REQUESTORS___TOC" Link="Requestors/Requestors - TOC.htm" ResolvedId="264" />
+    <Map Name="ADJUSTMENTS_DIALOG_BOX" Link="Requestors/Dialog box descriptions/Adjustments dialog box.htm" ResolvedId="265" />
+    <Map Name="DIALOG_BOX_DESCRIPTIONS___TOC1" Link="Requestors/Dialog box descriptions/Dialog box descriptions - TOC.htm" ResolvedId="266" />
+    <Map Name="INVOICE_DIALOG_BOX" Link="Requestors/Dialog box descriptions/Invoice dialog box.htm" ResolvedId="267" />
+    <Map Name="OUTPUT_LETTERS_AND_OR_STATEMENTS_DIALOG_BOX" Link="Requestors/Dialog box descriptions/Output Letters and or Statements dialog box.htm" ResolvedId="268" />
+    <Map Name="OUTPUT_REQUESTOR_STATEMENT_DIALOG_BOX" Link="Requestors/Dialog box descriptions/Output Requestor Statement dialog box.htm" ResolvedId="269" />
+    <Map Name="PAYMENTS_DIALOG_BOX" Link="Requestors/Dialog box descriptions/Payments dialog box.htm" ResolvedId="270" />
+    <Map Name="REFUND_DIALOG_BOX" Link="Requestors/Dialog box descriptions/Refund dialog box.htm" ResolvedId="271" />
+    <Map Name="UNAPPLIED_ADJUSTMENTS_PAYMENTS_DIALOG_BOX" Link="Requestors/Dialog box descriptions/Unapplied Adjustments-Payments dialog box.htm" ResolvedId="272" />
+    <Map Name="ACCOUNT_HISTORY_FORM" Link="Requestors/Form descriptions/Account History form.htm" ResolvedId="273" />
+    <Map Name="ACCOUNT_MANAGEMENT_FORM" Link="Requestors/Form descriptions/Account Management form.htm" ResolvedId="274" />
+    <Map Name="FIND_REQUESTOR_FORM" Link="Requestors/Form descriptions/Find Requestor form.htm" ResolvedId="275" />
+    <Map Name="FORM_INSTRUCTIONS___TOC1" Link="Requestors/Form descriptions/Form instructions - TOC.htm" ResolvedId="276" />
+    <Map Name="REQUESTOR_INFORMATION_FORM" Link="Requestors/Form descriptions/Requestor Information form.htm" ResolvedId="277" />
+    <Map Name="CREATE_A_REQUESTOR_STATEMENT" Link="Requestors/User instructions/Create a requestor statement.htm" ResolvedId="278" />
+    <Map Name="CREATE_A_REQUESTOR1" Link="Requestors/User instructions/Create a requestor.htm" ResolvedId="279" />
+    <Map Name="FIND_A_REQUESTOR" Link="Requestors/User instructions/Find a requestor.htm" ResolvedId="280" />
+    <Map Name="GENERATE_A_STATEMENT" Link="Requestors/User instructions/Generate a statement.htm" ResolvedId="281" />
+    <Map Name="ISSUE_A_REFUND1" Link="Requestors/User instructions/Issue a refund.htm" ResolvedId="282" />
+    <Map Name="MAINTAIN_ADJUSTMENTS1" Link="Requestors/User instructions/Maintain adjustments.htm" ResolvedId="283" />
+    <Map Name="MAINTAIN_PAYMENTS1" Link="Requestors/User instructions/Maintain payments.htm" ResolvedId="284" />
+    <Map Name="MAINTAIN_REQUESTOR_RECORDS" Link="Requestors/User instructions/Maintain requestor records.htm" ResolvedId="285" />
+    <Map Name="USER_INSTRUCTIONS___TOC5" Link="Requestors/User instructions/User instructions - TOC.htm" ResolvedId="286" />
+    <Map Name="VIEW_ACCOUNT_HISTORY_BY_REQUESTOR" Link="Requestors/User instructions/View account history by requestor.htm" ResolvedId="287" />
+    <Map Name="VIEW_REQUEST_HISTORY_BY_REQUESTOR" Link="Requestors/User instructions/View request history by requestor.htm" ResolvedId="288" />
+    <Map Name="ABOUT_LETTERS" Link="Requests/About letters.htm" ResolvedId="289" />
+    <Map Name="ABOUT_OUTPUT_JOBS_AND_QUEUES" Link="Requests/About output jobs and queues.htm" ResolvedId="290" />
+    <Map Name="ABOUT_PDF_DOCUMENTS" Link="Requests/About PDF documents.htm" ResolvedId="291" />
+    <Map Name="ABOUT_PRINTING_FAXING_SAVING" Link="Requests/About printing faxing saving.htm" ResolvedId="292" />
+    <Map Name="ABOUT_RELEASE_AND_INVOICE" Link="Requests/About release and invoice.htm" ResolvedId="293" />
+    <Map Name="ABOUT_REQUESTS" Link="Requests/About requests.htm" ResolvedId="294" />
+    <Map Name="FORMS_AND_DIALOG_BOXES___TOC" Link="Requests/Forms and dialog boxes - TOC.htm" ResolvedId="295" />
+    <Map Name="REQUESTS___TOC" Link="Requests/Requests - TOC.htm" ResolvedId="296" />
+    <Map Name="ADD_PATIENT_DIALOG_BOX" Link="Requests/Dialog box descriptions/Add Patient dialog box.htm" ResolvedId="297" />
+    <Map Name="CHANGE_REQUESTOR_DIALOG_BOX" Link="Requests/Dialog box descriptions/Change Requestor dialog box.htm" ResolvedId="298" />
+    <Map Name="CHARGE_HISTORY_DIALOG_BOX" Link="Requests/Dialog box descriptions/Charge History dialog box.htm" ResolvedId="299" />
+    <Map Name="CREATE_NEW_REQUEST_WITH_PATIENT_REQUESTOR_DIALOG_BOX" Link="Requests/Dialog box descriptions/Create New Request with Patient Requestor dialog box.htm" ResolvedId="300" />
+    <Map Name="DIALOG_BOX_DESCRIPTIONS___TOC2" Link="Requests/Dialog box descriptions/Dialog box descriptions - TOC.htm" ResolvedId="301" />
+    <Map Name="EMAIL_DIALOG_BOX" Link="Requests/Dialog box descriptions/Email dialog box.htm" ResolvedId="302" />
+    <Map Name="FAX_DIALOG_BOX" Link="Requests/Dialog box descriptions/Fax dialog box.htm" ResolvedId="303" />
+    <Map Name="MODIFY_BILLING_TIER_DIALOG_BOX" Link="Requests/Dialog box descriptions/Modify Billing Tier dialog box.htm" ResolvedId="304" />
+    <Map Name="MONITOR_JOBS_DIALOG_BOX" Link="Requests/Dialog box descriptions/Monitor Jobs dialog box.htm" ResolvedId="305" />
+    <Map Name="OUTPUT_DISC_DIALOG_BOX" Link="Requests/Dialog box descriptions/Output Disc Dialog Box.htm" ResolvedId="306" />
+    <Map Name="PRE_BILL_DIALOG_BOX" Link="Requests/Dialog box descriptions/Pre Bill dialog box.htm" ResolvedId="307" />
+    <Map Name="PREVIEW_OF_INVOICE_DIALOG_BOX" Link="Requests/Dialog box descriptions/Preview of Invoice dialog box.htm" ResolvedId="308" />
+    <Map Name="PREVIEW_OF_LETTER___COVER_LETTER_DIALOG_BOX" Link="Requests/Dialog box descriptions/Preview of Letter - Cover Letter dialog box.htm" ResolvedId="309" />
+    <Map Name="PREVIEW_OF_LETTER___OTHER_DIALOG_BOX" Link="Requests/Dialog box descriptions/Preview of Letter - Other dialog box.htm" ResolvedId="310" />
+    <Map Name="PREVIEW_OF_PAST_INVOICE_DIALOG_BOX" Link="Requests/Dialog box descriptions/Preview of Past Invoice dialog box.htm" ResolvedId="311" />
+    <Map Name="PREVIEW_OF_PRE_BILL_DIALOG_BOX" Link="Requests/Dialog box descriptions/Preview of Pre Bill dialog box.htm" ResolvedId="312" />
+    <Map Name="PREVIEW_OF_REFUND_DIALOG_BOX" Link="Requests/Dialog box descriptions/Preview of Refund dialog box.htm" ResolvedId="313" />
+    <Map Name="PREVIEW_OF_STATEMENTS_DIALOG" Link="Requests/Dialog box descriptions/Preview of Statements dialog.htm" ResolvedId="314" />
+    <Map Name="PRINT_DIALOG_BOX" Link="Requests/Dialog box descriptions/Print dialog box.htm" ResolvedId="315" />
+    <Map Name="RELEASE_DIALOG_BOX" Link="Requests/Dialog box descriptions/Release dialog box.htm" ResolvedId="316" />
+    <Map Name="SAVE_AS_FILE_DIALOG_BOX" Link="Requests/Dialog box descriptions/Save as File dialog box.htm" ResolvedId="317" />
+    <Map Name="SAVE_NEW_PATIENT_REQUESTOR_DIALOG_BOX___REQUESTS" Link="Requests/Dialog box descriptions/Save New Patient Requestor dialog box - Requests.htm" ResolvedId="318" />
+    <Map Name="SELECT_PATIENT_DIALOG_BOX" Link="Requests/Dialog box descriptions/Select Patient dialog box.htm" ResolvedId="319" />
+    <Map Name="SELECT_REQUESTOR_DIALOG_BOX" Link="Requests/Dialog box descriptions/Select Requestor dialog box.htm" ResolvedId="320" />
+    <Map Name="UPDATE_REQUEST_STATUS_DIALOG_BOX" Link="Requests/Dialog box descriptions/Update Request Status dialog box.htm" ResolvedId="321" />
+    <Map Name="VIEW_EDIT_PATIENTS_PROFILE_DIALOG_BOX" Link="Requests/Dialog box descriptions/View-Edit Patients Profile dialog box.htm" ResolvedId="322" />
+    <Map Name="VIEW_EDIT_REQUESTORS_PROFILE_DIALOG_BOX" Link="Requests/Dialog box descriptions/View-Edit Requestors Profile dialog box.htm" ResolvedId="323" />
+    <Map Name="COMMENTS_FORM" Link="Requests/Form descriptions/Comments form.htm" ResolvedId="324" />
+    <Map Name="EVENT_HISTORY_FORM" Link="Requests/Form descriptions/Event History form.htm" ResolvedId="325" />
+    <Map Name="FIND_CREATE_REQUEST_FORM" Link="Requests/Form descriptions/Find-Create Request form.htm" ResolvedId="326" />
+    <Map Name="FORM_DESCRIPTIONS___TOC5" Link="Requests/Form descriptions/Form descriptions - TOC.htm" ResolvedId="327" />
+    <Map Name="LETTERS_FORM" Link="Requests/Form descriptions/Letters form.htm" ResolvedId="328" />
+    <Map Name="PATIENT_INFORMATION_FORM___REQUESTS" Link="Requests/Form descriptions/Patient Information form - Requests.htm" ResolvedId="329" />
+    <Map Name="RELEASE_AND_INVOICE_FORM" Link="Requests/Form descriptions/Release and Invoice form.htm" ResolvedId="330" />
+    <Map Name="RELEASE_HISTORY_FORM" Link="Requests/Form descriptions/Release History form.htm" ResolvedId="331" />
+    <Map Name="REQUEST_INFORMATION_FORM" Link="Requests/Form descriptions/Request Information form.htm" ResolvedId="332" />
+    <Map Name="SALES_TAX_WORKFLOW" Link="Requests/Form descriptions/Sales Tax workflow.htm" ResolvedId="333" />
+    <Map Name="USER_INSTRUCTIONS___TOC6" Link="Requests/User instructions/User instructions - TOC.htm" ResolvedId="334" />
+    <Map Name="ADD_ATTACHMENTS_TO_A_REQUEST" Link="Requests/User instructions/Attachments/Add attachments to a request.htm" ResolvedId="335" />
+    <Map Name="DELETE_AN_ATTACHMENT_FROM_A_REQUEST" Link="Requests/User instructions/Attachments/Delete an attachment from a request.htm" ResolvedId="336" />
+    <Map Name="DOWNLOAD_ATTACHMENTS" Link="Requests/User instructions/Attachments/Download attachments.htm" ResolvedId="337" />
+    <Map Name="ADD_DOCUMENTS_TO_A_REQUEST" Link="Requests/User instructions/Documents/Add documents to a request.htm" ResolvedId="338" />
+    <Map Name="ADD_OR_EDIT_NON_ONECONTENT_PATIENT_FOLDER_DOCUMENT_INFORMATION" Link="Requests/User instructions/Documents/Add or edit non OneContent Patient Folder document information.htm" ResolvedId="339" />
+    <Map Name="PRINT_DOCUMENTS" Link="Requests/User instructions/Documents/Print documents.htm" ResolvedId="340" />
+    <Map Name="RE_RELEASE_DOCUMENTS" Link="Requests/User instructions/Documents/Re-release documents.htm" ResolvedId="341" />
+    <Map Name="RELEASE_DOCUMENTS" Link="Requests/User instructions/Documents/Release documents.htm" ResolvedId="342" />
+    <Map Name="RESEND_DOCUMENTS" Link="Requests/User instructions/Documents/Resend documents.htm" ResolvedId="343" />
+    <Map Name="VIEW_DOCUMENTS" Link="Requests/User instructions/Documents/View documents.htm" ResolvedId="344" />
+    <Map Name="VIEW_EVENT_HISTORY" Link="Requests/User instructions/History/View event history.htm" ResolvedId="345" />
+    <Map Name="VIEW_RELEASE_HISTORY" Link="Requests/User instructions/History/View release history.htm" ResolvedId="346" />
+    <Map Name="GENERATE_A_LETTER" Link="Requests/User instructions/Letters and Output/Generate a letter.htm" ResolvedId="347" />
+    <Map Name="MONITOR_OUTPUT_JOBS" Link="Requests/User instructions/Letters and Output/Monitor output jobs.htm" ResolvedId="348" />
+    <Map Name="MAINTAIN_COMMENTS" Link="Requests/User instructions/Miscellaneous/Maintain comments.htm" ResolvedId="349" />
+    <Map Name="SELECT_OR_CHANGE_A_REQUESTOR" Link="Requests/User instructions/Miscellaneous/Select or change a requestor.htm" ResolvedId="350" />
+    <Map Name="CREATE_AN_INVOICE" Link="Requests/User instructions/Release and Invoice/Create an invoice.htm" ResolvedId="351" />
+    <Map Name="OVERRIDE_A_BILLING_TIER" Link="Requests/User instructions/Release and Invoice/Override a billing tier.htm" ResolvedId="352" />
+    <Map Name="PRE_BILL_A_REQUEST" Link="Requests/User instructions/Release and Invoice/Pre bill a request.htm" ResolvedId="353" />
+    <Map Name="ADD_A_PATIENT_TO_A_REQUEST" Link="Requests/User instructions/Requests/Add a patient to a request.htm" ResolvedId="354" />
+    <Map Name="CHANGE_REQUEST_STATUS" Link="Requests/User instructions/Requests/Change request status.htm" ResolvedId="355" />
+    <Map Name="COMPLETE_A_REQUEST1" Link="Requests/User instructions/Requests/Complete a request.htm" ResolvedId="356" />
+    <Map Name="CREATE_A_REQUEST" Link="Requests/User instructions/Requests/Create a request.htm" ResolvedId="357" />
+    <Map Name="DELETE_A_REQUEST" Link="Requests/User instructions/Requests/Delete a request.htm" ResolvedId="358" />
+    <Map Name="FIND_A_REQUEST1" Link="Requests/User instructions/Requests/Find a request.htm" ResolvedId="359" />
+    <Map Name="PROCESS_AN_AUTH_RECEIVED_REQUEST" Link="Requests/User instructions/Requests/Process an Auth-Received request.htm" ResolvedId="360" />
+    <Map Name="CREATE_A_REQUEST_FOR_A_NON_PATIENT_REQUESTOR1" Link="Requests/User instructions/Requests/Create a Request/Create a request for a non-patient requestor.htm" ResolvedId="361" />
+    <Map Name="CREATE_A_REQUEST_FROM_THE_REQUESTORS_TAB" Link="Requests/User instructions/Requests/Create a Request/Create a request from the requestors tab.htm" ResolvedId="362" />
+    <Map Name="CREATE_A_REQUEST_FROM_THE_REQUESTS_TAB1" Link="Requests/User instructions/Requests/Create a Request/Create a request from the requests tab.htm" ResolvedId="363" />
+    <Map Name="CREATE_A_REQUEST_WITH_PATIENT_REQUESTING1" Link="Requests/User instructions/Requests/Create a Request/Create a request with patient requesting.htm" ResolvedId="364" />
+</CatapultAliasFile>

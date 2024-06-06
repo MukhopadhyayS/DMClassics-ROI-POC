@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" xml:lang="en-us" lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Help.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Administration|Other Maintenance|Form descriptions">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Configure Clinical Systems form</title>
+        <link href="../../Resources/Stylesheets/LocalFormat.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" defer="defer" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../../Help.htm#Admin/Other Maintenance/Configure Clinical Systems form.htm">Open topic with navigation</a>
+        </p>
+        <h3 class="Heading3"><a name="admin_other_maint_form_descrip_c_2255"></a><a name="_Toc393968010"></a>Configure Clinical Systems form</h3>
+        <p>The Configure Clinical Systems form enables administrators to maintain attributes for clinical systems that provide documents to the ROI Module. You may need to edit settings if the clinical system undergoes changes.</p>
+        <p class="Subhead1">To open the form</p>
+        <p>Select <span class="span_4"><b>Administration &gt; Other Maintenance &gt; Clinical Systems</b>.</span></p>
+        <p class="Image_2">
+            <img src="../../Resources/Images/mpf_roi_administrator_guide/03000020_623x326.png" style="width: 623;height: 326;" class="img_1" data-mc-conditions="Primary.Print" />
+        </p>
+        <p class="Subhead1">Item descriptions</p>
+        <p class="ItemName">Clinical System grid</p>
+        <p>The grid lists all currently configured clinical system instances and contains the following columns:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_4" style="font-weight: bold;">Clinical System Instance</span>
+                <br />This is a user-defined name given to the instance. </li>
+            <li class="li_1" value="2"><span class="span_4" style="font-weight: bold;">System Provider</span>
+                <br />This is the type of clinical system used by the instance.</li>
+            <li class="li_1" value="3"><span class="span_4" style="font-weight: bold;">Description</span>
+                <br />This is a free-form description for the instance.</li>
+        </ul>
+        <p>Buttons associated with the grid are:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_4" style="font-weight: bold;">Create New</span>
+                <br />Enables you to create a new clinical system instance by placing the Connection Properties group in Add mode.</li>
+            <li class="li_1" value="2"><span class="span_4" style="font-weight: bold;">Delete</span>
+                <br />Deletes the currently selected clinical system instance and prompts for confirmation.</li>
+        </ul>
+        <p class="ItemName">Connection Properties group</p>
+        <p>The Connection Properties group allows you to add and maintain information for a clinical system instance. For existing instances, the group displays information for the currently selected instance. If you are creating a new instance, most fields in the group are blank. The group contains the following items:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_4" style="font-weight: bold;">System Provider</span>
+                <br />Displays a list of clinical system types (for example, Paragon) that have been integrated with and are supported by the ROI Module. Support for each <span class="span_3">type</span> of system is established during ROI Module installation. For an existing instance, this field is Read only. If you are creating a new instance, you <span class="span_3">must </span>select a system type to enable the remaining fields.</li>
+            <li class="li_1" value="2"><span class="span_4" style="font-weight: bold;">Clinical System Instance</span>
+                <br>
+                </br>For an existing instance, this box displays the current name and allows you to change it. For a new instance, this box is blank and allows you to enter a name. Any name you create must be unique. Examples are "North Newton Hospital" and "Emory Midtown Clinic."</li>
+            <li class="li_1" value="3"><span class="span_4" style="font-weight: bold;">Description</span>
+                <br>
+                </br>For an existing instance, this box displays the current description (if any) and allows you to change it. For a new instance, this box is blank.</li>
+            <li class="li_1" value="4"><span class="span_4" style="font-weight: bold;">[A list of connection parameters]</span>
+                <br />The system displays a list of connection parameters for the currently selected type of system. </li>
+        </ul>
+        <p class="NormalIndent1">If you are adding a clinical system instance, these fields are blank, and you must enter values that are specific for the target system. You can change existing information when necessary. &#160;</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_4" style="font-weight: bold;">Save </span><b>button</b>
+                <br />Saves your entries.</li>
+            <li class="li_1" value="2"><span class="span_4" style="font-weight: bold;">Cancel </span><b>button</b>
+                <br />Discards unsaved entries.</li>
+            <li class="li_1" value="3"><span class="span_4" style="font-weight: bold;">Test </span><b>button</b>
+                <br />Validates the connection settings you have entered.</li>
+        </ul>
+    </body>
+</html>
