@@ -52,7 +52,7 @@ public class RequestorStatementInfo {
     private String _country;
     private String _countryCode;
     private String _outputMethod;
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     private Date _resendDate;
     private Date _createdDate;
     private DateRange _dateRange;
@@ -185,15 +185,11 @@ public class RequestorStatementInfo {
         if (_queuePassword == null) {
             return null;
         }
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
+        return _queuePassword;
     }
     public void setQueuePassword(String queuePassword) { 
         queuePassword = StringUtilities.safe(queuePassword);
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+        _queuePassword = queuePassword;
     }
 
     public Date getResendDate() { return _resendDate; }

@@ -112,7 +112,7 @@ extends BaseModel {
     private String _outputMethod;
     
     @XmlElement(name="queuePassword", required = true)
-    private SecureStringAccessor _queuePassword;
+    private String _queuePassword;
     
     @XmlElement(name="notes")
     private List<String> _notes;
@@ -148,15 +148,11 @@ extends BaseModel {
         if (_queuePassword == null) {
             return null;
         }
-        StringBuilder builder = new StringBuilder();
-        _queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
+        return _queuePassword;
     }
     public void setQueuePassword(String queuePassword) {  
         queuePassword = StringUtilities.safe(queuePassword);
-        _queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+        _queuePassword = queuePassword;
     }
 
 
