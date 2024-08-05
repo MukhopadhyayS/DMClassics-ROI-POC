@@ -1,7 +1,11 @@
 package com.mckesson.eig.roi.common.config;
 
+import com.mckesson.eig.roi.dao.DBDataSource;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.event.ConfigurationListener;
+import org.apache.commons.configuration.ConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * BootstrapConfiguration class is responsible for reading a config file off of
@@ -20,7 +24,8 @@ import org.apache.commons.configuration.event.ConfigurationListener;
 public final class BootstrapConfiguration {
 
     private static BootstrapConfiguration _instance = null;
-    private PropertiesConfiguration _propsConfig;
+    private static PropertiesConfiguration _propsConfig;
+
 
     private BootstrapConfiguration() {
     }
@@ -59,6 +64,23 @@ public final class BootstrapConfiguration {
 
     public void registerListener(ConfigurationListener listener) {
         _propsConfig.addConfigurationListener(listener);
+    }
+
+    public String getDbPassword() {
+        return _propsConfig.getString("db.password");
+
+    }
+    public void setDbPassword(String password) {
+        _propsConfig.setProperty("db.password", "ENC_" + password);
+    }
+
+    public boolean savePropsConfig() {
+        try {
+            _propsConfig.save();
+        } catch (ConfigurationException e) {
+            return false;
+        }
+        return true;
     }
 
 }

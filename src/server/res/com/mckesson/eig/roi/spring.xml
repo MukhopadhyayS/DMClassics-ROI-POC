@@ -25,21 +25,9 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
     
     
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
+
 	
-	<!-- Common  Hibernate SessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref ="dataSource" />
-		
-		<property name="configLocation"
-			value="classpath:com/mckesson/eig/roi/hibernate.xml" />
-	</bean>
+
 	
 	
 	<bean id="propertyConfigurer"
@@ -100,10 +88,9 @@
         <property name="releaseHelperThreads" value="3" />
         <property name="disableConnectionTracking" value="true" />
 	</bean> -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-	    <constructor-arg ref="hikariConfig" />
-	</bean>
-	
+<!--	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
+<!--	    <constructor-arg ref="hikariConfig" />-->
+<!--	</bean>-->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="poolName" value="springHikariCP" />
 		<property name="connectionTestQuery" value="SELECT 1" />
@@ -125,11 +112,30 @@
         <property name="minConnectionsPerPartition" value="10" /> -->
 
 
-		<!-- <property name="dataSourceProperties"> <props> <prop key="jdbcUrl">${startup.jdbc.url}</prop> 
-			<prop key="username">${startup.jdbc.username}</prop> <prop key="password">${startup.jdbc.password}</prop> 
+		<!-- <property name="dataSourceProperties"> <props> <prop key="jdbcUrl">${startup.jdbc.url}</prop>
+			<prop key="username">${startup.jdbc.username}</prop> <prop key="password">${startup.jdbc.password}</prop>
 			</props> </property> -->
 	</bean>
-	
+
+	<bean id="dataSource" class="com.mckesson.eig.roi.dao.DBDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!-- Common  Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref ="dataSource" />
+
+		<property name="configLocation"
+				  value="classpath:com/mckesson/eig/roi/hibernate.xml" />
+	</bean>
+	<bean id="transactionManager"
+		  class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
 	<!-- Audit Configuration starts -->
 	<bean id="defaultDataSourceMPF" parent="dataSource"/>
 	
