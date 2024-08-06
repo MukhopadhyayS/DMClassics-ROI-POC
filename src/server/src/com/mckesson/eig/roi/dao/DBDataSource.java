@@ -13,12 +13,10 @@ import com.mckesson.dm.core.common.exceptions.ErrorCode;
 
 import com.mckesson.dm.security.util.KeyStoreUtilities;
 import com.mckesson.dm.security.util.SensitiveData;
-//import com.mckesson.eig.roi.utils.BeanUtils;
 import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
 import com.mckesson.eig.roi.common.config.Constant;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import com.mckesson.dm.security.util.EncryptionService;
 
 public class DBDataSource extends HikariDataSource {
 
@@ -39,10 +37,6 @@ public class DBDataSource extends HikariDataSource {
     }
 
 
-//    protected EncryptionService getEncryptionService() {
-//        return (EncryptionService) BeanUtils.getInstance().getBeanFactory().getBean(EncryptionService.class.getName());
-//    }
-
     public DBDataSource(HikariConfig configuration) {
         super();
         _bootstrapConfiguration = BootstrapConfiguration.getInstance();
@@ -60,7 +54,6 @@ public class DBDataSource extends HikariDataSource {
 
 
     private void initialize(HikariConfig configuration) throws Exception{
-        LOGGER.error("inside initialization");
         pw = _bootstrapConfiguration.getDbPassword();
         SensitiveData sd = KeyStoreUtilities.getKeystorePasswordFromEnvVariable(Constant.CONFIG_KEYSTORE_PASS);
         if(sd.isEmpty()){
