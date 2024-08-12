@@ -304,7 +304,7 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.1.4.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-1.4.8.jar"/> -->
 	
-	<classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.2.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/xmlsec-3.0.3.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/xmlsec-2.2.1.jar"/> -->
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/c3p0-0.9.5.2.jar"/> -->
