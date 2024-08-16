@@ -12,11 +12,13 @@ import com.mckesson.dm.core.common.exceptions.ErrorCode;
 
 
 import com.mckesson.dm.security.util.KeyStoreUtilities;
+import com.mckesson.dm.security.util.Constant;
+
 import com.mckesson.dm.security.util.SensitiveData;
 import com.mckesson.eig.roi.common.config.BootstrapConfiguration;
-import com.mckesson.eig.roi.common.config.Constant;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
 
 public class DBDataSource extends HikariDataSource {
 
@@ -55,15 +57,19 @@ public class DBDataSource extends HikariDataSource {
 
     private void initialize(HikariConfig configuration) throws Exception{
         pw = _bootstrapConfiguration.getDbPassword();
-        SensitiveData sd = KeyStoreUtilities.getKeystorePasswordFromEnvVariable(Constant.CONFIG_KEYSTORE_PASS);
+        Constant.setCONFIG_KEYSTORE_PASS("CKS");
+        Constant.setCONFIG_KEY_STORE_DIRECTORY("../../security");
+        Constant.setCONFIG_KEY_STORE_FILENAME("ConfigKS.keystore");
+
+        SensitiveData sd = KeyStoreUtilities.getKeystorePasswordFromEnvVariable(Constant.getCONFIG_KEYSTORE_PASS());
         if(sd.isEmpty()){
             LOGGER.error("Error while retrieving the keystore password");
             throw new DaoException(ErrorCode.DAO_SECURITY_EXCEPTION,"Error while retrieving the keystore password");
         }
-        if(Files.notExists(Paths.get(Constant.CONFIG_KEY_STORE_DIRECTORY + "/" +Constant.CONFIG_KEY_STORE_FILENAME))){
-            KeyStoreUtilities.initializeKS(Constant.CONFIG_KEY_STORE_DIRECTORY ,Constant.CONFIG_KEY_STORE_FILENAME,sd);
+        if(Files.notExists(Paths.get(Constant.getCONFIG_KEY_STORE_DIRECTORY() + "/" +Constant.getCONFIG_KEY_STORE_FILENAME()))){
+            KeyStoreUtilities.initializeKS(Constant.getCONFIG_KEY_STORE_DIRECTORY() ,Constant.getCONFIG_KEY_STORE_FILENAME(),sd);
         }
-        KE =KeyStoreUtilities.getKeyFromKeyStore(Constant.CONFIG_KEY_STORE_DIRECTORY ,Constant.CONFIG_KEY_STORE_FILENAME, sd,KeyStoreUtilities.DB_ENC_KEY ).getClearTextByteArray();
+        KE =KeyStoreUtilities.getKeyFromKeyStore(Constant.getCONFIG_KEY_STORE_DIRECTORY() ,Constant.getCONFIG_KEY_STORE_FILENAME(), sd,KeyStoreUtilities.DB_ENC_KEY ).getClearTextByteArray();
         sd.cleanup();
         encryptDecryptProperties(KE);
         configuration.setPassword(pw);
