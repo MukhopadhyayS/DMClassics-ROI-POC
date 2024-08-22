@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<MadCapLog Protocol="2" Description="MadCap Flare 2020 Generated DSS Output HTML5.fltar" Date="2024-04-18T23:46:38.3954371+05:30">
+<MadCapLog Protocol="2" Description="MadCap Flare 2020 Generated DSS Output HTML5.fltar" Date="2024-08-19T19:46:21.7308027+05:30">
     <Messages>Compiling target DSS Output HTML5...
 Removing previously generated content...
 Loading skin info...
@@ -236,7 +236,7 @@ Generated Skins\Default\Stylesheets\Topic.micro-content.css
 Generated help.htm
 Saving result set...
 Ignored Compiler Warnings: 105
-Output generated in 7 second(s).
+Output generated in 10 second(s).
 
 Done
 Saving log to "C:\Users\dmukherjee\Documents\oc-documentation\ICU and WinDSS\Output\dmukherjee\DSS Output HTML5\DSS Output HTML5.mclog"
