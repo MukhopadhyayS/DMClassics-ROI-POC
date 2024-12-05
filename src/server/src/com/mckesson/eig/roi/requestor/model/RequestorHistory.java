@@ -81,10 +81,10 @@ public class RequestorHistory implements Serializable{
     private String template;
     
     @XmlElement(required = true)
-    private SecureStringAccessor requestPassword;
+    private String requestPassword;
     
     @XmlElement(required = true)
-    private SecureStringAccessor queuePassword;
+    private String queuePassword;
     
     @XmlElement(required = true)
     private String invoiceDueDate;
@@ -159,29 +159,21 @@ public class RequestorHistory implements Serializable{
         if (requestPassword == null) {
             return null;
         }
-        StringBuilder builder = new StringBuilder();
-        requestPassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
+        return requestPassword;
     }
     public void setRequestPassword(String requestPassword) {
         requestPassword = StringUtilities.safe(requestPassword);
-        this.requestPassword = new SecureStringAccessor(requestPassword.toCharArray());
+        this.requestPassword = requestPassword;
     }
     public String getQueuePassword() {
         if (queuePassword == null) {
             return null;
         }
-        StringBuilder builder = new StringBuilder();
-        queuePassword.DoHylandAccess((chars, tempStr) -> {
-            builder.append(chars);
-        });
-        return builder.toString();
+        return queuePassword;
     }
     public void setQueuePassword(String queuePassword) {
         queuePassword = StringUtilities.safe(queuePassword);
-        this.queuePassword = new SecureStringAccessor(queuePassword.toCharArray());
+        this.queuePassword = queuePassword;
     }
     public String getInvoiceDueDate() {
         return invoiceDueDate;

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" xml:lang="en-us" lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Help.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Requests|Dialog box descriptions" data-mc-ignored-words="PDF">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Save as File dialog box</title>
+        <link href="../../Resources/Stylesheets/LocalFormat.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" defer="defer" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../../Help.htm#Requests/Dialog box descriptions/Save as File dialog box.htm">Open topic with navigation</a>
+        </p>
+        <h3 class="Heading3"><a name="requests_dialog_box_descriptions_3274"></a><a name="_Toc400107082"></a>Save as File dialog box</h3>
+        <p>The Save as File dialog box enables you to save to a single file any cover letters, invoices, pre-bills, statements and patient documents that are included in a release request.</p>
+        <p>You cannot choose the save location for the file. The system automatically creates the file in a shared directory path configured by the ROI system administrator; the path also uses your OneContent user name for the directory where your output files will reside. </p>
+        <p>Path format is: <span class="span_9">\\&lt;server-name&gt;\&lt;common-dir$&gt;\&lt;ROI-PDF-dir&gt;\&lt;your-username-dir&gt;\.</span> </p>
+        <p>The actual filename includes <span class="span_9">&lt;request ID&gt;&lt;release sequence&gt;&lt;part number&gt;&lt;version number&gt;</span>. (See <a href="../About PDF documents.htm#requests_about_pdf_documents_htm"><span class="SecondaryLink">About PDF documents</span></a> for more details.)</p>
+        <p class="Subhead1">To open the form</p>
+        <p>The system launches the dialog box when you do any of the following: </p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Click <span class="span_3" style="font-weight: bold;">Continue</span> from the <a href="Release dialog box.htm#requests_dialog_box_descriptions_1298"><span class="SecondaryLink">Release Documents dialog box </span></a>without a letter selected</li>
+            <li class="li_1" value="2">Click <span class="span_3" style="font-weight: bold;">PDF </span>from the Letters preview dialog box</li>
+            <li class="li_1" value="3">Click <span class="span_3" style="font-weight: bold;">PDF </span>from the Invoice preview dialog box</li>
+            <li class="li_1" value="4">Click <span class="span_3" style="font-weight: bold;">PDF </span>from the Pre-Bill preview dialog box</li>
+        </ul>
+        <p class="Subhead1">Item descriptions</p>
+        <p class="ItemName">PDF group box</p>
+        <p>Allows you to specify the intended media type, password, and name of a file to generate. Also allows you set file properties.</p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>Currently, only the PDF file type is supported.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">For Media</span>
+                <br />Displays a list of media types and allows you to select one.<br />Options are <span class="span_3" style="font-weight: bold;">CD, DVD,</span> and <span class="span_3" style="font-weight: bold;">Other / Unlimited Size</span>. <br />Your choice determines the maximum allowable file size in Mbytes, and the system creates multiple files, if needed. The maximum file size for DVD is 1GB. <br />Defaults to <span class="span_3" style="font-weight: bold;">Other / Unlimited Size</span>.</li>
+        </ul>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">Password</span>
+                <br />Allows you to enter a password (up to 64 characters) to encrypt the PDF file.<br />If flagged as required, then defaults to the password specified for the queue (if any), and can be overridden but cannot be left blank. If not required, then can be blank or set to a value of your choice. Must manually be given to the requestor to use when opening the file.</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">Name</span>
+                <br />Lists all save-as-file queues that have been configured, in alphanumeric order.<br />Defaults to the first save-as-file queue in the list for your first-time save-as-file job or when the last-used save-as-file queue has been deleted; otherwise defaults to the last save-as-file queue you selected.</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">Status, Type, Where, </span>and<span class="span_3" style="font-weight: bold;"> Comment</span><br />Read-only.<br />Displays information for the queue you selected, including the queue status, the queue type, the destination where the output will go, and any comment associated with the queue.</li>
+        </ul>
+        <p class="ItemName">Add to Released Document group box </p>
+        <p>Allows you to print a header, footer, and/or watermark on all released documents (not on letters).</p>
+        <p>Displays only when the output dialog box has been launched from the Release dialog box and the header, footer, and/or watermark options are enabled in the Configure Output Settings function (any disabled option does not display). Displayed options are enabled only if a corresponding value has been configured.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Headers and footers can display an absolute page number, a relative page number, the patient name, and the encounter number, MRN, or EPN.</li>
+            <li class="li_1" value="2">Watermarks can contain either the default value or any text string you specify up to 20 characters.</li>
+        </ul>
+        <p class="ItemName">OK</p>
+        <p>Writes the output to the selected file location as a PDF file and closes the dialog box.</p>
+        <p>If an error occurs, the system alerts you.</p>
+        <p class="ItemName">Cancel</p>
+        <p>Discards the job, closes the dialog box, and returns you to the calling form or dialog box.</p>
+    </body>
+</html>

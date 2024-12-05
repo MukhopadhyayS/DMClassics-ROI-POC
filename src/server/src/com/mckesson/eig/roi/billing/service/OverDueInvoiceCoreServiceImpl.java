@@ -65,7 +65,6 @@ implements OverDueInvoiceCoreService {
     private static final OCLogger LOG = new OCLogger(OverDueInvoiceCoreServiceImpl.class);
     private static final boolean DO_DEBUG = LOG.isDebugEnabled();
     private static final String FILENAME_DATE_FORMAT = "yyyy.MM.dd.hh.mm.ss.SSS";
-    public static final Integer maxCount = 1000;
 
 
     /**
@@ -363,17 +362,9 @@ implements OverDueInvoiceCoreService {
         for (RequestorInvoices reqInvoice : requestorInvoices) {
 
             requestorGroupingKey = getRequestorGroupingkey(reqInvoice);
-            
-            //Added for HC-163535 - Unchecked Input For Loop Condition
-            if(reqLettersList.size() > maxCount) {
-                throw new ROIException(ROIClientErrorCodes.ROI_APPLICATION_ERROR,
-                        "Max overdue invoices count exceeded");
-            }
-            
             // iterates the list of all saved rerquestor invoices
             // to find the Requestor letter corresponding to the requestor invoices
             Iterator<RequestorLetter> iterator = reqLettersList.iterator();
-            
             while (iterator.hasNext()) {
 
                 RequestorLetter letter = iterator.next();

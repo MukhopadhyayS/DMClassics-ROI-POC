@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="help.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Requests">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>About requests</title>
+        <link href="../../../MOPF/Content/Resources/TableStyles/Lines.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <link href="../Resources/TableStyles/Lines.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <link href="../Resources/Stylesheets/LocalFormat.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" defer="defer" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../help.htm#Requests/About requests.htm">Open topic with navigation</a>
+        </p>
+        <h2 class="Heading2">About requests</h2>
+        <p>Requests for patient records are submitted to a healthcare enterprise by various entities such as patients, consulting physicians, legal authorities, or government agencies. The ROI request becomes a list of patient records you select to release and is the basis for associated tracking and billing activities. </p>
+        <p>Requests for patient records focus not on demographic or identification data, but on tangible <span class="Drop-downhotspot">patient documents</span>.</p>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />About patient documents</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p class="Dropdowntext">Patient documents include:</p>
+                <div class="div_2">
+                    <ul class="ul_1">
+                        <li class="Dropdowntext_1" value="1">Document images (referred to as OneContent documents) that reside in the OneContent repository. These could be images of clinical documents (such as examination reports) or global documents (such as a driver's license). <br /><br />The system outputs scanned documents at the same scale used during capture and not as rendered in the viewer (for example, a driver’s license is printed based on how it was scanned and not on best fit). The system shrinks images to fit the selected paper size while accommodating header, footer, and print margins. Margins are set by the document capture applications (that is, scan, COLD, or HL7). Color output depends on your print device; if color is not supported, the output is rendered in grayscale. &#160;<br /><br />In addition, the DCS/QCI Workstation allows users to add pages to patient documents by either appending or inserting them. If pages are <span class="span_2">inserted</span> into a patient document that has been released on an ROI request, then the page numbers on the released version will no longer match the version stored in the system. <span class="span_2">Appended</span> pages do not have this affect. </li>
+                    </ul>
+                    <ul class="ul_1">
+                        <li class="Dropdowntext_1" value="1">Non-OneContent documents that exist as paper-based items outside the repository.</li>
+                        <li class="Dropdowntext_1" value="2">Electronic documents from an external clinical system that have been acquired from a local file system or via online connections and "attached" to the patient's record.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />About ADI operations and ROI requests</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>No ROI pending or released status prevents ADI <i>Delete, Modify,</i> or <i>Move</i> operations in the <span class="PrimaryProductName">OneContent</span> system.  All ADI actions can be performed. However, ADI actions (with the exception of re-ordering pages within a document) do affect whether an adjusted document can be released or re-released as part of an ROI request, based on conditions described in the table below.</p>
+                <table style="mc-table-style: url('../../../MOPF/Content/Resources/TableStyles/Lines.css');" class="TableStyle-Lines" cellspacing="0">
+                    <col class="Column-Column1" style="width: 201px;" />
+                    <col class="Column-Column1" />
+                    <thead>
+                        <tr class="Head-Header1">
+                            <th class="HeadE-Column1-Header1">If </th>
+                            <th class="HeadD-Column1-Header1">Then</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="Body-Body1">
+                            <td class="BodyE-Column1-Body1">You re-order pages within a document  that is already in an ROI request</td>
+                            <td class="BodyD-Column1-Body1">ROI permits the release/re-release.</td>
+                        </tr>
+                        <tr class="Body-Body1">
+                            <td class="BodyE-Column1-Body1">You add new pages to a  document that is already in an ROI request</td>
+                            <td class="BodyD-Column1-Body1">ROI permits the release/re-release.</td>
+                        </tr>
+                        <tr class="Body-Body1">
+                            <td class="BodyB-Column1-Body1">You move or delete pages from a document that is already in an ROI request </td>
+                            <td class="BodyA-Column1-Body1">
+                                <p> ROI does not permit the release or re-release of that ROI request.</p>
+                                <p>The system lists affected documents in red in the <b>Document Selected for Release</b> panel in ROI and displays a message telling you why it cannot be released.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>The system updates each ROI request that contains an ADI-adjusted document (even in cases where multiple ROI requests exist for the same document).</p>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Access to requests</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>Your OneContent user profile controls your ability to <span class="Drop-downhotspot_1">access</span> documents and use ROI functions. </p>
+                <p class="Dropdowntext">If you do not have certain permissions, some buttons and menu options are hidden. If you cannot perform an operation, you most likely do not have appropriate permissions, and you should consult your system administrator. If you are logged into the ROI Module when rights are granted, you must log out and log back in for the change to take effect.</p>
+                <p>Based on your security rights, the ROI Module enables you to perform a <span class="Drop-downhotspot_1">variety of operations</span> relating to ROI requests. </p>
+                <p class="Dropdowntext">Operations controlled by your security rights include the following.</p>
+                <table class="table_1">
+                    <col style="width: 159pt;" />
+                    <col style="width: 160pt;" />
+                    <tr>
+                        <td class="td_5">
+                            <ul class="ul_1">
+                                <li class="li_1" value="1">Adjust charges</li>
+                                <li class="li_1" value="2">Cancel request</li>
+                                <li class="li_1" value="3">Create request</li>
+                                <li class="li_1" value="4">Delete request</li>
+                                <li class="li_1" value="5">Deny request</li>
+                                <li class="li_1" value="6">Export request documents to PDF</li>
+                            </ul>
+                        </td>
+                        <td class="td_5">
+                            <ul class="ul_1">
+                                <li class="li_1" value="1">Modify request</li>
+                                <li class="li_1" value="2">Pend request</li>
+                                <li class="li_1" value="3">Post payments</li>
+                                <li class="li_1" value="4">Print/Fax request documents</li>
+                                <li class="li_1" value="5">View request</li>
+                                <li class="li_1" value="6">Access VIP and/or locked records</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Request status</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>All requests have an associated <span class="Drop-downhotspot">request status</span>, and the system automatically updates the request status <span class="Drop-downhotspot">when certain events occur</span>. You can also manually <a href="User instructions/Requests/Change request status.htm#requests_user_instructions_chang_2055"><span class="SecondaryLink">change request status</span></a> when needed.</p>
+                <p class="Dropdowntext">The status is automatically updated when you: </p>
+                <ul class="ul_2">
+                    <li class="Dropdowntext_1" value="1">Create a new request (status is set to Logged)</li>
+                    <li class="Dropdowntext_1" value="2">Associate an Auth-Received or Auth-Received Denied request with a patient and a requestor (status is set to Logged)</li>
+                    <li class="Dropdowntext_1" value="3">Generate a pre-bill quote (the system automatically updates the status to Pre-Billed)</li>
+                    <li class="Dropdowntext_1" value="4">Release at least some documents on a request (status is set to Completed, but only if you select 'Yes' when prompted; if you select 'No,' the current status is retained)</li>
+                </ul>
+                <p class="Dropdowntext">Valid request statuses are:</p>
+                <ul class="ul_2">
+                    <li class="Dropdowntext_1" value="1">Auth-Received (cannot be manually assigned)</li>
+                    <li class="Dropdowntext_1" value="2">Auth-Received Denied (cannot be manually assigned)</li>
+                    <li class="Dropdowntext_1" value="3">Logged &#160;&#160;</li>
+                    <li class="Dropdowntext_1" value="4">Pended &#160;&#160;</li>
+                    <li class="Dropdowntext_1" value="5">Denied &#160;&#160;</li>
+                    <li class="Dropdowntext_1" value="6">Canceled &#160;&#160;&#160;</li>
+                    <li class="Dropdowntext_1" value="7">Pre-Billed (cannot be manually assigned)</li>
+                    <li class="Dropdowntext_1" value="8">Completed &#160;&#160;</li>
+                    <li class="Dropdowntext_1" value="9">Unknown (this occurs when the system cannot determine a status; you must manually assign a status)</li>
+                </ul>
+                <p>While the system allows authorized users to manually change request status, your OneContent <span class="Drop-downhotspot_1">security permissions</span> may restrict your options.</p>
+                <ul class="ul_2">
+                    <li class="Dropdowntext_1" value="1">The system automatically assigns the Auth-Received, Auth-Received Denied, and Pre-Billed status. You cannot manually assign these statuses, regardless of your security rights. </li>
+                    <li class="Dropdowntext_1" value="2">To change the status of a request to Completed or Logged, you must have the ROI Create Request and/or the ROI Modify Request permission. </li>
+                </ul>
+                <ul class="ul_1">
+                    <li class="NormalWeb_1" value="1">To change the status to Pended, Denied, or Canceled, you must have explicit permission to pend, deny, or cancel requests. The system displays only the options you have permission to use.</li>
+                </ul>
+                <p>Certain status changes trigger <span class="Drop-downhotspot_1">billing adjustments</span>.</p>
+                <table class="TableStyle-Lines" style="mc-table-style: url('../Resources/TableStyles/Lines.css');" cellspacing="0">
+                    <col class="Column-Column1" />
+                    <col class="Column-Column1" />
+                    <col class="Column-Column1" />
+                    <thead>
+                        <tr class="Head-Header1">
+                            <th class="HeadE-Column1-Header1">If</th>
+                            <th class="HeadE-Column1-Header1">And</th>
+                            <th class="HeadD-Column1-Header1">Then</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="Body-Body1">
+                            <td class="BodyE-Column1-Body1">
+                                <p>Status is changed <span class="span_3">to</span> Denied or Canceled </p>
+                            </td>
+                            <td class="BodyE-Column1-Body1">
+                                <p>A balance due exists for the request</p>
+                            </td>
+                            <td class="BodyD-Column1-Body1">
+                                <p>The system automatically writes-off the balance due. The write-off is at the request level and not at the individual invoice level. The system resets the balance due to zero via a credit adjustment for the same amount as the balance due and makes an entry into the event history file. </p>
+                                <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>Subtotals that were used to derive the total cost are retained in case the status is later changed to Pended, Logged, or Pre-Billed.</p>
+                            </td>
+                        </tr>
+                        <tr class="Body-Body1">
+                            <td class="BodyB-Column1-Body1">
+                                <p>Status is changed <span class="span_3">from</span> Denied or Canceled</p>
+                            </td>
+                            <td class="BodyB-Column1-Body1">
+                                <p>A balance due exists for the request</p>
+                            </td>
+                            <td class="BodyA-Column1-Body1">
+                                <p>The system recalculates the balance due by reversing an earlier write-off (credit adjustment). </p>
+                                <p>For example, if a $50 credit adjustment was made when the status was changed to Denied or Canceled, the system now debits $50 to restore the original balance due. The system always uses the previous write-off amount in the event of multiple write-offs.</p>
+                                <p>The system also inserts an entry into the event history file.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />New requests</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>Requests for information usually arrive manually (such as in person or by phone, fax, or mail) and are recorded on a paper document. This "authorization document" is scanned, indexed, and released using the DCS/QCI Workstation module. Once the authorization document is successfully released into the system, the system automatically <span class="Drop-downhotspot_1">creates</span> a skeleton ROI request and assigns the "Auth-Received" (or "Auth-Received Denied") status to it. Requests are then available for processing and for searching.</p>
+                <p class="Dropdowntext">How is the Auth-Received request created?</p>
+                <ol start="1" class="ol_2">
+                    <li class="Dropdowntext_1" value="1">During ROI Module installation, OneContent experts implement a process that creates an entry in the OneContent patients table for every month (where MRN=yyyymm), and an entry in the system Encounters table for every day (where Encounter number=yyyymmdd). These entries are referred to as "day folders." Installers also configure "Auth-Received" and "Auth-Received Denied" document types to use with authorization documents.</li>
+                    <li class="Dropdowntext_1" value="2">At the DCS/QCI Workstation, users scan one or more authorization documents and associate the Auth-Received document type and an MRN-Encounter number with each document. For an existing OneContent patient, the MRN-Encounter number represents the actual patient. For a supplemental (or non- OneContent) patient, the MRN-Encounter number represents a day folder.</li>
+                    <li class="Dropdowntext_1" value="3">At the DCS/QCI Workstation, users release the batch to the normal release queue, and the batch is subsequently processed by the Index Upload component. Because the Auth-Received document type is configured to require assignments, the system creates a workflow assignment for each document, and then adds the document to the system database. </li>
+                    <li class="Dropdowntext_1" value="4">The OneContent Workflow Agent processes these workflow assignments by creating ROI requests for each document. For an OneContent patient, the request contains the patient's MRN-Encounter number. For a non-OneContent patient, the request contains the day folder's MRN-Encounter number, and ROI Module users must enter patient information when they access the request.</li>
+                </ol>
+                <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>Scanning the authorization document is optional. You can create an ROI request manually without scanning the authorization. However, for <span class="Drop-downhotspot">several reasons</span>, scanning the authorization is the preferred method of creating an ROI request.</p>
+                <ul class="ul_6">
+                    <li class="Note_1" value="1">The authorization will be properly associated with the request and will pass through status events in the proper sequence.</li>
+                    <li class="Note_1" value="2">If you manually create a request and then scan its corresponding authorization document, you will create a duplicate request. </li>
+                </ul>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Request reasons</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>You must provide a reason when you create a request. The system displays a list of reasons that have been defined by your site and allows you to select a reason when you create the request.</p>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Requestor information box</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>The requestor information box displays on most of the screens used to maintain requests. The information box identifies the requestor's type (attorney, patient, and so on), name, address and contact number, and whether a pre-payment and/or certification letter are required. It also displays the request ID, current status and date of receipt. For example:</p>
+                <p class="Image">
+                    <img src="../Resources/Images/mpf_roi_user_guide/03000032_245x58.png" style="width: 245;height: 58;" class="img_1" />
+                </p>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Requests from start to finish</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>Releasing documents to a requestor is a <span class="Drop-downhotspot">multi-step procedure</span>. Only one user at a time can actively modify a request. Other users can only view information while the request is in use.</p>
+                <ol start="1" class="ol_3">
+                    <li class="Note_1" value="1">Create the request.</li>
+                    <li class="Note_1" value="2">Identify the requestor.</li>
+                    <li class="Note_1" value="3">Select patients and patient documents and/or attachments to include on the request.</li>
+                    <li class="Note_1" value="4">Enter billing and shipping charges, discounts, and credits.</li>
+                    <li class="Note_1" value="5">Pre-bill (if required).</li>
+                    <li class="Note_1" value="6">Obtain a certification letter (if required).</li>
+                    <li class="Note_1" value="7">Release the documents along with a cover letter (optional) and invoice (optional).</li>
+                </ol>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Auditing</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>Every status change and ROI action can be <span class="Drop-downhotspot_1">audited</span>.</p>
+                <p class="Dropdowntext">Auditing is controlled by OneContent settings for each facility. Your system can be configured to audit the following events for requests:</p>
+                <ul class="ul_7">
+                    <li class="Dropdowntext_3" value="1">Uploaded (audit code N) - audits the acquisition of Clinical Summary documents from an external clinical system</li>
+                    <li class="Dropdowntext_3" value="2">Released (audit code R) - also audits the success or failure of turnaround time notifications that are sent to clinical systems when documents are released</li>
+                    <li class="Dropdowntext_3" value="3">ROI Log (audit code 1)</li>
+                    <li class="Dropdowntext_3" value="4">ROI Edit (audit code 2) - includes Completed, Logged, and Pre-Billed status events</li>
+                    <li class="Dropdowntext_3" value="5">ROI Delete (audit code 3)</li>
+                    <li class="Dropdowntext_3" value="6">ROI Deny (audit code 4)</li>
+                    <li class="Dropdowntext_3" value="7">ROI Cancel (audit code 5)</li>
+                    <li class="Dropdowntext_3" value="8">ROI Pend (audit code 6)</li>
+                    <li class="Dropdowntext_3" value="9">ROI Post (audit code 7)</li>
+                    <li class="Dropdowntext_3" value="10">ROI View (audit code 8)</li>
+                    <li class="Dropdowntext_3" value="11">ROI Report (audit code 9)</li>
+                </ul>
+                <p class="Dropdowntext">For each status change event, the audit file captures who made the change, the previous and new status, the date and time of the change, and facility, encounter, and MRN information.</p>
+            </div>
+        </div>
+        <p class="Subhead1" style="font-style: italic;">What do you want to do?</p>
+        <p class="Subhead2">For requests:</p>
+        <p><a href="User instructions/Requests/Find a request.htm" class="SecondaryLink">Find a request</a>
+        </p>
+        <p><a href="User instructions/Requests/Process an Auth-Received request.htm" class="SecondaryLink">Process an Auth-Received request</a>
+        </p>
+        <p><a href="User instructions/Requests/Create a request.htm" class="SecondaryLink">Create a request</a>
+        </p>
+        <p><a href="User instructions/Miscellaneous/Select or change a requestor.htm" class="SecondaryLink">Select or change a requestor</a>
+        </p>
+        <p><a href="User instructions/Requests/Add a patient to a request.htm" class="SecondaryLink">Add a patient to a request</a>
+        </p>
+        <p><a href="User instructions/Requests/Change request status.htm" class="SecondaryLink">Change request status</a>
+        </p>
+        <p><a href="User instructions/Requests/Complete a request.htm" class="SecondaryLink">Complete a request</a>
+        </p>
+        <p><a href="User instructions/Requests/Delete a request.htm" class="SecondaryLink">Delete a request</a>
+        </p>
+        <p><a href="User instructions/Miscellaneous/Maintain comments.htm" class="SecondaryLink">Maintain comments</a>
+        </p>
+        <p><a href="User instructions/History/View event history.htm" class="SecondaryLink">View event history</a>
+        </p>
+        <p><a href="User instructions/History/View release history.htm" class="SecondaryLink">View release history</a>
+        </p>
+        <p class="Subhead2">For patient documents and ROI letters:</p>
+        <p><a href="../Patients/About attachments.htm" class="SecondaryLink">Learn more about attachments</a>
+        </p>
+        <p><a href="About letters.htm" class="SecondaryLink">Learn more about letters</a>
+        </p>
+        <p><a href="About printing faxing saving.htm" class="SecondaryLink">Learn more about printing, faxing, saving or emailing documents</a>
+        </p>
+        <p><a href="About output jobs and queues.htm" class="SecondaryLink">Learn more about output jobs and queues</a>
+        </p>
+        <p><a href="User instructions/Documents/Add documents to a request.htm" class="SecondaryLink">Add documents to a request</a>
+        </p>
+        <p><a href="User instructions/Documents/Add or edit non OneContent Patient Folder document information.htm" class="SecondaryLink">Add or edit non-MPF document information</a>
+        </p>
+        <p><a href="User instructions/Attachments/Download attachments.htm" class="SecondaryLink">Download attachments</a>
+        </p>
+        <p><a href="User instructions/Attachments/Add attachments to a request.htm" class="SecondaryLink">Add attachments to a request</a>
+        </p>
+        <p><a href="User instructions/Attachments/Delete an attachment from a request.htm" class="SecondaryLink">Delete an attachment from a request</a>
+        </p>
+        <p><a href="User instructions/Documents/Release documents.htm" class="SecondaryLink">Release documents</a>
+        </p>
+        <p><a href="User instructions/Documents/Re-release documents.htm" class="SecondaryLink">Re-release documents</a>
+        </p>
+        <p><a href="User instructions/Documents/Resend documents.htm" class="SecondaryLink">Resend documents</a>
+        </p>
+        <p class="Subhead2">For release and invoice:</p>
+        <p><a href="About release and invoice.htm" class="SecondaryLink">Learn more about release and invoice</a>
+        </p>
+        <p class="Subhead2">For form descriptions:</p>
+        <p><a href="Form descriptions/Find-Create Request form.htm" class="SecondaryLink">View the Find/Create Request form description</a>
+        </p>
+        <p><a href="Form descriptions/Request Information form.htm" class="SecondaryLink">View the Request Information form description</a>
+        </p>
+        <p><a href="Form descriptions/Patient Information form - Requests.htm" class="SecondaryLink">View the Patient Information form description</a>
+        </p>
+        <p><a href="Form descriptions/Release and Invoice form.htm" class="SecondaryLink">View the Release &amp; Invoice form description</a>
+        </p>
+        <p><a href="Form descriptions/Release History form.htm" class="SecondaryLink">View the Release History form description</a>
+        </p>
+        <p><a href="Form descriptions/Event History form.htm" class="SecondaryLink">View the Event History form description</a>
+        </p>
+        <p><a href="Form descriptions/Comments form.htm" class="SecondaryLink">View the Comments form description</a>
+        </p>
+        <p><a href="Form descriptions/Letters form.htm" class="SecondaryLink">View the Letters form description</a>
+        </p>
+    </body>
+</html>

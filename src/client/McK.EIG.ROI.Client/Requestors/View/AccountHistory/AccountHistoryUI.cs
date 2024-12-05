@@ -96,8 +96,8 @@ namespace McK.EIG.ROI.Client.Requestors.View.AccountHistory
             DataGridViewTextBoxColumn dgvAgingColumn = prebillGrid.AddTextBoxColumn(AgingColumn, "Aging (Days)", "Aging", 50);
             DataGridViewTextBoxColumn dgvCreatedByColumn = prebillGrid.AddTextBoxColumn(AgingColumn, "Created By", "CreatorName", 60);
             DataGridViewTextBoxColumn dgvTemplateColumn = prebillGrid.AddTextBoxColumn(TemplateUsedColumn, "Template Used", "Template", 140);
-            DataGridViewTextBoxColumn dgvRequestSecureColumn = prebillGrid.AddTextBoxColumn(RequestSecureColumn, "RequestPassword", "PlainRequestPassword", 115);
-            DataGridViewTextBoxColumn dgvQueueSecureColumn = prebillGrid.AddTextBoxColumn(QueueSecureColumn, "QueuePassword", "PlainQueuePassword", 105);
+            DataGridViewTextBoxColumn dgvRequestSecureColumn = prebillGrid.AddTextBoxColumn(RequestSecureColumn, "RequestPassword", "PlainRequestSecure", 115); 
+            DataGridViewTextBoxColumn dgvQueueSecureColumn = prebillGrid.AddTextBoxColumn(QueueSecureColumn, "QueuePassword", "PlainQueueSecretWord", 105);
             DataGridViewTextBoxColumn dgvBalanceColumn = prebillGrid.AddTextBoxColumn(BalanceColumn, "Balance", "Balance", 40);
             dgvRequestSecureColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvQueueSecureColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;

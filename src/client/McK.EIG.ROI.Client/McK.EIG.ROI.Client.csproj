@@ -90,7 +90,7 @@
       <HintPath>..\3rdparty\lib\Interop.SHDocVw.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-	<Reference Include="log4net">
+    <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\3rdparty\lib\log4net.dll</HintPath>
     </Reference>
@@ -140,8 +140,8 @@
     <Reference Include="O2S.Components.PDFView4NET">
       <HintPath>..\3rdparty\lib\O2S.Components.PDFView4NET.dll</HintPath>
     </Reference>
-    <Reference Include="OCSecurity-21.1">
-      <HintPath>..\McK.EIG.ROI.Client.App\OCSecurity-21.1.dll</HintPath>
+    <Reference Include="OCSecurity-21.0">
+      <HintPath>..\McK.EIG.ROI.Client.App\OCSecurity-21.0.dll</HintPath>
     </Reference>
     <Reference Include="seclib">
       <HintPath>..\McK.EIG.ROI.Client.App\seclib.dll</HintPath>

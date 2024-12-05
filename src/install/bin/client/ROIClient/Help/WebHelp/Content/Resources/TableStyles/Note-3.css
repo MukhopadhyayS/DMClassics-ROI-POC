@@ -1,0 +1,428 @@
+/* MadCap Table Style: */
+
+/*<meta Version="9" />*/
+
+mcTableStyle
+{
+	name: Note-3;
+	border-spacing-x: 0;
+	border-spacing-y: 0;
+	border-collapse: separate;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	max-id: 7;
+	border-left-width: 1px;
+	border-right-width: 1px;
+	border-top-color: #404040;
+	border-bottom-color: #404040;
+	border-left-color: #404040;
+	border-right-color: #404040;
+	cell-padding-left: 50px;
+	cell-padding-right: 0px;
+	cell-padding-top: 0px;
+	cell-padding-bottom: 10px;
+	background-color: #c7e6f9;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0.79in;
+	page-break-inside: avoid;
+	margin-right: 0px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	background-image: url('../Images/NoteIcon.png');
+	background-repeat: no-repeat;
+}
+
+
+/* Cell Styles: */
+ 
+.TableStyle-Note-3
+{
+	border-collapse: separate;
+	overflow: hidden;
+	background-color: #c7e6f9;
+	background-image: url('../Images/NoteIcon.png');
+	background-repeat: no-repeat;
+	border-left-style: solid;
+	border-left-color: #404040;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-right-color: #404040;
+	border-right-width: 1px;
+	border-top-style: solid;
+	border-top-color: #404040;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #404040;
+	border-bottom-width: 1px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	margin-left: 0.79in;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	page-break-inside: avoid;
+	border-spacing: 0px 0px;
+}
+
+.TableStyle-Note-3-HeadI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadI-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadE-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadF-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadH-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadD-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadC-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadB-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadA-- p
+{
+	
+}
+
+.TableStyle-Note-3-HeadG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-HeadG-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootI-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootE-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootF-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootH-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootD-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootC-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootB-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootA-- p
+{
+	
+}
+
+.TableStyle-Note-3-FootG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-FootG-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyI--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyI-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyE--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyE-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyF--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyF-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyH--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyH-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyD--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyD-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyC--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyC-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyB--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyB-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyA--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyA-- p
+{
+	
+}
+
+.TableStyle-Note-3-BodyG--
+{
+	padding-left: 50px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
+.TableStyle-Note-3-BodyG-- p
+{
+	
+}
+
+

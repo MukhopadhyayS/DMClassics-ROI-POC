@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import word._Application;
 import word._Document;
 
@@ -40,7 +40,7 @@ public class ConversionProcessor {
 	private static final String TARGET_FOLDER = "docx";
 	private ConversionDao _dao = null;
 	private static final Logger logger = LogManager.getLogger(ConversionProcessor.class);
-	
+
 	public ConversionProcessor(ConversionDao dao) {
 		_dao = dao;
     	String srcFolder = new File("template").getAbsolutePath() + File.separator + SRC_FOLDER;

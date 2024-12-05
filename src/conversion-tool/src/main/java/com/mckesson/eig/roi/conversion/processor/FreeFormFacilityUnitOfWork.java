@@ -11,12 +11,12 @@
  * the prior express written permission of McKesson Information Solutions.
  */
 package com.mckesson.eig.roi.conversion.processor;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+
 import com.mckesson.eig.roi.conversion.util.HibernateUtil;
 
 /**
@@ -24,7 +24,7 @@ import com.mckesson.eig.roi.conversion.util.HibernateUtil;
  *
  */
 public class FreeFormFacilityUnitOfWork extends UnitOfWork {
-
+	
 	private static final Logger logger = LogManager.getLogger(FreeFormFacilityUnitOfWork.class);
 	
 	/* (non-Javadoc)

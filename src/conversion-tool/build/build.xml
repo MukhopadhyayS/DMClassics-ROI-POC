@@ -65,10 +65,10 @@
                 	       lib/hibernate3.jar
                 	       lib/jta-1.1.jar
                 	       lib/jtds-1.2.jar
+						   lib/slf4j-api-1.7.0.jar
 						   lib/log4j-core-2.17.0.jar
 						   lib/log4j-api-2.17.0.jar
 						   lib/log4j-slf4j-impl-2.17.0.jar
-						   lib/slf4j-api-1.7.0.jar
 							.
                 	       "/>
             </manifest>
