@@ -2,7 +2,6 @@ package com.mckesson.eig.roi.conversion.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 public final class Worker extends Thread {
 	private static final Logger LOGGER = LogManager.getLogger(Worker.class);
 	private Runnable _workload;

@@ -19,12 +19,11 @@ import java.net.MalformedURLException;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.logging.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.RollingFileAppender;
-import org.hibernate.HibernateException;
-
 import com.mckesson.eig.roi.conversion.billinglocation.BillingLocation;
 import com.mckesson.eig.roi.conversion.billinglocation.BillingLocationBuilder;
 import com.mckesson.eig.roi.conversion.billinglocation.BillingLocationUtil;

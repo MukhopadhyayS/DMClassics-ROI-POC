@@ -1,0 +1,1186 @@
+/*<meta />*/
+
+/* Version 1.0.0  */
+/* Copyright © 2016 McKesson Corporation and/or one of its subsidiaries. */
+/* All Rights Reserved. */
+
+@import url('Allscripts_Styles.css');
+@namespace MadCap url(http://www.madcapsoftware.com/Schemas/MadCap.xsd);
+
+body
+{
+	font-family: Arial;
+	font-size: 11pt;
+	margin-left: 0px;
+	line-height: 13pt;
+}
+
+p
+{
+	margin-bottom: 7pt;
+	line-height: 13pt;
+	mc-hyphenate: never;
+}
+
+h1
+{
+	font-family: Arial;
+	font-size: 22pt;
+	margin-top: 0pt;
+	page-break-after: avoid;
+	mc-hyphenate: never;
+	line-height: 24pt;
+}
+
+h1.ChapterTitle
+{
+	mc-auto-number-format: 'CH:Chapter {chapnum} - ';
+	page-break-before: always;
+}
+
+h1.AppendixTitle
+{
+	mc-auto-number-format: 'CH:Appendix {chapnum} - ';
+	page-break-before: always;
+}
+
+h1.FrontMatter
+{
+	page-break-before: always;
+}
+
+h2
+{
+	font-family: Arial;
+	font-size: 18pt;
+	margin-top: 20pt;
+	margin-bottom: 8pt;
+	page-break-after: avoid;
+	mc-hyphenate: never;
+	line-height: 20pt;
+}
+
+h2.NewPage
+{
+	page-break-before: always;
+	margin-top: 0pt;
+	mc-disabled: true;
+}
+
+h3
+{
+	font-family: Arial;
+	font-size: 16pt;
+	margin-top: 18pt;
+	margin-bottom: 6pt;
+	page-break-after: avoid;
+	mc-hyphenate: never;
+	line-height: 18pt;
+}
+
+h3.NewPage
+{
+	page-break-before: always;
+	margin-top: 0pt;
+	mc-disabled: true;
+}
+
+h3.RelNotes
+{
+	mc-auto-number-format: 'Work Item ID ';
+	mc-disabled: true;
+}
+
+h4
+{
+	font-family: Arial;
+	font-size: 14pt;
+	margin-top: 16pt;
+	margin-bottom: 6pt;
+	page-break-after: avoid;
+	mc-hyphenate: never;
+	line-height: 16pt;
+}
+
+h4.NewPage
+{
+	page-break-before: always;
+	margin-top: 0pt;
+	mc-disabled: true;
+}
+
+h5
+{
+	font-family: Arial;
+	font-size: 11pt;
+	margin-top: 16pt;
+	margin-bottom: 6pt;
+	page-break-after: avoid;
+	mc-hyphenate: never;
+}
+
+h6
+{
+	font-family: Arial;
+	font-size: 11pt;
+	margin-top: 16pt;
+	margin-bottom: 6pt;
+	page-break-after: avoid;
+	mc-hyphenate: never;
+}
+
+p.Subhead1
+{
+	font-size: 12pt;
+	margin-top: 14pt;
+	margin-bottom: 6pt;
+	page-break-after: avoid;
+	line-height: 14pt;
+}
+
+p.Subhead1_Newpage
+{
+	font-size: 12pt;
+	margin-top: 14pt;
+	margin-bottom: 6pt;
+	page-break-after: avoid;
+	margin-top: 0pt;
+	page-break-before: always;
+	line-height: 14pt;
+}
+
+p.ItemName
+{
+	margin-top: 12pt;
+	margin-bottom: 4pt;
+	page-break-after: avoid;
+}
+
+p.GlossaryTerm
+{
+	font-weight: bold;
+	margin-top: 12pt;
+	margin-bottom: 4pt;
+	page-break-after: avoid;
+}
+
+p.Step1
+{
+	text-indent: -.29in;
+}
+
+p.TableStep1
+{
+	text-indent: -.29in;
+}
+
+p.AlphaStep1
+{
+	margin-left: .77in;
+	text-indent: -.33in;
+}
+
+p.StepNext
+{
+	text-indent: -.29in;
+}
+
+p.TableStepNext
+{
+	text-indent: -.29in;
+}
+
+p.AlphaStepNext
+{
+	margin-left: .77in;
+	text-indent: -.33in;
+}
+
+p.BulletList
+{
+	text-indent: -.29in;
+}
+
+p.BulletListIndent
+{
+	margin-left: .77in;
+	text-indent: -.33in;
+}
+
+p.DashList
+{
+	margin-left: .77in;
+	text-indent: -.33in;
+}
+
+p.DashListIndent
+{
+	margin-left: 1.02in;
+	text-indent: -.22in;
+}
+
+div.Note, div.NoteIndent1, div.NoteIndent2, div.NoteIndent3, 
+div.Caution, div.CautionIndent1, div.CautionIndent2, div.CautionIndent3,
+div.Tip, div.TipIndent1, div.TipIndent2, div.TipIndent3
+
+{
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	background-color: #FFFFFF;
+	color: #000000;
+
+}
+
+div.Warning, div.WarningIndent1, div.WarningIndent2, div.WarningIndent3
+{
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	background-color: #FFFFFF;
+	color: #c52328;
+}
+
+p.Caution,
+p.CautionIndent1,
+p.CautionIndent2,
+p.CautionIndent3
+{
+	mc-auto-number-format: 'Caution:';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.Caution p.Caution,
+div.Caution > :first-child
+{
+	mc-auto-number-format: 'Caution: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.CautionIndent1 p.Caution,
+div.CautionIndent1 > :first-child
+{
+	mc-auto-number-format: 'Caution: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.CautionIndent2 p.Caution,
+div.CautionIndent2 > :first-child
+{
+	mc-auto-number-format: 'Caution: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.CautionIndent3 p.Caution,
+div.CautionIndent3 > :first-child
+{
+	mc-auto-number-format: 'Caution: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+p.Note,
+p.NoteIndent1,
+p.NoteIndent2,
+p.NoteIndent3
+{
+	mc-auto-number-format: 'Note: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+p.Important,
+p.ImportantIndent1,
+p.ImportantIndent2,
+p.ImportantIndent3
+{
+	mc-auto-number-format: 'Important:';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+p.Notes,
+p.NotesIndent1,
+p.NotesIndent2,
+p.NotesIndent3
+{
+	mc-auto-number-format: 'Notes:';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+p.BeforeYouBegin,
+p.BeforeYouBeginIndent1,
+p.BeforeYouBeginIndent2,
+p.BeforeYouBeginIndent3
+{
+	mc-auto-number-format: 'Before you begin:';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.Note p.Note,
+div.Note > :first-child
+{
+	mc-auto-number-format: 'Note: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.Note p.Notes
+{
+	mc-auto-number-format: 'Notes: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.Note p.BeforeYouBegin
+{
+	mc-auto-number-format: 'Before you begin: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.Note p.Important
+{
+	mc-auto-number-format: 'Important: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent1 p.Note,
+div.NoteIndent1 > :first-child
+{
+	mc-auto-number-format: 'Note: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent1 p.Notes
+{
+	mc-auto-number-format: 'Notes: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent1 p.BeforeYouBegin
+{
+	mc-auto-number-format: 'Before you begin: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent1 p.Important
+{
+	mc-auto-number-format: 'Important: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent2 p.Note,
+div.NoteIndent2 > :first-child
+{
+	mc-auto-number-format: 'Note: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent2 p.Notes
+{
+	mc-auto-number-format: 'Notes: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent2 p.BeforeYouBegin
+{
+	mc-auto-number-format: 'Before you begin: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent2 p.Important
+{
+	mc-auto-number-format: 'Important: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent3 p.Note,
+div.NoteIndent3 > :first-child
+{
+	mc-auto-number-format: 'Note: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent3 p.Notes
+{
+	mc-auto-number-format: 'Notes: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent3 p.BeforeYouBegin
+{
+	mc-auto-number-format: 'Before you begin: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.NoteIndent3 p.Important
+{
+	mc-auto-number-format: 'Important: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+p.Warning,
+p.WarningIndent1,
+p.WarningIndent2,
+p.WarningIndent3
+{
+	mc-auto-number-format: 'Warning:';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #c52328;
+	background-color: #FFFFFF;
+}
+
+div.Warning p.Warning,
+div.Warning > :first-child
+{
+	mc-auto-number-format: 'Warning: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #c52328;
+	background-color: #FFFFFF;
+}
+
+div.WarningIndent1 p.Warning,
+div.WarningIndent1 > :first-child
+{
+	mc-auto-number-format: 'Warning: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #c52328;
+	background-color: #FFFFFF;
+}
+
+div.WarningIndent2 p.Warning,
+div.WarningIndent2 > :first-child
+{
+	mc-auto-number-format: 'Warning: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #c52328;
+	background-color: #FFFFFF;
+}
+
+div.WarningIndent3 p.Warning,
+div.WarningIndent3 > :first-child
+{
+	mc-auto-number-format: 'Warning: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #c52328;
+	background-color: #FFFFFF;
+}
+
+p.Tip,
+p.TipIndent1,
+p.TipIndent2,
+p.TipIndent3
+{
+	mc-auto-number-format: 'Tip:';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+p.Tips,
+p.TipsIndent1,
+p.TipsIndent2,
+p.TipsIndent3
+{
+	mc-auto-number-format: 'Tip:';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.Tip p.Tip,
+div.Tip > :first-child
+{
+	mc-auto-number-format: 'Tip: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.TipIndent1 p.Tip,
+div.TipIndent1 > :first-child
+{
+	mc-auto-number-format: 'Tip: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.TipIndent2 p.Tip,
+div.TipIndent2 > :first-child
+{
+	mc-auto-number-format: 'Tip: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+div.TipIndent3 p.Tip,
+div.TipIndent3 > :first-child
+{
+	mc-auto-number-format: 'Tip: ';
+	background-image: none;
+	background-repeat: no-repeat;
+	border: none;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+p.ZCover_Logo
+{
+	text-align: right;
+	margin-top: 11pt;
+	margin-bottom: 0pt;
+	margin-left: 412pt;
+	margin-right: .3in;
+}
+
+p.ZCover_CorpSig
+{
+	text-align: left;
+	margin-top: 180px;
+	margin-bottom: 7pt;
+	margin-left: .5in;
+	margin-right: .3in;
+	mc-disabled: true;
+}
+
+p.ZCover_Connected
+{
+	border-bottom: .44mm dotted;
+	/*	background-image: url(../images/connected.png); */
+	/*	background-repeat: repeat-x; */
+	margin-top: 0pt;
+	margin-bottom: 25pt;
+	border-color: #234a84;
+	mc-disabled: true;
+	margin-left: .5in;
+	margin-right: .3in;
+}
+
+p.ZCover_Photo
+{
+	margin-top: 14pt;
+	margin-bottom: 0pt;
+	margin-right: .3in;
+	margin-left: .5in;
+}
+
+p.ZCover_ProdFamily_Line1
+{
+	font: "Georgia";
+	font-size: 28pt;
+	line-height: 34pt;
+	color: #234a84;
+	margin-top: 20pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	margin-right: 0.3in;
+}
+
+p.ZCover_ProdFamily
+{
+	font: "Georgia";
+	font-size: 28pt;
+	line-height: 34pt;
+	color: #234a84;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	margin-right: 0.3in;
+	padding-bottom: 0pt;
+	border-style: none;
+}
+
+p.ZCover_ProdName
+{
+	font: "Georgia";
+	font-size: 14pt;
+	font-weight: normal;
+	line-height: 17pt;
+	color: #004a84;
+	margin-top: 30pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	margin-right: 0.3in;
+}
+
+p.ZCover_ProdName_NoTOC
+{
+	font: "Georgia";
+	font-size: 14pt;
+	font-weight: normal;
+	line-height: 17pt;
+	color: #004a84;
+	margin-top: 30pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	margin-right: 0.3in;
+}
+
+p.ZCover_ModuleName
+{
+	font: "Georgia";
+	font-size: 14pt;
+	font-weight: normal;
+	line-height: 17pt;
+	color: #004a84;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	margin-right: 0.3in;
+}
+
+p.ZCover_DocType
+{
+	font: "Georgia";
+	font-size: 14pt;
+	font-weight: normal;
+	line-height: 17pt;
+	color: #004a84;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	margin-right: 0.3in;
+}
+
+p.ZCover_ReleaseNumber
+{
+	font: "Georgia";
+	font-size: 14pt;
+	color: #004a84;
+	margin-top: 37pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	line-height: 16pt;
+}
+
+p.ZCover_PubDate
+{
+	font: "Georgia";
+	font-size: 14pt;
+	color: #004a84;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: .5in;
+	line-height: 16pt;
+}
+
+p.ZCover_DocID
+{
+	font: "Georgia";
+	font-size: 14pt;
+	color: #004a84;
+	margin-top: 12pt;
+	margin-bottom: 0pt;
+	margin-left: .5in;
+	line-height: 16pt;
+}
+
+p.ZCover_Subhead
+{
+	font-size: 11pt;
+	font-weight: bold;
+	color: #003399;
+	margin-top: 12pt;
+	margin-bottom: 4pt;
+	margin-left: 0in;
+	page-break-after: avoid;
+}
+
+p.ZCover_Normal
+{
+	font-size: 11pt;
+	margin-bottom: 6pt;
+}
+
+li.ZCover_Normal
+{
+	font-size: 11pt;
+	margin-bottom: 6pt;
+}
+
+p.ZCover_Normal_CPT_TM
+{
+	font-size: 11pt;
+	mc-disabled: true;
+	page-break-after: always;
+}
+
+p.TOCTitle
+{
+	font-size: 20pt;
+	font-weight: bold;
+	color: #003399;
+	margin-top: 0pt;
+	margin-bottom: 46pt;
+	margin-left: 0pt;
+	mc-disabled: true;
+	page-break-before: always;
+	line-height: 22pt;
+}
+
+p.IndexTitle
+{
+	font-size: 20pt;
+	font-weight: bold;
+	color: #003399;
+	margin-top: 0pt;
+	margin-bottom: 46pt;
+	margin-left: 0pt;
+	mc-disabled: true;
+	page-break-before: always;
+	line-height: 22pt;
+}
+
+MadCap|tocProxy
+{
+	border-top-style: none;
+}
+
+p.TOC1
+{
+	font-size: 11pt;
+	font-weight: bold;
+	color: #004DEA;
+	margin-top: 13pt;
+	margin-bottom: 2pt;
+	margin-left: 0in;
+	mc-leader-offset: -55pt;
+	mc-leader-align: right;
+}
+
+p.TOC2
+{
+	font-size: 11pt;
+	font-weight: normal;
+	color: #004DEA;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0.25in;
+	mc-leader-offset: -55pt;
+	mc-leader-align: right;
+}
+
+p.TOC3
+{
+	font-size: 11pt;
+	font-weight: normal;
+	color: #004DEA;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0.5in;
+	mc-leader-offset: -55pt;
+	mc-leader-align: right;
+}
+
+p.TOC4
+{
+	font-size: 11pt;
+	font-weight: normal;
+	color: #004DEA;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0.75in;
+	mc-leader-offset: -55pt;
+	mc-leader-align: right;
+}
+
+p.TOC5
+{
+	font-size: 11pt;
+	font-weight: normal;
+	color: #004DEA;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 1.0in;
+	mc-leader-offset: -55pt;
+	mc-leader-align: right;
+}
+
+p.TOC6
+{
+	font-size: 11pt;
+	font-weight: normal;
+	color: #004DEA;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 1.25in;
+	mc-leader-offset: -55pt;
+	mc-leader-align: right;
+}
+
+ol
+{
+	margin-top: 0px;
+	margin-bottom: 8px;
+	margin-left: 28px;
+	padding-left: 0px;
+	line-height: 13pt;
+}
+
+ul
+{
+	margin-top: 0px;
+	margin-bottom: 8px;
+	margin-left: 28px;
+	padding-left: 0px;
+	line-height: 13pt;
+}
+
+table td
+{
+	font-size: 11pt;
+}
+
+table th
+{
+	font-size: 11pt;
+}
+
+MadCap|toggler.Subhead1
+{
+	font-family: Arial;
+	font-size: 12pt;
+	font-weight: bold;
+	color: #003399;
+	margin-top: 20px;
+	margin-bottom: 6px;
+	line-height: 14pt;
+}
+
+MadCap|toggler.Subhead2
+{
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: italic;
+	color: #003399;
+	margin-top: 16px;
+	margin-bottom: 6px;
+}
+
+MadCap|toggler.Normal
+{
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: normal;
+	font-style: normal;
+	color: #000000;
+	text-decoration: none;
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+MadCap|dropDownHotspot
+{
+	margin-top: 0px;
+	margin-bottom: 8px;
+	padding: 0px;
+	border-style: none;
+	font-weight: bold;
+}
+
+MadCap|dropDown.Normal MadCap|dropDownHead
+{
+	font-weight: bold;
+}
+
+MadCap|dropDown.Indent1 MadCap|dropDownHead
+{
+	font-weight: bold;
+}
+
+MadCap|dropDown.Indent2 MadCap|dropDownHead
+{
+	font-weight: bold;
+}
+
+MadCap|dropDown.Indent3 MadCap|dropDownHead
+{
+	font-weight: bold;
+}
+
+MadCap|dropDown.Subhead1 MadCap|dropDownHotspot
+{
+	font-family: Arial;
+	font-size: 12pt;
+	line-height: 14pt;
+}
+
+MadCap|dropDown.Subhead2 MadCap|dropDownHotspot
+{
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: italic;
+	color: #003399;
+}
+
+MadCap|dropDown.Normal MadCap|dropDownHotspot
+{
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #000000;
+}
+
+MadCap|dropDown.Indent1 MadCap|dropDownHotspot
+{
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #000000;
+}
+
+MadCap|dropDown.Indent2 MadCap|dropDownHotspot
+{
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #000000;
+}
+
+MadCap|dropDown.Indent3 MadCap|dropDownHotspot
+{
+	font-family: Arial;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #000000;
+}
+
+/*
+
+
+MadCap|dropDownBody
+	{
+		margin-top: 8px;
+		margin-bottom: 8px;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		padding-left: 0px;
+		padding-right: 0px;
+		border-style: none;
+	}
+
+*/
+
+MadCap|miniTocProxy
+{
+	mc-output-support: all;
+	border: solid 0px;
+	margin-left: 0px;
+	padding-left: 0px;
+	color: #004DEA;
+	margin-right: 0in;
+	padding-right: 0in;
+	width: 6.5in;
+}
+
+MadCap|miniTocProxy.Landscape
+{
+	width: 7.5in;
+}
+
+p.MiniTOC1
+{
+	color: #004DEA;
+	font-weight: normal;
+	mc-leader-align: right;
+	mc-leader-format: 'dot';
+	mc-leader-offset: -50;
+	padding-bottom: 0px;
+}
+
+p.MiniTOC2
+{
+	color: #004DEA;
+	font-weight: normal;
+	mc-leader-offset: -50;
+	mc-leader-align: right;
+	padding-bottom: 0px;
+}
+
+p.MiniTOC3
+{
+	color: #004DEA;
+	font-weight: normal;
+	mc-leader-align: right;
+	mc-leader-offset: -50;
+	padding-bottom: 0px;
+}
+
+MadCap|xref
+{
+	mc-format: '{quote}{paratext}{quote} {pageref}';
+}
+
+MadCap|xref.RelatedTopics
+{
+	mc-format: '{quote}{paratext}{quote} {pageref}';
+	text-decoration: none;
+}
+
+MadCap|xref.MoreInfo
+{
+	mc-format: 'For more information, see {color: #004DEA}{u}{quote}{paratext}{quote} {pageref}{/u}{/color}.';
+}
+
+MadCap|xref.seeTopic
+{
+	mc-format: 'see {color: #004DEA}{u}{quote}{paratext}{quote} {pageref}{/u}{/color}';
+}
+
+MadCap|xref.See_Topic
+{
+	mc-format: 'See {color: #004DEA}{u}{quote}{paratext}{quote} {pageref}{/u}{/color}.';
+}
+
+MadCap|xref.OnPage
+{
+	mc-format: '{quote}{paratext}{quote} {pageref}';
+}
+
+MadCap|xref.Pg
+{
+	mc-format: '{quote}{paratext}{quote} (pg. {page})';
+}
+
+MadCap|xref.Heading
+{
+	mc-format: '{paratext}';
+}
+
+MadCap|xref.HeadingQuotes
+{
+	mc-format: '{quote}{paratext}{quote}';
+}
+
+MadCap|xref.HeadingQuotesPeriod
+{
+	mc-format: '{quote}{paratext}{quote} {pageref}.';
+}
+
+MadCap|xref.ParaNumberPage
+{
+	mc-format: '{paranumonly} {pageref}';
+}

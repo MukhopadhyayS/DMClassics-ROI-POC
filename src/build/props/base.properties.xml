@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><properties>
+	<property name="DSTAMP" value="20231128" />
+	<property name="TODAY" value="November 28 2023" />
+	<property name="TSTAMP" value="0239" />
+	<property name="ant.build.javac.source" value="1.8" />
+	<property name="ant.build.javac.target" value="1.8" />
+	<property name="ant.core.lib" value="C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant.jar" />
+	<property name="ant.file" value="F:\source\eig\svn\mpf-21.0.LR1\ROI\src\build\start.xml" />
+	<property name="ant.file.type" value="file" />
+	<property name="ant.home" value="C:\Program Files\Apache\Ant\apache-ant-1.8.2\bin\.." />
+	<property name="ant.java.version" value="1.7" />
+	<property name="ant.library.dir" value="C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib" />
+	<property name="ant.project.default-target" value="start-roi-build" />
+	<property name="ant.project.invoked-targets" value="set-properties" />
+	<property name="ant.version" value="Apache Ant(TM) version 1.8.2 compiled on December 20 2010" />
+	<property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+	<property name="basedir" value="F:\source\eig\svn\mpf-21.0.LR1\ROI\src" />
+	<property name="build.clientside.components" value="true" />
+	<property name="build.config.file.name" value="build.properties" />
+	<property name="build.install" value="true" />
+	<property name="build.serverside.components" value="true" />
+	<property name="checkout.source" value="svn" />
+	<property name="class.compatibility" value="1.8" />
+	<property name="client.code.coverage.tool" value="opencover" />
+	<property name="client.compile.doc" value="false" />
+	<property name="compile.client.source.code" value="true" />
+	<property name="compile.server.source.code" value="true" />
+	<property name="copy.to.shared.location" value="true" />
+	<property name="cvs.branch.path" value="" />
+	<property name="cvs.checkin.comment" value="Updated By Build Scripts" />
+	<property name="cvs.client.AppDir" value="McK.EIG.ROI.Client.App" />
+	<property name="cvs.client.path" value="client" />
+	<property name="cvs.connection.type" value="pserver" />
+	<property name="cvs.host" value="" />
+	<property name="cvs.install.path" value="install" />
+	<property name="cvs.password" value="" />
+	<property name="cvs.repository.path" value="" />
+	<property name="cvs.server.path" value="server" />
+	<property name="cvs.username" value="" />
+	<property name="database.password" value="roipazz" />
+	<property name="database.path" value="database" />
+	<property name="database.server" value="EMIVALID1410" />
+	<property name="deploy.serverside.components" value="true" />
+	<property name="dir.3rdParty.dll" value="3rdParty/lib" />
+	<property name="dir.3rdparty.jars" value="3rdparty/lib" />
+	<property name="dir.bin" value="bin" />
+	<property name="dir.blat" value="build/blat" />
+	<property name="dir.build.reports" value="build/reports" />
+	<property name="dir.build.test" value="build/test" />
+	<property name="dir.checkstyle.reports" value="checkstyle.reports" />
+	<property name="dir.client" value="client" />
+	<property name="dir.client.bin" value="bin" />
+	<property name="dir.client.build" value="build" />
+	<property name="dir.client.reports" value="reports" />
+	<property name="dir.deploy" value="Deploy" />
+	<property name="dir.emma.coverage" value="build/coverage" />
+	<property name="dir.emma.reports" value="emma.reports" />
+	<property name="dir.install.Shield" value="C:/Program Files (x86)/InstallShield/2015/System" />
+	<property name="dir.java.src" value="src" />
+	<property name="dir.java.test" value="test" />
+	<property name="dir.jboss.deploy" value="C:/3rdparty/jboss-5.1.0.GA/server/default/deploy" />
+	<property name="dir.junit.reports" value="junit.reports" />
+	<property name="dir.logs" value="build/log" />
+	<property name="dir.out.instr" value="build/outinstr" />
+	<property name="dir.resources" value="res" />
+	<property name="dir.roi.bin" value="bin/client" />
+	<property name="dir.roi.build" value="build" />
+	<property name="dir.roi.client.reports" value="client" />
+	<property name="dir.roi.database.scripts" value="scripts/current" />
+	<property name="dir.roi.datavault.scripts" value="dev/scripts/current" />
+	<property name="dir.roi.reports" value="reports" />
+	<property name="dir.tomcat.deploy" value="C:/3rdparty/MPFApplication/MPFServer/webapps" />
+	<property name="email.from.address" value="roi.builder@mckesson.com" />
+	<property name="file.encoding" value="Cp1252" />
+	<property name="file.encoding.pkg" value="sun.io" />
+	<property name="file.separator" value="\" />
+	<property name="hpf.common.dll.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1/InstallShieldSource/hpf/common" />
+	<property name="hpf.install.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1" />
+	<property name="hpfw.jboss.home" value="C:/Jboss" />
+	<property name="hpfw.jboss.url" value="http://127.0.0.1:80" />
+	<property name="hpfw.portal.war.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1/InstallShieldSource/HPFW/hpfw_installable_war" />
+	<property name="increment.version" value="true" />
+	<property name="install.build.path" value="build" />
+	<property name="install.installer.path" value="roi.installer" />
+	<property name="install.properties.path" value="build/props" />
+	<property name="installer.file.path" value="roi.installer.ism" />
+	<property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+	<property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+	<property name="java.class.path" value="C:\Program Files\Apache\Ant\apache-ant-1.8.2\bin\..\lib\ant-launcher.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-antlr.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-apache-bcel.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-apache-bsf.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-apache-log4j.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-apache-oro.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-apache-regexp.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-apache-resolver.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-apache-xalan2.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-commons-logging.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-commons-net.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-contrib-1.0b3.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-jai.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-javamail.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-jdepend.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-jmf.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-jsch.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-junit.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-junit4.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-launcher.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-netrexx.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-starteam.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-swing.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant-testutil.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\antlr-runtime-3.4.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\checkstyle-all-4.3.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ganymed.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ivy-2.4.0.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jna-3.4.0.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jna.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jsch.agentproxy.connector-factory-0.0.6.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jsch.agentproxy.core-0.0.6.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jsch.agentproxy.pageant-0.0.6.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jsch.agentproxy.sshagent-0.0.6.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jsch.agentproxy.svnkit-trilead-ssh2-0.0.6.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jsch.agentproxy.usocket-jna-0.0.6.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\jsch.agentproxy.usocket-nc-0.0.6.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\platform-3.4.0.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\sequence-library-1.0.2.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\sqljet-1.1.8.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\starteam110.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\svnant.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\svnClientAdapter.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\svnjavahl.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\svnkit-1.7.11.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\svnkit-cli-1.7.11.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\svnkit-javahl16-1.7.11.jar;C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\trilead-ssh2-1.0.0-build217.jar;C:\Program Files\Java\jdk1.8.0_40\lib\tools.jar" />
+	<property name="java.class.version" value="52.0" />
+	<property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_40\jre\lib\endorsed" />
+	<property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_40\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+	<property name="java.home" value="C:\Program Files\Java\jdk1.8.0_40\jre" />
+	<property name="java.io.tmpdir" value="C:\Users\subghosh\AppData\Local\Temp\2\" />
+	<property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_40\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\PROGRA~1\Java\JDK18~1.0_1\bin;c:\Program Files (x86)\Microsoft SQL Server\90\Tools\bin;C:\Program Files (x86)\Microsoft Visual Studio\Common\MSDev98\Bin;C:\Program Files (x86)\Microsoft Visual Studio\Common\Tools;C:\Program Files (x86)\Microsoft Visual Studio\VC98\bin;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\redist\Debug_NonRedist\x86\Microsoft.VC90.DebugMFC;C:\Program Files (x86)\NUnit 2.5.10\bin\net-2.0\bin\framework;C:\BuildTools\Nant\nant-0.93-nightly-2013-10-20\bin;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio .NET 2003\Common7\IDE;C:\Program Files\Common Files\Compuware;C:\Program Files (x86)\Common Files\Compuware;C:\imnet\DCS;C:\imnet\Common;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Sandcastle\ProductionTools\;C:\Program Files (x86)\NCover\;C:\Program Files\NCover\;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Users\ais\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;%M2_HOME%\bin;C:\Program Files\Apache\Ant\apache-ant-1.8.2\bin;C:\Program Files\TortoiseSVN\bin;C:\\imnet\Common;C:\imnet\ColdAgent;C:\imnet\QCI;C:\imnet\faxin;C:\imnet\Transman;C:\imnet\MSR;C:\Pr;." />
+	<property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+	<property name="java.runtime.version" value="1.8.0_40-b26" />
+	<property name="java.specification.name" value="Java Platform API Specification" />
+	<property name="java.specification.vendor" value="Oracle Corporation" />
+	<property name="java.specification.version" value="1.8" />
+	<property name="java.vendor" value="Oracle Corporation" />
+	<property name="java.vendor.url" value="http://java.oracle.com/" />
+	<property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+	<property name="java.version" value="1.8.0_40" />
+	<property name="java.vm.info" value="mixed mode" />
+	<property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+	<property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+	<property name="java.vm.specification.vendor" value="Oracle Corporation" />
+	<property name="java.vm.specification.version" value="1.8" />
+	<property name="java.vm.vendor" value="Oracle Corporation" />
+	<property name="java.vm.version" value="25.40-b25" />
+	<property name="jboss.home" value="C:/3rdparty/jboss-5.1.0.GA" />
+	<property name="jboss.url" value="http://127.0.0.1:8080" />
+	<property name="label.source.code" value="true" />
+	<property name="label.source.code.name" value="ROI-17.5.0.0I1" />
+	<property name="line.separator" value="&#xd;&#xa;" />
+	<property name="load.datavault" value="false" />
+	<property name="log.date.timestamp" value="20231128" />
+	<property name="notify.build.status" value="true" />
+	<property name="open.office.dir" value="C:/3rdParty/open.office/program" />
+	<property name="opencover.location" value="C:/Program Files/OpenCover" />
+	<property name="os.arch" value="amd64" />
+	<property name="os.name" value="Windows Server 2012 R2" />
+	<property name="os.version" value="6.3" />
+	<property name="path.separator" value=";" />
+	<property name="project.developers" value="Ronson.Wuniardy@McKesson.com,Senthil.Dos@McKesson.com,Swapna.Dani@McKesson.com,Yana.Poliashenko@McKesson.com,Eric.Yu@McKesson.com,Latonia.Howard@McKesson.com,Joseph.Chen@McKesson.com,Darin.Brooks@McKesson.com,Brian.Campbell@McKesson.com,Steve.Grundy@McKesson.com,Allison.Kendrix@McKesson.com,Hai.Nguyen3@McKesson.com,Dan.Schmidt@McKesson.com,Sukhada.Tapshalkar@McKesson.com,Patricia.West@McKesson.com,Ben.Fralick@McKesson.com,Wendy.James@McKesson.com,Bhanu.Vanteru@McKesson.com,Bob.Patskanick@McKesson.com" />
+	<property name="project.name" value="ROI-21.0" />
+	<property name="refresh.client.source.code" value="true" />
+	<property name="refresh.database" value="true" />
+	<property name="refresh.help.source" value="true" />
+	<property name="refresh.install.source" value="true" />
+	<property name="refresh.server.source.code" value="true" />
+	<property name="report.build.source" value="" />
+	<property name="report.min.codestd.errors" value="0" />
+	<property name="report.min.coverage.percentage" value="80" />
+	<property name="report.min.test.percentage" value="100" />
+	<property name="reportgenerator.location" value="C:/3rdparty/ReportGenerator_1.6.0.0" />
+	<property name="roi.checkstyle.report.name" value="roi.checkstyle" />
+	<property name="roi.database.scripts.file" value="start.sql" />
+	<property name="roi.datavault.scripts.file" value="start.sql" />
+	<property name="roi.emma.report.name" value="roi.code.coverage" />
+	<property name="roi.icon" value="ROI.ico" />
+	<property name="roi.jar.name" value="roi" />
+	<property name="roi.minor.version" value="21.0" />
+	<property name="roi.project.name" value="ROI-21.0" />
+	<property name="roi.test.jar.name" value="roi.test" />
+	<property name="roi.war.name" value="roi" />
+	<property name="run.client.test.cases" value="true" />
+	<property name="run.server.test.cases" value="true" />
+	<property name="shared.location.path" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1/ROI" />
+	<property name="source.local.root.path" value="F:/source/eig/svn/mpf-21.0.LR1/ROI/src" />
+	<property name="start.server" value="true" />
+	<property name="stop.server" value="true" />
+	<property name="sun.arch.data.model" value="64" />
+	<property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_40\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_40\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_40\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_40\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_40\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_40\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_40\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_40\jre\classes" />
+	<property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_40\jre\bin" />
+	<property name="sun.cpu.endian" value="little" />
+	<property name="sun.cpu.isalist" value="amd64" />
+	<property name="sun.desktop" value="windows" />
+	<property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+	<property name="sun.java.command" value="org.apache.tools.ant.launch.Launcher -file start.xml -Dbuild.config.file.name build.properties set-properties" />
+	<property name="sun.java.launcher" value="SUN_STANDARD" />
+	<property name="sun.jnu.encoding" value="Cp1252" />
+	<property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+	<property name="sun.os.patch.level" value="" />
+	<property name="svn.branch.path" value="branches/mpf-21.0.LR1/ROI/src" />
+	<property name="svn.checkin.comment" value="US0000-Updated By Build Scripts" />
+	<property name="svn.client.path" value="client" />
+	<property name="svn.command.path" value="C:\Program Files\TortoiseSVN\bin\svn.exe" />
+	<property name="svn.host" value="svn" />
+	<property name="svn.install.path" value="install" />
+	<property name="svn.label" value="HPF Build SVN Label" />
+	<property name="svn.password" value="0neContent" />
+	<property name="svn.repository.path" value="http://ocsvn114.hylandqa.net/svn/DM-Classics" />
+	<property name="svn.server.path" value="server" />
+	<property name="svn.support.path" value="support" />
+	<property name="svn.username" value="Hpf.builder" />
+	<property name="tomcat.home" value="C:/3rdparty/MPFApplication/MPFServer" />
+	<property name="update.build.scripts" value="true" />
+	<property name="user.country" value="US" />
+	<property name="user.dir" value="F:\source\eig\svn\mpf-21.0.LR1\ROI\src\build" />
+	<property name="user.home" value="C:\Users\subghosh" />
+	<property name="user.language" value="en" />
+	<property name="user.name" value="subghosh" />
+	<property name="user.script" value="" />
+	<property name="user.timezone" value="America/New_York" />
+	<property name="user.variant" value="" />
+</properties>

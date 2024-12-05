@@ -1,107 +1,91 @@
-﻿<html>
-<!-- saved from url=(0014)about:internet -->
-<head>
-<title>MPF ROI Module Online Help</title>
+<!DOCTYPE html>
+<html data-mc-runtime-file-type="CSH">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" /><title></title>
+        <script src="Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="Resources/Scripts/MadCapAll.js" defer="true">
+        </script>
+        <script>
+        //<![CDATA[
+        $(Init);
 
-<meta name="generator" content="Adobe RoboHelp - www.adobe.com">
-<meta name="description" content="WebHelp 5.50">
-<script language="javascript" src="whutils.js"></script>
-<script language="javascript">
-<!--
-var gCSHFileName   = "whc_data.htm";
-var gCSHSuffixName1 = "_csh.html";
-var gCSHSuffixName2 = "_csh.htm";
-//-->
-</script>
-<script language="javascript">
-<!--
-gCSHFileName="cshdat_webhelp.htm";
-//-->
-</script>
-<script language="javascript">
-<!--
-var gasProj = new Array();
-gasProj[0] = _getPath(document.location.href);
-var gCurrent = 0;
+        function Init()
+        {
+            var cshid = null;
+            var skinName = null;
+            var searchQuery = null;
+            var firstPick = null;
 
-function addProject(strProj)
-{
-	var len  = gasProj.length;
-	if (strProj)
-	{
-		strProj = _replaceSlash(strProj);
-		if (strProj.lastIndexOf("/") != strProj.length - 1)
-			strProj += "/";
-		var strPPath = _getFullPath(_getPath(document.location.href), strProj);
-		var bFound = false;
-		for (var i = 0; i < len; i ++)
-		{
-			if (isSamePath(gasProj[i], strPPath))
-			{
-				bFound = true;
-				break;
-			}
-		}
-		if (!bFound)
-			gasProj[len] = strPPath;
-	}
-}
+            if (document.location.hash.length > 0)
+            {
+                var hash = document.location.hash.substring(1);
+                var parts = hash.split("|");
 
-function isSamePath(strPath1, strPath2)
-{
-	return strPath1.toLowerCase() == strPath2.toLowerCase();
-}
+                cshid = parts[0];
 
-function goNext()
-{
-	gCurrent ++;
-	var len = gasProj.length;
-	if (gCurrent >= len)
-		return getHomePage()
-	else
-		frames["csh"].location = gasProj[gCurrent] + gCSHFileName;
-	return "";
-}
+                if (parts.length == 2)
+                    skinName = parts[1];
+            }
 
-function getRelHomePage(strLocation)
-{
-	var strCurPPath = _getPath(strLocation);
-	var strOriPPath = _getPath(getHomePage());
-	var strRelPath = _getRelativeFileName(strOriPPath, strCurPPath);
-	var strURL = getHomePage() + "#" + strRelPath;
-	return strURL;
-}
+            if (document.location.search.length > 0)
+            {
+                var search = document.location.search.substring(1);
+                var parts = search.split("|");
 
-function getHomePage()
-{
-	var strHomePage;
-	var strTmp = location.toString();
-	var nPos = strTmp.indexOf("#");
-	if (nPos != -1)
-	{
-	   strHomePage = strTmp.substring(0, nPos);
-	}
-	else
-	{
-	   strHomePage = strTmp;
-	}
-	var nPos1 = strHomePage.indexOf(gCSHSuffixName1);
-	var nPos = strHomePage.indexOf(gCSHSuffixName2);
-	if (nPos != -1)
-	{
-	   strHomePage = strHomePage.substring(0,nPos);
-	   if (nPos1 != -1)
-	     strHomePage += ".html";
-	   else
-	     strHomePage += ".htm";
-	}
-	return strHomePage;
-}
-//-->
-</script>
-</head>
-<frameset rows="1,*">
-<frame name="dumb" src="about:blank"></frame>
-<frame name="csh" src="cshdat_webhelp.htm"></frame>		
-</frameset>
+                searchQuery = parts[0];
+
+                if (parts.length == 2)
+                    firstPick = parts[1];
+            }
+
+            var url = new MadCap.Utilities.Url(document.location.href);
+            var urlName = url.Name.substring(0, url.Name.length - "_CSH".length);
+            url = url.ToFolder().AddFile(urlName + "." + url.Extension);
+            var path = url.PlainPath;
+
+            var isFirst = true;
+
+            if (!MadCap.String.IsNullOrEmpty(cshid))
+            {
+                if (isFirst)
+                    path += "#";
+
+                isFirst = false;
+
+                path += "cshid=" + cshid;
+            }
+
+            if (!MadCap.String.IsNullOrEmpty(skinName)) {
+                if (isFirst)
+                    path += "#";
+                else
+                    path += "&";
+
+                isFirst = false;
+
+                path += "skinName=" + skinName;
+            }
+
+            if (!MadCap.String.IsNullOrEmpty(searchQuery))
+            {
+                if (isFirst)
+                    path += "#";
+                else
+                    path += "&";
+
+                path += "searchQuery=" + searchQuery;
+
+                if (!MadCap.String.IsNullOrEmpty(firstPick))
+                    path += "&firstPick=true";
+            }
+
+            document.location.replace(path);
+        }
+        //]]></script>
+    </head>
+    <body>
+    </body>
 </html>

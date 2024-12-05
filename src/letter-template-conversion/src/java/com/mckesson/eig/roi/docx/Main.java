@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.hibernate.HibernateException;
@@ -39,12 +39,12 @@ import com.mckesson.eig.roi.docx.utils.HibernateUtil;
  * 
  */
 public class Main {
-	
+
 	private static final Logger logger = LogManager.getLogger(Main.class);
 	private static final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 	private static final org.apache.logging.log4j.core.config.Configuration config = ctx.getConfiguration();
 	private static final RollingFileAppender fileAppender =  config.getAppender("fileLogger");
-
+	
 	/**
 	 * @param args
 	 */
@@ -170,4 +170,5 @@ public class Main {
 	}
 	
 	
+
 }

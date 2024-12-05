@@ -1,0 +1,152 @@
+/*<meta />*/
+
+/* Copyright � 2011 McKesson Corporation and/or one of its subsidiaries. */
+/* All Rights Reserved. */
+/* This version is for Paragon Release Notes */
+
+@import url('McK_Styles.css');
+
+/* Enable the toolbar formatting options */
+
+b
+{
+	mc-disabled: false;
+}
+
+i
+{
+	mc-disabled: false;
+}
+
+sub
+{
+	mc-disabled: false;
+}
+
+sup
+{
+	mc-disabled: false;
+}
+
+u
+{
+	mc-disabled: false;
+}
+
+strike
+{
+	mc-disabled: false;
+}
+
+p
+{
+	margin-bottom: 10pt;
+	font-family: Calibri;
+	font-size: 11pt;
+	margin-top: 0pt;
+}
+
+ol
+{
+	margin-bottom: 10pt;
+	font-family: Calibri;
+	font-size: 11pt;
+	margin-top: 0pt;
+}
+
+ul
+{
+	margin-bottom: 10pt;
+	font-family: Calibri;
+	font-size: 11pt;
+	margin-top: 0pt;
+}
+
+li
+{
+	margin-bottom: 10pt;
+	font-family: Calibri;
+	font-size: 11pt;
+	margin-top: 0pt;
+}
+
+td
+{
+	margin-bottom: 10pt;
+	font-family: Calibri;
+	font-size: 11pt;
+	vertical-align: top;
+}
+
+p.p_1
+{
+	margin-bottom: 0pt;
+	color: #000000;
+}
+
+td.td_1
+{
+	border-top-style: solid;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-left-style: solid;
+	border-left-width: 1pt;
+	border-left-color: black;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+	background-color: #auto;
+}
+
+td.td_2
+{
+	border-top-style: solid;
+	border-top-width: 1pt;
+	border-top-color: black;
+	border-left-style: none;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+	background-color: #auto;
+}
+
+td.td_3
+{
+	border-top-style: none;
+	border-left-style: solid;
+	border-left-width: 1pt;
+	border-left-color: black;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+	background-color: #auto;
+}
+
+td.td_4
+{
+	border-top-style: none;
+	border-left-style: none;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: black;
+	border-right-style: solid;
+	border-right-width: 1pt;
+	border-right-color: black;
+	background-color: #auto;
+}
+
+table.table_1
+{
+	margin-left: 5pt;
+	border-collapse: collapse;
+}
+

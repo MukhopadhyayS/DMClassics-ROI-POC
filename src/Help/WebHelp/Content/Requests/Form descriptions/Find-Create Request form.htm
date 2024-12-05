@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" xml:lang="en-us" lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="help.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Requests|Form descriptions">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Find/Create Request form</title>
+        <link href="../../Resources/Stylesheets/LocalFormat.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" defer="defer" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../../help.htm#Requests/Form descriptions/Find-Create Request form.htm">Open topic with navigation</a>
+        </p>
+        <h2>Find/Create Request form</h2>
+        <p>The Find/Create Request form enables you to:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Search for requests using various search criteria </li>
+            <li class="li_1" value="2">Create requests</li>
+        </ul>
+        <p class="Subhead1">To open the form</p>
+        <p>Select <span class="span_3" style="font-weight: bold;">Requests</span> &gt; <span class="span_3" style="font-weight: bold;">Find / Create Request</span>.</p>
+        <p class="Subhead1">Item descriptions</p>
+        <p class="Subhead2">Main content pane</p>
+        <p class="ItemName">Patient Last Name box</p>
+        <p>Allows you to enter all or part of a patient's last name, beginning with the first letter of the name.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">If used alone, must contain at least three characters</li>
+            <li class="li_1" value="2">If combined with a first name value, at least three characters must be entered across both fields</li>
+        </ul>
+        <p class="ItemName">Patient First Name box</p>
+        <p>Allows you to enter a patient's full or partial first name, beginning with the first letter of the name. </p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">If used alone, must contain at least three characters</li>
+            <li class="li_1" value="2">If combined with a last name value, at least three characters must be entered across both fields</li>
+        </ul>
+        <p class="ItemName">Patient DOB</p>
+        <p>A patient's date of birth to find on a request.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Must be combined with at least one other search field</li>
+            <li class="li_1" value="2">Month, day, and year values can be manually edited</li>
+        </ul>
+        <p class="ItemName">Patient SSN</p>
+        <p>The Social Security Number for the patient to find on a request.</p>
+        <p>Accepts all or only some of the patient's encounter or account number, beginning with the first character.</p>
+        <p class="ItemName">MRN</p>
+        <p>The patient's medical record number. Combines with Facility to render a unique patient identifier.</p>
+        <p>When used for searching:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Accepts all or part of the MRN, beginning with the first character</li>
+            <li class="li_1" value="2">Requires at least three characters</li>
+        </ul>
+        <p>When used for data entry:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Enabled only for non-OneContent patients and only if you have required permissions</li>
+            <li class="li_1" value="2">Defaults to blank</li>
+        </ul>
+        <p class="ItemName">Enc/Acct</p>
+        <p>The encounter or account number for the patient to find on a request.</p>
+        <p>Accepts all or only some of the patient's encounter or account number, beginning with the first character.</p>
+        <p class="ItemName">Facility</p>
+        <p>The facility where patient care occurred in which to find a request.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Defaults to <span class="span_3" style="font-weight: bold;">All Facilities</span> </li>
+            <li class="li_1" value="2">Displays names for only the facilities you are permitted to access</li>
+            <li class="li_1" value="3">Must be combined with at least one other search field </li>
+        </ul>
+        <p class="ItemName">EPN</p>
+        <p>Enterprise Person Number. EPN is an identifier created by an Enterprise Master Person Index (EMPI) system to uniquely identify a person across all enterprise systems and facilities.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Displays only for EPN systems</li>
+            <li class="li_1" value="2">Displays the EPN prefix that is configured at the OneContent (if any)</li>
+            <li class="li_1" value="3">Requires a minimum of three search characters (excluding any prefix defined in the OneContent application)</li>
+            <li class="li_1" value="4">Returns one patient record per EPN</li>
+            <li class="li_1" value="5">If the search is filtered on a single facility, the system displays encounters for only that facility for that patient</li>
+        </ul>
+        <p class="ItemName">Requestor Name</p>
+        <p>Allows you to enter all or the beginning characters of a requestor name to find on a request. May also be used to filter the result set by requestor.</p>
+        <p>Requires a minimum of two characters. </p>
+        <p class="ItemName">Requestor Type</p>
+        <p>Allows you to select a requestor type to find for a request. May also be used to filter the result set by requestor type.</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">Lists all requestor types currently defined for your system</li>
+            <li class="li_1" value="2">Defaults to <span class="span_3" style="font-weight: bold;">All Requestor Types</span></li>
+        </ul>
+        <p class="ItemName">Request Status</p>
+        <p>The status of the request to find. May also be used to filter the requests displayed by status. </p>
+        <p>Options are:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">All Statuses (default selection)</li>
+            <li class="li_1" value="2">Auth-Received</li>
+            <li class="li_1" value="3">Auth-Received Denied</li>
+            <li class="li_1" value="4">Logged</li>
+            <li class="li_1" value="5">Completed</li>
+            <li class="li_1" value="6">Denied</li>
+            <li class="li_1" value="7">Canceled</li>
+            <li class="li_1" value="8">Pended</li>
+            <li class="li_1" value="9">Pre-Billed</li>
+        </ul>
+        <p class="ItemName">Request Reason</p>
+        <p>A reason to find on a request.</p>
+        <p>Lists all reasons for creating a request that are currently defined by your site.</p>
+        <p>Defaults to &lt;Please select&gt;.</p>
+        <p>Displays in read-only mode when the request status is Complete or Cancelled.</p>
+        <p class="ItemName">Balance Due</p>
+        <p>Allows you to specify an operator (either less than or equal to, or greater than or equal to) and an amount for comparison to find requests.</p>
+        <p>Options are:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">At Least</span> (default value; works like greater than or equal to)</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">At Most</span> (works like less than or equal to)</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">Equals</span> (requires an exact match)</li>
+        </ul>
+        <p class="ItemName">Receipt Date</p>
+        <p>Allows you to identify the receipt date of a request to find.</p>
+        <p>Options are: </p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">All</span> to return all requests that match the other search criteria, regardless of date</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">30 days, 60 days, </span>or<span class="span_3" style="font-weight: bold;"> 90 days</span> previous to the current day; returns only requests that fall within the period you select and that match the other search criteria</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">Custom Range</span> to enable the <span class="span_3" style="font-weight: bold;">From </span>and <span class="span_3" style="font-weight: bold;">To </span>fields to enter a date range of your choosing </li>
+        </ul>
+        <p class="ItemName">Invoice Number</p>
+        <p>An invoice number by which to find a request. Each invoice has a unique identifier. The search will find an exact match.</p>
+        <p>Requires a minimum of one character. </p>
+        <p class="ItemName">Request ID box</p>
+        <p>A request ID by which to find a request. Each request has a unique identifier. The search will find an exact match.</p>
+        <p>Requires a minimum of one character. </p>
+        <p class="ItemName">Completed Date box</p>
+        <p>The date the request was completed/released. </p>
+        <p>Options are: </p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">All</span> to return all requests that match the other search criteria, regardless of completion date</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">30 days, 60 days, </span>or<span class="span_3" style="font-weight: bold;"> 90 days</span> previous to the current day; returns only requests that fall within the period you select and that match the other search criteria</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">Custom Range</span> to enable the <span class="span_3" style="font-weight: bold;">From </span>and <span class="span_3" style="font-weight: bold;">To </span>fields to enter a date range of your choosing </li>
+        </ul>
+        <p class="ItemName">Find Request button</p>
+        <p>Triggers the search based on the criteria you have entered.</p>
+        <p>Enabled only when:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1">You have entered data in at least one field other than <span class="span_3" style="font-weight: bold;">Patient DOB</span> or <span class="span_3" style="font-weight: bold;">Facility</span> with at least 3 characters in each field you want to search by. </li>
+            <li class="li_1" value="2">You search using the last name and first name fields, and you have entered at least three characters between the two. </li>
+            <li class="li_1" value="3">You search using <span class="span_3" style="font-weight: bold;">Patient DOB </span>or<span class="span_3" style="font-weight: bold;"> Facility</span>, and another search criterion that contains the required minimum number of characters.</li>
+            <li class="li_1" value="4">You search using both <span class="span_3" style="font-weight: bold;">Patient DOB </span>and<span class="span_3" style="font-weight: bold;"> Facility</span>.</li>
+        </ul>
+        <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>All other fields require a minimum of two characters for searching.</p>
+        <p class="ItemName">New Request button</p>
+        <p>Enables you to navigate to the Request Information form, where you can create a new request.</p>
+        <p>Always enabled.</p>
+        <p class="ItemName">Reset button</p>
+        <p>Discards unsaved entries, clears all data entry boxes or restores them to their default states, clears any search results, and permits you to start over.</p>
+        <p class="Subhead2">Detail pane</p>
+        <p class="Image" data-mc-conditions="Primary.Print">
+            <img src="../../Resources/Images/mpf_roi_user_guide/03000048_528x70.png" style="width: 528;height: 70;" class="img_1" />
+        </p>
+        <p class="ItemName">Requests grid</p>
+        <p>Displays a list of requests based on the search criteria and allows you to a select request.</p>
+        <p>Initially sorted on <span class="span_3" style="font-weight: bold;">Receipt Date</span> in oldest to most recent order, then on <span class="span_3" style="font-weight: bold;">Status</span>. Can be sorted on all columns. </p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>If a request contains records from facilities that you are not allowed to access, the detail pane lists the request in red text and masks data in the following columns: Requestor Name, Requestor Type, Patient(s), and Subtitle. If you select the request, the system disables the <span class="span_3" style="font-weight: bold;">View/Edit Request </span>button.</p>
+        <p>The grid contains the following information:</p>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">Icon columns</span>
+                <br />Reserved for icons that indicate a request attribute.<br /><img src="../../Resources/Images/mpf_roi_user_guide/01000049_15x15.gif" style="width: 15;height: 15;" class="img_1" />&#160;In-use icon; hover the mouse over the icon to see the name of the person who is accessing the request.<br /><img src="../../Resources/Images/mpf_roi_user_guide/0100004A_15x15.gif" style="width: 15;height: 15;" class="img_1" />&#160;Indicates that the OneContent patient or an encounter or both are locked.<br /><img src="../../Resources/Images/mpf_roi_user_guide/01000011_15x15.gif" style="width: 15;height: 15;" class="img_1" />&#160;Indicates a non-OneContent VIP patient or that an OneContent VIP encounter exists.</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">Request ID</span>
+                <br />Displays the ID assigned by the system.</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">Receipt Date</span>
+                <br />Displays the date the request was received.<br />Used as the default sort in oldest to most recent order.<br />Format is based on the locale settings of your operating system.</li>
+            <li class="li_1" value="4"><span class="span_3" style="font-weight: bold;">Request Status</span>
+                <br />The status of the request.<br />Initial sort order is: Auth Received, Auth Received Denied, Canceled, Completed, Denied, Logged, Pended, Pre-Billed.</li>
+            <li class="li_1" value="5"><span class="span_3" style="font-weight: bold;">Requestor Name</span>
+                <br />The name of the entity who submitted the request. <br />Initial sort order is alphanumeric ascending.</li>
+            <li class="li_1" value="6"><span class="span_3" style="font-weight: bold;">Requestor Type</span>
+                <br />The type of entity who submitted the request.<br />Initial sort order is alphanumeric ascending.</li>
+            <li class="li_1" value="7"><span class="span_3" style="font-weight: bold;">Patient(s)</span>
+                <br />Lists up to 20 patient(s) on the request in alphanumeric ascending order separated by a colon (:). If more patient names exist on a request, the system appends an ellipsis (...) to the list of names. To display the remaining names in the list, hover the cursor over that cell.</li>
+            <li class="li_1" value="8"><span class="span_3" style="font-weight: bold;">Subtitle</span>
+                <br />Index information captured when an authorization request is scanned.<br />Shows different information, depending on whether the document goes to a patient folder or to a day folder.</li>
+        </ul>
+        <ul class="ul_5">
+            <li class="li_2" value="1"><span class="span_3" style="font-weight: bold;">For individual patients:</span> <br />Format is: &lt;patient_LN&gt;,&lt;first initial&gt;-&lt;Facility&gt;<br />Example: Davis,M-ATL</li>
+            <li class="li_2" value="2"><span class="span_3" style="font-weight: bold;">For day folders:</span> <br />Format is: &lt;receipt_date in yyyymmdd format&gt;-&lt;Facility&gt;<br />Example: 20100630-ATL</li>
+        </ul>
+        <ul class="ul_1">
+            <li class="li_1" value="1"><span class="span_3" style="font-weight: bold;">Last Updated</span> <br />The date when the request was last updated.<br />Initial sort order is most recent to oldest date.<br />Format is based on the locale settings of your operating system.</li>
+            <li class="li_1" value="2"><span class="span_3" style="font-weight: bold;">Updated By</span>
+                <br />The user who last updated the request. <br />Initial sort order is alphanumeric ascending.<br />Format is: LastName, FirstName MiddleInitial</li>
+            <li class="li_1" value="3"><span class="span_3" style="font-weight: bold;">Balance Due</span>
+                <br />Displays the total charges (in dollars) for the request.<br />Initial sort order is numeric ascending.</li>
+        </ul>
+        <p class="ItemName">View/Edit Request button</p>
+        <p>Displays request information for the currently selected request.</p>
+        <p>Enabled after you select a request. (Remains disabled if you select a restricted request.)</p>
+        <p>&#160;</p>
+    </body>
+</html>

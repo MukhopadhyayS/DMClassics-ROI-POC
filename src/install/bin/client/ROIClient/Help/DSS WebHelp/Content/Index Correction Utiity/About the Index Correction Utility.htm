@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="help.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Index Correction Utility</title>
+        <link href="../Resources/Stylesheets/LocalFormat.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" defer="defer" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" defer="defer" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../help.htm#Index Correction Utiity/About the Index Correction Utility.htm">Open topic with navigation</a>
+        </p>
+        <h1 class="ChapterTitle"><span class="span_8">Index Correction Utility</span>
+        </h1>
+        <h2 class="Heading2"><a name="_Toc400617835"></a>Overview</h2>
+        <p class="p_6"><span class="span_11">The Index Correction Utility enables you to repair indexing</span><span class="span_11"> information for many documents that fail to upload properly. </span>
+        </p>
+        <div class="div_1">
+            <p class="Note" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>The Index Correction Utility is an error-handling mechanism only. The Index Correction Utility does not replace the QC/Index application. Additionally, only one user at a time per facility should execute the utility; more than one may cause timeout errors.</p>
+        </div>
+        <p class="ListParagraph">Use the Index Correction Utility (ICU) to repair index information for documents identified by the Index Upload program as having index errors. This includes inbound documents that encounter exception conditions. </p>
+        <p class="ListParagraph">The utility permits you to: </p>
+        <ul class="ul_3">
+            <li class="li_1" value="1"><span class="span_11">Review and resolve inbound exceptions</span><span class="span_11">. </span>
+            </li>
+            <li class="li_1" value="2">Repair index information for documents that have index errors. &#160;The utility permits you to enter missing index information or to correct invalid index information and can be used within a single facility or across a multi-facility enterprise. The utility displays a subset of index fields displayed by the OneContent&#160;QCI&#160;workstation.</li>
+            <li class="li_1" value="3">Manually review and process inbound COLD&#160;or HL7 documents that have triggered an "inbound exception."</li>
+            <li class="li_1" value="4"><span class="span_11">Delete document information from the CAB_HOLD table</span><span class="span_11">.</span>
+            </li>
+        </ul>
+        <div class="div_1">
+            <p>The ICU application launches an image viewer window to display actual document images. The viewer window can display up to two images (that is, pages)&#160;at a time. The viewer includes its own online help.</p>
+            <p class="Normal">ICU is intended for personnel whose responsibilities include correcting document index information. It allows users to repair documents by Index Upload as having an indexing error. &#160;It also allows users to resolve inbound exception documents. </p>
+            <p class="Caution" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #d38e00;&quot; class=&quot;mcFormatColor&quot;&gt;CAUTION: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #d38e00;" class="mcFormatColor">CAUTION: </span></b></span></span>Do not use a database management tool (such as SQL Server Management Studio) to manually delete entries from the CAB_HOLD table. Manually deleting CAB_HOLD entries creates orphaned images that become inaccessible. Use the normal document processing functions to maintain the CAB_HOLD table.</p>
+            <div class="Note">
+                <p data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #424342;&quot; class=&quot;mcFormatColor&quot;&gt;Note: &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #424342;" class="mcFormatColor">Note: </span></b></span></span>As of Release 17.6.2, some ICU functionality has been integrated with the OneContent application. Refer to the OneContent online help for more information and instructions. </p>
+            </div>
+            <p class="Subhead1">What do you want to do?</p>
+            <p class="Normal"><a href="Permissions.htm">Learn more about permissions</a>
+            </p>
+            <p class="Normal"><a href="Types of error documents.htm">Learn more about types of error documents</a>
+            </p>
+            <p class="Normal"><a href="Subtitle index field.htm">Learn more about the subtitle index field</a>
+            </p>
+            <p class="Normal"><a href="About inbound exceptions.htm">Learn more about inbound exceptions</a>
+            </p>
+            <p class="Normal"><a href="About resolving or deleting errors.htm">Learn more about resolving or deleting error documents</a>
+            </p>
+            <p class="Normal"><a href="ICU user interface.htm">Learn more about the user interface</a>
+            </p>
+            <p class="Normal"><a href="Toolbar buttons.htm">Learn more about toolbar buttons</a>
+            </p>
+            <p class="Normal"><a href="Menus.htm">Learn more about menus</a>
+            </p>
+            <p class="Normal"><a href="Launching the Index Correction.htm">Learn more above launching the ICU</a>
+            </p>
+            <p><a href="Displaying and navigating document images.htm">Learn more about displaying/navigating document images</a>
+            </p>
+            <p><a href="Correcting index information.htm">Learn more about correcting index information</a>
+            </p>
+            <p><a href="Correcting the encounter number or MRN.htm">Learn more about correcting the encounter number or MRN</a>
+            </p>
+            <p><a href="Comparing inbound exception documents.htm">Learn more about comparing inbound exception documents</a>
+            </p>
+            <p><a href="Deleting documents.htm">Learn more about deleting documents</a>
+            </p>
+            <p><a href="Exiting the Index Correction Utility.htm">Learn more about exiting the ICU</a>
+            </p>
+        </div>
+    </body>
+</html>
