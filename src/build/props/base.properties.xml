@@ -5,7 +5,7 @@
 	<property name="ant.build.javac.source" value="1.8" />
 	<property name="ant.build.javac.target" value="1.8" />
 	<property name="ant.core.lib" value="C:\Program Files\Apache\Ant\apache-ant-1.8.2\lib\ant.jar" />
-	<property name="ant.file" value="F:\source\eig\svn\mpf-21.0.LR1\ROI\src\build\start.xml" />
+	<property name="ant.file" value="F:\source\eig\svn\25.0\ROI\src\build\start.xml" />
 	<property name="ant.file.type" value="file" />
 	<property name="ant.home" value="C:\Program Files\Apache\Ant\apache-ant-1.8.2\bin\.." />
 	<property name="ant.java.version" value="1.7" />
@@ -14,7 +14,7 @@
 	<property name="ant.project.invoked-targets" value="set-properties" />
 	<property name="ant.version" value="Apache Ant(TM) version 1.8.2 compiled on December 20 2010" />
 	<property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
-	<property name="basedir" value="F:\source\eig\svn\mpf-21.0.LR1\ROI\src" />
+	<property name="basedir" value="F:\source\eig\svn\25.0\ROI\src" />
 	<property name="build.clientside.components" value="true" />
 	<property name="build.config.file.name" value="build.properties" />
 	<property name="build.install" value="true" />
@@ -74,11 +74,11 @@
 	<property name="file.encoding" value="Cp1252" />
 	<property name="file.encoding.pkg" value="sun.io" />
 	<property name="file.separator" value="\" />
-	<property name="hpf.common.dll.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1/InstallShieldSource/hpf/common" />
-	<property name="hpf.install.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1" />
+	<property name="hpf.common.dll.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/25.0/InstallShieldSource/hpf/common" />
+	<property name="hpf.install.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/25.0" />
 	<property name="hpfw.jboss.home" value="C:/Jboss" />
 	<property name="hpfw.jboss.url" value="http://127.0.0.1:80" />
-	<property name="hpfw.portal.war.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1/InstallShieldSource/HPFW/hpfw_installable_war" />
+	<property name="hpfw.portal.war.location" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/25.0/InstallShieldSource/HPFW/hpfw_installable_war" />
 	<property name="increment.version" value="true" />
 	<property name="install.build.path" value="build" />
 	<property name="install.installer.path" value="roi.installer" />
@@ -147,8 +147,8 @@
 	<property name="roi.war.name" value="roi" />
 	<property name="run.client.test.cases" value="true" />
 	<property name="run.server.test.cases" value="true" />
-	<property name="shared.location.path" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/21.0.LR1/ROI" />
-	<property name="source.local.root.path" value="F:/source/eig/svn/mpf-21.0.LR1/ROI/src" />
+	<property name="shared.location.path" value="//hylandqa.net/shares/OneContent/chaos/USERS/EIG_Builds/HPF/SVN/Windows2012/25.0/ROI" />
+	<property name="source.local.root.path" value="F:/source/eig/svn/25.0/ROI/src" />
 	<property name="start.server" value="true" />
 	<property name="stop.server" value="true" />
 	<property name="sun.arch.data.model" value="64" />
@@ -163,7 +163,7 @@
 	<property name="sun.jnu.encoding" value="Cp1252" />
 	<property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
 	<property name="sun.os.patch.level" value="" />
-	<property name="svn.branch.path" value="branches/mpf-21.0.LR1/ROI/src" />
+	<property name="svn.branch.path" value="trunk/ROI/src" />
 	<property name="svn.checkin.comment" value="US0000-Updated By Build Scripts" />
 	<property name="svn.client.path" value="client" />
 	<property name="svn.command.path" value="C:\Program Files\TortoiseSVN\bin\svn.exe" />
@@ -178,7 +178,7 @@
 	<property name="tomcat.home" value="C:/3rdparty/MPFApplication/MPFServer" />
 	<property name="update.build.scripts" value="true" />
 	<property name="user.country" value="US" />
-	<property name="user.dir" value="F:\source\eig\svn\mpf-21.0.LR1\ROI\src\build" />
+	<property name="user.dir" value="F:\source\eig\svn\25.0\ROI\src\build" />
 	<property name="user.home" value="C:\Users\subghosh" />
 	<property name="user.language" value="en" />
 	<property name="user.name" value="subghosh" />
