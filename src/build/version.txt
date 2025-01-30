@@ -1,7 +1,7 @@
 #Build Information
-#Wed, 29 Jan 2025 18:24:38 -0500
+#Thu, 30 Jan 2025 18:27:59 -0500
 #Wed Aug 22 22:56:47 EDT 2012
-assembly.number=867
+assembly.number=868
 assembly.servicePack=0
 project.name=ROI-21.0
 assembly.minor=2
@@ -10,8 +10,8 @@ Company=Hyland Software,Inc.
 assembly.major=21
 build.major=21
 build.servicePack=0
-build.number=696
-build.date=2025-01-29T18\:24\:38.329Z
+build.number=697
+build.date=2025-01-30T18\:27\:59.447Z
 Product=
 Copyright=Copyright (c)2020 Hyland Software ,Inc.and/or one of its subsidiaries. All Rights Reserved.
 build.revision=0
