@@ -121,7 +121,7 @@
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/cxf-core-3.1.11.jar"/> -->
 	
-	<classpathentry kind="lib" path="3rdparty/lib/cxf-core-3.5.9.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/cxf-core-3.5.10.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-frontend-jaxrs-3.4.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-rs-client-3.4.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-transports-http-3.4.4.jar"/>
@@ -135,7 +135,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-ws-security-3.4.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/wss4j-ws-security-common-2.3.2.jar"/>
 	
-	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-ws-addr-3.4.4.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-ws-addr-3.5.10.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-wsdl-3.5.9.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-ws-policy-3.4.4.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/cxf-rt-frontend-simple-3.4.4.jar"/>
