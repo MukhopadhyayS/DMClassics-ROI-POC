@@ -14,17 +14,17 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/spring-expression-5.2.13.RELEASE.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/spring-web-5.2.13.RELEASE.jar"/> -->
 	
-	<classpathentry kind="lib" path="3rdparty/lib/spring-orm-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-beans-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-core-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-jcl-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-jdbc-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-tx-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-context-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-context-support-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-aop-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-expression-5.3.35.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/spring-web-5.3.35.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-orm-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-beans-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-core-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-jcl-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-jdbc-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-tx-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-context-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-context-support-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-aop-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-expression-5.3.39.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/spring-web-5.3.39.jar"/>
 	
 	
 	<classpathentry kind="lib" path="3rdparty/lib/hibernate-core-5.4.24.Final.jar"/>
