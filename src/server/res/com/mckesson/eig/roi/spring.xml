@@ -117,7 +117,7 @@
 			</props> </property> -->
 	</bean>
 
-	<bean id="dataSource" class="com.mckesson.eig.roi.dao.DBDataSource" destroy-method="close">
+	<bean id="dataSource" class="com.mckesson.eig.roi.dao.DBDataSource" destroy-method="close" depends-on="com.mckesson.eig.roi.common.config.BootstrapConfiguration">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
 
