@@ -139,7 +139,7 @@
 				<echo message="Testing purpose..."/>
 				<echo message="${subDirNameLen}"/>
 	    		        <choose>
-	    		           <when test="${subDirNameLen =='65'}" >
+	    		           <when test="${subDirNameLen =='60'}" >
 	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 							<echo message="subBuildDir1"/>
 							<echo message="${subBuildDir}"/>
