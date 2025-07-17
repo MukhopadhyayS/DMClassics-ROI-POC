@@ -140,6 +140,8 @@
 				<echo message="${subDirNameLen}"/>
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='66'}" >
+						   <echo message="DEBUG: subBuildDir = ${subBuildDir}" />
+                           <echo message="DEBUG: tmpDirNameLen = ${tmpDirNameLen}" />
 	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 							<echo message="subBuildDir1"/>
 							<echo message="${subBuildDir}"/>
