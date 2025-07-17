@@ -140,17 +140,23 @@
 				<echo message="${subDirNameLen}"/>
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='66'}" >
-						   <echo message="DEBUG: subBuildDir = ${subBuildDir}" />
-                           <echo message="DEBUG: tmpDirNameLen = ${tmpDirNameLen}" />
-	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
-							<echo message="subBuildDir1"/>
-							<echo message="${subBuildDir}"/>
-	    		           </when>
+							<choose>
+                            <!-- Check if we have at least 8 characters from tmpDirNameLen -->
+							<when test="${subDirNameLen &gt;= tmpDirNameLen + 8}">
+								<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8 )}"/>
+								<echo message="Using 8-char substring (safe)" />
+							</when>
+							<otherwise>
+								<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen )}"/>
+								<echo message="Fallback: Using substring till end due to insufficient length" />
+							</otherwise>
+							</choose>
+						   </when>
 	    		           <otherwise>
 	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
 							<echo message="${subBuildDir}"/>
 	    		           </otherwise>
-				</choose>
+				        </choose>
                 <property name="baseDir" value="${tmpDirName}${subBuildDir}"/>
                 <property name="toDir" value="bin/${outDir}${subBuildDir}"/>
                 <copy todir="${toDir}">
