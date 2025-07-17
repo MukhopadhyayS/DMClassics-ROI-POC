@@ -136,25 +136,13 @@
 				<echo message="${string::get-length( tmpDirName )}"/>
 				<echo message="${string::get-length( subBuildDir )}"/>
 				<echo message="Done Printing variables details..." />
-				<echo message="Testing purpose..."/>
-				<echo message="${subDirNameLen}"/>
+	    		        <echo message="${subDirNameLen}"/>
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='66'}" >
-							<choose>
-                            <!-- Check if we have at least 8 characters from tmpDirNameLen -->
-							<when test="${subDirNameLen &gt;= tmpDirNameLen + 8}">
-								<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8 )}"/>
-								<echo message="Using 8-char substring (safe)" />
-							</when>
-							<otherwise>
-								<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen )}"/>
-								<echo message="Fallback: Using substring till end due to insufficient length" />
-							</otherwise>
-							</choose>
-						   </when>
+	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
+	    		           </when>
 	    		           <otherwise>
 	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
-							<echo message="${subBuildDir}"/>
 	    		           </otherwise>
 				        </choose>
                 <property name="baseDir" value="${tmpDirName}${subBuildDir}"/>
