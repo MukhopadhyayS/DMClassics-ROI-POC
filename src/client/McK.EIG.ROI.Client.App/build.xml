@@ -141,7 +141,7 @@
 							<echo>subBuildDir = ${subBuildDir}</echo>
 							<echo>tmpDirName = ${tmpDirName}</echo>
                             <echo>tmpDirNameLen = ${tmpDirNameLen}</echo>
-							<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
+							<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
 	    		           </when>
 	    		           <otherwise>
 	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
