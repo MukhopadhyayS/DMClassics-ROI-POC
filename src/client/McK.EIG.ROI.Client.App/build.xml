@@ -138,11 +138,11 @@
 				<echo message="Done Printing variables details..." />
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='66'}" >
-	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 							<echo>subBuildDir = ${subBuildDir}</echo>
                             <echo>tmpDirNameLen = ${tmpDirNameLen}</echo>
                             <length property="subBuildDir.length" string="${subBuildDir}" />
                             <echo>subBuildDir.length = ${subBuildDir.length}</echo>
+							<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 	    		           </when>
 	    		           <otherwise>
 	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
