@@ -136,15 +136,14 @@
 				<echo message="${string::get-length( tmpDirName )}"/>
 				<echo message="${string::get-length( subBuildDir )}"/>
 				<echo message="Done Printing variables details..." />
-	    		        <echo message="${subDirNameLen}"/>
 	    		        <choose>
-	    		           <when test="${subDirNameLen =='66'}" >
-	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 9)}"/>
+	    		           <when test="${subDirNameLen =='65'}" >
+	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 	    		           </when>
 	    		           <otherwise>
 	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
 	    		           </otherwise>
-				        </choose>
+				</choose>
                 <property name="baseDir" value="${tmpDirName}${subBuildDir}"/>
                 <property name="toDir" value="bin/${outDir}${subBuildDir}"/>
                 <copy todir="${toDir}">
