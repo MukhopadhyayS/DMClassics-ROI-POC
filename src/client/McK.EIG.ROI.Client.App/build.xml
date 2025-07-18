@@ -139,9 +139,8 @@
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='66'}" >
 							<echo>subBuildDir = ${subBuildDir}</echo>
+							<echo>tmpDirName = ${tmpDirName}</echo>
                             <echo>tmpDirNameLen = ${tmpDirNameLen}</echo>
-                            <length property="subBuildDir.length" string="${subBuildDir}" />
-                            <echo>subBuildDir.length = ${subBuildDir.length}</echo>
 							<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 	    		           </when>
 	    		           <otherwise>
