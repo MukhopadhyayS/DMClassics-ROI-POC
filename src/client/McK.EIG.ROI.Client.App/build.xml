@@ -138,9 +138,6 @@
 				<echo message="Done Printing variables details..." />
 	    		        <choose>
 	    		           <when test="${subDirNameLen =='68'}" >
-							<echo>subBuildDir = ${subBuildDir}</echo>
-							<echo>tmpDirName = ${tmpDirName}</echo>
-                            <echo>tmpDirNameLen = ${tmpDirNameLen}</echo>
 							<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 	    		           </when>
 	    		           <otherwise>
