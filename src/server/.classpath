@@ -99,7 +99,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/commons-digester3-3.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-lang3-3.10.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/velocity-engine-core-2.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/velocity-engine-core-2.4.1.jar"/>
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/velocity-tools-generic-3.1.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/json-simple-3.0.2.jar"/> -->
 	
@@ -205,7 +205,7 @@
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/jackson-mapper-asl-1.9.6.jar"/> -->
 	
 	<classpathentry kind="lib" path="3rdparty/lib/jackson-core-2.12.3.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-databind-2.15.2.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-databind-2.18.3.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jackson-annotations-2.12.3.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-json-provider-2.12.3.jar"/>
@@ -274,7 +274,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/fop-util-2.6.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/fop-events-2.6.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/qdox-1.12.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/fop-core-2.6.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/fop-core-2.10.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/xalan-2.7.3.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/serializer-2.7.3.jar"/>
@@ -297,7 +297,7 @@
 	
 	<classpathentry kind="lib" path="3rdparty/lib/batik-all-1.17.jar"/>
 	
-	<classpathentry kind="lib" path="3rdparty/lib/bcpkix-jdk15on-1.68.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/bcpkix-jdk15on-1.70.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/bcprov-jdk18on-1.78.jar"/>
 	
 	<classpathentry kind="lib" path="3rdparty/lib/xmlbeans-4.0.0.jar"/>
