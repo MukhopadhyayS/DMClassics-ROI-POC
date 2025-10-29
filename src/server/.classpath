@@ -191,17 +191,15 @@
 	
 	<classpathentry kind="lib" path="3rdparty/lib/iws-ha.jar"/>
 	
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/jackson-core-asl-1.9.6.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-1.9.6.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/jackson-mapper-asl-1.9.6.jar"/> -->
 	
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-core-2.12.3.jar"/>
+	
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-core-2.18.3.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/jackson-databind-2.18.3.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-annotations-2.12.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-annotations-2.18.3.jar"/>
 	
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-json-provider-2.12.3.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-base-2.12.3.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/jackson-module-jaxb-annotations-2.12.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-json-provider-2.18.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-jaxrs-base-2.18.3.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/jackson-module-jaxb-annotations-2.18.3.jar"/>
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/jakarta.xml.bind-api-2.3.2.jar"/> -->
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/jakarta.activation-api-1.2.1.jar"/> -->
