@@ -99,9 +99,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/commons-digester3-3.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-lang3-3.10.jar"/>
-	<classpathentry kind="lib" path="3rdparty/lib/velocity-engine-core-2.4.1.jar"/>
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/velocity-tools-generic-3.1.jar"/> -->
-	<!-- <classpathentry kind="lib" path="3rdparty/lib/json-simple-3.0.2.jar"/> -->
+	<classpathentry kind="lib" path="3rdparty/lib/velocity-engine-core-2.3.jar"/>
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/oro-2.0.8.jar"/> -->
 	<classpathentry kind="lib" path="3rdparty/lib/commons-lang-2.6.jar"/>
