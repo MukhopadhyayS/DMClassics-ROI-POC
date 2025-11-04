@@ -95,7 +95,7 @@
 	<classpathentry kind="lib" path="3rdparty/lib/cglib.jar"/>
 	
 	<!-- <classpathentry kind="lib" path="3rdparty/lib/commons-beanutils-1.7.0.jar"/> -->
-	<classpathentry kind="lib" path="3rdparty/lib/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="3rdparty/lib/commons-beanutils-1.11.0.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-digester3-3.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="3rdparty/lib/commons-lang3-3.10.jar"/>
