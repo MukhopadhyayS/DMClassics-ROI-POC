@@ -1570,6 +1570,9 @@ namespace McK.EIG.ROI.Client.Request.View.BillingPayment
                         if (releaseAndPreviewInfo != null && releaseAndPreviewInfo.docInfoList != null)
                         {
                             CancelRelease(releaseAndPreviewInfo);
+                            RequestPatientsCache.RemoveKey(requestId);
+                            RequestController.Instance.RetrieveRequestPatients(requestId);
+                            
                         }
                     }
                     else if (result == DialogResult.OK)

@@ -248,6 +248,7 @@ implements RequestCoreDeliveryDAO {
 
                     sqlQuery.setParameter("isReleased",isReleased);
                     sqlQuery.setParameter("pagesSeq", obj[0]);
+					sqlQuery.executeUpdate();
 
                 }
             }
@@ -1169,6 +1170,7 @@ implements RequestCoreDeliveryDAO {
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementalAttachmentId", obj[0]);
+                    sqlQuery.executeUpdate();
 
                 }
             }
@@ -1248,7 +1250,7 @@ implements RequestCoreDeliveryDAO {
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementalDocumentId", obj[0]);
-
+                    sqlQuery.executeUpdate();
                 }
             }
 
@@ -1335,6 +1337,7 @@ implements RequestCoreDeliveryDAO {
 
                     sqlQuery.setParameter("isReleased", isReleased);
                     sqlQuery.setParameter("roiSupplementarityAttachmentId", obj[0]);
+                    sqlQuery.executeUpdate();
 
                 }
             }
