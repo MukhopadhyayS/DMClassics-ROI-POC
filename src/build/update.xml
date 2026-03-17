@@ -235,21 +235,25 @@
              *  target to pull source from svn
              ********************************************************************** -->
 	<target name="get-from-svn">
-	    <echo message="Updating Git repository at root..."/>
+	    <echo message="Pulling latest changes from Git..."/>
 	
-	    <!-- Debug -->
-	    <echo message='CMD: if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin &amp;&amp; git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
-	
-	    <exec executable="cmd" failonerror="true">
-	        <arg value="/c"/>
-	        <arg value='if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin &amp;&amp; git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
+	    <exec executable="git" dir="${source.local.root.path}" failonerror="true">
+	        <arg value="fetch"/>
+	        <arg value="origin"/>
 	    </exec>
 	
-	    <!-- Print branch -->
+	    <exec executable="git" dir="${source.local.root.path}" failonerror="true">
+	        <arg value="reset"/>
+	        <arg value="--hard"/>
+	        <arg value="origin/${git.branch}"/>
+	    </exec>
+	
+	    <!-- Optional -->
 	    <exec executable="git" dir="${source.local.root.path}">
-	        <arg value="branch"/>
-	        <arg value="--show-current"/>
+	        <arg value="clean"/>
+	        <arg value="-fd"/>
 	    </exec>
+	
 	</target>
 	<!-- **********************************************************************
              *  Target : get-from-cvs
