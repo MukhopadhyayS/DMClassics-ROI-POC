@@ -66,79 +66,13 @@
              *  target to update build-scripts from svn
              ********************************************************************** -->
 	<target name="update-build-scripts-from-svn">
-		<echo message="Updating Build Scripts from svn..." />
-
-		<delete failonerror="false" includeemptydirs="true">
-			<fileset dir="${source.local.root.path}/build" defaultexcludes="no">
-				<exclude name="update.xml" />
-				<exclude name="svn.xml" />
-				<exclude name="env.bat" />
-				<exclude name="Results.properties" />
-				<exclude name="PreviousResults.properties" />
-			</fileset>
-		</delete>
-		<!-- To update main build scripts -->
-		<antcall target="get-from-svn">
-			<param name="svn.path" value="${svn.branch.path}/build" />
-			<param name="checkout.dest.path" value="${source.local.root.path}/build" />
-			<param name="label.name" value="" />
-			<param name="alias.name" value="build" />
-		</antcall>
-
-		<!-- To update server build scripts-->
-		<antcall target="clean-folder" >
-			<param name="dir.to.clean" value="${source.local.root.path}/server/build" />
-		</antcall>
-
-		<antcall target="get-from-svn">
-			<param name="svn.path" value="${svn.branch.path}/server/build" />
-			<param name="checkout.dest.path" value="${source.local.root.path}/server/build" />
-			<param name="label.name" value="" />
-			<param name="alias.name" value="build" />
-		</antcall>
-
-		<!-- To update Client build scripts-->
-		<antcall target="clean-folder" >
-			<param name="dir.to.clean" value="${source.local.root.path}/client/build" />
-		</antcall>
-		<antcall target="get-from-svn">
-			<param name="svn.path" value="${svn.branch.path}/client/build" />
-			<param name="checkout.dest.path" value="${source.local.root.path}/client/build" />
-			<param name="label.name" value="" />
-			<param name="alias.name" value="build" />
-		</antcall>
-
-		<!-- To update Install build scripts-->
-		<antcall target="clean-folder" >
-			<param name="dir.to.clean" value="${source.local.root.path}/install/build" />
-		</antcall>
-		<antcall target="get-from-svn">
-			<param name="svn.path" value="${svn.branch.path}/install/build" />
-			<param name="checkout.dest.path" value="${source.local.root.path}/install/build" />
-			<param name="label.name" value="" />
-			<param name="alias.name" value="build" />
-		</antcall>
-
-		<!-- To update Client sub project specific build scripts-->
-		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client/build.xml" />
-		<antcall target="get-file-from-svn">
-			<param name="svn.path" value="${svn.branch.path}/client/McK.EIG.ROI.Client/build.xml" />
-			<param name="checkout.dest.path" value="${source.local.root.path}/client" />
-			<param name="label.name" value="" />
-			<param name="alias.name" value="McK.EIG.ROI.Client" />
-		</antcall>
-
-		<!-- To update Client sub project specific build scripts-->
-		<delete file="${source.local.root.path}/client/McK.EIG.ROI.Client.App/build.xml" />
-		<antcall target="get-file-from-svn">
-			<param name="svn.path" value="${svn.branch.path}/client/McK.EIG.ROI.Client.App/build.xml" />
-			<param name="checkout.dest.path" value="${source.local.root.path}/client" />
-			<param name="label.name" value="" />
-			<param name="alias.name" value="McK.EIG.ROI.Client.App" />
-		</antcall>
-		<echo message="Check point for Update.xml Ends.................." />
+	    <echo message="Updating Build Scripts from Git..." />
+	
+	    <!-- Only update repo ONCE -->
+	    <antcall target="get-from-svn" />
+	
+	    <echo message="Build scripts updated from Git successfully"/>
 	</target>
-
 	<!-- **********************************************************************
              *  Target : update-build-scripts-from-cvs
              *  target to update build-scripts from cvs
@@ -301,16 +235,22 @@
              *  target to pull source from svn
              ********************************************************************** -->
 	<target name="get-from-svn">
-		<echo message="Updating source from Git..." />
-
-		<exec executable="git" dir="${checkout.dest.path}" failonerror="true">
-			<arg value="pull"/>
-			<arg value="origin"/>
-			<arg value="main"/>
-		</exec>
-
+	    <echo message="Updating Git repository at root..."/>
+	
+	    <!-- Debug -->
+	    <echo message='CMD: if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin && git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
+	
+	    <exec executable="cmd" failonerror="true">
+	        <arg value="/c"/>
+	        <arg value='if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin && git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
+	    </exec>
+	
+	    <!-- Print branch -->
+	    <exec executable="git" dir="${source.local.root.path}">
+	        <arg value="branch"/>
+	        <arg value="--show-current"/>
+	    </exec>
 	</target>
-
 	<!-- **********************************************************************
              *  Target : get-from-cvs
              *  target to pull source from cvs
@@ -427,36 +367,6 @@
 	</target>
 
 	<target name="update-dependent-jars" depends="download-files-from-nexus">
-
-		<if>
-			<equals arg1="${checkout.source}" arg2="svn" />
-			<then>
-				<antcall target="checkin-file-svn">
-					<param name="checkin.file.path" value="${source.local.root.path}/server/lib/OCUtilities-${roi.minor.version}.jar" />
-					<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
-					<param name="svn.file.name" value="OCUtilities-${roi.minor.version}.jar" />
-				</antcall>
-				<antcall target="checkin-file-svn">
-					<param name="checkin.file.path" value="${source.local.root.path}/server/lib/OCInternalComm-${roi.minor.version}.jar" />
-					<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
-					<param name="svn.file.name" value="OCInternalComm-${roi.minor.version}.jar" />
-				</antcall>
-				<antcall target="checkin-file-svn">
-					<param name="checkin.file.path" value="${source.local.root.path}/prototype/src/repository/OCInternalComm-${roi.minor.version}.jar" />
-					<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
-					<param name="svn.file.name" value="OCInternalComm-${roi.minor.version}.jar" />
-				</antcall>
-				<antcall target="checkin-file-svn">
-					<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/OCSecurity-21.0.dll" />
-					<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
-					<param name="svn.file.name" value="OCSecurity-21.0.dll" />
-				</antcall>
-				<antcall target="checkin-file-svn">
-					<param name="checkin.file.path" value="${source.local.root.path}/client/McK.EIG.ROI.Client.App/bin/debug/OCSecurity-21.0.dll" />
-					<param name="svn.checkin.comment" value="${svn.checkin.comment}" />
-					<param name="svn.file.name" value="OCSecurity-21.0.dll" />
-				</antcall>
-			</then>
-		</if>
+    	<!-- SVN check-in removed after migration to Git -->
 	</target>
 </project>
