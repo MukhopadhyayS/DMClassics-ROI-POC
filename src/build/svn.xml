@@ -20,8 +20,6 @@
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 	
 	<property environment="env"/>
-
-	<svnSetting javahl="false" svnkit="true"  username="${svn.username}"  password="${svn.password}"  id="svn.settings" />
 	
     <!-- **********************************************************************
              *  Target : get-from-svn
@@ -53,28 +51,7 @@
     <!-- **********************************************************************
              *  Target : checkin-svn
              *  target to check-in into svn
-             ********************************************************************** -->
-	<target name="checkin-file-svn" >
-		<echo message="svn commit --force-log -m '${svn.checkin.comment}' ${checkin.file.path}" />
-		<exec executable="svn" failonerror="true">
-			<arg value="--username" />
-			<arg value="${svn.username}" />
-			<arg value="--password" />
-			<arg value="${svn.password}" />
-			<arg value="--no-auth-cache" />
-			<arg value="commit" />
-			<arg value="--force-log" />
-			<arg value="-m" />
-			<arg value="&quot;${svn.checkin.comment}&quot;" />
-			<arg value="&quot;${checkin.file.path}&quot;" />
-		</exec>
-	</target>
-	
-	<target name="checkin-dir-svn" >
-		<svn refid="svn.settings">
-			<commit dir="${checkin.file.path}" message="${svn.checkin.comment}" />
-		</svn>
-	</target>
+             ********************************************************************** -->>
 	
     <!-- **********************************************************************
              *  Target : tag-svn
