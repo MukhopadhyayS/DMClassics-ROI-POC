@@ -238,11 +238,11 @@
 	    <echo message="Updating Git repository at root..."/>
 	
 	    <!-- Debug -->
-	    <echo message='CMD: if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin && git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
+	    <echo message='CMD: if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin &amp;&amp; git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
 	
 	    <exec executable="cmd" failonerror="true">
 	        <arg value="/c"/>
-	        <arg value='if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin && git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
+	        <arg value='if exist "${source.local.root.path}\.git" (git -C "${source.local.root.path}" fetch origin &amp;&amp; git -C "${source.local.root.path}" reset --hard origin/${git.branch}) else (git clone -b ${git.branch} ${svn.repository.path} "${source.local.root.path}")'/>
 	    </exec>
 	
 	    <!-- Print branch -->
