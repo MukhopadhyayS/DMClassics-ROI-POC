@@ -16,7 +16,7 @@
 <project default="build-all" basedir="../">
 
 	<property name="dir.src" value="${basedir}" />
-
+	<property name="framework.dir" value="C:\Windows\Microsoft.NET\Framework\v4.0.30319" />
 	<property file="build/props/${build.config.file.name}" />
 	<property file="build/props/base.properties" />
 	<property file="build/props/roi.install.properties" />
