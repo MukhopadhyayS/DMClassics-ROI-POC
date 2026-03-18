@@ -20,8 +20,8 @@
 	<property file="build/props/${build.config.file.name}" />
 	<property file="build/props/base.properties" />
 	<property file="build/props/roi.install.properties" />
-	<property file="build/props/common.starteam.properties" />
 	<property file="build/props/common.svn.properties" />
+	<property file="build/props/common.starteam.properties" />
 	<property file="build/props/hpf.starteam.properties"/>
 	<property name="dir.database" value="${basedir}\database" />
 	<property name="dir.help" value="${basedir}\help" />
@@ -33,11 +33,6 @@
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 	
-	<path id="svnant.classpath">
-		<pathelement location="${env.ANT_HOME}/lib/svnant.jar"/>
-		<pathelement location="${env.ANT_HOME}/svnClientAdapter.jar"/>
-	</path>
-	<taskdef name="svn" className="org.tigris.subversion.svnant.SvnTask" classpathref="svnant.classpath"/>
 	
 	<!-- for naming the folder in the format 'ddMMyyyy.HHmmss.buildnumber' -->
 	<tstamp>
@@ -49,7 +44,6 @@
 
 	<import file="starteam.xml" />
 	<import file="cvs.xml" />
-	<import file="svn.xml" />
 
 	<property name="iteration.label" value="${label.source.code.name}_${DSTAMP}_${TSTAMP}" />
 
@@ -57,19 +51,7 @@
 		<equals arg1="${label.source.code}" arg2="true" />
 	</condition>
 	<target name="refresh-install-builder-source">
-		<if>
-			<equals arg1="${checkout.source}" arg2="svn" />
-			<then>
-				<echo message="Refreshing ROI Install files from svn..." />
-				<antcall target="get-from-svn">
-					<param name="svn.path" value="${svn.branch.path}/${svn.install.path}" />
-					<param name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}" />
-					<param name="alias.name" value="${svn.install.path}" />
-					<param name="label.name" value="" />
-			   </antcall>
-
-			</then>
-		</if>
+    	<echo message="Skipping install builder refresh (using Git workspace)" />
 	</target>
     <!-- **********************************************************************
              *  Target : build-all
@@ -272,17 +254,7 @@
 
 				<echo message="Refreshing DB script files..." />
 				
-				<if>
-					<equals arg1="${checkout.source}" arg2="svn" />
-					<then>
-						<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
-							<property name="svn.path" value="${svn.branch.path}/database" />
-							<property name="checkout.dest.path" value="${source.local.root.path}/database" />
-							<property name="alias.name" value="database" />
-							<property name="label.name" value="${label.name}" />
-						</ant>
-					</then>
-				</if>
+				<echo message="Using existing Git workspace for database source" />
 				
 				<if>
 					<equals arg1="${checkout.source}" arg2="cvs" />
@@ -323,18 +295,7 @@
 				</antcall>
 				
 				<!-- if source is svn, checks out from svn -->
-				<if>
-					<equals arg1="${checkout.source}" arg2="svn" />
-					<then>
-						<echo message="Refreshing server source from SVN with tag name ${label.name}..." />
-						<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
-							<property name="svn.path" value="${svn.branch.path}/${svn.server.path}" />
-							<property name="checkout.dest.path" value="${source.local.root.path}/${svn.server.path}" />
-							<property name="alias.name" value="${svn.server.path}" />
-							<property name="label.name" value="${label.name}" />
-						</ant>
-					</then>
-				</if>
+				<echo message="Using existing Git workspace for server source" />
 				
 				<!-- if source is cvs, checks out from cvs -->
 				<if>
@@ -511,18 +472,6 @@
 				<echo message="Updating Build Id..." />
 				
 				<if>
-					<equals arg1="${checkout.source}" arg2="svn" />
-					<then>
-						<antcall target="get-file-from-svn">
-							<param name="svn.path" value="${svn.branch.path}/build/version.txt" />
-							<param name="checkout.dest.path" value="${source.local.root.path}/build" />
-							<param name="label.name" value="" />
-							<param name="alias.name" value="build" />
-						</antcall>
-					</then>
-				</if>
-				
-				<if>
 					<equals arg1="${checkout.source}" arg2="cvs" />
 					<then>
 						<antcall target="get-from-cvs">
@@ -559,15 +508,6 @@
 					<entry key="build.number" type="int" default="0" operation="+" pattern="####" />
 					<entry key="assembly.number" type="int" default="0" operation="+" pattern="####" />
 				</propertyfile>
-
-				<if>
-					<equals arg1="${checkout.source}" arg2="svn" />
-					<then>
-						<antcall target="checkin-file-svn">
-							<param name="checkin.file.path" value="build/version.txt" />
-						</antcall>
-					</then>
-				</if>
 				
 				<if>
 					<equals arg1="${checkout.source}" arg2="cvs" />
@@ -694,24 +634,6 @@
 
 		<echo message="Clears ROI client source" />
 		
-		<if>
-            <equals arg1="${checkout.source}" arg2="svn" />
-            <then>
-			
-				<antcall target="clean-folder">
-					<param name="dir.to.clean" value="${source.local.root.path}/${svn.client.path}" />
-				</antcall>
-				
-                <echo message="Refreshing client source from SVN..." />
-                <antcall target="get-from-svn">
-                    <param name="svn.path" value="${svn.branch.path}/${svn.client.path}" />
-                    <param name="checkout.dest.path" value="${source.local.root.path}/${svn.client.path}" />
-                    <param name="alias.name" value="${svn.client.path}" />
-                    <param name="label.name" value="${label.name}" />
-                </antcall>
-            </then>
-        </if>
-		
         <if>
             <equals arg1="${checkout.source}" arg2="cvs" />
             <then>
@@ -800,19 +722,6 @@
 	        <antcall target="clean-folder">
 	            <param name="dir.to.clean" value="${source.local.root.path}/Help" />
 	        </antcall>
-
-			<if>
-	            <equals arg1="${checkout.source}" arg2="svn" />
-	            <then>
-	                <echo message="Refreshing Help source from SVN..." />
-	                <antcall target="get-from-svn">
-	                    <param name="svn.path" value="${svn.branch.path}/Help" />
-	                    <param name="checkout.dest.path" value="${source.local.root.path}/Help" />
-	                    <param name="alias.name" value="Help" />
-	                    <param name="label.name" value="${label.name}" />
-	                </antcall>
-	            </then>
-	        </if>
 			
 	        <if>
 	            <equals arg1="${checkout.source}" arg2="cvs" />
@@ -1065,128 +974,88 @@
              *  target to refresh install source
              ********************************************************************** -->
 		<target name="refresh-install-source">
+		    
+		    <property file="build/version.txt" />
 		
-			<property file="build/version.txt" />
-			<if>
-				<equals arg1="${refresh.install.source}" arg2="true" />
-				<then>
-					
-					<!-- Deletes the bin directory -->
-					<delete failonerror="false" includeemptydirs="true">
-						<fileset dir="${source.local.root.path}/${svn.install.path}/bin" defaultexcludes="no" includes="**/*" />
-					</delete>
-
-					<!-- if source is SVN, checks out from svn -->
-					<if>
-						<equals arg1="${checkout.source}" arg2="svn" />
-						<then>
-							<echo message="Refreshing install source from SVN with tag name ${label.name}..." />
-							<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
-								<property name="svn.path" value="${svn.branch.path}/${svn.install.path}/build" />
-								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}/build" />
-								<property name="alias.name" value="${svn.install.path}/build" />
-								<property name="label.name" value="${label.name}" />
-							</ant>
-							
-							<echo message="Refreshing install source from SVN with tag name ${label.name}..." />
-							<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
-								<property name="svn.path" value="${svn.branch.path}/${svn.install.path}/bin/client" />
-								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}/bin/MPFServer/webapps/ROOT" />
-								<property name="alias.name" value="${svn.install.path}/bin/client" />
-								<property name="label.name" value="${label.name}" />
-							</ant>
-							
-							<echo message="Refreshing install source from SVN with tag name ${label.name}..." />
-							<ant antfile="${dir.src.build}/build.xml" target="get-from-svn">
-								<property name="svn.path" value="${svn.branch.path}/${svn.install.path}/bin" />
-								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.install.path}/bin" />
-								<property name="checkout.depth" value="files" />
-								<property name="label.name" value="${label.name}" />
-							</ant>
-
-							<!-- Copying ROI Help files in Local jboss directory -->
-							<property name="PublishDir" value="${source.local.root.path}\install\bin\MPFServer\webapps\ROOT\ROIClient\Help\WebHelp" />
-							<antcall target="clean-folder">
-								<param name="dir.to.clean" value="${PublishDir}" />
-							</antcall>
-
-							<dirname property="directoryProperty" file="${PublishDir}"/>
-							<mkdir dir="${directoryProperty}" />               
-
-							<echo message="Copying the Help source to ${PublishDir} from ${source.local.root.path}\Help\WebHelp" />
-							<copy todir= "${PublishDir}">
-								<fileset dir="${source.local.root.path}\Help\WebHelp"/>
-							</copy>
-						</then>
-					</if>
-					
-					<!-- if source is cvs, checks out from cvs -->
-					<if>
-						<equals arg1="${checkout.source}" arg2="cvs" />
-						<then>
-							<echo message="Refreshing install source from CVS with tag name ${label.name}..." />
-							<ant antfile="${dir.src.build}/build.xml" target="get-from-cvs">
-								<property name="cvs.path" value="${cvs.branch.path}/${cvs.install.path}" />
-								<property name="checkout.dest.path" value="${source.local.root.path}" />
-								<property name="alias.name" value="${cvs.install.path}" />
-								<property name="label.name" value="${label.name}" />
-							</ant>
-						</then>
-					</if>
-
-					<!-- Refreshing install source from starteam -->
-					<if>
-						<equals arg1="${checkout.source}" arg2="starteam" />
-						<then>
-							<echo message="Refreshing install source from starteam with label ${label.name}..." />
-							<ant antfile="${dir.src}/build/starteam.xml" target="get">
-								<property name="starteam.file.path" value="${starteam.install.path}" />
-								<property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.install.path}" />
-								<property name="starteam.includes.pattern" value="" />
-								<property name="starteam.label" value="" />
-							</ant>
-						</then>
-					</if>
-					<ant antfile="${dir.src.build}/build.xml" target="clean-folder">
-						<!-- Clean the Automated Request Install Script -->
-						<property name="dir.to.clean" value="${source.local.root.path}/${starteam.support.path}" />
-					</ant>
-
-					
-					<!-- automated request Script checksout from svn -->
-					<if>
-						<equals arg1="${checkout.source}" arg2="svn" />
-						<then>
-							<echo message="Refreshing automated request Script from svn with label ${label.name}..." />
-							<ant antfile="${dir.src}/build/svn.xml" target="get-from-svn">
-								<property name="svn.path" value="${svn.branch.path}/${svn.support.path}" />
-								<property name="checkout.dest.path" value="${source.local.root.path}/${svn.support.path}" />
-								<property name="svn.includes.pattern" value="" />
-								<property name="svn.label" value="" />
-							</ant>
-						</then>
-					</if>
-					
-					<!-- automated request Script checksout from starteam -->
-					<if>
-						<equals arg1="${checkout.source}" arg2="starteam" />
-						<then>
-							<echo message="Refreshing automated request Script from starteam with label ${label.name}..." />
-							<ant antfile="${dir.src}/build/starteam.xml" target="get">
-								<property name="starteam.file.path" value="${starteam.support.path}" />
-								<property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.support.path}" />
-								<property name="starteam.includes.pattern" value="" />
-								<property name="starteam.label" value="" />
-							</ant>
-						</then>
-					</if>
-
-				</then>
-				<else>
-					<echo message="Not Refreshing install source..." />
-				</else>
-			</if>
-
+		    <if>
+		        <equals arg1="${refresh.install.source}" arg2="true" />
+		        <then>
+		            
+		            <!-- Deletes the bin directory -->
+		            <delete failonerror="false" includeemptydirs="true">
+		                <fileset dir="${source.local.root.path}/${svn.install.path}/bin" defaultexcludes="no" includes="**/*" />
+		            </delete>
+		
+		            <echo message="Using existing Git workspace for install source..." />
+		
+		            
+		            <property name="PublishDir" value="${source.local.root.path}\install\bin\MPFServer\webapps\ROOT\ROIClient\Help\WebHelp" />
+		            
+		            <antcall target="clean-folder">
+		                <param name="dir.to.clean" value="${PublishDir}" />
+		            </antcall>
+		
+		            <dirname property="directoryProperty" file="${PublishDir}"/>
+		            <mkdir dir="${directoryProperty}" />               
+		
+		            <echo message="Copying the Help source to ${PublishDir} from ${source.local.root.path}\Help\WebHelp" />
+		            <copy todir="${PublishDir}">
+		                <fileset dir="${source.local.root.path}\Help\WebHelp"/>
+		            </copy>
+		
+		            
+		            <if>
+		                <equals arg1="${checkout.source}" arg2="cvs" />
+		                <then>
+		                    <echo message="Refreshing install source from CVS with tag name ${label.name}..." />
+		                    <ant antfile="${dir.src.build}/build.xml" target="get-from-cvs">
+		                        <property name="cvs.path" value="${cvs.branch.path}/${cvs.install.path}" />
+		                        <property name="checkout.dest.path" value="${source.local.root.path}" />
+		                        <property name="alias.name" value="${cvs.install.path}" />
+		                        <property name="label.name" value="${label.name}" />
+		                    </ant>
+		                </then>
+		            </if>
+		
+		          
+		            <if>
+		                <equals arg1="${checkout.source}" arg2="starteam" />
+		                <then>
+		                    <echo message="Refreshing install source from starteam with label ${label.name}..." />
+		                    <ant antfile="${dir.src}/build/starteam.xml" target="get">
+		                        <property name="starteam.file.path" value="${starteam.install.path}" />
+		                        <property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.install.path}" />
+		                        <property name="starteam.includes.pattern" value="" />
+		                        <property name="starteam.label" value="" />
+		                    </ant>
+		                </then>
+		            </if>
+		
+		            
+		            <ant antfile="${dir.src.build}/build.xml" target="clean-folder">
+		                <property name="dir.to.clean" value="${source.local.root.path}/${starteam.support.path}" />
+		            </ant>
+		
+		            
+		            <if>
+		                <equals arg1="${checkout.source}" arg2="starteam" />
+		                <then>
+		                    <echo message="Refreshing automated request Script from starteam with label ${label.name}..." />
+		                    <ant antfile="${dir.src}/build/starteam.xml" target="get">
+		                        <property name="starteam.file.path" value="${starteam.support.path}" />
+		                        <property name="starteam.local.file.path" value="${source.local.root.path}/${starteam.support.path}" />
+		                        <property name="starteam.includes.pattern" value="" />
+		                        <property name="starteam.label" value="" />
+		                    </ant>
+		                </then>
+		            </if>
+		
+		        </then>
+		        <else>
+		            <echo message="Not Refreshing install source..." />
+		        </else>
+		    </if>
+		
 		</target>
 
     <!-- **********************************************************************
