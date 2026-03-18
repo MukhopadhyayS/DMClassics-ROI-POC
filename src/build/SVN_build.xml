@@ -244,14 +244,7 @@
 			<equals arg1="${refresh.server.source.code}" arg2="true" />
 			<then>
 
-				<antcall target="clean-folder">
-					<param name="dir.to.clean" value="${source.local.root.path}/database" />
-				</antcall>
 				
-				<!-- Cleans database directory -->
-				<ant antfile="${dir.src.build}/build.xml" target="clean-folder">
-					<property name="dir.to.clean" value="${source.local.root.path}/database" />
-				</ant>
 
 				<echo message="Refreshing DB script files..." />
 				
@@ -291,9 +284,6 @@
 			<equals arg1="${refresh.server.source.code}" arg2="true" />
 			<then>
 				
-				<antcall target="clean-folder">
-					<param name="dir.to.clean" value="${source.local.root.path}/${svn.server.path}" />
-				</antcall>
 				
 				<!-- if source is svn, checks out from svn -->
 				<echo message="Using existing Git workspace for server source" />
@@ -720,9 +710,7 @@
 	    <target name="refresh-help-source">
 
 	        <echo message="Clears ROI Help files" />
-	        <antcall target="clean-folder">
-	            <param name="dir.to.clean" value="${source.local.root.path}/Help" />
-	        </antcall>
+	        
 			
 	        <if>
 	            <equals arg1="${checkout.source}" arg2="cvs" />
