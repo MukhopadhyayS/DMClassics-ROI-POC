@@ -33,6 +33,7 @@
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 	
+	<import file="svn.xml" />
 	
 	<!-- for naming the folder in the format 'ddMMyyyy.HHmmss.buildnumber' -->
 	<tstamp>
