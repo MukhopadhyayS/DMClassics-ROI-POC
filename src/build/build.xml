@@ -318,18 +318,6 @@
 				<echo message="Updating Build Id..." />
 				
 				<if>
-					<equals arg1="${checkout.source}" arg2="svn" />
-					<then>
-						<antcall target="get-file-from-svn">
-							<param name="svn.path" value="${svn.branch.path}/build/version.txt" />
-							<param name="checkout.dest.path" value="${source.local.root.path}/build" />
-							<param name="label.name" value="" />
-							<param name="alias.name" value="build" />
-						</antcall>
-					</then>
-				</if>
-				
-				<if>
 					<equals arg1="${checkout.source}" arg2="cvs" />
 					<then>
 						<antcall target="get-from-cvs">
@@ -500,22 +488,6 @@
 	<target name="refresh-client-source">
 
 		<echo message="Clears ROI client source" />
-		<antcall target="clean-folder">
-            <param name="dir.to.clean" value="${source.local.root.path}/${cvs.client.path}" />
-        </antcall>
-		
-		<if>
-            <equals arg1="${checkout.source}" arg2="svn" />
-            <then>
-                <echo message="Refreshing client source from SVN..." />
-                <antcall target="get-from-svn">
-                    <param name="svn.path" value="${svn.branch.path}/${svn.client.path}" />
-                    <param name="checkout.dest.path" value="${source.local.root.path}" />
-                    <param name="alias.name" value="${svn.client.path}" />
-                    <param name="label.name" value="${label.name}" />
-                </antcall>
-            </then>
-        </if>
 		
         <if>
             <equals arg1="${checkout.source}" arg2="cvs" />
@@ -599,9 +571,6 @@
 	    <target name="refresh-help-source">
 
 	        <echo message="Clears ROI Help files" />
-	        <antcall target="clean-folder">
-	            <param name="dir.to.clean" value="${source.local.root.path}/Help" />
-	        </antcall>
 
 			<if>
 	            <equals arg1="${checkout.source}" arg2="svn" />
@@ -696,9 +665,6 @@
 
 				 <!-- Copying ROI Help files in Local jboss directory -->
                 <property name="PublishDir" value="${jboss.home}/server/default/deploy/ROOT.war/ROIClient/" />
-                <antcall target="clean-folder">
-                    <param name="dir.to.clean" value="${PublishDir}/Help" />
-                </antcall>
 
                 <echo message="Copying the Help source in ${PublishDir}" />
                 <copy todir= "${PublishDir}/Help">
