@@ -354,15 +354,6 @@
 					<entry key="build.number" type="int" default="0" operation="+" pattern="####" />
 					<entry key="assembly.number" type="int" default="0" operation="+" pattern="####" />
 				</propertyfile>
-
-				<if>
-					<equals arg1="${checkout.source}" arg2="svn" />
-					<then>
-						<antcall target="checkin-file-svn">
-							<param name="checkin.file.path" value="${dir.src}/build/version.txt" />
-						</antcall>
-					</then>
-				</if>
 				
 				<if>
 					<equals arg1="${checkout.source}" arg2="cvs" />
