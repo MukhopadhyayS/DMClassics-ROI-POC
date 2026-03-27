@@ -136,8 +136,22 @@
 				<echo message="${string::get-length( tmpDirName )}"/>
 				<echo message="${string::get-length( subBuildDir )}"/>
 				<echo message="Done Printing variables details..." />
-	    		<property name="remainingLen" value="${math::subtract(subDirNameLen, tmpDirNameLen)}"/>
-				<property name="subBuildDir" value="${string::substring(subBuildDir, tmpDirNameLen, remainingLen)}"/>
+	    		<choose>
+				    <!-- en-US / fr-FR (length 80 → diff = 6) -->
+				    <when test="${subDirNameLen == '80'}">
+				        <property name="subBuildDir" value="${string::substring(subBuildDir, tmpDirNameLen, 6)}"/>
+				    </when>
+				
+				    <!-- Reports (length 82 → diff = 8) -->
+				    <when test="${subDirNameLen == '82'}">
+				        <property name="subBuildDir" value="${string::substring(subBuildDir, tmpDirNameLen, 8)}"/>
+				    </when>
+				
+				    <!-- fallback (safe default) -->
+				    <otherwise>
+				        <property name="subBuildDir" value="${string::substring(subBuildDir, tmpDirNameLen, 6)}"/>
+				    </otherwise>
+				</choose>
                 <property name="baseDir" value="${tmpDirName}${subBuildDir}"/>
                 <property name="toDir" value="bin/${outDir}${subBuildDir}"/>
                 <copy todir="${toDir}">
