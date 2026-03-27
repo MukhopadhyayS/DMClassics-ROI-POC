@@ -141,7 +141,7 @@
 	    		           	<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 8)}"/>
 	    		           </when>
 	    		           <otherwise>
-	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 7)}"/>
+	          				<property name="subBuildDir" value="${string::substring( subBuildDir, tmpDirNameLen, 6)}"/>
 	    		           </otherwise>
 				</choose>
                 <property name="baseDir" value="${tmpDirName}${subBuildDir}"/>
